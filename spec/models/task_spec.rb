@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Customer do
+describe Task do
   before :each do
-    @customer    = Fabricate(:customer)
+    @task    = Fabricate(:task)
   end
   
   it "is valid from the Fabric" do
-    expect(@customer).to be_valid
+    expect(@task).to be_valid
   end
 end

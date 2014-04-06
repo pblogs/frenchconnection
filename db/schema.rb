@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140406075254) do
+ActiveRecord::Schema.define(version: 20140406085529) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -22,5 +22,23 @@ ActiveRecord::Schema.define(version: 20140406075254) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "task_types", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "task_type_id"
+    t.datetime "start_date"
+    t.boolean  "customer_buys_supplies"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id"
+  add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id"
 
 end

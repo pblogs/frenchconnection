@@ -1,4 +1,8 @@
 AllieroForms::Application.routes.draw do
+  resources :tasks
+
+  resources :task_types
+
   resources :customers
 
   # The priority is based upon order of 

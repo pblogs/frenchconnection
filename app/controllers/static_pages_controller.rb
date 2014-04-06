@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   end
 
   def new_assignment
-    
+    @customers = Customer.all
   end
 
 

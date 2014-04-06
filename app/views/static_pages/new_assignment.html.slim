@@ -1,11 +1,16 @@
 h1 Nytt oppdrag
 
 h3 Velg eksisterende kunde..
-input[type="text"]
+= select_tag "customer", 
+  options_from_collection_for_select(@customers, "id", "name")
 
+button Neste
+= link_to
+
+
+hr
 = link_to "Opprett kunde", new_customer_path
 
 
-button Neste
 
 
