@@ -47,7 +47,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 #
-gem 'jquery_mobile_rails'
 
 group :development, :test do
   gem 'fabrication'
@@ -62,3 +61,8 @@ end
 group :development do
   gem 'ruby_gntp'
 end
+
+gem 'neat'
+gem 'bourbon'
+gem 'bitters'
+
