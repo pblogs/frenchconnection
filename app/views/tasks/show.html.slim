@@ -1,18 +1,18 @@
 p#notice = notice
 
 p
-  strong Customer:
+  strong Kunde:
   = @task.customer
 p
-  strong Task type:
+  strong Type:
   = @task.task_type
 p
-  strong Start date:
+  strong Start dato:
   = @task.start_date
 p
-  strong Customer buys supplies:
+  strong Kunden kjøper materiale
   = @task.customer_buys_supplies
 
-= link_to 'Edit', edit_task_path(@task)
+= link_to 'Rediger', edit_task_path(@task)
 '|
-= link_to 'Back', tasks_path
+= link_to 'Tilbake', tasks_path
