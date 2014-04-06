@@ -1,8 +1,15 @@
+body
+  background-color: #2A5373
+
 #header
   a
     display: block
 
-.button
-  .green
-    color: $green
-    font-size: 10em !important
+.button.green
+  background-color: $green
+  color: white
+  @include border-top-radius(5px)
+  @include border-bottom-radius(5px)
+  @include border-left-radius(5px)
+  @include border-right-radius(5px)
+  padding: 20px

@@ -8,4 +8,12 @@ describe Task do
   it "is valid from the Fabric" do
     expect(@task).to be_valid
   end
+
+  it "has a customer" do
+    expect(@task.customer.class).to eq Customer
+  end
+
+  it "has a task type" do
+    expect(@task.task_type.class).to eq TaskType
+  end
 end
