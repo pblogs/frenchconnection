@@ -1,9 +1,14 @@
-h1 Nytt oppdrag
+h1 Registrer nytt oppdrag
+br
+br
+br
 
-h3 Velg eksisterende kunde
+= label_tag 'customer', 'Velg eksisterende kunde'
 = select_tag "customer", 
   options_from_collection_for_select(@customers, "id", "name")
-= link_to "Registrer oppdrag", new_assignment_path, class: "new_task_on_company" 
+
+= link_to "Registrer oppdrag", new_assignment_path, 
+  class: "new_task_on_company green button" 
 
 
 hr

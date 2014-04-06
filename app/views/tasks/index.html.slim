@@ -1,12 +1,12 @@
-h1 Listing tasks
+h1 Oppdrag
 
 table
   thead
     tr
-      th Customer
-      th Task type
-      th Start date
-      th Customer buys supplies
+      th Kunde
+      th Type oppdrag
+      th Oppstartsdato
+      th Kunde kjøper materiale selv
       th
       th
       th
@@ -18,10 +18,10 @@ table
         td = task.task_type
         td = task.start_date
         td = task.customer_buys_supplies
-        td = link_to 'Show', task
-        td = link_to 'Edit', edit_task_path(task)
-        td = link_to 'Destroy', task, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Vis', task
+        td = link_to 'Rediger', edit_task_path(task)
+        td = link_to 'Slett', task, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Task', new_assignment_path
+= link_to 'Nytt oppdrag', new_assignment_path

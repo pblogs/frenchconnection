@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $( ".datepicker" ).datepicker();
+  $(document).ready()
+  $( ".datepicker" ).datepicker( { dateFormat: 'dd-mm-yy' } )
 
 $ ->
   # Go the the new task for company page on click.
@@ -11,6 +12,3 @@ $ ->
     company_id = $("#customer option:selected").val();
     this.href = "/customers/#{company_id}/tasks/new"
 
-  # 
-  $(document).on 'click', '.datepicker', (e) ->
-    #$( ".datepicker" ).datepicker();

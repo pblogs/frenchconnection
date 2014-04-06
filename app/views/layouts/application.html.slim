@@ -8,21 +8,9 @@ html
     meta content="width=device-width, initial-scale=1" name="viewport" 
   body
     #outer-container
-      header
-        = link_to root_path do
-          = image_tag 'Alliero.jpg'
       #main
-        = yield
-
-
-    /div data-role="page" 
-      #header data-role="Xheader" 
-        = link_to root_path do
-          = image_tag 'Alliero.jpg'
-      .ui-content role="main" 
-        = yield
-      /div data-role="footer" 
-        h4 Page Footer
-      /! /footer
-    /! /page
-
+        header
+          = link_to root_path do
+            = image_tag 'Alliero.jpg'
+        section
+          = yield

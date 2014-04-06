@@ -23,7 +23,12 @@ describe TasksController do
   # This should return the minimal set of attributes required to create a valid
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "customer" => Fabricate(:customer) } }
+  let(:valid_attributes) do
+    { 
+      customer:   Fabricate(:customer),
+      task_type:  Fabricate(:task_type)
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
