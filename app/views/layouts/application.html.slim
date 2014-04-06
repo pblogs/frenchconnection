@@ -11,8 +11,9 @@ html
       script src="http://code.jquery.com/mobile/[version]/jquery.mobile-[version].min.js" 
   body
     div data-role="page" 
-      div data-role="header" 
-        = image_tag 'Alliero.jpg'
+      #header data-role="Xheader" 
+        = link_to root_path do
+          = image_tag 'Alliero.jpg'
       .ui-content role="main" 
         = yield
       /div data-role="footer" 
