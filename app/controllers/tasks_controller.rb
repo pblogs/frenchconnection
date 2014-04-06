@@ -14,6 +14,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
+    @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
     @task = Task.new
   end
 
