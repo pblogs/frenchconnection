@@ -1,14 +1,13 @@
 h1 Nytt oppdrag
 
-h3 Velg eksisterende kunde..
+h3 Velg eksisterende kunde
 = select_tag "customer", 
   options_from_collection_for_select(@customers, "id", "name")
-
-button Neste
-= link_to
+= link_to "Registrer oppdrag", new_assignment_path, class: "new_task_on_company" 
 
 
 hr
+h3 Eller opprett ny kunde
 = link_to "Opprett kunde", new_customer_path
 
 
