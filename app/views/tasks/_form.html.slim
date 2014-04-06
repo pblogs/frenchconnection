@@ -1,4 +1,4 @@
-= form_for @task do |f|
+= form_for [@customer, @task] do |f|
   - if @task.errors.any?
     #error_explanation
       h2 = "#{pluralize(@task.errors.count, "error")} prohibited this task from being saved:"
@@ -6,12 +6,11 @@
         - @task.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label :customer
-    = f.text_field :customer
-  .field
-    = f.label :task_type
-    = f.text_field :task_type
+    strong Task type
+    = select_tag "task_type", 
+      options_from_collection_for_select(@task_type, "id", "name")
+    /= f.label :task_type
+    /= f.text_field :task_type
   .field
     = f.label :start_date
     = f.datetime_select :start_date

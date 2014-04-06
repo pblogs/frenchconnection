@@ -58,3 +58,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
+
+group :development do
+  gem 'ruby_gntp'
+end
