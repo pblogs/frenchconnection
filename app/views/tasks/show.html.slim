@@ -1,15 +1,18 @@
-p#notice = notice
-
-p
-  strong Kunde:
-  = @task.customer.name
-p
-  strong Type:
-  = @task.task_type.title
-p
-  strong Start dato:
-  = @task.start_date
-
-= link_to 'Rediger', edit_task_path(@task)
+.button.green
+  p#notice = notice
+  
+  p
+    strong Kunde:
+    = @task.customer.name
+  p
+    strong Type:
+    = @task.task_type.title
+  p
+    strong Start dato:
+    = I18n.l @task.start_date, format: :short
+  
+br
+br
+= link_to 'Rediger ', edit_task_path(@task)
 '|
 = link_to 'Tilbake', tasks_path

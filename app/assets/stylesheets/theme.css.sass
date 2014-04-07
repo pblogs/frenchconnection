@@ -5,11 +5,18 @@ body
   a
     display: block
 
-.button.green
-  background-color: $green
-  color: white
+.button
   @include border-top-radius(5px)
   @include border-bottom-radius(5px)
   @include border-left-radius(5px)
   @include border-right-radius(5px)
   padding: 20px
+  color: white
+  a
+    color: white
+
+.green
+  background-color: $green
+
+.red
+  background-color: $red

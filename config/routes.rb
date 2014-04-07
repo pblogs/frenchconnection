@@ -15,6 +15,7 @@ AllieroForms::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#frontpage_manager'
   get '/frontpage_manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
+  get '/frontpage_artisan' => 'static_pages#frontpage_artisan', as: :frontpage_artisan
   get '/new_assignment'    => 'static_pages#new_assignment', as: :new_assignment
   
 

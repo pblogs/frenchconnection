@@ -7,5 +7,9 @@ class StaticPagesController < ApplicationController
     @customers = Customer.all
   end
 
+  def frontpage_artisan
+    @task = Task.last
+  end
+
 
 end
