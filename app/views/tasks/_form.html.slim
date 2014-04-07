@@ -7,8 +7,8 @@
           li = message
 
   = label_tag 'task_type', 'Type oppdrag'
-  = f.select "task_type", 
-    options_from_collection_for_select(@task_type, "id", "title")
+  = f.select "task_type_id", 
+    options_from_collection_for_select(@task_types, "id", "title")
 
   .field
     = f.label :start_date, 'Oppstartsdato'
