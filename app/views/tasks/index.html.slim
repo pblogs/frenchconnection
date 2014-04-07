@@ -10,7 +10,7 @@ table
 
   tbody
     - @tasks.each do |task|
-      tr
+      tr.green.button
         td = task.customer.name
         td = task.task_type.title
         td = task.start_date
