@@ -15,12 +15,13 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
-    @task_type = TaskType.all
+    @task_types = TaskType.all
     @task = Task.new
   end
 
   # GET /tasks/1/edit
   def edit
+    @task_types = TaskType.all
   end
 
   # POST /tasks
@@ -28,6 +29,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.customer_id  = params[:customer_id]
+    @task.task_type_id = params[:task][:task_type_id]
 
     respond_to do |format|
       if @task.save!

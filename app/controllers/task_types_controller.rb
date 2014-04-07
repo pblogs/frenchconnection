@@ -14,7 +14,7 @@ class TaskTypesController < ApplicationController
 
   # GET /task_types/new
   def new
-    @task_type = TaskType.new
+    @task_types = TaskType.new
   end
 
   # GET /task_types/1/edit
@@ -28,11 +28,14 @@ class TaskTypesController < ApplicationController
 
     respond_to do |format|
       if @task_type.save
-        format.html { redirect_to @task_type, notice: 'Task type was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @task_type }
+        format.html { redirect_to @task_type, 
+                      notice: 'Task type was successfully created.' }
+        format.json { render action: 'show', 
+                      status: :created, location: @task_type }
       else
         format.html { render action: 'new' }
-        format.json { render json: @task_type.errors, status: :unprocessable_entity }
+        format.json { render json: @task_type.errors, 
+                      status: :unprocessable_entity }
       end
     end
   end
