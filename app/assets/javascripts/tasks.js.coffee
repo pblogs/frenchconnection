@@ -12,3 +12,6 @@ $ ->
     company_id = $("#customer option:selected").val();
     this.href = "/customers/#{company_id}/tasks/new"
 
+
+$(document).on 'ready page:load', -> $('.datepicker').datepicker({
+});
