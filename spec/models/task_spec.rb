@@ -16,4 +16,8 @@ describe Task do
   it "has a task type" do
     expect(@task.task_type.class).to eq TaskType
   end
+
+  it "belongs to an artisan" do
+    expect(@task.artisan.class).to eq Artisan
+  end
 end
