@@ -90,6 +90,7 @@ class TasksController < ApplicationController
     def set_paint_and_type
       @task_types = TaskType.all
       @paint      = Paint.all
+      @artisans   = Artisan.all
     end
 
     def task_params
@@ -97,6 +98,7 @@ class TasksController < ApplicationController
                                    :task_type_id, 
                                    :start_date, 
                                    :paint_id,
+                                   :artisan_id,
                                    :customer_buys_supplies)
     end
 end
