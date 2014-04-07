@@ -6,9 +6,13 @@
         - @task.errors.full_messages.each do |message|
           li = message
 
-  = label_tag 'task_type', 'Type oppdrag'
+  = label_tag 'task_type', 'Oppdragstype'
   = f.select "task_type_id", 
     options_from_collection_for_select(@task_types, "id", "title")
+
+  = label_tag 'paint_id', 'Malingstype'
+  = f.select 'paint_id', 
+    options_from_collection_for_select(@paint, "id", "title")
 
   .field
     = f.label :start_date, 'Oppstartsdato'

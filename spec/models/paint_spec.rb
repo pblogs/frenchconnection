@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe TaskType do
+describe Paint do
   before :each do
-    @task_type = Fabricate(:task_type)
+    @paint    = Fabricate(:paint)
   end
   
   it "is valid from the Fabric" do
-    expect(@task_type).to be_valid
+    expect(@paint).to be_valid
   end
 end
