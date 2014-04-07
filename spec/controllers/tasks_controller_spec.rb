@@ -25,8 +25,8 @@ describe TasksController do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     { 
-      customer:   Fabricate(:customer),
-      task_type:  Fabricate(:task_type)
+      customer_id:   Fabricate(:customer).id,
+      task_type_id:  Fabricate(:task_type).id
     }
   end
 
@@ -87,10 +87,17 @@ describe TasksController do
     end
 
     describe "with invalid params" do
+
+
       it "assigns a newly created but unsaved task as @task" do
+        @customer  = Fabricate(:customer)
+        @task_type = Fabricate(:task_type)
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => { "customer" => "invalid value" }}, valid_session
+        post :create, {:task => { 
+          "customer_id" => @customer.id,
+          "task_type_id" => @task_type.id
+          }}, valid_session
         assigns(:task).should be_a_new(Task)
       end
 
@@ -111,19 +118,23 @@ describe TasksController do
         # specifies that the Task created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Task.any_instance.should_receive(:update).with({  "customer_buys_supplies" => 'false' })
-        put :update, {:id => task.to_param, :task => { "customer_buys_supplies" => 'false' }}, valid_session
+        Task.any_instance.should_receive(:update).with(
+          {  "customer_buys_supplies" => 'false' })
+        put :update, {:id => task.to_param, 
+          :task => { "customer_buys_supplies" => 'false' }}, valid_session
       end
 
       it "assigns the requested task as @task" do
         task = Task.create! valid_attributes
-        put :update, {:id => task.to_param, :task => valid_attributes}, valid_session
+        put :update, {:id => task.to_param, 
+          :task => valid_attributes}, valid_session
         assigns(:task).should eq(task)
       end
 
       it "redirects to the task" do
         task = Task.create! valid_attributes
-        put :update, {:id => task.to_param, :task => valid_attributes}, valid_session
+        put :update, {:id => task.to_param, 
+          :task => valid_attributes}, valid_session
         response.should redirect_to(task)
       end
     end
@@ -133,7 +144,8 @@ describe TasksController do
         task = Task.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        put :update, {:id => task.to_param, :task => { "customer" => "invalid value" }}, valid_session
+        put :update, {:id => task.to_param, 
+          :task => { "customer" => "invalid value" }}, valid_session
         assigns(:task).should eq(task)
       end
 
@@ -141,7 +153,8 @@ describe TasksController do
         task = Task.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        put :update, {:id => task.to_param, :task => { "customer" => "invalid value" }}, valid_session
+        put :update, {:id => task.to_param, 
+          :task => { "customer" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

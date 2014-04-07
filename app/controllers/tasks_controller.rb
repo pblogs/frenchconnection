@@ -16,6 +16,7 @@ class TasksController < ApplicationController
   def new
     @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
     @task_types = TaskType.all
+    @paint = Paint.all
     @task = Task.new
   end
 
@@ -28,11 +29,14 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.customer_id  = params[:customer_id]
-    @task.task_type_id = params[:task][:task_type_id]
+    begin
+      @task.customer  = Customer.find(params[:task][:customer_id]).first
+      @task.task_type = TaskType.find(params[:task][:task_type_id]).first
+    rescue
+    end
 
     respond_to do |format|
-      if @task.save!
+      if @task.save
         format.html { redirect_to @task, notice: 'Task was successfully created.' }
         format.json { render action: 'show', status: :created, location: @task }
       else

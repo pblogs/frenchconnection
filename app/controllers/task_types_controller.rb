@@ -14,7 +14,7 @@ class TaskTypesController < ApplicationController
 
   # GET /task_types/new
   def new
-    @task_types = TaskType.new
+    @task_type = TaskType.new
   end
 
   # GET /task_types/1/edit
