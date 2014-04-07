@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:new, :create, :index]
+  before_action :set_paint_and_type, only: [:new, :edit, :create]
 
   # GET /tasks
   # GET /tasks.json
@@ -12,11 +14,9 @@ class TasksController < ApplicationController
   def show
   end
 
+
   # GET /tasks/new
   def new
-    @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
-    @task_types = TaskType.all
-    @paint = Paint.all
     @task = Task.new
   end
 
@@ -28,9 +28,16 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    @task_types = TaskType.all
+    @paint = Paint.all
     @task = Task.new(task_params)
+    if params[:customer_id].present?
+      @task.customer  = Customer.find(params[:customer_id])
+    elsif params[:task][:customer_id].present?
+      @task.customer  = Customer.find(params[:task][:customer_id])
+    end
+
     begin
-      @task.customer  = Customer.find(params[:task][:customer_id]).first
       @task.task_type = TaskType.find(params[:task][:task_type_id]).first
     rescue
     end
@@ -76,8 +83,21 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def set_customer
+      @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
+    end
+
+    def set_paint_and_type
+      @task_types = TaskType.all
+      @paint      = Paint.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:customer_id, :task_type_id, :start_date, :customer_buys_supplies)
+      params.require(:task).permit(:customer_id, 
+                                   :task_type_id, 
+                                   :start_date, 
+                                   :paint_id,
+                                   :customer_buys_supplies)
     end
 end

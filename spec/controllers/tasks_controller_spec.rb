@@ -104,7 +104,8 @@ describe TasksController do
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => { "customer" => "invalid value" }}, valid_session
+        post :create, {:task => { "customer" => "invalid value" }}, 
+          valid_session
         response.should render_template("new")
       end
     end
