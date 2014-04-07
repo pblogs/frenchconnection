@@ -16,7 +16,7 @@
 
   = label_tag 'artisan_id', 'Henvis til utførende'
   = f.select 'artisan_id', 
-    options_from_collection_for_select(@artisans, "id", "title")
+    options_from_collection_for_select(@artisans, "id", "name")
 
   .field
     = f.label :start_date, 'Oppstartsdato'
@@ -26,4 +26,4 @@
   br
   br
   br
-  .actions = f.submit 'Lagre oppdrag', class: 'button green'
+  .actions = f.submit 'Lagre oppdrag i Visma', class: 'button green'

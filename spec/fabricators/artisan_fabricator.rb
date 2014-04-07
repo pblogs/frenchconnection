@@ -1,4 +1,4 @@
 Fabricator(:artisan) do
-  name  "MyString"
+  name            { Faker::Name.first_name }
   tasks nil
 end
