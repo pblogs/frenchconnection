@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Task do
   before :each do
-    @task    = Fabricate(:task)
+    @artisan = Fabricate(:artisan)
+    @task    = Fabricate(:task, artisan: @artisan)
+    @task2   = Fabricate(:task, artisan: @artisan)
   end
   
   it "is valid from the Fabric" do
@@ -20,4 +22,9 @@ describe Task do
   it "belongs to an artisan" do
     expect(@task.artisan.class).to eq Artisan
   end
+
+  it "an artisan can have many tasks" do
+    expect(@artisan.tasks).to include(@task, @task2)
+  end
+
 end
