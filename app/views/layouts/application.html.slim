@@ -2,7 +2,8 @@ doctype html
 html
   head
     title Page Title
-    = stylesheet_link_tag "application", media: "all",  "data-turbolinks-track" => true
+    = stylesheet_link_tag "application", media: "all",  
+      "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport" 
@@ -12,5 +13,10 @@ html
         header
           = link_to root_path do
             = image_tag 'Alliero.jpg'
+        nav
+          ul
+            li= link_to 'Forside leder',    frontpage_manager_path
+            li=  '&nbsp; | &nbsp; '.html_safe
+            li= link_to 'Forside arbeider', frontpage_artisan_path
         section
           = yield
