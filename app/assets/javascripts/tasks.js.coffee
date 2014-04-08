@@ -2,9 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
-  $(document).ready()
-  $( ".datepicker" ).datepicker( { dateFormat: 'dd-mm-yy' } )
+#$ ->
+#  $(document).ready()
+#  $( ".datepicker" ).datepicker( { dateFormat: 'dd.mm.yy' } )
 
 $ ->
   # Go the the new task for company page on click.
@@ -13,5 +13,4 @@ $ ->
     this.href = "/customers/#{company_id}/tasks/new"
 
 
-$(document).on 'ready page:load', -> $('.datepicker').datepicker({
-});
+$(document).on 'ready page:load', -> $('.datepicker').datepicker({  dateFormat: 'dd.mm.yy' });
