@@ -7,18 +7,18 @@
           li = message
 
   .field
-    = f.label :name
+    = f.label :name, 'Navn'
     = f.text_field :name
   .field
-    = f.label :address
+    = f.label :address, 'Addresse'
     = f.text_field :address
   .field
-    = f.label :org_number
+    = f.label :org_number, 'Organisasjonsnummer'
     = f.text_field :org_number
   .field
-    = f.label :contact_person
+    = f.label :contact_person, 'Kontaktperson'
     = f.text_field :contact_person
   .field
-    = f.label :phone
+    = f.label :phone, 'Telefonenummer'
     = f.text_field :phone
-  .actions = f.submit 'Save'
+  .actions = f.submit 'Lagre'
