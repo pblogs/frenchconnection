@@ -6,4 +6,5 @@ class Task < ActiveRecord::Base
 
   validates :customer, :presence => true
   validates :task_type, :presence => true
+  validates :artisan, :presence => true
 end

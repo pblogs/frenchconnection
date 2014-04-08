@@ -5,6 +5,7 @@ AllieroForms::Application.routes.draw do
     resources :tasks
   end
   resources :tasks
+  resources :artisans
 
   resources :task_types
 
