@@ -1,4 +1,3 @@
 $(document).ready(function() {
-    console.log('doc ready');
-    $(".datepicker").datepicker();
+    $(".datepicker").datepicker( { dateFormat: "dd.mm.yy" } );
 });
