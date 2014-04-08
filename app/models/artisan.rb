@@ -1,3 +1,3 @@
 class Artisan < ActiveRecord::Base
-  belongs_to :tasks
+  has_many :tasks
 end
