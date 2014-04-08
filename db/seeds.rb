@@ -6,4 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
-TaskType
+#
+Fabricate(:customer, name: 'Oslo Sporveier AS')
+Fabricate(:customer, name: 'Østbanehallen')
+
+Fabricate(:artisan)
+Fabricate(:task_type)
+Fabricate(:task_type)
+Fabricate(:task_type)
+Fabricate(:paint)
+Fabricate(:paint)
+Fabricate(:paint)
