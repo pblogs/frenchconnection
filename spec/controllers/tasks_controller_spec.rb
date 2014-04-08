@@ -26,7 +26,8 @@ describe TasksController do
   let(:valid_attributes) do
     { 
       customer_id:   Fabricate(:customer).id,
-      task_type_id:  Fabricate(:task_type).id
+      task_type_id:  Fabricate(:task_type).id,
+      artisan_id:    Fabricate(:artisan).id
     }
   end
 
