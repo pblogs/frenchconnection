@@ -1,0 +1,23 @@
+h1 Listing artisans
+
+table
+  thead
+    tr
+      th Name
+      th Tasks
+      th
+      th
+      th
+
+  tbody
+    - @artisans.each do |artisan|
+      tr
+        td = artisan.name
+        td = artisan.tasks
+        td = link_to 'Show', artisan
+        td = link_to 'Edit', edit_artisan_path(artisan)
+        td = link_to 'Destroy', artisan, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Artisan', new_artisan_path
