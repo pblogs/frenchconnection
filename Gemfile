@@ -66,6 +66,12 @@ group :development do
   gem 'ruby_gntp'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'launchy'
+end
+  
+
 gem 'neat'
 gem 'bourbon'
 gem 'bitters'
