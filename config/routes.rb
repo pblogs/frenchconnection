@@ -6,10 +6,10 @@ AllieroForms::Application.routes.draw do
   end
 
   resources :artisans do 
-    resources :tasks, :controller => 'artisans/tasks'
-
     get '/tasks/started'     => 'artisans/tasks#started'
     get '/tasks/not_started' => 'artisans/tasks#not_started'
+    resources :tasks, :controller => 'artisans/tasks'
+
 
   end
 
