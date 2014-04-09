@@ -10,6 +10,7 @@ class ArtisansController < ApplicationController
   # GET /artisans/1
   # GET /artisans/1.json
   def show
+    @tasks = @artisan.tasks.to_a
   end
 
   # GET /artisans/new
