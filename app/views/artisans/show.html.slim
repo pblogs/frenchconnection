@@ -1,10 +1,10 @@
 p.button.green
   = fa_icon 'list-alt'
-  = link_to "Started oppdrag"
+  = link_to "Started oppdrag", artisan_tasks_started_path(@artisan)
 
 .button.green
   = fa_icon 'list-alt'
-  = link_to "Nye oppdrag"
+  = link_to "Nye oppdrag", artisan_tasks_not_started_path(@artisan)
   .new_tasks_notifier.big.right
     = fa_icon 'star', text: 3
     
