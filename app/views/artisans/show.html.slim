@@ -1,11 +1,11 @@
 p#notice = notice
 
 p
-  strong Name:
+  strong Navn:
   = @artisan.name
 p
-  strong Tasks:
-  = @artisan.tasks
+  strong Oppdrag:
+  = render @tasks
 
 = link_to 'Edit', edit_artisan_path(@artisan)
 '|
