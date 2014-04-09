@@ -55,8 +55,8 @@ end
 # gem 'debugger', group: [:development, :test]
 #
 
+gem 'fabrication'
 group :development, :test do
-  gem 'fabrication'
   gem 'rspec-rails'
   gem 'guard-rspec', require: false
   gem 'faker'
