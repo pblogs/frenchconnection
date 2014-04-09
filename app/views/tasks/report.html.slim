@@ -1,18 +1,38 @@
+- @week_nr = Time.now.strftime("%U").to_i
+
+h2= "Timerapport uke #{@week_nr}"
+br
+br
+
 
 - @customers.each do |c|
   - next if c.tasks.blank?
 
-  - c.tasks.all.each do |t|
-    .button.green
-      h3 = "#{c.name}"
+  .button.green
+    h2 = "#{c.name}"
+    - c.tasks.all.each do |t|
       hr
-      h4= "Oppgaver"
-      br
       ul.hour_report
         li
-          = "#{t.artisan.name}: #{t.task_type.title} "
+          strong= "Hvem: "
+          span=  "#{t.artisan.name}"
           br
-          = "Ant timer: #{t.hours_spents.sum(:hour)}"
-    br
-    br
-    br
+          strong= "Hva: "
+          span= "#{t.task_type.title} "
+          br
+          - if t.description.present?
+            strong= "Beskrivelse: "
+            span= "#{t.description}"
+            br
+          strong= "Ant timer: "
+          span= "#{t.hours_spents.sum(:hour)}"
+  .button.red
+    span= "Timer totalt ført på #{c.name} i uke #{@week_nr}: <strong>492</strong>".html_safe
+  br
+  br
+  br
+
+= link_to "Tilbake", frontpage_manager_path, class: 'secondary_button'
+br
+br
+br
