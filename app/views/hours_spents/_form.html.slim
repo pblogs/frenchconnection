@@ -1,0 +1,20 @@
+= form_for @hours_spent do |f|
+  - if @hours_spent.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@hours_spent.errors.count, "error")} prohibited this hours_spent from being saved:"
+      ul
+        - @hours_spent.errors.full_messages.each do |message|
+          li = message
+
+  .button.green
+    span= @hours_spent.task.title
+    /.field
+    /  = f.label :customer
+    /  = f.text_field :customer
+    /.field
+    /  = f.label :task
+    /  = f.text_field :task
+    .field
+      = f.label :hour
+      = f.number_field :hour
+    .actions = f.submit 'Save'

@@ -5,11 +5,13 @@ h1 Aktive oppdrag
       thead
         th Kunde
         th Type oppdrag
+        th Timer registrert
       tbody
         tr
           td = task.customer.name
           td = task.task_type.title
+          td = task.hours_total
 
   .button.red
     = fa_icon 'calendar'
-    =link_to "Registrer timer"
+    = link_to "Registrer timer", new_task_hours_spent_path(task)
