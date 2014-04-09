@@ -4,8 +4,12 @@ AllieroForms::Application.routes.draw do
   resources :customers do
     resources :tasks
   end
+
+  resources :artisans do 
+    resources :tasks, :controller => 'artisans/tasks'
+  end
+
   resources :tasks
-  resources :artisans
 
   resources :task_types
 
