@@ -56,10 +56,11 @@ end
 #
 
 gem 'fabrication'
+gem 'faker'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', require: false
-  gem 'faker'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
