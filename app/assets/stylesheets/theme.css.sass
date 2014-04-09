@@ -1,6 +1,9 @@
 body
   background-color: #2A5373
 
+a:hover
+  text-decoration: underline
+
 #header
   a
     display: block
@@ -36,3 +39,12 @@ nav
 
 .new_tasks_notifier
   //color: red
+
+table
+  @include border-top-radius(5px)
+  @include border-bottom-radius(5px)
+  @include border-left-radius(5px)
+  @include border-right-radius(5px)
+  padding: 20px
+  background-color: $green
+  color: white
