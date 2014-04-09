@@ -1,0 +1,25 @@
+h1 Listing hours_spents
+
+table
+  thead
+    tr
+      th Customer
+      th Task
+      th Hour
+      th
+      th
+      th
+
+  tbody
+    - @hours_spents.each do |hours_spent|
+      tr
+        td = hours_spent.customer
+        td = hours_spent.task
+        td = hours_spent.hour
+        td = link_to 'Show', hours_spent
+        td = link_to 'Edit', edit_hours_spent_path(hours_spent)
+        td = link_to 'Destroy', hours_spent, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Hours spent', new_task_hours_spent_path(@task)

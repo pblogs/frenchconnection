@@ -1,6 +1,7 @@
 AllieroForms::Application.routes.draw do
 
 
+
   resources :customers do
     resources :tasks
   end
@@ -13,7 +14,11 @@ AllieroForms::Application.routes.draw do
 
   end
 
-  resources :tasks
+  resources :hours_spents
+  resources :tasks do
+    resources :hours_spents, :controller => 'tasks/hours_spent'
+  end
+
 
   resources :task_types
 
