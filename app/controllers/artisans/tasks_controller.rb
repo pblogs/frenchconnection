@@ -1,5 +1,5 @@
 class Artisans::TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :register_hours]
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_paint_and_type, only: [:new, :edit, :create]
 
@@ -17,11 +17,13 @@ class Artisans::TasksController < ApplicationController
     @tasks = Task.all
   end
 
-  # GET /tasks/1
-  # GET /tasks/1.json
   def show
   end
 
+
+  def register_hours
+      
+  end
 
   # GET /tasks/new
   def new
@@ -68,11 +70,13 @@ class Artisans::TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to @task, 
+                      notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.json { render json: @task.errors, 
+                      status: :unprocessable_entity }
       end
     end
   end
