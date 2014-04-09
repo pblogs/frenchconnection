@@ -3,9 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 gem 'quiet_assets'
+gem 'pg'
+gem 'rails_12factor'   # Needed for Rails4 on Heroku
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 gem 'database_cleaner'
 
 # Use SCSS for stylesheets

@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140409103318) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "artisans", force: true do |t|
     t.string   "name"
     t.integer  "tasks_id"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140409103318) do
     t.datetime "updated_at"
   end
 
-  add_index "artisans", ["tasks_id"], name: "index_artisans_on_tasks_id"
+  add_index "artisans", ["tasks_id"], name: "index_artisans_on_tasks_id", using: :btree
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -40,8 +43,8 @@ ActiveRecord::Schema.define(version: 20140409103318) do
     t.datetime "updated_at"
   end
 
-  add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id"
-  add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id"
+  add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
+  add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id", using: :btree
 
   create_table "paints", force: true do |t|
     t.string   "title"
@@ -67,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140409103318) do
     t.boolean  "accepted"
   end
 
-  add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id"
-  add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id"
+  add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
+  add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id", using: :btree
 
 end
