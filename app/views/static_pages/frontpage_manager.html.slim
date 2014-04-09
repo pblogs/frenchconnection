@@ -1,6 +1,18 @@
 h1 Forside leder
 
 br
+p.button.green
+  = fa_icon 'list-alt'
+  = link_to "Aktive oppdrag", tasks_active_path
+
+br
+br
+p.button.green
+  = fa_icon 'pencil-square-o'
+  = link_to  'Nytt oppdrag', new_assignment_path
+
+
+br
 br
 p.button.green
   = fa_icon 'archive'

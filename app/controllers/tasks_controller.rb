@@ -14,6 +14,11 @@ class TasksController < ApplicationController
   def show
   end
 
+  def active
+    @tasks = Task.all.where(accepted: true)
+    render :index
+  end
+
   def report
     @tasks = Task.all.where(accepted: true)
     @customers = Customer.all

@@ -3,20 +3,22 @@ br
 br
 br
 
-= label_tag 'customer', 'Velg eksisterende kunde'
-br
-= select_tag "customer", 
-  options_from_collection_for_select(@customers, "id", "name")
-br
+- if @customers.present?
+  = label_tag 'customer', 'Velg eksisterende kunde'
+  br
+  = select_tag "customer", 
+    options_from_collection_for_select(@customers, "id", "name")
+  br
+  
+  = link_to "Registrer oppdrag", new_assignment_path, 
+    class: "new_task_on_company green button" 
 
-= link_to "Registrer oppdrag", new_assignment_path, 
-  class: "new_task_on_company green button" 
+  br
+  br
+  hr
 
 
-br
-br
-hr
-= label_tag '', 'Eller opprett ny kunde'
+
 br
 = link_to "Opprett kunde", new_customer_path,
   class: "new_company green button" 
