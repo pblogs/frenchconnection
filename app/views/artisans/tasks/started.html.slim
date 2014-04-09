@@ -1,0 +1,15 @@
+h1 Aktive oppdrag
+
+- @tasks.each do |task|
+  table
+      thead
+        th Kunde
+        th Type oppdrag
+      tbody
+        tr
+          td = task.customer.name
+          td = task.task_type.title
+
+  .button.red
+    = fa_icon 'calendar'
+    =link_to "Registrer timer"
