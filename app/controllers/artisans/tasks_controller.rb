@@ -9,6 +9,14 @@ class Artisans::TasksController < ApplicationController
     @tasks = Task.all
   end
 
+  def started
+    @tasks = Task.all
+  end
+
+  def not_started
+    @tasks = Task.all
+  end
+
   # GET /tasks/1
   # GET /tasks/1.json
   def show
