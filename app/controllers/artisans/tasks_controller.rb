@@ -123,6 +123,7 @@ class Artisans::TasksController < ApplicationController
                                    :task_type_id, 
                                    :start_date, 
                                    :paint_id,
+                                   :description,
                                    :artisan_id,
                                    :customer_buys_supplies)
     end

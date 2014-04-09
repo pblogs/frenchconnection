@@ -110,6 +110,7 @@ class TasksController < ApplicationController
                                    :start_date, 
                                    :paint_id,
                                    :artisan_id,
+                                   :description,
                                    :customer_buys_supplies)
     end
 end

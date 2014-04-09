@@ -5,26 +5,14 @@
       th Kunde
       th Utførende
       th Type oppdrag
+      th Beskrivelse
     tbody
       tr
         td = @task.customer.name
         td = @task.artisan.name
         td = @task.task_type.title
-  /p
-  /  strong Kunde:
-  /  = @task.customer.name
-  /p
-  /  strong Utførende:
-  /  = @task.artisan.name
-  /p
-  /  strong Type:
-  /  = @task.task_type.title
-  /p
-  /  strong Start dato:
-  /  = I18n.l @task.start_date, format: :short
+        td = @task.description
   
 br
 br
-/= link_to 'Rediger ', edit_task_path(@task)
-/'|
 = link_to 'Tilbake', :back, class: 'red button'
