@@ -17,6 +17,6 @@ html
           ul
             li= link_to 'Forside leder',    frontpage_manager_path
             li=  '&nbsp; | &nbsp; '.html_safe
-            li= link_to 'Forside arbeider', frontpage_artisan_path
+            li= link_to 'Forside arbeider', Artisan.first
         section
           = yield
