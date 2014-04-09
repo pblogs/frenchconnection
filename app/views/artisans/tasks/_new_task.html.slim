@@ -1,0 +1,34 @@
+p.button.green
+  strong Nytt oppdrag
+  br
+  br
+  = "Hos #{task.customer.name}"
+  br
+  = "Oppdraget må utføres innen #{I18n.l(task.start_date, format: :short)}"
+  br
+  = "Ta kontakt med kunde for å avtale nærmere"
+
+p.button.green
+  = fa_icon 'list-alt'
+  =link_to "  Oppdragsdetaljer  ", task
+
+p.button.red
+  = fa_icon 'phone'
+  = link_to "  Ring til kunde", "tel:#{task.customer.phone}"
+
+/p.button.red
+  = fa_icon 'thumbs-o-up'
+  
+
+= form_tag(artisan_task_accept_task_path(@artisan, task)) do
+  = submit_tag "Aksepter oppdraget"
+
+
+br
+br
+br
+hr
+br
+br
+
+

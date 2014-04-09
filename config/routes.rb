@@ -9,9 +9,9 @@ AllieroForms::Application.routes.draw do
   resources :artisans do 
     get '/tasks/started'     => 'artisans/tasks#started'
     get '/tasks/not_started' => 'artisans/tasks#not_started'
-    resources :tasks, :controller => 'artisans/tasks'
-
-
+    resources :tasks, :controller => 'artisans/tasks' do
+      post :accept_task
+    end
   end
 
   resources :hours_spents
