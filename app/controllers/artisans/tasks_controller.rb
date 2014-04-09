@@ -12,12 +12,13 @@ class Artisans::TasksController < ApplicationController
   end
 
   def started
-    @tasks = Task.all
+    @artisan = Artisan.find(params[:artisan_id])
+    @tasks = Task.where(accepted: true).order(created_at: :desc)
   end
 
   def not_started
     @artisan = Artisan.find(params[:artisan_id])
-    @tasks = Task.where(accepted: nil)
+    @tasks = Task.where(accepted: nil).order(created_at: :desc)
   end
 
   def show
