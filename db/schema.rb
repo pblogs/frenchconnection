@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140409073248) do
+ActiveRecord::Schema.define(version: 20140409103318) do
 
   create_table "artisans", force: true do |t|
     t.string   "name"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140409073248) do
     t.datetime "updated_at"
     t.integer  "paint_id"
     t.integer  "artisan_id"
+    t.boolean  "accepted"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id"

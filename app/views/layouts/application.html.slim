@@ -19,4 +19,5 @@ html
             li=  '&nbsp; | &nbsp; '.html_safe
             li= link_to 'Forside arbeider', Artisan.first
         section
+          p#notice = notice
           = yield

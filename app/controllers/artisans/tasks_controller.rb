@@ -1,5 +1,7 @@
 class Artisans::TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :register_hours]
+  before_action :set_task, only: [:show, :edit, :update, 
+                                  :destroy, :register_hours]
+
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_paint_and_type, only: [:new, :edit, :create]
 
@@ -14,10 +16,18 @@ class Artisans::TasksController < ApplicationController
   end
 
   def not_started
-    @tasks = Task.all
+    @artisan = Artisan.find(params[:artisan_id])
+    @tasks = Task.where(accepted: nil)
   end
 
   def show
+  end
+
+  def accept_task
+    @artisan = Artisan.find params[:artisan_id]
+    @task = Task.find(params[:task_id])
+    @task.update(accepted: true)
+    redirect_to artisan_tasks_not_started_path(@artisan), notice: 'Oppdraget markert som akseptert'
   end
 
 

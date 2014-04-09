@@ -27,7 +27,8 @@ describe TasksController do
     { 
       customer_id:   Fabricate(:customer).id,
       task_type_id:  Fabricate(:task_type).id,
-      artisan_id:    Fabricate(:artisan).id
+      artisan_id:    Fabricate(:artisan).id,
+      start_date:    '01.05.1983'
     }
   end
 
