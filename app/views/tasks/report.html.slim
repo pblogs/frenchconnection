@@ -1,0 +1,18 @@
+
+- @customers.each do |c|
+  - next if c.tasks.blank?
+
+  - c.tasks.all.each do |t|
+    .button.green
+      h3 = "#{c.name}"
+      hr
+      h4= "Oppgaver"
+      br
+      ul.hour_report
+        li
+          = "#{t.artisan.name}: #{t.task_type.title} "
+          br
+          = "Ant timer: #{t.hours_spents.sum(:hour)}"
+    br
+    br
+    br
