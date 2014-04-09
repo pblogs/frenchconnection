@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
 
   def active
-    @tasks = Task.all.where(accepted: true)
+    @tasks = Task.where(accepted: true, finished: false).order(created_at: :desc)
     render :index
   end
 

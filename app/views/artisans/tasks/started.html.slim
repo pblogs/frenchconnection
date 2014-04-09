@@ -1,4 +1,8 @@
-h1 Aktive oppdrag
+
+- if @tasks.blank?
+  strong= "Vi har ingen aktive oppdrag nå"
+- else
+  h1 Aktive oppdrag
 
 - @tasks.each do |task|
   table
@@ -15,6 +19,10 @@ h1 Aktive oppdrag
   .button.red
     = fa_icon 'calendar'
     = link_to "Registrer timer", new_task_hours_spent_path(task)
+
+  br
+  = form_tag(artisan_task_finished_path(@artisan, task)) do
+    = submit_tag "Marker som ferdigstilt"
 
   br
   br
