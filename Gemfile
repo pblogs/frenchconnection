@@ -7,6 +7,8 @@ gem 'rails', '4.0.4'
 gem 'quiet_assets'
 gem 'pg'
 gem 'rails_12factor'   # Needed for Rails4 on Heroku
+gem 'newrelic_rpm'
+
 
 gem 'database_cleaner'
 
