@@ -9,6 +9,7 @@ br
   - next if c.tasks.blank?
 
   .button.green
+    h1.right= fa_icon 'print'
     h2 = "#{c.name}"
     - c.tasks.all.each do |t|
       hr
@@ -31,6 +32,8 @@ br
   br
   br
   br
+
+h1.right= fa_icon 'print'
 
 = link_to "Tilbake", frontpage_manager_path, class: 'secondary_button'
 br
