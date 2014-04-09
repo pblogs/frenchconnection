@@ -16,6 +16,7 @@ AllieroForms::Application.routes.draw do
     get '/tasks/not_started' => 'artisans/tasks#not_started'
     resources :tasks, :controller => 'artisans/tasks' do
       post :accept_task
+      post :finished
     end
   end
 
