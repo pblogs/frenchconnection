@@ -41,6 +41,7 @@ describe "Create a new task", :type => :feature do
   end
 
   it "for an existing company", js: true do
+    #pending "WIP"
     visit frontpage_manager_path
     click_link 'Nytt oppdrag'
 
