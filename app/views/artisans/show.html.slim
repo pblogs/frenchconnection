@@ -1,12 +1,11 @@
-p#notice = notice
+p.button.green
+  = fa_icon 'list-alt'
+  = link_to "Started oppdrag"
 
-p
-  strong Navn:
-  = @artisan.name
-p
-  strong Oppdrag:
-  = render @tasks
+.button.green
+  = fa_icon 'list-alt'
+  = link_to "Nye oppdrag"
+  .new_tasks_notifier.big.right
+    = fa_icon 'star', text: 3
+    
 
-= link_to 'Edit', edit_artisan_path(@artisan)
-'|
-= link_to 'Back', artisans_path

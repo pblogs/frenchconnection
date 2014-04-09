@@ -7,6 +7,12 @@ AllieroForms::Application.routes.draw do
 
   resources :artisans do 
     resources :tasks, :controller => 'artisans/tasks'
+
+    namespace :tasks do
+      get 'started'
+      get 'not_started'
+    end
+
   end
 
   resources :tasks
