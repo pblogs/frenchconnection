@@ -2,4 +2,6 @@ h1 Forside leder
 
 br
 br
-= link_to  'Nytt oppdrag', new_assignment_path, class: 'button green'
+p.button.green
+  = fa_icon 'archive'
+  = link_to  'Se timelister', tasks_report_path

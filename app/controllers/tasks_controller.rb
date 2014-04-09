@@ -14,6 +14,10 @@ class TasksController < ApplicationController
   def show
   end
 
+  def report
+    @tasks = Task.all.where(accepted: true)
+    @customers = Customer.all
+  end
 
   # GET /tasks/new
   def new
