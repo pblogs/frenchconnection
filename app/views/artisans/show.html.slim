@@ -7,6 +7,6 @@ p.button.green
   = link_to "Nye oppdrag", artisan_tasks_not_started_path(@artisan)
   - if @new_tasks.present?
     .new_tasks_notifier.big.right
-      = fa_icon 'star', text: @new_tasks.size
+      .star= fa_icon 'star', text: @new_tasks.size
     
 

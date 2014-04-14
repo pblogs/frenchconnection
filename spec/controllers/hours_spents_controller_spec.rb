@@ -25,7 +25,9 @@ describe HoursSpentsController do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     { 
-      task_id:     Fabricate(:task).id
+      task_id:     Fabricate(:task).id,
+      hour:        rand(200..450),
+      description: 'Sparklet dritbra'
     }
   end
 

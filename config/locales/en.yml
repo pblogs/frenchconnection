@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  time:
+    formats:
+      datepicker: "%d.%m.%Y"
+      short_date: "%B %d"
+
+
