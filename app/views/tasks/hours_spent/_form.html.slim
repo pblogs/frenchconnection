@@ -11,6 +11,16 @@
   br
   
   .field
+    = f.label :date, 'Dato'
+    = f.text_field :date, value: I18n.l(Time.now, format: :datepicker),
+      class: :datepicker
+
+  .field
     = f.label :hour, 'Antall timer'
     = f.number_field :hour
+
+  .field
+    = f.label :description, 'Beskrivelse'
+    = f.text_area :description, cols: 20, rows: 4 
+
   .actions = f.submit 'Lagre'
