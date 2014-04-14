@@ -83,3 +83,5 @@ gem 'neat'
 gem 'bourbon'
 gem 'bitters'
 
+gem 'spreadsheet', '~> 0.9.7'
+
