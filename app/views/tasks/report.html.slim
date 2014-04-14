@@ -18,14 +18,22 @@ br
           strong= "Hvem: "
           span=  "#{t.artisan.name}"
           br
-          strong= "Hva: "
-          span= "#{t.task_type.title} "
-          br
           - if t.description.present?
-            strong= "Beskrivelse: "
+            strong= "Hva: "
             span= "#{t.description}"
             br
-          strong= "Ant timer: "
+
+          - t.hours_spents.each do |h|
+            p
+              strong= "Dato: "
+              span= "#{h.date}"
+              br
+
+              strong= "Beskrivelse: "
+              span= "#{h.description}"
+
+          hr
+          strong= "Totalt timer: "
           span= "#{t.hours_spents.sum(:hour)}"
   .button.red
     span= "Timer totalt ført på #{c.name} i uke #{@week_nr}: <strong>#{rand(200..450)}</strong>".html_safe
