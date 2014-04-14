@@ -9,6 +9,7 @@ AllieroForms::Application.routes.draw do
 
   resources :customers do
     resources :tasks
+    get :excel_report
   end
 
   resources :artisans do 
