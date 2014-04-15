@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Project number:
+  = @project.project_number
+p
+  strong Name:
+  = @project.name
+p
+  strong Company:
+  = @project.company
+
+= link_to 'Edit', edit_project_path(@project)
+'|
+= link_to 'Back', projects_path
