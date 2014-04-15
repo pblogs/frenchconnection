@@ -19,6 +19,8 @@ table
         td = link_to 'Show', project
         td = link_to 'Edit', edit_project_path(project)
         td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Akkumulert timer
+          td = project.hours_spent_total
 
 br
 
