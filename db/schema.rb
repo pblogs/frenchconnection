@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415101435) do
+ActiveRecord::Schema.define(version: 20140415112308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20140415101435) do
     t.boolean  "accepted"
     t.string   "description"
     t.boolean  "finished",               default: false
+    t.integer  "project_id"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree

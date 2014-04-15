@@ -12,6 +12,7 @@ AllieroForms::Application.routes.draw do
   end
 
   resources :customers do
+    resources :projects, :controller => 'customers/projects'
     get :excel_report
   end
 

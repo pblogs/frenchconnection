@@ -6,5 +6,6 @@ class Customer < ActiveRecord::Base
   validates :phone,          :presence => true
 
   has_many :tasks
+  has_many :projects
 
 end
