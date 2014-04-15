@@ -1,4 +1,4 @@
-= form_for @project do |f|
+= form_for [@customer, @project] do |f|
   - if @project.errors.any?
     #error_explanation
       h2 = "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
@@ -12,7 +12,5 @@
   .field
     = f.label :name
     = f.text_field :name
-  .field
-    = f.label :company
-    = f.text_field :company
-  .actions = f.submit 'Save'
+
+  .actions = f.submit 'Lagre'

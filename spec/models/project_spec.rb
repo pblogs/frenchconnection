@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe Project do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before :each do
+    @task = Fabricate(:project)
+  end
+  it "is valid from the Fabric" do
+    expect(@task).to be_valid
+  end
 end

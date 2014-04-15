@@ -39,13 +39,16 @@ class Projects::TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task_types = TaskType.all
-    @paint = Paint.all
-    @task = Task.new(task_params)
-    if params[:customer_id].present?
-      @task.customer  = Customer.find(params[:customer_id])
-    elsif params[:task][:customer_id].present?
-      @task.customer  = Customer.find(params[:task][:customer_id])
-    end
+    @paint      = Paint.all
+    @task       = Task.new(task_params)
+    @project    = Project.find(params[:project_id])
+    @task.project = @project 
+
+    #if params[:customer_id].present?
+    #  @task.project  = Customer.find(params[:project_id])
+    #elsif params[:task][:customer_id].present?
+    #  @task.project  = Customer.find(params[:task][:customer_id])
+    #end
 
     begin
       @task.task_type = TaskType.find(params[:task][:task_type_id]).first

@@ -25,7 +25,7 @@ describe TasksController do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     { 
-      customer_id:   Fabricate(:customer).id,
+      project_id:   Fabricate(:project).id,
       task_type_id:  Fabricate(:task_type).id,
       artisan_id:    Fabricate(:artisan).id,
       start_date:    '01.05.1983'

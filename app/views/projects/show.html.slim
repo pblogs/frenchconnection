@@ -1,0 +1,24 @@
+p#notice = notice
+
+
+.button.green
+  p
+    strong Prosjektnumber:
+    = @project.project_number
+  p
+    strong Navn:
+    = @project.name
+  p
+    strong Kunde:
+    = @project.customer.name
+  
+  .right
+    = link_to 'Edit', edit_project_path(@project)
+  br
+
+br
+.button.red
+  = link_to 'Registrer ny oppgave', new_project_task_path(@project)
+
+br
+= link_to 'Tilbake', projects_path, class: :secondary_button

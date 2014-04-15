@@ -11,8 +11,8 @@ describe Task do
     expect(@task).to be_valid
   end
 
-  it "has a customer" do
-    expect(@task.customer.class).to eq Customer
+  it "belongs to a project" do
+    expect(@task.project.class).to eq Project
   end
 
   it "has a task type" do

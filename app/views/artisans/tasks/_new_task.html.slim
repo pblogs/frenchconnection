@@ -1,10 +1,10 @@
 p.button.green
-  strong Nytt oppdrag
+  strong Ny oppgave
   br
   br
-  = "Hos #{task.customer.name}"
+  = "Hos #{task.project.customer.name}"
   br
-  = "Oppdraget må utføres innen #{I18n.l(task.start_date, format: :short)}"
+  = "Må utføres innen #{I18n.l(task.start_date, format: :short)}"
   br
   = "Ta kontakt med kunde for å avtale nærmere"
 
@@ -14,7 +14,7 @@ p.button.green
 
 p.button.red
   = fa_icon 'phone'
-  = link_to "  Ring til kunde", "tel:#{task.customer.phone}"
+  = link_to "  Ring til kunde", "tel:#{task.project.customer.phone}"
 
 /p.button.red
   = fa_icon 'thumbs-o-up'

@@ -1,5 +1,5 @@
 Fabricator(:project) do
-  project_number "MyString"
-  name           "MyString"
-  company        nil
+  project_number "PL1"
+  name           "Project for nice customer"
+  customer        { Fabricate(:customer) }
 end

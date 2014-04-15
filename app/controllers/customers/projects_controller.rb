@@ -14,7 +14,8 @@ class Customers::ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @project = Project.new
+    @customer = Customer.find(params[:customer_id])
+    @project = @customer.projects.new
     @customers = Customer.all
   end
 
@@ -30,8 +31,8 @@ class Customers::ProjectsController < ApplicationController
     @customers = Customer.all
 
     respond_to do |format|
-      if @project.save!
-        format.html { redirect_to @project, 
+      if @project.save
+        format.html { redirect_to frontpage_manager_path,
                       notice: 'Project was successfully created.' }
         format.json { render action: 'show', status: :created, location: @project }
       else
