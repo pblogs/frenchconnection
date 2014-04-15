@@ -2,6 +2,8 @@ AllieroForms::Application.routes.draw do
 
 
 
+  resources :projects
+
   namespace :tasks do
     get :active
     get :report
