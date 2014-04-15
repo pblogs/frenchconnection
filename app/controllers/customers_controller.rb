@@ -60,6 +60,10 @@ class CustomersController < ApplicationController
     sheet.row(11).set_format(0, gray_bg )
     sheet.row(11).set_format(1, gray_bg )
 
+    # Her kommer rapporten
+    #@customer.tasks.each do |t|
+    #  sheet.row(12).concat [t.created_at, "#{}" ]
+
     #sheet.row(0).concat %w{Name Country Acknowlegement}
     #sheet[1,0] = 'Japan'
     #row = sheet.row(1)
