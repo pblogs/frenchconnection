@@ -1,0 +1,53 @@
+- @week_nr = Time.now.strftime("%U").to_i
+
+h2= "Timerapport uke #{@week_nr}"
+br
+br
+
+
+- @customers.each do |c|
+  - next if c.tasks.blank?
+
+  .button.green
+    h1.right= fa_icon 'print'
+    h2 = "#{c.name}"
+    - c.tasks.all.each do |t|
+      hr
+      ul.hour_report
+        li
+          strong= "Hvem: "
+          span=  "#{t.artisan.name}"
+          br
+          - if t.description.present?
+            strong= "Hva: "
+            span= "#{t.description}"
+            br
+
+          - t.hours_spents.each do |h|
+            p
+              strong= "Dato: "
+              span= "#{h.date}"
+              br
+
+              strong= "Beskrivelse: "
+              span= "#{h.description}"
+
+              br
+              strong= "Antall timer: "
+              span= "#{h.hour}"
+          hr
+          strong= "Totalt timer: "
+          span= "#{t.hours_spents.sum(:hour)}"
+  .button.red
+    span= "Timer totalt ført på #{c.name} i uke #{@week_nr}: <strong>#{rand(200..450)}</strong>".html_safe
+  = link_to 'Last ned Excel regneark', customer_excel_report_path(c)
+  br
+  br
+  br
+
+h1.right= fa_icon 'print'
+
+= link_to "Tilbake", frontpage_manager_path, class: 'secondary_button'
+br
+br
+br
