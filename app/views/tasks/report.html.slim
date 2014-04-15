@@ -32,6 +32,9 @@ br
               strong= "Beskrivelse: "
               span= "#{h.description}"
 
+              br
+              strong= "Antall timer: "
+              span= "#{h.hour}"
           hr
           strong= "Totalt timer: "
           span= "#{t.hours_spents.sum(:hour)}"
