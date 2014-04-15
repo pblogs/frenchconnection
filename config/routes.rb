@@ -2,7 +2,9 @@ AllieroForms::Application.routes.draw do
 
 
 
-  resources :projects
+  resources :projects do
+    resources :tasks, :controller => 'projects/tasks'
+  end
 
   namespace :tasks do
     get :active
@@ -10,7 +12,6 @@ AllieroForms::Application.routes.draw do
   end
 
   resources :customers do
-    resources :tasks
     get :excel_report
   end
 
