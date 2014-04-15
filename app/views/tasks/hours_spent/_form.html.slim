@@ -6,7 +6,7 @@
         - @hours_spent.errors.full_messages.each do |message|
           li = message
 
-  h3= @task.customer.name
+  h3= @task.project.customer.name
   h4= "- #{@task.task_type.title}"
   br
   

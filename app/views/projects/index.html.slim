@@ -1,27 +1,37 @@
 h1 Våre prosjekter
 
-table
-  thead
-    tr
-      th Company
-      th Name
-      th Project number
-      th
-      th
-      th
-
-  tbody
-    - @projects.each do |project|
+- if @projects.present?
+  table
+    thead
       tr
-        td = project.customer.name
-        td = project.name
-        td = project.project_number
-        td = link_to 'Show', project
-        td = link_to 'Edit', edit_project_path(project)
-        td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Kunde
+        th Prosjektnr
+        th Navn
+        th Oppstartsdato
         th Akkumulert timer
+        th
+  
+    tbody
+      - @projects.each do |project|
+        tr
+          td = project.customer.name
+          td = project.project_number
+          td = project.name
+          td = I18n.l(project.start_date, format: :short)
           td = project.hours_spent_total
+          td 
+            = link_to 'Vis, ', project
+            = link_to 'Rediger, ', edit_project_path(project)
+            = link_to 'Slett', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+- else
+  span Ingen aktive prosjekter
+  
 
 br
+br
+br
+= link_to('Lag nytt prosjekt', new_assignment_path, class: 'red button')
 
-= link_to 'New Project', new_project_path
+
+
+// Oslo sporveier, prosjeknummer, prosjektnavn, opsptart dato, akkumulert timer pr nå, vis| rediger | slett
