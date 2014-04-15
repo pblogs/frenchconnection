@@ -48,11 +48,13 @@ class Tasks::HoursSpentController < ApplicationController
   def update
     respond_to do |format|
       if @hours_spent.update(hours_spent_params)
-        format.html { redirect_to @hours_spent, notice: 'Hours spent was successfully updated.' }
+        format.html { redirect_to @hours_spent, 
+                      notice: 'Hours spent was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @hours_spent.errors, status: :unprocessable_entity }
+        format.json { render json: @hours_spent.errors, 
+                      status: :unprocessable_entity }
       end
     end
   end
