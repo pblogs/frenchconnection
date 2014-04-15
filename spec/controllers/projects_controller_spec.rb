@@ -23,7 +23,14 @@ describe ProjectsController do
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "project_number" => "MyString" } }
+  let(:valid_attributes) do
+    { 
+      project_number: 'P01',
+      customer_id:  Fabricate(:customer).id,
+      name:         Faker::Lorem.words(3).join(''),
+      start_date:   '01.05.1983'
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
