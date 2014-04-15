@@ -3,6 +3,8 @@ class Task < ActiveRecord::Base
   belongs_to :task_type
   belongs_to :paint
   belongs_to :artisan
+  belongs_to :project
+
   has_many :hours_spents
 
   validates :customer, :presence => true
