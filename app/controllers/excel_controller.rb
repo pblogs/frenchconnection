@@ -4,11 +4,20 @@ class ExcelController < ApplicationController
   def export
     @project = Project.find(params[:project_id])
                                                                                      
+    # Colors
     yellow_bg = Spreadsheet::Format.new(:pattern => 1, 
                                         :pattern_fg_color => :yellow)
     
     gray_bg = Spreadsheet::Format.new(:pattern => 1, color: :black,
                                       :pattern_fg_color => :gray)
+
+    # Formats
+    align_right_gray_bg = Spreadsheet::Format.new(
+      horizontal_align: :right,
+      pattern: 1, 
+      pattern_fg_color: :gray, 
+      color: :black
+    )
                                                                                      
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
@@ -42,6 +51,13 @@ class ExcelController < ApplicationController
       sheet.row(12+i).concat [I18n.l(h.created_at, format: :short_date), h.description, h.hour]
       i +=1 
     end
+
+    # Sum time pr pers
+    sheet.row(12+i+5).concat ['', 'Sum timer pr. pers: ', 1, 2, 3]
+    sheet.row(12+i+5).set_format(0, gray_bg )
+    sheet.row(12+i+5).set_format(1, gray_bg )
+    sheet.row(12+i+5).set_format(1, align_right_gray_bg )
+    
                                                                                      
     #sheet.row(0).concat %w{Name Country Acknowlegement}
     #sheet[1,0] = 'Japan'
@@ -57,7 +73,7 @@ class ExcelController < ApplicationController
     spreadsheet = StringIO.new 
     book.write spreadsheet 
     send_data spreadsheet.string, 
-      :filename => "dagsrapport-#{@project.customer.name}.xls", 
+      :filename => "Dagsrapport-#{@project.customer.name}.xls", 
       :type => "application/vnd.ms-excel"
   end
 
