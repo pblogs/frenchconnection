@@ -2,9 +2,11 @@ AllieroForms::Application.routes.draw do
 
 
 
+  get "excel/export/:project_id" => 'excel#export', as: :export_excel
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'
   end
+
 
   namespace :tasks do
     get :active
