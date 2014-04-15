@@ -23,6 +23,7 @@ h1 Våre prosjekter
             = link_to 'Vis, ', project
             = link_to 'Rediger, ', edit_project_path(project)
             = link_to 'Slett', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+            = link_to( (fa_icon 'ta', text: "Excel"), export_excel_path(project) )
 - else
   span Ingen aktive prosjekter
   
