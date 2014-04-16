@@ -14,7 +14,7 @@ describe "Create a new task", :type => :feature do
 
   it "for a new company" do
     visit frontpage_manager_path
-    click_link 'Nytt oppdrag'
+    click_link 'Opprett nytt prosjekt'
     click_link 'Opprett kunde'
 
     fill_in 'Navn', with: 'Oslo Sporveier AS'
@@ -25,15 +25,15 @@ describe "Create a new task", :type => :feature do
     click_button 'Lagre'
 
 
-    click_link 'Registrer en nytt oppdrag på denne kunden'
-    current_path.should == new_customer_task_path(Customer.last)
+    click_link 'Lag et nytt prosjekt'
+    current_path.should == new_customer_project_path(Customer.last)
     #save_and_open_page
     
 
     # Oppdragstype
-    select 'Maling', from: 'task_task_type_id'
-    select 'Acryl',  from: 'task_paint_id'
-    select 'Josh',   from: 'task_artisan_id'
+    #select 'Maling', from: 'task_task_type_id'
+    #select 'Acryl',  from: 'task_paint_id'
+    #select 'Josh',   from: 'task_artisan_id'
     fill_in 'Oppstartsdato', with: '01.05.2014'
     click_button 'Lagre oppdrag i Visma'
   end
