@@ -22,8 +22,7 @@ class ExcelController < ApplicationController
       color: :black
     )
 
-    align_center = Spreadsheet::Format.new( horizontal_align: :center)
-    align_left   = Spreadsheet::Format.new( horizontal_align: :left)
+    big_font_left_align = Spreadsheet::Format.new(horizontal_align: :right)
 
     #
     # FORMATS END
@@ -102,6 +101,10 @@ class ExcelController < ApplicationController
     sheet.row(13+i+5).set_format(0, gray_bg )
     sheet.row(13+i+5).set_format(1, gray_bg )
     sheet.row(13+i+5).set_format(1, align_right_gray_bg )
+
+    # Attest
+    sheet.row(sheet.rows.size+1).concat ['', 'Attest', '.....', '.....', '.....', '.....']
+    sheet.row(sheet.rows.size+1).set_format(1, yellow_bg)
     
                                                                                      
     #sheet.row(0).concat %w{Name Country Acknowlegement}
