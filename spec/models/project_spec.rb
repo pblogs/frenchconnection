@@ -33,4 +33,10 @@ describe Project do
     @project.hours_total_for(@artisan).should eq 10
   end
 
+  it "is possible to list all hours spent for a particular artisan" do
+    @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, artisan: @artisan)
+    @project.hours_spents.where(artisan: @artisan).first.should eq @hours_spent
+    
+  end
+
 end
