@@ -8,7 +8,8 @@ describe "Registered hours on a Task" do
     Fabricate(:task_type, title: 'Muring')
     Fabricate(:task_type, title: 'Maling')
     Fabricate(:customer, name: 'Oslo Sporveier AS')
-    @task = Fabricate(:task, artisan: @artisan, accepted: true)
+    @task = Fabricate(:task)
+    @artisan.tasks << @task
   end
 
   it "An artisan can register hours on the tasks he is delegated" do
