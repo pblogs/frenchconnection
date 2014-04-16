@@ -1,5 +1,6 @@
 Fabricator(:hours_spent) do
-  customer nil
   task     nil
   hour     1
+  description 'Malt hus'
+  date { Time.now }
 end

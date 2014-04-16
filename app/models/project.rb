@@ -14,6 +14,10 @@ class Project < ActiveRecord::Base
     sum
   end
 
+  def hours_total_for(artisan)
+    hours_spents.where(artisan_id: artisan.id).sum(:hour)
+  end
+
   def name_of_artisans
     artisans.pluck(:name).join(', ' )
   end
