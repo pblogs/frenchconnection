@@ -10,20 +10,23 @@ describe ExcelProjectTools do
     @artisan1.tasks << @task
     @artisan2.tasks << @task
 
-    Fabricate(:hours_spent, hour: 83, task: @task, artisan: @artisan1 )
+    Fabricate(:hours_spent, hour: 10, task: @task, artisan: @artisan1 )
+    Fabricate(:hours_spent, hour: 10, task: @task, artisan: @artisan1 )
     Fabricate(:hours_spent, hour: 19, task: @task, artisan: @artisan2 )
   end
 
   it %q{returns a comma separated 
   string with the sum of the hours each artisan has worked} do
-    ExcelProjectTools.hours_for_artisans(@project).should eq ['83','19']
+    ExcelProjectTools.hours_for_artisans(@project).should eq ['20','19']
   end
 
   it %q{returns a comma separated string of names} do
-      ExcelProjectTools.artisan_names(@project).should eq ['John','Ali']
+    ExcelProjectTools.artisan_names(@project).should eq ['John',' Ali']
   end
 
-
+  it "returns a string that offsets according to which nr of artisan in question" do
+    ExcelProjectTools.artisan_names_for_task_listing(@project).should eq ['John','Ali']
+  end
 
 
 end
