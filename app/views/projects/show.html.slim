@@ -11,6 +11,10 @@ p#notice = notice
   p
     strong Kunde:
     = @project.customer.name
+  /p
+    strong Arbeidere:
+    = @project.name_of_artisans
+  
   
   .right
     = link_to 'Edit', edit_project_path(@project)
