@@ -3,4 +3,5 @@ Fabricator(:hours_spent) do
   hour     1
   description 'Malt hus'
   date { Time.now }
+  task { Fabricate(:task) }
 end
