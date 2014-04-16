@@ -15,7 +15,6 @@ class Project < ActiveRecord::Base
   end
 
   def hours_total_for(artisan)
-    #puts "got artisan: #{artisan.id}"
     hours_spents.where(artisan_id: artisan.id).sum(:hour) rescue nil
   end
 
