@@ -52,13 +52,27 @@ class ExcelController < ApplicationController
       i +=1 
     end
 
-    # Sum timer pr pers
-    sheet.row(12+i+5).concat ['', 'Sum timer pr. pers: ', 1, 2, 3]
-    sheet.row(12+i+5).set_format(0, gray_bg )
-    sheet.row(12+i+5).set_format(1, gray_bg )
-    sheet.row(12+i+5).set_format(1, align_right_gray_bg )
+    artisans = @project.artisans.all
+
+    if artisans.present?
+      # Sum timer pr pers
+      sheet.row(12+i+5).concat ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_artisans(@project)
+      sheet.row(12+i+5).set_format(0, gray_bg )
+      sheet.row(12+i+5).set_format(1, gray_bg )
+      sheet.row(12+i+5).set_format(1, align_right_gray_bg )
+    else
+      sheet.row(13+i+5).concat ['', 'INGEN OPPGAVER FINNES HER']
+    end
     
+
     # Sum timer totalt
+    sheet.row(13+i+5).concat ['', 'Sum timer totalt: ', 
+                              @project.hours_spent_total,
+    ]
+    sheet.row(13+i+5).set_format(0, gray_bg )
+    sheet.row(13+i+5).set_format(1, gray_bg )
+    sheet.row(13+i+5).set_format(1, align_right_gray_bg )
+    
                                                                                      
     #sheet.row(0).concat %w{Name Country Acknowlegement}
     #sheet[1,0] = 'Japan'
@@ -77,5 +91,6 @@ class ExcelController < ApplicationController
       :filename => "Dagsrapport-#{@project.customer.name}.xls", 
       :type => "application/vnd.ms-excel"
   end
+
 
 end

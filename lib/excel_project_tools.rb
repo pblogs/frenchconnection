@@ -5,9 +5,9 @@ class ExcelProjectTools
     puts "\n\n\n project.artisans: #{project.class} \n\n\n"
     project.artisans.each do |a|
       hours << project.hours_total_for(a)
-      puts "hours: #{hours}"
     end
-    hours.join(',')
+    #hours
+    hours.map {|x| "#{x}" }
   end
 
 end
