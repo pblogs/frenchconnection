@@ -9,10 +9,11 @@
     tbody
       tr
         td = @task.project.name
-        td = @task.artisan.name
+        td = @task.name_of_artisans
         td = @task.task_type.title
         td = @task.description
   
 br
 br
 = link_to 'Tilbake', :back, class: :secondary_button
+= link_to 'Rediger', edit_project_task_path(@task.project, @task), class: :secondary_button
