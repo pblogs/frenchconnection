@@ -28,7 +28,8 @@ describe HoursSpentsController do
       task_id:     Fabricate(:task).id,
       hour:        rand(200..450),
       description: 'Sparklet dritbra',
-      date: '2014-04-14'
+      date: '2014-04-14',
+      artisan: Fabricate(:artisan)
     }
   end
 

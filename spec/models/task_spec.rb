@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Task do
   before :each do
-    @artisan  = Fabricate(:artisan)
-    @artisan2 = Fabricate(:artisan)
+    @artisan  = Fabricate(:artisan, name: 'John')
+    @artisan2 = Fabricate(:artisan, name: 'Barry')
     @task    = Fabricate(:task)
     @task2   = Fabricate(:task)
     @task.artisan_ids = [@artisan.id, @artisan2.id]
@@ -29,7 +29,7 @@ describe Task do
   end
 
   it "knows their names" do
-    @task.name_of_artisans.should eq 'John, Barry, Mustafa'
+    @task.name_of_artisans.should eq 'John, Barry'
   end
 
 end
