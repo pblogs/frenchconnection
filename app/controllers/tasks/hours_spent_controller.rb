@@ -31,7 +31,7 @@ class Tasks::HoursSpentController < ApplicationController
 
     respond_to do |format|
       if @hours_spent.save
-        format.html { redirect_to artisan_tasks_started_path(@task.artisan), 
+        format.html { redirect_to artisan_tasks_started_path(@current_user), 
                       notice: 'Hours spent was successfully created.' }
         format.json { render action: 'show', status: :created, 
                       location: @hours_spent }
