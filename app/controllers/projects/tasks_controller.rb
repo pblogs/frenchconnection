@@ -58,7 +58,7 @@ class Projects::TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, 
-          notice: "Oppdraget ble opprettet og sendt til #{@task.artisan.name}" }
+          notice: "Oppdraget ble opprettet" }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
@@ -113,8 +113,9 @@ class Projects::TasksController < ApplicationController
                                    :task_type_id, 
                                    :start_date, 
                                    :paint_id,
-                                   :artisan_id,
                                    :description,
-                                   :customer_buys_supplies)
+                                   :customer_buys_supplies,
+                                   :artisan_ids => []
+                                  )
     end
 end
