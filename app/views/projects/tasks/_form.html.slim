@@ -15,8 +15,13 @@
     options_from_collection_for_select(@paint, "id", "title")
 
   = label_tag 'artisan_id', 'Henvis til utførende'
-  = f.select 'artisan_id', 
+  /= f.select 'artisan_id', 
     options_from_collection_for_select(@artisans, "id", "name")
+  = collection_check_boxes(:task, :artisan_ids, Artisan.all, :id, :name) do |b|
+    = b.label(:"data-value" => b.value) { b.check_box + b.text }
+    
+    
+    
 
 
   .field
