@@ -40,6 +40,7 @@ class TasksController < ApplicationController
     @task_types = TaskType.all
     @paint = Paint.all
     @task = Task.new(task_params)
+
     if params[:customer_id].present?
       @task.customer  = Customer.find(params[:customer_id])
     elsif params[:task][:customer_id].present?
@@ -105,12 +106,14 @@ class TasksController < ApplicationController
     end
 
     def task_params
+      
       params.require(:task).permit(:customer_id, 
                                    :task_type_id, 
                                    :start_date, 
                                    :paint_id,
-                                   :artisan_id,
                                    :description,
-                                   :customer_buys_supplies)
+                                   :customer_buys_supplies,
+                                   :artisan_ids => []
+                                  )
     end
 end
