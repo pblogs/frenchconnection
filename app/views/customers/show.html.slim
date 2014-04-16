@@ -1,25 +1,32 @@
 p#notice = notice
 
 p
-  strong Name:
+  strong Navn: 
   = @customer.name
 p
-  strong Address:
+  strong Addresse: 
   = @customer.address
 p
-  strong Org number:
+  strong Organisasjonsnummer: 
   = @customer.org_number
 p
-  strong Contact person:
+  strong Kontakt person: 
   = @customer.contact_person
 p
-  strong Phone:
+  strong Telefon: 
   = @customer.phone
 
 
-= link_to 'Registrer en nytt oppdrag på denne kunden', new_customer_task_path(@customer)
+br
+= link_to 'Lag et nytt prosjekt', 
+  new_customer_project_path(@customer), class: 'red button'
+br
 br
 
-= link_to 'Edit', edit_customer_path(@customer)
-'|
-= link_to 'Back', customers_path
+br
+br
+br
+p
+  = link_to 'Rediger', edit_customer_path(@customer)
+  '|
+  = link_to 'Tilbake', customers_path

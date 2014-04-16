@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   belongs_to :customer
   has_many :tasks
   has_many :hours_spents, :through => :tasks
+  has_many :artisans
 
   validates :customer_id, :presence => true
   validates :name,        :presence => true
@@ -11,5 +12,9 @@ class Project < ActiveRecord::Base
     sum = 0
     tasks.each { |t| sum += t.hours_spents.sum(:hour) }
     sum
+  end
+
+  def artisans
+    
   end
 end

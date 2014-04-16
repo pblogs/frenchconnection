@@ -52,12 +52,13 @@ class ExcelController < ApplicationController
       i +=1 
     end
 
-    # Sum time pr pers
+    # Sum timer pr pers
     sheet.row(12+i+5).concat ['', 'Sum timer pr. pers: ', 1, 2, 3]
     sheet.row(12+i+5).set_format(0, gray_bg )
     sheet.row(12+i+5).set_format(1, gray_bg )
     sheet.row(12+i+5).set_format(1, align_right_gray_bg )
     
+    # Sum timer totalt
                                                                                      
     #sheet.row(0).concat %w{Name Country Acknowlegement}
     #sheet[1,0] = 'Japan'
