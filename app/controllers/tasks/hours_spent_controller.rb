@@ -26,7 +26,7 @@ class Tasks::HoursSpentController < ApplicationController
   # POST /hours_spents.json
   def create
     @task = Task.find(params[:task_id])
-    @hours_spent = HoursSpent.new(hours_spent_params)
+    @hours_spent = @current_user.hours_spents.new(hours_spent_params)
     @hours_spent.task = @task
 
     respond_to do |format|
