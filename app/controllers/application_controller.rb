@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   before_action :set_current_user
 
   def set_current_user
-    @current_user = Artisan.last || Fabricate(:artisan)
+    @current_user ||= Artisan.first || Fabricate(:artisan)
   end
 end
