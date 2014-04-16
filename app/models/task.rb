@@ -14,5 +14,8 @@ class Task < ActiveRecord::Base
     self.hours_spents.sum(:hour)
   end
 
+  def name_of_artisans
+    artisans.pluck(:name).join(', ' )
+  end
   
 end
