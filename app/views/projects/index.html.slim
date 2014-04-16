@@ -16,13 +16,15 @@ h1 Våre prosjekter
         tr
           td = project.customer.name
           td = project.project_number
-          td = project.name
+          td = link_to project.name, project
           td = I18n.l(project.start_date, format: :short)
           td = project.hours_spent_total
           td 
-            = link_to 'Vis, ', project
-            = link_to 'Rediger, ', edit_project_path(project)
-            = link_to 'Slett', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+            span.spacer 
+            = link_to fa_icon('pencil'), edit_customer_project_path(project.customer, project)
+            span.spacer 
+            = link_to fa_icon('trash-o'), project, data: {:confirm => 'Are you sure?'}, :method => :delete
+            span.spacer 
             = link_to( (fa_icon 'ta', text: "Excel"), export_excel_path(project) )
 - else
   span Ingen aktive prosjekter
