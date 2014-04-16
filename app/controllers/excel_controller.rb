@@ -4,20 +4,29 @@ class ExcelController < ApplicationController
   def export
     @project = Project.find(params[:project_id])
                                                                                      
-    # Colors
+    ##########
+    # FORMATS
+    #
     yellow_bg = Spreadsheet::Format.new(:pattern => 1, 
                                         :pattern_fg_color => :yellow)
     
     gray_bg = Spreadsheet::Format.new(:pattern => 1, color: :black,
                                       :pattern_fg_color => :gray)
 
-    # Formats
     align_right_gray_bg = Spreadsheet::Format.new(
       horizontal_align: :right,
       pattern: 1, 
       pattern_fg_color: :gray, 
       color: :black
     )
+
+    align_center = Spreadsheet::Format.new(
+      horizontal_align: :center,
+    )
+
+    #
+    # FORMATS END
+    ##########
                                                                                      
     book = Spreadsheet::Workbook.new
     sheet = book.create_worksheet
@@ -36,6 +45,9 @@ class ExcelController < ApplicationController
     sheet.merge_cells(6, 3, 11, 3) # Col D
     sheet.merge_cells(6, 4, 11, 4) # Col E
     sheet.merge_cells(6, 5, 11, 5) # Col F
+
+    sheet.row(6).concat ['', '' ] + ExcelProjectTools.artisan_names(@project)
+    #sheet.row(12+i+5).set_format(1, align_center ) # FIXME
                                                                                      
     # Make the C column wide
     sheet.column(1).width = 50
