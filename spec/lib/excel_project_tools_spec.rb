@@ -4,18 +4,20 @@ describe ExcelProjectTools do
 
   before do
     @project = Fabricate(:project)
-    @artisan = Fabricate(:artisan)
+    @artisan1 = Fabricate(:artisan)
+    @artisan2 = Fabricate(:artisan)
     @task    = Fabricate(:task, project: @project)
-    @artisan.tasks << @task
+    @artisan1.tasks << @task
+    @artisan2.tasks << @task
 
-    @hours_spent = Fabricate(:hours_spent, hour: 83, task: @task,
-                             artisan: @artisan )
+    Fabricate(:hours_spent, hour: 83, task: @task, artisan: @artisan1 )
+    Fabricate(:hours_spent, hour: 19, task: @task, artisan: @artisan2 )
   end
 
   it %q{returns a comma separated 
   string with the sum of the hours each artisan has worked} do
     
-    ExcelProjectTools.hours_for_artisans(@project).should eq "83"
+    ExcelProjectTools.hours_for_artisans(@project).should eq ['83','19']
 
   end
 end
