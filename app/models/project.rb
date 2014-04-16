@@ -14,4 +14,8 @@ class Project < ActiveRecord::Base
     sum
   end
 
+  def name_of_artisans
+    artisans.pluck(:name).join(', ' )
+  end
+
 end
