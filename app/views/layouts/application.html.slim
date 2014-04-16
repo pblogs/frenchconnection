@@ -21,3 +21,7 @@ html
         section
           p#notice = notice
           = yield
+          br
+          br
+          br
+          span= "Logged in as #{@current_user.name}"
