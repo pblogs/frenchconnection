@@ -6,7 +6,7 @@ class Task < ActiveRecord::Base
 
   has_many :hours_spents
 
-  validates :project, :presence => true
+  validates :project_id, :presence => true
   validates :task_type, :presence => true
   validates :start_date, :presence => true
 
