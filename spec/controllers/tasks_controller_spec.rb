@@ -92,12 +92,12 @@ describe TasksController do
 
 
       it "assigns a newly created but unsaved task as @task" do
-        @customer  = Fabricate(:customer)
+        @project  = Fabricate(:project)
         @task_type = Fabricate(:task_type)
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
         post :create, {:task => { 
-          "customer_id" => @customer.id,
+          "project_id" => @project.id,
           "task_type_id" => @task_type.id
           }}, valid_session
         assigns(:task).should be_a_new(Task)
@@ -106,7 +106,7 @@ describe TasksController do
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => { "customer" => "invalid value" }}, 
+        post :create, {:task => { "project" => "invalid value" }}, 
           valid_session
         response.should render_template("new")
       end
@@ -122,9 +122,9 @@ describe TasksController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Task.any_instance.should_receive(:update).with(
-          {  "customer_buys_supplies" => 'false' })
+          {  "start_date" => DateTime.now.to_s })
         put :update, {:id => task.to_param, 
-          :task => { "customer_buys_supplies" => 'false' }}, valid_session
+          :task => { "start_date" => DateTime.now.to_s }}, valid_session
       end
 
       it "assigns the requested task as @task" do
