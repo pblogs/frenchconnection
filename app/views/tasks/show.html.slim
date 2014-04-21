@@ -6,12 +6,21 @@
       th Utførende
       th Type oppdrag
       th Beskrivelse
+      th Oppstart / Ferdigstilling
     tbody
       tr
         td = @task.project.name
         td = @task.name_of_artisans
         td = @task.task_type.title
         td = @task.description
+        td 
+          = I18n.l(@task.start_date, format: :short_w_year)
+          span.spacer= '/'
+          = I18n.l(@task.due_date,   format: :short_w_year)
+  
+br
+br
+= link_to 'Tilbake', :back, class: 'red button'
   
 br
 br
