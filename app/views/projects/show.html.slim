@@ -3,23 +3,28 @@ p#notice = notice
 
 .button.green
   p
-    strong Prosjektnumber:
+    strong Prosjektnumber: 
     = @project.project_number
   p
-    strong Navn:
+    strong Navn: 
     = @project.name
   p
-    strong Kunde:
+    strong Kunde: 
     = @project.customer.name
-  /p
-    strong Arbeidere:
-    = @project.name_of_artisans
+  p
+    strong Oppstart: 
+    = I18n.l(@project.start_date, format: :short_w_date)
+  p
+    strong Ferdigstilling: 
+    = I18n.l(@project.due_date, format: :short_w_date)
+  
   
   
   .right
-    = link_to 'Edit', edit_project_path(@project)
+    = link_to 'Rediger', edit_project_path(@project)
   br
-
+  
+  
 br
 .button.red
   = link_to 'Registrer ny oppgave', new_project_task_path(@project)

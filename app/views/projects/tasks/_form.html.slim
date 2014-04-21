@@ -24,6 +24,8 @@
     
 
 
+  br
+  br
   .field
     = f.label :description, 'Beskrivelse'
     = f.text_area :description,  placeholder: 'Beskriv oppdraget'
@@ -31,6 +33,10 @@
   .field
     = f.label :start_date, 'Oppstartsdato'
     = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
+
+  .field
+    = f.label :due_date, 'Ferdigstillingsdato'
+    = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato'
 
   br
   br
