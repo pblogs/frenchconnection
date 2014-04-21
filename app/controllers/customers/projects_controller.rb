@@ -78,6 +78,6 @@ class Customers::ProjectsController < ApplicationController
 
     def project_params
       params.require(:project).permit(:project_number, :name, 
-                                      :customer_id, :start_date)
+                                      :customer_id, :start_date, :due_date)
     end
 end

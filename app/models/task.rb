@@ -7,8 +7,9 @@ class Task < ActiveRecord::Base
   has_many :hours_spents
 
   validates :project_id, :presence => true
-  validates :task_type, :presence => true
+  validates :task_type,  :presence => true
   validates :start_date, :presence => true
+  validates :due_date,   :presence => true
 
   def hours_total
     self.hours_spents.sum(:hour)
