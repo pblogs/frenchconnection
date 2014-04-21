@@ -34,7 +34,7 @@ class Customers::ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html { redirect_to frontpage_manager_path,
-                      notice: 'Project was successfully created.' }
+                      notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, location: @project }
       else
         format.html { render action: 'new' }
