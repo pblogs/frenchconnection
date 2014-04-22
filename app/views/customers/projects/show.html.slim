@@ -1,15 +1,15 @@
 p#notice = notice
 
 p
-  strong Project number:
+  strong Prosjektnummmer:
   = @project.project_number
 p
-  strong Name:
+  strong Navn:
   = @project.name
 p
-  strong Company:
-  = @project.company
+  strong Kunde:
+  = @project.customer.name
 
-= link_to 'Edit', edit_project_path(@project)
+= link_to 'Rediger', edit_project_path(@project)
 '|
 = link_to 'Back', projects_path
