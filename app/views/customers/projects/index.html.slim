@@ -5,7 +5,7 @@ table
     tr
       th Project number
       th Name
-      th Company
+      th Customer
       th
       th
       th
@@ -15,7 +15,7 @@ table
       tr
         td = project.project_number
         td = project.name
-        td = project.company
+        td = project.customer.name
         td = link_to 'Show', project
         td = link_to 'Edit', edit_project_path(project)
         td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
