@@ -5,7 +5,7 @@ class Customer < ActiveRecord::Base
   validates :contact_person, :presence => true
   validates :phone,          :presence => true
 
-  has_many :tasks
-  has_many :projects
+  has_many :tasks, dependent: :destroy
+  has_many :projects, dependent: :destroy
 
 end
