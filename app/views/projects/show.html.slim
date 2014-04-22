@@ -11,12 +11,15 @@ p#notice = notice
   p
     strong Kunde: 
     = @project.customer.name
+
+  p
+    = payment(@project)
   p
     strong Oppstart: 
-    = I18n.l(@project.start_date, format: :short_w_date)
+    = I18n.l(@project.start_date, format: :short_w_year)
   p
     strong Ferdigstilling: 
-    = I18n.l(@project.due_date, format: :short_w_date)
+    = I18n.l(@project.due_date, format: :short_w_year)
   
   
   

@@ -22,9 +22,26 @@
     = f.label :due_date, 'Dato for ferdigstillelse av oppdrag'
     = f.text_field :due_date, class: :datepicker,  placeholder: 'Velg dato'
 
+  hr
+
+  .field.radio_group
+    = f.label :fixed_price, 'Timesbetaling'
+    = radio_button_tag 'payment', 'project_paid_by_the_hour', true, name: 'project_fixed_price'
+
+    br
+    = f.label :fixed_price, 'Fastpris'
+    = radio_button_tag 'payment', 'fixed_price', false, name: 'project_fixed_price'
+
+  .field.hour_rate
+    br
+    = f.label :hour_rate, 'Pris pr time'
+    = f.text_field :hour_rate, placeholder: 'Timespris for prosjektet'
+  hr
+
   .field
-    strong= "Last opp bilde #{fa_icon('camera')}".html_safe
-    = f.file_field :due_date, class: :datepicker,  placeholder: 'Velg bilde'
+    /= f.file_field :due_date, class: :datepicker,  placeholder: 'Velg bilde'
+    .button.green
+      strong= "#{fa_icon('camera')} Ta bilde ".html_safe
     br
     br
 
