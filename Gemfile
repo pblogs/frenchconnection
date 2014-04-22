@@ -85,3 +85,5 @@ gem 'bitters'
 
 gem 'spreadsheet', '~> 0.9.7'
 
+gem 'rails-footnotes', '>= 4.0.0', '<5'
+
