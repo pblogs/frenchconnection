@@ -9,4 +9,11 @@ $ ->
     this.href = "/customers/#{company_id}/tasks/new"
 
 
-$(document).on 'ready page:load', -> $('.datepicker').datepicker({  dateFormat: 'dd.mm.yy' });
+  # DATEPICKER
+  $(document).on 'ready page:load', -> 
+    $('.datepicker').datepicker({  dateFormat: 'dd.mm.yy' })
+
+
+  $(document).on 'click', '.new_task_on_company', (e) ->
+    company_id = $("#customer option:selected").val();
+    this.href = "/customers/#{company_id}/tasks/new"

@@ -16,10 +16,22 @@
           td = task.task_type.title
           td = task.hours_total
 
-  .button.red
+  .button.red.half_size
     = fa_icon 'calendar'
     = link_to "Registrer timer", new_task_hours_spent_path(task)
 
+  .button.red.half_size.pull_right
+    = fa_icon 'pencil'
+    = link_to 'Send melding til kunden', class: :msg_to_customer
+    p.msg_box_to_customer.hide
+      = options_from_collection_for_select( ['Jeg er 30 minutter forsinket. Beklager så mye'], nil, nil)
+
+
+  br
+  br
+  br
+  br
+  br
   br
   = form_tag(artisan_task_finished_path(@artisan, task)) do
     = submit_tag "Marker som ferdigstilt"
