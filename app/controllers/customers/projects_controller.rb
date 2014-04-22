@@ -1,5 +1,6 @@
 class Customers::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project,  only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
@@ -14,7 +15,6 @@ class Customers::ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @customer = Customer.find(params[:customer_id])
     @project = @customer.projects.new
     @customers = Customer.all
   end
@@ -27,7 +27,6 @@ class Customers::ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-    @customer = Customer.find(params[:customer_id])
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers = Customer.all
 
@@ -49,7 +48,7 @@ class Customers::ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, 
+        format.html { redirect_to [@project.customer, @project], 
                       notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -76,8 +75,14 @@ class Customers::ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
+    def set_customer
+      @customer = Customer.find(params[:customer_id])
+    end
+
     def project_params
       params.require(:project).permit(:project_number, :name, 
-                                      :customer_id, :start_date, :due_date)
+        :customer_id, :start_date, :due_date,
+        :paid_by_the_hour, :fixed_price, 
+        :hour_rate)
     end
 end
