@@ -1,4 +1,11 @@
 AllieroForms::Application.configure do
+
+  AllieroForms::Application.config.middleware.use ExceptionNotification::Rack,
+      :email => {
+      :email_prefix => "[Whatever] ",
+      :sender_address => %{"notifier" <notifier@orwapp.com>},
+      :exception_recipients => %w{martin@stabenfeldt.net}
+    }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
