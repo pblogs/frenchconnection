@@ -16,9 +16,10 @@ table
         td = project.project_number
         td = project.name
         td = project.customer.name
-        td = link_to 'Show', project
-        td = link_to 'Edit', edit_project_path(project)
-        td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Vis', project
+        td = link_to 'Rediger', edit_customer_project_path(project.customer, project)
+        td = link_to 'Slett', project, data: {:confirm => 'Sikker?'}, 
+              :method => :delete
 
 br
 

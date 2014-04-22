@@ -1,5 +1,6 @@
 class Customers::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project,  only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy, :new]
 
   # GET /projects
   # GET /projects.json
@@ -14,7 +15,6 @@ class Customers::ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @customer = Customer.find(params[:customer_id])
     @project = @customer.projects.new
     @customers = Customer.all
   end
@@ -27,17 +27,18 @@ class Customers::ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-    @customer = Customer.find(params[:customer_id])
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers = Customer.all
+    @project.paid_by_the_hour = params[:payment] == 'project_paid_by_the_hour'
+    @project.fixed_price      = params[:payment] == 'fixed_price'
 
     respond_to do |format|
       if @project.save
         format.html { redirect_to frontpage_manager_path,
-                      notice: 'Project was successfully created.' }
+                      notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, location: @project }
       else
-        format.html { render action: 'new' }
+        format.html { render action: '/projects/new' }
         format.json { render json: @project.errors, 
                       status: :unprocessable_entity }
       end
@@ -47,9 +48,12 @@ class Customers::ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    @project.paid_by_the_hour = params[:payment] == 'project_paid_by_the_hour'
+    @project.fixed_price      = params[:payment] == 'fixed_price'
+
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, 
+        format.html { redirect_to [@project.customer, @project], 
                       notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
@@ -76,8 +80,14 @@ class Customers::ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
+    def set_customer
+      @customer = Customer.find(params[:customer_id])
+    end
+
     def project_params
       params.require(:project).permit(:project_number, :name, 
-                                      :customer_id, :start_date)
+        :customer_id, :start_date, :due_date,
+        :paid_by_the_hour, :fixed_price, 
+        :price_total, :hour_rate)
     end
 end

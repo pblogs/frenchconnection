@@ -8,7 +8,8 @@ class StaticPagesController < ApplicationController
   end
 
   def frontpage_artisan
-    @task = Task.last
+    @artisan = Artisan.first
+    redirect_to @artisan
   end
 
 

@@ -70,6 +70,7 @@ end
 
 group :development do
   gem 'ruby_gntp'
+  gem 'rails-footnotes', '>= 4.0.0', '<5'
 end
 
 group :test do
@@ -88,3 +89,4 @@ gem 'spreadsheet', '~> 0.9.7'
 group :production do
   gem 'exception_notification'
 end
+

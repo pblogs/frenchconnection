@@ -23,6 +23,12 @@ en:
   hello: "Hello world"
   time:
     formats:
+      short_w_year: "%d %B %Y"
+      datepicker: "%d.%m.%Y"
+      short_date: "%B %d"
+  date:
+    formats:
+      short_w_year: "%d %B %Y"
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
 
