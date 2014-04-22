@@ -25,12 +25,16 @@ h1 Våre prosjekter
           td = project.hours_spent_total
           td 
             span.spacer 
-            = link_to fa_icon('pencil'), edit_customer_project_path(project.customer, project)
+            = link_to fa_icon('pencil'),
+              edit_customer_project_path(project.customer, project)
             span.spacer 
-            = link_to fa_icon('trash-o'), project, data: {:confirm => 'Are you sure?'}, :method => :delete
+            = link_to fa_icon('trash-o'), project, 
+              data: {:confirm => 'Sikker på at du vil slette?'}, 
+              :method => :delete
             br
             span.spacer 
-            = link_to( (fa_icon 'table', text: "Excel regneark"), export_excel_path(project) )
+            = link_to( (fa_icon 'table', text: "Excel regneark"), 
+              export_excel_path(project) )
 - else
   span Ingen aktive prosjekter
   
@@ -42,4 +46,5 @@ br
 
 
 
-// Oslo sporveier, prosjeknummer, prosjektnavn, opsptart dato, akkumulert timer pr nå, vis| rediger | slett
+// Oslo sporveier, prosjeknummer, prosjektnavn, opsptart dato, 
+// akkumulert timer pr nå, vis| rediger | slett
