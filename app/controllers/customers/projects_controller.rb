@@ -5,7 +5,6 @@ class Customers::ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
-    raise "TESTIONG"
   end
 
   # GET /projects/1
