@@ -24,6 +24,9 @@ class Artisans::TasksController < ApplicationController
   def show
   end
 
+  def send_message
+  end
+
   def accept_task
     @artisan = Artisan.find params[:artisan_id]
     @task = Task.find(params[:task_id])

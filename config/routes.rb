@@ -24,6 +24,7 @@ AllieroForms::Application.routes.draw do
     resources :tasks, :controller => 'artisans/tasks' do
       post :accept_task
       post :finished
+      get :send_message
     end
   end
 

@@ -22,10 +22,9 @@
 
   .button.red.half_size.pull_right
     = fa_icon 'pencil'
-    = link_to 'Send melding til kunden', class: :msg_to_customer
-    p.msg_box_to_customer.hide
-      = options_from_collection_for_select( CustomerMessage.all, 'id', 'text' )
+    = link_to 'Send melding til kunden', artisan_task_send_message_path(task, @current_user), class: :xmsg_to_customer
 
+  
 
   br
   br
