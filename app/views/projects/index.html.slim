@@ -16,7 +16,7 @@ h1 Våre prosjekter
         tr
           td = project.customer.name
           td = project.project_number
-          td = link_to project.name, project
+          td = link_to project.name, [ project]
           td 
             = I18n.l(project.start_date, format: :short)
             span.spacer= '/'

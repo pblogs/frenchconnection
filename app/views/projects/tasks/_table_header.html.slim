@@ -1,0 +1,10 @@
+table
+  thead
+    th Beskrivelse
+    th Utførende
+    th Type oppdrag
+    th Startdato
+    th Ferdigstilling
+    th
+  tbody
+    = render partial: "projects/tasks/table_body", collection: @project.tasks, as: :task

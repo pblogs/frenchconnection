@@ -44,11 +44,6 @@ class Projects::TasksController < ApplicationController
     @project    = Project.find(params[:project_id])
     @task.project = @project 
 
-    #if params[:customer_id].present?
-    #  @task.project  = Customer.find(params[:project_id])
-    #elsif params[:task][:customer_id].present?
-    #  @task.project  = Customer.find(params[:task][:customer_id])
-    #end
 
     begin
       @task.task_type = TaskType.find(params[:task][:task_type_id]).first
@@ -57,7 +52,7 @@ class Projects::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, 
+        format.html { redirect_to @task.project, 
           notice: "Oppdraget ble opprettet" }
         format.json { render action: 'show', status: :created, location: @task }
       else
@@ -113,6 +108,7 @@ class Projects::TasksController < ApplicationController
       params.require(:task).permit(:customer_id, 
                                    :task_type_id, 
                                    :start_date, 
+                                   :due_date,
                                    :paint_id,
                                    :description,
                                    :customer_buys_supplies,
