@@ -5,24 +5,22 @@ h1 Våre prosjekter
     thead
       tr
         th Kunde
-        th Prosjektnr
-        th Navn
-        th Oppstart / Ferdigstilling
-        th Akkumulert timer
+        th Prosjektnummer
+        th Oppstart / Ferdigstilling  
+        th.text_align_right Akkumulert timer
         th
   
     tbody
       - @projects.each do |project|
         tr
           td = project.customer.name
-          td = project.project_number
-          td = link_to project.name, [ project]
+          td = link_to project.project_number, project
           td 
             = I18n.l(project.start_date, format: :short)
             span.spacer= '/'
             = I18n.l(project.due_date,   format: :short)
 
-          td = project.hours_spent_total
+          td.text_align_center = project.hours_spent_total
           td 
             span.spacer 
             = link_to fa_icon('pencil'),
