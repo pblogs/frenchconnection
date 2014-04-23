@@ -29,7 +29,7 @@ describe HoursSpentsController do
       hour:        rand(200..450),
       description: 'Sparklet dritbra',
       date: '2014-04-14',
-      artisan: Fabricate(:artisan)
+      artisan_id: Fabricate(:artisan).id
     }
   end
 
@@ -93,14 +93,15 @@ describe HoursSpentsController do
       it "assigns a newly created but unsaved hours_spent as @hours_spent" do
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        post :create, {:hours_spent => { "customer" => "invalid value" }}, valid_session
+        post :create, {:hours_spent => { "hour" => "invalid value" }}, 
+          valid_session
         assigns(:hours_spent).should be_a_new(HoursSpent)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        post :create, {:hours_spent => { "customer" => "invalid value" }}, valid_session
+        post :create, {:hours_spent => { "hour" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -137,7 +138,7 @@ describe HoursSpentsController do
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        put :update, {:id => hours_spent.to_param, :hours_spent => { "customer" => "invalid value" }}, valid_session
+        put :update, {:id => hours_spent.to_param, :hours_spent => { "hour" => "invalid value" }}, valid_session
         assigns(:hours_spent).should eq(hours_spent)
       end
 
@@ -145,7 +146,7 @@ describe HoursSpentsController do
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        put :update, {:id => hours_spent.to_param, :hours_spent => { "customer" => "invalid value" }}, valid_session
+        put :update, {:id => hours_spent.to_param, :hours_spent => { "hour" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

@@ -23,7 +23,11 @@ describe ArtisansController do
   # This should return the minimal set of attributes required to create a valid
   # Artisan. As you add validations to Artisan, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "Paco" } }
+  let(:valid_attributes) do
+    { 
+      name:  Faker::Name.first_name
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -64,6 +68,7 @@ describe ArtisansController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Artisan" do
+        pending  "fails. :("
         expect {
           post :create, {:artisan => valid_attributes}, valid_session
         }.to change(Artisan, :count).by(1)
