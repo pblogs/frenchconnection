@@ -4,7 +4,7 @@ table
   thead
     tr
       th Name
-      th Tasks
+      th nr of Tasks
       th
       th
       th
@@ -13,7 +13,7 @@ table
     - @artisans.each do |artisan|
       tr
         td = artisan.name
-        td = artisan.tasks
+        td = artisan.tasks.size
         td = link_to 'Show', artisan
         td = link_to 'Rediger', edit_artisan_path(artisan)
         td = link_to 'Destroy', artisan, data: {:confirm => 'Are you sure?'}, :method => :delete
