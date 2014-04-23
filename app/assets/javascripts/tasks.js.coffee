@@ -14,6 +14,7 @@ $ ->
     $('.datepicker').datepicker({  dateFormat: 'dd.mm.yy' })
 
 
-  $(document).on 'click', '.new_task_on_company', (e) ->
-    company_id = $("#customer option:selected").val();
-    this.href = "/customers/#{company_id}/tasks/new"
+  # SELECT SMS to customer
+  $(document).on 'click', '.msg_to_customer', (e) ->
+    e.preventDefault()
+    $('#msg_form').show()
