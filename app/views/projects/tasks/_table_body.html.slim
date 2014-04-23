@@ -1,0 +1,8 @@
+tr
+  td = task.description
+  td = task.name_of_artisans
+  td = task.task_type.title
+  td = I18n.l task.start_date, format: :short_date
+  td = I18n.l task.due_date, format: :short_date
+  td
+    = link_to 'Rediger ', edit_task_path(task)
