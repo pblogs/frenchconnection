@@ -24,7 +24,7 @@
     = fa_icon 'pencil'
     = link_to 'Send melding til kunden', class: :msg_to_customer
     p.msg_box_to_customer.hide
-      = options_from_collection_for_select( ['Jeg er 30 minutter forsinket. Beklager så mye'], nil, nil)
+      = options_from_collection_for_select( CustomerMessage.all, 'id', 'text' )
 
 
   br
