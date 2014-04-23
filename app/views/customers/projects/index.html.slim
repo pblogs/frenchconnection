@@ -4,7 +4,6 @@ table
   thead
     tr
       th Project number
-      th Name
       th Customer
       th
       th
@@ -14,7 +13,6 @@ table
     - @projects.each do |project|
       tr
         td = project.project_number
-        td = project.name
         td = project.customer.name
         td = link_to 'Vis', project
         td = link_to 'Rediger', edit_customer_project_path(project.customer, project)
