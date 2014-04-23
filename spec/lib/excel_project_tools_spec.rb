@@ -24,9 +24,5 @@ describe ExcelProjectTools do
     ExcelProjectTools.artisan_names(@project).should eq ['John',' Ali']
   end
 
-  it "returns a string that offsets according to which nr of artisan in question" do
-    ExcelProjectTools.artisan_names_for_task_listing(@project).should eq ['John','Ali']
-  end
-
 
 end
