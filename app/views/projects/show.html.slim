@@ -26,11 +26,12 @@
   
 br
 br
-h2 Aktive oppgaver
-.button.green
-  = render "projects/tasks/table_header"
-br
-br
+- if @project.tasks.present?
+  h2 Aktive oppgaver
+  .button.green
+    = render "projects/tasks/table_header"
+  br
+  br
   
 br
 .button.red
