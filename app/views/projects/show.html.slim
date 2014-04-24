@@ -6,11 +6,12 @@
     strong Prosjektnumber: 
     = @project.project_number
   p
-    strong Navn: 
-    = @project.name
-  p
     strong Kunde: 
     = @project.customer.name
+
+  p
+    strong Beskrivelse: 
+    = @project.description
 
   p
     strong Oppstart: 
@@ -29,11 +30,12 @@
   
 br
 br
-h2 Aktive oppgaver
-.button.green
-  = render "projects/tasks/table_header"
-br
-br
+- if @project.tasks.present?
+  h2 Aktive oppgaver
+  .button.green
+    = render "projects/tasks/table_header"
+  br
+  br
   
 br
 .button.red
