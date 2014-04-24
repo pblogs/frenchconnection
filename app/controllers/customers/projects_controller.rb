@@ -29,6 +29,7 @@ class Customers::ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers = Customer.all
+    @customer = Customer.find(params[:customer_id])
     @project.paid_by_the_hour = params[:payment] == 'project_paid_by_the_hour'
     @project.fixed_price      = params[:payment] == 'fixed_price'
 
@@ -38,7 +39,7 @@ class Customers::ProjectsController < ApplicationController
                       notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, location: @project }
       else
-        format.html { render action: '/projects/new' }
+        format.html { render action: 'edit' }
         format.json { render json: @project.errors, 
                       status: :unprocessable_entity }
       end
@@ -87,7 +88,7 @@ class Customers::ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:project_number, :name, 
         :customer_id, :start_date, :due_date,
-        :paid_by_the_hour, :fixed_price, 
+        :paid_by_the_hour, :fixed_price, :description,
         :price_total, :hour_rate)
     end
 end

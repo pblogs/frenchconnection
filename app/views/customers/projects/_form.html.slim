@@ -10,9 +10,11 @@
     = f.label :project_number, 'Prosjektnummer'
     = f.text_field :project_number, 
       placeholder: 'Prosjektnummer kan fylles ut senere'
+  
   .field
-    = f.label :name, 'Navn'
-    = f.text_field :name, placeholder: 'Navn på prosjektet'
+    = f.label :description, 'Beskrivelse'
+    = f.text_area :description, rows: 5
+  
 
   .field
     = f.label :start_date, 'Oppstartsdato'
