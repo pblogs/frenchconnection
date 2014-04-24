@@ -3,7 +3,7 @@ br
 
 p.msg_box_to_customer
   = select_tag "msg", options_from_collection_for_select(CustomerMessage.all, "id", "text")
-  button Send
+  button.send_msg Send
 
 br
 br
