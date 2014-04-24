@@ -20,7 +20,7 @@ h1 Våre prosjekter
             span.spacer= '/'
             = I18n.l(project.due_date,   format: :short)
 
-          td= link_to truncate(project.description, size: 10), project
+          td= link_to truncate(project.description || 'Beskrivelse mangler', size: 10), project
           td.text_align_center = project.hours_spent_total
           td 
             span.spacer 
