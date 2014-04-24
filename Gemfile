@@ -11,6 +11,7 @@ gem 'newrelic_rpm'
 
 
 gem 'database_cleaner'
+gem 'axlsx', '~> 2.0.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
