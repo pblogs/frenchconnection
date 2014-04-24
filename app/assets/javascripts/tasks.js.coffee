@@ -18,3 +18,7 @@ $ ->
   $(document).on 'click', '.msg_to_customer', (e) ->
     e.preventDefault()
     $('#msg_form').show()
+
+  $(document).on 'click', '.send_msg', (e) ->
+    e.preventDefault()
+    alert('Melding sendt til kunden')
