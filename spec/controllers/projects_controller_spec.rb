@@ -29,7 +29,8 @@ describe ProjectsController do
       customer_id:  Fabricate(:customer).id,
       name:         Faker::Lorem.words(3).join(''),
       start_date:   '01.05.1983',
-      due_date:     '01.08.1983'
+      due_date:     '01.08.1983',
+      description:  'do it like this'
     }
   end
 

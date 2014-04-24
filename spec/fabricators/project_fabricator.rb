@@ -4,4 +4,5 @@ Fabricator(:project) do
   customer       { Fabricate(:customer) }
   start_date     { Time.now }
   due_date       { Time.now.next_week }
+  description   " do it like this "
 end
