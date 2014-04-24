@@ -88,7 +88,7 @@ class Customers::ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:project_number, :name, 
         :customer_id, :start_date, :due_date,
-        :paid_by_the_hour, :fixed_price, 
+        :paid_by_the_hour, :fixed_price, :description,
         :price_total, :hour_rate)
     end
 end
