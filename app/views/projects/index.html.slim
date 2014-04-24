@@ -14,7 +14,11 @@ h1 Våre prosjekter
       - @projects.each do |project|
         tr
           td = project.customer.name
-          td = link_to project.project_number, project
+          td 
+            - if project.project_number.present?
+              = link_to(project.project_number, project) 
+            - else
+              = link_to 'Vis', project
           td 
             = I18n.l(project.start_date, format: :short)
             span.spacer= '/'
