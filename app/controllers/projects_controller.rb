@@ -74,6 +74,8 @@ class ProjectsController < ApplicationController
                                       :customer_id,
                                       :start_date,
                                       :due_date,
+                                      :hour_rate,
+                                      :price_total,
                                       :company_id)
     end
 end
