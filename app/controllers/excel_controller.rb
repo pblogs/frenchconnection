@@ -36,7 +36,7 @@ class ExcelController < ApplicationController
                                                                                      
     sheet.row(2).concat ['År: ', Time.now.year, 'Pågår']
     sheet.row(3).concat ['Uke: ', DateTime.now.cweek, 'Utført']
-    sheet.row(4).concat ['Prosjekt nr: ', '']
+    sheet.row(4).concat ['Prosjekt nr: ', @project.project_number]
     sheet.row(5).concat ['Kunde: ', @project.customer.name ]
     4.times { |x| sheet.row(x+2).set_format(1, yellow_bg ) }
 
@@ -60,12 +60,6 @@ class ExcelController < ApplicationController
     sheet.row(11).set_format(0, gray_bg )
     sheet.row(11).set_format(1, gray_bg )
                                                                                      
-    # Her kommer rapporten
-    # i = 0
-    # @project.hours_spents.each do |h|
-    #   sheet.row(12+i).concat [I18n.l(h.created_at, format: :short_date), h.description, h.hour]
-    #   i +=1 
-    # end
 
     i = 1
     ai = -1
@@ -105,19 +99,7 @@ class ExcelController < ApplicationController
     # Attest
     sheet.row(sheet.rows.size+1).concat ['', 'Attest', '.....', '.....', '.....', '.....']
     sheet.row(sheet.rows.size+1).set_format(1, yellow_bg)
-    
                                                                                      
-    #sheet.row(0).concat %w{Name Country Acknowlegement}
-    #sheet[1,0] = 'Japan'
-    #row = sheet.row(1)
-    #row.push 'Creator of Ruby'
-    #row.unshift 'Yukihiro Matsumoto'
-    #sheet.row(2).replace [ 'Daniel J. Berger', 'U.S.A.',
-    #                        'Author of original code for Spreadsheet::Excel' ]
-    #sheet.row(3).push 'Charles Lowe', 'Author of the ruby-ole Library'
-    #sheet.row(3).insert 1, 'Unknown'
-    #sheet.update_row 4, 'Hannes Wyss', 'Switzerland', 'Author'
-    
     spreadsheet = StringIO.new 
     book.write spreadsheet 
     send_data spreadsheet.string, 
