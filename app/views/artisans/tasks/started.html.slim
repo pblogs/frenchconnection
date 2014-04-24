@@ -9,11 +9,12 @@
       thead
         th Kunde
         th Type oppdrag
+        th Beskrivelse
         th Timer registrert
       tbody
         tr
           td = task.project.customer.name
-          td = task.task_type.title
+          td = task.description
           td = task.hours_total
 
   .button.red.half_size
