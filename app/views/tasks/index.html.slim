@@ -10,17 +10,19 @@ br
         th Kunde
         th Type oppdrag
         th Oppstartsdato
+        th Utførende
         th
   
     tbody
       - @tasks.each do |task|
         tr.green.button
-          td = task.customer.name
+          td = task.project.customer.name
           td = task.task_type.title
           td = task.start_date.strftime("%B %d")
+          td = task.name_of_artisans
           td
-            = link_to 'Vis, ', task
-            = link_to 'Rediger, ', edit_task_path(task)
+            = link_to 'Vis, ', project_task_path(task.project, task)
+            = link_to 'Rediger, ', edit_project_task_path(task.project, task)
             = link_to 'Slett', task, data: {:confirm => 'Are you sure?'}, 
               :method => :delete
 
