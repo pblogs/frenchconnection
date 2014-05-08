@@ -9,11 +9,13 @@
       thead
         th Kunde
         th Type oppdrag
+        th Beskrivelse
         th Timer registrert
       tbody
         tr
           td = task.project.customer.name
           td = task.task_type.title
+          td = task.description
           td = task.hours_total
 
   .button.red.half_size
@@ -22,7 +24,9 @@
 
   .button.red.half_size.pull_right
     = fa_icon 'pencil'
-    = link_to 'Send melding til kunden', artisan_task_send_message_path(task, @current_user), class: :xmsg_to_customer
+    = link_to 'Send melding til kunden', 
+      artisan_task_send_message_path(task, @current_user), 
+      class: :xmsg_to_customer
 
   
 

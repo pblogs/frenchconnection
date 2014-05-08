@@ -4,22 +4,23 @@ h1 Våre prosjekter
   table
     thead
       tr
-        th Kunde
-        th Prosjektnummer
+        th Kunde, Prosjektnummer
         th Oppstart / Ferdigstilling  
+        th Beskrivelse
         th.text_align_right Akkumulert timer
         th
   
     tbody
       - @projects.each do |project|
         tr
-          td = project.customer.name
-          td = link_to project.project_number, project
+          td 
+            = [project.customer.name, project.project_number].join(', ').chomp(',')
           td 
             = I18n.l(project.start_date, format: :short)
             span.spacer= '/'
             = I18n.l(project.due_date,   format: :short)
 
+          td= link_to truncate(project.description || 'Beskrivelse mangler', size: 10), project
           td.text_align_center = project.hours_spent_total
           td 
             span.spacer 

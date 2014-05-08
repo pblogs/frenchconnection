@@ -34,7 +34,7 @@ class ExcelController < ApplicationController
                                                                                      
     sheet.row(2).concat ['År: ', Time.now.year, 'Pågår']
     sheet.row(3).concat ['Uke: ', DateTime.now.cweek, 'Utført']
-    sheet.row(4).concat ['Prosjekt nr: ', '']
+    sheet.row(4).concat ['Prosjekt nr: ', @project.project_number]
     sheet.row(5).concat ['Kunde: ', @project.customer.name ]
     4.times { |x| sheet.row(x+2).set_format(1, yellow_bg ) }
 
@@ -91,7 +91,6 @@ class ExcelController < ApplicationController
     # Attest
     sheet.row(sheet.rows.size+1).concat ['', 'Attest', '.....', '.....', '.....', '.....']
     sheet.row(sheet.rows.size+1).set_format(1, yellow_bg)
-    
     spreadsheet = StringIO.new 
     book.write spreadsheet 
     send_data spreadsheet.string, 
