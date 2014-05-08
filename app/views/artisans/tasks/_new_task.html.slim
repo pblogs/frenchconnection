@@ -3,6 +3,8 @@ p.button.green
   br
   br
   = "Hos #{task.project.customer.name}"
+  = " (#{task.project.description}) "
+
   br
   = "Må utføres innen #{I18n.l(task.start_date, format: :short)}"
   br
