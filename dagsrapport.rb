@@ -7,9 +7,9 @@ Axlsx::Package.new do |p|
   p.workbook do |wb|
     styles = wb.styles
     header     = styles.add_style :bg_color => "FF", :sz => 16, :b => true, 
-      :i => true, :alignment => {:horizontal => :center}
+      :i => true, :alignment => {:horizontal => :center}, :underline => true
     gray_bg_normal_font = styles.add_style :bg_color => "C0C0C0", :sz => 16, :b => true, :alignment => {:horizontal => :center}
-    gray_bg_bold_italic_font   = styles.add_style :bg_color => "C0C0C0", :sz => 16, :b => true, :alignment => {:horizontal => :center}
+    gray_bg_bold_italic_font   = styles.add_style  :b => true, :bg_color => "C0C0C0"
     top_header = styles.add_style :b => true, :i => true, :alignment => { :horizontal => :center }
     tbl_header = styles.add_style :b => true, :alignment => { :horizontal => :center }
     ind_header = styles.add_style :bg_color => "FFDFDEDF", :b => true, :alignment => {:indent => 1}
@@ -33,9 +33,9 @@ Axlsx::Package.new do |p|
       end
 
       sheet.add_row
-      sheet.add_row [nil, "Dagsrapport"], :style => [nil, header], :height => 18
+      sheet.add_row ["Dagsrapport"], :style => [nil, header], :height => 23
       sheet.add_row
-      sheet.add_row [nil, "What's coming in this month.", nil, nil, "How am I doing"], :style => tbl_header
+      sheet.add_row [nil, nil, nil]
       sheet.add_row ['År:', nil, "Pågår"], :style => [bold_italic, yellow_bg, bold]
       sheet.add_row ['Uke:', nil, "Utført"], :style => [bold_italic, yellow_bg, bold]
       sheet.add_row ['Prosjektnummer:', nil ], :style => [bold_italic, yellow_bg, bold]
@@ -46,8 +46,38 @@ Axlsx::Package.new do |p|
       sheet.add_row [nil]
       sheet.add_row [nil]
       sheet.add_row [nil]
+      
+      sheet.add_row ['Dato:', nil], :style => [gray_bg_bold_italic_font, gray_bg_bold_italic_font]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil]
+      sheet.add_row [nil, 'Sum timer pr. pers:', nil, nil, nil, nil, nil ]    
+      sheet.add_row [nil]
+      sheet.add_row [nil, 'Attest', '……………', '……………', '……………', '……………']
 
-
+      #sheet.add_row [nil, "What's coming in this month.", nil, nil, "How am I doing"], :style => tbl_header
       #sheet.add_row [nil, "Item", "Amount", nil, "Item", "Amount"], :style => [nil, ind_header, col_header, nil, ind_header, col_header]
       #sheet.add_row [nil, "Estimated monthly net income", 500, nil, "Monthly income", "=C9"], :style => [nil, label, money, nil, label, money]
       #sheet.add_row [nil, "Financial aid", 100, nil, "Monthly expenses", "=C27"], :style =>  [nil, label, money, nil, label, money]
@@ -84,7 +114,10 @@ Axlsx::Package.new do |p|
       #  chart.end_at 12, 31
       #end
       #%w(B4:C4 E4:F4 B11:C11 E11:F11 B2:F2).each { |range| sheet.merge_cells(range) }
-      sheet.column_widths 20, nil, nil, 2 #nil, nil, 2
+      # TODO Merging fjerner styles. Definer størrelse på cellene når de blir laget.
+      #
+      %w(A2:G2 ).each { |range| sheet.merge_cells(range) }
+      sheet.column_widths 20, 35, nil, nil #nil, nil, 2
     end
   end
   p.use_shared_strings = true
