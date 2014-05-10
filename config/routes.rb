@@ -46,6 +46,8 @@ AllieroForms::Application.routes.draw do
   get '/manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
   get '/worker'  => 'static_pages#frontpage_artisan', as: :frontpage_artisan
   get '/new_assignment'    => 'static_pages#new_assignment', as: :new_assignment
+  get '/sallery/:artisan_id/:project_id/'    => 'excel#sallery', as: :sallery_report
+  get '/html_export/:artisan_id/:project_id/'    => 'excel#html_export', as: :html_export
   
 
   # Example of regular route:
