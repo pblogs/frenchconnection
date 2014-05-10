@@ -1,7 +1,7 @@
 if Rails.env.development?
   Footnotes.setup do |f|
     # Wether or not to enable footnotes
-    f.enabled = Rails.env.development?
+    #f.enabled = Rails.env.development?
     # You can also use a lambda / proc to conditionally toggle footnotes
     # Example :
     # f.enabled = -> { User.current.admin? }

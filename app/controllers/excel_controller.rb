@@ -1,4 +1,6 @@
 class ExcelController < ApplicationController
+  layout :resolve_layout
+  
   require 'spreadsheet'
 
   def export
@@ -90,11 +92,65 @@ class ExcelController < ApplicationController
     # Attest
     sheet.row(sheet.rows.size+1).concat ['', 'Attest', '.....', '.....', '.....', '.....']
     sheet.row(sheet.rows.size+1).set_format(1, yellow_bg)
+
     spreadsheet = StringIO.new 
     book.write spreadsheet 
     send_data spreadsheet.string, 
       :filename => "Dagsrapport-#{@project.customer.name}.xls", 
       :type => "application/vnd.ms-excel"
+
+  end
+
+  def sallery
+    @artisan = Artisan.find(params[:artisan_id])
+    @project = Project.find(params[:project_id])
+
+    require 'rubygems'
+    require 'axlsx'
+    
+    Axlsx::Package.new do |p|
+      p.workbook do |wb|
+        styles = wb.styles
+        header = styles.add_style :sz => 16, :b => true, 
+          :i => true, :alignment => {:horizontal => :left}
+    
+        bold         = styles.add_style b: true, sz: 8
+        bold_gray_bg = styles.add_style b: true, bg_color: 'C0C0C0'
+        bold_small_text = styles.add_style :b => true, :sz => 8
+    
+    
+        wb.add_worksheet do |sheet|
+    
+          sheet.add_image(:image_src => 'app/assets/images/Alliero.jpg',
+                          :noSelect => true, :noMove => true) do |image|
+            image.width=250
+            image.height=42
+            image.start_at 0,10
+          end
+    
+          sheet.add_row ['Alliero Gruppen', 'Gjerdrums vei 12 A', 'Postboks 4681 Nydalen, 0405 Oslo']
+          sheet.add_row ['TIMELISTE'], style: [header]
+          sheet.add_row ['ANSATT NAVN:', 'ANSATT NUMMER:', 'FRA DATO: ', 'TIL DATO: '], style: [bold, bold, bold, bold, bold]
+          sheet.add_row 
+          sheet.add_row ['AVD NR: ', 'PROSJEKTNUMMER: ', 'PROSJEKTNAVN: ', 'PROSJEKTLEDER: '], style: [bold, bold, bold, bold, bold]
+          sheet.add_row 
+          sheet.add_row [nil, nil, nil, 'Arbeidene timer', 'Overtid', 'Reisepenger', 'Bom', 'Fravær/Ferie/Hellidager etc.']
+
+        end
+      end
+
+      p.use_shared_strings = true
+      
+      p.serialize "tmp/export.xls"
+      send_file "tmp/export.xls", 
+        :filename => "Timeliste.xls"
+      end
+  end
+
+  def html_export
+    
+    @artisan = Artisan.find(params[:artisan_id])
+    @project = Project.find(params[:project_id])
   end
 
   private
@@ -104,6 +160,16 @@ class ExcelController < ApplicationController
       r << ''
     end
     r
+  end
+
+  def resolve_layout
+    case action_name
+    when 'html_export'
+      'excel'
+    else
+      'application'
+    end
+    
   end
 
 end
