@@ -45,8 +45,7 @@ class ExcelController < ApplicationController
     sheet.merge_cells(6, 5, 11, 5) # Col F
 
     sheet.row(6).concat ['', '' ] + ExcelProjectTools.artisan_names(@project)
-    #sheet.row(12+i+5).set_format(1, align_center ) # FIXME
-                                                                                     
+    
     # Make the C column wide
     sheet.column(1).width = 50
                                                                                      
