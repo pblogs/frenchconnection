@@ -69,7 +69,8 @@ class ExcelController < ApplicationController
     @project.artisans.each do |a|
       ai += 1
       @project.hours_spents.where(artisan: a).each do |h|
-        sheet.row(12+i).concat [I18n.l(h.created_at, format: :short_date), h.description] +  offsett(ai) + [h.hour]
+        sheet.row(12+i).concat [I18n.l(h.created_at, format: :short_date), 
+                                h.description] +  offsett(ai) + [h.hour]
         i += 1 
       end
     end
