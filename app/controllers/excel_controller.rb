@@ -3,6 +3,13 @@ class ExcelController < ApplicationController
   
   require 'spreadsheet'
 
+  def dagsrapport
+    @project = Project.find(params[:project_id])
+    file_name = Dagsrapport.new(@project).create_spreadsheet
+    send_file file_name,
+      filename:  "dagsrapport.xls"
+  end
+
   def export
     @project = Project.find(params[:project_id])
                                                                                      
@@ -140,7 +147,6 @@ class ExcelController < ApplicationController
       end
 
       p.use_shared_strings = true
-      
       p.serialize "tmp/export.xls"
       send_file "tmp/export.xls", 
         :filename => "Timeliste.xls"
