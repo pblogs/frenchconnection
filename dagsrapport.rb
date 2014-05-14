@@ -51,7 +51,7 @@ Axlsx::Package.new do |p|
       sheet.add_row ['Prosjektnummer:', nil ],  :style => [bold_italic, yellow_bg, bold]
       sheet.add_row ['Kunde:', nil ], :style => [bold_italic, yellow_bg, bold]
 
-      sheet.add_row [nil] 
+      sheet.add_row [nil, nil, nil, nil, nil] 
       sheet.add_row [nil]
       sheet.add_row [nil]
       sheet.add_row [nil]
@@ -152,9 +152,12 @@ Axlsx::Package.new do |p|
       #  chart.start_at 7, 16
       #  chart.end_at 12, 31
       #end
-      #%w(B4:C4 E4:F4 B11:C11 E11:F11 B2:F2).each { |range| sheet.merge_cells(range) }
-      # TODO Merging fjerner styles. Definer størrelse på cellene når de blir laget.
       #
+      # The name of involved Artisans
+      %w(C9:C13 D9:D13 E9:E13 F9:F13).each { |range| sheet.merge_cells(range) }
+      sheet.rows[8].cells[2].value = 'Martin'
+
+      
       %w(A2:G2 ).each { |range| sheet.merge_cells(range) }
       sheet.column_widths 20, 35, nil, nil #nil, nil, 2
     end
