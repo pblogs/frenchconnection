@@ -14,30 +14,15 @@ class Dagsrapport
         styles = wb.styles
         header     = styles.add_style :bg_color => "FF", :sz => 16, :b => true, 
           :i => true, :alignment => {:horizontal => :center}, :underline => true
-        gray_bg_normal_font = styles.add_style :bg_color => "C0C0C0", :sz => 16, 
-          :b => true, :alignment => {:horizontal => :center}
         gray_bg_bold_italic_font   = styles.add_style  :b => true, 
           :bg_color => "C0C0C0"
-        #top_header = styles.add_style :b => true, :i => true, 
-        #:alignment => { :horizontal => :center }
-        #tbl_header = styles.add_style :b => true, 
-        #:alignment => { :horizontal => :center }
-        #ind_header = styles.add_style :bg_color => "FFDFDEDF", 
-        #:b => true, :alignment => {:indent => 1}
-        #col_header = styles.add_style :bg_color => "FFDFDEDF", 
-        #:b => true, :alignment => { :horizontal => :center }
-        #label      = styles.add_style :alignment => { :indent => 1 }
-        #money      = styles.add_style :num_fmt => 5
-        t_label    = styles.add_style :b => true, :bg_color => "FFDFDEDF"
-        #t_money    = styles.add_style :b => true, :num_fmt => 5, 
-        #:bg_color => "FFDFDEDF"
     
         bold_italic = styles.add_style :b => true, :i => true 
         bold        = styles.add_style :b => true
         yellow_bg   = styles.add_style :b => true, :bg_color => 'FFF60B',
           :alignment => { :horizontal => :left }
-        align_right = styles.add_style :alignment => { :horizontal => :right }
-        attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 20
+        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "C0C0C0"
+        attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
     
     
         wb.add_worksheet do |sheet|
@@ -50,7 +35,7 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row ["Dagsrapport"], :style => [nil, header], :height => 23
+          sheet.add_row ["Dagsrapport"], :style => [header], :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
           sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
@@ -64,13 +49,12 @@ class Dagsrapport
           sheet.add_row [nil]
           sheet.add_row [nil]
           sheet.add_row [nil]
-          %w(C9:C13 D9:D13 E9:E13 F9:F13).each { |range| sheet.merge_cells(range) }
+          %w(C9:C14 D9:D14 E9:E14 F9:F14).each { |range| sheet.merge_cells(range) }
           
           sheet.add_row ['Dato:', nil, nil, nil, nil, nil, nil, nil], 
-            :style => [gray_bg_bold_italic_font, gray_bg_bold_italic_font, 
-                       gray_bg_bold_italic_font, gray_bg_bold_italic_font, 
-                       gray_bg_bold_italic_font, gray_bg_bold_italic_font, 
-                       gray_bg_bold_italic_font]
+            :style => [gray_bg_bold_italic_font, gray_bg_bold_italic_font]
+
+
           # Her listes alle timene som er ført på dette prosjektet.
           #
           i = 1
@@ -90,22 +74,26 @@ class Dagsrapport
           # Sum timer pr pers
           artisans = @project.artisans.all
           if artisans.present?
-            sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_artisans(@project),
-              :style => [nil, align_right, align_right, align_right, align_right, align_right, align_right]    
+            sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_artisans(@project) + [nil, nil, nil, nil],
+              :style => [gray_bg_align_right, gray_bg_align_right, 
+                         gray_bg_align_right, gray_bg_align_right, 
+                         gray_bg_align_right, gray_bg_align_right, 
+                         gray_bg_align_right]    
           else
             sheet.add_row ['', 'INGEN OPPGAVER FINNES HER']
           end
 
           # Sum timer totalt
-          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total],
-            style: gray_bg_normal_font
+          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+            :style => [gray_bg_align_right, gray_bg_align_right, 
+                       gray_bg_align_right, gray_bg_align_right, 
+                       gray_bg_align_right, gray_bg_align_right, 
+                       gray_bg_align_right]    
+            
+
 
     
-          #sheet.add_row [nil, 'Sum timer pr. pers:', nil, nil, nil, nil, nil], 
-          #  :style => [nil, align_right, align_right, align_right, align_right, align_right, align_right]    
-          #sheet.add_row [nil, 'Sum timer totalt:', nil, nil, nil, nil, nil],   
-          #  :style => [nil, align_right]    
-          #sheet.add_row [nil]
+          sheet.add_row [nil]
           sheet.add_row [nil, 'Attest', '……………', '……………', '……………', '……………'],   
             :style => [nil, attest_style]    
           sheet.add_row [nil]
@@ -177,7 +165,6 @@ class Dagsrapport
           end
     
           
-          %w(A2:G2 ).each { |range| sheet.merge_cells(range) }
           sheet.column_widths 20, 35, nil, nil #nil, nil, 2
         end
       end
