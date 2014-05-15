@@ -17,11 +17,12 @@ class Timesheet
         gray_bg_bold_italic_font   = styles.add_style  :b => true, 
           :bg_color => "C0C0C0"
     
-        bold_italic = styles.add_style :b => true, :i => true 
-        bold        = styles.add_style :b => true
-        yellow_bg   = styles.add_style :b => true, :bg_color => 'FFF60B',
-          :alignment => { :horizontal => :left }
-        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "C0C0C0"
+        bold_italic  = styles.add_style :b => true, :i => true 
+        bold         = styles.add_style :b => true
+        bold_gray_bg = styles.add_style :b => true, :bg_color => 'E2E2E2'
+        border       = styles.add_style :border => { style: :medium, color: '000000' }
+
+        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "E2E2E2"
         attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
     
     
@@ -31,12 +32,12 @@ class Timesheet
           sheet.add_image(:image_src => 'app/assets/images/Alliero-logo-500x81.png',
                           :noSelect => true, :noMove => true) do |image|
             image.width=340
-            image.height=60
-            image.start_at 10,1
+            image.height=50
+            image.start_at 10,0
           end
     
           # HEADER
-          sheet.add_row [nil, nil, nil], :style => [bold, bold]
+          sheet.add_row [nil, nil, nil], :style => [bold, bold, bold, bold, bold, bold]
           %w(A1:B1).each { |range| sheet.merge_cells(range) }
           sheet.rows[0].cells[0].value = 'Alliero Gruppen'
           sheet.rows[0].cells[2].value = 'Gjerdrums vei 12 A, Postboks 4681 Nydalen, 0405 Oslo '
@@ -45,21 +46,55 @@ class Timesheet
           %w(A2:N2).each { |range| sheet.merge_cells(range) }
 
 
-          # Linje 3 - Ansatt navn
+# Linje 3 - Ansatt navn
           sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-            :style => [bold, bold, bold, bold], height: 30
+            :style => [bold, bold, bold, bold, bold, bold, bold, bold], height: 30
+
+          # Ansatt navn
           %w(A3:E3).each { |range| sheet.merge_cells(range) }
+
+          # Ansatt nr
+          %w(F3:J3).each { |range| sheet.merge_cells(range) }
+
+          # FRA DATO, TIL DATO
+          %w(K3:N3).each { |range| sheet.merge_cells(range) }
+
           sheet.rows[2].cells[0].value = 'ANSATT NAVN:'
-          sheet.rows[2].cells[5].value = 'ANSATT NUMMER:'
+          sheet.rows[2].cells[5].value = 'ANSATT NR:'
+          sheet.rows[2].cells[10].value = 'FRA DATO: __/__-__         TIL DATO: __/__-__'
 
-          sheet.add_row [nil]
-          sheet.add_row ['AVD. NR:', 'PROSJEKT NR:', 'PROSJEKT NAVN:', 'PROSJEKT LEDER:']
+# Linje 4 
           sheet.add_row [nil]
 
-          # Selve arket
-          sheet.add_row [nil, nil, nil, 'Arbeidene timer', 'Overtid', 'Reisepenger', 'Bom', 'Fravær/Ferie/Hellidager etc.']
-          sheet.add_row ['Dato', 'Dag', 'Merknader', 'Akkord timer', 'Ordinære timer', '50%', '100%', 
-                         'Gr 1 7.5-15km', 'Gr 2 15-30km', 'Gr 3 30-45km', 'Gr 4 45-60km', ]
+# Linje 5 
+          sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+            style: [bold, bold, bold, bold, bold, bold, bold, bold, bold, bold, bold, bold]
+          # Merge avd nr
+          %w(A5:B5).each { |range| sheet.merge_cells(range) }
+          # Prosjekt nr
+          %w(C5:D5).each { |range| sheet.merge_cells(range) }
+          # Prosjekt navn
+          %w(E5:J5).each { |range| sheet.merge_cells(range) }
+          # Prosjekt leder
+          %w(K5:N5).each { |range| sheet.merge_cells(range) }
+
+          sheet.rows[4].cells[0].value = 'AVD. NR:'
+          sheet.rows[4].cells[2].value = 'PROSJEKT NR:'
+          sheet.rows[4].cells[4].value = 'PROSJEKT NAVN:'
+          sheet.rows[4].cells[10].value = 'PROSJEKT LEDER:'
+
+
+# Linje 6 # Blank
+          sheet.add_row [nil]
+
+# Linje 7 # Header
+          sheet.add_row [nil, nil, nil, 'Arbeidene timer', 'Overtid', 'Reisepenger', 'Bom', 'Fravær/Ferie/Hellidager etc.'], 
+            style: [nil, nil, nil, bold, bold, bold, bold, bold]
+# Linje 8 # Subheader
+          sheet.add_row ['Dato', 'Dag', 'Merknader', 'Akkord timer', 
+          'Ordinære timer', '50%', '100%', 'Gr 1 7.5-15km', 'Gr 2 15-30km', 
+          'Gr 3 30-45km', 'Gr 4 45-60km', ], 
+            style: [bold_gray_bg, bold_gray_bg, bold_gray_bg ]
 
 
           #sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
@@ -192,11 +227,12 @@ class Timesheet
           sheet.column_widths 7, 7, nil, nil #nil, nil, 2
         end
       end
+      prng = Random.new
+      @nr = prng.rand(100)       # => 42
       p.use_shared_strings = true
-      p.serialize "tmp/dagsrapport.xls"
-      #p.serialize "/Users/martins/Work/AllieroForms/ny-dagsrapport.xlsx"
+      p.serialize "tmp/dagsrapport#{@nr}.xls"
     end
-    "tmp/dagsrapport.xls"
+    "tmp/dagsrapport#{@nr}.xls"
   end
 
   private

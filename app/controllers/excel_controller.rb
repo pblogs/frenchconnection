@@ -19,7 +19,7 @@ class ExcelController < ApplicationController
     @artisan = Artisan.find(params[:artisan_id])
     file_name = Timesheet.new(@project, @artisan).create_spreadsheet
     send_file file_name,
-      filename:  "dagsrapport.xls"
+      filename:  file_name
   end
 
 
