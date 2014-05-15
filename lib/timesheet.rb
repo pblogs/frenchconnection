@@ -88,8 +88,17 @@ class Timesheet
           sheet.add_row [nil]
 
 # Linje 7 # Header
-          sheet.add_row [nil, nil, nil, 'Arbeidene timer', 'Overtid', 'Reisepenger', 'Bom', 'Fravær/Ferie/Hellidager etc.'], 
-            style: [nil, nil, nil, bold, bold, bold, bold, bold]
+          nil_header = []; 10.times { nil_header.push nil }
+          sheet.add_row  nil_header, style: [nil, nil, nil, 
+            bold, bold, bold, bold, bold]
+          # Arbeidene timer
+          %w(D7:E7).each { |range| sheet.merge_cells(range) }
+          # Overtid
+          %w(F7:G7).each { |range| sheet.merge_cells(range) }
+          # Reisepenger
+          %w(H7:K7).each { |range| sheet.merge_cells(range) }
+
+          #sheet.add_row [nil, nil, nil, 'Arbeidene timer', 'Overtid', 'Reisepenger', 'Bom', 'Fravær/Ferie/Hellidager etc.'], 
 # Linje 8 # Subheader
           sheet.add_row ['Dato', 'Dag', 'Merknader', 'Akkord timer', 
           'Ordinære timer', '50%', '100%', 'Gr 1 7.5-15km', 'Gr 2 15-30km', 
