@@ -23,4 +23,5 @@ class Project < ActiveRecord::Base
     artisans.pluck(:name).join(', ' )
   end
 
+
 end
