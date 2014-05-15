@@ -18,10 +18,15 @@ describe "Registered hours on a Task" do
     HoursSpent.all.size.should eq 0
     click_link "Aktive oppdrag"
     click_link "Registrer timer"
-    fill_in 'Antall timer', with: 20
+    fill_in 'Akkord', with: 20
+    fill_in '50%', with: 50
     fill_in 'Beskrivelse', with: 'Malt begge sider av veggen.'
     click_button 'Lagre'
     HoursSpent.all.size.should eq 1
+    h = HoursSpent.last
+    h.piecework_hours.should eq 20
+    h.overtime_50.should eq 50
+    h.description.should eq 'Malt begge sider av veggen.'
   end
 
   

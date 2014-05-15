@@ -17,7 +17,9 @@ class ExcelController < ApplicationController
   def timesheet
     @project = Project.find(params[:project_id])
     @artisan = Artisan.find(params[:artisan_id])
-    file_name = Timesheet.new(@project, @artisan).create_spreadsheet
+    @hours   = @project.hours_spents.where(artisan: @artisan).all
+    Rails.logger.debug  "hours is #{@hours.inspect}"
+    file_name = Timesheet.new(@project, @artisan, @hours).create_spreadsheet
     send_file file_name,
       filename:  file_name
   end

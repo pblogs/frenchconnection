@@ -15,9 +15,21 @@
     = f.text_field :date, value: I18n.l(Time.now, format: :datepicker),
       class: :datepicker
 
+  h4 Antall timer
   .field
-    = f.label :hour, 'Antall timer'
+    = f.label :piecework_hours, 'Akkord'
+    = f.number_field :piecework_hours
+  .field
+    = f.label :hour, 'Ordinære'
     = f.number_field :hour
+
+  h4 Overtid
+  .field
+    = f.label :overtime_50, '50%'
+    = f.number_field :overtime_50
+  .field
+    = f.label :overtime_100, '100%'
+    = f.number_field :overtime_100
 
   .field
     = f.label :description, 'Beskrivelse'

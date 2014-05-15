@@ -4,7 +4,6 @@ class HoursSpent < ActiveRecord::Base
 
   validates :task,        :presence => true
   validates :artisan,     :presence => true
-  validates :hour,        :presence => true
   validates :description, :presence => true
   validates :date,        :presence => true
 end
