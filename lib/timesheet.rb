@@ -42,7 +42,7 @@ class Timesheet
           sheet.rows[0].cells[0].value = 'Alliero Gruppen'
           sheet.rows[0].cells[2].value = 'Gjerdrums vei 12 A, Postboks 4681 Nydalen, 0405 Oslo '
 
-          sheet.add_row ['TIMELISTE'], :style => [header]
+          sheet.add_row ['T I M E L I S T E'], :style => [header]
           %w(A2:N2).each { |range| sheet.merge_cells(range) }
 
 
@@ -88,8 +88,9 @@ class Timesheet
           sheet.add_row [nil]
 
 # Linje 7 # Header
-          nil_header = []; 10.times { nil_header.push nil }
+          nil_header = []; 14.times { nil_header.push nil }
           sheet.add_row  nil_header, style: [nil, nil, nil, 
+            bold, bold, bold, bold, bold,
             bold, bold, bold, bold, bold]
           # Arbeidene timer
           %w(D7:E7).each { |range| sheet.merge_cells(range) }
@@ -97,13 +98,24 @@ class Timesheet
           %w(F7:G7).each { |range| sheet.merge_cells(range) }
           # Reisepenger
           %w(H7:K7).each { |range| sheet.merge_cells(range) }
+          # Fravær/Ferie, etc
+          %w(M7:N7).each { |range| sheet.merge_cells(range) }
 
-          #sheet.add_row [nil, nil, nil, 'Arbeidene timer', 'Overtid', 'Reisepenger', 'Bom', 'Fravær/Ferie/Hellidager etc.'], 
+          sheet.rows[6].cells[3].value = 'Arbeidene timer'
+          sheet.rows[6].cells[5].value = 'Overtid'
+          sheet.rows[6].cells[7].value = 'Reisepenger'
+          sheet.rows[6].cells[11].value = 'Bom'
+          sheet.rows[6].cells[12].value = 'Fravær/Ferie/Hellidager etc.'
+
 # Linje 8 # Subheader
           sheet.add_row ['Dato', 'Dag', 'Merknader', 'Akkord timer', 
           'Ordinære timer', '50%', '100%', 'Gr 1 7.5-15km', 'Gr 2 15-30km', 
-          'Gr 3 30-45km', 'Gr 4 45-60km', ], 
-            style: [bold_gray_bg, bold_gray_bg, bold_gray_bg ]
+          'Gr 3 30-45km', 'Gr 4 45-60km', 'Bom penger', 'Fraværstimer', 'Fraværsgrunn' ], 
+            style: [bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
+                    bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
+                    bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
+                    bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
+                    bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg]
 
 
           #sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
@@ -233,7 +245,7 @@ class Timesheet
           #end
     
           #
-          sheet.column_widths 7, 7, nil, nil #nil, nil, 2
+          sheet.column_widths 7, 7, nil, nil,nil,nil,nil,nil,nil,nil,nil,nil, 11 #nil, nil, 2
         end
       end
       prng = Random.new
