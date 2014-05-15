@@ -1,0 +1,17 @@
+h1 Timelister
+br
+br
+
+- @projects.each do |p|
+  strong= "Prosjekt: "
+  = link_to project_number(p), p
+  br
+  - if p.artisans.present?
+    strong Arbeidere på dette prosjektet:
+    ul
+      - p.artisans.each do |a|
+        li
+          = a.name
+          = link_to 'Last ned timesliste', timesheet_path(p.id,a.id)
+
+  hr

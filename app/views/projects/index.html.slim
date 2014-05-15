@@ -14,13 +14,14 @@ h1 Våre prosjekter
       - @projects.each do |project|
         tr
           td 
-            = [project.customer.name, project.project_number].join(', ').chomp(',')
+            = [project.customer.name, project.project_number].join(', ') \
+              .chomp(',')
           td 
             = I18n.l(project.start_date, format: :short)
             span.spacer= '/'
             = I18n.l(project.due_date,   format: :short)
 
-          td= link_to truncate(project.description || 'Beskrivelse mangler', size: 10), project
+          td= link_to(truncate( project.description, size: 10) || 'Mangler beskrivelse', project)
           td.text_align_center = project.hours_spent_total
           td 
             span.spacer 
@@ -33,7 +34,7 @@ h1 Våre prosjekter
             br
             span.spacer 
             = link_to( (fa_icon 'table', text: "Excel regneark"), 
-              export_excel_path(project) )
+              dagsrapport_path(project) )
 - else
   span Ingen aktive prosjekter
   

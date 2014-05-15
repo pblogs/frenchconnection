@@ -7,6 +7,10 @@ AllieroForms::Application.routes.draw do
     resources :tasks, :controller => 'projects/tasks'
   end
 
+    get '/timesheets' => 'excel#timesheets', as: :timesheets
+    get '/timesheet/:project_id/:artisan_id' => 'excel#timesheet', as: :timesheet
+  namespace :excel do
+  end
 
   namespace :tasks do
     get :active
