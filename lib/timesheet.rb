@@ -2,9 +2,10 @@ class Timesheet
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project, artisan)
+  def initialize(project, artisan, hours)
     @project = project
     @artisan = artisan
+    @hours   = hours
   end
 
   def create_spreadsheet
@@ -118,21 +119,10 @@ class Timesheet
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg]
 
 
-          #sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
-          #sheet.add_row ['Uke:', DateTime.now.cweek, "Utført"],    :style => [bold_italic, yellow_bg, bold]
-          #sheet.add_row ['Prosjekt nr:', @project.project_number ],  :style => [bold_italic, yellow_bg, bold]
-          #sheet.add_row ['Kunde:', @project.customer.name ], :style => [bold_italic, yellow_bg, bold]
-    
-          ## 5 blanks with C D E F G spanning from 7-11
-          #sheet.add_row [nil, nil, nil, nil, nil] 
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
-          #%w(C9:C14 D9:D14 E9:E14 F9:F14).each { |range| sheet.merge_cells(range) }
-          #
-          #sheet.add_row ['Dato:', nil, nil, nil, nil, nil, nil, nil], 
-          #  :style => [gray_bg_bold_italic_font, gray_bg_bold_italic_font]
+# Line 9  # Hours for this artisan on this project
+          @hours.each do |h|
+            sheet.add_row  [h.date]
+          end
 
 
           ## Her listes alle timene som er ført på dette prosjektet.
