@@ -12,7 +12,7 @@ class Dagsrapport
     Axlsx::Package.new do |p|
       p.workbook do |wb|
         styles = wb.styles
-        header     = styles.add_style :bg_color => "FF", :sz => 16, :b => true, 
+        header = styles.add_style :bg_color => "FF", :sz => 16, :b => true, 
           :i => true, :alignment => {:horizontal => :center}, :underline => true
         gray_bg_bold_italic_font   = styles.add_style  :b => true, 
           :bg_color => "C0C0C0"
@@ -35,12 +35,12 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row ["Dagsrapport"], :style => [header], :height => 23
+          sheet.add_row [nil, "DAGSRAPPORT"], :style => [nil, header], :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
           sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
           sheet.add_row ['Uke:', DateTime.now.cweek, "Utført"],    :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Prosjektnummer:', @project.project_number ],  :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Prosjekt nr:', @project.project_number ],  :style => [bold_italic, yellow_bg, bold]
           sheet.add_row ['Kunde:', @project.customer.name ], :style => [bold_italic, yellow_bg, bold]
     
           # 5 blanks with C D E F G spanning from 7-11
