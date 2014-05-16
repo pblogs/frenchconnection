@@ -11,7 +11,7 @@ class ExcelController < ApplicationController
   end
 
   def timesheets
-    @projects = Project.all
+    @customers = Customer.all
   end
 
   def timesheet

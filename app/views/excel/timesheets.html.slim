@@ -2,15 +2,19 @@ h1 Timelister for inneværende måned
 br
 br
 
-- @projects.each do |p|
-  strong= "#{p.customer.name}: "
-  = link_to project_number(p), p
+- @customers.each do |c|
+  h3= c.name
   br
-  - if p.artisans.present?
-    ul.timesheets
-      - p.artisans.each do |a|
-        li
-          = link_to "Last ned timeslisten til #{a.name}", 
-            timesheet_path(p.id,a.id)
+
+  - c.projects.each do |p|
+    = link_to project_number(p), p
+    br
+    br
+    - if p.artisans.present?
+      ul.timesheets
+        - p.artisans.each do |a|
+          li
+            = link_to "Last ned timeslisten til #{a.name}", 
+              timesheet_path(p.id,a.id)
 
   hr
