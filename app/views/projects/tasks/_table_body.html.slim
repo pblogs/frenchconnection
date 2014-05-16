@@ -5,4 +5,4 @@ tr
   td = I18n.l task.start_date, format: :short_date
   td = I18n.l task.due_date, format: :short_date
   td
-    = link_to 'Rediger ', edit_task_path(task)
+    = link_to 'Rediger', edit_project_task_path(@project, task)
