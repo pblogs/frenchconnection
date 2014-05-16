@@ -10,6 +10,7 @@ br
     ul.timesheets
       - p.artisans.each do |a|
         li
-          = link_to "Last ned timeslisten til #{a.name}", timesheet_path(p.id,a.id)
+          = link_to "Last ned timeslisten til #{a.name}", 
+            timesheet_path(p.id,a.id)
 
   hr

@@ -70,7 +70,7 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
-      if @task.update(task_params)
+      if @task.update!(task_params)
         format.html { redirect_to @task, 
                       notice: 'Task was successfully updated.' }
         format.json { head :no_content }
