@@ -152,7 +152,7 @@ class Timesheet
           end
 
 # Sum
-          sheet.add_row [nil, nil, nil, 'timer', 
+          #sheet.add_row [nil, nil, nil, 'timer', 
 
 
      
