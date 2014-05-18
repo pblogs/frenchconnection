@@ -160,7 +160,19 @@ class Timesheet
             ExcelProjectTools.sum_workhours(project: @project, artisan: @artisan), 
             ExcelProjectTools.sum_overtime_50(project: @project, artisan: @artisan), 
             ExcelProjectTools.sum_overtime_100(project: @project, artisan: @artisan), 
-            nil, nil, nil, nil, nil, nil, nil] 
+            nil, nil, nil, nil, nil, nil, nil],
+            style: [nil, bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg, 
+            bold_gray_bg, bold_gray_bg,
+            ]
+
+# Akkordoppgjør, kr
+          sheet.add_row ['Akkordoppgjør', 'kr:', 'Til informasjon: Timelistene skal leveres sist arbeidsdag i måneden.'], style: [bold]
+          sheet.add_row [nil, nil, nil, nil]
+          sheet.add_row ['(Akkordseddel må vedlegges)'], style: [bold]
 
 
      
