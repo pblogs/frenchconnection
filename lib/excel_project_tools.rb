@@ -10,7 +10,23 @@ class ExcelProjectTools
 
   def self.artisan_names(project)
     project.name_of_artisans.split(',')
-    # TODO Remove sourrunding whitespace
   end
+
+  def self.sum_piecework_hours(project: project, artisan: artisan)
+    HoursSpent.where(artisan: artisan, project: project).sum(:piecework_hours)
+  end
+
+  def self.sum_workhours(project: project, artisan: artisan)
+    HoursSpent.where(artisan: artisan, project: project).sum(:hour)
+  end
+
+  def self.sum_overtime_50(project: project, artisan: artisan)
+    HoursSpent.where(artisan: artisan, project: project).sum(:overtime_50)
+  end
+
+  def self.sum_overtime_100(project: project, artisan: artisan)
+    HoursSpent.where(artisan: artisan, project: project).sum(:overtime_100)
+  end
+
 
 end

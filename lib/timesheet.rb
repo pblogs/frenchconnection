@@ -152,7 +152,15 @@ class Timesheet
           end
 
 # Sum
-          #sheet.add_row [nil, nil, nil, 'timer', 
+          sheet.add_row [nil]
+          sheet.add_row [nil]
+          sheet.add_row [nil]
+          sheet.add_row [nil, nil, 'Sum',
+            ExcelProjectTools.sum_piecework_hours(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_workhours(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_overtime_50(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_overtime_100(project: @project, artisan: @artisan), 
+            nil, nil, nil, nil, nil, nil, nil] 
 
 
      
