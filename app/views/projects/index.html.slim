@@ -31,9 +31,8 @@ h1 Våre prosjekter
             = link_to fa_icon('trash-o'), project, 
               data: {:confirm => 'Sikker på at du vil slette?'}, 
               :method => :delete
-            br
             span.spacer 
-            = link_to( (fa_icon 'table', text: "Excel regneark"), 
+            = link_to( (fa_icon 'table', text: "Dagsrapport"), 
               dagsrapport_path(project) )
 - else
   span Ingen aktive prosjekter
