@@ -28,6 +28,7 @@ class Tasks::HoursSpentController < ApplicationController
     @task = Task.find(params[:task_id])
     @hours_spent = @current_user.hours_spents.new(hours_spent_params)
     @hours_spent.task = @task
+    @hours_spent.project = @task.project
 
     respond_to do |format|
       if @hours_spent.save

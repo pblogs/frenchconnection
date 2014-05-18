@@ -1,6 +1,7 @@
 class HoursSpent < ActiveRecord::Base
   belongs_to :artisan
   belongs_to :task
+  belongs_to :project
 
   validates :task,        :presence => true
   validates :artisan,     :presence => true
