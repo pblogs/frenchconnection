@@ -31,6 +31,8 @@ class Timesheet
         bold_italic  = styles.add_style :b => true, :i => true 
         bold         = styles.add_style :b => true
         bold_center  = styles.add_style :b => true, :alignment => { :horizontal => :center }
+        bold_pull_left = styles.add_style :b => true, :alignment => { :horizontal => :left }
+        bold_pull_right = styles.add_style :b => true, :alignment => { :horizontal => :right }
         bold_gray_bg = styles.add_style :b => true, :bg_color => 'E2E2E2'
         border       = styles.add_style :border => { style: :medium, color: '000000' }
         bold_gray_bg_center = styles.add_style :b => true, 
@@ -170,9 +172,12 @@ class Timesheet
             ]
 
 # Akkordoppgjør, kr
-          sheet.add_row ['Akkordoppgjør', 'kr:', 'Til informasjon: Timelistene skal leveres sist arbeidsdag i måneden.'], style: [bold]
-          sheet.add_row [nil, nil, nil, nil]
-          sheet.add_row ['(Akkordseddel må vedlegges)'], style: [bold]
+          #sheet.add_row ['Akkord-', 'oppgjør', nil, 'kr:', nil, nil, 
+          #'Til informasjon: Timelistene skal leveres sist arbeidsdag i måneden.'], 
+          #style: [bold_pull_left, bold_pull_right]
+          #sheet.add_row [nil, nil, nil, nil]
+          #sheet.add_row ['(Akkordseddel må vedlegges)'], style: [bold]
+
 
 
      
@@ -288,5 +293,9 @@ class Timesheet
       r << ''
     end
     r
+  end
+
+  def last_row(sheet)
+    sheet.rows.size
   end
 end
