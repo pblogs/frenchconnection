@@ -151,23 +151,11 @@ class Timesheet
             h.piecework_hours, h.hour, h.overtime_50, h.overtime_100]
           end
 
+# Sum
+          sheet.add_row [nil, nil, nil, 'timer', 
 
-          ## Her listes alle timene som er ført på dette prosjektet.
-          ##
-          #i = 1
-          #ai = -1
-          #@project.artisans.each do |a|
-          #  ai += 1
-          #  @project.hours_spents.where(artisan: a).each do |h|
-          #    sheet.add_row [I18n.l(h.created_at, format: :short_date), 
-          #      h.description] +  offsett(ai) + [h.hour]
-          #    i += 1 
-          #  end
-          #end
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
 
+     
           ## Sum timer pr pers
           #artisans = @project.artisans.all
           #if artisans.present?

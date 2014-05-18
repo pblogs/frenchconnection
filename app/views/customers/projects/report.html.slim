@@ -40,7 +40,7 @@ br
           span= "#{t.hours_spents.sum(:hour)}"
   .button.red
     span= "Timer totalt ført på #{c.name} i uke #{@week_nr}: <strong>#{rand(200..450)}</strong>".html_safe
-  = link_to 'Last ned Excel regneark', customer_excel_report_path(c)
+  = link_to 'Dagsrapport', customer_excel_report_path(c)
   br
   br
   br
