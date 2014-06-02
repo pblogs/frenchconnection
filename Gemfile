@@ -8,7 +8,7 @@ gem 'quiet_assets'
 gem 'pg'
 gem 'rails_12factor'   # Needed for Rails4 on Heroku
 gem 'newrelic_rpm'
-
+gem 'foreman'
 
 gem 'database_cleaner'
 gem 'axlsx', '~> 2.0.1'
