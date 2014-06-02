@@ -2,6 +2,7 @@ AllieroForms::Application.routes.draw do
 
 
 
+  devise_for :users
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'
