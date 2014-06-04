@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def is_a?(role)
+  def has_role?(role)
     roles.include? role.to_s
   end
 
