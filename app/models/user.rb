@@ -1,6 +1,18 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  ROLES = %w[admin leader project_leader worker economy]
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def is_a?(role)
+    roles.include? role.to_s
+  end
+
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
+
+  def name
+    "#{first_name} #{last_name}"
+  end
+
 end
