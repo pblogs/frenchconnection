@@ -27,6 +27,7 @@ class Projects::TasksController < ApplicationController
   # GET /tasks/new
   def new
     @project = Project.find(params[:project_id])
+    @departments = Department.all
     @task = Task.new
   end
 
