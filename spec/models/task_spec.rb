@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe Task do
   before :each do
-    @artisan  = Fabricate(:artisan, name: 'John')
-    @artisan2 = Fabricate(:artisan, name: 'Barry')
+    @worker  = Fabricate(:user, roles: 'worker', first_name: 'John')
+    @worker2 = Fabricate(:user, roles: 'worker', first_name: 'Barry')
     @task    = Fabricate(:task)
     @task2   = Fabricate(:task)
-    @task.artisan_ids = [@artisan.id, @artisan2.id]
+    @task.user_ids = [@worker.id, @worker2.id]
     @task.save
     @task.reload
-    @artisan.reload
+    @worker.reload
   end
   
   it "is valid from the Fabric" do
@@ -24,8 +24,8 @@ describe Task do
     expect(@task.task_type.class).to eq TaskType
   end
 
-  it "has one or more artisans" do
-    expect(@task.artisans).to include(@artisan, @artisan2)
+  it "has one or more workers" do
+    expect(@task.users).to include(@worker, @worker)
   end
 
   it "knows their names" do

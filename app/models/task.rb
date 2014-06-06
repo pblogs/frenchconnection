@@ -2,7 +2,7 @@ class Task < ActiveRecord::Base
   belongs_to :project
   belongs_to :task_type
   belongs_to :paint
-  has_and_belongs_to_many :artisans
+  has_and_belongs_to_many :users
 
   has_many :hours_spents
 
@@ -16,7 +16,7 @@ class Task < ActiveRecord::Base
   end
 
   def name_of_artisans
-    artisans.pluck(:name).join(', ' )
+    users.pluck(:first_name).join(', ' )
   end
   
 end
