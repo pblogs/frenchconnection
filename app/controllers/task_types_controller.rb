@@ -27,7 +27,7 @@ class TaskTypesController < ApplicationController
     @task_type = TaskType.new(task_type_params)
 
     respond_to do |format|
-      if @task_type.save
+      if @task_type.save!
         format.html { redirect_to @task_type, 
                       notice: 'Task type was successfully created.' }
         format.json { render action: 'show', 
