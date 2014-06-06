@@ -1,5 +1,15 @@
 AllieroForms::Application.routes.draw do
 
+  root "application#index"
+  #root 'static_pages#blog'
+
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :tasks
+    end
+  end
+
+
   devise_for :users
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
   resources :projects do
@@ -48,7 +58,6 @@ AllieroForms::Application.routes.draw do
   get '/blog' => 'static_pages#blog', as: :blog
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#blog'
   get '/manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
   get '/worker'  => 'static_pages#frontpage_user', as: :frontpage_user
   get '/new_assignment'    => 'static_pages#new_assignment', as: :new_assignment
