@@ -46,6 +46,7 @@ GEM
     bourbon (3.1.8)
       sass (>= 3.2.0)
       thor
+    bower-rails (0.7.3)
     builder (3.2.2)
     callsite (0.0.11)
     capybara (2.2.1)
@@ -280,6 +281,7 @@ DEPENDENCIES
   binding_of_caller
   bitters
   bourbon
+  bower-rails
   capybara
   coffee-rails (~> 4.0.0)
   database_cleaner

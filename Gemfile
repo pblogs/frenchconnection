@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
@@ -8,12 +8,12 @@ gem 'quiet_assets'
 gem 'pg'
 gem 'newrelic_rpm'
 gem 'foreman'
+
 gem 'passenger'
-
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
-
 gem 'rails_12factor', group: :production
 
+gem 'bower-rails'
 
 gem 'devise'
 
