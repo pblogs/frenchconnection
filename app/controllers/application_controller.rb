@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   
 
-  before_action :set_current_user, if: :signed_in?
+  before_action :set_current_user
   before_action :authenticate_user!
 
   def set_current_user
