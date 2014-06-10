@@ -16,10 +16,10 @@ class ExcelController < ApplicationController
 
   def timesheet
     @project = Project.find(params[:project_id])
-    @artisan = Artisan.find(params[:artisan_id])
-    @hours   = @project.hours_spents.where(artisan: @artisan).all
+    @user    = User.find(params[:user_id])
+    @hours   = @project.hours_spents.where(user: @user).all
     Rails.logger.debug  "hours is #{@hours.inspect}"
-    file_name = Timesheet.new(@project, @artisan, @hours).create_spreadsheet
+    file_name = Timesheet.new(@project, @user, @hours).create_spreadsheet
     send_file file_name,
       filename:  file_name
   end

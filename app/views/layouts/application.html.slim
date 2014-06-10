@@ -19,13 +19,16 @@ html
         nav
           ul#top_nav
             li= link_to 'Forside', '/'
-            li= link_to 'Ansatte', '#'
+            li= link_to 'Min side', '#'
             li= link_to 'HMS', '#'
-            li= link_to 'Prosjekter', '#'
             li= link_to 'Opplæring', '#'
-            li= link_to 'Ordre', '#'
             li= link_to 'Timer', '#'
-            li= link_to 'Lønn', '#'
+
+            - if @current_user.has_role? :project_leader
+              li= link_to 'Prosjekter', '#'
+              li= link_to 'Ordre', '#'
+            - if @current_user.has_role? :economy
+              li= link_to 'Lønn', '#'
 
         section
           p#notice = notice
