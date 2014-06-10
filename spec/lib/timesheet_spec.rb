@@ -4,26 +4,26 @@ describe Timesheet do
 
   before do
     @project = Fabricate(:project)
-    @artisan = Fabricate(:artisan, name: 'John')
+    @user = Fabricate(:user, first_name: 'John')
     @task    = Fabricate(:task, project: @project)
-    @artisan.tasks << @task
+    @user.tasks << @task
 
     @hours = []
-    @hours << Fabricate(:hours_spent, hour: 10,        task: @task, artisan: @artisan )
-    @hours << Fabricate(:hours_spent, overtime_50: 50, task: @task, artisan: @artisan )
+    @hours << Fabricate(:hours_spent, hour: 10,        task: @task, user: @user )
+    @hours << Fabricate(:hours_spent, overtime_50: 50, task: @task, user: @user )
   end
 
   it 'has no syntax errors' do
-    Timesheet.new(@project, @artisan, @hours).create_spreadsheet.class.should eq String
+    Timesheet.new(@project, @user, @hours).create_spreadsheet.class.should eq String
   end
 
   #it %q{returns a comma separated 
-  #string with the sum of the hours each artisan has worked} do
-  #  ExcelProjectTools.hours_for_artisans(@project).should eq ['20','19']
+  #string with the sum of the hours each user has worked} do
+  #  ExcelProjectTools.hours_for_users(@project).should eq ['20','19']
   #end
 
   #it %q{returns a comma separated string of names} do
-  #  ExcelProjectTools.artisan_names(@project).should eq ['John',' Ali']
+  #  ExcelProjectTools.user_names(@project).should eq ['John',' Ali']
   #end
 
 
