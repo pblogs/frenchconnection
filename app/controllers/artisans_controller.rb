@@ -12,6 +12,7 @@ class ArtisansController < ApplicationController
   def show
     @tasks = @artisan.tasks.to_a
     @new_tasks = @artisan.tasks.where(accepted: nil).to_a
+    @new_tasks = @current_user.tasks.where(accepted: nil).order(created_at: :desc)
   end
 
   # GET /artisans/new
