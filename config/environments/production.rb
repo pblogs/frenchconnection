@@ -2,7 +2,7 @@ AllieroForms::Application.configure do
 
   AllieroForms::Application.config.middleware.use ExceptionNotification::Rack,
       :email => {
-      :email_prefix => "[Whatever] ",
+      :email_prefix => "[AllieroForms-#{Rails.env}] ",
       :sender_address => %{"notifier" <notifier@orwapp.com>},
       :exception_recipients => %w{martin@stabenfeldt.net}
     }

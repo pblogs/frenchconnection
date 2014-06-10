@@ -7,9 +7,9 @@
     .bar
     ul
       li= link_to 'Rediger min profil', edit_user_registration_path
-      li= link_to 'Se timelister',  edit_user_registration_path
-      li= link_to 'Send melding',   edit_user_registration_path
-      li= link_to 'Meld avvik',     edit_user_registration_path
+      li= link_to 'Se timelister',  edit_user_registration_path, class: :muted_text
+      li= link_to 'Send melding',   edit_user_registration_path, class: :muted_text
+      li= link_to 'Meld avvik',     edit_user_registration_path, class: :muted_text
   
   .center_column
     - if @current_user.has_role? :worker
