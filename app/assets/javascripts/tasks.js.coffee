@@ -22,3 +22,12 @@ $ ->
   $(document).on 'click', '.send_msg', (e) ->
     e.preventDefault()
     alert('Melding sendt til kunden')
+
+  # Show employees belong to the selected department
+  $(document).on 'change', '#task_department_id', (e) ->
+    id = $("#task_department_id option:selected").val();
+    $('.title').show()
+    $('.employees').hide()
+    $("#department_#{id}").show()
+
+

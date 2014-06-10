@@ -1,37 +1,14 @@
-p.button.green
-  strong Ny oppgave
-  br
-  br
-  = "Hos #{task.project.customer.name}"
-  = " (#{task.project.description}) "
-
-  br
-  = "Må utføres innen #{I18n.l(task.start_date, format: :short)}"
-  br
-  = "Ta kontakt med kunde for å avtale nærmere"
-
-p.button.green
-  = fa_icon 'list-alt'
-  =link_to "Oppdragsdetaljer  ", task
+= render partial: '/tasks/show', locals: {task: task }
 
 p.button.red
   = fa_icon 'phone'
   = link_to "Ring til prosjektleder", "tel:#{task.project.customer.phone}"
 
-p.button.green
+
+p.button.red
   = fa_icon 'map-marker'
   =link_to("Kart  ", 'https://www.google.no/maps/dir/Aker+Brygge,+Oslo/Nydalsveien+30B,+0484+Oslo/@59.9245564,10.7346665,13z/data=!3m1!4b1!4m14!4m13!1m5!1m1!1s0x46416e81bceae4f9:0xe68ffef57f364675!2m2!1d10.7250381!2d59.9099221!1m5!1m1!1s0x46416e1daddb3f2d:0x7029c4bb902ec39b!2m2!1d10.764084!2d59.950227!3e0', target: :blank)
   
 
-= form_tag(artisan_task_accept_task_path(@artisan, task)) do
+= form_tag(artisan_task_accept_task_path(@current_user, task)) do
   = submit_tag "Aksepter oppdraget"
-
-
-br
-br
-br
-hr
-br
-br
-
-

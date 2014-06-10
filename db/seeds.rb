@@ -21,3 +21,10 @@ Fabricate(:paint, title: 'Grunning' )
 Fabricate(:customer_message, text: 'Jeg er 30 minutter forsinket. Beklager så mye.')
 Fabricate(:customer_message, text: 'Vi er ferdig for i dag. Vi kommer tilbake i morgen.')
 Fabricate(:customer_message, text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
+
+
+elektro = Fabricate(:department, id: 1, title: 'Elektro')
+stilas  = Fabricate(:department, id: 2, title: 'Stilas')
+
+Fabricate(:user, department: elektro, first_name: 'Even',  last_name: 'Elektro')
+Fabricate(:user, department: stilas,  first_name: 'Stian', last_name: 'Stilas')

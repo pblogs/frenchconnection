@@ -8,8 +8,7 @@ class StaticPagesController < ApplicationController
   end
 
   def frontpage_artisan
-    @artisan = Artisan.first
-    redirect_to @artisan
+    @new_tasks = @current_user.tasks.where(accepted: nil).to_a
   end
 
 

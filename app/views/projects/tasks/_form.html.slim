@@ -1,22 +1,33 @@
 = form_for [@project, @task] do |f|
   - if @task.errors.any?
     #error_explanation
-      h2= "#{pluralize(@task.errors.count, "error")} prohibited this task from being saved:"
+      h2= "#{pluralize(@task.errors.count, "error")} hindret oss å lagre:"
       ul
         - @task.errors.full_messages.each do |message|
           li = message
 
-  = label_tag 'task_type_id', 'Oppdragstype'
-  = f.select "task_type_id", 
-    options_from_collection_for_select(@task_types, "id", "title")
+  // = label_tag 'task_type_id', 'Oppdragstype'
+  // = f.select "task_type_id", 
+  //   options_from_collection_for_select(@task_types, "id", "title")
 
-  = label_tag 'paint_id', 'Malingstype'
-  = f.select 'paint_id', 
-    options_from_collection_for_select(@paint, "id", "title")
+  = label_tag 'department_id', 'Avdeling'
+  = f.select 'department_id', 
+    options_from_collection_for_select(@departments, "id", "title")
 
-  = label_tag 'artisan_id', 'Henvis til utførende'
-  = collection_check_boxes(:task, :artisan_ids, Artisan.all, :id, :name) do |b|
-    = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+  .title.hide
+    = label_tag 'artisan_id', 'Henvis til utførende'
+  -stilas_id = Department.where(title: 'Stilas').first.id
+  -elektro_id = Department.where(title: 'Elektro').first.id
+  #department_1.employees.hide
+    = collection_check_boxes(:task, :user_ids, User.where(department_id: stilas_id), :id, :name) do |b|
+      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+  #department_2.employees.hide
+    = collection_check_boxes(:task, :user_ids, User.where(department_id: elektro_id), :id, :name) do |b|
+      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+    
+    
+    
     
     
     

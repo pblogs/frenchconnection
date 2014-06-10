@@ -1,8 +1,6 @@
-h1= "Ny oppgave under #{@project.project_number} for #{@project.customer.name}"
+h1= "Ny oppgave for #{@project.customer.name}"
 br
 br
 br
 
 == render 'form'
-
-/= link_to 'Back', tasks_path

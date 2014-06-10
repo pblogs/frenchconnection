@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515134807) do
+ActiveRecord::Schema.define(version: 20140606093100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,12 @@ ActiveRecord::Schema.define(version: 20140515134807) do
     t.datetime "updated_at"
   end
 
+  create_table "departments", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "hours_spents", force: true do |t|
     t.integer  "customer_id"
     t.integer  "task_id"
@@ -54,11 +60,12 @@ ActiveRecord::Schema.define(version: 20140515134807) do
     t.datetime "updated_at"
     t.date     "date"
     t.text     "description"
-    t.integer  "artisan_id"
+    t.integer  "user_id"
     t.string   "notes"
     t.integer  "piecework_hours"
     t.integer  "overtime_50"
     t.integer  "overtime_100"
+    t.integer  "project_id"
   end
 
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
@@ -109,5 +116,32 @@ ActiveRecord::Schema.define(version: 20140515134807) do
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
   add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id", using: :btree
+
+  create_table "tasks_users", id: false, force: true do |t|
+    t.integer "task_id"
+    t.integer "user_id"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "",       null: false
+    t.string   "encrypted_password",     default: "",       null: false
+    t.string   "roles",                  default: "worker", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,        null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "department_id"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
