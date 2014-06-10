@@ -1,0 +1,49 @@
+.outer_container
+  aside.left_column
+    =image_tag 'http://m.c.lnkd.licdn.com/media/p/2/000/2ad/2d2/27f26a7.jpg',
+      class: :profile_image
+  
+    strong.menu_header Verktøy
+    .bar
+    ul
+      li= link_to 'Rediger min profil', edit_user_registration_path
+      li= link_to 'Se timelister',  edit_user_registration_path
+      li= link_to 'Send melding',   edit_user_registration_path
+      li= link_to 'Meld avvik',     edit_user_registration_path
+  
+  .center_column
+    .message_box
+      p 
+        | Fra sjefen:
+        blockquote
+          |
+            Det er spådd regn i dag. Husk regntøy og ekstra sett med sokker.
+            Ha en fin dag!
+    .clearfix
+  
+    .my_tasks
+      strong.menu_header Mine oppgaver
+      .bar
+      ul.menu
+        li
+          = link_to "Nye oppdrag", artisan_tasks_not_started_path(@current_user)
+          - if @new_tasks.present?
+            .new_tasks_notifier.big.right
+              .star= fa_icon 'star', text: @new_tasks.size
+        li= link_to "Før timer", artisan_tasks_started_path(@current_user)
+  
+  
+  .right_column
+    .my_tasks
+      strong.menu_header Mine prosjekter
+      .bar
+      ul
+        - @current_user.tasks.each do |task|
+          li= link_to task.description, task
+  
+    .my_tasks
+      strong.menu_header Kurs og sertifiseringer
+      .bar
+      ul
+        li= link_to 'Stilas', '#'
+        li= link_to 'Grunnmur',  '#'

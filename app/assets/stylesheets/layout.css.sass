@@ -1,8 +1,24 @@
+body
+  background-color: #555555
+
 #outer-container
+  background-color: white
   @include outer-container
+  padding: 20px
+  margin-top: 10px
 
 #main
   @include span-columns(12)
 
 section
-  margin-top: 80px
+  margin-top: 20px
+
+
+aside.left_column
+  @include span-columns(2)
+
+.center_column
+  @include span-columns(5)
+
+.right_column
+  @include span-columns(5)

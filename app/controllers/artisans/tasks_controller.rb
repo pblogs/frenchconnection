@@ -12,13 +12,11 @@ class Artisans::TasksController < ApplicationController
   end
 
   def started
-    @artisan = Artisan.find(params[:artisan_id])
-    @tasks = Task.where(accepted: true, finished: false).order(created_at: :desc)
+    @tasks = @current_user.tasks.where(accepted: true, finished: false).order(created_at: :desc)
   end
 
   def not_started
-    @artisan = Artisan.find(params[:artisan_id])
-    @tasks = Task.where(accepted: nil).order(created_at: :desc)
+    @tasks = @current_user.tasks.where(accepted: nil).order(created_at: :desc)
   end
 
   def show
@@ -28,18 +26,16 @@ class Artisans::TasksController < ApplicationController
   end
 
   def accept_task
-    @artisan = Artisan.find params[:artisan_id]
     @task = Task.find(params[:task_id])
     @task.update(accepted: true)
-    redirect_to artisan_tasks_not_started_path(@artisan), 
+    redirect_to artisan_tasks_not_started_path(@current_user), 
       notice: 'Oppdraget markert som akseptert'
   end
 
   def finished
-    @artisan = Artisan.find params[:artisan_id]
     @task = Task.find(params[:task_id])
     @task.update(finished: true)
-    redirect_to artisan_tasks_started_path(@artisan), 
+    redirect_to artisan_tasks_started_path(@current_user), 
       notice: 'Oppdraget markert som ferdigstilt'
   end
 

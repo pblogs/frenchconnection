@@ -1,0 +1,31 @@
+h2
+  | Rediger profilen din
+br
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = devise_error_messages!
+  div
+    = f.label :email, 'Epost'
+    br
+    = f.email_field :email, autofocus: true
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    div
+      | Venter på bekreftelse av epost-adressen
+      = resource.unconfirmed_email
+  div
+    = f.label :password
+    i
+      | (La være blank hvis du ikke vil endre)
+    br
+    = f.password_field :password, autocomplete: "off"
+  div
+    = f.label :password_confirmation, 'Gjenta passord'
+    br
+    = f.password_field :password_confirmation, autocomplete: "off"
+  div
+    = f.label :current_password, 'Dagens passord'
+    i
+      | (Du må bekrefte passordet ditt for å tillate endringer)
+    br
+    = f.password_field :current_password, autocomplete: "off"
+  div
+    = f.submit "Lagre"
