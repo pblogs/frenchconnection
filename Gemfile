@@ -9,6 +9,8 @@ gem 'pg'
 gem 'rails_12factor'   # Needed for Rails4 on Heroku
 gem 'newrelic_rpm'
 gem 'foreman'
+gem 'passenger'
+
 
 gem 'devise'
 

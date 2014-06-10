@@ -67,6 +67,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    daemon_controller (1.2.0)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     devise (3.2.4)
@@ -146,6 +147,10 @@ GEM
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
+    passenger (4.0.44)
+      daemon_controller (>= 1.2.0)
+      rack
+      rake (>= 0.8.1)
     pg (0.17.1)
     polyglot (0.3.4)
     pry (0.9.12.6)
@@ -284,6 +289,7 @@ DEPENDENCIES
   meta_request
   neat
   newrelic_rpm
+  passenger
   pg
   quiet_assets
   rails (= 4.0.4)
