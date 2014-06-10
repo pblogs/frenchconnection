@@ -30,8 +30,13 @@ class Timesheet
     
         bold_italic  = styles.add_style :b => true, :i => true 
         bold         = styles.add_style :b => true
+        bold_center  = styles.add_style :b => true, :alignment => { :horizontal => :center }
+        bold_pull_left = styles.add_style :b => true, :alignment => { :horizontal => :left }
+        bold_pull_right = styles.add_style :b => true, :alignment => { :horizontal => :right }
         bold_gray_bg = styles.add_style :b => true, :bg_color => 'E2E2E2'
         border       = styles.add_style :border => { style: :medium, color: '000000' }
+        bold_gray_bg_center = styles.add_style :b => true, 
+          :bg_color => 'E2E2E2', :alignment => { :horizontal => :center }
 
         gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "E2E2E2"
         attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
@@ -42,7 +47,7 @@ class Timesheet
     
           sheet.add_image(:image_src => 'app/assets/images/Alliero-logo-500x81.png',
                           :noSelect => true, :noMove => true) do |image|
-            image.width=340
+            image.width=345
             image.height=50
             image.start_at 10,0
           end
@@ -59,7 +64,10 @@ class Timesheet
 
 # Linje 3 - Ansatt navn
           sheet.add_row [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
-            :style => [bold, bold, bold, bold, bold, bold, bold, bold], height: 30
+            :style => [bold, bold, bold, bold, bold, bold, bold, 
+                       bold, bold, bold, bold, bold, 
+                       bold, bold, bold], 
+                       height: 30
 
           # Ansatt navn
           %w(A3:E3).each { |range| sheet.merge_cells(range) }
@@ -68,7 +76,7 @@ class Timesheet
           %w(F3:J3).each { |range| sheet.merge_cells(range) }
 
           # FRA DATO, TIL DATO
-          %w(K3:N3).each { |range| sheet.merge_cells(range) }
+          %w(K3:O3).each { |range| sheet.merge_cells(range) }
 
           sheet.rows[2].cells[0].value = 'ANSATT NAVN:'
           sheet.rows[2].cells[5].value = 'ANSATT NR:'
@@ -101,7 +109,7 @@ class Timesheet
 # Linje 7 # Header
           nil_header = []; 14.times { nil_header.push nil }
           sheet.add_row  nil_header, style: [nil, nil, nil, 
-            bold, bold, bold, bold, bold,
+            bold, bold_center, bold_center, bold_center, bold,
             bold, bold, bold, bold, bold]
           # Arbeidene timer
           %w(D7:E7).each { |range| sheet.merge_cells(range) }
@@ -114,20 +122,30 @@ class Timesheet
 
           sheet.rows[6].cells[3].value = 'Arbeidene timer'
           sheet.rows[6].cells[5].value = 'Overtid'
-          sheet.rows[6].cells[7].value = 'Reisepenger'
+          sheet.rows[6].cells[7].value = '                Reisepenger'
           sheet.rows[6].cells[11].value = 'Bom'
           sheet.rows[6].cells[12].value = 'Fravær/Ferie/Hellidager etc.'
 
-# Linje 8 # Subheader
-          sheet.add_row ['Dato', 'Dag', 'Merknader', 'Akkord timer', 
-          'Ordinære timer', '50%', '100%', 'Gr 1 7.5-15km', 'Gr 2 15-30km', 
-          'Gr 3 30-45km', 'Gr 4 45-60km', 'Bom penger', 'Fraværstimer', 'Fraværsgrunn' ], 
+# Linje 8 # Subheader top
+          sheet.add_row ['Dato', 'Dag', 'Merknader', 
+          'Akkord', 'Ordinære', '50%', '100%', 
+          'Gr 1', 'Gr 2', 'Gr 3', 'Gr 4', 
+          'Bom-', 'Fraværs-', 'Fraværsgrunn'], 
+            style: [
+              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, 
+              bold_gray_bg, bold_gray_bg, bold_gray_bg_center, bold_gray_bg_center, 
+              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, 
+              bold_gray_bg, bold_gray_bg, bold_gray_bg]
+
+# Linje 9 # Subheader bottom
+          sheet.add_row [nil, nil, nil, 'timer', 
+          'timer', nil, nil, '7.5-15km', '15-30km', 
+          '30-45km', '45-60km', 'penger', 'timer', nil], 
             style: [bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg]
-
 
 # Line 9  # Hours for this artisan on this project
           @hours.each do |h|
@@ -135,23 +153,34 @@ class Timesheet
             h.piecework_hours, h.hour, h.overtime_50, h.overtime_100]
           end
 
+# Sum
+          sheet.add_row [nil]
+          sheet.add_row [nil]
+          sheet.add_row [nil]
+          sheet.add_row [nil, nil, 'Sum',
+            ExcelProjectTools.sum_piecework_hours(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_workhours(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_overtime_50(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_overtime_100(project: @project, artisan: @artisan), 
+            nil, nil, nil, nil, nil, nil, nil],
+            style: [nil, bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg,
+            bold_gray_bg, bold_gray_bg, 
+            bold_gray_bg, bold_gray_bg,
+            ]
 
-          ## Her listes alle timene som er ført på dette prosjektet.
-          ##
-          #i = 1
-          #ai = -1
-          #@project.artisans.each do |a|
-          #  ai += 1
-          #  @project.hours_spents.where(artisan: a).each do |h|
-          #    sheet.add_row [I18n.l(h.created_at, format: :short_date), 
-          #      h.description] +  offsett(ai) + [h.hour]
-          #    i += 1 
-          #  end
-          #end
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
-          #sheet.add_row [nil]
+# Akkordoppgjør, kr
+          #sheet.add_row ['Akkord-', 'oppgjør', nil, 'kr:', nil, nil, 
+          #'Til informasjon: Timelistene skal leveres sist arbeidsdag i måneden.'], 
+          #style: [bold_pull_left, bold_pull_right]
+          #sheet.add_row [nil, nil, nil, nil]
+          #sheet.add_row ['(Akkordseddel må vedlegges)'], style: [bold]
 
+
+
+     
           ## Sum timer pr pers
           #artisans = @project.artisans.all
           #if artisans.present?
@@ -246,7 +275,7 @@ class Timesheet
           #end
     
           #
-          sheet.column_widths 7, 7, nil, nil,nil,nil,nil,nil,nil,nil,nil,nil, 11 #nil, nil, 2
+          sheet.column_widths 7,7,nil,nil,9,7,7,7,7,7,7,7,8,15
         end
       end
       prng = Random.new
@@ -264,5 +293,9 @@ class Timesheet
       r << ''
     end
     r
+  end
+
+  def last_row(sheet)
+    sheet.rows.size
   end
 end

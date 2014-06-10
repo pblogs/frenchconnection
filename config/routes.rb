@@ -2,6 +2,7 @@ AllieroForms::Application.routes.draw do
 
 
 
+  devise_for :users
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'
@@ -46,7 +47,7 @@ AllieroForms::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#frontpage_manager'
+  root 'application#frontpage'
   get '/manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
   get '/worker'  => 'static_pages#frontpage_artisan', as: :frontpage_artisan
   get '/new_assignment'    => 'static_pages#new_assignment', as: :new_assignment

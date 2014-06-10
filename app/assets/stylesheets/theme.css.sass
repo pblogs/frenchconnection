@@ -6,6 +6,28 @@
 a:hover
   text-decoration: underline
 
+.logo-wrapper
+  background-color: #035091
+  height: 55px
+
+
+#top_nav
+  margin-top: 20px
+  height: 55px
+  @include linear-gradient(to top, $green, $dark_green, $fallback: $green)
+  a
+    color: white
+  li
+    padding: 15px
+    &:hover
+      background-color: $dark_blue
+  
+
+a
+  color: black
+  &:hover
+    color: black
+
 #header
   a
     display: block
@@ -21,39 +43,36 @@ h3,
 h4,
 h5,
 h6,
-  color: white
+  color: black
 
 .button
-  ///@include border-top-radius(5px)
-  ///@include border-bottom-radius(5px)
-  ///@include border-left-radius(5px)
-  ///@include border-right-radius(5px)
   padding: 20px
-  color: white
-  a
+  a,
+  strong
     color: white
   .fa
     margin-right: 20px
 
+.new_company
+  padding: 18px 32px
+
 .secondary_button
-  //@include border-top-radius(5px)
-  //@include border-bottom-radius(5px)
-  //@include border-left-radius(5px)
-  //@include border-right-radius(5px)
   width: 25%
   padding: 10px
   text-align: center
   margin-top: 20px
-  color: white
   font-weight: bold
 
 .green
+  color: white
   background-color: $green
 
 .red
+  color: white
   background-color: $red
 
 .yellow
+  color: white
   background-color: $yellow
 
 nav
@@ -72,10 +91,6 @@ nav
     color: $yellow
 
 table
-  //@include border-top-radius(5px)
-  //@include border-bottom-radius(5px)
-  //@include border-left-radius(5px)
-  //@include border-right-radius(5px)
   padding: 20px
   background-color: $green
   color: white
@@ -83,10 +98,6 @@ table
     color: white
 
 form.new_hours_spent
-  //@include border-top-radius(5px)
-  //@include border-bottom-radius(5px)
-  //@include border-left-radius(5px)
-  //@include border-right-radius(5px)
   padding: 20px
   background-color: $green
 

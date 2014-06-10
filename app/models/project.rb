@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   belongs_to :customer
   has_many :tasks
   has_many :hours_spents, :through => :tasks
-  has_many :artisans,     :through => :tasks
+  has_many :users,     :through => :tasks
 
   validates :customer_id, :presence => true
   validates :start_date,  :presence => true
@@ -15,12 +15,12 @@ class Project < ActiveRecord::Base
     sum
   end
 
-  def hours_total_for(artisan)
-    hours_spents.where(artisan_id: artisan.id).sum(:hour) rescue nil
+  def hours_total_for(user)
+    hours_spents.where(user_id: user.id).sum(:hour) rescue nil
   end
 
-  def name_of_artisans
-    artisans.pluck(:name).join(', ' )
+  def name_of_users
+    users.pluck(:first_name).join(', ' )
   end
 
 

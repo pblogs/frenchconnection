@@ -151,6 +151,7 @@ describe CustomersController do
   end
 
   describe "DELETE destroy" do
+    pending "implement authorization first"
     it "destroys the requested customer" do
       customer = Customer.create! valid_attributes
       expect {

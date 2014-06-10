@@ -12,7 +12,6 @@ class ArtisansController < ApplicationController
   def show
     @tasks = @artisan.tasks.to_a
     @new_tasks = @artisan.tasks.where(accepted: nil).to_a
-    #raise
   end
 
   # GET /artisans/new

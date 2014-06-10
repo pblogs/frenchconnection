@@ -1,4 +1,4 @@
-h1= "Timer registrert på #{@task.customer.name} - #{@task.task_type.title}"
+h1= "Timer registrert på #{@task.project.customer.name} - #{@task.task_type.title}"
 
 table
   thead
@@ -10,7 +10,7 @@ table
   tbody
     - @hours_spents.each do |hours_spent|
       tr
-        td = hours_spent.task.customer.name
+        td = hours_spent.task.project.customer.name
         td = hours_spent.task.task_type.title
         td = hours_spent.hour
 
