@@ -10,7 +10,6 @@
 Fabricate(:customer, name: 'Oslo Sporveier AS')
 Fabricate(:customer, name: 'Østbanehallen')
 
-Fabricate(:artisan)
 Fabricate(:task_type, title: 'Maling')
 Fabricate(:task_type, title: 'Muring')
 Fabricate(:task_type, title: 'Forskaling')
