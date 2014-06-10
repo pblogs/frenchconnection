@@ -1,3 +1,14 @@
+/p.button.green
+  = fa_icon 'list-alt'
+  = link_to "Aktive oppdrag", user_tasks_started_path(@user)
+
+/.button.green
+  = fa_icon 'list-alt'
+  - if @new_tasks.present?
+    = link_to "Nye oppdrag", user_tasks_not_started_path(@user)
+    .new_tasks_notifier.big.right
+      .star= fa_icon 'star', text: @new_tasks.size
+    
 .outer_container
   aside.left_column
     =image_tag 'http://m.c.lnkd.licdn.com/media/p/2/000/2ad/2d2/27f26a7.jpg',
@@ -26,11 +37,11 @@
       .bar
       ul.menu
         li
-          = link_to "Nye oppdrag", artisan_tasks_not_started_path(@current_user)
+          = link_to "Nye oppdrag", user_tasks_not_started_path(@current_user)
           - if @new_tasks.present?
             .new_tasks_notifier.big.right
               .star= fa_icon 'star', text: @new_tasks.size
-        li= link_to "Før timer", artisan_tasks_started_path(@current_user)
+        li= link_to "Før timer", user_tasks_started_path(@current_user)
   
   
   .right_column
@@ -47,3 +58,4 @@
       ul
         li= link_to 'Stilas', '#'
         li= link_to 'Grunnmur',  '#'
+

@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   def select_frontpage
     if @current_user.has_role? :worker
-      frontpage_artisan_path
+      user_path(@current_user)
     elsif @current_user.has_role? :admin
       frontpage_manager_path
     end
