@@ -28,3 +28,6 @@ stilas  = Fabricate(:department, id: 2, title: 'Stilas')
 
 Fabricate(:user, department: elektro, first_name: 'Even',  last_name: 'Elektro')
 Fabricate(:user, department: stilas,  first_name: 'Stian', last_name: 'Stilas')
+
+User.where(email: 'worker@worker.no', password: 'worker@worker.no', password_confirmation: 'worker@worker.no', first_name: 'Hard', last_name: 'Worker').create!
+User.where(email: 'project@leader.no', password: 'project@leader.no', password_confirmation: 'project@leader.no', first_name: 'Prosjekt', last_name: 'Leder', roles: [:project_leader]).create!
