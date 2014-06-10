@@ -34,6 +34,7 @@ class Projects::TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task_types = TaskType.all
+    @departments = Department.all
   end
 
   # POST /tasks
@@ -102,7 +103,7 @@ class Projects::TasksController < ApplicationController
     def set_paint_and_type
       @task_types = TaskType.all
       @paint      = Paint.all
-      @artisans   = Artisan.all
+      @workers    = User.workers.all
     end
 
     def task_params
@@ -113,7 +114,8 @@ class Projects::TasksController < ApplicationController
                                    :paint_id,
                                    :description,
                                    :customer_buys_supplies,
-                                   :artisan_ids => []
+                                   :department_id, 
+                                   :user_ids => []
                                   )
     end
 end

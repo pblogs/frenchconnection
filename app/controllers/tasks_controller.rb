@@ -118,7 +118,8 @@ class TasksController < ApplicationController
                                    :artisan_id,
                                    :due_date,
                                    :customer_buys_supplies,
-                                   :artisan_ids => []
+                                   :department_id, 
+                                   :user_ids => []
                                   )
     end
 end

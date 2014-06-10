@@ -4,5 +4,5 @@ br
 - else
   .flash_message= "Det finnes ingen nye oppdrag. "
   br
-  = "#{link_to 'Gå til Aktive oppdrag', artisan_tasks_started_path(@artisan), 
+  = "#{link_to 'Gå til Aktive oppdrag', artisan_tasks_started_path(@current_user), 
      class: :secondary_button} ".html_safe

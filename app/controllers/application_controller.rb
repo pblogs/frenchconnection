@@ -5,26 +5,33 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   
 
+  before_action :set_current_user, if: :signed_in?
   before_action :authenticate_user!
-  before_action :set_current_user
 
   def set_current_user
     @current_user ||= current_user
   end
 
+  def frontpage
+    redirect_to select_frontpage
+  end
 
   def after_sign_in_path_for(resource)
-    if @current_user.has_role? :worker
-      frontpage_artisan_path
-    elsif @current_user.has_role? :admin
-      frontpage_manager_path
-    end
+    select_frontpage
   end
 
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :first_name
     devise_parameter_sanitizer.for(:sign_up) << :last_name
+  end
+
+  def select_frontpage
+    if @current_user.has_role? :worker
+      frontpage_artisan_path
+    elsif @current_user.has_role? :admin
+      frontpage_manager_path
+    end
   end
 
 end

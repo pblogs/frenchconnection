@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def self.workers
+    User.where("'worker' = ANY (roles)")
+  end
+
 end
