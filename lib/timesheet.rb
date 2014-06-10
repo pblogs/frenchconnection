@@ -2,9 +2,9 @@ class Timesheet
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project, artisan, hours)
+  def initialize(project, user, hours)
     @project = project
-    @artisan = artisan
+    @user = user
     @hours   = hours
 
     @wday = {
@@ -147,7 +147,7 @@ class Timesheet
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg]
 
-# Line 9  # Hours for this artisan on this project
+# Line 9  # Hours for this user on this project
           @hours.each do |h|
             sheet.add_row  [h.date, @wday["#{h.date.wday}"], h.description, 
             h.piecework_hours, h.hour, h.overtime_50, h.overtime_100]
@@ -158,10 +158,10 @@ class Timesheet
           sheet.add_row [nil]
           sheet.add_row [nil]
           sheet.add_row [nil, nil, 'Sum',
-            ExcelProjectTools.sum_piecework_hours(project: @project, artisan: @artisan), 
-            ExcelProjectTools.sum_workhours(project: @project, artisan: @artisan), 
-            ExcelProjectTools.sum_overtime_50(project: @project, artisan: @artisan), 
-            ExcelProjectTools.sum_overtime_100(project: @project, artisan: @artisan), 
+            ExcelProjectTools.sum_piecework_hours(project: @project, user: @user), 
+            ExcelProjectTools.sum_workhours(project: @project, user: @user), 
+            ExcelProjectTools.sum_overtime_50(project: @project, user: @user), 
+            ExcelProjectTools.sum_overtime_100(project: @project, user: @user), 
             nil, nil, nil, nil, nil, nil, nil],
             style: [nil, bold_gray_bg, bold_gray_bg,
             bold_gray_bg, bold_gray_bg,
@@ -182,9 +182,9 @@ class Timesheet
 
      
           ## Sum timer pr pers
-          #artisans = @project.artisans.all
-          #if artisans.present?
-          #  sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_artisans(@project) + [nil, nil, nil, nil],
+          #users = @project.users.all
+          #if users.present?
+          #  sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
           #    :style => [gray_bg_align_right, gray_bg_align_right, 
           #               gray_bg_align_right, gray_bg_align_right, 
           #               gray_bg_align_right, gray_bg_align_right, 
@@ -269,8 +269,8 @@ class Timesheet
           #  chart.end_at 12, 31
           #end
           
-          # The name of involved Artisans
-          #ExcelProjectTools.artisan_names(@project).each_with_index do |a, i|
+          # The name of involved Users
+          #ExcelProjectTools.user_names(@project).each_with_index do |a, i|
           #  sheet.rows[8].cells[2+i].value = a
           #end
     

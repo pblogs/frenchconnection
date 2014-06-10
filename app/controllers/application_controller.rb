@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   def select_frontpage
     if @current_user.has_role? :worker
       user_path(@current_user)
-    elsif @current_user.has_role? :admin
+    elsif @current_user.has_role? :project_leader
       frontpage_manager_path
     end
   end

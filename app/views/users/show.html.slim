@@ -1,14 +1,3 @@
-/p.button.green
-  = fa_icon 'list-alt'
-  = link_to "Aktive oppdrag", user_tasks_started_path(@user)
-
-/.button.green
-  = fa_icon 'list-alt'
-  - if @new_tasks.present?
-    = link_to "Nye oppdrag", user_tasks_not_started_path(@user)
-    .new_tasks_notifier.big.right
-      .star= fa_icon 'star', text: @new_tasks.size
-    
 .outer_container
   aside.left_column
     =image_tag 'http://m.c.lnkd.licdn.com/media/p/2/000/2ad/2d2/27f26a7.jpg',
@@ -23,13 +12,14 @@
       li= link_to 'Meld avvik',     edit_user_registration_path
   
   .center_column
-    .message_box
-      p 
-        | Fra sjefen:
-        blockquote
-          |
-            Det er spådd regn i dag. Husk regntøy og ekstra sett med sokker.
-            Ha en fin dag!
+    - if @current_user.has_role? :worker
+      .message_box
+        p 
+          | Fra sjefen:
+          blockquote
+            |
+              Det er spådd regn i dag. Husk regntøy og ekstra sett med sokker.
+              Ha en fin dag!
     .clearfix
   
     .my_tasks
