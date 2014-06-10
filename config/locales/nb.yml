@@ -20,7 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 nb:
-  hello: "Hello world"
   time:
     formats:
       short_w_year: "%d %B %Y"
