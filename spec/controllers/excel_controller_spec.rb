@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ExcelController do
   before do
     @project = Fabricate(:project)
+    sign_in
   end
 
   describe "GET 'export'" do

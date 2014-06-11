@@ -29,6 +29,10 @@ describe TaskTypesController do
     }
   end
 
+  before do
+    sign_in
+  end
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # TaskTypesController. Be sure to keep this updated too.
@@ -36,6 +40,7 @@ describe TaskTypesController do
 
   describe "GET index" do
     it "assigns all task_types as @task_types" do
+      sign_in
       task_type = TaskType.create! valid_attributes
       get :index, {}, valid_session
       assigns(:task_types).should eq([task_type])
@@ -44,6 +49,7 @@ describe TaskTypesController do
 
   describe "GET show" do
     it "assigns the requested task_type as @task_type" do
+      sign_in
       task_type = TaskType.create! valid_attributes
       get :show, {:id => task_type.to_param}, valid_session
       assigns(:task_type).should eq(task_type)
@@ -52,6 +58,7 @@ describe TaskTypesController do
 
   describe "GET new" do
     it "assigns a new task_type as @task_type" do
+      sign_in
       get :new, {}, valid_session
       assigns(:task_type).should be_a_new(TaskType)
     end
@@ -59,6 +66,7 @@ describe TaskTypesController do
 
   describe "GET edit" do
     it "assigns the requested task_type as @task_type" do
+      sign_in
       task_type = TaskType.create! valid_attributes
       get :edit, {:id => task_type.to_param}, valid_session
       assigns(:task_type).should eq(task_type)
@@ -68,18 +76,21 @@ describe TaskTypesController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new TaskType" do
+      sign_in
         expect {
           post :create, {:task_type => valid_attributes}, valid_session
         }.to change(TaskType, :count).by(1)
       end
 
       it "assigns a newly created task_type as @task_type" do
+      sign_in
         post :create, {:task_type => valid_attributes}, valid_session
         assigns(:task_type).should be_a(TaskType)
         assigns(:task_type).should be_persisted
       end
 
       it "redirects to the created task_type" do
+      sign_in
         post :create, {:task_type => valid_attributes}, valid_session
         response.should redirect_to(TaskType.last)
       end
@@ -87,6 +98,7 @@ describe TaskTypesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved task_type as @task_type" do
+      sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         TaskType.any_instance.stub(:save).and_return(false)
         post :create, {:task_type => { "title" => "invalid value" }}, valid_session
@@ -94,6 +106,7 @@ describe TaskTypesController do
       end
 
       it "re-renders the 'new' template" do
+      sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         TaskType.any_instance.stub(:save).and_return(false)
         post :create, {:task_type => { "title" => "invalid value" }}, valid_session
@@ -105,6 +118,7 @@ describe TaskTypesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested task_type" do
+      sign_in
         task_type = TaskType.create! valid_attributes
         # Assuming there are no other task_types in the database, this
         # specifies that the TaskType created on the previous line
