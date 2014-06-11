@@ -85,6 +85,7 @@ describe HoursSpentsController do
       end
 
       it "redirects to the created hours_spent" do
+        sign_in
         post :create, {:hours_spent => valid_attributes}, valid_session
         response.should redirect_to(HoursSpent.last)
       end
