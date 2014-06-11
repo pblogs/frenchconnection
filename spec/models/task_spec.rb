@@ -29,7 +29,7 @@ describe Task do
   end
 
   it "knows their names" do
-    @task.name_of_artisans.should eq 'John, Barry'
+    @task.name_of_users.should eq 'John, Barry'
   end
 
 end
