@@ -10,8 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @tasks = @user.tasks.to_a
-    @new_tasks = @user.tasks.where(accepted: nil).to_a
+    @tasks     = @current_user.tasks.to_a
     @new_tasks = @current_user.tasks.where(accepted: nil).order(created_at: :desc)
   end
 

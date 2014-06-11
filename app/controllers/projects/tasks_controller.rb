@@ -45,6 +45,7 @@ class Projects::TasksController < ApplicationController
     @task       = Task.new(task_params)
     @project    = Project.find(params[:project_id])
     @task.project = @project 
+    @departments = Department.all
 
 
     begin

@@ -28,7 +28,7 @@ class Users::TasksController < ApplicationController
   def accept_task
     @task = Task.find(params[:task_id])
     @task.update(accepted: true)
-    redirect_to user_tasks_not_started_path(@current_user), 
+    redirect_to @current_user, 
       notice: 'Oppdraget markert som akseptert'
   end
 
