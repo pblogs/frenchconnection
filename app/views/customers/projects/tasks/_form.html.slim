@@ -14,9 +14,9 @@
   = f.select 'paint_id', 
     options_from_collection_for_select(@paint, "id", "title")
 
-  = label_tag 'artisan_id', 'Henvis til utførende'
-  = f.select 'artisan_id', 
-    options_from_collection_for_select(@artisans, "id", "name")
+  = label_tag 'user_id', 'Henvis til utførende'
+  = f.select 'user_id', 
+    options_from_collection_for_select(@users, "id", "name")
 
 
   .field
