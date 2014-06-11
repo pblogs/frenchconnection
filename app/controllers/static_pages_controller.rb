@@ -1,5 +1,8 @@
 class StaticPagesController < ApplicationController
 
+  def blog
+  end
+
   def frontpage_manager
   end
 
