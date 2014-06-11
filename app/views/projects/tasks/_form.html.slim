@@ -20,10 +20,10 @@
   -stilas_id = Department.where(title: 'Stilas').first.id
   -elektro_id = Department.where(title: 'Elektro').first.id
   #department_1.employees.hide
-    = collection_check_boxes(:task, :user_ids, User.where(department_id: stilas_id), :id, :name) do |b|
+    = collection_check_boxes(:task, :user_ids, User.where(department_id: elektro_id), :id, :name) do |b|
       = b.label(:"data-value" => b.value) { b.check_box + b.text }
   #department_2.employees.hide
-    = collection_check_boxes(:task, :user_ids, User.where(department_id: elektro_id), :id, :name) do |b|
+    = collection_check_boxes(:task, :user_ids, User.where(department_id: stilas_id), :id, :name) do |b|
       = b.label(:"data-value" => b.value) { b.check_box + b.text }
     
     
