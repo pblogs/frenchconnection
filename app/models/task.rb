@@ -11,6 +11,8 @@ class Task < ActiveRecord::Base
   validates :start_date, :presence => true
   validates :due_date,   :presence => true
 
+  attr_accessor :department_id
+
   def hours_total
     self.hours_spents.sum(:hour)
   end
