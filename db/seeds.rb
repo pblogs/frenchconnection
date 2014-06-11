@@ -25,8 +25,10 @@ Fabricate(:customer_message, text: 'Vi er ferdige med jobben. Vi håper du blir 
 elektro = Department.where(id: 1, title: 'Elektro').first_or_create
 stilas  = Department.where(id: 2, title: 'Stilas').first_or_create
 
-Fabricate(:user, department: elektro, first_name: 'Even',  last_name: 'Elektro')
-Fabricate(:user, department: stilas,  first_name: 'Stian', last_name: 'Stilas')
+Fabricate(:user, department: elektro, first_name: 'Even',  
+          last_name: 'Elektro', email: 'even@elektro.no', password: 'even@elektro.no', password_confirmation: 'even@elektro.no')
+Fabricate(:user, department: stilas,  first_name: 'Stian', 
+          last_name: 'Stilas', email: 'stian@stilas.no', password: 'stian@stilas.no', password_confirmation: 'stian@stilas.no', )
 
 User.where(email: 'worker@worker.no', password: 'worker@worker.no', password_confirmation: 'worker@worker.no', first_name: 'Hard', last_name: 'Worker').create!
 User.where(email: 'project@leader.no', password: 'project@leader.no', password_confirmation: 'project@leader.no', first_name: 'Prosjekt', last_name: 'Leder', roles: [:project_leader]).create!
