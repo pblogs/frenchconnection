@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user
   end
 
+
   def frontpage
     redirect_to select_frontpage
   end

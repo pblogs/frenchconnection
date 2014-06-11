@@ -19,8 +19,8 @@ html
         - if signed_in?
           nav
             ul#top_nav
-              li= link_to 'Forside', '/'
-              li= link_to 'Min side', '#'
+              li= link_to 'Forside', '/blog'
+              li= link_to 'Min side', @current_user
               li= link_to 'HMS', '#'
               li= link_to 'Opplæring', '#'
               li= link_to 'Timer', '#'
@@ -41,6 +41,6 @@ html
           - if signed_in?
             span= "Logged in as #{@current_user.name}"
             br
-            = link_to 'Sign out', destroy_user_session_path, method: :delete
+            = link_to 'Logg up', destroy_user_session_path, method: :delete
           - else
-            = link_to 'Log in', new_user_session_path
+            = link_to 'Logg inn', new_user_session_path
