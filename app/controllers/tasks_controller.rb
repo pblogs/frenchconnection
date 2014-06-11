@@ -55,7 +55,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, 
-          notice: "Oppdraget ble opprettet og sendt til #{@task.name_of_artisans}"
+          notice: "Oppdraget ble opprettet og sendt til #{@task.name_of_users}"
           }
         format.json { render action: 'show', status: :created, location: @task }
       else
@@ -104,7 +104,7 @@ class TasksController < ApplicationController
     def set_paint_and_type
       @task_types = TaskType.all
       @paint      = Paint.all
-      @artisans   = Artisan.all
+      @users      = User.workers.all
     end
 
     def task_params
@@ -115,7 +115,7 @@ class TasksController < ApplicationController
                                    :paint_id,
                                    :description,
                                    :project_id,
-                                   :artisan_id,
+                                   :user_id,
                                    :due_date,
                                    :customer_buys_supplies,
                                    :department_id, 

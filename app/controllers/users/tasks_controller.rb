@@ -28,14 +28,14 @@ class Users::TasksController < ApplicationController
   def accept_task
     @task = Task.find(params[:task_id])
     @task.update(accepted: true)
-    redirect_to artisan_tasks_not_started_path(@current_user), 
+    redirect_to user_tasks_not_started_path(@current_user), 
       notice: 'Oppdraget markert som akseptert'
   end
 
   def finished
     @task = Task.find(params[:task_id])
     @task.update(finished: true)
-    redirect_to artisan_tasks_started_path(@current_user), 
+    redirect_to user_tasks_started_path(@current_user), 
       notice: 'Oppdraget markert som ferdigstilt'
   end
 
@@ -73,7 +73,7 @@ class Users::TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, 
-          notice: "Oppdraget ble opprettet og sendt til #{@task.artisan.name}" }
+          notice: "Oppdraget ble opprettet og sendt til #{@task.user.name}" }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
@@ -131,7 +131,7 @@ class Users::TasksController < ApplicationController
                                    :start_date, 
                                    :paint_id,
                                    :description,
-                                   :artisan_id,
+                                   :user_id,
                                    :customer_buys_supplies)
     end
 end

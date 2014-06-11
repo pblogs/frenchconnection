@@ -17,7 +17,7 @@ class Task < ActiveRecord::Base
     self.hours_spents.sum(:hour)
   end
 
-  def name_of_artisans
+  def name_of_users
     users.pluck(:first_name).join(', ' )
   end
   
