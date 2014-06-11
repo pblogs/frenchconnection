@@ -19,7 +19,7 @@ br
           td = task.project.customer.name
           td = task.task_type.title
           td = task.start_date.strftime("%B %d")
-          td = task.name_of_artisans
+          td = task.name_of_users
           td
             = link_to 'Vis, ', project_task_path(task.project, task)
             = link_to 'Rediger, ', edit_project_task_path(task.project, task)

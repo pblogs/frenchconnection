@@ -1,4 +1,4 @@
-json.array!(@artisans) do |artisan|
-  json.extract! artisan, :id, :name, :tasks_id
-  json.url artisan_url(artisan, format: :json)
+json.array!(@users) do |user|
+  json.extract! user, :id, :name, :tasks_id
+  json.url user_url(user, format: :json)
 end
