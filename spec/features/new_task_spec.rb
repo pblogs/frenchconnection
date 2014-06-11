@@ -33,7 +33,7 @@ describe "Create a new task", :type => :feature do
     # Oppdragstype
     #select 'Maling', from: 'task_task_type_id'
     #select 'Acryl',  from: 'task_paint_id'
-    #select 'Josh',   from: 'task_artisan_id'
+    #select 'Josh',   from: 'task_user_id'
     fill_in 'Oppstartsdato', with: '01.05.2014'
     click_button 'Lagre oppdrag i Visma'
   end
@@ -86,7 +86,7 @@ end
 #    # Oppdragstype
 #    select 'Maling', from: 'task_task_type_id'
 #    select 'Acryl',  from: 'task_paint_id'
-#    select 'Josh',   from: 'task_artisan_id'
+#    select 'Josh',   from: 'task_user_id'
 #    fill_in 'Oppstartsdato', with: '01.05.2014'
 #    click_button 'Lagre oppdrag i Visma'
 #  end

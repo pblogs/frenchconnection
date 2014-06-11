@@ -61,7 +61,7 @@ class Dagsrapport
           ai = -1
           @project.users.each do |a|
             ai += 1
-            @project.hours_spents.where(artisan: a).each do |h|
+            @project.hours_spents.where(user: a).each do |h|
               sheet.add_row [I18n.l(h.created_at, format: :short_date), 
                 h.description] +  offsett(ai) + [h.hour]
               i += 1 
@@ -74,7 +74,7 @@ class Dagsrapport
           # Sum timer pr pers
           workers = @project.users.all
           if workers.present?
-            sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_artisans(@project) + [nil, nil, nil, nil],
+            sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
               :style => [gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
@@ -161,7 +161,7 @@ class Dagsrapport
           #end
           
           # The name of involved Artisans
-          ExcelProjectTools.artisan_names(@project).each_with_index do |a, i|
+          ExcelProjectTools.user_names(@project).each_with_index do |a, i|
             sheet.rows[8].cells[2+i].value = a
           end
     
