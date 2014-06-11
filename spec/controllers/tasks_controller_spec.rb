@@ -27,10 +27,13 @@ describe TasksController do
     { 
       project_id:    Fabricate(:project).id,
       task_type_id:  Fabricate(:task_type).id,
-      artisan_ids:   [Fabricate(:artisan).id],
+      user_ids:   [Fabricate(:user).id],
       start_date:    '01.05.1983',
       due_date:      '01.05.1983'
     }
+  end
+  before do
+    sign_in
   end
 
   # This should return the minimal set of values that should be in the session
