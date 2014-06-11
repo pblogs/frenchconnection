@@ -168,6 +168,7 @@ describe HoursSpentsController do
 
   describe "DELETE destroy" do
     it "destroys the requested hours_spent" do
+      sign_in
       hours_spent = HoursSpent.create! valid_attributes
       expect {
         delete :destroy, {:id => hours_spent.to_param}, valid_session
@@ -175,6 +176,7 @@ describe HoursSpentsController do
     end
 
     it "redirects to the hours_spents list" do
+      sign_in
       hours_spent = HoursSpent.create! valid_attributes
       delete :destroy, {:id => hours_spent.to_param}, valid_session
       response.should redirect_to(hours_spents_url)
