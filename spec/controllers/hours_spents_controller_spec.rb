@@ -40,6 +40,7 @@ describe HoursSpentsController do
 
   describe "GET index" do
     it "assigns all hours_spents as @hours_spents" do
+      sign_in
       hours_spent = HoursSpent.create! valid_attributes
       get :index, {}, valid_session
       assigns(:hours_spents).should eq([hours_spent])
@@ -48,6 +49,7 @@ describe HoursSpentsController do
 
   describe "GET show" do
     it "assigns the requested hours_spent as @hours_spent" do
+      sign_in
       hours_spent = HoursSpent.create! valid_attributes
       get :show, {:id => hours_spent.to_param}, valid_session
       assigns(:hours_spent).should eq(hours_spent)
@@ -56,6 +58,7 @@ describe HoursSpentsController do
 
   describe "GET new" do
     it "assigns a new hours_spent as @hours_spent" do
+      sign_in
       get :new, {}, valid_session
       assigns(:hours_spent).should be_a_new(HoursSpent)
     end
@@ -63,6 +66,7 @@ describe HoursSpentsController do
 
   describe "GET edit" do
     it "assigns the requested hours_spent as @hours_spent" do
+      sign_in
       hours_spent = HoursSpent.create! valid_attributes
       get :edit, {:id => hours_spent.to_param}, valid_session
       assigns(:hours_spent).should eq(hours_spent)
@@ -79,6 +83,7 @@ describe HoursSpentsController do
       end
 
       it "assigns a newly created hours_spent as @hours_spent" do
+        sign_in
         post :create, {:hours_spent => valid_attributes}, valid_session
         assigns(:hours_spent).should be_a(HoursSpent)
         assigns(:hours_spent).should be_persisted
@@ -93,6 +98,7 @@ describe HoursSpentsController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved hours_spent as @hours_spent" do
+        sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
         post :create, {:hours_spent => { "hour" => "invalid value" }}, 
@@ -101,6 +107,7 @@ describe HoursSpentsController do
       end
 
       it "re-renders the 'new' template" do
+        sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
         post :create, {:hours_spent => { "hour" => "invalid value" }}, valid_session
@@ -112,6 +119,7 @@ describe HoursSpentsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested hours_spent" do
+        sign_in
         hours_spent = HoursSpent.create! valid_attributes
         # Assuming there are no other hours_spents in the database, this
         # specifies that the HoursSpent created on the previous line
@@ -123,12 +131,14 @@ describe HoursSpentsController do
       end
 
       it "assigns the requested hours_spent as @hours_spent" do
+        sign_in
         hours_spent = HoursSpent.create! valid_attributes
         put :update, {:id => hours_spent.to_param, :hours_spent => valid_attributes}, valid_session
         assigns(:hours_spent).should eq(hours_spent)
       end
 
       it "redirects to the hours_spent" do
+        sign_in
         hours_spent = HoursSpent.create! valid_attributes
         put :update, {:id => hours_spent.to_param, :hours_spent => valid_attributes}, valid_session
         response.should redirect_to(hours_spent)
@@ -137,6 +147,7 @@ describe HoursSpentsController do
 
     describe "with invalid params" do
       it "assigns the hours_spent as @hours_spent" do
+        sign_in
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
@@ -145,6 +156,7 @@ describe HoursSpentsController do
       end
 
       it "re-renders the 'edit' template" do
+        sign_in
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
