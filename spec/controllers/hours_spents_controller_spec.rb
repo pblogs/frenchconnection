@@ -29,7 +29,7 @@ describe HoursSpentsController do
       hour:        rand(200..450),
       description: 'Sparklet dritbra',
       date: '2014-04-14',
-      artisan_id: Fabricate(:artisan).id
+      user_id: Fabricate(:user).id
     }
   end
 
@@ -72,6 +72,7 @@ describe HoursSpentsController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new HoursSpent" do
+        sign_in
         expect {
           post :create, {:hours_spent => valid_attributes}, valid_session
         }.to change(HoursSpent, :count).by(1)

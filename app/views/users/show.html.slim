@@ -3,13 +3,14 @@
     =image_tag 'http://m.c.lnkd.licdn.com/media/p/2/000/2ad/2d2/27f26a7.jpg',
       class: :profile_image
   
-    strong.menu_header Verktøy
-    .bar
-    ul
-      li= link_to 'Rediger min profil', edit_user_registration_path
-      li= link_to 'Se timelister',  edit_user_registration_path, class: :muted_text
-      li= link_to 'Send melding',   edit_user_registration_path, class: :muted_text
-      li= link_to 'Meld avvik',     edit_user_registration_path, class: :muted_text
+    section
+      strong.menu_header Verktøy
+      .bar
+      ul
+        li= link_to 'Rediger min profil', edit_user_registration_path
+        li= link_to 'Se timelister',  edit_user_registration_path, class: :muted_text
+        li= link_to 'Send melding',   edit_user_registration_path, class: :muted_text
+        li= link_to 'Meld avvik',     edit_user_registration_path, class: :muted_text
   
   .center_column
     - if @current_user.has_role? :worker
