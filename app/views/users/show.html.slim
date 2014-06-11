@@ -21,41 +21,59 @@
           blockquote
               | Det er spådd regn i dag. Husk regntøy og ekstra sett med sokker.
               | Ha en fin dag!
-    .clearfix
   
-    .my_tasks
-      strong.menu_header Nye oppgaver
-      .bar
-      ul.menu
-        li
-          table
-            thead
-              th Kunde
-              th Beskrivelse
-              th Fra / Til
-              th Valg
-              - @new_tasks.each do |task|
-                = render partial: '/tasks/accept_reject_listing', locals: {task: task }
-              //= link_to "Nye oppdrag", user_tasks_not_started_path(@current_user)
-              //- if @new_tasks.present?
-              //  .new_tasks_notifier.big.right
-              //    .star= fa_icon 'star', text: @new_tasks.size
-      
+      .my_tasks
+        - if @new_tasks.present?
+          strong.menu_header Nye oppgaver
+          .bar
+          ul.menu
+            li
+              table
+                thead
+                  th Kunde
+                  th Beskrivelse
+                  th Fra / Til
+                  th Valg
+                  - @new_tasks.each do |task|
+                    = render partial: '/tasks/accept_reject_listing', locals: {task: task }
+
+    - if @current_user.has_role? :project_leader
+      br
+      br
+      h5
+        = fa_icon 'list-alt'
+        = link_to " Aktive prosjekter", projects_path
+      br
+
+      h5
+        = fa_icon 'pencil-square-o'
+        = link_to  ' Opprett nytt prosjekt', new_assignment_path
+      br
+        
+      h5
+        = fa_icon 'pencil-square-o'
+        = link_to  ' Timelister', timesheets_path
+      br
   
   .right_column
-    .my_tasks
-      strong.menu_header Mine prosjekter
-      .bar
-      ul
-        - @current_user.tasks.each do |task|
-          li
-            = link_to task.description, task
-            = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
-  
+    - if @current_user.has_role? :worker
+      .my_tasks
+        strong.menu_header Mine oppgaver
+        .bar
+        ul
+          - @current_user.tasks.each do |task|
+            li
+              = link_to task.description, task
+              = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
+    
     .my_tasks
       strong.menu_header Kurs og sertifiseringer
       .bar
       ul
-        li= link_to 'Stilas', '#'
-        li= link_to 'Grunnmur',  '#'
+        - if @current_user.has_role? :project_leader
+          li= link_to 'Visma økonomi', '#'
+          li= link_to 'HMS i arbeidslivet',  '#'
+        - if @current_user.has_role? :worker
+          li= link_to 'Stilas', '#'
+          li= link_to 'Grunnmur',  '#'
 
