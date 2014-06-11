@@ -22,8 +22,8 @@ Fabricate(:customer_message, text: 'Vi er ferdig for i dag. Vi kommer tilbake i 
 Fabricate(:customer_message, text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
 
 
-elektro = Fabricate(:department, id: 1, title: 'Elektro')
-stilas  = Fabricate(:department, id: 2, title: 'Stilas')
+elektro = Department.where(id: 1, title: 'Elektro').first_or_create
+stilas  = Department.where(id: 2, title: 'Stilas').first_or_create
 
 Fabricate(:user, department: elektro, first_name: 'Even',  last_name: 'Elektro')
 Fabricate(:user, department: stilas,  first_name: 'Stian', last_name: 'Stilas')
