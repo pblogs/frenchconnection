@@ -31,7 +31,7 @@ class Tasks::HoursSpentController < ApplicationController
     @hours_spent.project = @task.project
 
     respond_to do |format|
-      if @hours_spent.save
+      if @hours_spent.save!
         format.html { redirect_to artisan_tasks_started_path(@current_user), 
                       notice: 'Hours spent was successfully created.' }
         format.json { render action: 'show', status: :created, 
@@ -80,6 +80,7 @@ class Tasks::HoursSpentController < ApplicationController
     def hours_spent_params
       params.require(:hours_spent).permit(:customer_id, :task_id, 
                                           :overtime_50,
+                                          :user_id,
                                           :overtime_100,
                                           :piecework_hours,
                                           :hour, :description, :date)

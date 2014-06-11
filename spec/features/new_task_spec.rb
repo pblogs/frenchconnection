@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe "Create a new task", :type => :feature do
   before :each do
-    Fabricate(:artisan, name: 'Josh')
+    Fabricate(:user, first_name: 'Josh')
     Fabricate(:paint, title: 'Acryl')
     Fabricate(:paint, title: 'Beis')
     Fabricate(:task_type, title: 'Muring')
@@ -39,7 +39,6 @@ describe "Create a new task", :type => :feature do
   end
 
   it "for an existing company", js: true do
-    pending "WIP"
     visit frontpage_manager_path
     click_link 'Nytt oppdrag'
 
