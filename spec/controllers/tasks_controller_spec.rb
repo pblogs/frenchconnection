@@ -25,11 +25,11 @@ describe TasksController do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     { 
-      project_id:    Fabricate(:project).id,
-      task_type_id:  Fabricate(:task_type).id,
-      user_ids:   [Fabricate(:user).id],
-      start_date:    '01.05.1983',
-      due_date:      '01.05.1983'
+      project_id:   Fabricate(:project).id,
+      task_type_id: Fabricate(:task_type).id,
+      user_ids:     [Fabricate(:user).id],
+      start_date:   '01.05.1983',
+      due_date:     '01.05.1983'
     }
   end
   before do

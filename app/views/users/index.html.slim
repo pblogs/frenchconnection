@@ -1,4 +1,4 @@
-h1 Listing artisans
+h1 Listing users
 
 table
   thead
@@ -10,14 +10,14 @@ table
       th
 
   tbody
-    - @artisans.each do |artisan|
+    - @users.each do |user|
       tr
-        td = artisan.name
-        td = artisan.tasks.size
-        td = link_to 'Show', artisan
-        td = link_to 'Rediger', edit_artisan_path(artisan)
-        td = link_to 'Destroy', artisan, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = user.name
+        td = user.tasks.size
+        td = link_to 'Show', user
+        td = link_to 'Rediger', edit_user_path(user)
+        td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Artisan', new_artisan_path
+= link_to 'New User', new_user_path
