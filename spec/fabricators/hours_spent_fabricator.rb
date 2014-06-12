@@ -1,6 +1,6 @@
 Fabricator(:hours_spent) do
   task     nil
-  hour     1
+  hour     0
   description 'Malt hus'
   date { Time.now }
   task { Fabricate(:task) }
