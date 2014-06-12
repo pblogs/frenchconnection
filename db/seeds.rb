@@ -16,13 +16,28 @@ Fabricate(:customer_message, text: 'Vi er ferdig for i dag. Vi kommer tilbake i 
 Fabricate(:customer_message, text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
 
 
-elektro = Department.where(id: 1, title: 'Elektro').first_or_create
-stilas  = Department.where(id: 2, title: 'Stilas').first_or_create
+Department.destroy_all
+User.destroy_all
+Task.destroy_all
+
+
+
+elektro  = Department.where(id: 1, title: 'Elektro').first_or_create
+stilas   = Department.where(id: 2, title: 'Stilas').first_or_create
+snekkere = Department.where(id: 3, title: 'Snekkere').first_or_create
 
 Fabricate(:user, department: elektro, first_name: 'Even',  
-          last_name: 'Elektro', email: 'even@elektro.no', password: 'even@elektro.no', password_confirmation: 'even@elektro.no')
+          last_name: 'Elektro', email: 'even@elektro.no')
 Fabricate(:user, department: stilas,  first_name: 'Stian', 
-          last_name: 'Stilas', email: 'stian@stilas.no', password: 'stian@stilas.no', password_confirmation: 'stian@stilas.no', )
+          last_name: 'Stilas', email: 'stian@stilas.no')
 
-User.where(email: 'worker@worker.no', password: 'worker@worker.no', password_confirmation: 'worker@worker.no', first_name: 'Hard', last_name: 'Worker').create!
-User.where(email: 'project@leader.no', password: 'project@leader.no', password_confirmation: 'project@leader.no', first_name: 'Prosjekt', last_name: 'Leder', roles: [:project_leader]).create!
+
+# Prosjektledere:
+Fabricate(:user, roles: [:project_leader], first_name: "Truls Bratfoss", mobile:  41413017) 
+Fabricate(:user, roles: [:project_leader], first_name: "Arild Jonassen", mobile:  94147807)
+
+
+# Medarbeidere snekkere
+Fabricate(:user, roles: [:worker], first_name: "Avni Lymany", mobile: 47625905)
+Fabricate(:user, roles: [:worker], first_name: "Danni Runge", mobile: 91135576)
+Fabricate(:user, roles: [:worker], first_name: "Alexander Børresen", mobile: 48159427)
