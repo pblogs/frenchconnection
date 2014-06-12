@@ -10,12 +10,6 @@
 Fabricate(:customer, name: 'Oslo Sporveier AS')
 Fabricate(:customer, name: 'Østbanehallen')
 
-Fabricate(:task_type, title: 'Maling')
-Fabricate(:task_type, title: 'Muring')
-Fabricate(:task_type, title: 'Forskaling')
-Fabricate(:paint, title: 'Acryl')
-Fabricate(:paint, title: 'Murmaling' )
-Fabricate(:paint, title: 'Grunning' )
 
 Fabricate(:customer_message, text: 'Jeg er 30 minutter forsinket. Beklager så mye.')
 Fabricate(:customer_message, text: 'Vi er ferdig for i dag. Vi kommer tilbake i morgen.')

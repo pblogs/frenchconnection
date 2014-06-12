@@ -17,9 +17,6 @@ class ApplicationController < ActionController::Base
     redirect_to select_frontpage
   end
 
-  def after_sign_in_path_for(resource)
-    select_frontpage
-  end
 
   protected
   def configure_permitted_parameters
@@ -27,12 +24,5 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :last_name
   end
 
-  def select_frontpage
-    if @current_user.has_role? :worker
-      user_path(@current_user)
-    elsif @current_user.has_role? :project_leader
-      frontpage_manager_path
-    end
-  end
 
 end
