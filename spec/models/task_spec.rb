@@ -20,9 +20,6 @@ describe Task do
     expect(@task.project.class).to eq Project
   end
 
-  it "has a task type" do
-    expect(@task.task_type.class).to eq TaskType
-  end
 
   it "has one or more workers" do
     expect(@task.users).to include(@worker, @worker)
