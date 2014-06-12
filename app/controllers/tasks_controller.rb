@@ -112,11 +112,11 @@ class TasksController < ApplicationController
       params.require(:task).permit(:customer_id, 
                                    :task_type_id, 
                                    :start_date, 
+                                   :due_date,
                                    :paint_id,
                                    :description,
                                    :project_id,
                                    :user_id,
-                                   :due_date,
                                    :customer_buys_supplies,
                                    :department_id, 
                                    :user_ids => []
