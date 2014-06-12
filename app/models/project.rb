@@ -16,7 +16,10 @@ class Project < ActiveRecord::Base
   end
 
   def hours_total_for(user)
-    hours_spents.where(user_id: user.id).sum(:hour) rescue nil
+    hours_spents.where(user_id: user.id).sum(:hour) +
+    hours_spents.where(user_id: user.id).sum(:piecework_hours) +
+    hours_spents.where(user_id: user.id).sum(:overtime_50) +
+    hours_spents.where(user_id: user.id).sum(:overtime_100) 
   end
 
   def name_of_users

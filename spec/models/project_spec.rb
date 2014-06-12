@@ -28,9 +28,11 @@ describe Project do
   end
 
   it "knows how many hour each of them as worked" do
-    @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @user)
-    @not_our_hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
-    @project.hours_total_for(@user).should eq 10
+    Fabricate(:hours_spent, hour: 10, task: @task, user: @user)
+    Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @user)
+    # Test creating hours on an other user
+    Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
+    @project.hours_total_for(@user).should eq 20
   end
 
   it "is possible to list all hours spent for a particular user" do
