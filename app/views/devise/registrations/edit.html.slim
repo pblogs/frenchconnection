@@ -4,8 +4,10 @@ br
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!
   div
+    = f.label :mobile, 'Mobil'
+    = f.text_field :mobile, autofocus: true
+
     = f.label :email, 'Epost'
-    br
     = f.email_field :email, autofocus: true
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     div
