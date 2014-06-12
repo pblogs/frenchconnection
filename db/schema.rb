@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140612114429) do
     t.boolean  "finished",               default: false
     t.integer  "project_id"
     t.date     "due_date"
+    t.integer  "department_id"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
