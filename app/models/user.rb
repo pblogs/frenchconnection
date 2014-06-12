@@ -10,8 +10,9 @@ class User < ActiveRecord::Base
     roles.include? role.to_s
   end
 
-  validates :first_name, :presence => true
-  validates :last_name,  :presence => true
+  validates :first_name, presence: true
+  validates :last_name,  presence: true
+  validates :mobile,     presence: true, uniqueness: true
 
   # Worker
   has_and_belongs_to_many :tasks
