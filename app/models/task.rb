@@ -12,7 +12,10 @@ class Task < ActiveRecord::Base
   attr_accessor :department_id
 
   def hours_total
-    self.hours_spents.sum(:hour)
+    self.hours_spents.sum(:hour) +
+    self.hours_spents.sum(:piecework_hours) +
+    self.hours_spents.sum(:overtime_50) +
+    self.hours_spents.sum(:overtime_100)
   end
 
   def name_of_users
