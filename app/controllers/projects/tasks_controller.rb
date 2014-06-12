@@ -33,14 +33,12 @@ class Projects::TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    @task_types = TaskType.all
     @departments = Department.all
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task_types = TaskType.all
     @paint      = Paint.all
     @task       = Task.new(task_params)
     @project    = Project.find(params[:project_id])
@@ -48,10 +46,6 @@ class Projects::TasksController < ApplicationController
     @departments = Department.all
 
 
-    begin
-      @task.task_type = TaskType.find(params[:task][:task_type_id]).first
-    rescue
-    end
 
     respond_to do |format|
       if @task.save
@@ -101,15 +95,9 @@ class Projects::TasksController < ApplicationController
       @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
     end
 
-    def set_paint_and_type
-      @task_types = TaskType.all
-      @paint      = Paint.all
-      @workers    = User.workers.all
-    end
 
     def task_params
       params.require(:task).permit(:customer_id, 
-                                   :task_type_id, 
                                    :start_date, 
                                    :due_date,
                                    :paint_id,
