@@ -38,6 +38,6 @@ Fabricate(:user, roles: [:project_leader], first_name: "Arild Jonassen", mobile:
 
 
 # Medarbeidere snekkere
-Fabricate(:user, roles: [:worker], first_name: "Avni Lymany", mobile: 47625905)
-Fabricate(:user, roles: [:worker], first_name: "Danni Runge", mobile: 91135576)
-Fabricate(:user, roles: [:worker], first_name: "Alexander Børresen", mobile: 48159427)
+Fabricate(:user, roles: [:worker], department: snekkere, first_name: "Avni Lymany", mobile: 47625905)
+Fabricate(:user, roles: [:worker], department: snekkere, first_name: "Danni Runge", mobile: 91135576)
+Fabricate(:user, roles: [:worker], department: snekkere, first_name: "Alexander Børresen", mobile: 48159427)
