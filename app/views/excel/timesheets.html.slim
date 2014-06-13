@@ -3,18 +3,19 @@ br
 br
 
 - @customers.each do |c|
-  h3= c.name
-  br
+  - next '' if c.projects.blank?
+  - if c.projects.first.users.size
+    h3= "#{c.name}  #{c.id}"
 
-  - c.projects.each do |p|
-    = link_to project_number(p), p
-    br
-    br
-    - if p.users.present?
-      ul.timesheets
-        - p.users.each do |a|
-          li
-            = link_to "Last ned timeslisten til #{a.name}", 
-              timesheet_path(p.id,a.id)
+    - c.projects.each do |p|
+      - next '' unless p.users.present?
+      = link_to project_number(p), p
+      br
+      - if p.users.present?
+        ul.timesheets
+          - p.users.each do |a|
+            li
+              = link_to "Last ned timeslisten til #{a.name}", 
+                timesheet_path(p.id,a.id)
 
   hr
