@@ -13,11 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def frontpage
-    redirect_to select_frontpage
-  end
-
-
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :first_name
