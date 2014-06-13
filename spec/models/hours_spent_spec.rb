@@ -6,13 +6,24 @@ describe HoursSpent do
     @task    = Fabricate(:task)
     @task.user_ids = [@worker.id]
     @task.save
-    Fabricate(:hours_spent, user: @worker, task: @task, hour: 10)
-    Fabricate(:hours_spent, user: @worker, task: @task, piecework_hours: 10)
-    Fabricate(:hours_spent, user: @worker, task: @task, overtime_50: 30)
-    Fabricate(:hours_spent, user: @worker, task: @task, overtime_100: 50)
+    @hours_spent = Fabricate(:hours_spent, user: @worker, task: @task, 
+                              hour: 10,
+                              piecework_hours: 10,
+                              overtime_50: 30,
+                              overtime_100: 50)
+
+    @hours_spent2 = Fabricate(:hours_spent, user: @worker, task: @task, 
+                              hour: 10)
+
+
   end
 
-  it "knows how many hour a worker har registred" do
-    @task.hours_total.should eq 100
+  it "knows how many hour a worker har registred on a task" do
+    @task.hours_total.should eq 110
   end
+
+  it "sums all kinds of hours for one registration" do
+    @hours_spent.sum.should eq 100
+  end
+
 end
