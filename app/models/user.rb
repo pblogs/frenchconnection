@@ -20,11 +20,15 @@ class User < ActiveRecord::Base
   has_many :hours_spents
 
   def name
-    "#{first_name} #{last_name}"
+    "#{ first_name } #{ last_name }"
   end
 
   def self.workers
     User.where("'worker' = ANY (roles)")
+  end
+
+  def avatar
+    "users/#{ name.parameterize }.jpg"
   end
 
 end
