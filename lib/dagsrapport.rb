@@ -59,11 +59,11 @@ class Dagsrapport
           #
           i = 1
           ai = -1
-          @project.users.each do |a|
+          @project.users.each do |user|
             ai += 1
-            @project.hours_spents.where(user: a).each do |h|
-              sheet.add_row [I18n.l(h.created_at, format: :short_date), 
-                h.description] +  offsett(ai) + [h.hour]
+            @project.hours_spents.where(user: user).each do |hours_spent|
+              sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
+                hours_spent.description] +  offsett(ai) + [hours_spent.sum]
               i += 1 
             end
           end
