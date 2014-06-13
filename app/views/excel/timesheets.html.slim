@@ -5,7 +5,7 @@ br
 - @customers.each do |c|
   - next '' if c.projects.blank?
   - if c.projects.first.users.size
-    h3= "#{c.name}  #{c.id}"
+    h3= c.name
 
     - c.projects.each do |p|
       - next '' unless p.users.present?
