@@ -1,7 +1,6 @@
 .outer_container
   aside.left_column
-    =image_tag 'http://m.c.lnkd.licdn.com/media/p/2/000/2ad/2d2/27f26a7.jpg',
-      class: :profile_image
+    =image_tag @current_user.avatar, class: :profile_image
   
     section
       strong.menu_header Verktøy
