@@ -10,9 +10,13 @@ class Project < ActiveRecord::Base
   validates :description, :presence => true
 
   def hours_spent_total
-    sum = 0
-    tasks.each { |t| sum += t.hours_spents.sum(:hour) }
-    sum
+    #sum = 0
+    #tasks.each { |t| sum += t.hours_spents.sum(:hour) }
+    #sum
+    hours_spents.sum(:hour) +
+    hours_spents.sum(:piecework_hours) +
+    hours_spents.sum(:overtime_50) +
+    hours_spents.sum(:overtime_100) 
   end
 
   def hours_total_for(user)

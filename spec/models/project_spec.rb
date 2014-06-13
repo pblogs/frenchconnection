@@ -38,7 +38,16 @@ describe Project do
   it "is possible to list all hours spent for a particular user" do
     @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @user)
     @project.hours_spents.where(user: @user).first.should eq @hours_spent
-    
+  end
+
+  it "knows how many hour totally for the project" do
+    Fabricate(:hours_spent, task: @task, hour: 10, user: @user)
+    Fabricate(:hours_spent, task: @task, hour: 10, user: @user2)
+    Fabricate(:hours_spent, task: @task, hour: 10, user: @user3)
+    Fabricate(:hours_spent, task: @task, overtime_50:  10, user: @user2)
+    Fabricate(:hours_spent, task: @task, overtime_100: 10, user: @user3)
+    @project.reload
+    @project.hours_spent_total.should eq 50
   end
 
 end
