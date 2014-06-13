@@ -147,7 +147,7 @@ class Timesheet
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg, 
                     bold_gray_bg, bold_gray_bg, bold_gray_bg, bold_gray_bg]
 
-# Line 9  # Hours for this user on this project
+# Line 10 # Hours for this user on this project
           @hours.each do |h|
             sheet.add_row  [h.date, @wday["#{h.date.wday}"], h.description, 
             h.piecework_hours, h.hour, h.overtime_50, h.overtime_100]
