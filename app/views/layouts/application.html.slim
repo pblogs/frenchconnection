@@ -38,12 +38,8 @@ html
           br
           br
           br
-          - if signed_in?
-            span= "Logget inn som #{@current_user.name}"
-            br
-            = link_to 'Logg ut', destroy_user_session_path, method: :delete
-          - else
-            = link_to 'Logg inn', new_user_session_path
+          br
+          br
 
     footer
       .content
@@ -79,3 +75,10 @@ html
             |Mail: post@alliero.no
 
       .banner
+        .login_logout
+          - if signed_in?
+            span= "Logget inn som #{@current_user.name}"
+            br
+            = link_to 'Logg ut', destroy_user_session_path, method: :delete
+          - else
+            = link_to 'Logg inn', new_user_session_path
