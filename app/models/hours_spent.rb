@@ -7,4 +7,11 @@ class HoursSpent < ActiveRecord::Base
   validates :user,     :presence => true
   validates :description, :presence => true
   validates :date,        :presence => true
+
+  def sum
+    hour +
+    piecework_hours +
+    overtime_50 +
+    overtime_100
+  end
 end
