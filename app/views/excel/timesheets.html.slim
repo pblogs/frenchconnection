@@ -6,6 +6,7 @@ br
   - next '' if c.projects.blank?
   - if c.projects.first.users.size
     h3= c.name
+    br
 
     - c.projects.each do |p|
       - next '' unless p.users.present?
