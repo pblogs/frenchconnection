@@ -18,7 +18,6 @@ class ExcelController < ApplicationController
     @project = Project.find(params[:project_id])
     @user    = User.find(params[:user_id])
     @hours   = @project.hours_spents.where(user: @user).all
-    Rails.logger.debug  "hours is #{@hours.inspect}"
     file_name = Timesheet.new(@project, @user, @hours).create_spreadsheet
     send_file file_name,
       filename:  file_name
