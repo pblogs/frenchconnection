@@ -6,12 +6,13 @@ ruby '2.1.1'
 gem 'rails', '4.1.1'
 gem 'quiet_assets'
 gem 'pg'
-gem 'rails_12factor'   # Needed for Rails4 on Heroku
 gem 'newrelic_rpm'
 gem 'foreman'
 gem 'passenger'
 
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+
+gem 'rails_12factor', group: :production
 
 
 gem 'devise'
@@ -96,4 +97,5 @@ gem 'spreadsheet', '~> 0.9.7'
 group :production do
   gem 'exception_notification'
 end
+
 
