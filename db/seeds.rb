@@ -35,6 +35,7 @@ Fabricate(:user, department: stilas,  first_name: 'Stian',
 # Prosjektledere:
 Fabricate(:user, roles: [:project_leader], first_name: "Truls Bratfoss", mobile:  41413017) 
 Fabricate(:user, roles: [:project_leader], first_name: "Arild Jonassen", mobile:  94147807)
+Fabricate(:user, roles: [:project_leader], first_name: "Martin Stabenfeldt", mobile:  93441707)
 
 
 # Medarbeidere snekkere
