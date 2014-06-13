@@ -31,8 +31,8 @@ nb:
         email: "E-post"
         password: "Passord"
         remember_me: "Husk meg"
-      signed_in: 'Innlogget.'
-      signed_out: 'Utlogget.'
+      signed_in: 'Velkommen!'
+      signed_out: 'Du er logget ut'
     passwords:
       new:
         title: "Glemt passord?"
