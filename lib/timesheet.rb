@@ -281,9 +281,9 @@ class Timesheet
       prng = Random.new
       @nr = prng.rand(100)       # => 42
       p.use_shared_strings = true
-      p.serialize "tmp/dagsrapport#{@nr}.xls"
+      p.serialize "tmp/timeliste#{@nr}.xls"
     end
-    "tmp/dagsrapport#{@nr}.xls"
+    "tmp/timeliste#{@nr}.xls"
   end
 
   private
