@@ -1,7 +1,6 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:new, :create, :index]
-  before_action :set_paint_and_type, only: [:new, :edit, :create]
 
   # GET /tasks
   # GET /tasks.json
