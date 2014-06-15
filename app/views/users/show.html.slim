@@ -43,9 +43,9 @@
       br
   
       .my_tasks
+        strong.menu_header Nye oppgaver
+        .bar
         - if @new_tasks.present?
-          strong.menu_header Nye oppgaver
-          .bar
           ul.menu
             li
               table
@@ -56,6 +56,8 @@
                   th Valg
                   - @new_tasks.each do |task|
                     = render partial: '/tasks/accept_reject_listing', locals: {task: task }
+        - else
+          span Ingen nye oppgaver.
 
     - if @current_user.has_role? :project_leader
       br
@@ -76,14 +78,16 @@
       br
   
     - if @current_user.has_role? :worker
-      - if @tasks.present?
         .my_tasks
-          ul
-            strong.menu_header Mine oppgaver
-            .bar
-            - @tasks.each do |task|
-              li
-                = link_to task.description, task
-                = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
+          strong.menu_header Mine oppgaver
+          .bar
+          - if @tasks.present?
+            ul
+              - @tasks.each do |task|
+                li
+                  = link_to task.description, task
+                  = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
+          - else
+            p Du har ingen aktive prosjekter.
     
 
