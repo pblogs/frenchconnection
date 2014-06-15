@@ -6,13 +6,22 @@
       strong.menu_header Verktøy
       .bar
       ul
-        li= link_to 'Mine meldinger', '#'
-        li= link_to 'Send melding', '#'
         li= link_to 'Rediger min profil', edit_user_registration_path
         li= link_to 'Se timelister',  edit_user_registration_path, class: :muted_text
-        li= link_to 'Send melding',   edit_user_registration_path, class: :muted_text
         li= link_to 'Meld avvik',     edit_user_registration_path, class: :muted_text
+      br
+      br
   
+      strong.menu_header Kurs og sertifiseringer
+      .bar
+      ul
+        - if @current_user.has_role? :project_leader
+          li= link_to 'Visma økonomi', '#'
+          li= link_to 'HMS i arbeidslivet',  '#'
+        - if @current_user.has_role? :worker
+          li= link_to 'Stilas', '#'
+          li= link_to 'Grunnmur',  '#'
+
   .center_column
     - if @current_user.has_role? :worker
       .message_box
@@ -22,6 +31,16 @@
           blockquote
               | Det er spådd regn i dag. Husk regntøy og ekstra sett med sokker.
               | Ha en fin dag!
+      .menu_header 
+        ul
+          li
+            = fa_icon 'list-alt'
+            = link_to ' Mine meldinger', '#'
+          li
+            = fa_icon 'pencil'
+            = link_to ' Send melding', '#'
+      br
+      br
   
       .my_tasks
         - if @new_tasks.present?
@@ -56,25 +75,15 @@
         = link_to  ' Timelister', timesheets_path
       br
   
-  .right_column
     - if @current_user.has_role? :worker
       - if @tasks.present?
         .my_tasks
           ul
             strong.menu_header Mine oppgaver
+            .bar
             - @tasks.each do |task|
               li
                 = link_to task.description, task
                 = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
     
-    .my_tasks
-      strong.menu_header Kurs og sertifiseringer
-      .bar
-      ul
-        - if @current_user.has_role? :project_leader
-          li= link_to 'Visma økonomi', '#'
-          li= link_to 'HMS i arbeidslivet',  '#'
-        - if @current_user.has_role? :worker
-          li= link_to 'Stilas', '#'
-          li= link_to 'Grunnmur',  '#'
 
