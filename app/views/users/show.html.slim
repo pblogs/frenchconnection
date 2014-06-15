@@ -58,14 +58,14 @@
   
   .right_column
     - if @current_user.has_role? :worker
-      .my_tasks
-        strong.menu_header Mine oppgaver
-        .bar
-        ul
-          - @current_user.tasks.each do |task|
-            li
-              = link_to task.description, task
-              = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
+      - if @tasks.present?
+        .my_tasks
+          ul
+            strong.menu_header Mine oppgaver
+            - @tasks.each do |task|
+              li
+                = link_to task.description, task
+                = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
     
     .my_tasks
       strong.menu_header Kurs og sertifiseringer
