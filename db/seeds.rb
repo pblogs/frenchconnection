@@ -33,12 +33,18 @@ Fabricate(:user, department: stilas,  first_name: 'Stian',
 
 
 # Prosjektledere:
-Fabricate(:user, roles: [:project_leader], first_name: "Truls Bratfoss", mobile:  41413017) 
-Fabricate(:user, roles: [:project_leader], first_name: "Arild Jonassen", mobile:  94147807)
-Fabricate(:user, roles: [:project_leader], first_name: "Martin Stabenfeldt", mobile:  93441707)
+Fabricate(:user, roles: [:project_leader], first_name: "Truls", 
+          mobile:  41413017, last_name: "Bratfoss") 
+Fabricate(:user, roles: [:project_leader], first_name: "Arild", 
+          mobile:  94147807, last_name: "Jonassen")
+Fabricate(:user, roles: [:project_leader], first_name: "Martin", 
+          mobile:  93441707, last_name: "Stabenfeldt")
 
 
 # Medarbeidere snekkere
-Fabricate(:user, roles: [:worker], department: snekkere, first_name: "Avni Lymany", mobile: 47625905)
-Fabricate(:user, roles: [:worker], department: snekkere, first_name: "Danni Runge", mobile: 91135576)
-Fabricate(:user, roles: [:worker], department: snekkere, first_name: "Alexander Børresen", mobile: 48159427)
+Fabricate(:user, roles: [:worker], department: snekkere, 
+          first_name: "Avni", last_name: "Lymany", mobile: 47625905)
+Fabricate(:user, roles: [:worker], department: snekkere, 
+          first_name: "Danni", last_name: "Runge", mobile: 91135576)
+Fabricate(:user, roles: [:worker], department: snekkere, 
+          first_name: "Alexander", last_name: "Børresen", mobile: 48159427)
