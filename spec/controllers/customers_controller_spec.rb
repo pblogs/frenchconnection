@@ -43,6 +43,7 @@ describe CustomersController do
   let(:valid_session) { {} }
 
   describe "GET index" do
+    Customer.destroy_all
     it "assigns all customers as @customers" do
       customer = Customer.create! valid_attributes
       get :index, {}, valid_session
