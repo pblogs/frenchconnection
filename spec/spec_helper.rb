@@ -19,6 +19,9 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
 
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: {
+    file_path: /spec\/api/
+  }
   config.include Devise::TestHelpers, type: :controller
 
   config.before(:suite) do
@@ -59,4 +62,12 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  def api_key
+    @api_key ||= Fabricate :api_key
+  end
+
+  def https_and_authorization(key = api_key)
+    { 'HTTPS' => 'on', "HTTP_AUTHORIZATION" => key.access_token }
+  end
 end
