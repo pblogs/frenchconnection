@@ -28,7 +28,10 @@ class User < ActiveRecord::Base
   end
 
   def avatar
-    "users/#{ name.parameterize }.jpg"
+    Rails.application.assets.find_asset(avatar_path).present? ? avatar_path : nil
   end
 
+  def avatar_path
+    "users/#{ name.parameterize }.jpg"
+  end
 end
