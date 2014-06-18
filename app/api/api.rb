@@ -1,4 +1,4 @@
 class API < Grape::API
   prefix 'api'
-  mount V1::Users
+  #mount V1::User
 end
