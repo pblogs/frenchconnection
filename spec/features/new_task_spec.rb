@@ -28,7 +28,7 @@ describe "Create a new task", :type => :feature do
     click_button 'Lagre oppdrag i Visma'
   end
 
-  it "for an existing company", js: true do
+  pending "for an existing company", js: true do
     sign_in(@project_leader)
     click_link 'Min side'
     click_link 'Opprett nytt prosjekt'
