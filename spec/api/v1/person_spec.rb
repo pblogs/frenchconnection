@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe V1::Person do
-  describe 'GET /api/v1/users' do
+  describe 'GET /api/v1/user' do
     it 'returns array of users' do
-      get '/api/v1/users', {}, https_and_authorization
+      get '/api/v1/user', {}, https_and_authorization
       response.status.should == 200
       #parse_response_for(:users).should == User.all
     end
