@@ -62,10 +62,11 @@ module AllieroForms
     }
 
 
-    # API stuff
-    # https://github.com/intridea/grape
-    config.paths.add "app/api", glob: "**/*.rb"
+
+    # Auto-load API and its subdirectories
+    config.paths.add 'app/api', glob: '**/*.rb'
     config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+
 
 
   end

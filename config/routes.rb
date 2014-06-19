@@ -1,5 +1,6 @@
 AllieroForms::Application.routes.draw do
 
+  mount API => '/'
   devise_for :users
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
   resources :projects do
@@ -57,6 +58,5 @@ AllieroForms::Application.routes.draw do
   get '/html_export/:user_id/:project_id/'    => 'excel#html_export', as: :html_export
   
 
-  mount API => '/'
 
 end
