@@ -86,7 +86,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-  
+
 
 gem 'neat'
 gem 'bourbon'
@@ -99,3 +99,7 @@ group :production do
 end
 
 
+gem 'formtastic'
+gem 'formtastic_angular',
+  github: 'rubrikkfabrikken/common_utils',
+  tag:    'formtastic_angular-0.0.4'
