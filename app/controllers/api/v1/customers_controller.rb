@@ -8,7 +8,7 @@ module Api
       # GET /customers
       # GET /customers.json
       def index
-        respond_with(Customer.all)
+        respond_with(Customer.all.to_a)
       end
 
       # GET /customers/1
