@@ -2,8 +2,11 @@ angular
   .module('app')
   .controller('CustomersCtrl', ['Customer', '$scope', 
     function(Customer, $scope) {
-      alert('her');
       this.customer = {};
+
+      this.save = function(customer) {
+        this.customer = {};
+      };
 
 
       //$scope.customers = Customer.query();
