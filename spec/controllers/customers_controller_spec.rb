@@ -44,6 +44,7 @@ describe CustomersController do
 
   describe "GET index" do
     it "assigns all customers as @customers" do
+      Customer.destroy_all
       customer = Customer.create! valid_attributes
       get :index, {}, valid_session
       assigns(:customers).should eq([customer])

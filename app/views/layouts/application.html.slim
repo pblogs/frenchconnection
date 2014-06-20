@@ -13,7 +13,8 @@ html
       #main
         .logo-wrapper
 
-          h1= link_to (image_tag 'Alliero-header.gif'), root_path
+          //h1= link_to (image_tag 'Alliero-header.gif'), root_path
+          h1 CRUD
 
 
         - if signed_in?
@@ -40,39 +41,7 @@ html
           br
           br
           br
-
-    footer
-      .content
-        .filler
-        .address
-          br
-          h6 KONTAKT OSS
-          br
-
-          p
-            |Besøksadresse
-            br
-            |Alliero As
-            br
-            |Nydalsveien 30 B
-            br
-            |0484 Oslo
-          
-          p
-            |Postadresse
-            br
-            |Alliero As
-            br
-            |Pb 4681 Nydalen
-            br
-            |0405 Oslo
-          
-          p
-            |Phone: 23 26 54 00
-            br
-            |Fax: 23 26 54 01
-            br
-            |Mail: post@alliero.no
+          /=render 'layouts/footer'
 
       .banner
         .login_logout
