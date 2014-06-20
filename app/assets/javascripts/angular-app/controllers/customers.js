@@ -2,6 +2,7 @@ angular
   .module('app')
   .controller('CustomersCtrl', ['Customer', '$scope', 
     function(Customer, $scope) {
+      alert('her');
       this.customer = {};
 
 
