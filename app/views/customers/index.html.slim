@@ -1,29 +1,37 @@
-h1 Listing customers
+h1 Kunder
 
-table
-  thead
-    tr
-      th Name
-      th Address
-      th Org number
-      th Contact person
-      th Phone
-      th
-      th
-      th
+div ng-controller="CustomersCtrl as customer"
 
-  tbody
-    - @customers.each do |customer|
-      tr
-        td = customer.name
-        td = customer.address
-        td = customer.org_number
-        td = customer.contact_person
-        td = customer.phone
-        td = link_to 'Show', customer
-        td = link_to 'Rediger', edit_customer_path(customer)
-        td = link_to 'Destroy', customer, data: {:confirm => 'Are you sure?'}, :method => :delete
+  span = "Customer: {{customer.customer.name}}"
 
-br
+  
+  /ul ng-repeat="customer in customers"
+    span= "{{ $customer }}"
 
-= link_to 'New Customer', new_customer_path
+  /table
+  /  thead
+  /    tr
+  /      th Name
+  /      th Address
+  /      th Org number
+  /      th Contact person
+  /      th Phone
+  /      th
+  /      th
+  /      th
+  /
+  /  tbody
+  /    - @customers.each do |customer|
+  /      tr
+  /        td = customer.name
+  /        td = customer.address
+  /        td = customer.org_number
+  /        td = customer.contact_person
+  /        td = customer.phone
+  /        td = link_to 'Show', customer
+  /        td = link_to 'Rediger', edit_customer_path(customer)
+  /        td = link_to 'Destroy', customer, data: {:confirm => 'Are you sure?'}, :method => :delete
+  
+  br
+  
+  = link_to 'New Customer', new_customer_path
