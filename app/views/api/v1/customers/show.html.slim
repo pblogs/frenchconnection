@@ -1,0 +1,30 @@
+p
+  strong Navn: 
+  = @customer.name
+p
+  strong Addresse: 
+  = @customer.address
+p
+  strong Organisasjonsnummer: 
+  = @customer.org_number
+p
+  strong Kontakt person: 
+  = @customer.contact_person
+p
+  strong Telefon: 
+  = @customer.phone
+
+
+br
+= link_to 'Lag et nytt prosjekt', 
+  new_customer_project_path(@customer), class: 'red button'
+br
+br
+
+br
+br
+br
+p
+  = link_to 'Rediger', edit_customer_path(@customer)
+  '|
+  = link_to 'Tilbake', customers_path
