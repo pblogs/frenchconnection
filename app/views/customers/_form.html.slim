@@ -1,29 +1,28 @@
-div ng-controller="CustomersCtrl as customer"
+
+= form_for @customer, :html => { "ng-controller" => "CustomersCtrl" } do |f|
+  /- if @customer.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@customer.errors.count, "error")} prohibited this customer from being saved:"
+      ul
+        - @customer.errors.full_messages.each do |message|
+          li = message
 
   #preview
     strong Name: {{customer.name}}
 
-  = form_for @customer do |f|
-    /- if @customer.errors.any?
-      #error_explanation
-        h2 = "#{pluralize(@customer.errors.count, "error")} prohibited this customer from being saved:"
-        ul
-          - @customer.errors.full_messages.each do |message|
-            li = message
-  
-    .field
-      = f.label :name, 'Navn'
-      = f.text_field :name, 'ng-model' => 'customer.name'
-    .field
-      = f.label :address, 'Addresse'
-      = f.text_field :address
-    .field
-      = f.label :org_number, 'Organisasjonsnummer'
-      = f.text_field :org_number
-    .field
-      = f.label :contact_person, 'Kontaktperson'
-      = f.text_field :contact_person
-    .field
-      = f.label :phone, 'Telefonenummer'
-      = f.text_field :phone
-    .actions = f.submit 'Lagre'
+  .field
+    = f.label :name, 'Navn'
+    = f.text_field :name, 'ng-model' => 'customer.name'
+  .field
+    = f.label :address, 'Addresse'
+    = f.text_field :address, 'ng-model' => 'customer.address'
+  .field
+    = f.label :org_number, 'Organisasjonsnummer'
+    = f.text_field :org_number, 'ng-model' => 'customer.org_number'
+  .field
+    = f.label :contact_person, 'Kontaktperson'
+    = f.text_field :contact_person, 'ng-model' => 'customer.contact_person'
+  .field
+    = f.label :phone, 'Telefonenummer'
+    = f.text_field :phone, 'ng-model' => 'customer.phone'
+  .actions = f.submit 'Lagre'
