@@ -3,6 +3,9 @@ class StaticPagesController < ApplicationController
   def blog
   end
 
+  def hms
+  end
+
   def frontpage_manager
   end
 

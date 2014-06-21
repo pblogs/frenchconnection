@@ -97,6 +97,3 @@ gem 'spreadsheet', '~> 0.9.7'
 group :production do
   gem 'exception_notification'
 end
-
-
-gem 'refinerycms', '~> 2.0.0'

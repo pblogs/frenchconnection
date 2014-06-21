@@ -46,6 +46,7 @@ AllieroForms::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
   
   get '/blog' => 'static_pages#blog', as: :blog
+  get '/hms'  => 'static_pages#hms', as: :hms
 
   # You can have the root of your site routed with "root"
   root 'static_pages#blog'
