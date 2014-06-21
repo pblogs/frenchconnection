@@ -9,40 +9,22 @@
     //@include span-columns(2)
     margin-bottom: 50px
     ul li
-      //.date
-      //  font-weight: bold
-      //  text-transform: uppercase
-      //  text-align: center
-      //  @include span-columns(1)
-      //  width: 4%
-      //  border-top: 4px solid $light_gray
-      //  color: $dark_gray
-      //  font-size: 27px
-      //  padding-top: 14px
-      //  margin-right: 20px
-      //.day
-      //  margin-bottom: 8px
-      //.month
-      //  margin-bottom: 5px
-      //  font-size: 20px
-      //.year
-      //  font-weight: normal
-      //  font-size: 13px
       .content
+        padding-right: 25px
         @include span-columns(4)
-        //margin-right: 20px !important
+        margin-bottom: 20px
+        margin-right: 15px !important
+    p
+      height: 150px
 
   em
     font-style: normal
     display: block
-
-  section.projects
-    margin-top: 10px
-    padding-top: 10px
-    border-top: 1px dotted $light_gray
-    margin-bottom: 50px
-    @include span-columns(12)
-    li
-      @include span-columns(3)
-      text-align: center
+    background-color: $blue
+    text-align: center
+    padding: 10px
+    a
+      color: white
+      &:hover
+        color: white
 
