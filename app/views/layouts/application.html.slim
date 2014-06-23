@@ -26,7 +26,7 @@ html
               li= link_to 'Timer', '#'
 
               - if @current_user.has_role? :project_leader
-                li= link_to 'Prosjekter', '#'
+                li= link_to 'Prosjekter', projects_path
                 li= link_to 'Ordre', '#'
               - if @current_user.has_role? :economy
                 li= link_to 'Lønn', '#'
