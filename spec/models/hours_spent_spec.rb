@@ -11,9 +11,11 @@ describe HoursSpent do
                               piecework_hours: 10,
                               overtime_50: 30,
                               overtime_100: 50)
+    @hours_spent.should be_valid
 
     @hours_spent2 = Fabricate(:hours_spent, user: @worker, task: @task, 
                               hour: 10)
+    @hours_spent2.should be_valid
 
 
   end
