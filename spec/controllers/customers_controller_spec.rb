@@ -41,6 +41,7 @@ describe CustomersController do
   # in order to pass any filters (e.g. authentication) defined in
   # CustomersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+  before(:each) { Customer.destroy_all }
 
   describe "GET index" do
     it "assigns all customers as @customers" do

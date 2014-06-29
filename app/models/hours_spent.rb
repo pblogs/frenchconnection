@@ -9,9 +9,9 @@ class HoursSpent < ActiveRecord::Base
   validates :date,        :presence => true
 
   def sum
-    @hour            rescue 0 +
-    @piecework_hours rescue 0 +
-    @overtime_50     rescue 0 +
-    @overtime_100    rescue 0  
+    (self.hour            ||  0) +
+    (self.piecework_hours ||  0) +
+    (self.overtime_50     ||  0) +
+    (self.overtime_100    ||  0)  
   end
 end
