@@ -37,6 +37,7 @@ describe HoursSpentsController do
   # in order to pass any filters (e.g. authentication) defined in
   # HoursSpentsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+  before(:each) { HoursSpent.destroy_all ; Customer.destroy_all }
 
   describe "GET index" do
     it "assigns all hours_spents as @hours_spents" do
