@@ -22,14 +22,14 @@ html
               li= link_to 'Forside', '/'
               li= link_to 'Min side', @current_user
               li= link_to 'HMS', hms_path
-              li= link_to 'Opplæring', '#'
-              li= link_to 'Timer', '#'
+              /li= link_to 'Opplæring', '#'
+              /li= link_to 'Timer', '#'
 
               - if @current_user.has_role? :project_leader
                 li= link_to 'Prosjekter', projects_path
-                li= link_to 'Ordre', '#'
-              - if @current_user.has_role? :economy
-                li= link_to 'Lønn', '#'
+                /li= link_to 'Ordre', '#'
+              /- if @current_user.has_role? :economy
+              /  /li= link_to 'Lønn', '#'
 
         section
           p#notice = notice
