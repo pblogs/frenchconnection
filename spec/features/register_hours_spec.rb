@@ -11,7 +11,7 @@ describe "Registered hours on a Task" do
     @user.tasks << @task
   end
 
-  it "An user can register hours on the tasks he is delegated" do
+  pending "An user can register hours on the tasks he is delegated" do
     visit user_path(@user)
     HoursSpent.all.size.should eq 0
     click_link "Aktive oppdrag"
