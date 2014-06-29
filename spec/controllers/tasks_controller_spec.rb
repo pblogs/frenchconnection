@@ -34,6 +34,7 @@ describe TasksController do
   end
   before do
     sign_in
+    Task.destroy_all
   end
 
   # This should return the minimal set of values that should be in the session
