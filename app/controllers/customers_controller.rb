@@ -4,7 +4,7 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all.load
+    @customers = Customer.all.to_a
   end
 
   # GET /customers/1
