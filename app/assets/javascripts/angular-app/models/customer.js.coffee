@@ -1,13 +1,7 @@
 angular
-  .module('app')
-  .factory('Customer', function($resource) {
+  .module("app")
+  .factory "Customer", ($resource) ->
 
-    var Customer = $resource('/api/v1/customers/:id.json', {id: '@id'}, {
-      update: {
-        method: 'PUT'
-      }
-    });
-
-    return Customer;
-  });
-
+    $resource("/api/v1/customers/:id.json", {}, {
+      query: { method: "GET", isArray: true }
+    })
