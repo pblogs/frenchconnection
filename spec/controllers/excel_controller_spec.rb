@@ -7,10 +7,11 @@ describe ExcelController do
   end
 
   describe "GET 'export'" do
-    pending "It generates an spreadsheet"
-    it "returns http success" do
-      get 'export', project_id: @project.id
-      response.should be_success
+    describe "It generates an spreadsheet" do
+      it "returns http success" do
+        get 'export', project_id: @project.id
+        response.should be_success
+      end
     end
   end
 
