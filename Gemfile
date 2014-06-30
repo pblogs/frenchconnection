@@ -86,7 +86,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-  
+
 
 gem 'neat'
 gem 'bourbon'
@@ -97,3 +97,10 @@ gem 'spreadsheet', '~> 0.9.7'
 group :production do
   gem 'exception_notification'
 end
+
+
+gem 'formtastic'
+gem 'formtastic_angular',
+  github: 'rubrikkfabrikken/common_utils',
+  tag:    'formtastic_angular-0.0.4'
+

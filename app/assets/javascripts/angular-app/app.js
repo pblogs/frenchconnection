@@ -2,7 +2,7 @@ angular
   .module('app', ['ngRoute', 'ngResource'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {
-      controller: 'HomeCtrl'
+      controller: 'MainCtrl'
     }).when('/:status', {
       controller: 'HomeCtrl',
     }).otherwise({
