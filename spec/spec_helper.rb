@@ -19,6 +19,12 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
 
+  # Only run tests that is tagget with focus.
+  # describe "something", :focus => true do
+  config.filter_run :focus => true
+  # Run all tests when no tests is tagged.
+  config.run_all_when_everything_filtered = true
+
   config.include Devise::TestHelpers, type: :controller
 
   config.before(:suite) do
