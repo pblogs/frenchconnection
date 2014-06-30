@@ -5,7 +5,7 @@ class Tasks::HoursSpentController < ApplicationController
   # GET /hours_spents
   # GET /hours_spents.json
   def index
-    @hours_spents = @task.hours_spents.all
+    @hours_spents = @task.hours_spents.to_a
   end
 
   # GET /hours_spents/1

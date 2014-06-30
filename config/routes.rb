@@ -55,7 +55,9 @@ AllieroForms::Application.routes.draw do
   # creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  get '/blog' => 'static_pages#blog', as: :blog
+  get '/blog'  => 'static_pages#blog',  as: :blog
+  get '/hms'   => 'static_pages#hms',   as: :hms
+  get '/video' => 'static_pages#video', as: :video
 
   # You can have the root of your site routed with "root"
   get '/manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
