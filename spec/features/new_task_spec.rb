@@ -8,7 +8,7 @@ describe "Create a new task", :type => :feature do
     Fabricate(:customer, name: 'Oslo Sporveier AS')
   end
 
-  it "for a new company" do
+  pending "for a new company" do
     sign_in(@project_leader)
     visit frontpage_manager_path
     click_link 'Opprett nytt prosjekt'
@@ -51,6 +51,7 @@ end
 def sign_in(user)
   visit root_path
   #click_link I18n.t('auth.sign_in.link')
+  save_and_open_page
   within '#main' do
     fill_in 'user_mobile',    with: user.mobile
     fill_in 'user_password',  with: 'topsecret'
