@@ -8,6 +8,7 @@ angular
         this.customer = {};
       };
 
+      $scope.customers = Customer.query();
 
       //$scope.customers = Customer.query();
 
