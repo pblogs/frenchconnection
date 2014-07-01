@@ -1,6 +1,6 @@
 h1 Kunder
 
-div ng-controller="CustomersCtrl as customer"
+div ng-controller="CustomersCtrl as customer" ng-init="getCustomers()"
 
   ul ng-repeat="customer in customers"
     li= "{{ customer.name }}"
