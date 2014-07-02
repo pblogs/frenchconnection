@@ -11,4 +11,8 @@ angular
       $scope.customer = {}
       $scope.getCustomers()
 
+    $scope.edit = (customer) ->
+      $scope.customer = Customer.get({ id: customer.id })
+
+
 
