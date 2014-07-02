@@ -1,24 +1,21 @@
+#preview
+  strong Name: {{customer.name}}
 
-= angular_form_for 'customer', :html => { "ng-controller" => "CustomersCtrl", "ng-submit" => "CustomersCtrl.save(customer)" } do |f|
+form ng-controller="CustomersCtrl" ng-submit="save()" 
+  label Navn
+  input type="text" ng-model="customer.name"
 
-  #preview
-    strong Name: {{customer.name}}
+  label Organisasjonsnummer
+  input type="text" ng-model="customer.org_number"
 
-  .field
-    = f.label :name, 'Navn'
-    = f.text_field :name, 'ng-model' => 'customer.name'
-  .field
-    = f.label :address, 'Addresse'
-    = f.text_field :address, 'ng-model' => 'customer.address'
-  .field
-    = f.label :org_number, 'Organisasjonsnummer'
-    = f.text_field :org_number, 'ng-model' => 'customer.org_number'
-  .field
-    = f.label :contact_person, 'Kontaktperson'
-    = f.text_field :contact_person, 'ng-model' => 'customer.contact_person'
-  .field
-    = f.label :phone, 'Telefonenummer'
-    = f.text_field :phone, 'ng-model' => 'customer.phone'
-  /.actions = f.submit 'Lagre'
-  = f.actions do
-    = f.action :submit, button_html: { :'data-ng-loading-click' => 'tenant_submit()', value: 'save' }
+  label Kontaktperson
+  input type="text" ng-model="customer.contact_person"
+
+  label Adresse
+  input type="text" ng-model="customer.address"
+
+  label Telefon
+  input type="text" ng-model="customer.phone"
+
+  fieldset
+    button Lagre
