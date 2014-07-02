@@ -6,3 +6,9 @@ angular
       Customer.query().$promise.then (customers) ->
         $scope.customers = customers
 
+    $scope.save = () ->
+      Customer.save($scope.customer)
+      $scope.customer = {}
+      $scope.getCustomers()
+
+
