@@ -98,9 +98,3 @@ group :production do
   gem 'exception_notification'
 end
 
-
-gem 'formtastic'
-gem 'formtastic_angular',
-  github: 'rubrikkfabrikken/common_utils',
-  tag:    'formtastic_angular-0.0.4'
-
