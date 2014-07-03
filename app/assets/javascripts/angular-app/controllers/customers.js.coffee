@@ -1,28 +1,37 @@
 angular
   .module('app')
-  .controller "CustomersCtrl", ($scope, Customer, Restangular) ->
+  .controller "CustomersCtrl", ($scope, Restangular) ->
 
-    $scope.getCustomers = () ->
-      console.log('getCustomers')
-      Customer.query().$promise.then (customers) ->
-        $scope.customers = customers
-        $scope.customer = {}
-        console.log('promise done')
+    Customer = Restangular.all('customers')
 
-    $scope.save = () ->
-      if $scope.customer.id?
-        Customer.update($scope.customer)
-      else
-        Customer.save($scope.customer)
-      $scope.customer = {}
-      $scope.getCustomers()
+    $scope.customers = {}
+    $scope.customers = Customer.getList()
 
-    $scope.edit = (customer) ->
-      $scope.customer = Customer.get({ id: customer.id })
+    console.log('allUsers: ' +$scope.customers)
 
-    $scope.delete = (customer) ->
-      customer.$delete()
-      $scope.getCustomers()
+
+
+    #$scope.getCustomers = () ->
+    #  console.log('getCustomers')
+    #  Customer.query().$promise.then (customers) ->
+    #    $scope.customers = customers
+    #    $scope.customer = {}
+    #    console.log('promise done')
+
+    #$scope.save = () ->
+    #  if $scope.customer.id?
+    #    Customer.update($scope.customer)
+    #  else
+    #    Customer.save($scope.customer)
+    #  $scope.customer = {}
+    #  $scope.getCustomers()
+
+    #$scope.edit = (customer) ->
+    #  $scope.customer = Customer.get({ id: customer.id })
+
+    #$scope.delete = (customer) ->
+    #  customer.$delete()
+    #  $scope.getCustomers()
 
 
 
