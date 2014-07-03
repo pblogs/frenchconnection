@@ -11,4 +11,28 @@ div(ng-controller="CustomersCtrl as customer"
   fieldset.actions
     = link_to 'Legg til ny kunde', new_customer_path
 
-= render partial: 'form'
+  #preview
+    strong Name: {{customer.name}}
+
+  form ng-submit="save()" 
+  
+  
+    hr
+  
+    label Navn
+    input type="text" ng-model="customer.name"
+  
+    label Organisasjonsnummer
+    input type="text" ng-model="customer.org_number"
+  
+    label Kontaktperson
+    input type="text" ng-model="customer.contact_person"
+  
+    label Adresse
+    input type="text" ng-model="customer.address"
+  
+    label Telefon
+    input type="text" ng-model="customer.phone"
+  
+    fieldset
+      button Lagre
