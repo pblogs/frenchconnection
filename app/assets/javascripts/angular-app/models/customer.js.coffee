@@ -3,5 +3,6 @@ angular
   .factory "Customer", ($resource) ->
 
     $resource("/api/v1/customers/:id.json", {}, {
-      query: { method: "GET", isArray: true }
+      query: { method: "GET", isArray: true },
+      update: { method: "PUT" }
     })
