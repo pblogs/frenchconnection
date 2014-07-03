@@ -6,7 +6,8 @@ div(ng-controller="CustomersCtrl as customer"
   ul ng-repeat="customer in customers"
     li
       = "{{ customer.name }}"
-      button ng-click="edit(customer)" Edit 
+      button ng-click="edit(customer)" Rediger
+      button ng-click="delete(customer)" Slett 
 
   fieldset.actions
     = link_to 'Legg til ny kunde', new_customer_path
