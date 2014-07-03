@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller "CustomersCtrl", ($scope, Customer) ->
+  .controller "CustomersCtrl", ($scope, Customer, Restangular) ->
 
     $scope.getCustomers = () ->
       console.log('getCustomers')
