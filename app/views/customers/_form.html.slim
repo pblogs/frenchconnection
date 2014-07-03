@@ -1,7 +1,11 @@
-#preview
-  strong Name: {{customer.name}}
 
-form ng-controller="CustomersCtrl" ng-submit="save()" 
+form ng-submit="save()" 
+
+  #preview
+    strong Name: {{customer.name}}
+
+  hr
+
   label Navn
   input type="text" ng-model="customer.name"
 
