@@ -16,7 +16,6 @@ angular
 
     $scope.save = (customer) ->
       if customer.id?
-        console.log 'has id'
         customer.save().then (customer) ->
           $scope.getCustomers()
           $scope.customer = {}
@@ -24,6 +23,7 @@ angular
         Customer.post(customer).then (customer) ->
           $scope.getCustomers()
           $scope.customer = {}
+
 
     $scope.edit = (customer) ->
       Customer.get(customer.id).then (customer) ->
