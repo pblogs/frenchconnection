@@ -12,7 +12,6 @@ angular
       Customer.getList().then (customers) ->
         $scope.customers = customers
 
-    $scope.getCustomers()
 
     $scope.save = (customer) ->
       if customer.id?
