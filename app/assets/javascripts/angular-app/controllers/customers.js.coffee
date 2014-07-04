@@ -15,16 +15,19 @@ angular
     $scope.getCustomers()
 
     $scope.save = (customer) ->
-      Customer.post(customer).then (customer) ->
-        $scope.getCustomers()
-        $scope.customer = {}
+      if customer.id?
+        console.log 'has id'
+        customer.save().then (customer) ->
+          $scope.getCustomers()
+          $scope.customer = {}
+      else
+        Customer.post(customer).then (customer) ->
+          $scope.getCustomers()
+          $scope.customer = {}
 
-
-
-
-    #$scope.edit = (customer) ->
-    #  $scope.customer = customer.get({single: true})
-    #  #$scope.customer = Customer.get({ id: customer.id })
+    $scope.edit = (customer) ->
+      Customer.get(customer.id).then (customer) ->
+        $scope.customer = customer
 
     $scope.delete = (customer) ->
       customer.remove().then (customer) ->
