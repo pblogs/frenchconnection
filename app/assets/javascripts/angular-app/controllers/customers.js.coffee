@@ -6,18 +6,11 @@ angular
     Customer = Restangular.all('customers');
 
     $scope.customers = {}
-    $scope.customer = { name: 'hei',
-                        #phone: '8787',
-                        #org_nr: '989',
-                        #address: '989',
-                        #contact_person: '9898'
-    }
+    $scope.customer = { name: 'hei' }
 
     $scope.getCustomers = () ->
-      console.log('getCustomers')
       Customer.getList().then (customers) ->
         $scope.customers = customers
-        console.log("found customers: #{customers}")
 
     $scope.getCustomers()
 
@@ -33,9 +26,9 @@ angular
     #  $scope.customer = customer.get({single: true})
     #  #$scope.customer = Customer.get({ id: customer.id })
 
-    #$scope.delete = (customer) ->
-    #  customer.$delete()
-    #  $scope.getCustomers()
+    $scope.delete = (customer) ->
+      customer.remove().then (customer) ->
+        $scope.getCustomers()
 
 
 
