@@ -2,24 +2,32 @@ angular
   .module('app')
   .controller "CustomersCtrl", ($scope, Restangular) ->
 
+    # Initalize the Customer object
+    Customer = Restangular.all('customers');
+
     $scope.customers = {}
-    $scope.customer = { name: 'hei' }
+    $scope.customer = { name: 'hei',
+                        #phone: '8787',
+                        #org_nr: '989',
+                        #address: '989',
+                        #contact_person: '9898'
+    }
 
     $scope.getCustomers = () ->
-      Restangular.all("customers").getList().then (customers) ->
+      console.log('getCustomers')
+      Customer.getList().then (customers) ->
         $scope.customers = customers
+        console.log("found customers: #{customers}")
 
     $scope.getCustomers()
 
     $scope.save = (customer) ->
-      console.log("saving '#{customer.name}'")
-      customer.save()
-      $scope.getCustomers()
-      #$scope.customer = {}
-      #if $scope.customer.id?
-      #  Customer.update($scope.customer)
-      #else
-      #  Customer.save($scope.customer)
+      Customer.post(customer).then (customer) ->
+        $scope.getCustomers()
+        $scope.customer = {}
+
+
+
 
     #$scope.edit = (customer) ->
     #  $scope.customer = customer.get({single: true})
