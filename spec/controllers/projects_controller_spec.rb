@@ -36,6 +36,7 @@ describe ProjectsController do
 
   before do
     sign_in
+    Project.destroy_all
   end
 
   # This should return the minimal set of values that should be in the session

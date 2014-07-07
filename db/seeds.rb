@@ -40,8 +40,14 @@ Fabricate(:user, roles: [:project_leader], first_name: "Arild",
 Fabricate(:user, roles: [:project_leader], first_name: "Martin", 
           mobile:  93441707, last_name: "Stabenfeldt")
 
+# Generic accounts
+Fabricate(:user, roles: [:worker], department: snekkere, 
+          first_name: "Arbeider", last_name: "Arbeider", mobile: 'arbeider')
+Fabricate(:user, roles: [:project_leader], mobile:  'prosjektleder', 
+          first_name: 'Prosjekt', last_name: 'Leder')
 
 # Medarbeidere snekkere
+
 Fabricate(:user, roles: [:worker], department: snekkere, 
           first_name: "Avni", last_name: "Lymany", mobile: 47625905)
 Fabricate(:user, roles: [:worker], department: snekkere, 
