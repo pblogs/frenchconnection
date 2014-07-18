@@ -1,12 +1,16 @@
 angular
   .module('app')
-  .controller "CustomersCtrl", ($scope, Restangular) ->
-
+  .controller 'CustomersCtrl', ['$scope', 'Restangular', 'helloWorldFromService', ($scope, Restangular, helloWorldFromService) ->
     # Initalize the Customer object
-    Customer = Restangular.all('customers');
+    Customer = Restangular.all('customers')
+
+    #console.log('hello': helloWorldFromService.sayHello())
 
     $scope.customers = {}
     $scope.customer = { name: 'hei' }
+
+    $scope.callNotify = (msg) ->
+      notify(msg)
 
     $scope.getCustomers = () ->
       Customer.getList().then (customers) ->
@@ -31,6 +35,16 @@ angular
     $scope.delete = (customer) ->
       customer.remove().then (customer) ->
         $scope.getCustomers()
-
-
+]
+  #.factory "notify", [
+  #  "$window"
+  #  (win) ->
+  #    msgs = []
+  #    return (msg) ->
+  #      msgs.push msg
+  #      if msgs.length is 3
+  #        win.alert msgs.join("\n")
+  #        msgs = []
+  #      return
+  #]
 
