@@ -1,16 +1,21 @@
 angular
   .module('app')
-  .controller 'CustomersCtrl', ['$scope', 'Restangular', 'helloWorldFromService', ($scope, Restangular, helloWorldFromService) ->
+  .controller 'CustomersCtrl', ['$scope', 'Restangular', 'Session', ($scope, Restangular, Session) ->
     # Initalize the Customer object
     Customer = Restangular.all('customers')
 
-    #console.log('hello': helloWorldFromService.sayHello())
+    Session.create('res.id', 'res.user.id', 'res.user.role')
+    Session.userId
+
+    console.log('userId seen from the controller: ' + Session.userId )
 
     $scope.customers = {}
     $scope.customer = { name: 'hei' }
 
-    $scope.callNotify = (msg) ->
-      notify(msg)
+    $scope.readSession = () ->
+      console.log('Read session: ' + Session.userId )
+
+
 
     $scope.getCustomers = () ->
       Customer.getList().then (customers) ->
