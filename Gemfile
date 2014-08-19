@@ -9,6 +9,7 @@ gem 'pg'
 gem 'newrelic_rpm'
 gem 'foreman'
 gem 'passenger'
+gem 'clickatell'
 
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
 

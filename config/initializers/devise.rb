@@ -46,7 +46,7 @@ Devise.setup do |config|
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [ :email ]
+  config.strip_whitespace_keys = [ :email, :mobile ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'f013c12ecec95f23ae7f7f6b0af43249bb14a15664565347c0d47954b4e7613f3b9cf2f819bfd530cdea8e1eaef739d5217716ae241e9fe46e528d98c8c571f6'
+   config.pepper = 'f013c12ecec95f23sdsfdsfdsfsdfllllllllllllllllae7f7f6b0af43249bb14a15664565347954b4e7613f3b9cf2f819bfd530cdea8e1eaef739d5217716ae241e9fe46e528d98c8c571f6'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -181,7 +181,7 @@ Devise.setup do |config|
   # ==> Configuration for :recoverable
   #
   # Defines which key will be used when recovering the password for an account
-  # config.reset_password_keys = [ :email ]
+  config.reset_password_keys = [ :mobile ]
 
   # Time interval you can reset your password with a reset password key.
   # Don't put a too small interval or your users won't have the time to
