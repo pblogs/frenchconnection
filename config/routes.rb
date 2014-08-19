@@ -1,6 +1,12 @@
 AllieroForms::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => {
+    #passwords:          'users/passwords'
+    #omniauth_callbacks: 'users/omniauth_callbacks',
+    #confirmations:      'users/confirmations',
+    #registrations:      'users/registrations'
+  }
+
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  require 'clickatell'
+
   ROLES = %w[admin leader project_leader worker economy]
   
   devise :database_authenticatable, :registerable,
@@ -29,6 +32,22 @@ class User < ActiveRecord::Base
 
   def avatar
     "users/#{ name.parameterize }.jpg"
+  end
+
+  protected
+
+  def send_devise_notification(notification, *args)
+    # If the record is new or changed then delay the
+    # delivery until the after_commit callback otherwise
+    # send now because after_commit will not be called.
+    if new_record? || changed?
+      pending_notifications << [notification, args]
+    else
+      @token = args.first
+      @reset_url =  "#{edit_user_password_url(self, reset_password_token: @token, host: 'http://allieroforms.dev')}"
+      api = Clickatell::API.authenticate('3494167', 'orwapp_alliero', 'PPIKCMYONgdcZS')
+      api.send_message("47#{mobile}", @reset_url)
+    end
   end
 
 end
