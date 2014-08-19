@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user
   end
 
+  def default_url_options
+    { host: 'http://allieroforms-staging.herokuapp.com/' }
+  end
 
   protected
   def configure_permitted_parameters
