@@ -12,6 +12,11 @@
       placeholder: 'Prosjektnummer kan fylles ut senere'
   
   .field
+    = f.label :name, 'Prosjektnavn'
+    = f.text_field :name
+  
+  
+  .field
     = f.label :description, 'Beskrivelse'
     = f.text_area :description, rows: 5
   
@@ -27,23 +32,17 @@
   hr
 
   .field.radio_group
-    = f.label :fixed_price, 'Timesbetaling'
-    = radio_button_tag 'payment', 'project_paid_by_the_hour', @project.paid_by_the_hour
+    h3 Adresser
 
-    br
-    = f.label :fixed_price, 'Fastpris'
-    = radio_button_tag 'payment', 'fixed_price', @project.fixed_price
+    = f.label :billing_address, 'Faktura'
+    = f.text_field :billing_address
 
-  .field.hour_rate(class="#{ @project.paid_by_the_hour ? 'visible' : 'hide'}" )
-    /- raise  "#{@project.hour_rate ? 'visible' : 'hide'}"
-    br
-    = f.label :hour_rate, 'Pris pr time'
-    = f.text_field :hour_rate, placeholder: 'Timespris for prosjektet'
+    = f.label :execution_address, 'Utførelse'
+    = f.text_field :execution_address
 
-  .field.price_total(class="#{ @project.fixed_price ? 'visible' : 'hide'}" )
-    br
-    = f.label :price_total, 'Fastpris for prosjektet'
-    = f.text_field :price_total
+    = f.label :delivery_address, 'Leveranse'
+    = f.text_field :delivery_address
+
   hr
 
   .field
