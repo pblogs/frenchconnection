@@ -35,6 +35,15 @@ class User < ActiveRecord::Base
     File.exist?(filename) ? filename : "http://robohash.org/#{name}"
   end
   
+  def full_name
+    "#{ first_name } #{ last_name }".strip
+  end
+
+  def full_name=(name)
+    name = name.split(' ')
+    self.last_name  = name.pop
+    self.first_name = name.join(' ')
+  end
 
   protected
 
