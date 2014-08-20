@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140820081756) do
+ActiveRecord::Schema.define(version: 20140820103514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20140820081756) do
     t.float    "hour_rate"
     t.integer  "price_total",      limit: 8
     t.text     "description"
+    t.integer  "user_id"
   end
 
   create_table "task_types", force: true do |t|
@@ -123,13 +124,13 @@ ActiveRecord::Schema.define(version: 20140820081756) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: ""
-    t.string   "encrypted_password",     default: "",         null: false
-    t.string   "roles",                  default: ["worker"],              array: true
+    t.string   "email",                            default: ""
+    t.string   "encrypted_password",               default: "",         null: false
+    t.string   "roles",                            default: ["worker"],              array: true
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,          null: false
+    t.integer  "sign_in_count",                    default: 0,          null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -139,7 +140,7 @@ ActiveRecord::Schema.define(version: 20140820081756) do
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "department_id"
-    t.integer  "mobile"
+    t.integer  "mobile",                 limit: 8
     t.string   "employee_nr"
     t.string   "position"
   end
