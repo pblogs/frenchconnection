@@ -3,6 +3,10 @@
 
 .button.green
   p
+    strong Prosjekteier: 
+    = @project.user.full_name
+  p
+  p
     strong Prosjektnumber: 
     = @project.project_number
   p

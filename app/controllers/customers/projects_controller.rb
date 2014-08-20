@@ -5,7 +5,7 @@ class Customers::ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.where(user: @current_user).all
   end
 
   # GET /projects/1
