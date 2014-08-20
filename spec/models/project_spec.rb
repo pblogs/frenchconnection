@@ -7,7 +7,7 @@ describe Project do
     @user  = Fabricate(:user, first_name: 'John')
     @user2 = Fabricate(:user, first_name: 'Barry')
     @user3 = Fabricate(:user, first_name: 'Mustafa')
-    @task = Fabricate(:task, project: @project)
+    @task  = Fabricate(:task, project: @project)
     @task.users << @user
     @task.users << @user2
     @task.users << @user3
