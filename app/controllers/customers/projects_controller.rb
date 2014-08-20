@@ -30,8 +30,6 @@ class Customers::ProjectsController < ApplicationController
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers = Customer.all
     @customer = Customer.find(params[:customer_id])
-    @project.paid_by_the_hour = params[:payment] == 'project_paid_by_the_hour'
-    @project.fixed_price      = params[:payment] == 'fixed_price'
 
     respond_to do |format|
       if @project.save
