@@ -2,7 +2,7 @@ require 'spec_helper'
 
 
 
-describe "Create a new task", :type => :feature do
+describe "Create a new project", :type => :feature do
   before :all do
     @project_leader = Fabricate(:user, roles: 'project_leader')
     Fabricate(:customer, name: 'Oslo Sporveier AS')
@@ -28,7 +28,7 @@ describe "Create a new task", :type => :feature do
     click_button 'Lagre oppdrag i Visma'
   end
 
-  pending "for an existing company", js: true do
+  it "for an existing company", js: true, focus: true do
     sign_in(@project_leader)
     click_link 'Min side'
     click_link 'Opprett nytt prosjekt'
@@ -60,11 +60,6 @@ def sign_in(user)
 end
 
 
-#
-#end
-#
-#
-#
 #    Fabricate(:task_type, title: 'Maling')
 #    Fabricate(:customer,  name: 'Oslo Sporveier')
 #  end
