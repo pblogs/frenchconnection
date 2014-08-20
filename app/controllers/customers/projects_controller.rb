@@ -27,6 +27,7 @@ class Customers::ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @project.user = @current_user
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers = Customer.all
     @customer = Customer.find(params[:customer_id])
