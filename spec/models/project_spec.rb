@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Project do
   before :each do
-    @project  = Fabricate(:project)
+    @project_leader  = Fabricate(:user)
+    @project         = Fabricate(:project, user: @project_leader)
     @user  = Fabricate(:user, first_name: 'John')
     @user2 = Fabricate(:user, first_name: 'Barry')
     @user3 = Fabricate(:user, first_name: 'Mustafa')
@@ -11,13 +12,16 @@ describe Project do
     @task.users << @user2
     @task.users << @user3
   end
+
   it "is valid from the Fabric" do
     expect(@project).to be_valid
   end
 
+   it "Belongs to a project leader" do
+     @project.user.should eq @project_leader
+   end
 
   it "knows which users that are involved" do
-
     @user.tasks.should include @task
     @project.users.should include(@user, @user2, @user3)
     @project.name_of_users.should eq 'John, Barry, Mustafa'

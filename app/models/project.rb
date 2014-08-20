@@ -3,6 +3,7 @@ class Project < ActiveRecord::Base
   has_many :tasks
   has_many :hours_spents, :through => :tasks
   has_many :users,     :through => :tasks
+  belongs_to :user
 
   validates :customer_id, :presence => true
   validates :start_date,  :presence => true
