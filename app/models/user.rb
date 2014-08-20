@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
   end
 
   def avatar
-    "users/#{ name.parameterize }.jpg"
+    filename = "users/#{ name.parameterize }.jpg"
+    File.exist?(filename) ? filename : "http://robohash.org/#{name}"
   end
   
 
