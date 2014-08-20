@@ -45,7 +45,9 @@ class User < ActiveRecord::Base
       pending_notifications << [notification, args]
     else
       @token = args.first
-      @reset_url =  "#{edit_user_password_url(self, reset_password_token: @token, host: ENV['DOMAIN'] )}"
+      @reset_url =  "#{edit_user_password_url(self, 
+        reset_password_token: @token, 
+        host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
       api = Clickatell::API.authenticate('3494167', 'orwapp_alliero', 'PPIKCMYONgdcZS')
       api.send_message("47#{mobile}", @reset_url)
     end
