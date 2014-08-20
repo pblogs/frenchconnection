@@ -10,6 +10,9 @@ gem 'newrelic_rpm'
 gem 'foreman'
 gem 'passenger'
 gem 'clickatell'
+gem 'thor'
+gem 'roo'
+
 
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
 
