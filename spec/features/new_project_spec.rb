@@ -4,13 +4,14 @@ require 'spec_helper'
 
 describe "Create a new project", :type => :feature do
   before :all do
-    @project_leader = Fabricate(:user, roles: 'project_leader')
-    Fabricate(:customer, name: 'Oslo Sporveier AS')
+    Customer.destroy_all
+    @project_leader = Fabricate(:user, roles: ['project_leader'])
   end
 
-  it "for a new company" do
+  it "for a new company", js: true do
     sign_in(@project_leader)
-    visit frontpage_manager_path
+    visit user_path(@project_leader)
+    current_path.should eq user_path(@project_leader)
     click_link 'Opprett nytt prosjekt'
     click_link 'Opprett kunde'
 
@@ -25,23 +26,23 @@ describe "Create a new project", :type => :feature do
     click_link 'Lag et nytt prosjekt'
     current_path.should == new_customer_project_path(Customer.last)
     fill_in 'Oppstartsdato', with: '01.05.2014'
-    click_button 'Lagre oppdrag i Visma'
+    click_button 'Lagre'
   end
 
-  it "for an existing company", js: true, focus: true do
+  it "for an existing company" do
+    Fabricate(:customer, name: 'Oslo Sporveier AS')
     sign_in(@project_leader)
     click_link 'Min side'
     click_link 'Opprett nytt prosjekt'
 
     select 'Oslo Sporveier AS', from: :customer
     click_link 'Registrer prosjekt'
-    choose('#payment_project_paid_by_the_hour', visible: false)
+    current_path.should == new_customer_project_path(Customer.last)
 
     fill_in 'Oppstartsdato', with: '01.01.2014'
     fill_in 'Dato for ferdigstillelse av oppdrag', with: '01.10.2014'
     fill_in 'Beskrivelse', with: 'bra prosjekt'
-    fill_in 'Fastpris for prosjektet', with: '99299'
-    click_link 'Registrer oppdrag'
+    click_button 'Lagre'
   end
 
 
