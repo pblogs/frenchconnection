@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   ROLES = %w[admin leader project_leader worker economy]
   
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable
 
   belongs_to :department
 
@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   def avatar
     "users/#{ name.parameterize }.jpg"
   end
+  
 
   protected
 
