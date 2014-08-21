@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :hours_registered]
 
   # GET /projects
   # GET /projects.json
@@ -64,6 +64,10 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url }
       format.json { head :no_content }
     end
+  end
+
+  def hours_registered
+    @hours_registered = @project.hours_spents.all
   end
 
   private
