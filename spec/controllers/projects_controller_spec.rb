@@ -171,4 +171,15 @@ describe ProjectsController do
     end
   end
 
+  # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte som har levert timer på den dagen.
+  describe "List hours registered", focus: true do
+    it "populates an array with @hours_spent for the project" do
+      project = Fabricate(:project)
+      task = Fabricate(:task, project: project)
+      hs = Fabricate(:hours_spent, task: task, hour: 50, user: Fabricate(:user))
+      get :hours_registered, {:id => project.to_param}, valid_session
+      assigns(:hours_registered).should eq([hs])
+    end
+  end
+
 end

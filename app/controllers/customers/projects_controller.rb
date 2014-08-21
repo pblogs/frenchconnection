@@ -13,6 +13,7 @@ class Customers::ProjectsController < ApplicationController
   def show
   end
 
+
   # GET /projects/new
   def new
     @project = @customer.projects.new
