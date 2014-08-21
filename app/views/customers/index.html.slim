@@ -1,29 +1,35 @@
-h1 Listing customers
+h1 Våre kunder
 
 table
   thead
     tr
-      th Name
-      th Address
-      th Org number
-      th Contact person
-      th Phone
-      th
-      th
-      th
+      th Navn
+      th Adresse
+      th Org nummer
+      th Kontaktperson
+      th Telefon
+      th Verktøy
 
   tbody
     - @customers.each do |customer|
       tr
-        td = customer.name
+        td 
+          = link_to customer.name, customer
         td = customer.address
         td = customer.org_number
         td = customer.contact_person
         td = customer.phone
-        td = link_to 'Show', customer
-        td = link_to 'Rediger', edit_customer_path(customer)
-        td = link_to 'Destroy', customer, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td 
+           = link_to 'Lag et nytt prosjekt', 
+             new_customer_project_path(customer)
+        /td 
+          = link_to 'Vis', customer
+          br
+          = link_to 'Rediger', edit_customer_path(customer)
+          br
+          = link_to 'Slett', customer, data: {:confirm => 'Are you sure?'}, 
+            :method => :delete
 
 br
 
-= link_to 'New Customer', new_customer_path
+= link_to 'Opprett ny kunde', new_customer_path, class: 'red button'
