@@ -21,6 +21,11 @@ class CustomersController < ApplicationController
   def edit
   end
 
+  def search
+    @customers = Customer.where("name ILIKE ?", "%#{params[:query]}%").all
+    render :index
+  end
+
   
   # POST /customers
   # POST /customers.json
