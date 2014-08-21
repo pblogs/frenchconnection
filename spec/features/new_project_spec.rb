@@ -30,6 +30,7 @@ describe "Create a new project", :type => :feature do
   end
 
   it "for an existing company" do
+    pending "WIP"
     Fabricate(:customer, name: 'Oslo Sporveier AS')
     sign_in(@project_leader)
     click_link 'Min side'
