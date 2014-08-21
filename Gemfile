@@ -12,6 +12,7 @@ gem 'passenger'
 gem 'clickatell'
 gem 'thor'
 gem 'roo'
+gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 
 
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x

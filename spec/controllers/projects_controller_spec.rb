@@ -172,7 +172,7 @@ describe ProjectsController do
   end
 
   # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte som har levert timer på den dagen.
-  describe "List hours registered", focus: true do
+  describe "List hours registered" do
     it "populates an array with @hours_spent for the project" do
       project = Fabricate(:project)
       task = Fabricate(:task, project: project)

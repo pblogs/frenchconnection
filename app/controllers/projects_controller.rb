@@ -67,7 +67,8 @@ class ProjectsController < ApplicationController
   end
 
   def hours_registered
-    @hours_registered = @project.hours_spents.all
+    @search           = @project.hours_spents.search
+    @hours_registered = @search.result
   end
 
   private
