@@ -35,7 +35,8 @@ describe ProjectsController do
   end
 
   before do
-    sign_in
+    @user = Fabricate(:user)
+    sign_in @user
     Project.destroy_all
   end
 
@@ -45,8 +46,10 @@ describe ProjectsController do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all projects as @projects" do
+    it "assigns all projects belonging to current_user as @projects" do
       project = Project.create! valid_attributes
+      project.user = @user
+      project.save
       get :index, {}, valid_session
       assigns(:projects).should eq([project])
     end
