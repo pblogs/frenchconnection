@@ -46,10 +46,11 @@ describe ProjectsController do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all projects belonging to current_user as @projects" do
+    it "assigns all projects belonging to current_user as @projects"  do
       project = Project.create! valid_attributes
       project.user = @user
       project.save
+      Fabricate(:project, name: 'an other users')
       get :index, {}, valid_session
       assigns(:projects).should eq([project])
     end
