@@ -7,9 +7,6 @@
     = @project.customer.name
 
   p
-    strong Payment: 
-    = payment(@project)
-  p
     strong Oppstart: 
     = I18n.l(@project.start_date, format: :short_w_year)
   p
