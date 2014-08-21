@@ -23,6 +23,7 @@ AllieroForms::Application.routes.draw do
     get :report
   end
 
+  get '/customers/search' => 'customers#search', as: :customer_search
   resources :customers do
     resources :projects, :controller => 'customers/projects'
     get :excel_report

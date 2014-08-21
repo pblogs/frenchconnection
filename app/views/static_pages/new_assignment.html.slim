@@ -3,15 +3,10 @@ br
 br
 br
 
-- if @customers.present?
-  = label_tag 'customer', 'Velg eksisterende kunde'
-  br
-  = select_tag "customer", 
-    options_from_collection_for_select(@customers, "id", "name")
-  br
-  
-  = link_to "Registrer prosjekt", nil, 
-    class: "new_project_on_company green button" 
+= form_tag("/customers/search", method: "get") do
+  = text_field_tag(:query, nil, placeholder: 'Søk på kundenavn..')
+  = submit_tag("Søk")
+
 
   br
   br

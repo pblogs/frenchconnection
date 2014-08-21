@@ -43,6 +43,14 @@ describe CustomersController do
   let(:valid_session) { {} }
   before(:each) { Customer.destroy_all }
 
+  describe "Search", focus: true do
+    it "returnes customers that match" do
+      customer = Fabricate(:customer, name: 'Oslo Sporveier')
+      get :search, {:query => 'Oslo'}, valid_session
+      assigns(:customers).should eq([customer])
+    end
+  end
+
   describe "GET index" do
     it "assigns all customers as @customers" do
       customer = Customer.create! valid_attributes
