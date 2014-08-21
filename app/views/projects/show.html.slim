@@ -4,7 +4,7 @@
 .button.green
   p
     strong Prosjekteier: 
-    = @project.user.full_name
+    = @project.user.full_name rescue '-'
   p
   p
     strong Prosjektnumber: 
