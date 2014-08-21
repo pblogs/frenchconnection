@@ -49,9 +49,6 @@ class Customers::ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    @project.paid_by_the_hour = params[:payment] == 'project_paid_by_the_hour'
-    @project.fixed_price      = params[:payment] == 'fixed_price'
-
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to [@project.customer, @project], 
@@ -88,7 +85,6 @@ class Customers::ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:project_number, :name, 
         :customer_id, :start_date, :due_date,
-        :paid_by_the_hour, :fixed_price, :description,
-        :price_total, :hour_rate)
+        :description)
     end
 end
