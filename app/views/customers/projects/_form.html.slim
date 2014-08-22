@@ -20,8 +20,16 @@
     = f.label :description, 'Beskrivelse'
     = f.text_area :description, rows: 5
   
+  .field
+    = f.label :customer_reference, 'Kundereferanse'
+    = f.text_area :customer_reference
 
   .field
+    = f.label :comment, 'Kommentar'
+    = f.text_area :comment
+
+  .field
+    h3 Datoer
     = f.label :start_date, 'Oppstartsdato'
     = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
 
@@ -35,18 +43,28 @@
     h3 Adresser
 
     = f.label :billing_address, 'Faktura'
-    = f.text_field :billing_address
+    = f.text_area :billing_address
 
     = f.label :execution_address, 'Utførelse'
-    = f.text_field :execution_address
+    = f.text_area :execution_address
 
     = f.label :delivery_address, 'Leveranse'
-    = f.text_field :delivery_address
+    = f.text_area :delivery_address
+
+
+  .field
+    h3 Varsel
+    label
+      = f.check_box :sms_employee_if_hours_not_registered
+      = 'Send SMS til ansatt som ikke har ført timer kl 17 samme dag'
+      br
+    label
+      = f.check_box :sms_employee_when_new_task_created
+      = 'Send SMS til ansatt når han får tildelt ny oppgave'
 
   hr
 
-  .field
-    /= f.file_field :due_date, class: :datepicker,  placeholder: 'Velg bilde'
+  /.field
     .button.green
       strong= "#{fa_icon('camera')} Ta bilde ".html_safe
     br

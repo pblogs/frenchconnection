@@ -84,7 +84,8 @@ class Customers::ProjectsController < ApplicationController
 
     def project_params
       params.require(:project).permit(:project_number, :name, 
-        :customer_id, :start_date, :due_date,
-        :description)
+        :customer_id, :start_date, :due_date, :description,
+        :sms_employee_if_hours_not_registered,
+        :sms_employee_when_new_task_created)
     end
 end
