@@ -25,6 +25,7 @@ class CustomersController < ApplicationController
 
   def search
     @customers = Customer.where("name ILIKE ?", "%#{params[:query]}%").all
+    @search    = Customer.search(params[:q])
     render :index
   end
 
