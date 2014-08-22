@@ -29,6 +29,7 @@ snekkere = Department.where(id: 3, title: 'Snekkere').first_or_create
 Fabricate(:user, department: elektro, first_name: 'Even',  
           last_name: 'Elektro', email: 'even@elektro.no')
 Fabricate(:user, department: stilas,  first_name: 'Stian', 
+          mobile: 00000001,
           last_name: 'Stilas', email: 'stian@stilas.no')
 
 
@@ -37,6 +38,9 @@ Fabricate(:user, roles: [:project_leader], first_name: "Truls",
           mobile:  41413017, last_name: "Bratfoss") 
 Fabricate(:user, roles: [:project_leader], first_name: "Arild", 
           mobile:  94147807, last_name: "Jonassen")
+Fabricate(:user, roles: [:project_leader], first_name: "Prosjekt", 
+          mobile:  00000002, last_name: "Leder")
+
 Fabricate(:user, roles: [:project_leader], first_name: "Martin", 
           mobile:  93441707, last_name: "Stabenfeldt")
 
