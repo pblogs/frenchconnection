@@ -28,9 +28,9 @@ snekkere = Department.where(id: 3, title: 'Snekkere').first_or_create
 
 Fabricate(:user, department: elektro, first_name: 'Even',  
           last_name: 'Elektro', email: 'even@elektro.no')
-Fabricate(:user, department: stilas,  first_name: 'Stian', 
-          mobile: 00000001,
-          last_name: 'Stilas', email: 'stian@stilas.no')
+Fabricate(:user, department: stilas, 
+          first_name: 'Stian', last_name: 'Stilas', 
+          mobile: 00000001, email: 'stian@stilas.no')
 
 
 # Prosjektledere:
