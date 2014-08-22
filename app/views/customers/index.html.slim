@@ -3,7 +3,7 @@ h1 Våre kunder
 table
   thead
     tr
-      th Navn
+      td = sort_link(@search, :name, 'Navn', default_order: :desc)
       th Adresse
       th Org nummer
       th Kontaktperson
@@ -13,8 +13,7 @@ table
   tbody
     - @customers.each do |customer|
       tr
-        td 
-          = link_to customer.name, customer
+        td = link_to customer.name, customer
         td = customer.address
         td = customer.org_number
         td = customer.contact_person
