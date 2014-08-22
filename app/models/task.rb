@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+
   belongs_to :project
   belongs_to :paint
   has_and_belongs_to_many :users
@@ -11,6 +12,9 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
 
+  after_create :notify_workers
+
+
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +
@@ -20,6 +24,16 @@ class Task < ActiveRecord::Base
 
   def name_of_users
     users.pluck(:first_name).join(', ' )
+  end
+
+  private
+
+  def notify_workers
+    domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
+    msg = "Du har fått tildelt en ny oppgave. Les mer: "+ "http://#{domain}/tasks/#{id}"
+    users.each do |u|
+      SMS.send_message("47#{u.mobile}", msg)
+    end
   end
   
 end
