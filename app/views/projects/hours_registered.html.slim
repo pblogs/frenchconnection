@@ -1,15 +1,24 @@
 h2=  "Timer registerte på #{link_to @project.name, @project}".html_safe
 
-table#hours_registered
-  tr
-    th
-      = sort_link(@search, :created_at, 'Dato ')
-      = fa_icon 'sort'
-    th Navn
-    th Antall
-  - @hours_registered.each do |hour|
+- if @hours_registered.present?
+  table#hours_registered
     tr
-      td= hour.created_at.strftime("%B %e, %Y")
-      td= hour.user.name
-      td= hour.hour
+      th
+        = sort_link(@search, :created_at, 'Dato ')
+        = fa_icon 'sort'
+      th Navn
+      th Antall
+    - @hours_registered.each do |hour|
+      tr
+        td= hour.created_at.strftime("%B %e, %Y")
+        td= hour.user.name
+        td= hour.hour
+- else
+  br
+  br
+  p Det er ikke registert noen timer på dette prosjektet.
+  br
+  br
+  
 
+= link_to 'Tilbake', :back, class: 'pull-right'
