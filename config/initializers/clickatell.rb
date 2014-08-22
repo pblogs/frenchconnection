@@ -1,1 +1,1 @@
-SMS = Clickatell::API.authenticate('3494167', 'orwapp_alliero', 'PPIKCMYONgdcZS')
+SMS = Clickatell::API.authenticate( ENV['CLICKATELL_API_ID'], ENV['CLICKATELL_USERNAME'], ENV['CLICKATELL_PASSWORD'] )
