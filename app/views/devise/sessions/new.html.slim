@@ -8,11 +8,17 @@ h2
   div
     = f.label :password, 'Passord'
     = f.text_field :password, autocomplete: "off"
+
   - if devise_mapping.rememberable?
     div
+    label
       = f.check_box :remember_me
-      = f.label :remember_me, 'Husk meg'
+      = 'Husk meg'
+
+
   div
     = f.submit "Logg inn"
+  br
+  br
 
 = render "devise/shared/links"
