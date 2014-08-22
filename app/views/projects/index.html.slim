@@ -24,16 +24,18 @@ h1 Mine prosjekter
           td=truncate( project.description, size: 10) || 'Mangler beskrivelse'
           td.text_align_center = project.hours_spent_total
           td 
-            span.spacer 
             = link_to fa_icon('pencil'),
               edit_customer_project_path(project.customer, project)
-            span.spacer 
+            span.spacer
             = link_to fa_icon('trash-o'), project, 
               data: {:confirm => 'Sikker på at du vil slette?'}, 
               :method => :delete
-            span.spacer 
+            br
             = link_to( (fa_icon 'table', text: "Dagsrapport"), 
               dagsrapport_path(project) )
+            br
+            = link_to( (fa_icon 'table', text: "Timelister"), 
+              hours_registered_path(project) )
 - else
   span Ingen aktive prosjekter
   
