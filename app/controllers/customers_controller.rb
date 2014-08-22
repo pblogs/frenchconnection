@@ -4,7 +4,9 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all.order(name: :asc)
+    @search    = Customer.search(params[:q])
+    @search.sorts = 'name asc' if @search.sorts.empty?
+    @customers = @search.result
   end
 
   # GET /customers/1
