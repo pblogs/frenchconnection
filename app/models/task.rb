@@ -12,7 +12,7 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
 
-  after_create :notify_workers
+  after_create :notify_workers, if: :sms_employee_when_new_task_created
 
 
   def hours_total
