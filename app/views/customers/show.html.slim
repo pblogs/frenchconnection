@@ -1,17 +1,19 @@
 p
-  strong Navn: 
+  label Navn
   = @customer.name
 p
-  strong Addresse: 
+  label Addresse:
   = @customer.address
+  br
+  = @customer.area
 p
-  strong Organisasjonsnummer: 
+  label Organisasjonsnummer
   = @customer.org_number
 p
-  strong Kontakt person: 
+  label Kontaktperson
   = @customer.contact_person
 p
-  strong Telefon: 
+  label Telefon
   = @customer.phone
 
 
