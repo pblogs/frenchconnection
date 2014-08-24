@@ -58,7 +58,8 @@ class User < ActiveRecord::Base
       puts "CLICKATELL_USERNAME: #{ENV['CLICKATELL_USERNAME']}"
       puts "CLICKATELL_PASSWORD: #{ENV['CLICKATELL_PASSWORD']}"
       puts "CLICKATELL_API_ID:   #{ENV['CLICKATELL_API_ID']}"
-      SMS.send_message("47#{mobile}", @reset_url)
+
+      SMS.send_message("47#{mobile}", @reset_url, {:from=>"Orwapp"})
     end
   end
 
