@@ -55,9 +55,9 @@ class User < ActiveRecord::Base
       @reset_url =  "#{edit_user_password_url(self, 
         reset_password_token: @token, 
         host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
-      Rails.logger.debug "variables: #{ENV['CLICKATELL_USERNAME']}"
-      Rails.logger.debug "variables: #{ENV['CLICKATELL_PASSWORD']}"
-      Rails.logger.debug "variables: #{ENV['CLICKATELL_API_ID']}"
+      puts "CLICKATELL_USERNAME: #{ENV['CLICKATELL_USERNAME']}"
+      puts "CLICKATELL_PASSWORD: #{ENV['CLICKATELL_PASSWORD']}"
+      puts "CLICKATELL_API_ID:   #{ENV['CLICKATELL_API_ID']}"
       SMS.send_message("47#{mobile}", @reset_url)
     end
   end
