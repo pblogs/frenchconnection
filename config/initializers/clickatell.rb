@@ -1,3 +1,3 @@
 unless Rails.env.test?
-  SMS = Clickatell::API.authenticate( ENV['CLICKATELL_API_ID'], ENV['CLICKATELL_USERNAME'], ENV['CLICKATELL_PASSWORD'] )
+  SMS = Clickatell::API.authenticate( '3494167', 'orwapp_alliero', 'WCZwJcL4mxKYD3e@' )
 end
