@@ -7,7 +7,7 @@ h2
   div
     = f.label :mobile, 'Få nytt passord'
     br
-    = f.text_field :mobile, autofocus: true, placeholder: 'Tast inn ditt mobilnummer'
+    = f.telephone_field :mobile, autofocus: true, placeholder: 'Tast inn ditt mobilnummer'
   div
     = f.submit "Send meg SMS for å nullstille passordet"
   br

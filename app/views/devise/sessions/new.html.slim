@@ -4,7 +4,7 @@ h2
   div
     br
     = f.label :mobile, 'Mobilnummer'
-    = f.text_field :mobile, autofocus: true, input: :tel
+    = f.telephone_field :mobile, autofocus: true
   div
     = f.label :password, 'Passord'
     = f.text_field :password, autocomplete: "off"

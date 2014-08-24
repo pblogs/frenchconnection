@@ -6,11 +6,11 @@ h2
   div
     = f.label :password, "Nytt passord"
     br
-    = f.text_field :password, autofocus: true, autocomplete: "off"
+    = f.telephone_field :password, autofocus: true, autocomplete: "off"
   div
     = f.label :password_confirmation, "Bekreft passordet"
     br
-    = f.text_field :password_confirmation, autocomplete: "off"
+    = f.telephone_field :password_confirmation, autocomplete: "off"
   div
     = f.submit "Lagre nytt passord"
 = render "devise/shared/links"
