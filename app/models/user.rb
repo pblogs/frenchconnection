@@ -51,15 +51,12 @@ class User < ActiveRecord::Base
     if new_record? || changed?
       pending_notifications << [notification, args]
     else
-      @token = args.first
-      @reset_url =  "#{edit_user_password_url(self, 
-        reset_password_token: @token, 
+      token = args.first
+      reset_url =  "#{edit_user_password_url(self, 
+        reset_password_token: token, 
         host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
-      puts "CLICKATELL_USERNAME: #{ENV['CLICKATELL_USERNAME']}"
-      puts "CLICKATELL_PASSWORD: #{ENV['CLICKATELL_PASSWORD']}"
-      puts "CLICKATELL_API_ID:   #{ENV['CLICKATELL_API_ID']}"
-
-      SMS.send_message("47#{mobile}", @reset_url, {:from=>"Orwapp"})
+      msg = "Følg denne linken for å sette et nytt passord hos Orwapp: #{reset_url}"
+      SMS.send_message("47#{mobile}", msg, {:from=>"Orwapp"})
     end
   end
 
