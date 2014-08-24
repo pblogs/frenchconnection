@@ -32,7 +32,7 @@ class Task < ActiveRecord::Base
     domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
     msg = "Du har fått tildelt en ny oppgave. Les mer: "+ "http://#{domain}/tasks/#{id}"
     users.each do |u|
-      SMS.send_message("47#{u.mobile}", msg)
+      SMS.send_message("47#{u.mobile}", msg, {:from=>"Orwapp"})
     end
   end
   
