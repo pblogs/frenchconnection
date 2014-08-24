@@ -19,13 +19,14 @@ html
         - if signed_in?
           nav
             ul#top_nav
-              li= link_to 'Forside', '/'
-              li= link_to 'Min side', @current_user
-              li= link_to 'HMS', hms_path
-
               - if @current_user.has_role? :project_leader
                 li= link_to 'Prosjekter', projects_path
                 li= link_to 'Kunder', customers_path
+
+              li= link_to 'Nyheter', '/'
+              li= link_to 'Min side', @current_user
+              li= link_to 'HMS', hms_path
+
 
         section
           p#notice = notice
