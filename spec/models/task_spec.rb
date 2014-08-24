@@ -29,10 +29,8 @@ describe Task do
     @task.name_of_users.should eq 'John, Barry'
   end
 
-  describe "Notifications", focus: true do
-    
+  describe "Notifications" do
     it "notifies by SMS when a worker is delegated at task" do
-       
     end
   end
 

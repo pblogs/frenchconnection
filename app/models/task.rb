@@ -14,6 +14,9 @@ class Task < ActiveRecord::Base
 
   after_create :notify_workers, if: :sms_employee_when_new_task_created
 
+  def sms_employee_when_new_task_created
+    project.sms_employee_when_new_task_created
+  end
 
   def hours_total
     self.hours_spents.sum(:hour) +
