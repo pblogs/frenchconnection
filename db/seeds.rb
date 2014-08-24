@@ -42,7 +42,7 @@ Fabricate(:user, roles: [:project_leader], first_name: "Prosjekt",
           mobile:  00000002, last_name: "Leder")
 
 Fabricate(:user, roles: [:project_leader], first_name: "Martin", 
-          mobile:  93441707, last_name: "Stabenfeldt")
+          mobile:  93441707, last_name: "Stabenfeldt", department: snekkere,)
 
 # Generic accounts
 Fabricate(:user, roles: [:worker], department: snekkere, 
