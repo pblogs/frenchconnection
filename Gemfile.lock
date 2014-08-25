@@ -120,6 +120,7 @@ GEM
     hike (1.2.3)
     htmlentities (4.3.1)
     i18n (0.6.9)
+    iconv (1.0.4)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -310,6 +311,7 @@ DEPENDENCIES
   font-awesome-rails
   foreman
   guard-rspec
+  iconv
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-sass-rails
