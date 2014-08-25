@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
         reset_password_token: token, 
         host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
       msg = "Klikk her for nytt passord hos Orwapp: #{reset_url}"
-      SMS.send_message("47#{mobile}", msg, {:from=>"Orwapp"})
+      Sms.send_msg("47#{mobile}", msg)
     end
   end
 
