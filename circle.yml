@@ -1,0 +1,7 @@
+deployment:
+  production:
+    branch: master
+    commands:
+      - git fetch --unshallow
+      - git push git@github.com:stabenfeldt/alliero-orwapp.git master --force
+      - wget http://alliero-orwapp.herokuapp.com/keep_alive  -O /dev/null
