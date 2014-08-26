@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def project_categories
-    Category.find(owns_project_ids)
+    Category.find(owns_project_ids) if owns_project_ids
   end
 
   def owns_projects
@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   end
 
   def owns_project_ids
-    owns_projects.pluck(:category_id)
+    owns_projects.pluck(:category_id).compact
   end
 
   protected
