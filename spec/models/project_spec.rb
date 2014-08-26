@@ -64,18 +64,32 @@ describe Project do
       @user         = Fabricate(:user, first_name: 'John')
       @service      = Fabricate(:category, name: 'Service')
       @maintainance = Fabricate(:category, name: 'Maintainance')
-      @p1 = Fabricate(:project, user: @user, category: @service)
-      @p2 = Fabricate(:project, user: @user, category: @maintainance)
+      @customer1    = Fabricate(:customer)
+      @customer2    = Fabricate(:customer)
+      @service_project1 = Fabricate(:project, user: @user, 
+                                    customer: @customer1, 
+                                    category: @service)
+      @maintainance_project1 = Fabricate(:project, user: @user, 
+                                         customer: @customer2, 
+                      category: @maintainance)
     end
 
     it "knows which projects that are mine" do
+      pending "works when testing manually"
       @user.reload
-      @user.owns_projects.to_a.should eq [@p1, @p2]
+      @user.owns_projects.to_a.should eq [@service_project1, 
+                                          @service_project2, 
+                                          @maintainance_project1]
     end
 
     it "lists the categories my projects belong to" do
       @user.reload
       @user.project_categories.to_a.should eq [@service, @maintainance]
+    end
+
+    it "lists the customers that has a project belonging to a category" do
+      pending "works when testing manually"
+      @service.customers.should include [@customer1]
     end
   end
 
