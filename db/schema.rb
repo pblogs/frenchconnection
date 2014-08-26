@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822110302) do
+ActiveRecord::Schema.define(version: 20140826104835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20140822110302) do
   create_table "artisans_tasks", id: false, force: true do |t|
     t.integer "artisan_id"
     t.integer "task_id"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "customer_messages", force: true do |t|
@@ -97,7 +103,10 @@ ActiveRecord::Schema.define(version: 20140822110302) do
     t.text     "comment"
     t.boolean  "sms_employee_if_hours_not_registered", default: false
     t.boolean  "sms_employee_when_new_task_created",   default: false
+    t.integer  "category_id"
   end
+
+  add_index "projects", ["category_id"], name: "index_projects_on_category_id", using: :btree
 
   create_table "task_types", force: true do |t|
     t.string   "title"

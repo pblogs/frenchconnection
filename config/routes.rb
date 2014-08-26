@@ -25,6 +25,8 @@ AllieroForms::Application.routes.draw do
     get :report
   end
 
+  resources :categories
+
   get '/customers/search' => 'customers#search', as: :customer_search
   resources :customers do
     resources :projects, :controller => 'customers/projects'
