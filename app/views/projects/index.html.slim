@@ -1,5 +1,13 @@
 h1 Mine prosjekter
 
+
+ul
+  lh Kategorier
+  - @current_user.project_categories.each do |c| 
+    li= link_to c.name, c
+
+
+
 - if @projects.present?
   table
     thead
