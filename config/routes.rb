@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :categories
+
   devise_for :users, :controllers => {
     #passwords:          'users/passwords'
     #omniauth_callbacks: 'users/omniauth_callbacks',
@@ -24,8 +26,6 @@ AllieroForms::Application.routes.draw do
     get :active
     get :report
   end
-
-  resources :categories
 
   get '/customers/search' => 'customers#search', as: :customer_search
   resources :customers do
