@@ -1,52 +1,14 @@
-h1 Mine prosjekter
-
-
+h3 Kategorier
+br
 ul
-  lh Kategorier
   - @current_user.owns_projects.present? && @current_user.project_categories.each do |c| 
     li= link_to c.name, c
 
 
 
-- if @projects.present?
-  table
-    thead
-      tr
-        th Kunde, Prosjektnummer
-        th Oppstart / Ferdigstilling  
-        th Beskrivelse
-        th.text_align_right Akkumulert timer
-        th
-  
-    tbody
-      - @projects.each do |project|
-        tr
-          td 
-            = link_to([project.customer.name, project.project_number].join(', ') \
-              .chomp(','), project)
-          td 
-            = I18n.l(project.start_date, format: :short)
-            span.spacer= '/'
-            = I18n.l(project.due_date,   format: :short)
-
-          td=truncate( project.description, size: 10) || 'Mangler beskrivelse'
-          td.text_align_center = project.hours_spent_total
-          td 
-            = link_to fa_icon('pencil'),
-              edit_customer_project_path(project.customer, project)
-            span.spacer
-            = link_to fa_icon('trash-o'), project, 
-              data: {:confirm => 'Sikker på at du vil slette?'}, 
-              :method => :delete
-            br
-            = link_to( (fa_icon 'table', text: "Dagsrapport"), 
-              dagsrapport_path(project) )
-            br
-            = link_to( (fa_icon 'table', text: "Timelister"), 
-              hours_registered_path(project) )
-- else
-  span Ingen aktive prosjekter
-  
+br
+br
+h2 Favoritter
 
 br
 br
