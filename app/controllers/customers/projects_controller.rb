@@ -1,11 +1,11 @@
 class Customers::ProjectsController < ApplicationController
   before_action :set_project,  only: [:show, :edit, :update, :destroy]
-  before_action :set_customer, only: [:show, :edit, :update, :destroy, :new]
+  before_action :set_customer, only: [:index, :show, :edit, :update, :destroy, :new]
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.where(user: @current_user).all
+    @projects = @customer.projects.all
   end
 
   # GET /projects/1
