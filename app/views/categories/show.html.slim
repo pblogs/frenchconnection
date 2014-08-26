@@ -3,12 +3,11 @@
   | >
   = @category.name
 
-p#notice = notice
 
-p
-  strong Name:
-  = @category.name
-
-= link_to 'Edit', edit_category_path(@category)
-'|
-= link_to 'Back', categories_path
+table
+  thead
+    th Kunde
+  tbody
+    - @customers.each do |c|
+      tr
+        td = link_to c.name, customer_projects_path(c)
