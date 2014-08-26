@@ -1,3 +1,8 @@
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  | >
+  = @category.name
+
 p#notice = notice
 
 p
