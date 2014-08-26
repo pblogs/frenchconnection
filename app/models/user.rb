@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :tasks
   has_many :projects, :through => :tasks
   has_many :hours_spents
+  has_many :categories, :through => :projects
+
 
   def name
     "#{ first_name } #{ last_name }"
@@ -43,6 +45,18 @@ class User < ActiveRecord::Base
     name = name.split(' ')
     self.last_name  = name.pop
     self.first_name = name.join(' ')
+  end
+
+  def project_categories
+    Category.find(owns_project_ids)
+  end
+
+  def owns_projects
+    Project.where(user_id: id).all
+  end
+
+  def owns_project_ids
+    owns_projects.pluck(:category_id)
   end
 
   protected
