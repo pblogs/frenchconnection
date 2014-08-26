@@ -103,14 +103,16 @@ describe ProjectsController do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, {:project => { "project_number" => "invalid value" }}, valid_session
+        post :create, {:project => { "project_number" => "invalid value" }}, 
+          valid_session
         assigns(:project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, {:project => { "project_number" => "invalid value" }}, valid_session
+        post :create, {:project => { "project_number" => "invalid value" }}, 
+          valid_session
         response.should render_template("new")
       end
     end
@@ -185,5 +187,6 @@ describe ProjectsController do
       assigns(:hours_registered).should eq([hs])
     end
   end
+
 
 end
