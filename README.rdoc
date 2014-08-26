@@ -1,5 +1,5 @@
 == Alliero.orwapp.com
 
-Clickatell can be tested by doing a http get to 
-http://api.clickatell.com/http/auth?user=USER&password=PASS@&api_id=ID
-
+Ask martin@orwapp.com for sms gateway credentials. 
+You need to set these local variables send sms:
+BULKSMS_PASSWORD and BULKSMS_USERNAME
