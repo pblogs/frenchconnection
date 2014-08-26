@@ -9,12 +9,8 @@ class Project < ActiveRecord::Base
   validates :customer_id, :presence => true
   validates :start_date,  :presence => true
   validates :due_date,    :presence => true
-  #validates :description, :presence => true
 
   def hours_spent_total
-    #sum = 0
-    #tasks.each { |t| sum += t.hours_spents.sum(:hour) }
-    #sum
     hours_spents.sum(:hour) +
     hours_spents.sum(:piecework_hours) +
     hours_spents.sum(:overtime_50) +
@@ -31,7 +27,5 @@ class Project < ActiveRecord::Base
   def name_of_users
     users.pluck(:first_name).join(', ' )
   end
-
-
 
 end
