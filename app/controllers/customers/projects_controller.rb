@@ -16,7 +16,7 @@ class Customers::ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @project = @customer.projects.new
+    @project   = @customer.projects.new
     @customers = Customer.all
   end
 
@@ -27,11 +27,11 @@ class Customers::ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
-    @project.user = @current_user
+    @project             = Project.new(project_params)
+    @project.user        = @current_user
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
-    @customers = Customer.all
-    @customer = Customer.find(params[:customer_id])
+    @customers           = Customer.all
+    @customer            = Customer.find(params[:customer_id])
 
     respond_to do |format|
       if @project.save
