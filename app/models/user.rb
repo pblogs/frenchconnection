@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  require 'clickatell'
 
   ROLES = %w[admin leader project_leader worker economy]
   
