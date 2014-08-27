@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   validates :start_date,  :presence => true
   validates :due_date,    :presence => true
 
+  has_many :attachments
 
 
   def hours_spent_total
