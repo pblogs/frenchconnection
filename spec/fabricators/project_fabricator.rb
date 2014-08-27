@@ -5,4 +5,5 @@ Fabricator(:project) do
   start_date     { Time.now }
   due_date       { Time.now.next_week }
   description   " do it like this "
+  category      { Fabricate(:category, name: 'service') }
 end

@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
   validates :customer_id, :presence => true
   validates :start_date,  :presence => true
   validates :due_date,    :presence => true
+  validates :category,    :presence => true
 
   has_many :attachments
 

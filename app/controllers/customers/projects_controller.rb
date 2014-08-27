@@ -29,6 +29,10 @@ class Customers::ProjectsController < ApplicationController
   def create
     @project             = Project.new(project_params)
     @project.user        = @current_user
+
+    # This could be @current_user.category if that turns out to be smart.
+    @project.category    = Category.where(name: 'Service').first_or_create
+
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
     @customer            = Customer.find(params[:customer_id])

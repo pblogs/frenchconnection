@@ -4,7 +4,9 @@ describe Project do
   describe "generic" do
     before :each do
       @project_leader  = Fabricate(:user)
-      @project         = Fabricate(:project, user: @project_leader)
+      @service         = Fabricate(:category, name: 'Service')
+      @project         = Fabricate(:project, user: @project_leader, 
+                                   category: @service)
       @user  = Fabricate(:user, first_name: 'John')
       @user2 = Fabricate(:user, first_name: 'Barry')
       @user3 = Fabricate(:user, first_name: 'Mustafa')
