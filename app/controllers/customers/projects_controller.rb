@@ -38,7 +38,7 @@ class Customers::ProjectsController < ApplicationController
 
         if params[:attachments]
           params[:attachments].each do |attachment| 
-            @project.attachments.create!(document: attachment)
+            @project.attachments.create!(document: attachment, project: @project)
           end
         end
 
