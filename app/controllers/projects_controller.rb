@@ -83,9 +83,13 @@ class ProjectsController < ApplicationController
                                       :customer_id,
                                       :start_date,
                                       :due_date,
-                                      :hour_rate,
-                                      :fixed_price, :description,
-                                      :price_total,
+                                      :description,
+                                      :customer_reference, 
+                                      :comment, 
+                                      :billing_address, 
+                                      :execution_address, 
+                                      :delivery_address, 
+                                      :attachment,
                                       :company_id)
     end
 end
