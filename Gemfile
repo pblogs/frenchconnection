@@ -4,27 +4,23 @@ ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
+gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+gem 'rails_12factor', group: :production
+
 gem 'quiet_assets'
 gem 'pg'
 gem 'newrelic_rpm'
 gem 'foreman'
 gem 'passenger'
-gem 'clickatell'
 gem 'thor'
-gem 'roo'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
-
 gem 'iconv'
-
-gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
-
-gem 'rails_12factor', group: :production
-
-
 gem 'devise'
-
-gem 'database_cleaner'
+gem 'carrierwave'
 gem 'axlsx', '~> 2.0.1'
+gem 'neat'
+gem 'bourbon'
+gem 'bitters'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -58,18 +54,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-#
 
 gem 'fabrication'
 gem 'faker'
@@ -88,17 +72,13 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
   gem 'selenium-webdriver'
 end
   
 
-gem 'neat'
-gem 'bourbon'
-gem 'bitters'
-
-gem 'spreadsheet', '~> 0.9.7'
 
 group :production do
   gem 'exception_notification'
