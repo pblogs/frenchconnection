@@ -2,13 +2,15 @@ class Project < ActiveRecord::Base
   belongs_to :customer
   has_many :tasks
   has_many :hours_spents, :through => :tasks
-  has_many :users,     :through => :tasks
+  has_many :users,        :through => :tasks
   belongs_to :user
   belongs_to :category
 
   validates :customer_id, :presence => true
   validates :start_date,  :presence => true
   validates :due_date,    :presence => true
+
+
 
   def hours_spent_total
     hours_spents.sum(:hour) +
@@ -25,7 +27,7 @@ class Project < ActiveRecord::Base
   end
 
   def name_of_users
-    users.pluck(:first_name).join(', ' )
+    users.pluck(:first_name).join(', ')
   end
 
 end
