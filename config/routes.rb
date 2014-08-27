@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :attachments
+
   resources :categories
 
   devise_for :users, :controllers => {

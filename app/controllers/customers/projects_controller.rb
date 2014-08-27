@@ -35,7 +35,14 @@ class Customers::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project,
+
+        if params[:attachments]
+          params[:attachments].each do |attachment| 
+            @project.attachments.create!(document: attachment)
+          end
+        end
+
+        format.html { redirect_to customer_project_path(@project.customer, @project),
                       notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, location: @project }
       else
@@ -51,6 +58,13 @@ class Customers::ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+
+        if params[:attachments]
+          params[:attachments].each do |attachment| 
+            @project.attachments.create!(document: attachment)
+          end
+        end
+
         format.html { redirect_to [@project.customer, @project], 
                       notice: 'Project was successfully updated.' }
         format.json { head :no_content }
@@ -96,7 +110,7 @@ class Customers::ProjectsController < ApplicationController
                                     :sms_employee_if_hours_not_registered, 
                                     :sms_employee_when_new_task_created,
                                     :delivery_address, 
-                                    :attachment,
+                                    :attachments,
                                     :company_id)
   end
 end
