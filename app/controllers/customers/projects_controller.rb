@@ -73,19 +73,30 @@ class Customers::ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
-    def set_customer
-      @customer = Customer.find(params[:customer_id])
-    end
+  def set_customer
+    @customer = Customer.find(params[:customer_id])
+  end
 
-    def project_params
-      params.require(:project).permit(:project_number, :name, 
-        :customer_id, :start_date, :due_date, :description,
-        :sms_employee_if_hours_not_registered,
-        :sms_employee_when_new_task_created)
-    end
+  def project_params
+    params.require(:project).permit(:project_number, 
+                                    :name, 
+                                    :customer_id,
+                                    :start_date,
+                                    :due_date,
+                                    :description,
+                                    :customer_reference, 
+                                    :comment, 
+                                    :billing_address, 
+                                    :execution_address, 
+                                    :sms_employee_if_hours_not_registered, 
+                                    :sms_employee_when_new_task_created,
+                                    :delivery_address, 
+                                    :attachment,
+                                    :company_id)
+  end
 end
