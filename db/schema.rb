@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828120411) do
+ActiveRecord::Schema.define(version: 20140828125916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140828120411) do
     t.integer  "customer_nr"
     t.string   "area"
     t.string   "email"
+    t.boolean  "starred"
   end
 
   create_table "departments", force: true do |t|
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 20140828120411) do
     t.boolean  "sms_employee_if_hours_not_registered", default: false
     t.boolean  "sms_employee_when_new_task_created",   default: false
     t.integer  "department_id"
+    t.boolean  "starred"
   end
 
   create_table "task_types", force: true do |t|
