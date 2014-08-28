@@ -31,6 +31,7 @@ class Customers::ProjectsController < ApplicationController
   def create
     @project             = Project.new(project_params)
     @project.user        = @current_user
+    @departments         = Department.all
 
     # This could be @current_user.category if that turns out to be smart.
     @project.department  = Department.where(title: 'Avd. 545 Bratfoss').first_or_create
