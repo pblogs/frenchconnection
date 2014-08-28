@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Department do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before :each do
+    @department = Fabricate(:department)
+  end
+  
+  it "is valid from the Fabric" do
+    expect(@department).to be_valid
+  end
 end
