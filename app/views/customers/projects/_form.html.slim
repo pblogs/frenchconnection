@@ -8,10 +8,22 @@
         - @project.errors.full_messages.each do |message|
           li = message
 
+  .field.right
+    label 
+      = f.check_box :starred
+      | Merk som favoritt
+
   .field
     = f.label :department, 'Avdeling'
     = select_tag "project[department_id]", 
-      options_from_collection_for_select(@departments, "id", "title")
+      options_from_collection_for_select(@departments, "id", 
+        "title", @project.department_id)
+
+    /= select_tag "project[department_id]", 
+      collection_check_boxes(:project, :department_id, @departments, :id, :title)
+
+
+
 
   .field
     = f.label :project_number, 'Prosjektnummer'
