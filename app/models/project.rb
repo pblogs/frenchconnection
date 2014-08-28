@@ -1,8 +1,10 @@
 class Project < ActiveRecord::Base
-  belongs_to :customer
   has_many :tasks
+  has_many :attachments
   has_many :hours_spents, :through => :tasks
   has_many :users,        :through => :tasks
+
+  belongs_to :customer
   belongs_to :user
   belongs_to :department
 
@@ -11,7 +13,6 @@ class Project < ActiveRecord::Base
   validates :due_date,    :presence => true
   validates :department,  :presence => true
 
-  has_many :attachments
 
 
   def hours_spent_total

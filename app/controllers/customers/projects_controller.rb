@@ -1,6 +1,7 @@
 class Customers::ProjectsController < ApplicationController
   before_action :set_project,  only: [:show, :edit, :update, :destroy]
-  before_action :set_customer, only: [:index, :show, :edit, :update, :destroy, :new]
+  before_action :set_customer, only: [:index, :show, :edit, :update, 
+                                      :destroy, :new]
 
   # GET /projects
   # GET /projects.json
@@ -16,8 +17,9 @@ class Customers::ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    @project   = @customer.projects.new
-    @customers = Customer.all
+    @project     = @customer.projects.new
+    @customers   = Customer.all
+    @departments = Department.all
   end
 
   # GET /projects/1/edit
@@ -31,7 +33,7 @@ class Customers::ProjectsController < ApplicationController
     @project.user        = @current_user
 
     # This could be @current_user.category if that turns out to be smart.
-    @project.category    = Category.where(name: 'Service').first_or_create
+    @project.department  = Department.where(name: 'Avd. 545 Bratfoss').first_or_create
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
@@ -42,13 +44,15 @@ class Customers::ProjectsController < ApplicationController
 
         if params[:attachments]
           params[:attachments].each do |attachment| 
-            @project.attachments.create!(document: attachment, project: @project)
+            @project.attachments.create!(document: attachment, 
+                                         project: @project)
           end
         end
 
-        format.html { redirect_to customer_project_path(@project.customer, @project),
-                      notice: 'Prosjektet ble lagret' }
-        format.json { render action: 'show', status: :created, location: @project }
+        format.html { redirect_to customer_project_path(@project.customer, 
+                        @project), notice: 'Prosjektet ble lagret' }
+        format.json { render action: 'show', status: :created, 
+                      location: @project }
       else
         format.html { render action: 'edit' }
         format.json { render json: @project.errors, 
