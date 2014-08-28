@@ -1,7 +1,7 @@
 h3 Kategorier
 br
 ul
-  - @current_user.owns_projects.present? && @current_user.project_categories.each do |c| 
+  - @current_user.owns_projects.present? && @current_user.project_departments.each do |c| 
     li= link_to c.name, c
 
 

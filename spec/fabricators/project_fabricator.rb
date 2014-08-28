@@ -4,6 +4,6 @@ Fabricator(:project) do
   customer       { Fabricate(:customer) }
   start_date     { Time.now }
   due_date       { Time.now.next_week }
-  description   " do it like this "
-  category      { Fabricate(:category, name: 'service') }
+  description    "Lag en ny port ved innkjøringen til parkeringen "
+  department      { Fabricate(:department, title: 'Avd. 545 Bratfoss') }
 end

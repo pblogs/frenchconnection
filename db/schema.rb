@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140827094708) do
+ActiveRecord::Schema.define(version: 20140828065513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,10 +110,8 @@ ActiveRecord::Schema.define(version: 20140827094708) do
     t.text     "comment"
     t.boolean  "sms_employee_if_hours_not_registered", default: false
     t.boolean  "sms_employee_when_new_task_created",   default: false
-    t.integer  "category_id"
+    t.integer  "department_id"
   end
-
-  add_index "projects", ["category_id"], name: "index_projects_on_category_id", using: :btree
 
   create_table "task_types", force: true do |t|
     t.string   "title"
