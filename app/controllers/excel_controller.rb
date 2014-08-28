@@ -1,8 +1,6 @@
 class ExcelController < ApplicationController
   layout :resolve_layout
   
-  require 'spreadsheet'
-
   def dagsrapport
     @project = Project.find(params[:project_id])
     file_name = Dagsrapport.new(@project).create_spreadsheet
