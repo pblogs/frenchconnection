@@ -24,6 +24,7 @@ class Customers::ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @departments         = Department.all
   end
 
   # POST /projects
