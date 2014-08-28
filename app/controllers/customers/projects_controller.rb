@@ -12,6 +12,7 @@ class Customers::ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @departments         = Department.all
   end
 
 
@@ -34,8 +35,8 @@ class Customers::ProjectsController < ApplicationController
     @project.user        = @current_user
     @departments         = Department.all
 
-    # This could be @current_user.category if that turns out to be smart.
-    @project.department  = Department.where(title: 'Avd. 545 Bratfoss').first_or_create
+    # TODO make so that this param is sent under the project hash
+    @project.department_id = params[:department]
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
@@ -66,6 +67,7 @@ class Customers::ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    @departments         = Department.all
     respond_to do |format|
       if @project.update(project_params)
 
@@ -107,21 +109,24 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:project_number, 
-                                    :name, 
-                                    :title,
+    params.require(:project).permit(
+                                    :attachments,
+                                    :billing_address, 
+                                    :customer_reference, 
+                                    :company_id,
+                                    :comment, 
                                     :customer_id,
-                                    :start_date,
                                     :due_date,
                                     :description,
-                                    :customer_reference, 
-                                    :comment, 
-                                    :billing_address, 
+                                    :department_id,
+                                    :delivery_address, 
                                     :execution_address, 
+                                    :name, 
+                                    :project_number, 
                                     :sms_employee_if_hours_not_registered, 
                                     :sms_employee_when_new_task_created,
-                                    :delivery_address, 
-                                    :attachments,
-                                    :company_id)
+                                    :start_date,
+                                    :title,
+                                    )
   end
 end

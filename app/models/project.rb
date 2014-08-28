@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   validates :customer_id, :presence => true
   validates :start_date,  :presence => true
   validates :due_date,    :presence => true
-  validates :department,  :presence => true
+  validates :department_id,  :presence => true
 
 
 
