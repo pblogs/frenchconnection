@@ -18,7 +18,7 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe ProjectsController do
+describe ProjectsController, focus: true do
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
@@ -26,11 +26,12 @@ describe ProjectsController do
   let(:valid_attributes) do
     { 
       project_number: 'P01',
-      customer_id:  Fabricate(:customer).id,
-      name:         Faker::Lorem.words(3).join(''),
-      start_date:   '01.05.1983',
-      due_date:     '01.08.1983',
-      description:  'do it like this'
+      customer_id:    Fabricate(:customer).id,
+      name:           Faker::Lorem.words(3).join(''),
+      start_date:     '01.05.1983',
+      due_date:       '01.08.1983',
+      description:    'New fence',
+      department_id:  Fabricate(:department).id
     }
   end
 
