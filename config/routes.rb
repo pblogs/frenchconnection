@@ -1,8 +1,8 @@
 AllieroForms::Application.routes.draw do
 
-  resources :attachments
+  resources :departments
 
-  resources :categories
+  resources :attachments
 
   devise_for :users, :controllers => {
     #passwords:          'users/passwords'
