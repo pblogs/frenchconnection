@@ -27,11 +27,11 @@ describe ProjectsController, focus: true do
     { 
       project_number: 'P01',
       customer_id:    Fabricate(:customer).id,
+      department_id:  Fabricate(:department).id,
       name:           Faker::Lorem.words(3).join(''),
       start_date:     '01.05.1983',
       due_date:       '01.08.1983',
       description:    'New fence',
-      department_id:  Fabricate(:department).id
     }
   end
 

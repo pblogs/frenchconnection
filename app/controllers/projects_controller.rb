@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     respond_to do |format|
-      if @project.save!
+      if @project.save
         format.html { redirect_to @project, 
                       notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, 
@@ -91,6 +91,7 @@ class ProjectsController < ApplicationController
                                       :name, 
                                       :department_id,
                                       :start_date,
-                                      :company_id)
+                                      :company_id
+                                     )
     end
 end
