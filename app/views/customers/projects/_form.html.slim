@@ -19,10 +19,6 @@
       options_from_collection_for_select(@departments, "id", 
         "title", @project.department_id)
 
-    /= select_tag "project[department_id]", 
-      collection_check_boxes(:project, :department_id, @departments, :id, :title)
-
-
 
 
   .field
