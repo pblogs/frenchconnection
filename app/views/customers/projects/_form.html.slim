@@ -10,8 +10,8 @@
 
   .field
     = f.label :department, 'Avdeling'
-    = select_tag :department, options_from_collection_for_select(@departments, 
-                                "id", "title")
+    = select_tag "project[department_id]", 
+      options_from_collection_for_select(@departments, "id", "title")
 
   .field
     = f.label :project_number, 'Prosjektnummer'
