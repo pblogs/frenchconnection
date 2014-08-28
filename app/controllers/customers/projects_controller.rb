@@ -33,7 +33,7 @@ class Customers::ProjectsController < ApplicationController
     @project.user        = @current_user
 
     # This could be @current_user.category if that turns out to be smart.
-    @project.department  = Department.where(name: 'Avd. 545 Bratfoss').first_or_create
+    @project.department  = Department.where(title: 'Avd. 545 Bratfoss').first_or_create
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
@@ -107,6 +107,7 @@ class Customers::ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:project_number, 
                                     :name, 
+                                    :title,
                                     :customer_id,
                                     :start_date,
                                     :due_date,
