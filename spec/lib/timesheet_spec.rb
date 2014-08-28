@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Timesheet, focus: true do
+describe Timesheet do
 
   before do
     @project = Fabricate(:project)

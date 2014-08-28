@@ -62,7 +62,7 @@ describe Project do
     before do
       User.destroy_all
       Project.destroy_all
-      Category.destroy_all
+      Department.destroy_all
       @user         = Fabricate(:user, first_name: 'John')
       @service      = Fabricate(:department, title: 'Service')
       @maintainance = Fabricate(:department, title: 'Maintainance')
