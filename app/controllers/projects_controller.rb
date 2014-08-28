@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     respond_to do |format|
-      if @project.save
+      if @project.save!
         format.html { redirect_to @project, 
                       notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, 
@@ -79,17 +79,18 @@ class ProjectsController < ApplicationController
 
     def project_params
       params.require(:project).permit(:project_number, 
-                                      :name, 
+                                      :attachment,
+                                      :billing_address, 
                                       :customer_id,
-                                      :start_date,
-                                      :due_date,
-                                      :description,
                                       :customer_reference, 
                                       :comment, 
-                                      :billing_address, 
-                                      :execution_address, 
                                       :delivery_address, 
-                                      :attachment,
+                                      :due_date,
+                                      :description,
+                                      :execution_address, 
+                                      :name, 
+                                      :department_id,
+                                      :start_date,
                                       :company_id)
     end
 end
