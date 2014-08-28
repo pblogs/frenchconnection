@@ -4,9 +4,9 @@ describe Project do
   describe "generic" do
     before :each do
       @project_leader  = Fabricate(:user)
-      @service         = Fabricate(:category, name: 'Service')
+      @service         = Fabricate(:department, title: 'Service')
       @project         = Fabricate(:project, user: @project_leader, 
-                                   category: @service)
+                                   department: @service)
       @user  = Fabricate(:user, first_name: 'John')
       @user2 = Fabricate(:user, first_name: 'Barry')
       @user3 = Fabricate(:user, first_name: 'Mustafa')
@@ -64,16 +64,16 @@ describe Project do
       Project.destroy_all
       Category.destroy_all
       @user         = Fabricate(:user, first_name: 'John')
-      @service      = Fabricate(:category, name: 'Service')
-      @maintainance = Fabricate(:category, name: 'Maintainance')
+      @service      = Fabricate(:department, title: 'Service')
+      @maintainance = Fabricate(:department, title: 'Maintainance')
       @customer1    = Fabricate(:customer)
       @customer2    = Fabricate(:customer)
       @service_project1 = Fabricate(:project, user: @user, 
                                     customer: @customer1, 
-                                    category: @service)
+                                    department: @service)
       @maintainance_project1 = Fabricate(:project, user: @user, 
                                          customer: @customer2, 
-                      category: @maintainance)
+                      department: @maintainance)
     end
 
     it "knows which projects that are mine" do
@@ -84,12 +84,12 @@ describe Project do
                                           @maintainance_project1]
     end
 
-    it "lists the categories my projects belong to" do
+    it "lists the departments my projects belong to" do
       @user.reload
-      @user.project_categories.to_a.should eq [@service, @maintainance]
+      @user.project_departments.to_a.should eq [@service, @maintainance]
     end
 
-    it "lists the customers that has a project belonging to a category" do
+    it "lists the customers that has a project belonging to a department" do
       pending "works when testing manually"
       @service.customers.should include [@customer1]
     end

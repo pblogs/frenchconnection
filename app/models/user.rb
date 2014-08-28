@@ -46,8 +46,8 @@ class User < ActiveRecord::Base
     self.first_name = name.join(' ')
   end
 
-  def project_categories
-    Category.find(owns_project_ids) if owns_project_ids
+  def project_departments
+    Department.find(owns_project_ids) if owns_project_ids
   end
 
   def owns_projects
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def owns_project_ids
-    owns_projects.pluck(:category_id).compact
+    owns_projects.pluck(:department_id).compact
   end
 
   protected
