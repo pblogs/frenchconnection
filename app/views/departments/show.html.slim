@@ -1,0 +1,13 @@
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  | >
+  = @department.title
+
+
+table
+  thead
+    th Kunde
+  tbody
+    - @customers.each do |c|
+      tr
+        td = link_to c.name, customer_projects_path(c)
