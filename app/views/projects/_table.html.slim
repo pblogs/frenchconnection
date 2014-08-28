@@ -13,7 +13,8 @@ table
     - @projects.each do |project|
       tr
         td = project.project_number
-        td = link_to project.name, project
+        td = link_to project.name, 
+                customer_project_path(project.customer, project)
         td = project.start_date
         td = project.due_date
         td = project.description
