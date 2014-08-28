@@ -24,7 +24,7 @@
   strong Vedlegg
   br
   - @project.attachments.each do |a|
-    = image_tag a.document.url, size: '200x200'
+    = link_to a.document.url
     br
   
   
