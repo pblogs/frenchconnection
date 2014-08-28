@@ -47,13 +47,16 @@ describe ProjectsController, focus: true do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all projects belonging to current_user as @projects"  do
-      project = Project.create! valid_attributes
-      project.user = @user
-      project.save
-      Fabricate(:project, name: 'an other users')
+    it "lists all departments that the current user has projects in. 
+      Also lists starred items"  do
+      bratfos = Fabricate(:department, title: 'Bratfos')
+      starred_project = Fabricate(:project, user: @user, starred: true, 
+                                 department: bratfos)
+      starred_customer = Fabricate(:customer, starred: true)
+      Fabricate(:project, name: 'not my project')
       get :index, {}, valid_session
-      assigns(:projects).should eq([project])
+      assigns(:departments).should eq([bratfos])
+      assigns(:starred).should  eq([starred_project, starred_customer])
     end
   end
 

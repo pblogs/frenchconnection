@@ -4,7 +4,11 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.where(user: @current_user).all
+    @departments = @current_user.project_departments
+    @starred  = []
+    @starred  << Project.where(user: @current_user, starred: true).all.to_a
+    @starred  << Customer.where(starred: true).all.to_a
+    @starred.flatten!
   end
 
   # GET /projects/1
@@ -90,6 +94,7 @@ class ProjectsController < ApplicationController
                                       :execution_address, 
                                       :name, 
                                       :department_id,
+                                      :starred,
                                       :start_date,
                                       :company_id
                                      )
