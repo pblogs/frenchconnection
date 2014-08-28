@@ -1,14 +1,20 @@
 h3 Avdelinger
 br
 ul
-  - @current_user.owns_projects.present? && @current_user.project_departments.each do |c| 
-    li= link_to c.title, c
+  - @departments && @departments.each do |d| 
+    li= link_to d.title, d
 
 
 
 br
 br
 h2 Favoritter
+ul.circle
+  - @starred && @starred.each do |s| 
+    - if s.class == Project
+      li= link_to s.name, customer_project_path(s.customer, s)
+    - elsif s.class == Customer
+      li= link_to s.name, s
 
 br
 br
