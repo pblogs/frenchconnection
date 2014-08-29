@@ -1,14 +1,13 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :hours_registered]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, 
+                                     :hours_registered]
 
   # GET /projects
   # GET /projects.json
   def index
     @departments = @current_user.project_departments
-    @starred  = []
-    @starred  << Project.where(user: @current_user, starred: true).all.to_a
-    @starred  << Customer.where(starred: true).all.to_a
-    @starred.flatten!
+    @starred_projects  = Project.where(user: @current_user, starred: true).all.to_a
+    @starred_customers = Customer.where(starred: true).all.to_a
   end
 
   # GET /projects/1

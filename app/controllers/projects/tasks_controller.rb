@@ -26,7 +26,7 @@ class Projects::TasksController < ApplicationController
   # GET /tasks/new
   def new
     @project = Project.find(params[:project_id])
-    @departments = Department.all
+    @users_in_our_department = @current_user.department.users.all
     @task = Task.new
   end
 
@@ -48,7 +48,7 @@ class Projects::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task.project, 
+        format.html { redirect_to customer_project_path(@task.project.customer, @task.project),
           notice: "Oppdraget ble opprettet" }
         format.json { render action: 'show', status: :created, location: @task }
       else
