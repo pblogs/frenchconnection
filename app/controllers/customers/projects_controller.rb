@@ -127,6 +127,7 @@ class Customers::ProjectsController < ApplicationController
                                     :sms_employee_when_new_task_created,
                                     :starred,
                                     :start_date,
+                                    :short_description,
                                     :title,
                                     )
   end
