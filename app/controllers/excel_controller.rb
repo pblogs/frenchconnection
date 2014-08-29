@@ -2,7 +2,7 @@ class ExcelController < ApplicationController
   layout :resolve_layout
   
   def dagsrapport
-    @project = Project.find(params[:project_id])
+    @project  = Project.find(params[:project_id])
     file_name = Dagsrapport.new(@project).create_spreadsheet
     send_file file_name,
       filename:  "dagsrapport.xls"
