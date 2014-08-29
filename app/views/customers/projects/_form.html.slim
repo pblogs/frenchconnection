@@ -29,6 +29,10 @@
     = f.label :name, 'Prosjektnavn'
     = f.text_field :name
   
+  .field
+    = f.label :short_description, 'Kort beskrivelse'
+    = f.text_area :short_description, rows: 5, 
+      placeholder: 'Denne vises i tabellen med oppdrag'
   
   .field
     = f.label :description, 'Beskrivelse'
