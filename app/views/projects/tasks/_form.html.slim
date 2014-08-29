@@ -10,32 +10,33 @@
   // = f.select "task_type_id", 
   //   options_from_collection_for_select(@task_types, "id", "title")
 
-  = label_tag 'department_id', 'Avdeling'
-  = f.select 'department_id', 
-    options_from_collection_for_select(@departments, "id", "title")
 
-
-  .title.hide
-    - stilas_id  = Department.where(title: 'Stilas').first.id
-    - elektro_id = Department.where(title: 'Elektro').first.id
-    - snekker_id = Department.where(title: 'Snekkere').first.id
-    = label_tag 'user_id', 'Henvis til utførende'
-
-
-  div.employees.hide id="department_#{stilas_id}"
+  div.employees
     = collection_check_boxes(:task, :user_ids, 
-      User.where(department_id: stilas_id), :id, :name) do |b|
+      User.where(department_id: @current_user.department_id), :id, :name) do |b|
       = b.label(:"data-value" => b.value) { b.check_box + b.text }
 
-  div.employees.hide id="department_#{elektro_id}"
-    = collection_check_boxes(:task, :user_ids, 
-      User.where(department_id: elektro_id), :id, :name) do |b|
-      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+  /.title.hide
+  /  - stilas_id  = Department.where(title: 'Stilas').first.id
+  /  - elektro_id = Department.where(title: 'Elektro').first.id
+  /  - snekker_id = Department.where(title: 'Snekkere').first.id
+  /  = label_tag 'user_id', 'Henvis til utførende'
 
-  div.employees.hide id="department_#{snekker_id}"
-    = collection_check_boxes(:task, :user_ids, 
-      User.where(department_id: snekker_id), :id, :name) do |b|
-      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+  /div.employees.hide id="department_#{stilas_id}"
+  /  = collection_check_boxes(:task, :user_ids, 
+  /    User.where(department_id: stilas_id), :id, :name) do |b|
+  /    = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+  /div.employees.hide id="department_#{elektro_id}"
+  /  = collection_check_boxes(:task, :user_ids, 
+  /    User.where(department_id: elektro_id), :id, :name) do |b|
+  /    = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+  /div.employees.hide id="department_#{snekker_id}"
+  /  = collection_check_boxes(:task, :user_ids, 
+  /    User.where(department_id: snekker_id), :id, :name) do |b|
+  /    = b.label(:"data-value" => b.value) { b.check_box + b.text }
     
     
     
