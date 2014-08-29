@@ -58,13 +58,13 @@ Fabricate(:user, roles: [:worker], department: snekker, department: d545,
           profession: snekker)
 
 # Projects
-ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532)
+# ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532)
 
 # Tasks
-t = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
-t.users << danni
-t.save
+# t = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
+# t.users << danni
+# t.save
 
 # HoursSpent
-Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
-Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
+# Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
+# Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
