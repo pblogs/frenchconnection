@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   belongs_to :department
   belongs_to :profession
+  mount_uploader :image, ImageUploader
 
   def has_role?(role)
     roles.include? role.to_s
@@ -23,6 +24,9 @@ class User < ActiveRecord::Base
   has_many :hours_spents
   has_many :categories, :through => :projects
 
+  def self.get_roles
+    ROLES
+  end
 
   def name
     "#{ first_name } #{ last_name }"

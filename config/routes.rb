@@ -43,6 +43,9 @@ AllieroForms::Application.routes.draw do
       post :finished
       get :send_message
     end
+    collection do
+      post :add_user
+    end
   end
 
   resources :hours_spents
