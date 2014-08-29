@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable
 
   belongs_to :department
+  belongs_to :profession
 
   def has_role?(role)
     roles.include? role.to_s

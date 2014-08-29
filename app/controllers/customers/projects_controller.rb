@@ -36,7 +36,7 @@ class Customers::ProjectsController < ApplicationController
     @departments         = Department.all
 
     # TODO make so that this param is sent under the project hash
-    @project.department_id = params[:department]
+    #@project.department_id = params[:department]
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
