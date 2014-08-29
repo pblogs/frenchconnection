@@ -35,6 +35,10 @@
       placeholder: 'Denne vises i tabellen med oppdrag'
   
   .field
+    = f.label :customer_reference, 'Kundereferanse'
+    = f.text_area :customer_reference
+  
+  .field
     = f.label :description, 'Beskrivelse'
     = f.text_area :description, rows: 5
   
@@ -58,16 +62,8 @@
   hr
 
   .field.radio_group
-    h3 Adresser
-
-    = f.label :billing_address, 'Faktura'
-    = f.text_area :billing_address
-
-    = f.label :execution_address, 'Utførelse'
+    h3 Adresse
     = f.text_area :execution_address
-
-    = f.label :delivery_address, 'Leveranse'
-    = f.text_area :delivery_address
 
 
   .field
