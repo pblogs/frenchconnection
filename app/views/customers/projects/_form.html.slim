@@ -2,8 +2,8 @@
   - if @project.errors.any?
     #error_explanation
       h2 
-        = "#{pluralize(@project.errors.count, "error")}"
-        =   "prohibited this project from being saved:"
+        = "#{@project.errors.count} feil"
+        =   " hindret prosjektet fra å bli lagret "
       ul
         - @project.errors.full_messages.each do |message|
           li = message
