@@ -9,12 +9,16 @@ ul
 br
 br
 h2 Favoritter
+br
 ul.circle
-  - @starred && @starred.each do |s| 
-    - if s.class == Project
-      li= link_to s.name, customer_project_path(s.customer, s)
-    - elsif s.class == Customer
-      li= link_to s.name, s
+  h5 Kunder
+  br
+  - @starred_customers && @starred_customers.each do |s| 
+    li= link_to s.name, s
+  h5 Prosjekter
+  br
+  - @starred_projects && @starred_projects.each do |s| 
+    li= link_to s.name, customer_project_path(s.customer, s)
 
 br
 br
