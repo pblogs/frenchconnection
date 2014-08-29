@@ -1,60 +1,70 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-#
-#
-Fabricate(:customer, name: 'Oslo Sporveier AS')
-Fabricate(:customer, name: 'Østbanehallen')
+# Customers
+sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
+ostbanehallen = Fabricate(:customer, name: 'Østbanehallen')
 
 
-Fabricate(:customer_message, text: 'Jeg er 30 minutter forsinket. Beklager så mye.')
-Fabricate(:customer_message, text: 'Vi er ferdig for i dag. Vi kommer tilbake i morgen.')
-Fabricate(:customer_message, text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
+# Custom message.
+Fabricate(:customer_message, 
+          text: 'Jeg er 30 minutter forsinket. Beklager så mye.')
+Fabricate(:customer_message, 
+          text: 'Vi er ferdig for i dag. Vi kommer tilbake i morgen.')
+Fabricate(:customer_message, 
+          text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
 
 
-Department.destroy_all
-User.destroy_all
-Task.destroy_all
+# Avdelinger
+d545 = Department.create(title: 'Avd. 545 Bratfoss')
+d546 = Department.create(title: 'Avd. 546 Vindusverksted')
+@d532 = Department.create(title: 'Avd. 532 Tak og fasade')
 
 
+# Fagkategorier
+murer      = Profession.create(title: 'Murer')
+maler      = Profession.create(title: 'Maler')
+snekker    = Profession.create(title: 'Snekker')
+elektriker = Profession.create(title: 'Elektriker')
 
-elektro  = Department.where(id: 1, title: 'Elektro').first_or_create
-stilas   = Department.where(id: 2, title: 'Stilas').first_or_create
-snekkere = Department.where(id: 3, title: 'Snekkere').first_or_create
 
-Fabricate(:user, department: elektro, first_name: 'Even',  
-          last_name: 'Elektro', email: 'even@elektro.no')
-Fabricate(:user, department: stilas, 
-          first_name: 'Stian', last_name: 'Stilas', 
-          mobile: 00000001, email: 'stian@stilas.no')
-
+# A user has one of these roles.
+# - (lærling, sven, mester, prosjektleder)
+# - :apprentice, :sven, :master, :project_leader
+Fabricate(:user, department: d545, profession: elektriker, first_name: 'Even',  
+          last_name: 'Elektro')
+Fabricate(:user, department: d545, profession: maler, first_name: 'Maren',  
+          last_name: 'Maler')
+Fabricate(:user, department: d545, profession: elektriker, first_name: 'Espen',  
+          last_name: 'Elektro')
 
 # Prosjektledere:
-Fabricate(:user, roles: [:project_leader], first_name: "Truls", 
-          mobile:  41413017, last_name: "Bratfoss") 
-Fabricate(:user, roles: [:project_leader], first_name: "Arild", 
-          mobile:  94147807, last_name: "Jonassen")
-Fabricate(:user, roles: [:project_leader], first_name: "Prosjekt", 
-          mobile:  00000002, last_name: "Leder")
+Fabricate(:user, department: d545, roles: [:project_leader],
+          first_name: "Truls", mobile:  41413017, last_name: "Bratfoss") 
+Fabricate(:user, department: d545, roles: [:project_leader], 
+          first_name: "Arild", mobile:  94147807, last_name: "Jonassen")
+Fabricate(:user, department: d545, roles: [:project_leader], 
+          first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
 
-Fabricate(:user, roles: [:project_leader], first_name: "Martin", 
-          mobile:  93441707, last_name: "Stabenfeldt", department: snekkere,)
-
-# Generic accounts
-Fabricate(:user, roles: [:worker], department: snekkere, 
-          first_name: "Arbeider", last_name: "Arbeider")
-Fabricate(:user, roles: [:project_leader], mobile:  'prosjektleder', 
-          first_name: 'Prosjekt', last_name: 'Leder')
+Fabricate(:user, roles: [:project_leader], first_name: "Martin",
+          mobile:  93441707, last_name: "Stabenfeldt", department: d545)
 
 # Medarbeidere snekkere
+Fabricate(:user, roles: [:worker], department: snekker, department: d545,
+          first_name: "Avni", last_name: "Lymany", mobile: 47625905, 
+          profession: snekker)
+danni = Fabricate(:user, roles: [:worker], department: snekker, department: d545,
+          first_name: "Danni", last_name: "Runge", mobile: 91135576,
+          profession: snekker)
+Fabricate(:user, roles: [:worker], department: snekker, department: d545,
+          first_name: "Alexander", last_name: "Børresen", mobile: 48159427,
+          profession: snekker)
 
-Fabricate(:user, roles: [:worker], department: snekkere, 
-          first_name: "Avni", last_name: "Lymany", mobile: 47625905)
-Fabricate(:user, roles: [:worker], department: snekkere, 
-          first_name: "Danni", last_name: "Runge", mobile: 91135576)
-Fabricate(:user, roles: [:worker], department: snekkere, 
-          first_name: "Alexander", last_name: "Børresen", mobile: 48159427)
+# Projects
+ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532)
+
+# Tasks
+t = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
+t.users << danni
+t.save
+
+# HoursSpent
+Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
+Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
