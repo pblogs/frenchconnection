@@ -26,6 +26,7 @@ describe DepartmentsController do
   let(:valid_attributes) { { "title" => "MyString" } }
 
   before do
+    Department.destroy_all
     sign_in
   end
 
