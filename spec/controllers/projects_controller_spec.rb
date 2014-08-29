@@ -56,7 +56,8 @@ describe ProjectsController do
       Fabricate(:project, name: 'not my project')
       get :index, {}, valid_session
       assigns(:departments).should eq([bratfos])
-      assigns(:starred).should  eq([starred_project, starred_customer])
+      assigns(:starred_customers).should  eq([starred_customer])
+      assigns(:starred_projects).should  eq([starred_project])
     end
   end
 
