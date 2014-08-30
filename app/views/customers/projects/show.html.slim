@@ -53,9 +53,10 @@ br
 .button.red
   = link_to 'Registrer ny oppgave', new_project_task_path(@project)
 
-/strong Dagsrapporter
-/- @project.professions each do |p|
-/  = link_to ''
+strong Dagsrapporter
+p Last ned rapport for følgende yrkesgrupper
+- @project.professions.each do |p|
+  = link_to p.title, '#'
 
 br
 = link_to 'Tilbake', projects_path, class: :secondary_button
