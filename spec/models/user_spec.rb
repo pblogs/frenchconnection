@@ -17,8 +17,4 @@ describe User do
     expect(@user.tasks).to include(@task, @task2)
   end
 
-  #it "can have a project", focus: true do
-  #  @project = Fabricate(:project, user: @user)
-  #  @user.projects.first.should eq @project
-  #end
 end
