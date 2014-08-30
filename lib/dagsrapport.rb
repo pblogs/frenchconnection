@@ -1,12 +1,35 @@
-#$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../../lib"
-
 class Dagsrapport
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project)
-    @project = project
+  def initialize(project:, profession:, overtime:)
+    @project    = project
+    @profession = profession
+    @overtime   = overtime  # In percent. E.g: 50 or 100
   end
+
+=begin
+
+  Merk: Faggruppe er rollen: Eks malermester, snekkersven ol.
+  Det skal lages en dagsrapport for:
+  Hver faggruppe - ordinær tid
+  Hver fagggruppe - 50% overtid
+  Hver fagggruppe - 100% overtid
+  For kjøring med firmabil (kommer først på plass når feature lag oppgave er ferdig)
+  For utak av materialer fra lager (samme som kjøring)
+  
+  Dagsrapporten skal inneholde:
+    - Uke-feltet. List alle ukenummerene hvor det har blitt utført arbeid
+  - Få med utførelsesadresse på Dagsrapport (ny linje)
+  - Bruk ordet ferdigstilt i Dagsrapporten, ikke utført.
+    - Få på fagkategori på Dagsrapporten.
+    - Posisjon i excel-arket er det samme som avdeling. Endre navn på dette i importen og i views.
+    - Dagsrapporter. Navnene skal listes ut vertikalt. (Dette er Martins notat, jeg vet ikke hva det betyr)
+  - Legge inn ny logo
+  - Få med prosjektnummer
+
+=end
+
 
   def create_spreadsheet
     Axlsx::Package.new do |p|
@@ -21,7 +44,8 @@ class Dagsrapport
         bold        = styles.add_style :b => true
         yellow_bg   = styles.add_style :b => true, :bg_color => 'FFF60B',
           :alignment => { :horizontal => :left }
-        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "C0C0C0"
+        gray_bg_align_right = styles.add_style :alignment => { 
+          :horizontal => :right }, :bg_color => "C0C0C0"
         attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
     
     
