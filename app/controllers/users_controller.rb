@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_depatment, only: [:new, :edit, :add_user, :update]
+  before_action :set_department, only: [:new, :edit, :add_user, :update]
 
   # GET /users
   # GET /users.json
@@ -35,10 +36,11 @@ class UsersController < ApplicationController
                      department_id: params[:user][:department_id], 
                      roles: "{#{params[:user][:roles]}}", 
                      image: params[:user][:image], 
-                     emp_id: params[:user][:emp_id])
+                     emp_id: params[:user][:emp_id],
+                     password: "password")
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, 
+        format.html { redirect_to users_path, 
                       notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -67,8 +69,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      #raise params.inspect
-      # if @user.update(user_params)
       if @user.update_attributes(first_name: params[:user][:first_name], 
                               last_name: params[:user][:last_name], 
                               mobile: params[:user][:mobile], 
@@ -76,7 +76,6 @@ class UsersController < ApplicationController
                               roles: "{#{params[:user][:roles]}}", 
                               image: params[:user][:image], 
                               emp_id: params[:user][:emp_id])
-        #@user.roles = "{#{params[:user][:roles]}}"
         format.html { redirect_to users_url, 
                     notice: 'User was successfully updated.' }
         format.json { head :no_content }
@@ -108,7 +107,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    def set_depatment
+    def set_department
       @department = Department.all
     end
 
