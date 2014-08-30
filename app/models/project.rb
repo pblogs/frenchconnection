@@ -15,6 +15,11 @@ class Project < ActiveRecord::Base
   validates :project_number, :presence => true
 
 
+  def professions
+    professions = []
+    users.each { |u| professions << u.profession }
+    professions.uniq!
+  end
 
   def hours_spent_total
     hours_spents.sum(:hour) +

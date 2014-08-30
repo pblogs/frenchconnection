@@ -7,9 +7,11 @@ describe Project do
       @service         = Fabricate(:department, title: 'Service')
       @project         = Fabricate(:project, user: @project_leader, 
                                    department: @service)
-      @user  = Fabricate(:user, first_name: 'John')
-      @user2 = Fabricate(:user, first_name: 'Barry')
-      @user3 = Fabricate(:user, first_name: 'Mustafa')
+      @snekker = Fabricate(:profession, title: 'snekker')
+      @murer   = Fabricate(:profession, title: 'murer')
+      @user  = Fabricate(:user, first_name: 'John', profession: @snekker)
+      @user2 = Fabricate(:user, first_name: 'Barry', profession: @snekker)
+      @user3 = Fabricate(:user, first_name: 'Mustafa', profession: @murer)
       @task  = Fabricate(:task, project: @project)
       @task.users << @user
       @task.users << @user2
@@ -55,6 +57,10 @@ describe Project do
       Fabricate(:hours_spent, task: @task, overtime_100: 10, user: @user3)
       @project.reload
       @project.hours_spent_total.should eq 50
+    end
+
+    it "lists all types of professions involved" do
+      @project.professions.should eq [@snekker, @murer]
     end
   end
 
