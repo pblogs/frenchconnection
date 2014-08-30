@@ -18,7 +18,7 @@ class Project < ActiveRecord::Base
   def professions
     professions = []
     users.each { |u| professions << u.profession }
-    professions.uniq!
+    professions.uniq
   end
 
   def hours_spent_total
