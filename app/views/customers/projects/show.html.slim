@@ -1,10 +1,18 @@
 .button.green
   p
+    strong Prosjekteier: 
+    = @project.user.full_name rescue '-'
+  p
+  p
     strong Prosjektnumber: 
     = @project.project_number
   p
     strong Kunde: 
     = @project.customer.name
+
+  p
+    strong Beskrivelse: 
+    = @project.description
 
   p
     strong Oppstart: 
@@ -13,13 +21,30 @@
     strong Ferdigstilling: 
     = I18n.l(@project.due_date, format: :short_w_year)
   
+  strong Vedlegg
+  br
+  - @project.attachments.each do |a|
+    = link_to a.document.url, a.document.url
+    br
   
   
   .right
     = link_to 'Rediger', edit_customer_project_path(@project.customer, @project)
   br
   
+br
+br
+- if @project.tasks.present?
+  h2 Aktive oppgaver
+  .button.green
+    = render "projects/tasks/table_header"
+  br
+  br
   
+
+
+.button.red
+  = link_to "Vis timelister", hours_registered_path
 
 br
 .button.red

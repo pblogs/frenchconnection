@@ -1,7 +1,6 @@
 deployment:
-  production:
-    branch: master
-    commands:
-      - git fetch --unshallow
-      - git push git@github.com:stabenfeldt/alliero-orwapp.git master --force
-      - wget http://alliero-orwapp.herokuapp.com/keep_alive  -O /dev/null
+    production:
+      branch: master
+      commands:
+        - git push git@heroku.com:alliero-orwapp.git $CIRCLE_SHA1:master
+        - heroku run rake db:migrate --app alliero-orwapp

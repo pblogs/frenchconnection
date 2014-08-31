@@ -1,23 +1,29 @@
 h1 Listing users
 
-table
+table[class="listusers"]
   thead
     tr
-      th Name
-      th nr of Tasks
-      th
-      th
-      th
-
+      th[class="username"] Name
+      th[class="phone_number"] Phone Number
+      th[class="employee_id"] Employee ID
+      th[class="department"] Department
+      th[class="role"] Role
+      th[class="image"] Image
+      th[class="actions"] Actions
   tbody
     - @users.each do |user|
       tr
-        td = user.name
-        td = user.tasks.size
-        td = link_to 'Show', user
-        td = link_to 'Rediger', edit_user_path(user)
-        td = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
-
+        td[class="username"] 
+           = user.full_name
+        td = user.mobile
+        td = user.emp_id
+        td = Department.find(user.department_id).title
+        td = user.roles.join(",")
+        td = image_tag user.image, :size => "50x40"
+        td
+          = link_to 'Rediger', edit_user_path(user)
+          ||
+          = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
 = link_to 'New User', new_user_path

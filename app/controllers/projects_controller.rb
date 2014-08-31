@@ -1,10 +1,13 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :hours_registered]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, 
+                                     :hours_registered]
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.where(user: @current_user).all
+    @departments = @current_user.project_departments
+    @starred_projects  = Project.where(user: @current_user, starred: true).all.to_a
+    @starred_customers = Customer.where(starred: true).all.to_a
   end
 
   # GET /projects/1
@@ -77,16 +80,22 @@ class ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:project_number, 
-                                      :name, 
+                                      :attachment,
+                                      :billing_address, 
                                       :customer_id,
-                                      :start_date,
+                                      :customer_reference, 
+                                      :comment, 
+                                      :delivery_address, 
                                       :due_date,
-                                      :hour_rate,
-                                      :fixed_price, :description,
-                                      :price_total,
-                                      :company_id)
+                                      :description,
+                                      :execution_address, 
+                                      :name, 
+                                      :department_id,
+                                      :starred,
+                                      :start_date,
+                                      :company_id
+                                     )
     end
 end

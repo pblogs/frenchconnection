@@ -1,20 +1,42 @@
-== form_for [@customer, @project] do |f|
+== form_for [@customer, @project], :html => { :multipart => true }  do |f|
   - if @project.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+      h2 
+        = "#{@project.errors.count} feil"
+        =   " hindret prosjektet fra å bli lagret "
       ul
         - @project.errors.full_messages.each do |message|
           li = message
 
+  .field.right
+    label 
+      = f.check_box :starred
+      | Merk som favoritt
+
+  .field
+    = f.label :department, 'Avdeling'
+    = select_tag "project[department_id]", 
+      options_from_collection_for_select(@departments, "id", 
+        "title", @project.department_id)
+
+
+
   .field
     = f.label :project_number, 'Prosjektnummer'
-    = f.text_field :project_number, 
-      placeholder: 'Prosjektnummer kan fylles ut senere'
+    = f.text_field :project_number
   
   .field
     = f.label :name, 'Prosjektnavn'
     = f.text_field :name
   
+  .field
+    = f.label :short_description, 'Kort beskrivelse'
+    = f.text_area :short_description, rows: 5, 
+      placeholder: 'Denne vises i tabellen med oppdrag'
+  
+  .field
+    = f.label :customer_reference, 'Kundereferanse'
+    = f.text_area :customer_reference
   
   .field
     = f.label :description, 'Beskrivelse'
@@ -40,16 +62,8 @@
   hr
 
   .field.radio_group
-    h3 Adresser
-
-    = f.label :billing_address, 'Faktura'
-    = f.text_area :billing_address
-
-    = f.label :execution_address, 'Utførelse'
+    h3 Adresse
     = f.text_area :execution_address
-
-    = f.label :delivery_address, 'Leveranse'
-    = f.text_area :delivery_address
 
 
   .field
@@ -62,13 +76,15 @@
       = f.check_box :sms_employee_when_new_task_created
       = 'Send SMS til ansatt når han får tildelt ny oppgave'
 
-  hr
 
-  /.field
-    .button.green
-      strong= "#{fa_icon('camera')} Ta bilde ".html_safe
-    br
-    br
+  .field
+    = f.label :attachment, 'Velg vedlegg'
+    = file_field_tag "attachments[]", type: :file, multiple: true
+
+  .field
+    = f.label :attachment, 'Velg vedlegg'
+    = file_field_tag "attachments[]", type: :file, multiple: true
+  hr
 
 
   .actions = f.submit 'Lagre'
