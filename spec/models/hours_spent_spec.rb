@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HoursSpent ,focus: true do
+describe HoursSpent do
   before(:all) do
     @worker  = Fabricate(:user, roles: 'worker', first_name: 'John')
     @task    = Fabricate(:task)
