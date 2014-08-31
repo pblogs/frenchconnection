@@ -6,7 +6,6 @@ class Dagsrapport
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
-    @project_users = @project.users.where(profession: @profession).all
   end
 
 =begin
@@ -61,7 +60,7 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row [nil, "DAGSRAPPORT"], :style => [nil, header], 
+          sheet.add_row [nil, "DAGSRAPPORT - #{@profession}"], :style => [nil, header], 
             :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
@@ -87,10 +86,11 @@ class Dagsrapport
 
 
           # Her listes alle timene som er ført på dette prosjektet.
+          # Plukk bare ut time som hører til valgte @profession
           #
           i = 1
           ai = -1
-          @project_users.each do |user|
+          @project.users.where(profession: @profession).each do |user|
             ai += 1
             @project.hours_spents.where(user: user).each do |hours_spent|
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
