@@ -2,11 +2,11 @@ class ExcelController < ApplicationController
   layout :resolve_layout
   
   def dagsrapport
-    @project    = Project.find(params[:project_id])
-    @profession = Profession.find(params[:profession_id])
-    overtime    = params[:overtime]
-    file_name   = Dagsrapport.new(@project, profession, 
-                                 overtime).create_spreadsheet
+    project    = Project.find(params[:project_id])
+    profession = Profession.find(params[:profession_id])
+    overtime   = params[:overtime]
+    file_name  = Dagsrapport.new(project: project, profession: profession, 
+                                 overtime: overtime).create_spreadsheet
     send_file file_name,
       filename:  "dagsrapport.xls"
   end
