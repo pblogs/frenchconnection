@@ -6,6 +6,7 @@ class Dagsrapport
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
+    @workers    = @project.users.where(profession: @profession)
   end
 
 =begin
@@ -60,7 +61,7 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row [nil, "DAGSRAPPORT - #{@profession}"], :style => [nil, header], 
+          sheet.add_row [nil, "DAGSRAPPORT - #{@profession.title}"], :style => [nil, header], 
             :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
@@ -90,7 +91,7 @@ class Dagsrapport
           #
           i = 1
           ai = -1
-          @project.users.where(profession: @profession).each do |user|
+          @workers.each do |user|
             ai += 1
             @project.hours_spents.where(user: user).each do |hours_spent|
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
@@ -103,8 +104,7 @@ class Dagsrapport
           sheet.add_row [nil]
 
           # Sum timer pr pers
-          workers = @project.users.all
-          if workers.present?
+          if @workers.present?
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
               ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
               :style => [gray_bg_align_right, gray_bg_align_right, 
@@ -133,7 +133,7 @@ class Dagsrapport
           sheet.add_row [nil, 'BRUKTE MATERIALER']
     
           # The name of involved Artisans
-          ExcelProjectTools.user_names(@project).each_with_index do |a, i|
+          ExcelProjectTools.user_names(project: @project, profession: @profession).each_with_index do |a, i|
             sheet.rows[8].cells[2+i].value = a
           end
     
