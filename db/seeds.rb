@@ -1,3 +1,8 @@
+User.destroy_all
+Project.destroy_all
+Customer.destroy_all
+Department.destroy_all
+
 # Customers
 sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
 ostbanehallen = Fabricate(:customer, name: 'Østbanehallen')
@@ -43,7 +48,7 @@ Fabricate(:user, department: d545, roles: [:project_leader],
 Fabricate(:user, department: d545, roles: [:project_leader], 
           first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
 
-Fabricate(:user, roles: [:project_leader], first_name: "Martin",
+@martin = Fabricate(:user, roles: [:project_leader], first_name: "Martin",
           mobile:  93441707, last_name: "Stabenfeldt", department: d545)
 
 # Medarbeidere snekkere
@@ -58,13 +63,13 @@ Fabricate(:user, roles: [:worker], department: snekker, department: d545,
           profession: snekker)
 
 # Projects
-# ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532)
+ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532, starred: true, user: @martin)
 
 # Tasks
-# t = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
-# t.users << danni
-# t.save
+t = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
+t.users << danni
+t.save
 
 # HoursSpent
-# Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
-# Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
+Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
+Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
