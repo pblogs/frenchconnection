@@ -26,16 +26,17 @@ describe ProjectsController do
   let(:valid_attributes) do
     { 
       project_number: 'P01',
-      customer_id:  Fabricate(:customer).id,
-      name:         Faker::Lorem.words(3).join(''),
-      start_date:   '01.05.1983',
-      due_date:     '01.08.1983',
-      description:  'do it like this'
+      customer_id:    Fabricate(:customer).id,
+      department_id:  Fabricate(:department).id,
+      name:           Faker::Lorem.words(3).join(''),
+      start_date:     '01.05.1983',
+      due_date:       '01.08.1983',
+      description:    'New fence',
     }
   end
 
   before do
-    @user = Fabricate(:user)
+    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: Fabricate(:department), emp_id: "12121", roles: ["project_leader"])
     sign_in @user
     Project.destroy_all
   end
@@ -46,13 +47,17 @@ describe ProjectsController do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "assigns all projects belonging to current_user as @projects"  do
-      project = Project.create! valid_attributes
-      project.user = @user
-      project.save
-      Fabricate(:project, name: 'an other users')
+    it "lists all departments that the current user has projects in. 
+      Also lists starred items"  do
+      bratfos = Fabricate(:department, title: 'Bratfos')
+      starred_project = Fabricate(:project, user: @user, starred: true, 
+                                 department: bratfos)
+      starred_customer = Fabricate(:customer, starred: true)
+      Fabricate(:project, name: 'not my project')
       get :index, {}, valid_session
-      assigns(:projects).should eq([project])
+      assigns(:departments).should eq([bratfos])
+      assigns(:starred_customers).should  eq([starred_customer])
+      assigns(:starred_projects).should  eq([starred_project])
     end
   end
 
@@ -103,14 +108,16 @@ describe ProjectsController do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, {:project => { "project_number" => "invalid value" }}, valid_session
+        post :create, {:project => { "project_number" => "invalid value" }}, 
+          valid_session
         assigns(:project).should be_a_new(Project)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, {:project => { "project_number" => "invalid value" }}, valid_session
+        post :create, {:project => { "project_number" => "invalid value" }}, 
+          valid_session
         response.should render_template("new")
       end
     end
@@ -180,10 +187,12 @@ describe ProjectsController do
     it "populates an array with @hours_spent for the project" do
       project = Fabricate(:project)
       task = Fabricate(:task, project: project)
-      hs = Fabricate(:hours_spent, task: task, hour: 50, user: Fabricate(:user))
+      department = Fabricate(:department)
+      hs = Fabricate(:hours_spent, task: task, hour: 50, user: Fabricate(:user, department: department, emp_id: "12121", roles: ["project_leader"]))
       get :hours_registered, {:id => project.to_param}, valid_session
       assigns(:hours_registered).should eq([hs])
     end
   end
+
 
 end

@@ -1,5 +1,0 @@
-== Alliero.orwapp.com
-
-Clickatell can be tested by doing a http get to 
-http://api.clickatell.com/http/auth?user=USER&password=PASS@&api_id=ID
-

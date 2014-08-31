@@ -1,0 +1,27 @@
+table
+  thead
+    tr
+      th Nummer
+      th Navn
+      th Oppstart
+      th Ferdigstilling
+      th Beskrivelse
+      th Timer
+      th Verktøy
+
+  tbody
+    - @projects.each do |project|
+      tr
+        td = project.project_number
+        td = link_to project.name, 
+                customer_project_path(project.customer, project)
+        td = project.start_date
+        td = project.due_date
+        td = project.short_description
+        td = project.hours_spent_total
+        td 
+          = link_to( (fa_icon 'table', text: "Dagsrapport"), 
+            dagsrapport_path(project) )
+          br
+          = link_to( (fa_icon 'table', text: "Timelister"), 
+            hours_registered_path(project) )

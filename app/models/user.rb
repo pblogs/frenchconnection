@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  require 'clickatell'
 
   ROLES = %w[admin leader project_leader worker economy]
   
@@ -8,6 +7,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable
 
   belongs_to :department
+  belongs_to :profession
+  mount_uploader :image, ImageUploader
 
   def has_role?(role)
     roles.include? role.to_s
@@ -16,11 +17,19 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name,  presence: true
   validates :mobile,     presence: true, uniqueness: true
+  validates :emp_id,  presence: true
+  validates :department_id,  presence: true
+  validates :roles,  presence: true
 
   # Worker
   has_and_belongs_to_many :tasks
   has_many :projects, :through => :tasks
   has_many :hours_spents
+  has_many :categories, :through => :projects
+
+  def self.get_roles
+    ROLES
+  end
 
   def name
     "#{ first_name } #{ last_name }"
@@ -43,6 +52,18 @@ class User < ActiveRecord::Base
     name = name.split(' ')
     self.last_name  = name.pop
     self.first_name = name.join(' ')
+  end
+
+  def project_departments
+    Department.find(owns_project_ids) if owns_project_ids
+  end
+
+  def owns_projects
+    Project.where(user_id: id).all
+  end
+
+  def owns_project_ids
+    owns_projects.pluck(:department_id).compact
   end
 
   protected

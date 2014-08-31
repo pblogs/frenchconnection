@@ -1,22 +1,4 @@
-h1 Listing projects
+h1= "Prosjekter under #{@customer.name}"
 
-table
-  thead
-    tr
-      th Project number
-      th Customer
-      th
-      th
-      th
+= render partial: "projects/table", locals: {projects: @projects} 
 
-  tbody
-    - @projects.each do |project|
-      tr
-        td = project.project_number
-        td = project.customer.name
-        td = link_to 'Vis', project
-        td = link_to 'Rediger', edit_customer_project_path(project.customer, project)
-        td = link_to 'Slett', project, data: {:confirm => 'Sikker?'}, 
-              :method => :delete
-
-br

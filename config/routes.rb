@@ -1,5 +1,9 @@
 AllieroForms::Application.routes.draw do
 
+  resources :departments
+
+  resources :attachments
+
   devise_for :users, :controllers => {
     #passwords:          'users/passwords'
     #omniauth_callbacks: 'users/omniauth_callbacks',
@@ -38,6 +42,9 @@ AllieroForms::Application.routes.draw do
       post :accept_task
       post :finished
       get :send_message
+    end
+    collection do
+      post :add_user
     end
   end
 
