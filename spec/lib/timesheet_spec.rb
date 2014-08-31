@@ -4,7 +4,8 @@ describe Timesheet do
 
   before do
     @project = Fabricate(:project)
-    @user = Fabricate(:user, first_name: 'John')
+    @department = Fabricate(:department)
+    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
     @task    = Fabricate(:task, project: @project)
     @user.tasks << @task
 
