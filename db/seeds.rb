@@ -2,6 +2,7 @@ User.destroy_all
 Project.destroy_all
 Customer.destroy_all
 Department.destroy_all
+Profession.destroy_all
 
 # Customers
 sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
@@ -35,7 +36,7 @@ elektriker = Profession.create(title: 'Elektriker')
 # - :apprentice, :sven, :master, :project_leader
 Fabricate(:user, department: d545, profession: elektriker, first_name: 'Even',  
           last_name: 'Elektro')
-Fabricate(:user, department: d545, profession: maler, first_name: 'Maren',  
+maren_maler = Fabricate(:user, department: d545, profession: maler, first_name: 'Maren',  
           last_name: 'Maler')
 Fabricate(:user, department: d545, profession: elektriker, first_name: 'Espen',  
           last_name: 'Elektro')
@@ -65,11 +66,22 @@ Fabricate(:user, roles: [:worker], department: snekker, department: d545,
 # Projects
 ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532, starred: true, user: @martin)
 
-# Tasks
+# Tasks for Danni - Snekker
 t = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
 t.users << danni
 t.save
 
-# HoursSpent
-Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
-Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: 'malt')
+# Tasks for Maren - Maler
+t = Fabricate(:task, project: ryen, description: 'Mal veggen')
+t.users << maren_maler
+t.save
+
+# HoursSpent for Danni - Snekker
+Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: '8 vanlige timer')
+Fabricate(:hours_spent, overtime_50: 8, task: t, user: danni, description: '8 timer 50% overtid')
+Fabricate(:hours_spent, overtime_100: 8, task: t, user: danni, description: '8 timer 100% overtid')
+
+# HoursSpent for Maren Maler
+Fabricate(:hours_spent, hour: 10, task: t, user: maren_maler, description: 'maren maler 10 vanlige timer')
+Fabricate(:hours_spent, overtime_50: 10, task: t, user: maren_maler, description: 'maren maler 10 timer 50% overtid')
+Fabricate(:hours_spent, overtime_100: 10, task: t, user: maren_maler, description: 'maren maler 10 timer 100% overtid')
