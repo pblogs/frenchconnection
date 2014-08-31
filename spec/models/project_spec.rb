@@ -3,13 +3,14 @@ require 'spec_helper'
 describe Project do
   describe "generic" do
     before :each do
-      @project_leader  = Fabricate(:user)
+      @department = Fabricate(:department)
+      @project_leader  = Fabricate(:user, first_name: 'john', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
       @service         = Fabricate(:department, title: 'Service')
       @project         = Fabricate(:project, user: @project_leader, 
                                    department: @service)
-      @user  = Fabricate(:user, first_name: 'John')
-      @user2 = Fabricate(:user, first_name: 'Barry')
-      @user3 = Fabricate(:user, first_name: 'Mustafa')
+      @user  = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
+      @user2 = Fabricate(:user, first_name: 'Barry', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
+      @user3 = Fabricate(:user, first_name: 'Mustafa', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
       @task  = Fabricate(:task, project: @project)
       @task.users << @user
       @task.users << @user2
@@ -63,7 +64,8 @@ describe Project do
       User.destroy_all
       Project.destroy_all
       Department.destroy_all
-      @user         = Fabricate(:user, first_name: 'John')
+      @department = Fabricate(:department)
+      @user         = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
       @service      = Fabricate(:department, title: 'Service')
       @maintainance = Fabricate(:department, title: 'Maintainance')
       @customer1    = Fabricate(:customer)

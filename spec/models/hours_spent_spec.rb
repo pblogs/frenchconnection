@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe HoursSpent do
   before(:all) do
-    @worker  = Fabricate(:user, roles: 'worker', first_name: 'John')
+    @department = Fabricate(:department)
+    @worker  = Fabricate(:user, roles: ['worker'], first_name: 'John', department: @department, emp_id: "12121")
     @task    = Fabricate(:task)
     @task.user_ids = [@worker.id]
     @task.save

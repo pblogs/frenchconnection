@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
   validates :emp_id,  presence: true
   validates :department_id,  presence: true
   validates :roles,  presence: true
-  validates :image,  presence: true
 
   # Worker
   has_and_belongs_to_many :tasks
