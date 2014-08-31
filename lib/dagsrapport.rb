@@ -6,6 +6,7 @@ class Dagsrapport
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
+    @project_users = @project.users.where(profession: @profession).all
   end
 
 =begin
@@ -46,7 +47,8 @@ class Dagsrapport
           :alignment => { :horizontal => :left }
         gray_bg_align_right = styles.add_style :alignment => { 
           :horizontal => :right }, :bg_color => "C0C0C0"
-        attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
+        attest_style= styles.add_style :alignment => { :horizontal => :right }, 
+          :sz => 16
     
     
         wb.add_worksheet do |sheet|
@@ -59,13 +61,18 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row [nil, "DAGSRAPPORT"], :style => [nil, header], :height => 23
+          sheet.add_row [nil, "DAGSRAPPORT"], :style => [nil, header], 
+            :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
-          sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Uke:', DateTime.now.cweek, "Utført"],    :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Prosjekt nr:', @project.project_number ],  :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Kunde:', @project.customer.name ], :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['År:', Time.now.year, "Pågår"],  
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Uke:', DateTime.now.cweek, "Utført"],    
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Prosjekt nr:', @project.project_number ],  
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Kunde:', @project.customer.name ], 
+            :style => [bold_italic, yellow_bg, bold]
     
           # 5 blanks with C D E F G spanning from 7-11
           sheet.add_row [nil, nil, nil, nil, nil] 
@@ -83,7 +90,7 @@ class Dagsrapport
           #
           i = 1
           ai = -1
-          @project.users.each do |user|
+          @project_users.each do |user|
             ai += 1
             @project.hours_spents.where(user: user).each do |hours_spent|
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
@@ -98,7 +105,8 @@ class Dagsrapport
           # Sum timer pr pers
           workers = @project.users.all
           if workers.present?
-            sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
+            sheet.add_row ['', 'Sum timer pr. pers: '] + 
+              ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
               :style => [gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 

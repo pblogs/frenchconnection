@@ -56,7 +56,8 @@ br
 strong Dagsrapporter
 p Last ned rapport for følgende yrkesgrupper
 - @project.professions.each do |p|
-  = link_to p.title, '#'
+  = link_to p.title, dagsrapport_path(@project.id, p, :normal)
+  = link_to p.title, dagsrapport_path(@project.id, p, 100)
 
 br
 = link_to 'Tilbake', projects_path, class: :secondary_button
