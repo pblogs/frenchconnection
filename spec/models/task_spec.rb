@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Task do
   before :each do
-    @worker  = Fabricate(:user, roles: 'worker', first_name: 'John')
-    @worker2 = Fabricate(:user, roles: 'worker', first_name: 'Barry')
+    @department = Fabricate(:department)
+    @worker  = Fabricate(:user, roles: 'worker', first_name: 'John', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
+    @worker2 = Fabricate(:user, roles: 'worker', first_name: 'Barry', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
     @task    = Fabricate(:task)
     @task2   = Fabricate(:task)
     @task.user_ids = [@worker.id, @worker2.id]
