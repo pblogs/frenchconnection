@@ -29,33 +29,33 @@ elektriker = Profession.create(title: 'Elektriker')
 # - (lærling, sven, mester, prosjektleder)
 # - :apprentice, :sven, :master, :project_leader
 Fabricate(:user, department: d545, profession: elektriker, first_name: 'Even',  
-          last_name: 'Elektro')
+          last_name: 'Elektro', emp_id: '1212121', roles: ["project_leader"])
 Fabricate(:user, department: d545, profession: maler, first_name: 'Maren',  
-          last_name: 'Maler')
+          last_name: 'Maler', emp_id: '1212122', roles: ["project_leader"])
 Fabricate(:user, department: d545, profession: elektriker, first_name: 'Espen',  
-          last_name: 'Elektro')
+          last_name: 'Elektro', emp_id: '1212123', roles: ["project_leader"])
 
 # Prosjektledere:
 Fabricate(:user, department: d545, roles: [:project_leader],
-          first_name: "Truls", mobile:  41413017, last_name: "Bratfoss") 
+          first_name: "Truls", mobile:  41413017, last_name: "Bratfoss", emp_id: '1212124') 
 Fabricate(:user, department: d545, roles: [:project_leader], 
-          first_name: "Arild", mobile:  94147807, last_name: "Jonassen")
+          first_name: "Arild", mobile:  94147807, last_name: "Jonassen", emp_id: '1212125')
 Fabricate(:user, department: d545, roles: [:project_leader], 
-          first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
+          first_name: "Prosjekt", mobile:  00000002, last_name: "Leder", emp_id: '1212126')
 
 Fabricate(:user, roles: [:project_leader], first_name: "Martin",
-          mobile:  93441707, last_name: "Stabenfeldt", department: d545)
+          mobile:  93441707, last_name: "Stabenfeldt", department: d545, emp_id: '1212127')
 
 # Medarbeidere snekkere
 Fabricate(:user, roles: [:worker], department: snekker, department: d545,
           first_name: "Avni", last_name: "Lymany", mobile: 47625905, 
-          profession: snekker)
+          profession: snekker, emp_id: '1212128')
 danni = Fabricate(:user, roles: [:worker], department: snekker, department: d545,
           first_name: "Danni", last_name: "Runge", mobile: 91135576,
-          profession: snekker)
+          profession: snekker, emp_id: '1212129')
 Fabricate(:user, roles: [:worker], department: snekker, department: d545,
           first_name: "Alexander", last_name: "Børresen", mobile: 48159427,
-          profession: snekker)
+          profession: snekker, emp_id: '1212130')
 
 # Projects
 # ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532)
