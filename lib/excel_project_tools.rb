@@ -8,8 +8,8 @@ class ExcelProjectTools
     hours.map {|x| "#{x}" }
   end
 
-  def self.user_names(project)
-    project.name_of_users.split(',')
+  def self.user_names(project:, profession: nil)
+    project.name_of_users(profession: profession).split(',')
   end
 
   def self.sum_piecework_hours(project: project, user: user)

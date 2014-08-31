@@ -35,8 +35,13 @@ class Project < ActiveRecord::Base
     hours_spents.where(user_id: user.id).sum(:overtime_100) 
   end
 
-  def name_of_users
-    users.pluck(:first_name).join(', ')
+  def name_of_users(profession: nil)
+    if profession
+      u = users.where(profession_id: profession.id)
+      u.pluck(:first_name).join(', ')
+    else
+      users.pluck(:first_name).join(', ')
+    end
   end
 
 end

@@ -5,7 +5,7 @@ describe ExcelProjectTools do
   before do
     @project = Fabricate(:project)
     @user1 = Fabricate(:user, first_name: 'John')
-    @user2 = Fabricate(:user, first_name: 'Ali')
+    @user2 = Fabricate(:user, first_name: 'Snekker Jens', profession: Fabricate(:profession, title: 'Snekker'))
     @task    = Fabricate(:task, project: @project)
     @user1.tasks << @task
     @user2.tasks << @task
@@ -21,8 +21,12 @@ describe ExcelProjectTools do
   end
 
   it %q{returns a comma separated string of names} do
-    ExcelProjectTools.user_names(@project).should eq ['John',' Ali']
+    ExcelProjectTools.user_names(project: @project).should eq ['John',' Snekker Jens']
   end
 
+  it %q{returns a comma separated string of names for profession} do
+    ExcelProjectTools.user_names(project: @project, 
+                                 profession: 'Snekker').should eq ['Snekker Jens']
+  end
 
 end
