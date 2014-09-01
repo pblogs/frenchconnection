@@ -15,6 +15,11 @@ class ExcelController < ApplicationController
     @customers = Customer.all
   end
 
+  ###############################
+  #    Timelisten gis til lønn. Pr mnd pr ansatt pr prosjekt.  (rapporteres den 15 og ved månedsskiftet)
+  #    Scope en hel måned.
+  #    Fra dato og til dato: Bruk dato fra den første timen registrert og dato på siste time registerert.
+  #    prosjektnavnet må tas med i regnearket.
   def timesheet
     @project = Project.find(params[:project_id])
     @user    = User.find(params[:user_id])
