@@ -135,7 +135,7 @@ class Dagsrapport
           sheet.add_row [nil, 'BRUKTE MATERIALER']
     
           # The name of involved Artisans
-          ExcelProjectTools.user_names(project: @project, profession: @profession).each_with_index do |a, i|
+          ExcelProjectTools.user_names(project: @project, profession_title: @profession.title).each_with_index do |a, i|
             sheet.rows[8].cells[2+i].value = a
           end
     
