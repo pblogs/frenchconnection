@@ -5,4 +5,6 @@ Fabricator(:user) do
   mobile     { Faker::Base.numerify('########') }
   password { 'topsecret' }
   password_confirmation { 'topsecret' }
+  department_id { Random.rand(1100) }
+  emp_id { Random.rand(1100) }
 end

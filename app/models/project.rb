@@ -15,12 +15,22 @@ class Project < ActiveRecord::Base
   validates :project_number, :presence => true
 
 
+  def professions
+    professions = []
+    users.each { |u| professions << u.profession }
+    professions.uniq
+  end
 
-  def hours_spent_total
-    hours_spents.sum(:hour) +
-    hours_spents.sum(:piecework_hours) +
-    hours_spents.sum(:overtime_50) +
-    hours_spents.sum(:overtime_100) 
+  def users_with_profession(profession:)
+    users.where(profession_id: profession.id)
+  end
+
+  def hours_spent_total(profession:)
+    sum = ''
+    users_with_profession(profession: profession).each do |u|
+      sum = hours_total_for(u)
+    end
+    sum
   end
 
   def hours_total_for(user)
@@ -30,8 +40,18 @@ class Project < ActiveRecord::Base
     hours_spents.where(user_id: user.id).sum(:overtime_100) 
   end
 
-  def name_of_users
-    users.pluck(:first_name).join(', ')
+  def name_of_users(profession: nil)
+    if profession
+      u = users_with_profession(profession: profession)
+      u.pluck(:first_name).join(', ')
+    else
+      users.pluck(:first_name).join(', ')
+    end
+  end
+
+  def week_numbers
+    w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
+    w.uniq.sort!.join(', ')
   end
 
 end

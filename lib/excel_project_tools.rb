@@ -1,15 +1,16 @@
 class ExcelProjectTools
 
-  def self.hours_for_users(project)
+  def self.hours_for_users(project:, profession:)
     hours = []
-    project.users.each do |a|
+    project.users.where(profession: profession).each do |a|
       hours << project.hours_total_for(a)
     end
     hours.map {|x| "#{x}" }
   end
 
-  def self.user_names(project)
-    project.name_of_users.split(',')
+  def self.user_names(project:, profession_title:)
+    profession = Profession.where(title: profession_title).first
+    project.name_of_users(profession: profession).split(',')
   end
 
   def self.sum_piecework_hours(project: project, user: user)

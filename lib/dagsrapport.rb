@@ -1,12 +1,36 @@
-#$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../../lib"
-
 class Dagsrapport
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project)
-    @project = project
+  def initialize(project:, profession:, overtime:)
+    @project    = project
+    @profession = profession
+    @overtime   = overtime  # In percent. E.g: 50 or 100
+    @workers    = @project.users.where(profession: @profession)
   end
+
+=begin
+
+  Merk: Faggruppe er rollen: Eks malermester, snekkersven ol.
+  Det skal lages en dagsrapport for:
+  Hver faggruppe - ordinær tid
+  Hver fagggruppe - 50% overtid
+  Hver fagggruppe - 100% overtid
+  For kjøring med firmabil (kommer først på plass når feature lag oppgave er ferdig)
+  For utak av materialer fra lager (samme som kjøring)
+  
+  Dagsrapporten skal inneholde:
+    - Uke-feltet. List alle ukenummerene hvor det har blitt utført arbeid
+  - Få med utførelsesadresse på Dagsrapport (ny linje)
+  - Bruk ordet ferdigstilt i Dagsrapporten, ikke utført.
+    - Få på fagkategori på Dagsrapporten.
+    - Posisjon i excel-arket er det samme som avdeling. Endre navn på dette i importen og i views.
+    - Dagsrapporter. Navnene skal listes ut vertikalt. (Dette er Martins notat, jeg vet ikke hva det betyr)
+  - Legge inn ny logo
+  - Få med prosjektnummer
+
+=end
+
 
   def create_spreadsheet
     Axlsx::Package.new do |p|
@@ -21,27 +45,36 @@ class Dagsrapport
         bold        = styles.add_style :b => true
         yellow_bg   = styles.add_style :b => true, :bg_color => 'FFF60B',
           :alignment => { :horizontal => :left }
-        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "C0C0C0"
-        attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
+        gray_bg_align_right = styles.add_style :alignment => { 
+          :horizontal => :right }, :bg_color => "C0C0C0"
+        attest_style= styles.add_style :alignment => { :horizontal => :right }, 
+          :sz => 16
     
     
         wb.add_worksheet do |sheet|
     
-          sheet.add_image(:image_src => 'app/assets/images/bratfos.png',
+          sheet.add_image(:image_src => 'app/assets/images/alliero-bratfoss-h46.png',
                           :noSelect => true, :noMove => true) do |image|
-            image.width=240
+            image.width=390
             image.height=60
             image.start_at 0,1
           end
     
           sheet.add_row
-          sheet.add_row [nil, "DAGSRAPPORT"], :style => [nil, header], :height => 23
+          sheet.add_row [nil, nil, nil, "DAGSRAPPORT - #{@profession.title}"], :style => [nil, nil, nil, header], 
+            :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
-          sheet.add_row ['År:', Time.now.year, "Pågår"],  :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Uke:', DateTime.now.cweek, "Utført"],    :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Prosjekt nr:', @project.project_number ],  :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Kunde:', @project.customer.name ], :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['År:', Time.now.year, "Pågår"],  
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Uke:', @project.week_numbers, "Ferdigstilt"],    
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Prosjekt nr:', @project.project_number ],  
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Kunde:', @project.customer.name ], 
+            :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Adresse:', (@project.execution_address || @project.customer.address), nil, nil, nil ], 
+            :style => [bold_italic, yellow_bg, bold]
     
           # 5 blanks with C D E F G spanning from 7-11
           sheet.add_row [nil, nil, nil, nil, nil] 
@@ -56,10 +89,11 @@ class Dagsrapport
 
 
           # Her listes alle timene som er ført på dette prosjektet.
+          # @workers er da f.eks. bare snekkere
           #
           i = 1
           ai = -1
-          @project.users.each do |user|
+          @workers.each do |user|
             ai += 1
             @project.hours_spents.where(user: user).each do |hours_spent|
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
@@ -72,9 +106,9 @@ class Dagsrapport
           sheet.add_row [nil]
 
           # Sum timer pr pers
-          workers = @project.users.all
-          if workers.present?
-            sheet.add_row ['', 'Sum timer pr. pers: '] + ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
+          if @workers.present?
+            sheet.add_row ['', 'Sum timer pr. pers: '] + 
+              ExcelProjectTools.hours_for_users(project: @project, profession: @profession) + [nil, nil, nil, nil],
               :style => [gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
@@ -84,7 +118,7 @@ class Dagsrapport
           end
 
           # Sum timer totalt
-          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total, 
+          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total(profession: @profession), 
                          nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
@@ -100,68 +134,8 @@ class Dagsrapport
           sheet.add_row [nil]
           sheet.add_row [nil, 'BRUKTE MATERIALER']
     
-          #sheet.add_row [nil, "What's coming in this month.", nil, nil, "How am I doing"], 
-          #:style => tbl_header
-          #sheet.add_row [nil, "Item", "Amount", nil, "Item", "Amount"], 
-          #:style => [nil, ind_header, col_header, nil, ind_header, col_header]
-          #sheet.add_row [nil, "Estimated monthly net income", 500, nil, "Monthly income", "=C9"], 
-          #:style => [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Financial aid", 100, nil, "Monthly expenses", "=C27"], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Allowance from mom & dad", 20000, nil, "Semester expenses", "=F19"], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Total", "=SUM(C6:C8)", nil, "Difference", "=F6 - SUM(F7:F8)"], 
-          #:style => [nil, t_label, t_money, nil, t_label, t_money]
-          #sheet.add_row
-          #sheet.add_row [nil, "What's going out this month.", nil, nil, "Semester Costs"], 
-          #:style => tbl_header
-          #sheet.add_row [nil, "Item", "Amount", nil, "Item", "Amount"], 
-          #:style => [nil, ind_header, col_header, nil, ind_header, col_header]
-          #sheet.add_row [nil, "Rent", 650, nil, "Tuition", 200], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Utilities", 120, nil, "Lab fees", 50], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Cell phone", 100, nil, "Other fees", 10], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Groceries", 75, nil, "Books", 150], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Auto expenses", 0, nil, "Deposits", 0], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Student loans", 0, nil, "Transportation", 30], 
-          #:style =>  [nil, label, money, nil, label, money]
-          #sheet.add_row [nil, "Other loans", 350, nil, "Total", "=SUM(F13:F18)"], 
-          #:style => [nil, label, money, nil, t_label, t_money]
-          #sheet.add_row [nil, "Credit cards", 450], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Insurance", 0], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Laundry", 10], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Haircuts", 0], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Medical expenses", 0], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Entertainment", 500], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Miscellaneous", 0], 
-          #:style => [nil, label, money]
-          #sheet.add_row [nil, "Total", "=SUM(C13:C26)"], 
-          #:style => [nil, t_label, t_money]
-          #sheet.add_chart(Axlsx::Pie3DChart) do |chart|
-          #  chart.title = sheet["B11"]
-          #  chart.add_series :data => sheet["C13:C26"], :labels => sheet["B13:B26"]
-          #  chart.start_at 7, 2
-          #  chart.end_at 12, 15
-          #end
-          #sheet.add_chart(Axlsx::Bar3DChart, :barDir => :col) do |chart|
-          #  chart.title = sheet["E11"]
-          #  chart.add_series :labels => sheet["E13:E18"], :data => sheet["F13:F18"]
-          #  chart.start_at 7, 16
-          #  chart.end_at 12, 31
-          #end
-          
           # The name of involved Artisans
-          ExcelProjectTools.user_names(@project).each_with_index do |a, i|
+          ExcelProjectTools.user_names(project: @project, profession_title: @profession.title).each_with_index do |a, i|
             sheet.rows[8].cells[2+i].value = a
           end
     

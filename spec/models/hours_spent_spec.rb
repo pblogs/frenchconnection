@@ -25,8 +25,10 @@ describe HoursSpent do
     @task.hours_total.should eq 110
   end
 
+  # TODO remove sum. sum_ordinary replaces this.
   it "sums all kinds of hours for one registration" do
     @hours_spent.sum.should eq 100
   end
+
 
 end
