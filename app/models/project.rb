@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
 
   def week_numbers
     w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
-    w.uniq.sort!
+    w.uniq.sort!.join(', ')
   end
 
 end

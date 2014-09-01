@@ -61,7 +61,7 @@ describe Project do
       Fabricate(:hours_spent, created_at: '01.01.2014', task: @task, hour: 10, user: @snekker1)
       Fabricate(:hours_spent, created_at: '09.01.2014', task: @task, hour: 10, user: @user3)
       Fabricate(:hours_spent, created_at: '14.01.2014', task: @task, hour: 10, user: @user2)
-      @project.week_numbers.should eq [1,2,3]
+      @project.week_numbers.should eq "1, 2, 3"
     end
 
     it "lists all types of professions involved" do
