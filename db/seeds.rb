@@ -19,7 +19,7 @@ Fabricate(:customer_message,
           text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
 
 
- Avdelinger
+# Avdelinger
 d545 = Department.create(title: 'Avd. 545 Bratfoss')
 d546 = Department.create(title: 'Avd. 546 Vindusverksted')
 @d532 = Department.create(title: 'Avd. 532 Tak og fasade')
