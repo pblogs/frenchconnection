@@ -77,11 +77,11 @@ t.users << maren_maler
 t.save
 
 # HoursSpent for Danni - Snekker
-Fabricate(:hours_spent, hour: 8, task: t, user: danni, description: '8 vanlige timer')
-Fabricate(:hours_spent, overtime_50: 8, task: t, user: danni, description: '8 timer 50% overtid')
-Fabricate(:hours_spent, overtime_100: 8, task: t, user: danni, description: '8 timer 100% overtid')
+Fabricate(:hours_spent, created_at: '01.01.2014', hour: 11, task: t, user: danni, description: '11 vanlige timer')
+Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12, task: t, user: danni, description: '12 timer 50% overtid')
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, task: t, user: danni, description: '13 timer 100% overtid')
 
 # HoursSpent for Maren Maler
-Fabricate(:hours_spent, hour: 10, task: t, user: maren_maler, description: 'maren maler 10 vanlige timer')
-Fabricate(:hours_spent, overtime_50: 10, task: t, user: maren_maler, description: 'maren maler 10 timer 50% overtid')
-Fabricate(:hours_spent, overtime_100: 10, task: t, user: maren_maler, description: 'maren maler 10 timer 100% overtid')
+Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21, task: t, user: maren_maler, description: 'maren maler 21 vanlige timer')
+Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 22, task: t, user: maren_maler, description: 'maren maler 22 timer 50% overtid')
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 23, task: t, user: maren_maler, description: 'maren maler 23 timer 100% overtid')
