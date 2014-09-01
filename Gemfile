@@ -83,4 +83,5 @@ end
 
 group :production do
   gem 'exception_notification'
+  gem 'roo' # Used for the Excel import
 end
