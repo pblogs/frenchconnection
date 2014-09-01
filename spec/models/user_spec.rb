@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe User do
   before :each do
-    @department = Fabricate(:department)
-    @user  = Fabricate(:user, first_name: 'john', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
+    @user  = Fabricate(:user)
   end
 
   it "is valid from the Fabric" do
