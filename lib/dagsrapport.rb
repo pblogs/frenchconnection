@@ -53,15 +53,15 @@ class Dagsrapport
     
         wb.add_worksheet do |sheet|
     
-          sheet.add_image(:image_src => 'app/assets/images/bratfos.png',
+          sheet.add_image(:image_src => 'app/assets/images/alliero-bratfoss-h46.png',
                           :noSelect => true, :noMove => true) do |image|
-            image.width=240
+            image.width=390
             image.height=60
             image.start_at 0,1
           end
     
           sheet.add_row
-          sheet.add_row [nil, "DAGSRAPPORT - #{@profession.title}"], :style => [nil, header], 
+          sheet.add_row [nil, nil, nil, "DAGSRAPPORT - #{@profession.title}"], :style => [nil, nil, nil, header], 
             :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
