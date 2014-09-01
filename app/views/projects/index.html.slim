@@ -8,18 +8,20 @@ ul
 
 br
 br
-h2 Favoritter
-br
-ul.circle
-  h5 Kunder
+fieldset
+  legend Favoritter
   br
-  - @starred_customers && @starred_customers.each do |s| 
-    li= link_to s.name, s
-  h5 Prosjekter
-  br
-  - @starred_projects && @starred_projects.each do |s| 
-    li= link_to s.name, customer_project_path(s.customer, s)
-
+  ul.circle
+    h5 Kunder
+    - @starred_customers && @starred_customers.each do |s| 
+      li= link_to s.name, s
+  
+    br
+    br
+    h5 Prosjekter
+    - @starred_projects && @starred_projects.each do |s| 
+      li= link_to s.name, customer_project_path(s.customer, s)
+  
 br
 br
 br
