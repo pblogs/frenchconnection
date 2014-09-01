@@ -69,10 +69,11 @@ AllieroForms::Application.routes.draw do
   root 'static_pages#blog'
   get '/manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
   get '/worker'  => 'static_pages#frontpage_user', as: :frontpage_user
-  get '/new_assignment'    => 'static_pages#new_assignment', as: :new_assignment
-  get '/sallery/:user_id/:project_id/'    => 'excel#sallery', as: :sallery_report
-  get '/dagsrapport/:project_id/'   => 'excel#dagsrapport', as: :dagsrapport
-  get '/html_export/:user_id/:project_id/'    => 'excel#html_export', as: :html_export
+  get '/new_assignment' => 'static_pages#new_assignment', as: :new_assignment
+  get '/sallery/:user_id/:project_id/'  => 'excel#sallery', as: :sallery_report
+  get '/dagsrapport/:project_id/:profession_id/:overtime'  => 'excel#dagsrapport', 
+    as: :dagsrapport
+  get '/html_export/:user_id/:project_id/' => 'excel#html_export', as: :html_export
   
 
   # Example of regular route:

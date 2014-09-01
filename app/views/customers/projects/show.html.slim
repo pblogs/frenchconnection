@@ -15,6 +15,9 @@
     = @project.description
 
   p
+    strong Kort beskrivelse: 
+    = @project.short_description
+  p
     strong Oppstart: 
     = I18n.l(@project.start_date, format: :short_w_year)
   p
@@ -49,6 +52,13 @@ br
 br
 .button.red
   = link_to 'Registrer ny oppgave', new_project_task_path(@project)
+
+strong Dagsrapporter
+p Last ned rapport for følgende yrkesgrupper
+- @project.professions.each do |p|
+  = link_to p.title + ' normal', dagsrapport_path(@project.id, p.id, :normal)
+  br
+  = link_to p.title + ' 100% overtid', dagsrapport_path(@project.id, p.id, 100)
 
 br
 = link_to 'Tilbake', projects_path, class: :secondary_button
