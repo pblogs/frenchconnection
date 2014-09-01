@@ -73,6 +73,8 @@ class Dagsrapport
             :style => [bold_italic, yellow_bg, bold]
           sheet.add_row ['Kunde:', @project.customer.name ], 
             :style => [bold_italic, yellow_bg, bold]
+          sheet.add_row ['Adresse:', @project.execution_address || @project.customer.address ], 
+            :style => [bold_italic, yellow_bg, bold]
     
           # 5 blanks with C D E F G spanning from 7-11
           sheet.add_row [nil, nil, nil, nil, nil] 
