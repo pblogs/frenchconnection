@@ -3,9 +3,11 @@ class Timesheet
   require 'axlsx'
 
   def initialize(project, user, hours)
-    @project = project
-    @user = user
-    @hours   = hours
+    @project   = project
+    @user      = user
+    @hours     = hours
+    @from_date = I18n.l @project.hours_spents.order(created_at: :asc).first.created_at, format: :short 
+    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc).last.created_at,  format: :short
 
     @wday = {
       '1' => 'mandag',
@@ -78,9 +80,9 @@ class Timesheet
           # FRA DATO, TIL DATO
           %w(K3:O3).each { |range| sheet.merge_cells(range) }
 
-          sheet.rows[2].cells[0].value = 'ANSATT NAVN:'
-          sheet.rows[2].cells[5].value = 'ANSATT NR:'
-          sheet.rows[2].cells[10].value = 'FRA DATO: __/__-__         TIL DATO: __/__-__'
+          sheet.rows[2].cells[0].value = "ANSATT NAVN: #{@user.name}"
+          sheet.rows[2].cells[5].value = "ANSATT NR: #{@user.emp_id}"
+          sheet.rows[2].cells[10].value = "FRA DATO: #{@from_date}         TIL DATO: #{@to_date}"
 
 # Linje 4 
           sheet.add_row [nil]
@@ -97,10 +99,10 @@ class Timesheet
           # Prosjekt leder
           %w(K5:N5).each { |range| sheet.merge_cells(range) }
 
-          sheet.rows[4].cells[0].value = 'AVD. NR:'
-          sheet.rows[4].cells[2].value = 'PROSJEKT NR:'
-          sheet.rows[4].cells[4].value = 'PROSJEKT NAVN:'
-          sheet.rows[4].cells[10].value = 'PROSJEKT LEDER:'
+          sheet.rows[4].cells[0].value = "AVD. NR: #{@project.department.title}"
+          sheet.rows[4].cells[2].value = "PROSJEKT NR: #{@project.project_number}"
+          sheet.rows[4].cells[4].value = "PROSJEKT NAVN: #{@project.name}"
+          sheet.rows[4].cells[10].value = "PROSJEKT LEDER: #{@project.user.name}"
 
 
 # Linje 6 # Blank
