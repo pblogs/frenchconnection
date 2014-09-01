@@ -73,7 +73,7 @@ Fabricate(:user, roles: [:worker], department: snekker, department: d545,
           profession: snekker)
 
 # Projects
-ryen = Fabricate(:project, name: 'Nyt tak på Ryenhallen', customer: sporveiene, department: @d532, starred: true, user: @martin)
+ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', customer: sporveiene, department: @d532, starred: true, user: @martin)
 
 # Tasks for Danni - Snekker
 snekker_task = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
