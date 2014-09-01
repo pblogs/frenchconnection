@@ -89,7 +89,7 @@ class Dagsrapport
 
 
           # Her listes alle timene som er ført på dette prosjektet.
-          # Plukk bare ut time som hører til valgte @profession
+          # @workers er da f.eks. bare snekkere
           #
           i = 1
           ai = -1
@@ -108,7 +108,7 @@ class Dagsrapport
           # Sum timer pr pers
           if @workers.present?
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
-              ExcelProjectTools.hours_for_users(@project) + [nil, nil, nil, nil],
+              ExcelProjectTools.hours_for_users(project: @project, profession: @profession) + [nil, nil, nil, nil],
               :style => [gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
                          gray_bg_align_right, gray_bg_align_right, 
@@ -118,7 +118,7 @@ class Dagsrapport
           end
 
           # Sum timer totalt
-          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total, 
+          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total(profession: @profession), 
                          nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
