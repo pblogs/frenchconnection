@@ -21,9 +21,6 @@ describe ExcelProjectTools do
     ExcelProjectTools.hours_for_users(project: @project, profession: snekker).should eq ['19']
   end
 
-  it %q{returns a comma separated string of names} do
-    ExcelProjectTools.user_names(project: @project).should eq ['John',' Snekker Jens']
-  end
 
   it %q{returns a comma separated string of names for profession} do
     ExcelProjectTools.user_names(project: @project, 
