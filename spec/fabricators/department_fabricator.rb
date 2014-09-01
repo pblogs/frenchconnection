@@ -1,3 +1,3 @@
 Fabricator(:department) do
-  title { "#{ Faker::Commerce.department } #{ Random.rand(1100) }" }
+  title  { "Department #{ Random.rand(1100) } - #{ Random.rand(1100)} " }
 end
