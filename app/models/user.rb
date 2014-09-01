@@ -40,8 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def avatar
-    filename = "users/#{ name.parameterize }.jpg"
-    File.exist?(filename) ? filename : "http://robohash.org/#{name}"
+    image.url.present? ? image.url : "http://robohash.org/#{name}"
   end
   
   def full_name
