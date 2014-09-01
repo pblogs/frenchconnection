@@ -25,9 +25,14 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
-  def hours_spent_total(profession:)
+  def hours_spent_total(profession: nil)
+    if profession
+      @users = users_with_profession(profession: profession)
+    else
+      @users = users
+    end
     sum = ''
-    users_with_profession(profession: profession).each do |u|
+    @users.each do |u|
       sum = hours_total_for(u)
     end
     sum

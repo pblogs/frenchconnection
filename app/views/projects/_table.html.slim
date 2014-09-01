@@ -21,7 +21,7 @@ table
         td = project.hours_spent_total
         td 
           = link_to( (fa_icon 'table', text: "Dagsrapport"), 
-            dagsrapport_path(project) )
+            customer_project_path(project.customer, project))
           br
           = link_to( (fa_icon 'table', text: "Timelister"), 
             hours_registered_path(project) )
