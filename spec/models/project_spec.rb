@@ -9,11 +9,11 @@ describe Project do
                                    department: @service)
       @snekker = Fabricate(:profession, title: 'snekker')
       @murer   = Fabricate(:profession, title: 'murer')
-      @user  = Fabricate(:user, first_name: 'John', profession: @snekker)
+      @snekker1  = Fabricate(:user, first_name: 'John', profession: @snekker)
       @user2 = Fabricate(:user, first_name: 'Barry', profession: @snekker)
       @user3 = Fabricate(:user, first_name: 'Mustafa', profession: @murer)
       @task  = Fabricate(:task, project: @project)
-      @task.users << @user
+      @task.users << @snekker1
       @task.users << @user2
       @task.users << @user3
     end
@@ -27,8 +27,8 @@ describe Project do
      end
 
     it "knows which users that are involved" do
-      @user.tasks.should include @task
-      @project.users.should include(@user, @user2, @user3)
+      @snekker1.tasks.should include @task
+      @project.users.should include(@snekker1, @user2, @user3)
       @project.name_of_users.should eq 'John, Barry, Mustafa'
     end
 
@@ -37,26 +37,28 @@ describe Project do
     end
 
     it "knows how many hour each of them as worked" do
-      Fabricate(:hours_spent, hour: 10, task: @task, user: @user)
-      Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @user)
+      Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
+      Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @snekker1)
       # Test creating hours on an other user
       Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
-      @project.hours_total_for(@user).should eq 20
+      @project.hours_total_for(@snekker1).should eq 20
     end
 
     it "is possible to list all hours spent for a particular user" do
-      @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @user)
-      @project.hours_spents.where(user: @user).first.should eq @hours_spent
+      @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
+      @project.hours_spents.where(user: @snekker1).first.should eq @hours_spent
     end
 
     it "knows how many hour totally for the project" do
-      Fabricate(:hours_spent, task: @task, hour: 10, user: @user)
+      Fabricate(:hours_spent, task: @task, hour: 10, user: @snekker1)
       Fabricate(:hours_spent, task: @task, hour: 10, user: @user2)
       Fabricate(:hours_spent, task: @task, hour: 10, user: @user3)
       Fabricate(:hours_spent, task: @task, overtime_50:  10, user: @user2)
       Fabricate(:hours_spent, task: @task, overtime_100: 10, user: @user3)
       @project.reload
-      @project.hours_spent_total.should eq 50
+      @project.hours_spent_total(profession: @snekker).should eq 20
+    end
+
     it "lists week numbers" do
       Fabricate(:hours_spent, created_at: '01.01.2014', task: @task, hour: 10, user: @snekker1)
       Fabricate(:hours_spent, created_at: '09.01.2014', task: @task, hour: 10, user: @user3)
@@ -74,30 +76,30 @@ describe Project do
       User.destroy_all
       Project.destroy_all
       Department.destroy_all
-      @user         = Fabricate(:user, first_name: 'John')
+      @snekker1         = Fabricate(:user, first_name: 'John')
       @service      = Fabricate(:department, title: 'Service')
       @maintainance = Fabricate(:department, title: 'Maintainance')
       @customer1    = Fabricate(:customer)
       @customer2    = Fabricate(:customer)
-      @service_project1 = Fabricate(:project, user: @user, 
+      @service_project1 = Fabricate(:project, user: @snekker1, 
                                     customer: @customer1, 
                                     department: @service)
-      @maintainance_project1 = Fabricate(:project, user: @user, 
+      @maintainance_project1 = Fabricate(:project, user: @snekker1, 
                                          customer: @customer2, 
                       department: @maintainance)
     end
 
     it "knows which projects that are mine" do
       pending "works when testing manually"
-      @user.reload
-      @user.owns_projects.to_a.should eq [@service_project1, 
+      @snekker1.reload
+      @snekker1.owns_projects.to_a.should eq [@service_project1, 
                                           @service_project2, 
                                           @maintainance_project1]
     end
 
     it "lists the departments my projects belong to" do
-      @user.reload
-      @user.project_departments.to_a.should eq [@service, @maintainance]
+      @snekker1.reload
+      @snekker1.project_departments.to_a.should eq [@service, @maintainance]
     end
 
     it "lists the customers that has a project belonging to a department" do
