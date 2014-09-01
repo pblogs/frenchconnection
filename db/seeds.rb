@@ -42,11 +42,13 @@ maren_maler = Fabricate(:user, department: d545, profession: maler, first_name: 
 Fabricate(:user, department: d545, profession: elektriker, first_name: 'Espen',  
           last_name: 'Elektro')
 
-# Stein og Joachim
+# Folk
 Fabricate(:user, department: d545, roles: [:worker],
           first_name: "Stein", mobile:  95104040, last_name: "Hesstvedt") 
 Fabricate(:user, department: d545, roles: [:project_leader],
           first_name: "Joachim", mobile: 92094426, last_name: "Stray") 
+Fabricate(:user, department: d545, roles: [:project_leader],
+          first_name: "Anders", mobile: 92848717, last_name: "Blom Nilsen") 
 
 # Prosjektledere:
 Fabricate(:user, department: d545, roles: [:project_leader],
