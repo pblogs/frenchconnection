@@ -58,12 +58,15 @@ br
 br
 fieldset
   legend Dagsrapporter
-  p Last ned rapport for følgende yrkesgrupper
-  - @project.professions.each do |p|
-    = link_to p.title + ' normal', dagsrapport_path(@project.id, p.id, :normal)
-    br
-    = link_to p.title + ' 100% overtid', dagsrapport_path(@project.id, p.id, 100)
-    br
+  - if @project.hours_spents.present?
+    p Last ned rapport for følgende yrkesgrupper
+    - @project.professions.each do |p|
+      = link_to p.title + ' normal', dagsrapport_path(@project.id, p.id, :normal)
+      br
+      = link_to p.title + ' 100% overtid', dagsrapport_path(@project.id, p.id, 100)
+      br
+  - else
+      p  Det er ikke registert noen timer på dette prosjektet.
 
 br
 = link_to 'Tilbake', projects_path
