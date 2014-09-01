@@ -20,8 +20,9 @@ Fabricate(:customer_message,
 
 
 # Avdelinger
-d545 = Department.create(title: 'Avd. 545 Bratfoss')
-d546 = Department.create(title: 'Avd. 546 Vindusverksted')
+service_avdeling = Department.create(title: '69850')
+d545  = Department.create(title: 'Avd. 545 Bratfoss')
+d546  = Department.create(title: 'Avd. 546 Vindusverksted')
 @d532 = Department.create(title: 'Avd. 532 Tak og fasade')
 
 
@@ -35,45 +36,47 @@ elektriker = Profession.create(title: 'Elektriker')
 # A user has one of these roles.
 # - (lærling, sven, mester, prosjektleder)
 # - :apprentice, :sven, :master, :project_leader
-Fabricate(:user, department: d545, profession: elektriker, first_name: 'Even',  
+Fabricate(:user, department: service_avdeling, profession: elektriker, first_name: 'Even',  
           last_name: 'Elektro')
-maren_maler = Fabricate(:user, department: d545, profession: maler, first_name: 'Maren',  
+maren_maler = Fabricate(:user, department: service_avdeling, profession: maler, first_name: 'Maren',  
           last_name: 'Maler')
-Fabricate(:user, department: d545, profession: elektriker, first_name: 'Espen',  
+Fabricate(:user, department: service_avdeling, profession: elektriker, first_name: 'Espen',  
           last_name: 'Elektro')
 
 # Folk
-Fabricate(:user, department: d545, roles: [:worker],
+Fabricate(:user, department: service_avdeling, roles: [:worker],
           first_name: "Stein", mobile:  95104040, last_name: "Hesstvedt") 
-Fabricate(:user, department: d545, roles: [:project_leader],
+Fabricate(:user, department: service_avdeling, roles: [:project_leader],
           first_name: "Joachim", mobile: 92094426, last_name: "Stray") 
-Fabricate(:user, department: d545, roles: [:project_leader],
+Fabricate(:user, department: service_avdeling, roles: [:project_leader],
           first_name: "Anders", mobile: 92848717, last_name: "Blom Nilsen") 
 
 # Prosjektledere:
-Fabricate(:user, department: d545, roles: [:project_leader],
+Fabricate(:user, department: service_avdeling, roles: [:project_leader],
           first_name: "Truls", mobile:  41413017, last_name: "Bratfoss") 
-Fabricate(:user, department: d545, roles: [:project_leader], 
+Fabricate(:user, department: service_avdeling, roles: [:project_leader], 
           first_name: "Arild", mobile:  94147807, last_name: "Jonassen")
-Fabricate(:user, department: d545, roles: [:project_leader], 
+Fabricate(:user, department: service_avdeling, roles: [:project_leader], 
           first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
 
 @martin = Fabricate(:user, roles: [:project_leader], first_name: "Martin",
-          mobile:  93441707, last_name: "Stabenfeldt", department: d545)
+          mobile:  93441707, last_name: "Stabenfeldt", department: service_avdeling)
 
 # Medarbeidere snekkere
-Fabricate(:user, roles: [:worker], department: snekker, department: d545,
+Fabricate(:user, roles: [:worker], department: snekker, department: service_avdeling,
           first_name: "Avni", last_name: "Lymany", mobile: 47625905, 
           profession: snekker)
-danni = Fabricate(:user, roles: [:worker], department: snekker, department: d545,
+danni = Fabricate(:user, roles: [:worker], department: snekker, department: service_avdeling,
           first_name: "Danni", last_name: "Runge", mobile: 91135576,
           profession: snekker)
-Fabricate(:user, roles: [:worker], department: snekker, department: d545,
+Fabricate(:user, roles: [:worker], department: snekker, department: service_avdeling,
           first_name: "Alexander", last_name: "Børresen", mobile: 48159427,
           profession: snekker)
 
 # Projects
-ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', customer: sporveiene, department: @d532, starred: true, user: @martin)
+ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', 
+                 customer: sporveiene, 
+                 department: service_avdeling, starred: true, user: @martin)
 
 # Tasks for Danni - Snekker
 snekker_task = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
