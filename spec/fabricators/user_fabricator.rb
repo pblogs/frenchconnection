@@ -3,8 +3,9 @@ Fabricator(:user) do
   last_name  { Faker::Name.last_name }
   email      { Faker::Internet.email }
   mobile     { Faker::Base.numerify('########') }
-  password { 'topsecret' }
+  password   { 'topsecret' }
   password_confirmation { 'topsecret' }
-  department_id { Random.rand(1100) }
-  emp_id { Random.rand(1100) }
+  department    { Fabricate(:department) }
+  emp_id      { Random.rand(1100) }
+  roles     {  [:project_leader] }
 end
