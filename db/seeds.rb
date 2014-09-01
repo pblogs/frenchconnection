@@ -7,6 +7,7 @@ Profession.destroy_all
 # Customers
 sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
 ostbanehallen = Fabricate(:customer, name: 'Østbanehallen')
+slottet       = Fabricate(:customer, name: 'Det kongelige slott', starred: true)
 
 
 # Custom message.
