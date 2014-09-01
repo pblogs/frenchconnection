@@ -69,6 +69,15 @@ fieldset
   - else
       p  Det er ikke registert noen timer på dette prosjektet.
 
+fieldset
+  legend Timelister
+  - if @project.hours_spents.present?
+    p Last ned rapport for 
+    - @project.users.each do |u|
+      = link_to u.name, timesheet_path(@project.id, u)
+      br
+  - else
+      p  Det er ikke registert noen timer på dette prosjektet.
 br
 = link_to 'Tilbake', projects_path
 
