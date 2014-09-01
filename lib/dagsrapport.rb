@@ -67,7 +67,7 @@ class Dagsrapport
           sheet.add_row [nil, nil, nil]
           sheet.add_row ['År:', Time.now.year, "Pågår"],  
             :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Uke:', @project.week_numbers, "Utført"],    
+          sheet.add_row ['Uke:', @project.week_numbers, "Ferdigstilt"],    
             :style => [bold_italic, yellow_bg, bold]
           sheet.add_row ['Prosjekt nr:', @project.project_number ],  
             :style => [bold_italic, yellow_bg, bold]
