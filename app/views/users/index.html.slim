@@ -22,8 +22,8 @@ table[class="listusers"]
         td = image_tag user.image, :size => "50x40"
         td
           = link_to 'Rediger', edit_user_path(user)
-          ||
-          = link_to 'Destroy', user, data: {:confirm => 'Are you sure?'}, :method => :delete
+          br
+          = link_to 'Slett', user, data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
 = link_to 'New User', new_user_path

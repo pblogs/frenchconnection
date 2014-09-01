@@ -72,7 +72,7 @@ fieldset
 fieldset
   legend Timelister
   - if @project.hours_spents.present?
-    p Last ned rapport for 
+    p Last ned timeliste for 
     - @project.users.each do |u|
       = link_to u.name, timesheet_path(@project.id, u)
       br
