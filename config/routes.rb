@@ -74,7 +74,9 @@ AllieroForms::Application.routes.draw do
   get '/dagsrapport/:project_id/:profession_id/:overtime'  => 'excel#dagsrapport', 
     as: :dagsrapport
   get '/html_export/:user_id/:project_id/' => 'excel#html_export', as: :html_export
-  
+
+  get '/templates/:path' => 'templates#template',
+    :constraints => { :path => /.+/  }  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
