@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   
 
   before_action :set_current_user
-  #before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
 
   def set_current_user
     @current_user ||= current_user
