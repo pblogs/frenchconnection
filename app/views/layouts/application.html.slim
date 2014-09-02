@@ -1,13 +1,13 @@
 doctype html
 html
   head
-    title Alliero
+    title CRUD
     = stylesheet_link_tag "application", media: "all",  
       "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport" 
-  body(id=body_id)
+  body(id=body_id ng-app="app")
     #outer-container
       #main
         .logo-wrapper
@@ -33,39 +33,7 @@ html
           br
           br
           br
-
-    footer
-      .content
-        .filler
-        .address
-          br
-          h6 KONTAKT OSS
-          br
-
-          p
-            |Besøksadresse
-            br
-            |Alliero As
-            br
-            |Nydalsveien 30 B
-            br
-            |0484 Oslo
-          
-          p
-            |Postadresse
-            br
-            |Alliero As
-            br
-            |Pb 4681 Nydalen
-            br
-            |0405 Oslo
-          
-          p
-            |Phone: 23 26 54 00
-            br
-            |Fax: 23 26 54 01
-            br
-            |Mail: post@alliero.no
+          /=render 'layouts/footer'
 
       .banner
         .login_logout

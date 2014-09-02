@@ -1,0 +1,19 @@
+/= render '/tasks/show.html.slim'
+.button.green
+  
+  
+  table
+    thead
+      th Kunde
+      th Utførende
+      th Type oppdrag
+    tbody
+      tr
+        td = task.customer.name
+
+  
+br
+br
+= link_to 'Rediger ', edit_task_path(task)
+'|
+= link_to 'Tilbake', :back, class: 'button red'
