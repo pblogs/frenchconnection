@@ -2,10 +2,11 @@
   "lib": {
     "name": "bower-rails generated lib assets",
     "dependencies": {
-      "angular" : "latest",
-      "angular-route": "latest",
-      "restangular": "latest",
-      "todomvc-common": "latest"
+      "angular":          "latest",
+      "angular-route":    "latest",
+      "angular-resource": "latest",
+      "restangular":      "latest",
+      "lodash":           "latest"
     }
   },
   "vendor": {
