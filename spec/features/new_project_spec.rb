@@ -5,8 +5,7 @@ require 'spec_helper'
 describe "Create a new project", :type => :feature do
   before :all do
     Customer.destroy_all
-    @department = Fabricate(:department)
-    @project_leader = Fabricate(:user, department: @department, emp_id: "12121", roles: ['project_leader'])
+    @project_leader = Fabricate(:user, roles: ['project_leader'])
   end
 
   it "for a new company", js: true do
