@@ -1,0 +1,24 @@
+form ng-submit="save(customer)" 
+
+  #preview
+    strong Name: {{customer.name}}
+
+  hr
+
+  label Navn
+  input type="text" ng-model="customer.name"
+
+  label Organisasjonsnummer
+  input type="text" ng-model="customer.org_number"
+
+  label Kontaktperson
+  input type="text" ng-model="customer.contact_person"
+
+  label Adresse
+  input type="text" ng-model="customer.address"
+
+  label Telefon
+  input type="text" ng-model="customer.phone"
+
+  fieldset
+    button Lagre
