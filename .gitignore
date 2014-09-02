@@ -19,3 +19,6 @@
 
 # Developer environment spesific
 .env-development
+
+# Images uploaded with CarrierWave locally
+public/uploads/
