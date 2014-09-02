@@ -1,0 +1,70 @@
+= form_for [@project, @task] do |f|
+  - if @task.errors.any?
+    #error_explanation
+      h2= "#{pluralize(@task.errors.count, "error")} hindret oss å lagre:"
+      ul
+        - @task.errors.full_messages.each do |message|
+          li = message
+
+  // = label_tag 'task_type_id', 'Oppdragstype'
+  // = f.select "task_type_id", 
+  //   options_from_collection_for_select(@task_types, "id", "title")
+
+  = label_tag 'department_id', 'Avdeling'
+  = f.select 'department_id', 
+    options_from_collection_for_select(@departments, "id", "title")
+
+
+  .title.hide
+    - stilas_id  = Department.where(title: 'Stilas').first.id
+    - elektro_id = Department.where(title: 'Elektro').first.id
+    - snekker_id = Department.where(title: 'Snekkere').first.id
+    = label_tag 'user_id', 'Henvis til utførende'
+
+
+  div.employees.hide id="department_#{stilas_id}"
+    = collection_check_boxes(:task, :user_ids, 
+      User.where(department_id: stilas_id), :id, :name) do |b|
+      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+  div.employees.hide id="department_#{elektro_id}"
+    = collection_check_boxes(:task, :user_ids, 
+      User.where(department_id: elektro_id), :id, :name) do |b|
+      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+  div.employees.hide id="department_#{snekker_id}"
+    = collection_check_boxes(:task, :user_ids, 
+      User.where(department_id: snekker_id), :id, :name) do |b|
+      = b.label(:"data-value" => b.value) { b.check_box + b.text }
+    
+    
+    
+    
+    
+    
+
+
+  br
+  br
+  .field
+    = f.label :description, 'Beskrivelse'
+    = f.text_area :description,  placeholder: 'Beskriv oppdraget'
+
+  .field
+    = f.label :start_date, 'Oppstartsdato'
+    = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
+
+  .field
+    = f.label :due_date, 'Ferdigstillingsdato'
+    = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato'
+
+  br
+  br
+  br
+  br
+  .actions = f.submit 'Lagre oppdrag i Visma', class: 'button green'
+    
+    
+    
+    
+    

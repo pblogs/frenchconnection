@@ -1,0 +1,19 @@
+h1= "Timer registrert på #{@task.customer.name} "
+
+table
+  thead
+    tr
+      th Kunde
+      th Oppgave
+      th Antall timer
+
+  tbody
+    - @hours_spents.each do |hours_spent|
+      tr
+        td = hours_spent.task.customer.name
+        td = hours_spent.description
+        td = hours_spent.hour
+
+br
+
+/= link_to 'Registrer flere timer', new_task_hours_spent_path(@task), class: 'red button'

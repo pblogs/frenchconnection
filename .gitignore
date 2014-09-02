@@ -16,4 +16,9 @@
 /tmp
 .smartgf_tags
 .smartgf_tags_date
+
+# Developer environment spesific
+.env-development
+
+# Images uploaded with CarrierWave locally
 public/uploads/

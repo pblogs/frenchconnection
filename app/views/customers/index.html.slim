@@ -29,6 +29,6 @@ table
           = link_to 'Slett', customer, data: {:confirm => 'Are you sure?'}, 
             :method => :delete
 
-br
-
 = link_to 'Opprett ny kunde', new_customer_path, class: 'red button'
+
+= render 'angular_index'

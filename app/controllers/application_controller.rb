@@ -6,12 +6,15 @@ class ApplicationController < ActionController::Base
   
 
   before_action :set_current_user
-  before_action :authenticate_user!
+  #before_action :authenticate_user!, except: :index
 
   def set_current_user
     @current_user ||= current_user
   end
 
+
+  def index
+  end
 
   protected
   def configure_permitted_parameters
