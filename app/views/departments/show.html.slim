@@ -6,8 +6,11 @@
 
 table
   thead
+    th
     th Kunde
   tbody
     - @customers && @customers.each do |c|
-      tr
+      tr(data-customer-id="#{c.id}")
+        td
+          starred
         td = link_to c.name, customer_projects_path(c)

@@ -1,6 +1,7 @@
 angular
   .module('app')
-  .controller 'CustomersCtrl', ['$scope', 'Restangular', 'Session', ($scope, Restangular, Session) ->
+  .controller 'CustomersCtrl', ['$scope', 'Restangular', 'Session',
+  ($scope, Restangular, Session) ->
     # Initalize the Customer object
     Customer = Restangular.all('customers')
 
