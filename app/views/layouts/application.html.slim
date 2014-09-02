@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Alliero.Orwapp.com
+    title Alliero
     = stylesheet_link_tag "application", media: "all",  
       "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
@@ -34,5 +34,42 @@ html
           br
           br
 
-=render 'layouts/footer'
+    footer
+      .content
+        .filler
+        .address
+          br
+          h6 KONTAKT OSS
+          br
 
+          p
+            |Besøksadresse
+            br
+            |Alliero As
+            br
+            |Nydalsveien 30 B
+            br
+            |0484 Oslo
+          
+          p
+            |Postadresse
+            br
+            |Alliero As
+            br
+            |Pb 4681 Nydalen
+            br
+            |0405 Oslo
+          
+          p
+            |Phone: 23 26 54 00
+            br
+            |Fax: 23 26 54 01
+            br
+            |Mail: post@alliero.no
+
+      .banner
+        .login_logout
+          - if signed_in?
+            span= "Logget inn som #{@current_user.name}"
+            br
+            = link_to 'Logg ut', destroy_user_session_path, method: :delete
