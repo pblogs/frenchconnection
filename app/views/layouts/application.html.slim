@@ -33,11 +33,6 @@ html
           br
           br
           br
-          /=render 'layouts/footer'
 
-      .banner
-        .login_logout
-          - if signed_in?
-            span= "Logget inn som #{@current_user.name}"
-            br
-            = link_to 'Logg ut', destroy_user_session_path, method: :delete
+=render 'layouts/footer'
+
