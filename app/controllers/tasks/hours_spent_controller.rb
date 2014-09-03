@@ -78,9 +78,11 @@ class Tasks::HoursSpentController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hours_spent_params
-      params.require(:hours_spent).permit(:customer_id, :task_id, 
-                                          :overtime_50,
+      params.require(:hours_spent).permit(:customer_id, 
+                                          :task_id, 
                                           :user_id,
+                                          :project_id,
+                                          :overtime_50,
                                           :overtime_100,
                                           :piecework_hours,
                                           :hour, :description, :date)
