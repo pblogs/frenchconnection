@@ -168,9 +168,9 @@ ActiveRecord::Schema.define(version: 20140903080423) do
     t.integer  "mobile",                 limit: 8
     t.string   "employee_nr"
     t.string   "position"
-    t.integer  "profession_id"
     t.string   "image"
     t.string   "emp_id"
+    t.integer  "profession_id"
   end
 
   add_index "users", ["profession_id"], name: "index_users_on_profession_id", using: :btree
