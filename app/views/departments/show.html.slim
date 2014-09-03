@@ -6,11 +6,11 @@
 
 table
   thead
-    th
+    /th
     th Kunde
   tbody
     - @customers && @customers.each do |c|
       tr
-        td
+        /td
           starred object-class="#{c.class}" object-id="#{c.id}"
         td = link_to c.name, customer_projects_path(c)
