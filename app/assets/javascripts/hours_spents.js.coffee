@@ -1,3 +1,7 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(document).on 'ready page:load', ->
+  $("#hours_spent_runs_in_company_car").blur ->
+    val = field = $('#hours_spent_runs_in_company_car').val()
+    if val > 0
+      $('#drives_his_own_car').hide()
+    else
+      $('#drives_his_own_car').show()
