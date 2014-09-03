@@ -3,8 +3,8 @@ require 'spec_helper'
 describe HoursSpent do
   before(:all) do
     @department = Fabricate(:department)
-    @worker  = Fabricate(:user, roles: ['worker'], first_name: 'John', department: @department, emp_id: "12121")
-    @task    = Fabricate(:task)
+    @worker     = Fabricate(:user)
+    @task       = Fabricate(:task)
     @task.user_ids = [@worker.id]
     @task.save
     @hours_spent = Fabricate(:hours_spent, user: @worker, task: @task, 
@@ -25,7 +25,6 @@ describe HoursSpent do
     @task.hours_total.should eq 110
   end
 
-  # TODO remove sum. sum_ordinary replaces this.
   it "sums all kinds of hours for one registration" do
     @hours_spent.sum.should eq 100
   end
