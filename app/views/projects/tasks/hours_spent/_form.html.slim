@@ -1,7 +1,7 @@
 = form_for [@task, @hours_spent] do |f|
   - if @hours_spent.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@hours_spent.errors.count, "error")} feil gjorde at vi ikke fikk lagret:"
+      h2 = "#{@hours_spent.errors.count} feil gjorde at vi ikke fikk lagret:"
       ul
         - @hours_spent.errors.full_messages.each do |message|
           li = message
