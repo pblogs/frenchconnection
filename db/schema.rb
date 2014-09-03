@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829123427) do
+ActiveRecord::Schema.define(version: 20140903080423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,10 @@ ActiveRecord::Schema.define(version: 20140829123427) do
     t.integer  "overtime_50"
     t.integer  "overtime_100"
     t.integer  "project_id"
+    t.integer  "runs_in_company_car"
+    t.float    "km_driven_own_car"
+    t.float    "toll_expenses_own_car"
+    t.string   "supplies_from_warehouse"
   end
 
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
