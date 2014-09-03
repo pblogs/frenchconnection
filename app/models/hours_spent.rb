@@ -7,6 +7,7 @@ class HoursSpent < ActiveRecord::Base
   validates :user,        :presence => true
   validates :description, :presence => true
   validates :date,        :presence => true
+  validates :project_id,     :presence => true
 
   def sum
     (self.hour            ||  0) +
