@@ -20,6 +20,7 @@ class Tasks::HoursSpentController < ApplicationController
 
   # GET /hours_spents/1/edit
   def edit
+    #raise "Du kan ikke endre timer i etterkant. Det må prosjektelder gjøre"
   end
 
   # POST /hours_spents
@@ -31,7 +32,7 @@ class Tasks::HoursSpentController < ApplicationController
     @hours_spent.project = @task.project
 
     respond_to do |format|
-      if @hours_spent.save!
+      if @hours_spent.save
         format.html { redirect_to user_tasks_started_path(@current_user), 
                       notice: 'Hours spent was successfully created.' }
         format.json { render action: 'show', status: :created, 
