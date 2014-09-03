@@ -12,5 +12,5 @@ table
     - @customers && @customers.each do |c|
       tr(data-customer-id="#{c.id}")
         td
-          starred
+          starred object-class="martin" 
         td = link_to c.name, customer_projects_path(c)
