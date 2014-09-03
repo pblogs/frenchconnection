@@ -93,11 +93,27 @@ male_task.users << maren_maler
 male_task.save
 
 # HoursSpent for Danni - Snekker
-Fabricate(:hours_spent, created_at: '01.01.2014', hour: 11,         task: snekker_task, user: danni, description: '11 vanlige timer')
-Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12,  task: snekker_task, user: danni, description: '12 timer 50% overtid')
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, task: snekker_task, user: danni, description: '13 timer 100% overtid')
+Fabricate(:hours_spent, created_at: '01.01.2014', hour: 11,         
+          task: snekker_task, user: danni, project: snekker_task.project,
+          description: '11 vanlige timer')
+
+Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12,  
+          task: snekker_task, user: danni, project: snekker_task.project,
+          description: '12 timer 50% overtid')
+
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, 
+          task: snekker_task, user: danni, project: snekker_task.project,
+          description: '13 timer 100% overtid')
 
 # HoursSpent for Maren Maler
-Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21,         task: male_task, user: maren_maler, description: 'maren maler 21 vanlige timer')
-Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 22,  task: male_task, user: maren_maler, description: 'maren maler 22 timer 50% overtid')
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 23, task: male_task, user: maren_maler, description: 'maren maler 23 timer 100% overtid')
+Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21,         
+          task: male_task, user: maren_maler, project: male_task.project,
+          description: 'maren maler 21 vanlige timer')
+
+Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 22,  
+          task: male_task, user: maren_maler, project: male_task.project,
+          description: 'maren maler 22 timer 50% overtid')
+
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 23, 
+          task: male_task, user: maren_maler, project: male_task.project,
+          description: 'maren maler 23 timer 100% overtid')
