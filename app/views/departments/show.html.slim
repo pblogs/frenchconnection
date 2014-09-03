@@ -10,7 +10,7 @@ table
     th Kunde
   tbody
     - @customers && @customers.each do |c|
-      tr(data-customer-id="#{c.id}")
+      tr
         td
-          starred object-class="martin" 
+          starred object-class="#{c.class}" object-id="#{c.id}"
         td = link_to c.name, customer_projects_path(c)
