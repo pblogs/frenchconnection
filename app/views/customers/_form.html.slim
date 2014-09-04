@@ -6,15 +6,15 @@
         - @customer.errors.full_messages.each do |message|
           li = message
 
-  span her {{ customer.name }}
   .field.right
     label 
       = f.check_box :starred
       | Merk som favoritt
 
   .field
-    = f.label :name, 'Navn'
-    = f.text_field :name
+    label
+      = 'Navn'
+      input id="customer_name" name="customer[name]" ng-model="customer.name" type="text"
 
   .field
     = f.label :org_number, 'Organisasjonsnummer'
