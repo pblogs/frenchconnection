@@ -1,3 +1,9 @@
+.action_buttons
+  button
+    = link_to "Vis timelister", hours_registered_path
+  button
+    = link_to 'Registrer ny oppgave', new_project_task_path(@project)
+
 .button.green
   p
     strong Prosjekteier: 
@@ -46,12 +52,6 @@ br
   
 
 
-.button.red
-  = link_to "Vis timelister", hours_registered_path
-
-br
-.button.red
-  = link_to 'Registrer ny oppgave', new_project_task_path(@project)
 
 br
 br
