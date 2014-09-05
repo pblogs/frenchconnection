@@ -7,8 +7,10 @@ class HoursSpent::ChangesController < ApplicationController
 
   def create
     @change = Change.new(change_params)
+    @hours_spent = HoursSpent.find(params[:hours_spent_id])
+    @change.hours_spent = @hours_spent
     if @change.save!
-      redirect_to root_path
+      redirect_to hours_registered_path(@change.hours_spent.project)
     else
       render :new
     end
@@ -37,9 +39,9 @@ class HoursSpent::ChangesController < ApplicationController
   def change_params
     params.require(:change).permit(
       :description, 
-      :cust, :customer_id, :id, :task_id, :date, :user_id, :project_id,
+      :cust, :customer_id, :id, :task_id, :date, :user_id, :project_id, :hour,
       :text, :runs_in_company_car, :km_driven_own_car, :toll_expenses_own_car, 
-      :supplies_from_warehouse, :piecework_hours, :overtime_50, 
+      :supplies_from_warehouse, :piecework_hours, :overtime_50, :reason,
       :overtime_100
     )
   end

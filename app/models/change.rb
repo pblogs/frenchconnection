@@ -1,9 +1,9 @@
 class Change < ActiveRecord::Base
   belongs_to :hours_spent
+  validates :hours_spent,  presence: true
 
 
-  def self.create_from_hours_spent(hours_spent: hours_spent, 
-                                   description: nil)
+  def self.create_from_hours_spent(hours_spent: hours_spent, reason: reason)
     c = Change.new(hours_spent.attributes.except(
       'customer_id',
       'id',
@@ -12,10 +12,7 @@ class Change < ActiveRecord::Base
       'user_id',
       'project_id'
     )) 
-    #puts "description is #{description}"
     c.hours_spent_id = hours_spent.id
-    c.description = description
-    #puts "c.description is #{c.description}"
     c
   end
 

@@ -16,9 +16,9 @@ describe Change do
     end
 
     it 'create_from_hours_spent' do
-      description =  'I know he was sick that day'
+      reason =  'I know he was sick that day'
       @change = Change.create_from_hours_spent(hours_spent: @hours_spent, 
-                         description: description )
+                         reason: reason )
 
       @change.hour.should eq @hours_spent.hour
       @change.hours_spent_id.should eq @hours_spent.id
@@ -30,9 +30,9 @@ describe Change do
 
   describe 'changed values' do
     it 'returnes the changed values' do
-      description =  'I know he was sick that day'
+      reason =  'I know he was sick that day'
       @change = Change.create_from_hours_spent(hours_spent: @hours_spent, 
-                         description: description )
+                         reason: reason )
 
       @change.hour         = 1
       @change.overtime_50  = 5
