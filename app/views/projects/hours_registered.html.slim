@@ -1,6 +1,21 @@
 h2=  "Timer registerte på #{link_to @project.name, @project}".html_safe
 
 - if @hours_registered.present?
+
+  .button-group
+    label
+      input checked="" name="button-group" type="radio" value="item" 
+        span.button-group-item Item
+    label
+      input name="button-group" type="radio" value="other-item" 
+        span.button-group-item Other But Longer Item
+    label
+      input name="button-group" type="radio" value="other-item" 
+        span.button-group-item Third
+    label
+      input name="button-group" type="radio" value="third" 
+        span.button-group-item Last Item
+
   table#hours_registered
     tr
       th
