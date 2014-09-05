@@ -42,14 +42,14 @@
       tr
         td= hour.created_at.strftime("%d/%m")
         td= hour.user.name
-        td= hour.description
-        td= hour.hour
+        td= hour.changed_value_description
+        td= hour.changed_value_hour
         td= hour.changed_value_overtime_50
         td= hour.changed_value_overtime_100
-        td= hour.runs_in_company_car
-        td= hour.km_driven_own_car
-        td= hour.toll_expenses_own_car
-        td= hour.supplies_from_warehouse
+        td= hour.changed_value_runs_in_company_car
+        td= hour.changed_value_km_driven_own_car
+        td= hour.changed_value_toll_expenses_own_car
+        td= hour.changed_value_supplies_from_warehouse
         td
           - if hour.change.present?
             = link_to 'Endre', edit_hours_spent_change_path(hour, hour.change)

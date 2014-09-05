@@ -33,7 +33,7 @@ describe HoursSpent do
     @change = Change.create_from_hours_spent(hours_spent: @hours_spent)
     @change.save
     @hours_spent.reload
-    @hours_spent.change.should be @change
+    @hours_spent.change.should eq @change
   end
 
 
