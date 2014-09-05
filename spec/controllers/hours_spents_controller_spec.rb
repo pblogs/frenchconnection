@@ -29,7 +29,8 @@ describe HoursSpentsController do
       hour:        rand(200..450),
       description: 'Sparklet dritbra',
       date: '2014-04-14',
-      user_id: Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: Fabricate(:department), emp_id: "12121", roles: ["project_leader"]).id
+      user_id: Fabricate(:user).id,
+      project_id: Fabricate(:project).id
     }
   end
 

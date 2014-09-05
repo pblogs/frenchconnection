@@ -9,7 +9,7 @@ class HoursSpent::ChangesController < ApplicationController
     @change = Change.new(change_params)
     @hours_spent = HoursSpent.find(params[:hours_spent_id])
     @change.hours_spent = @hours_spent
-    if @change.save!
+    if @change.save
       redirect_to hours_registered_path(@change.hours_spent.project)
     else
       render :new
