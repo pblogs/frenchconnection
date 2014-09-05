@@ -1,3 +1,3 @@
 class Change < ActiveRecord::Base
-  belongs_to :HoursSpent
+  belongs_to :hours_spent
 end
