@@ -1,0 +1,45 @@
+h3 Registrer endringer
+
+= form_for [@hours_spent, @change] do |f|
+  .field
+    = f.label :reason, 'Begrunnelse'
+    = f.text_area :reason, placeholder: 'Hvorfor gjøres det endringer?'
+
+  br
+  hr
+  br
+  .field
+    = f.label :description, 'Beskrivelse'
+    = f.text_area :description
+
+  .field
+    = f.label :runs_in_company_car, 'Ant ganger i firmabil'
+    = f.text_field :runs_in_company_car
+  .field
+    = f.label :km_driven_own_car, 'km i egen bil'
+    = f.text_field :km_driven_own_car
+  .field
+    = f.label :toll_expenses_own_car, 'Tollutgifter egen bil'
+    = f.text_field :toll_expenses_own_car
+  .field
+    = f.label :supplies_from_warehouse, 'Varer fra eget lager'
+    = f.text_field :supplies_from_warehouse
+  .field
+    = f.label :piecework_hours, 'Akkortimer'
+    = f.text_field :piecework_hours
+
+  .field
+    = f.label :hour, 'Ordinære timer'
+    = f.text_field :hour
+
+  .field
+    = f.label :overtime_50, 'Overtid 50%'
+    = f.text_field :overtime_50
+
+  .field
+    = f.label :overtime_100, 'Overtid 100%'
+    = f.text_field :overtime_100
+
+  = f.submit 'Lagre endringer'
+
+

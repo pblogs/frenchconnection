@@ -29,5 +29,12 @@ describe HoursSpent do
     @hours_spent.sum.should eq 100
   end
 
+  it 'can have one change' do
+    @change = Change.create_from_hours_spent(hours_spent: @hours_spent)
+    @change.save
+    @hours_spent.reload
+    @hours_spent.change.should eq @change
+  end
+
 
 end

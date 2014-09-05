@@ -74,7 +74,7 @@ class HoursSpentsController < ApplicationController
 
     def hours_spent_params
       params.require(:hours_spent).permit(:customer_id, :task_id, :hour, 
-                                          :user_id, :customer,
+                                          :user_id, :customer, :project_id,
                                           :description, :date)
     end
 

@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :hours_spents
   has_many :categories, :through => :projects
 
+
   def self.get_roles
     ROLES
   end

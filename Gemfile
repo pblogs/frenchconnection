@@ -21,6 +21,8 @@ gem 'axlsx', '~> 2.0.1'
 gem 'neat'
 gem 'bourbon'
 gem 'bitters'
+gem 'refills'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
