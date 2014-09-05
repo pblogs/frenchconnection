@@ -18,11 +18,11 @@
 
   p
     strong Beskrivelse: 
-    = @project.description
+    = simple_format @project.description
 
   p
     strong Kort beskrivelse: 
-    = @project.short_description
+    = simple_format @project.short_description
   p
     strong Oppstart: 
     = I18n.l(@project.start_date, format: :short_w_year)
