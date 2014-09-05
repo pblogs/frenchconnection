@@ -3,8 +3,7 @@ class Change < ActiveRecord::Base
 
 
   def self.create_from_hours_spent(hours_spent: hours_spent, 
-                                   description: description)
-    hours_spent_id = hours_spent.id
+                                   description: nil)
     c = Change.new(hours_spent.attributes.except(
       'customer_id',
       'id',
@@ -12,12 +11,13 @@ class Change < ActiveRecord::Base
       'date',
       'user_id',
       'project_id'
-     )) 
-    puts "description is #{description}"
+    )) 
+    #puts "description is #{description}"
     c.hours_spent_id = hours_spent.id
     c.description = description
-    puts "c.description is #{c.description}"
+    #puts "c.description is #{c.description}"
     c
   end
 
 end
+
