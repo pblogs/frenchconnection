@@ -16,14 +16,15 @@ describe Change do
     end
 
     it 'create_from_hours_spent' do
+      description =  'I know he was sick that day'
       @change = Change.create_from_hours_spent(hours_spent: @hours_spent, 
-                                               description: 'I know he was sick that day' )
+                         description: description )
 
       @change.hour.should eq @hours_spent.hour
       @change.hours_spent_id.should eq @hours_spent.id
       @change.overtime_50.should  eq @hours_spent.overtime_50
       @change.overtime_100.should eq @hours_spent.overtime_100
-      @change.description.should  eq  'aMSFDSFs'
+      @change.description.should  eq description
       
     end
     
