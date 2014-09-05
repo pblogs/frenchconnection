@@ -27,7 +27,7 @@ class HoursSpentsController < ApplicationController
     @hours_spent = HoursSpent.new(hours_spent_params)
 
     respond_to do |format|
-      if @hours_spent.save
+      if @hours_spent.save!
         format.html { redirect_to @hours_spent, 
                       notice: 'Timer registrert' }
         format.json { render action: 'show', 
@@ -74,7 +74,7 @@ class HoursSpentsController < ApplicationController
 
     def hours_spent_params
       params.require(:hours_spent).permit(:customer_id, :task_id, :hour, 
-                                          :user_id, :customer,
+                                          :user_id, :customer, :project_id,
                                           :description, :date)
     end
 

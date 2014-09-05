@@ -129,7 +129,7 @@ describe Tasks::HoursSpentController do
 
   describe "PUT update" do
     describe "with valid params" do
-      it "updates the requested hours_spent", focus: true do
+      it "updates the requested hours_spent" do
       pending "WIP - A User should not be allowd to change hours"
         sign_in
         hours_spent = HoursSpent.create! valid_attributes

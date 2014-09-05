@@ -13,6 +13,7 @@ class Change < ActiveRecord::Base
       'project_id'
     )) 
     c.hours_spent_id = hours_spent.id
+    c.reason = reason
     c
   end
 
