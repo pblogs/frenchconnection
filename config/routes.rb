@@ -1,7 +1,8 @@
 AllieroForms::Application.routes.draw do
 
-  resources :departments
+  resources :changes
 
+  resources :departments
   resources :attachments
 
   devise_for :users, :controllers => {
@@ -49,6 +50,9 @@ AllieroForms::Application.routes.draw do
   end
 
   resources :hours_spents
+  resources :hours_spent do
+    resources :changes, :controller => 'hours_spent/changes'
+  end
   resources :tasks do
     resources :hours_spents, :controller => 'tasks/hours_spent'
   end
