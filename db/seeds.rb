@@ -58,8 +58,9 @@ Fabricate(:user, department: service_avdeling, roles: [:project_leader],
           first_name: "Arild", mobile:  94147807, last_name: "Jonassen")
 
 # Dummy kontoer for testing
-Fabricate(:user, department: service_avdeling, roles: [:worker], 
-          first_name: "Working", mobile:  00000001, last_name: "Man")
+dummy_worker = Fabricate(:user, department: service_avdeling, roles: [:worker], 
+          first_name: "Working", mobile:  00000001, last_name: "Man", 
+          profession: snekker)
 Fabricate(:user, department: service_avdeling, roles: [:project_leader], 
           first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
 
@@ -82,9 +83,9 @@ ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen',
                  customer: sporveiene, 
                  department: service_avdeling, starred: true, user: @martin)
 
-# Tasks for Danni - Snekker
+# Tasks for dummy_worker - Snekker
 snekker_task = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
-snekker_task.users << danni
+snekker_task.users << dummy_worker
 snekker_task.save
 
 # Tasks for Maren - Maler

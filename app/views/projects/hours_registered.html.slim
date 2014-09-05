@@ -1,18 +1,60 @@
-h2=  "Timer registerte på #{link_to @project.name, @project}".html_safe
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  = fa_icon 'chevron-right'
+  strong= @project.name
+
 
 - if @hours_registered.present?
+
+  .button-group
+    label
+      input checked="" name="button-group" type="radio" value="item" 
+        span.button-group-item 
+          = link_to 'Vis alle timer'  
+    label
+      input name="button-group" type="radio" value="other-item" 
+        span.button-group-item Lag dagrapport
+    label
+      input name="button-group" type="radio" value="other-item" 
+        span.button-group-item Lag timelister
+  br 
+  br 
+  br 
+
+
+
   table#hours_registered
     tr
       th
         = sort_link(@search, :created_at, 'Dato ')
         = fa_icon 'sort'
-      th Navn
-      th Antall
+      th Ansatt
+      th Tekst
+      th Ord. timer
+      th 50%
+      th 100%
+      th Servicebil
+      th km egen bil
+      th Bomutgifter
+      th Varer fra lager
+      th 
     - @hours_registered.each do |hour|
       tr
-        td= hour.created_at.strftime("%B %e, %Y")
+        td= hour.created_at.strftime("%d/%m")
         td= hour.user.name
-        td= hour.hour
+        td= hour.changed_value_description
+        td= hour.changed_value_hour
+        td= hour.changed_value_overtime_50
+        td= hour.changed_value_overtime_100
+        td= hour.changed_value_runs_in_company_car
+        td= hour.changed_value_km_driven_own_car
+        td= hour.changed_value_toll_expenses_own_car
+        td= hour.changed_value_supplies_from_warehouse
+        td
+          - if hour.change.present?
+            = link_to 'Endre', edit_hours_spent_change_path(hour, hour.change)
+          - else
+            = link_to 'Endre', new_hours_spent_change_path(hour)
 - else
   br
   br

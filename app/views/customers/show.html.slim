@@ -3,7 +3,7 @@ p
   = @customer.name
 p
   label Addresse:
-  = @customer.address
+  = simple_format @customer.address
   br
   = @customer.area
 p
@@ -18,8 +18,9 @@ p
 
 
 br
-= link_to 'Lag et nytt prosjekt', 
-  new_customer_project_path(@customer), class: 'red button'
+button
+  = link_to 'Lag et nytt prosjekt', 
+    new_customer_project_path(@customer), class: 'red button'
 br
 br
 

@@ -11,7 +11,7 @@ angular
     console.log('userId seen from the controller: ' + Session.userId )
 
     $scope.customers = {}
-    $scope.customer = { name: 'hei' }
+    #$scope.customer = { name: 'hei' }
 
     $scope.readSession = () ->
       console.log('Read session: ' + Session.userId )
