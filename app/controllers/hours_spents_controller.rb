@@ -27,7 +27,7 @@ class HoursSpentsController < ApplicationController
     @hours_spent = HoursSpent.new(hours_spent_params)
 
     respond_to do |format|
-      if @hours_spent.save!
+      if @hours_spent.save
         format.html { redirect_to @hours_spent, 
                       notice: 'Timer registrert' }
         format.json { render action: 'show', 
