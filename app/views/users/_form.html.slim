@@ -7,29 +7,29 @@
           li = message
 
   .field
-    = f.label :first_name
+    = f.label :first_name, 'Fornavn'
     = f.text_field :first_name
   .field
-    = f.label :last_name
+    = f.label :last_name, 'Etternavn'
     = f.text_field :last_name
   .field
-    = f.label :mobile
+    = f.label :mobile, 'Mobil'
     = f.text_field :mobile
   .field
-    = f.label :Employee, "Employee ID"
+    = f.label :Employee, "Ansattnr"
     = f.text_field :emp_id
   .field
-    = f.label :Department
+    = f.label :Department, 'Avdeling'
     - @department.each do |dep|
       = f.radio_button :department_id, dep.id, :style=>"margin-left:10px"
       = dep.title
   .field
-    = f.label :Roles
+    = f.label :Roles, 'Roller'
     - User.get_roles.each do |role|
       = f.radio_button :roles, role, :style=>"margin-left:10px"
       = role
   .field
-    = f.label :image  
+    = f.label :image, 'Bilde'
     = f.file_field :image
   br
-  .actions = f.submit 'Save'
+  .actions = f.submit 'Lagre'

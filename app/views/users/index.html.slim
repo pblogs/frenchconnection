@@ -1,15 +1,15 @@
-h1 Listing users
+h1 Brukere
 
 table[class="listusers"]
   thead
     tr
-      th[class="username"] Name
-      th[class="phone_number"] Phone Number
-      th[class="employee_id"] Employee ID
-      th[class="department"] Department
-      th[class="role"] Role
-      th[class="image"] Image
-      th[class="actions"] Actions
+      th[class="username"] Navn
+      th[class="phone_number"] Mobil
+      th[class="employee_id"] Ansattnr
+      th[class="department"] Avdeling
+      th[class="role"] Rolle
+      th[class="image"] Bilde
+      th[class="actions"] 
   tbody
     - @users.each do |user|
       tr
@@ -26,4 +26,5 @@ table[class="listusers"]
           = link_to 'Slett', user, data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
-= link_to 'New User', new_user_path
+button
+  = link_to 'Lag ny bruker', new_user_path

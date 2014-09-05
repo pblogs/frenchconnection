@@ -41,16 +41,20 @@
     - @hours_registered.each do |hour|
       tr
         td= hour.created_at.strftime("%d/%m")
-        td= hour.user.name || 'navn'
-        td= hour.description || 'beskrivelse'
+        td= hour.user.name
+        td= hour.description
         td= hour.hour
-        td= hour.overtime_50
-        td= hour.overtime_100
+        td= hour.changed_value_overtime_50
+        td= hour.changed_value_overtime_100
         td= hour.runs_in_company_car
         td= hour.km_driven_own_car
         td= hour.toll_expenses_own_car
         td= hour.supplies_from_warehouse
-        td= link_to 'Endre', edit_hours_spent_path(hour)
+        td
+          - if hour.change.present?
+            = link_to 'Endre', edit_hours_spent_change_path(hour, hour.change)
+          - else
+            = link_to 'Endre', new_hours_spent_change_path(hour)
 - else
   br
   br
