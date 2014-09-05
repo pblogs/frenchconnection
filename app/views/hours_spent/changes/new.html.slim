@@ -1,0 +1,30 @@
+h3 Registrer endringer
+
+= form_for @change do |f|
+  .field
+    = f.label :description
+    = f.text_area :description
+
+  .field
+    = f.label :runs_in_company_car
+    = f.text_field :runs_in_company_car
+  .field
+    = f.label :km_driven_own_car
+    = f.text_field :km_driven_own_car
+  .field
+    = f.label :toll_expenses_own_car
+    = f.text_field :toll_expenses_own_car
+  .field
+    = f.label :supplies_from_warehouse
+    = f.text_field :supplies_from_warehouse
+  .field
+    = f.label :piecework_hours
+    = f.text_field :piecework_hours
+  .field
+    = f.label :overtime_50
+    = f.text_field :overtime_50
+  .field
+    = f.label :overtime_100
+    = f.text_field :overtime_100
+  .field
+  end
