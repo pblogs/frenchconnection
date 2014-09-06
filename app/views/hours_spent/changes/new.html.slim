@@ -3,14 +3,14 @@ h3 Registrer endringer
 = form_for [@hours_spent, @change] do |f|
   .field
     = f.label :reason, 'Begrunnelse'
-    = f.text_area :reason, placeholder: 'Hvorfor gjøres det endringer?'
+    = f.text_area :reason, rows: 5, placeholder: 'Hvorfor gjøres det endringer?'
 
   br
   hr
   br
   .field
     = f.label :description, 'Beskrivelse'
-    = f.text_area :description
+    = f.text_area :description, rows: 5
 
   .field
     = f.label :runs_in_company_car, 'Ant ganger i firmabil'
@@ -23,7 +23,7 @@ h3 Registrer endringer
     = f.text_field :toll_expenses_own_car
   .field
     = f.label :supplies_from_warehouse, 'Varer fra eget lager'
-    = f.text_field :supplies_from_warehouse
+    = f.text_area :supplies_from_warehouse, rows: 10
   .field
     = f.label :piecework_hours, 'Akkortimer'
     = f.text_field :piecework_hours
@@ -40,6 +40,7 @@ h3 Registrer endringer
     = f.label :overtime_100, 'Overtid 100%'
     = f.text_field :overtime_100
 
+  br
   = f.submit 'Lagre endringer'
 
 
