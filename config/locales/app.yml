@@ -2,3 +2,5 @@ nb:
   roles:
     project_leader: Prosjektleder
     worker: Arbeider
+    admin: Admin
+    economy: Økonomi

@@ -9,25 +9,30 @@
   .field
     = f.label :first_name, 'Fornavn'
     = f.text_field :first_name
+
   .field
     = f.label :last_name, 'Etternavn'
     = f.text_field :last_name
+
   .field
     = f.label :mobile, 'Mobil'
     = f.text_field :mobile
+
   .field
-    = f.label :Employee, "Ansattnr"
+    = f.label :emp_id, "Ansattnr"
     = f.text_field :emp_id
+
   .field
-    = f.label :Department, 'Avdeling'
-    - @department.each do |dep|
-      = f.radio_button :department_id, dep.id, :style=>"margin-left:10px"
-      = dep.title
+    = f.label :department_id, 'Avdeling'
+    = f.collection_radio_buttons :department_id, @department, :id, :title
+
+  br
   .field
-    = f.label :Roles, 'Roller'
+    = f.label :roles, 'Roller'
     - User.get_roles.each do |role|
-      = f.radio_button :roles, role, :style=>"margin-left:10px"
-      = role
+      label
+        = f.radio_button :roles, role, :checked => @user.roles.first == role
+        = I18n.t("roles.#{role}")
   .field
     = f.label :image, 'Bilde'
     = f.file_field :image
