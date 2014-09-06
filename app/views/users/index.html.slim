@@ -18,7 +18,7 @@ table[class="listusers"]
         td = user.mobile
         td = user.emp_id
         td = Department.find(user.department_id).title
-        td = user.roles.join(",")
+        td = I18n.t "roles.#{user.roles.first}"
         td = image_tag user.image, :size => "50x40"
         td
           = link_to 'Rediger', edit_user_path(user)

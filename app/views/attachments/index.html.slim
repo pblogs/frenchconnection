@@ -10,7 +10,7 @@ table
   tbody
     - @attachments.each do |attachment|
       tr
-        td = link_to 'Show', attachment
+        td = link_to 'Vis', attachment
         td = link_to 'Edit', edit_attachment_path(attachment)
         td = link_to 'Destroy', attachment, data: {:confirm => 'Are you sure?'}, :method => :delete
 
