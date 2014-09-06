@@ -14,7 +14,8 @@ table
         td = task_type.title
         td = link_to 'Vis', task_type
         td = link_to 'Edit', edit_task_type_path(task_type)
-        td = link_to 'Destroy', task_type, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', task_type, 
+            data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
