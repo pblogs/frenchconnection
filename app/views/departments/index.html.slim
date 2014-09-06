@@ -12,7 +12,7 @@ table
     - @departments.each do |department|
       tr
         td = department.title
-        td = link_to 'Show', department
+        td = link_to 'Vis', department
         td = link_to 'Edit', edit_department_path(department)
         td = link_to 'Destroy', department, data: {:confirm => 'Are you sure?'}, :method => :delete
 
