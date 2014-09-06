@@ -17,4 +17,18 @@ describe User do
     expect(@user.tasks).to include(@task, @task2)
   end
 
+  describe 'project_departments' do
+    before do
+      @service = Fabricate(:department, title: 'Service')
+      @support = Fabricate(:department, title: 'Support')
+      @service_project = Fabricate(:project, user: @user, department: @service)
+      @support_project = Fabricate(:project, user: @user, department: @support)
+    end
+
+    it 'returns the departments from all projects that the user owns' do
+      @user.project_departments.should eq [@service, @support]
+    end
+    
+  end  
+
 end
