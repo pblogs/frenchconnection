@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
-  ROLES = %w[admin leader project_leader worker economy]
+  ROLES = %w[admin project_leader worker economy]
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
