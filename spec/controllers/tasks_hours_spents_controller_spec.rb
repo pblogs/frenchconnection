@@ -46,7 +46,6 @@ describe Tasks::HoursSpentController do
   describe "GET index" do
     it "assigns all hours_spents as @hours_spents" do
       sign_in
-      puts "valid_attributes: #{valid_attributes}"
       hours_spent = HoursSpent.create! valid_attributes
       get :index, {:task_id => hours_spent.task_id }, valid_session
       assigns(:hours_spents).should eq([hours_spent])
