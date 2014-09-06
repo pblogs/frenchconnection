@@ -26,7 +26,6 @@ describe DepartmentsController do
   let(:valid_attributes) { { "title" => "MyString" } }
 
   before do
-    Department.destroy_all
     sign_in
   end
 
@@ -39,7 +38,7 @@ describe DepartmentsController do
     it "assigns all departments as @departments" do
       department = Department.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:departments).should eq([department])
+      assigns(:departments).should include(department)
     end
   end
 
