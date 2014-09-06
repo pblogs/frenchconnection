@@ -100,10 +100,11 @@ describe Tasks::HoursSpentController do
       end
 
       it "redirects to the created hours_spent" do
-        sign_in
+        @current_user = Fabricate(:user)
+        sign_in @current_user
         post :create, {:task_id => Fabricate(:task).id,
                        :hours_spent => valid_attributes}, valid_session
-        response.should redirect_to(HoursSpent.last)
+        response.should redirect_to user_tasks_started_path(@current_user)
       end
     end
 
@@ -113,12 +114,13 @@ describe Tasks::HoursSpentController do
         # Trigger the behavior that occurs when invalid params are submitted
         task = Fabricate(:task)
         HoursSpent.any_instance.stub(:save).and_return(false)
-        post :create, { :task_id => task.id, :hours_spent => { "hour" => "invalid value" }}, 
+        post :create, { :task_id => task.id,
+          :hours_spent => { "hour" => "invalid value" }}, 
           valid_session
         assigns(:hours_spent).should be_a_new(HoursSpent)
       end
 
-      it "re-renders the 'new' template", focus: true do
+      it "re-renders the 'new' template" do
         sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
