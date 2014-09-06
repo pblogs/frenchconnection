@@ -25,8 +25,9 @@ class HoursSpent::ChangesController < ApplicationController
   def update
     @change = Change.find(params[:id])
     @change.update_attributes(change_params)
-    if @change.save
-      redirect_to hours_registered_path(@change.hours_spent.project)
+    if @change.save!
+      puts "Will redirect to this id #{@change.hours_spent.project.id}"
+      redirect_to hours_registered_path(@change.hours_spent.project.id)
     else
       render :edit
     end
