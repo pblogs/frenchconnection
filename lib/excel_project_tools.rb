@@ -1,9 +1,9 @@
 class ExcelProjectTools
 
-  def self.hours_for_users(project:, profession:, use_changed: false)
+  def self.hours_for_users(project:, profession:, changed: false)
     hours = []
     project.users.where(profession: profession).each do |user|
-        hours << project.hours_total_for(user, use_changed: use_changed)
+        hours << project.hours_total_for(user, changed: changed)
     end
     hours.map {|x| "#{x}" }
   end
