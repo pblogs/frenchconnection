@@ -1,10 +1,23 @@
 class ExcelProjectTools
 
-  def self.hours_for_users(project:, profession:, changed: false)
+  #def self.hours_for_users(project:, profession:, changed: false)
+  #  hours = []
+  #  project.users.where(profession: profession).each do |user|
+  #      hours << project.hours_total_for(user, changed: changed)
+  #  end
+  #  hours.map {|x| "#{x}" }
+  #end
+  
+  # Returns an array with nr of hours 
+  def self.hours_for_users(project:, profession:, changed: false, overtime:)
     hours = []
     project.users.where(profession: profession).each do |user|
-        hours << project.hours_total_for(user, changed: changed)
+      hours_spent = []
+      hours_spent << project.hours_spents.where(user: user).all
+      hours_spent.flatten!
+      hours << hours_spent.map { |hs| hs.changed_value(overtime) }
     end
+    hours.flatten!
     hours.map {|x| "#{x}" }
   end
 
