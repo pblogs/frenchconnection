@@ -36,19 +36,21 @@ class Project < ActiveRecord::Base
     sum
   end
 
-  def hours_total_for(user, changed: false)
+  def hours_total_for(user, changed: false, overtime: false)
     sum = 0
     hours_spents.where(user: user).each do |h|
       if changed
-        sum += h.changed_value_hour             || 0
-        sum += h.changed_value_piecework_hours  || 0
-        sum += h.changed_value_overtime_50      || 0
-        sum += h.changed_value_overtime_100     || 0
+        sum += h.changed_value(overtime)        || 0
+        #sum += h.changed_value_hour             || 0
+        #sum += h.changed_value_piecework_hours  || 0
+        #sum += h.changed_value_overtime_50      || 0
+        #sum += h.changed_value_overtime_100     || 0
       else
-        sum += h.hour             || 0
-        sum += h.piecework_hours  || 0
-        sum += h.overtime_50      || 0
-        sum += h.overtime_100     || 0
+        sum += h.send(overtime)    || 0
+        #sum += h.hour             || 0
+        #sum += h.piecework_hours  || 0
+        #sum += h.overtime_50      || 0
+        #sum += h.overtime_100     || 0
       end
     end
     sum
@@ -56,6 +58,7 @@ class Project < ActiveRecord::Base
 
   def name_of_users(profession: nil)
     if profession
+      #raise "users_with_profession: #{users_with_profession(profession: profession)}"
       users = users_with_profession(profession: profession)
       users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
       #u.pluck(:first_name).join(', ').collect { |n| n.strip }
