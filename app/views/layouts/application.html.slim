@@ -69,6 +69,7 @@ html
 
       .banner
         .login_logout
+          br
           - if signed_in?
             span= "Logget inn som #{@current_user.name}"
             br
