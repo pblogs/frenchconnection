@@ -108,17 +108,19 @@ class Dagsrapport
           # Sum timer pr pers
           if @workers.present?
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
-              ExcelProjectTools.hours_for_users(project: @project, profession: @profession) + [nil, nil, nil, nil],
-              :style => [gray_bg_align_right, gray_bg_align_right, 
-                         gray_bg_align_right, gray_bg_align_right, 
-                         gray_bg_align_right, gray_bg_align_right, 
-                         gray_bg_align_right]    
+              ExcelProjectTools.hours_for_users(project: @project,
+                profession: @profession) + [nil, nil, nil, nil],
+                :style => [gray_bg_align_right, gray_bg_align_right, 
+                           gray_bg_align_right, gray_bg_align_right, 
+                           gray_bg_align_right, gray_bg_align_right, 
+                           gray_bg_align_right]    
           else
             sheet.add_row ['', 'INGEN OPPGAVER FINNES HER']
           end
 
           # Sum timer totalt
-          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total(profession: @profession), 
+          sheet.add_row ['', 'Sum timer totalt: ',
+                         @project.hours_spent_total(profession: @profession), 
                          nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
