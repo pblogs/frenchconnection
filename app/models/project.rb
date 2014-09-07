@@ -25,14 +25,15 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
-  def hours_spent_total(profession: nil)
+  def hours_spent_total(profession: nil, use_changed: false)
+    puts "running hours_spent_total with use_changed: #{use_changed}"
     if profession
       @users = users_with_profession(profession: profession)
     else
       @users = users
     end
     sum = ''
-    @users.each { |u| sum = hours_total_for(u) }
+    @users.each { |u| sum = hours_total_for(u, use_changed: use_changed) }
     sum
   end
 
@@ -40,17 +41,22 @@ class Project < ActiveRecord::Base
     sum = 0
     hours_spents.where(user: user).each do |h|
       if use_changed
+        puts "use_changed"
         sum += h.changed_value_hour             || 0
+        puts "\n\n HER \n\n changed_value_hour: #{h.changed_value_hour}"
         sum += h.changed_value_piecework_hours  || 0
         sum += h.changed_value_overtime_50      || 0
         sum += h.changed_value_overtime_100     || 0
+        puts "sum is now #{sum}"
       else
+        puts "NOT USING use_changed"
         sum += h.hour             || 0
         sum += h.piecework_hours  || 0
         sum += h.overtime_50      || 0
         sum += h.overtime_100     || 0
       end
     end
+    puts "will return sum #{sum}"
     sum
   end
 
