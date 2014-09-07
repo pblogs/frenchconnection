@@ -10,6 +10,8 @@ class HoursSpent < ActiveRecord::Base
   validates :date,        :presence => true
   validates :project_id,  :presence => true
 
+  # Sums all the different types of hours registered 
+  # for one day, on one user.
   def sum
     (self.hour            ||  0) +
     (self.piecework_hours ||  0) +
