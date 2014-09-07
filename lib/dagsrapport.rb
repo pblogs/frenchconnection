@@ -2,7 +2,7 @@ class Dagsrapport
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project:, profession:, overtime:)
+  def initialize(project:, profession:, overtime: :hour)
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
@@ -69,7 +69,9 @@ class Dagsrapport
             :style => [bold_italic, yellow_bg, bold]
           sheet.add_row ['Kunde:', @project.customer.name ], 
             :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Adresse:', (@project.execution_address || @project.customer.address), nil, nil, nil ], 
+          sheet.add_row ['Adresse:',
+                         (@project.execution_address || @project.customer.address), 
+                         nil, nil, nil ], 
             :style => [bold_italic, yellow_bg, bold]
     
           # 5 blanks with C D E F G spanning from 7-11
@@ -92,9 +94,11 @@ class Dagsrapport
           @workers.each do |user|
             ai += 1
             @project.hours_spents.where(user: user).each do |hours_spent|
+              next unless (hours_spent.send(@overtime) > 0 rescue nil)
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
-                hours_spent.changed_value_description] + 
-                offsett(ai) + [hours_spent.sum(changed: true)]
+                hours_spent.changed_value_description(:normal)] + 
+                offsett(ai) + [hours_spent.send(@overtime)]
+                # denne returnerer nok ikke fra changed ^
               i += 1 
             end
           end
@@ -102,11 +106,14 @@ class Dagsrapport
           sheet.add_row [nil]
           sheet.add_row [nil]
 
-          # Sum timer pr pers
+          # Var Sum timer pr pers
+          # Nå ant timer i gitt overtime verdi. eks bare 100%
           if @workers.present?
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
-              ExcelProjectTools.hours_for_users(project: @project,
-                profession: @profession, use_changed: true) + [nil, nil, nil, nil],
+              #[1,2,3] + [nil, nil, nil],
+              ExcelProjectTools.hours_for_users(project: @project, 
+                overtime: @overtime,
+                profession: @profession, changed: true) + [nil, nil, nil, nil],
                 :style => [gray_bg_align_right, gray_bg_align_right, 
                            gray_bg_align_right, gray_bg_align_right, 
                            gray_bg_align_right, gray_bg_align_right, 
@@ -118,7 +125,7 @@ class Dagsrapport
           # Sum timer totalt
           sheet.add_row ['', 'Sum timer totalt: ',
                          @project.hours_spent_total(profession: @profession,
-                                                   use_changed: true), 
+                                                   changed: true), 
                          nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
