@@ -32,17 +32,19 @@ class Project < ActiveRecord::Base
       @users = users
     end
     sum = ''
-    @users.each do |u|
-      sum = hours_total_for(u)
-    end
+    @users.each { |u| sum = hours_total_for(u) }
     sum
   end
 
-  def hours_total_for(user)
-    hours_spents.where(user_id: user.id).sum(:hour) +
-    hours_spents.where(user_id: user.id).sum(:piecework_hours) +
-    hours_spents.where(user_id: user.id).sum(:overtime_50) +
-    hours_spents.where(user_id: user.id).sum(:overtime_100) 
+  def hours_total_for(user, use_changed: false)
+    sum = 0
+    hours_spents.where(user: user).each do |h|
+      sum += h.hour || 0
+      sum += h.piecework_hours || 0
+      sum += h.overtime_50 || 0
+      sum += h.overtime_100 || 0
+    end
+    sum
   end
 
   def name_of_users(profession: nil)
