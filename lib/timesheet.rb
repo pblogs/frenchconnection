@@ -33,16 +33,22 @@ class Timesheet
     
         bold_italic  = styles.add_style :b => true, :i => true 
         bold         = styles.add_style :b => true
-        bold_center  = styles.add_style :b => true, :alignment => { :horizontal => :center }
-        bold_pull_left = styles.add_style :b => true, :alignment => { :horizontal => :left }
-        bold_pull_right = styles.add_style :b => true, :alignment => { :horizontal => :right }
+        bold_center  = styles.add_style :b => true,
+          :alignment => { :horizontal => :center }
+        bold_pull_left = styles.add_style :b => true,
+          :alignment => { :horizontal => :left }
+        bold_pull_right = styles.add_style :b => true,
+          :alignment => { :horizontal => :right }
         bold_gray_bg = styles.add_style :b => true, :bg_color => 'E2E2E2'
-        border       = styles.add_style :border => { style: :medium, color: '000000' }
+        border       = styles.add_style :border => { style: :medium, 
+                                                     color: '000000' }
         bold_gray_bg_center = styles.add_style :b => true, 
           :bg_color => 'E2E2E2', :alignment => { :horizontal => :center }
 
-        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "E2E2E2"
-        attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
+        gray_bg_align_right = styles.add_style :alignment => { 
+          :horizontal => :right }, :bg_color => "E2E2E2"
+        attest_style= styles.add_style :alignment => { 
+          :horizontal => :right }, :sz => 16
     
     
         # WORKSHEET
@@ -136,9 +142,10 @@ class Timesheet
           'Bom-', 'Fraværs-', 'Fraværsgrunn'], 
             style: [
               bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, 
-              bold_gray_bg, bold_gray_bg, bold_gray_bg_center, bold_gray_bg_center, 
-              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, 
-              bold_gray_bg, bold_gray_bg, bold_gray_bg]
+              bold_gray_bg, bold_gray_bg, bold_gray_bg_center,
+              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center,
+              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg, 
+              bold_gray_bg, bold_gray_bg]
 
 # Linje 9 # Subheader bottom
           sheet.add_row [nil, nil, nil, 'timer', 
