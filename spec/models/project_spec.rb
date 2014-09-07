@@ -18,6 +18,8 @@ describe Project do
       @task.users << @snekker1
       @task.users << @user2
       @task.users << @user3
+      @task.save
+      @project.save
     end
 
     it "is valid from the Fabric" do
@@ -38,7 +40,7 @@ describe Project do
       @project.name_of_users.should eq 'John, Barry, Mustafa'
     end
 
-    describe 'Counting hours' do 
+    describe 'hours_total_for(user)' do 
       it "knows how many hours each of them as worked" do
         Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
         Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @snekker1)
@@ -47,7 +49,7 @@ describe Project do
         @project.hours_total_for(@snekker1).should eq 20
       end
 
-      it 'returnes changed numbers if asked' do
+      it 'hours_total_for(user, changed: true)' do
         @hours_spent1 = Fabricate(:hours_spent, hour: 10, task: @task,
                                   user: @snekker1)
         @hours_spent2 = Fabricate(:hours_spent, piecework_hours: 10, task: @task,
@@ -64,7 +66,7 @@ describe Project do
         @project.hours_total_for(@snekker1, changed: true).should eq 2
       end
 
-      it "is possible to list all hours spent for a particular user" do
+      it ".hours_spents" do
         @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
         @project.hours_spents.where(user: @snekker1).first.should eq @hours_spent
       end
