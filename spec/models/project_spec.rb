@@ -4,7 +4,7 @@ describe Project do
   describe "generic" do
     before :each do
       @department = Fabricate(:department)
-      @project_leader  = Fabricate(:user, first_name: 'john', last_name: 'Jonassen', department: @department, emp_id: "12121", roles: ["project_leader"])
+      @project_leader  = Fabricate(:user)
       @service         = Fabricate(:department, title: 'Service')
       @project         = Fabricate(:project, user: @project_leader, 
                                    department: @service)
@@ -38,12 +38,29 @@ describe Project do
       @project.name_of_users.should eq 'John, Barry, Mustafa'
     end
 
-    it "knows how many hour each of them as worked" do
+    it "knows how many hours each of them as worked" do
       Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
       Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @snekker1)
       # Test creating hours on an other user
       Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
       @project.hours_total_for(@snekker1).should eq 20
+    end
+
+    it 'returnes changed numbers if asked' do
+      @hours_spent1 = Fabricate(:hours_spent, hour: 10, task: @task,
+                                user: @snekker1)
+      @hours_spent2 = Fabricate(:hours_spent, piecework_hours: 10, task: @task,
+                                user: @snekker1)
+      @change1 = Change.create_from_hours_spent(hours_spent: @hours_spent1, 
+                                               reason: 'works slow' )
+      @change2 = Change.create_from_hours_spent(hours_spent: @hours_spent2, 
+                                               reason: 'works slow' )
+      @change1.hour            = 1
+      @change2.piecework_hours = 1
+      @change1.save
+      @change2.save
+
+      @project.hours_total_for(@snekker1, use_changed: true).should eq 2
     end
 
     it "is possible to list all hours spent for a particular user" do

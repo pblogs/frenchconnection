@@ -42,6 +42,7 @@ describe Change do
       @change.overtime_50.should eq 5
       @hours_spent.reload
       @hours_spent.changed_value_overtime_50.should eq 5
+      @hours_spent.sum(change: true).should eq 6
       
     end
     
