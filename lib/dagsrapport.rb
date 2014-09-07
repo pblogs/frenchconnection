@@ -7,6 +7,8 @@ class Dagsrapport
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
     @workers    = @project.users.where(profession: @profession)
+    @header     = "DAGSRAPPORT - #{@profession.title} - #{@overtime}"
+    @logo       = 'app/assets/images/alliero-bratfoss-h46.png'
   end
 
 =begin
@@ -53,7 +55,7 @@ class Dagsrapport
     
         wb.add_worksheet do |sheet|
     
-          sheet.add_image(:image_src => 'app/assets/images/alliero-bratfoss-h46.png',
+          sheet.add_image(:image_src => @logo,
                           :noSelect => true, :noMove => true) do |image|
             image.width=390
             image.height=60
@@ -61,7 +63,7 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row [nil, nil, nil, "DAGSRAPPORT - #{@profession.title}"], :style => [nil, nil, nil, header], 
+          sheet.add_row [nil, nil, nil, @header], :style => [nil, nil, nil, header], 
             :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
@@ -148,7 +150,6 @@ class Dagsrapport
       end
       p.use_shared_strings = true
       p.serialize "tmp/dagsrapport.xls"
-      #p.serialize "/Users/martins/Work/AllieroForms/ny-dagsrapport.xlsx"
     end
     "tmp/dagsrapport.xls"
   end
