@@ -13,7 +13,8 @@ describe ExcelProjectTools do
 
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
-    Fabricate(:hours_spent, hour: 19, task: @task, user: @snekker_jens )
+    @hours_for_jens = Fabricate(:hours_spent, hour: 19, 
+                                        task: @task, user: @snekker_jens )
   end
 
   it %q{returns a comma separated 
@@ -23,6 +24,15 @@ describe ExcelProjectTools do
       profession: snekker).should eq ['19']
   end
 
+  it %q{returns a comma separated 
+        string with the CHANGED sum of the hours each user has worked} do
+    @change = Change.create_from_hours_spent(hours_spent: @hours_for_jens, 
+                                             reason: 'adjusted' )
+    @change.update_attribute(:hour, 1)
+    snekker = Profession.where(title: 'Snekker')
+    ExcelProjectTools.hours_for_users(project: @project, 
+      profession: snekker, use_changed: true).should eq ['1']
+  end
 
   it %q{returns a comma separated string of names for profession} do
     ExcelProjectTools.user_names(project: @project, 
