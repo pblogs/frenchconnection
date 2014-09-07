@@ -12,7 +12,7 @@ class HoursSpent < ActiveRecord::Base
 
   # Sums all the different types of hours registered 
   # for one day, on one user.
-  def sum(changed: false)
+  def sum(overtime: nil, changed: nil)
     if changed
       (self.changed_value_hour            ||  0) +
       (self.changed_value_piecework_hours ||  0) +
@@ -30,6 +30,7 @@ class HoursSpent < ActiveRecord::Base
   # Used to return values from Changed if it exists
   # E.g. @hours_spent.changed_value_overtime_50
   #
+  # sum += h.changed_value(:overtime)        || 0
   def method_missing(m, *args, &block)
     if m.to_s.match(/changed_value_/)
       value = m.to_s.gsub('changed_value_', '')
@@ -37,6 +38,10 @@ class HoursSpent < ActiveRecord::Base
     else
       super
     end
+  end
+
+  def changed_value(value)
+    change.try(value) || send(value)
   end
 
 end
