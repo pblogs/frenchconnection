@@ -5,11 +5,15 @@ describe ExcelProjectTools do
   before do
     @project = Fabricate(:project)
     @user1 = Fabricate(:user, first_name: 'John')
+    @snekker_profession = Fabricate(:profession, title: 'Snekker')
     @snekker_jens = Fabricate(:user, first_name: 'Snekker Jens',
-                      profession: Fabricate(:profession, title: 'Snekker'))
+      profession: @snekker_profession)
+    @snekker2 = Fabricate(:user, first_name: 'Snekker 2',
+      profession: @snekker_profession)
     @task = Fabricate(:task, project: @project)
     @user1.tasks << @task
     @snekker_jens.tasks << @task
+    @snekker2.tasks << Fabricate(:task, project: @project)
 
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
@@ -21,7 +25,7 @@ describe ExcelProjectTools do
         string with the sum of the hours each user has worked} do
     snekker = Profession.where(title: 'Snekker')
     ExcelProjectTools.hours_for_users(project: @project, 
-      profession: snekker).should eq ['19']
+      profession: snekker, overtime: :hour).should eq ['19', '0']
   end
 
   it %q{returns a comma separated 
@@ -36,7 +40,7 @@ describe ExcelProjectTools do
 
   it %q{returns a comma separated string of names for profession} do
     ExcelProjectTools.user_names(project: @project, 
-      profession_title: 'Snekker').should eq ['Snekker Jens']
+      profession_title: 'Snekker').should eq ['Snekker Jens', "Snekker 2"]
   end
 
   it 'sum_piecework_hours' do
