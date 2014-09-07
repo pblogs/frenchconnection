@@ -125,8 +125,7 @@ class Dagsrapport
           # Sum timer totalt
           sheet.add_row ['', 'Sum timer totalt: ',
                          @project.hours_spent_total(profession: @profession,
-                                                   changed: true), 
-                         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+                                                   changed: true, overtime: @overtime), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 

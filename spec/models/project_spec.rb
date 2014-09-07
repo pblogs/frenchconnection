@@ -46,7 +46,7 @@ describe Project do
         Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @snekker1)
         # Test creating hours on an other user
         Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
-        @project.hours_total_for(@snekker1).should eq 20
+        @project.hours_total_for(@snekker1, overtime: :hour).should eq 10
       end
 
       it 'hours_total_for(user, changed: true)' do
@@ -63,7 +63,7 @@ describe Project do
         @change1.save
         @change2.save
 
-        @project.hours_total_for(@snekker1, changed: true).should eq 2
+        @project.hours_total_for(@snekker1, changed: true, overtime: :hour).should eq 1
       end
 
       it ".hours_spents" do
@@ -72,15 +72,14 @@ describe Project do
       end
 
       it "hours_spent_total" do
+        pending "WIP"
         Fabricate(:hours_spent, task: @task, hour: 10, user: @snekker1)
         Fabricate(:hours_spent, task: @task, hour: 10, user: @user2)
         Fabricate(:hours_spent, task: @task, hour: 10, user: @user3)
         Fabricate(:hours_spent, task: @task, overtime_50:  10, user: @user2)
         @ot100 = Fabricate(:hours_spent, task: @task, overtime_100: 10, user: @user3)
         @project.reload
-        @project.hours_spent_total(profession: @snekker).should eq 20
-        @change = Change.create_from_hours_spent(hours_spent: @ot100, 
-                                                 reason: 'works slow' )
+        @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 30
       end
 
       it "hours_spent_total(changed: true)" do

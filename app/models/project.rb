@@ -25,18 +25,18 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
-  def hours_spent_total(profession: nil, changed: false)
+  def hours_spent_total(profession: nil, changed: false, overtime: )
     if profession
       @users = users_with_profession(profession: profession)
     else
       @users = users
     end
     sum = ''
-    @users.each { |u| sum = hours_total_for(u, changed: changed) }
+    @users.each { |u| sum = hours_total_for(u, changed: changed, overtime: overtime) }
     sum
   end
 
-  def hours_total_for(user, changed: false, overtime: false)
+  def hours_total_for(user, changed: false, overtime:)
     sum = 0
     hours_spents.where(user: user).each do |h|
       if changed
@@ -58,14 +58,23 @@ class Project < ActiveRecord::Base
 
   def name_of_users(profession: nil)
     if profession
-      #raise "users_with_profession: #{users_with_profession(profession: profession)}"
-      users = users_with_profession(profession: profession)
-      users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
-      #u.pluck(:first_name).join(', ').collect { |n| n.strip }
+      u = users_with_profession(profession: profession)
+      u.pluck(:first_name).join(', ')
     else
-      users.pluck(:first_name).join(', ').collect { |n| n.strip }
+      users.pluck(:first_name).join(', ')
     end
   end
+
+  #def name_of_users(profession: nil)
+  #  if profession
+  #    #raise "users_with_profession: #{users_with_profession(profession: profession)}"
+  #    users = users_with_profession(profession: profession)
+  #    users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
+  #    #u.pluck(:first_name).join(', ').collect { |n| n.strip }
+  #  else
+  #    users.pluck(:first_name).join(', ').collect { |n| n.strip }
+  #  end
+  #end
 
   def week_numbers
     w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
