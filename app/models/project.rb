@@ -26,7 +26,6 @@ class Project < ActiveRecord::Base
   end
 
   def hours_spent_total(profession: nil, changed: false)
-    puts "running hours_spent_total with changed: #{changed}"
     if profession
       @users = users_with_profession(profession: profession)
     else
@@ -41,31 +40,27 @@ class Project < ActiveRecord::Base
     sum = 0
     hours_spents.where(user: user).each do |h|
       if changed
-        puts "changed"
         sum += h.changed_value_hour             || 0
-        puts "\n\n HER \n\n changed_value_hour: #{h.changed_value_hour}"
         sum += h.changed_value_piecework_hours  || 0
         sum += h.changed_value_overtime_50      || 0
         sum += h.changed_value_overtime_100     || 0
-        puts "sum is now #{sum}"
       else
-        puts "NOT USING changed"
         sum += h.hour             || 0
         sum += h.piecework_hours  || 0
         sum += h.overtime_50      || 0
         sum += h.overtime_100     || 0
       end
     end
-    puts "will return sum #{sum}"
     sum
   end
 
   def name_of_users(profession: nil)
     if profession
-      u = users_with_profession(profession: profession)
-      u.pluck(:first_name).join(', ')
+      users = users_with_profession(profession: profession)
+      users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
+      #u.pluck(:first_name).join(', ').collect { |n| n.strip }
     else
-      users.pluck(:first_name).join(', ')
+      users.pluck(:first_name).join(', ').collect { |n| n.strip }
     end
   end
 
