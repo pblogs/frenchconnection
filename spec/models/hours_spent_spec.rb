@@ -17,8 +17,6 @@ describe HoursSpent do
     @hours_spent2 = Fabricate(:hours_spent, user: @worker, task: @task, 
                               hour: 10)
     @hours_spent2.should be_valid
-
-
   end
 
   it "knows how many hour a worker har registred on a task" do
@@ -34,6 +32,25 @@ describe HoursSpent do
     @change.save
     @hours_spent.reload
     @hours_spent.change.should eq @change
+  end
+
+  #it 'sum()' do
+  #  @change = Change.create_from_hours_spent(hours_spent: @hours_spent)
+  #  @change.update_attribute(:overtime_50, 5)
+  #  @hours_spent.sum(overtime: :overtime_50, changed: true) #.should eq 5
+  #end
+
+  #it 'sum(overtime: :overtime_50)' do
+  #  @hours_spent.sum(overtime: :overtime_50).should eq 30
+  #end
+
+  # This fails randomly. :-(
+  it 'changed_value()' do
+    @change = Change.create_from_hours_spent(hours_spent: @hours_spent)
+    @change.update_attribute(:overtime_50, 5)
+    @change.update_attribute(:overtime_100, 100)
+    @hours_spent.changed_value(:overtime_50).should eq 5
+    @hours_spent.changed_value(:overtime_100).should eq 100 
   end
 
 
