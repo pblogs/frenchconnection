@@ -10,7 +10,7 @@ class ExcelProjectTools
 
   def self.user_names(project:, profession_title:)
     profession = Profession.where(title: profession_title).first
-    project.name_of_users(profession: profession).split(',')
+    project.name_of_users(profession: profession).split(',').flatten
   end
 
   def self.sum_piecework_hours(project: project, user: user)
