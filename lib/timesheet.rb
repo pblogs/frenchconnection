@@ -6,8 +6,9 @@ class Timesheet
     @project   = project
     @user      = user
     @hours     = hours
-    @from_date = I18n.l @project.hours_spents.order(created_at: :asc).first.created_at, format: :short 
-    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc).last.created_at,  format: :short
+    @from_date = I18n.l @project.hours_spents.order(created_at: :asc).first.created_at, format: :datepicker 
+    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc).last.created_at,  format: :datepicker
+    @logo_file =  'app/assets/images/Alliero-logo-500x81.png'
 
     @wday = {
       '1' => 'mandag',
@@ -47,7 +48,7 @@ class Timesheet
         # WORKSHEET
         wb.add_worksheet do |sheet|
     
-          sheet.add_image(:image_src => 'app/assets/images/Alliero-logo-500x81.png',
+          sheet.add_image(:image_src => @logo_file,
                           :noSelect => true, :noMove => true) do |image|
             image.width=345
             image.height=50
