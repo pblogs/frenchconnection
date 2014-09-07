@@ -5,8 +5,9 @@ describe ExcelProjectTools do
   before do
     @project = Fabricate(:project)
     @user1 = Fabricate(:user, first_name: 'John')
-    @snekker_jens = Fabricate(:user, first_name: 'Snekker Jens', profession: Fabricate(:profession, title: 'Snekker'))
-    @task    = Fabricate(:task, project: @project)
+    @snekker_jens = Fabricate(:user, first_name: 'Snekker Jens',
+                      profession: Fabricate(:profession, title: 'Snekker'))
+    @task = Fabricate(:task, project: @project)
     @user1.tasks << @task
     @snekker_jens.tasks << @task
 
