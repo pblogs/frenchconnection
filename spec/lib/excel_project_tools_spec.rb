@@ -31,7 +31,7 @@ describe ExcelProjectTools do
     @change.update_attribute(:hour, 1)
     snekker = Profession.where(title: 'Snekker')
     ExcelProjectTools.hours_for_users(project: @project, 
-      profession: snekker, use_changed: true).should eq ['1']
+      profession: snekker, changed: true).should eq ['1']
   end
 
   it %q{returns a comma separated string of names for profession} do

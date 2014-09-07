@@ -61,7 +61,7 @@ describe Project do
         @change1.save
         @change2.save
 
-        @project.hours_total_for(@snekker1, use_changed: true).should eq 2
+        @project.hours_total_for(@snekker1, changed: true).should eq 2
       end
 
       it "is possible to list all hours spent for a particular user" do
@@ -81,14 +81,14 @@ describe Project do
                                                  reason: 'works slow' )
       end
 
-      it "hours_spent_total(use_changed: true)" do
+      it "hours_spent_total(changed: true)" do
         pending "tests fails, but confirmed working"
         @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @snekker1)
         @change = Change.create_from_hours_spent(hours_spent: @hour10, 
                                                  reason: 'works slow' )
         @change.update_attribute(:hour, 1)
         @project.hours_spent_total(profession: @snekker, 
-                                   use_changed: true).should eq 1
+                                   changed: true).should eq 1
       end
     end
 
