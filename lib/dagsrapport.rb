@@ -138,8 +138,8 @@ class Dagsrapport
     
           # The name of involved Artisans
           ExcelProjectTools.user_names(project: @project,
-            profession_title: @profession.title).each_with_index do |a, i|
-              sheet.rows[8].cells[2+i].value = a
+            profession_title: @profession.title).each_with_index do |user, index|
+              sheet.rows[8].cells[2+index].value = user
           end
     
           
