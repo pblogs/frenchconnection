@@ -18,7 +18,7 @@ table
         td = project.start_date
         td = project.due_date
         td = project.short_description
-        td = project.hours_spent_total
+        td = project.hours_spent_total(overtime: nil)
         td 
           = link_to( (fa_icon 'table', text: "Dagsrapport"), 
             customer_project_path(project.customer, project))
