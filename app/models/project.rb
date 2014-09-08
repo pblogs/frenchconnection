@@ -40,17 +40,23 @@ class Project < ActiveRecord::Base
     sum = 0
     hours_spents.where(user: user).each do |h|
       if changed
-        sum += h.changed_value(overtime)        || 0
-        #sum += h.changed_value_hour             || 0
-        #sum += h.changed_value_piecework_hours  || 0
-        #sum += h.changed_value_overtime_50      || 0
-        #sum += h.changed_value_overtime_100     || 0
+        if overtime
+          sum += h.changed_value(overtime)        || 0
+        else
+          sum += h.changed_value_hour             || 0
+          sum += h.changed_value_piecework_hours  || 0
+          sum += h.changed_value_overtime_50      || 0
+          sum += h.changed_value_overtime_100     || 0
+        end
       else
-        sum += h.send(overtime)    || 0
-        #sum += h.hour             || 0
-        #sum += h.piecework_hours  || 0
-        #sum += h.overtime_50      || 0
-        #sum += h.overtime_100     || 0
+        if overtime
+          sum += h.send(overtime)    || 0
+        else
+          sum += h.hour             || 0
+          sum += h.piecework_hours  || 0
+          sum += h.overtime_50      || 0
+          sum += h.overtime_100     || 0
+        end
       end
     end
     sum
