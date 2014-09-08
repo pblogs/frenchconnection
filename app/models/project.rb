@@ -25,24 +25,41 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
-  def hours_spent_total(profession: nil)
+  def hours_spent_total(profession: nil, changed: false, overtime: )
     if profession
       @users = users_with_profession(profession: profession)
     else
       @users = users
     end
     sum = ''
-    @users.each do |u|
-      sum = hours_total_for(u)
-    end
+    @users.each { |u| sum = hours_total_for(u, changed: changed, overtime: overtime) }
     sum
   end
 
-  def hours_total_for(user)
-    hours_spents.where(user_id: user.id).sum(:hour) +
-    hours_spents.where(user_id: user.id).sum(:piecework_hours) +
-    hours_spents.where(user_id: user.id).sum(:overtime_50) +
-    hours_spents.where(user_id: user.id).sum(:overtime_100) 
+  def hours_total_for(user, changed: false, overtime:)
+    sum = 0
+    hours_spents.where(user: user).each do |h|
+      if changed
+        if overtime
+          sum += h.changed_value(overtime)        || 0
+        else
+          sum += h.changed_value_hour             || 0
+          sum += h.changed_value_piecework_hours  || 0
+          sum += h.changed_value_overtime_50      || 0
+          sum += h.changed_value_overtime_100     || 0
+        end
+      else
+        if overtime
+          sum += h.send(overtime)    || 0
+        else
+          sum += h.hour             || 0
+          sum += h.piecework_hours  || 0
+          sum += h.overtime_50      || 0
+          sum += h.overtime_100     || 0
+        end
+      end
+    end
+    sum
   end
 
   def name_of_users(profession: nil)
@@ -53,6 +70,17 @@ class Project < ActiveRecord::Base
       users.pluck(:first_name).join(', ')
     end
   end
+
+  #def name_of_users(profession: nil)
+  #  if profession
+  #    #raise "users_with_profession: #{users_with_profession(profession: profession)}"
+  #    users = users_with_profession(profession: profession)
+  #    users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
+  #    #u.pluck(:first_name).join(', ').collect { |n| n.strip }
+  #  else
+  #    users.pluck(:first_name).join(', ').collect { |n| n.strip }
+  #  end
+  #end
 
   def week_numbers
     w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }

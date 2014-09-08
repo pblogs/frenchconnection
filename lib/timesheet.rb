@@ -6,8 +6,9 @@ class Timesheet
     @project   = project
     @user      = user
     @hours     = hours
-    @from_date = I18n.l @project.hours_spents.order(created_at: :asc).first.created_at, format: :short 
-    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc).last.created_at,  format: :short
+    @from_date = I18n.l @project.hours_spents.order(created_at: :asc).first.created_at, format: :datepicker 
+    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc).last.created_at,  format: :datepicker
+    @logo_file =  'app/assets/images/Alliero-logo-500x81.png'
 
     @wday = {
       '1' => 'mandag',
@@ -32,22 +33,28 @@ class Timesheet
     
         bold_italic  = styles.add_style :b => true, :i => true 
         bold         = styles.add_style :b => true
-        bold_center  = styles.add_style :b => true, :alignment => { :horizontal => :center }
-        bold_pull_left = styles.add_style :b => true, :alignment => { :horizontal => :left }
-        bold_pull_right = styles.add_style :b => true, :alignment => { :horizontal => :right }
+        bold_center  = styles.add_style :b => true,
+          :alignment => { :horizontal => :center }
+        bold_pull_left = styles.add_style :b => true,
+          :alignment => { :horizontal => :left }
+        bold_pull_right = styles.add_style :b => true,
+          :alignment => { :horizontal => :right }
         bold_gray_bg = styles.add_style :b => true, :bg_color => 'E2E2E2'
-        border       = styles.add_style :border => { style: :medium, color: '000000' }
+        border       = styles.add_style :border => { style: :medium, 
+                                                     color: '000000' }
         bold_gray_bg_center = styles.add_style :b => true, 
           :bg_color => 'E2E2E2', :alignment => { :horizontal => :center }
 
-        gray_bg_align_right = styles.add_style :alignment => { :horizontal => :right }, :bg_color => "E2E2E2"
-        attest_style= styles.add_style :alignment => { :horizontal => :right }, :sz => 16
+        gray_bg_align_right = styles.add_style :alignment => { 
+          :horizontal => :right }, :bg_color => "E2E2E2"
+        attest_style= styles.add_style :alignment => { 
+          :horizontal => :right }, :sz => 16
     
     
         # WORKSHEET
         wb.add_worksheet do |sheet|
     
-          sheet.add_image(:image_src => 'app/assets/images/Alliero-logo-500x81.png',
+          sheet.add_image(:image_src => @logo_file,
                           :noSelect => true, :noMove => true) do |image|
             image.width=345
             image.height=50
@@ -135,9 +142,10 @@ class Timesheet
           'Bom-', 'Fraværs-', 'Fraværsgrunn'], 
             style: [
               bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, 
-              bold_gray_bg, bold_gray_bg, bold_gray_bg_center, bold_gray_bg_center, 
-              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center, 
-              bold_gray_bg, bold_gray_bg, bold_gray_bg]
+              bold_gray_bg, bold_gray_bg, bold_gray_bg_center,
+              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg_center,
+              bold_gray_bg_center, bold_gray_bg_center, bold_gray_bg, 
+              bold_gray_bg, bold_gray_bg]
 
 # Linje 9 # Subheader bottom
           sheet.add_row [nil, nil, nil, 'timer', 
