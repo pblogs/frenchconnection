@@ -2,11 +2,13 @@ class Dagsrapport
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project:, profession:, overtime:)
+  def initialize(project:, profession:, overtime: :hour)
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
     @workers    = @project.users.where(profession: @profession)
+    @header     = "DAGSRAPPORT - #{@profession.title} - #{@overtime}"
+    @logo       = 'app/assets/images/alliero-bratfoss-h46.png'
   end
 
 =begin
@@ -20,14 +22,8 @@ class Dagsrapport
   For utak av materialer fra lager (samme som kjøring)
   
   Dagsrapporten skal inneholde:
-    - Uke-feltet. List alle ukenummerene hvor det har blitt utført arbeid
-  - Få med utførelsesadresse på Dagsrapport (ny linje)
-  - Bruk ordet ferdigstilt i Dagsrapporten, ikke utført.
-    - Få på fagkategori på Dagsrapporten.
     - Posisjon i excel-arket er det samme som avdeling. Endre navn på dette i importen og i views.
     - Dagsrapporter. Navnene skal listes ut vertikalt. (Dette er Martins notat, jeg vet ikke hva det betyr)
-  - Legge inn ny logo
-  - Få med prosjektnummer
 
 =end
 
@@ -53,7 +49,7 @@ class Dagsrapport
     
         wb.add_worksheet do |sheet|
     
-          sheet.add_image(:image_src => 'app/assets/images/alliero-bratfoss-h46.png',
+          sheet.add_image(:image_src => @logo,
                           :noSelect => true, :noMove => true) do |image|
             image.width=390
             image.height=60
@@ -61,7 +57,7 @@ class Dagsrapport
           end
     
           sheet.add_row
-          sheet.add_row [nil, nil, nil, "DAGSRAPPORT - #{@profession.title}"], :style => [nil, nil, nil, header], 
+          sheet.add_row [nil, nil, nil, @header], :style => [nil, nil, nil, header], 
             :height => 23
           sheet.add_row
           sheet.add_row [nil, nil, nil]
@@ -73,7 +69,9 @@ class Dagsrapport
             :style => [bold_italic, yellow_bg, bold]
           sheet.add_row ['Kunde:', @project.customer.name ], 
             :style => [bold_italic, yellow_bg, bold]
-          sheet.add_row ['Adresse:', (@project.execution_address || @project.customer.address), nil, nil, nil ], 
+          sheet.add_row ['Adresse:',
+                         (@project.execution_address || @project.customer.address), 
+                         nil, nil, nil ], 
             :style => [bold_italic, yellow_bg, bold]
     
           # 5 blanks with C D E F G spanning from 7-11
@@ -96,8 +94,11 @@ class Dagsrapport
           @workers.each do |user|
             ai += 1
             @project.hours_spents.where(user: user).each do |hours_spent|
+              next unless (hours_spent.send(@overtime) > 0 rescue nil)
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
-                hours_spent.description] +  offsett(ai) + [hours_spent.sum]
+                hours_spent.changed_value_description(:normal)] + 
+                offsett(ai) + [hours_spent.send(@overtime)]
+                # denne returnerer nok ikke fra changed ^
               i += 1 
             end
           end
@@ -105,28 +106,31 @@ class Dagsrapport
           sheet.add_row [nil]
           sheet.add_row [nil]
 
-          # Sum timer pr pers
+          # Var Sum timer pr pers
+          # Nå ant timer i gitt overtime verdi. eks bare 100%
           if @workers.present?
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
-              ExcelProjectTools.hours_for_users(project: @project, profession: @profession) + [nil, nil, nil, nil],
-              :style => [gray_bg_align_right, gray_bg_align_right, 
-                         gray_bg_align_right, gray_bg_align_right, 
-                         gray_bg_align_right, gray_bg_align_right, 
-                         gray_bg_align_right]    
+              #[1,2,3] + [nil, nil, nil],
+              ExcelProjectTools.hours_for_users(project: @project, 
+                overtime: @overtime,
+                profession: @profession, changed: true) + [nil, nil, nil, nil],
+                :style => [gray_bg_align_right, gray_bg_align_right, 
+                           gray_bg_align_right, gray_bg_align_right, 
+                           gray_bg_align_right, gray_bg_align_right, 
+                           gray_bg_align_right]    
           else
             sheet.add_row ['', 'INGEN OPPGAVER FINNES HER']
           end
 
           # Sum timer totalt
-          sheet.add_row ['', 'Sum timer totalt: ', @project.hours_spent_total(profession: @profession), 
-                         nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+          sheet.add_row ['', 'Sum timer totalt: ',
+                         @project.hours_spent_total(profession: @profession,
+                                                   changed: true, overtime: @overtime), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right]    
             
-
-
     
           sheet.add_row [nil]
           sheet.add_row [nil, 'Attest', '……………', '……………', '……………', '……………'],   
@@ -135,8 +139,9 @@ class Dagsrapport
           sheet.add_row [nil, 'BRUKTE MATERIALER']
     
           # The name of involved Artisans
-          ExcelProjectTools.user_names(project: @project, profession_title: @profession.title).each_with_index do |a, i|
-            sheet.rows[8].cells[2+i].value = a
+          ExcelProjectTools.user_names(project: @project,
+            profession_title: @profession.title).each_with_index do |user, index|
+              sheet.rows[8].cells[2+index].value = user
           end
     
           
@@ -145,7 +150,6 @@ class Dagsrapport
       end
       p.use_shared_strings = true
       p.serialize "tmp/dagsrapport.xls"
-      #p.serialize "/Users/martins/Work/AllieroForms/ny-dagsrapport.xlsx"
     end
     "tmp/dagsrapport.xls"
   end
