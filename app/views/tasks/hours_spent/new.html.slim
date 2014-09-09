@@ -1,5 +1,10 @@
-h1 Registrer timer brukt
-br
+- content_for :breadcrumb do
+  = link_to @task.project.customer.name, customer_path(@task.project.customer)
+  = fa_icon 'arrow-right'
+  strong= 'Registrer timer'
+
+/h1 Registrer timer brukt
+/br
 
 == render 'form'
 
