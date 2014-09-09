@@ -12,7 +12,7 @@ class ExcelController < ApplicationController
       #format.xls {  send_file(file_name, filename:  "dagsrapport.xls")  }
       format.pdf {  send_file(file_name, filename:  "dagsrapport.xls")  }
       format.html do
-        @hours_spent = @project.hours_spent_for_profession(@profession)
+        @hours_spent = @project.hours_spent_for_profession(@profession, overtime: @overtime)
       end
     end
   end
