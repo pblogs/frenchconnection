@@ -10,22 +10,22 @@ describe Project do
                                    department: @service)
       @snekker = Fabricate(:profession, title: 'snekker')
       @murer   = Fabricate(:profession, title: 'murer')
-      @snekker1  = Fabricate(:user, first_name: 'John', profession: @snekker)
-      @user2 = Fabricate(:user, first_name: 'Barry', profession: @snekker)
-      @user3 = Fabricate(:user, first_name: 'Mustafa', profession: @murer)
+      @john_snekker  = Fabricate(:user, first_name: 'John', profession: @snekker)
+      @barry_snekker = Fabricate(:user, first_name: 'Barry', profession: @snekker)
+      @mustafa_murer = Fabricate(:user, first_name: 'Mustafa', profession: @murer)
 
       @task  = Fabricate(:task, project: @project)
-      @task.users << @snekker1
-      @task.users << @user2
-      @task.users << @user3
+      @task.users << @john_snekker
+      @task.users << @barry_snekker
+      @task.users << @mustafa_murer
       @task.save
       @project.save
         @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, 
                                         task: @task,
-                                        user: @snekker1)
+                                        user: @john_snekker)
         @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10, 
                                         task: @task,
-                                        user: @snekker1)
+                                        user: @john_snekker)
     end
 
     it "is valid from the Fabric" do
@@ -37,8 +37,8 @@ describe Project do
      end
 
     it "knows which users that are involved" do
-      @snekker1.tasks.should include @task
-      @project.users.should include(@snekker1, @user2, @user3)
+      @john_snekker.tasks.should include @task
+      @project.users.should include(@john_snekker, @barry_snekker, @mustafa_murer)
       @project.name_of_users.should eq 'John, Barry, Mustafa'
     end
 
@@ -48,11 +48,11 @@ describe Project do
 
     describe 'hours_total_for(user)' do 
       it "knows how many hours each of them as worked" do
-        Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
-        Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @snekker1)
+        Fabricate(:hours_spent, hour: 10, task: @task, user: @john_snekker)
+        Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @john_snekker)
         # Test creating hours on an other user
-        Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
-        @project.hours_total_for(@snekker1, overtime: :hour).should eq 20
+        Fabricate(:hours_spent, hour: 10, task: @task, user: @barry_snekker)
+        @project.hours_total_for(@john_snekker, overtime: :hour).should eq 20
       end
 
       it 'hours_total_for(user, changed: true)' do
@@ -66,28 +66,29 @@ describe Project do
         @change1.save
         @change2.save
 
-        @project.hours_total_for(@snekker1, changed: true, overtime: :hour).should eq 1
+        @project.hours_total_for(@john_snekker, changed: true, overtime: :hour).should eq 1
       end
 
 
       it 'hours_spent_for_profession' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour).should include(@hours_for_snakker1, @hours_for_snakker2)
+        @project.hours_spent_for_profession(@snekker).should include(@hours_for_snakker1, @hours_for_snakker2)
       end
 
       it "hours_spent_total" do
-        pending "WIP"
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @snekker1)
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @user2)
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @user3)
-        Fabricate(:hours_spent, task: @task, overtime_50:  10, user: @user2)
-        @ot100 = Fabricate(:hours_spent, task: @task, overtime_100: 10, user: @user3)
+        Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
+        Fabricate(:hours_spent, task: @task, hour: 10, user: @barry_snekker)
+        Fabricate(:hours_spent, task: @task, hour: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, task: @task, 
+                  overtime_50: 10, user: @barry_snekker)
+        @ot100 = Fabricate(:hours_spent, task: @task, overtime_100: 10,
+                           user: @mustafa_murer)
         @project.reload
-        @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 30
+        @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
       end
 
       it "hours_spent_total(changed: true)" do
         pending "tests fails, but confirmed working"
-        @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @snekker1)
+        @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
         @change = Change.create_from_hours_spent(hours_spent: @hour10, 
                                                  reason: 'works slow' )
         @change.update_attribute(:hour, 1)
@@ -100,11 +101,11 @@ describe Project do
     it "lists week numbers" do
       HoursSpent.destroy_all
       Fabricate(:hours_spent, created_at: '01.01.2014', task: @task, hour: 10,
-                user: @snekker1)
+                user: @john_snekker)
       Fabricate(:hours_spent, created_at: '09.01.2014', task: @task, hour: 10,
-                user: @user3)
+                user: @mustafa_murer)
       Fabricate(:hours_spent, created_at: '14.01.2014', task: @task, hour: 10,
-                user: @user2)
+                user: @barry_snekker)
       @project.week_numbers.should eq "1, 2, 3"
     end
 
@@ -118,30 +119,30 @@ describe Project do
       User.destroy_all
       Project.destroy_all
       Department.destroy_all
-      @snekker1         = Fabricate(:user, first_name: 'John')
+      @john_snekker         = Fabricate(:user, first_name: 'John')
       @service      = Fabricate(:department, title: 'Service')
       @maintainance = Fabricate(:department, title: 'Maintainance')
       @customer1    = Fabricate(:customer)
       @customer2    = Fabricate(:customer)
-      @service_project1 = Fabricate(:project, user: @snekker1, 
+      @service_project1 = Fabricate(:project, user: @john_snekker, 
                                     customer: @customer1, 
                                     department: @service)
-      @maintainance_project1 = Fabricate(:project, user: @snekker1, 
+      @maintainance_project1 = Fabricate(:project, user: @john_snekker, 
                                          customer: @customer2, 
                       department: @maintainance)
     end
 
     it "knows which projects that are mine" do
       pending "works when testing manually"
-      @snekker1.reload
-      @snekker1.owns_projects.to_a.should eq [@service_project1, 
+      @john_snekker.reload
+      @john_snekker.owns_projects.to_a.should eq [@service_project1, 
                                           @service_project2, 
                                           @maintainance_project1]
     end
 
     it "lists the departments my projects belong to" do
-      @snekker1.reload
-      @snekker1.project_departments.to_a.should eq [@service, @maintainance]
+      @john_snekker.reload
+      @john_snekker.project_departments.to_a.should eq [@service, @maintainance]
     end
 
     it "lists the customers that has a project belonging to a department" do

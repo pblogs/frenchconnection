@@ -25,19 +25,14 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
-  def hours_spent_for_profession(profession, changed: false, overtime:)
+  def hours_spent_for_profession(profession)
     @users = users_with_profession(profession: profession)
     @users.collect { |u| hours_spents.where(user: u ).to_a }.flatten
   end
+
   def hours_spent_total(profession: nil, changed: false, overtime: )
-    if profession
-      @users = users_with_profession(profession: profession)
-    else
-      @users = users
-    end
-    sum = ''
-    @users.each { |u| sum = hours_total_for(u, changed: changed, overtime: overtime) }
-    sum
+    @users = profession ? users_with_profession(profession: profession) : users
+    @users.inject { |u| hours_total_for(u, changed: changed, overtime: overtime) }
   end
 
   def hours_total_for(user, changed: false, overtime:)
