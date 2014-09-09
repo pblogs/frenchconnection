@@ -57,10 +57,6 @@ Fabricate(:user, department: service_avdeling, roles: [:project_leader],
 Fabricate(:user, department: service_avdeling, roles: [:project_leader], 
           first_name: "Arild", mobile:  94147807, last_name: "Jonassen")
 
-# Dummy kontoer for testing
-dummy_worker = Fabricate(:user, department: service_avdeling, roles: [:worker], 
-          first_name: "Working", mobile:  00000001, last_name: "Man", 
-          profession: snekker)
 
 Fabricate(:user, department: service_avdeling, roles: [:project_leader], 
           first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
@@ -94,10 +90,6 @@ ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen',
                  customer: sporveiene, 
                  department: service_avdeling, starred: true, user: @martin)
 
-# Tasks for dummy_worker - Snekker
-snekker_task = Fabricate(:task, project: ryen, description: 'Legg ny takpapp')
-snekker_task.users << dummy_worker
-snekker_task.save
 
 # Tasks for Danni - Snekker
 danni_task = Fabricate(:task, project: ryen, description: 'Lag et skur')
@@ -127,14 +119,18 @@ Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13,
           task: danni_task, user: danni, project: ryen,
           description: 'danni - 13 timer 100% overtid')
 
-# Snekker 2
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 10, 
-          task: snekker_task, user: snekker2, project: snekker_task.project,
-          description: 'snekker o - 10 timer 100% overtid')
-# Snekker 3
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 33, 
-          task: snekker_task, user: snekker_kari, project: snekker_task.project,
-          description: 'snekker kari - 33 timer 100% overtid')
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 20, 
+          task: danni_task, user: danni, project: ryen,
+          description: 'danni - 20 timer 100% overtid')
+
+
+# Snekker Kari
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+          task: snekker_kari_task, user: snekker_kari, project: ryen,
+          description: 'snekker kari - 30 timer 100% overtid')
+Fabricate(:hours_spent, created_at: '15.01.2014', overtime_100: 10, 
+          task: snekker_kari_task, user: snekker_kari, project: ryen,
+          description: 'snekker kari - 10 timer 100% overtid')
 
 # HoursSpent for Maren Maler
 Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21,         
