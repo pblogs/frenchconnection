@@ -3,6 +3,7 @@ class Customers::ProjectsController < ApplicationController
   before_action :set_customer, only: [:index, :show, :edit, :update, 
                                       :destroy, :new]
 
+
   # GET /projects
   # GET /projects.json
   def index
@@ -97,6 +98,7 @@ class Customers::ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   private
   # Use callbacks to share common setup or constraints between actions.

@@ -2,13 +2,21 @@ class ExcelController < ApplicationController
   layout :resolve_layout
   
   def dagsrapport
-    project    = Project.find(params[:project_id])
-    profession = Profession.find(params[:profession_id])
-    overtime   = params[:overtime]
-    file_name  = Dagsrapport.new(project: project, profession: profession, 
-                                 overtime: overtime).create_spreadsheet
-    send_file file_name,
-      filename:  "dagsrapport.xls"
+    @project    = Project.find(params[:project_id])
+    @profession = Profession.find(params[:profession_id])
+    @workers    = @project.users_with_profession(profession: @profession)
+    @overtime   = params[:overtime]
+    @file_name  = Dagsrapport.new(project: @project, profession: @profession, 
+                                 overtime: @overtime).create_spreadsheet
+    respond_to do |format|
+      #format.xls {  send_file(file_name, filename:  "dagsrapport.xls")  }
+      format.pdf {  send_file(file_name, filename:  "dagsrapport.xls")  }
+      format.html do
+        @hours_spent = @workers.collect { |u| @project.hours_spents.where(user: u ).to_a}
+        @hours_spent.flatten!
+raise "hours #{@hours_spent}"
+      end
+    end
   end
 
   def timesheets

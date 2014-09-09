@@ -1,0 +1,42 @@
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  = fa_icon 'chevron-right'
+  = link_to @project.name, customer_project_path(@project.customer, @project)
+  = fa_icon 'chevron-right'
+  strong= 'Dagsrapport'
+
+/= image_tag 'alliero-bratfoss-h46.png'
+
+h3= "#{@profession.title.titleize} - #{t @overtime}"
+br
+
+div= "År: #{@project.created_at.year}"
+div= "Uke: #{@project.week_numbers}"
+div= "Prosjektnummer: #{@project.project_number}"
+div= "Kunde: #{@project.customer.name}"
+div= "Adresse: #{@project.address}"
+
+
+table#dagsrapport
+  thead
+    th Dato
+    th Beskrivelse
+    - @workers.each do |w| 
+      th= w.name 
+
+
+  tbody
+    - @hours_spent.each do |hs|
+      tr
+        td= t hs.created_at, format: :short_date
+        td= hs.changed_value(:description) 
+        td= hs.changed_value(@overtime) 
+        td= hs.user.name
+
+    tr
+    tr.bg_gray
+      td Sum timer pr person
+      - @workers.each do |w|
+        td= @project.hours_total_for(w, changed: true, overtime: @overtime)
+
+
