@@ -36,12 +36,12 @@ elektriker = Profession.create(title: 'Elektriker')
 # A user has one of these roles.
 # - (lærling, sven, mester, prosjektleder)
 # - :apprentice, :sven, :master, :project_leader
-Fabricate(:user, department: service_avdeling, profession: elektriker, first_name: 'Even',  
-          last_name: 'Elektro')
-maren_maler = Fabricate(:user, department: service_avdeling, profession: maler, first_name: 'Maren',  
-          last_name: 'Maler')
-Fabricate(:user, department: service_avdeling, profession: elektriker, first_name: 'Espen',  
-          last_name: 'Elektro')
+Fabricate(:user, department: service_avdeling, profession: elektriker, 
+          first_name: 'Even', last_name: 'Elektro')
+maren_maler = Fabricate(:user, department: service_avdeling, profession: maler,
+                        first_name: 'Maren',  last_name: 'Maler')
+Fabricate(:user, department: service_avdeling, profession: elektriker,
+          first_name: 'Espen', last_name: 'Elektro')
 
 # Folk
 Fabricate(:user, department: service_avdeling, roles: [:worker],
@@ -61,22 +61,33 @@ Fabricate(:user, department: service_avdeling, roles: [:project_leader],
 dummy_worker = Fabricate(:user, department: service_avdeling, roles: [:worker], 
           first_name: "Working", mobile:  00000001, last_name: "Man", 
           profession: snekker)
+
 Fabricate(:user, department: service_avdeling, roles: [:project_leader], 
           first_name: "Prosjekt", mobile:  00000002, last_name: "Leder")
 
 @martin = Fabricate(:user, roles: [:project_leader], first_name: "Martin",
-          mobile:  93441707, last_name: "Stabenfeldt", department: service_avdeling)
+          mobile:  93441707, last_name: "Stabenfeldt", 
+          department: service_avdeling)
 
 # Medarbeidere snekkere
-Fabricate(:user, roles: [:worker], department: snekker, department: service_avdeling,
-          first_name: "Avni", last_name: "Lymany", mobile: 47625905, 
-          profession: snekker)
-danni = Fabricate(:user, roles: [:worker], department: snekker, department: service_avdeling,
-          first_name: "Danni", last_name: "Runge", mobile: 91135576,
-          profession: snekker)
-Fabricate(:user, roles: [:worker], department: snekker, department: service_avdeling,
-          first_name: "Alexander", last_name: "Børresen", mobile: 48159427,
-          profession: snekker)
+Fabricate(:user, roles: [:worker], department: snekker, 
+          department: service_avdeling, first_name: "Avni", 
+          last_name: "Lymany", mobile: 47625905, profession: snekker)
+
+danni = Fabricate(:user, roles: [:worker], department: snekker, 
+                  department: service_avdeling, first_name: "Danni", 
+                  last_name: "Runge", mobile: 91135576, profession: snekker)
+snekker2 = Fabricate(:user, roles: [:worker], department: snekker, 
+                  department: service_avdeling, first_name: "Snekker", 
+                  last_name: "Olsen", profession: snekker)
+
+snekker3 = Fabricate(:user, roles: [:worker], department: snekker, 
+                  department: service_avdeling, first_name: "Snekker", 
+                  last_name: "Kari", profession: snekker)
+
+Fabricate(:user, roles: [:worker], department: snekker, 
+          department: service_avdeling, first_name: "Alexander", 
+          last_name: "Børresen", mobile: 48159427, profession: snekker)
 
 # Projects
 ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', 
@@ -105,6 +116,15 @@ Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12,
 Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, 
           task: snekker_task, user: danni, project: snekker_task.project,
           description: '13 timer 100% overtid')
+
+# Snekker 2
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 10, 
+          task: snekker_task, user: snekker2, project: snekker_task.project,
+          description: '10 timer 100% overtid')
+# Snekker 3
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 33, 
+          task: snekker_task, user: snekker3, project: snekker_task.project,
+          description: '33 timer 100% overtid')
 
 # HoursSpent for Maren Maler
 Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21,         
