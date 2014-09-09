@@ -20,6 +20,12 @@ describe Project do
       @task.users << @user3
       @task.save
       @project.save
+        @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, 
+                                        task: @task,
+                                        user: @snekker1)
+        @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10, 
+                                        task: @task,
+                                        user: @snekker1)
     end
 
     it "is valid from the Fabric" do
@@ -46,17 +52,14 @@ describe Project do
         Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @snekker1)
         # Test creating hours on an other user
         Fabricate(:hours_spent, hour: 10, task: @task, user: @user2)
-        @project.hours_total_for(@snekker1, overtime: :hour).should eq 10
+        @project.hours_total_for(@snekker1, overtime: :hour).should eq 20
       end
 
       it 'hours_total_for(user, changed: true)' do
-        @hours_spent1 = Fabricate(:hours_spent, hour: 10, task: @task,
-                                  user: @snekker1)
-        @hours_spent2 = Fabricate(:hours_spent, piecework_hours: 10, task: @task,
-                                  user: @snekker1)
-        @change1 = Change.create_from_hours_spent(hours_spent: @hours_spent1, 
+
+        @change1 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker1, 
                                                  reason: 'works slow' )
-        @change2 = Change.create_from_hours_spent(hours_spent: @hours_spent2, 
+        @change2 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker2, 
                                                  reason: 'works slow' )
         @change1.hour            = 1
         @change2.piecework_hours = 1
@@ -66,9 +69,9 @@ describe Project do
         @project.hours_total_for(@snekker1, changed: true, overtime: :hour).should eq 1
       end
 
-      it ".hours_spents" do
-        @hours_spent = Fabricate(:hours_spent, hour: 10, task: @task, user: @snekker1)
-        @project.hours_spents.where(user: @snekker1).first.should eq @hours_spent
+
+      it 'hours_spent_for_profession' do
+        @project.hours_spent_for_profession(@snekker, overtime: :hour).should include(@hours_for_snakker1, @hours_for_snakker2)
       end
 
       it "hours_spent_total" do
@@ -95,6 +98,7 @@ describe Project do
 
 
     it "lists week numbers" do
+      HoursSpent.destroy_all
       Fabricate(:hours_spent, created_at: '01.01.2014', task: @task, hour: 10,
                 user: @snekker1)
       Fabricate(:hours_spent, created_at: '09.01.2014', task: @task, hour: 10,
