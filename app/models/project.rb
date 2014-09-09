@@ -75,6 +75,10 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def address
+    execution_address || customer.address
+  end
+
   #def name_of_users(profession: nil)
   #  if profession
   #    #raise "users_with_profession: #{users_with_profession(profession: profession)}"
