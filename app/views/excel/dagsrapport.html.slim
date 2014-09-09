@@ -41,9 +41,11 @@ table#dagsrapport
         td= hs.created_at.strftime("%d/%m")
         td= hs.changed_value(:description) 
         = return_users_nr_in_array(@workers, user: hs.user).times do
-          th
+          td
         td
           = hs.changed_value(@overtime) 
+        - add_remaining_tds(@workers, user: hs.user).times do
+          td
 
     tr
     tr.bg_gray
