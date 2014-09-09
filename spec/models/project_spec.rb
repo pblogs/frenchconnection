@@ -20,10 +20,14 @@ describe Project do
       @task.users << @mustafa_murer
       @task.save
       @project.save
-        @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, 
-                                        task: @task,
-                                        user: @john_snekker)
-        @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10, 
+      @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, 
+                                      task: @task,
+                                      user: @john_snekker)
+      @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10, 
+                                      task: @task,
+                                      user: @john_snekker)
+      # Overtime 100
+      @overtime_100_for_john_s   = Fabricate(:hours_spent, overtime_100: 100, 
                                         task: @task,
                                         user: @john_snekker)
     end
@@ -69,9 +73,15 @@ describe Project do
         @project.hours_total_for(@john_snekker, changed: true, overtime: :hour).should eq 1
       end
 
+      it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
+        pending 'wip'
+        @project.hours_spent_for_profession(@snekker, overtime: :hour).should_not \
+          include(@overtime_100_for_john_s)
+      end
 
-      it 'hours_spent_for_profession' do
-        @project.hours_spent_for_profession(@snekker).should include(@hours_for_snakker1, @hours_for_snakker2)
+      it 'hours_spent_for_profession(profession, overtime: overtime)' do
+        @project.hours_spent_for_profession(@snekker, overtime: :hour).should \
+          include(@hours_for_snakker1, @hours_for_snakker2)
       end
 
       it "hours_spent_total" do
