@@ -14,6 +14,9 @@ AllieroForms::Application.routes.draw do
 
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
 
+  get '/dagsrapport/:project_id/:profession_id/:overtime' => 'excel#dagsrapport', 
+    as: :dagsrapport
+
   get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'
@@ -75,8 +78,8 @@ AllieroForms::Application.routes.draw do
   get '/worker'  => 'static_pages#frontpage_user', as: :frontpage_user
   get '/new_assignment' => 'static_pages#new_assignment', as: :new_assignment
   get '/sallery/:user_id/:project_id/'  => 'excel#sallery', as: :sallery_report
-  get '/dagsrapport/:project_id/:profession_id/:overtime'  => 'excel#dagsrapport', 
-    as: :dagsrapport
+
+
   get '/html_export/:user_id/:project_id/' => 'excel#html_export', as: :html_export
 
   get '/templates/:path' => 'templates#template',
