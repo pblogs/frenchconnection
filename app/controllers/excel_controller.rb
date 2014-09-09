@@ -12,9 +12,7 @@ class ExcelController < ApplicationController
       #format.xls {  send_file(file_name, filename:  "dagsrapport.xls")  }
       format.pdf {  send_file(file_name, filename:  "dagsrapport.xls")  }
       format.html do
-        @hours_spent = @workers.collect { |u| @project.hours_spents.where(user: u ).to_a}
-        @hours_spent.flatten!
-raise "hours #{@hours_spent}"
+        @hours_spent = @project.hours_spent_for_profession(@profession)
       end
     end
   end

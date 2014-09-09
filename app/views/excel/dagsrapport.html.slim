@@ -10,11 +10,21 @@
 h3= "#{@profession.title.titleize} - #{t @overtime}"
 br
 
-div= "År: #{@project.created_at.year}"
-div= "Uke: #{@project.week_numbers}"
-div= "Prosjektnummer: #{@project.project_number}"
-div= "Kunde: #{@project.customer.name}"
-div= "Adresse: #{@project.address}"
+div
+  strong År
+  = " #{@project.created_at.year}"
+div
+  strong Uke
+  = " #{@project.week_numbers}"
+div
+  strong Prosjektnummer
+  = " #{@project.project_number}"
+div
+  strong Kunde
+  = " #{@project.customer.name}"
+div
+  strong Adresse
+  = " #{@project.address}"
 
 
 table#dagsrapport
@@ -28,13 +38,13 @@ table#dagsrapport
   tbody
     - @hours_spent.each do |hs|
       tr
-        td= t hs.created_at, format: :short_date
+        td= hs.created_at.strftime("%d/%m")
         td= hs.changed_value(:description) 
         td= hs.changed_value(@overtime) 
-        td= hs.user.name
 
     tr
     tr.bg_gray
+      td
       td Sum timer pr person
       - @workers.each do |w|
         td= @project.hours_total_for(w, changed: true, overtime: @overtime)
