@@ -6,7 +6,7 @@ table
     th Oppstart / Ferdigstilling
   tbody
     tr
-      td = task.project.customer.name
+      td = link_to task.project.customer.name, task.project.customer
       td = task.name_of_users
       td = task.description
       td 
