@@ -52,7 +52,9 @@ class ExcelController < ApplicationController
 
   def resolve_layout
     case action_name
-    when 'html_export'
+    when 'dagsrapport'
+      'excel'
+    when 'timesheet'
       'excel'
     else
       'application'

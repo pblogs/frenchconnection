@@ -7,5 +7,30 @@ html
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport" 
-  body(id=body_id)
-    = yield
+  body(id=body_id ng-app="app")
+    #outer-container
+      #main
+        /.logo-wrapper
+          h1= link_to (image_tag 'Alliero-header.gif'), root_path
+        /- if signed_in?
+          nav
+            ul#top_nav
+              - if @current_user.has_role? :project_leader
+                li= link_to 'Prosjekter', projects_path
+                li= link_to 'Kunder', customers_path
+                li= link_to 'Administrer brukere', users_path
+              li= link_to 'Nyheter', '/'
+              li= link_to 'Min side', @current_user
+              li= link_to 'HMS', hms_path
+            .breadcrumb = yield :breadcrumb
+
+        section
+          p#notice = notice
+          p#alert  = alert
+          = yield
+          br
+          br
+          br
+          br
+          br
+
