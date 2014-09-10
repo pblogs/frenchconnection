@@ -59,14 +59,19 @@ br
     - @workers.each do |w| 
         .cell.name.vertical-text = w.name 
   #body
-    .clearfix
     - @hours_spent.each_with_index do |hs,i|
-      .cell.date=        hs.created_at.strftime("%d/%m")
-      .cell.description= hs.changed_value(:description) 
-      - return_users_nr_in_array(@workers, user: hs.user).times do
-        .cell= nbsp
-      .cell.overtime= hs.changed_value(@overtime) 
-      .row.clearfix
+      .clearfix
+      .row
+        .cell.date=        hs.created_at.strftime("%d/%m")
+        .cell.description= hs.changed_value(:description) 
+        - return_users_nr_in_array(@workers, user: hs.user).times do
+          .cell= nbsp
+        .cell.overtime= hs.changed_value(@overtime) 
+      /.row
+        .cell = "Sum #{t(@overtime).downcase} pr person"
+          - @workers.each do |w|
+            .cell= @project.hours_total_for(w, changed: true, overtime: @overtime)
+
 
       //- return_users_nr_in_array(@workers, user: hs.user).times do
       //  td

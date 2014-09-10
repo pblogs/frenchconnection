@@ -8,7 +8,6 @@
   #header
     @include outer-container
     height: 20px
-    border-bottom: 1px solid
     .cell
       @include span-columns(2)
       font-weight: bold
@@ -18,12 +17,15 @@
       @include span-columns(2)
 
   #body
+    @include outer-container
     .cell
       @include span-columns(2)
     .cell.date
       @include span-columns(1)
     .cell.name
       @include span-columns(2)
+    .row
+      border-bottom: 1px solid
 
 
 
