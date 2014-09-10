@@ -62,7 +62,11 @@ module AllieroForms
       enable_starttls_auto: true  
     }
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+
 
   end
   default_url_options = { host: 'localhost', port: 3000 }

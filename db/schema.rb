@@ -16,6 +16,12 @@ ActiveRecord::Schema.define(version: 20140905163951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "api_keys", force: true do |t|
+    t.string  "name"
+    t.string  "access_token"
+    t.boolean "active"
+  end
+
   create_table "artisans", force: true do |t|
     t.string   "name"
     t.integer  "tasks_id"
@@ -166,13 +172,13 @@ ActiveRecord::Schema.define(version: 20140905163951) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                            default: ""
-    t.string   "encrypted_password",               default: "",         null: false
-    t.string   "roles",                            default: ["worker"],              array: true
+    t.string   "email"
+    t.string   "encrypted_password",                           null: false
+    t.string   "roles",                                                     array: true
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0,          null: false
+    t.integer  "sign_in_count",                    default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -185,9 +191,9 @@ ActiveRecord::Schema.define(version: 20140905163951) do
     t.integer  "mobile",                 limit: 8
     t.string   "employee_nr"
     t.string   "position"
-    t.integer  "profession_id"
     t.string   "image"
     t.string   "emp_id"
+    t.integer  "profession_id"
   end
 
   add_index "users", ["profession_id"], name: "index_users_on_profession_id", using: :btree

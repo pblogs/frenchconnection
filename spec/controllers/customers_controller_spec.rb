@@ -52,6 +52,7 @@ describe CustomersController do
   end
 
   describe "GET index" do
+    Customer.destroy_all
     it "assigns all customers as @customers" do
       Customer.destroy_all
       customer = Customer.create! valid_attributes

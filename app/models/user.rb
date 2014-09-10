@@ -84,4 +84,8 @@ class User < ActiveRecord::Base
   def after_resetting_password_path_for(resource)
     root_path
   end
+
+  def avatar_path
+    "users/#{ name.parameterize }.jpg"
+  end
 end

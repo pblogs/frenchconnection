@@ -15,13 +15,17 @@ gem 'passenger'
 gem 'thor'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 gem 'iconv'
+
+
+# API
+gem 'grape', github: 'intridea/grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+
 gem 'devise'
 gem 'carrierwave'
 gem 'axlsx', '~> 2.0.1'
-gem 'neat'
-gem 'bourbon'
-gem 'bitters'
-gem 'refills'
+
 
 
 # Use SCSS for stylesheets
@@ -30,6 +34,10 @@ gem 'slim'
 gem 'slim-rails'
 gem 'font-awesome-rails'
 gem 'bower-rails'
+gem 'neat'
+gem 'bourbon'
+gem 'bitters'
+gem 'refills'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
