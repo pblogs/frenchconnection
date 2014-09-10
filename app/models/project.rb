@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
   def hours_spent_for_profession(profession, overtime:)
     users = users_with_profession(profession: profession)
     all_kinds_of_hours = users.collect { |u| hours_spents.where(user: u ).to_a }.flatten
-    all = all_kinds_of_hours.select {|h| h.send(overtime)}
+    all = all_kinds_of_hours.select {|h| h.send(overtime) > 0}
     all.select { |h| h.send(overtime).present? }
   end
 
