@@ -62,13 +62,16 @@ fieldset
     p Last ned rapport for følgende yrkesgrupper
     - @project.professions.compact.each do |p|
       = link_to p.title + ' normal', 
-        dagsrapport_path(@project.id, p.id, :hour, format: :xls)
+        dagsrapport_path(@project.id, p.id, :hour)
       br
       = link_to p.title + ' 50% overtid',
-        dagsrapport_path(@project.id, p.id, :overtime_50, format: :pdf)
+        dagsrapport_path(@project.id, p.id, :overtime_50)
       br
       = link_to p.title + ' 100% overtid',
         dagsrapport_path(@project.id, p.id, :overtime_100)
+      br
+      = link_to p.title + ' Kjøring servicebil ',
+        dagsrapport_path(@project.id, p.id, :runs_in_company_car)
       br
       hr
   - else
