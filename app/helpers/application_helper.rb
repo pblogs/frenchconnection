@@ -10,4 +10,8 @@ module ApplicationHelper
   def add_remaining_tds(array, user: user)
     array.size - return_users_nr_in_array(@workers, user: user) -1
   end
+
+  def nbsp
+    "&nbsp;".html_safe
+  end
 end
