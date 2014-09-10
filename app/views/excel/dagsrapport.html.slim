@@ -5,26 +5,52 @@
   = fa_icon 'chevron-right'
   strong= 'Dagsrapport'
 
-/= image_tag 'alliero-bratfoss-h46.png'
+= image_tag 'alliero-bratfoss-h46.png'
 
 h3= "#{@profession.title.titleize} - #{t @overtime}"
 br
 
-div
-  strong År
-  = " #{@project.created_at.year}"
-div
-  strong Uke
-  = " #{@project.week_numbers}"
-div
-  strong Prosjektnummer
-  = " #{@project.project_number}"
-div
-  strong Kunde
-  = " #{@project.customer.name}"
-div
-  strong Adresse
-  = " #{@project.address}"
+.details
+  div
+    span.cell1
+      strong År
+    span.data_cell
+      strong = " #{@project.created_at.year}"
+    span.cell3
+      strong Pågår
+
+  br
+
+  div
+    span.cell1
+      strong Uke
+    span.data_cell
+      strong = " #{@project.week_numbers}"
+    span.cell3
+      strong Ferdigstilt
+
+  br
+  div
+    span.cell1
+      strong Prosjektnummer
+    span.data_cell
+      strong= " #{@project.project_number}"
+
+
+  br
+  div
+    span.cell1
+      strong Kunde
+    span.data_cell
+      strong= " #{@project.customer.name}"
+
+  br
+  div
+    span.cell1
+      strong Adresse
+    span.data_cell
+      strong= " #{@project.address}"
+
 
 
 table#dagsrapport
@@ -32,26 +58,32 @@ table#dagsrapport
     th Dato
     th Beskrivelse
     - @workers.each do |w| 
-      th= w.name 
-
-
+      th.vertical-text= w.name 
   tbody
     - @hours_spent.each_with_index do |hs,i|
       tr
         td= hs.created_at.strftime("%d/%m")
         td= hs.changed_value(:description) 
-        = return_users_nr_in_array(@workers, user: hs.user).times do
+        - return_users_nr_in_array(@workers, user: hs.user).times do
           td
         td
           = hs.changed_value(@overtime) 
         - add_remaining_tds(@workers, user: hs.user).times do
           td
 
-    tr
-    tr.bg_gray
+    - 5.times do
+      tr.spacer
+        - ((@workers.size) +2).times do
+          td= nbsp
+
+    tr.sum.bg_gray
+      td= "Sum #{t(@overtime).downcase} pr person"
       td
-      td Sum timer pr person
       - @workers.each do |w|
         td= @project.hours_total_for(w, changed: true, overtime: @overtime)
 
 
+br
+br
+br
+br
