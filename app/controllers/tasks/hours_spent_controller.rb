@@ -85,6 +85,9 @@ class Tasks::HoursSpentController < ApplicationController
                                           :project_id,
                                           :overtime_50,
                                           :overtime_100,
+                                          :runs_in_company_car,
+                                          :km_driven_own_car,
+                                          :supplies_from_warehouse,
                                           :piecework_hours,
                                           :hour, :description, :date)
     end

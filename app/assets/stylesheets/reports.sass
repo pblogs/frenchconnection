@@ -1,3 +1,33 @@
+#nyrap
+  //.date
+  //  @include span-columns(1)
+  //.name
+  //  @include span-columns(1)
+  //.description
+  //  @include span-columns(1)
+  #header
+    @include outer-container
+    height: 20px
+    border-bottom: 1px solid
+    .cell
+      @include span-columns(2)
+      font-weight: bold
+    .cell.date
+      @include span-columns(1)
+    .cell.name
+      @include span-columns(2)
+
+  #body
+    .cell
+      @include span-columns(2)
+    .cell.date
+      @include span-columns(1)
+    .cell.name
+      @include span-columns(2)
+
+
+
+
 #excel_dagsrapport
   background-color: lightgray
   #outer-container
@@ -11,7 +41,7 @@
     background-color: yellow
 
   .details
-    margin-bottom: 70px
+    margin-bottom: 150px
     .data_cell
       background-color: yellow
     @include span-columns(12)
@@ -23,9 +53,16 @@
       @include span-columns(2)
 
 #dagsrapport
+  table-layout: fixed
+  word-break: break-all
+  width: 1200px
+  td 
+    overflow:hidden
+    width: 10px
   tr.bg_gray
     background-color: gray
   .sum
     margin-top: 30px
     color: black
     font-weight: bold
+
