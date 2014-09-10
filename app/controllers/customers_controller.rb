@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_if_not_project_leader
 
   # GET /customers
   # GET /customers.json
@@ -85,5 +86,9 @@ class CustomersController < ApplicationController
     def customer_params
       params.require(:customer).permit(:name, :address, :org_number, :starred,
                                        :contact_person, :phone)
+    end
+
+    def redirect_if_not_project_leader
+      redirect_to root_url, notice: 'Only for admin' unless @current_user.roles.first.match /project_leader/
     end
 end
