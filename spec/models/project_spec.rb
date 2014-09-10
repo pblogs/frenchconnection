@@ -81,7 +81,7 @@ describe Project do
 
       it 'hours_spent_for_profession(profession, overtime: overtime)' do
         @project.hours_spent_for_profession(@snekker, overtime: :hour).should \
-          include(@hours_for_snakker1, @hours_for_snakker2)
+          include(@hours_for_snakker1)
       end
 
       it "hours_spent_total" do
