@@ -74,7 +74,6 @@ describe Project do
       end
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
-        pending 'wip'
         @project.hours_spent_for_profession(@snekker, overtime: :hour).should_not \
           include(@overtime_100_for_john_s)
       end
