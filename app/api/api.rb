@@ -7,6 +7,9 @@ class API < Grape::API
   format :json
   default_format :json
 
-  mount ::V1::Base
+  #mount ::V1::Base
+  mount Orwapp::Ping
+
+
   #add_swagger_documentation api_version: 'v1', mount_path: 'docs'
 end
