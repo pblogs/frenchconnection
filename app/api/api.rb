@@ -7,7 +7,7 @@ class API < Grape::API
   format :json
   default_format :json
 
-  #mount ::V1::Base
+  mount ::V1::Base
   mount Orwapp::Ping
 
 
