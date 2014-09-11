@@ -1,7 +1,7 @@
 module V1
   module Entities
     class Users < Grape::Entity
-      expose :id, :state, :state_events, :url
+      expose :id, :first_name, :last_name
       #expose :created_at, :updated_at, :sold_at
       #expose :description, :title, :price
       #expose :address, :lat, :lon
