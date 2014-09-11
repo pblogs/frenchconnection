@@ -14,6 +14,11 @@ module V1
       #get ':id' do
       #end
 
+      # 
+      # List ubekreftede og bekreftede fra user id
+      # Returner array med tasks. ID, title, description., prosject_id
+      # prosjektnanv og kundenavn, url til projekt
+      
       desc "Return user with ID."
       params do
         requires :id, type: Integer, desc: "Status id."
@@ -24,7 +29,27 @@ module V1
         end
       end
 
+      desc "unconfirmed_tasks"
+      params do
+        requires :id, type: Integer, desc: "Status id."
+      end
+      route_param :id do
+        get 'unconfirmed_tasks' do
+          u = User.find(params[:id])
+          u.tasks # TODO only return UNconfirmed tasks
+        end
+      end
 
+      desc "confirmed_tasks"
+      params do
+        requires :id, type: Integer, desc: "Status id."
+      end
+      route_param :id do
+        get 'confirmed_tasks' do
+          u = User.find(params[:id])
+          u.tasks # TODO only return confirmed tasks
+        end
+      end
 
 
       params { requires :id }
