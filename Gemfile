@@ -73,7 +73,6 @@ gem 'fog'
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', require: false
-  gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
 end
@@ -81,6 +80,7 @@ end
 group :development do
   gem 'ruby_gntp'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
+  gem 'better_errors'
 end
 
 group :test do
