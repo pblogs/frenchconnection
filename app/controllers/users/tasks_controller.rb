@@ -1,4 +1,4 @@
-class Users::TasksController < ApplicationController
+class ::Users::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, 
                                   :destroy, :register_hours]
 
@@ -12,7 +12,8 @@ class Users::TasksController < ApplicationController
   end
 
   def started
-    @tasks = @current_user.tasks.where(accepted: true, finished: false).order(created_at: :desc)
+    @tasks = @current_user.tasks.where(accepted: true, 
+                                       finished: false).order(created_at: :desc)
   end
 
   def not_started
