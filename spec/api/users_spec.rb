@@ -9,7 +9,7 @@ describe V1::Users do
       get "/api/v1/users/#{ user.id }"
       response.status.should == 200
       hash = JSON.parse(response.body)
-      hash['email'].should eq user.email
+      hash['user']['email'].should eq user.email
     end
   end
 
