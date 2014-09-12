@@ -3,23 +3,7 @@ module V1
 
     resource :users do
 
-      desc 'Lookup of single user'
-      get 'martin' do
-       'hello'
-      end
 
-      #params do
-      #    requires :id # or use :id if you have a reusable params block
-      #end
-      #get ':id' do
-      #end
-
-      # 
-      # List ubekreftede og bekreftede fra user id
-      # Returner array med tasks. ID, title, description., prosject_id
-      # prosjektnanv og kundenavn, url til projekt
-      
-      desc "Return user with ID."
       params do
         requires :id, type: Integer, desc: "Status id."
       end
@@ -29,7 +13,10 @@ module V1
         end
       end
 
-      desc "unconfirmed_tasks"
+      # Returner array med tasks. ID, title, description., prosject_id
+      # prosjektnanv og kundenavn, url til projekt
+      
+      desc "Return user with ID."
       params do
         requires :id, type: Integer, desc: "Status id."
       end
@@ -47,7 +34,7 @@ module V1
       route_param :id do
         get 'confirmed_tasks' do
           u = User.find(params[:id])
-          u.tasks # TODO only return confirmed tasks
+          #tasks = u.tasks # TODO only return confirmed tasks
         end
       end
 
