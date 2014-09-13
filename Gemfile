@@ -15,6 +15,7 @@ gem 'passenger'
 gem 'thor'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 gem 'iconv'
+gem 'pdfkit'
 
 
 # API

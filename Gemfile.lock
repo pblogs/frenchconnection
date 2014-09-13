@@ -233,6 +233,7 @@ GEM
       daemon_controller (>= 1.2.0)
       rack
       rake (>= 0.8.1)
+    pdfkit (0.6.2)
     pg (0.17.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
@@ -402,6 +403,7 @@ DEPENDENCIES
   neat
   newrelic_rpm
   passenger
+  pdfkit
   pg
   quiet_assets
   rails (= 4.1.5)
