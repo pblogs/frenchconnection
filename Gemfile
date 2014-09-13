@@ -96,4 +96,5 @@ end
 group :production do
   gem 'exception_notification'
   gem 'roo' # Used for the Excel import
+  gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
 end
