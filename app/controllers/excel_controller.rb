@@ -1,4 +1,6 @@
+
 class ExcelController < ApplicationController
+  skip_before_filter :authenticate_user!
   layout :resolve_layout
   
   def dagsrapport
@@ -6,13 +8,17 @@ class ExcelController < ApplicationController
     @profession = Profession.find(params[:profession_id])
     @workers    = @project.users_with_profession(profession: @profession)
     @overtime   = params[:overtime]
-    @file_name  = Dagsrapport.new(project: @project, profession: @profession, 
+    @filename   = Dagsrapport.new(project: @project, profession: @profession, 
                                  overtime: @overtime).create_spreadsheet
     respond_to do |format|
-      #format.xls {  send_file(file_name, filename:  "dagsrapport.xls")  }
-      format.pdf {  send_file(file_name, filename:  "dagsrapport.xls")  }
+      format.pdf do
+        filename = generate_dagsrapport_pdf(profession_title: @profession.title,
+                                           overtime: @overtime)
+        send_file filename, filename: File.basename(filename)
+      end
       format.html do
-        @hours_spent = @project.hours_spent_for_profession(@profession, overtime: @overtime)
+        @hours_spent = @project.hours_spent_for_profession(@profession, 
+                                                           overtime: @overtime)
       end
     end
   end
@@ -32,15 +38,23 @@ class ExcelController < ApplicationController
     @project = Project.find(params[:project_id])
     @user    = User.find(params[:user_id])
     @hours   = @project.hours_spents.where(user: @user).all
-    file_name = Timesheet.new(@project, @user, 
+    filename = Timesheet.new(@project, @user, 
                               @hours).create_spreadsheet
-    send_file file_name,
-      filename:  file_name
+    send_file filename, filename:  filename
   end
 
 
 
   private
+
+  
+  def generate_dagsrapport_pdf(profession_title:, overtime:)
+    filename = "/tmp/dagsrapport-#{profession_title.downcase}-#{overtime}.pdf"
+    url  = request.original_url.gsub('.pdf', '')
+    kit  = PDFKit.new(url)
+    kit.to_file(filename)
+    filename
+  end
 
   def offsett(nr)
     r = []
