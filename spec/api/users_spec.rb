@@ -14,6 +14,7 @@ describe V1::Users do
   end
 
   describe 'GET /api/v1/users/martin' do
+    pending "WIP"
     it 'lists a specific user' do
       get "/api/v1/users/martin"
       response.status.should == 200
@@ -22,6 +23,7 @@ describe V1::Users do
 
   # WIP - returns all tasks today. 
   describe 'GET /api/v1/users/:id/confirmed_tasks' do
+    pending "WIP"
     it 'returns Tasks' do
       user = Fabricate(:user)
       task = Fabricate(:task, description: 'Mal hus')
