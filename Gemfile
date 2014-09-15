@@ -15,6 +15,7 @@ gem 'passenger'
 gem 'thor'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 gem 'iconv'
+gem 'pdfkit'
 
 
 # API
@@ -95,4 +96,5 @@ end
 group :production do
   gem 'exception_notification'
   gem 'roo' # Used for the Excel import
+  gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
 end
