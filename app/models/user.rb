@@ -16,8 +16,7 @@ class User < ActiveRecord::Base
 
   validates :first_name, presence: true
   validates :last_name,  presence: true
-  validates :mobile,     presence: true, uniqueness: true
-  validates :emp_id,     presence: true
+  validates :mobile,     uniqueness: true
   validates :department_id,  presence: true
   validates :roles,  presence: true
 
