@@ -37,7 +37,7 @@ describe V1::Users do
       user.save
       get "/api/v1/users/#{ user.id }/unconfirmed_tasks"
       hash = JSON.parse(response.body)
-      #puts "ARRAY: #{hash}"
+      #puts "RESULT: #{hash}"
       hash['tasks'].first['description'].should eq 'Mal hus'
     end
   end
