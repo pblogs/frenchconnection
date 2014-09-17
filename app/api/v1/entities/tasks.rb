@@ -15,8 +15,6 @@ module V1
       def customer_url
         "http://#{ ENV['DOMAIN'] || 'alliero-orwapp.dev' }" +
           "/customers/#{object.project.customer.id}"
-        # customer_project_path(object.project.customer, 
-        # object.project)
       end
     end
 
