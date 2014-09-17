@@ -13,23 +13,25 @@ module V1
         end
       end
 
-      # Returner array med tasks. ID, title, description., prosject_id
+      # Returner array med tasks. ID, title, 
+      # description., prosject_id
       # prosjektnanv og kundenavn, url til projekt
       
       desc "Return user with ID."
       params do
-        requires :id, type: Integer, desc: "Status id."
+        requires :id, type: Integer, desc: "User id."
       end
       route_param :id do
         get 'unconfirmed_tasks' do
           u = User.find(params[:id])
-          u.tasks # TODO only return UNconfirmed tasks
+          present :tasks, u.tasks, 
+            with: V1::Entities::Tasks
         end
       end
 
       desc "confirmed_tasks"
       params do
-        requires :id, type: Integer, desc: "Status id."
+        requires :id, type: Integer, desc: "User id."
       end
       route_param :id do
         get 'confirmed_tasks' do
