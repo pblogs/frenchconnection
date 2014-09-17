@@ -183,4 +183,17 @@ describe TasksController do
     end
   end
 
+  describe "POST complete" do
+
+
+    it "changes the user_task status" do
+      task = Task.create! valid_attributes
+      current_user = task.users.first
+      sign_in current_user
+      post :complete, {id: task.to_param}, valid_session
+      user_task = task.user_tasks.find_by(user: current_user)
+      expect(user_task.status).to eq :complete
+    end
+  end
+
 end
