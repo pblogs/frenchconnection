@@ -13,13 +13,6 @@ describe V1::Users do
     end
   end
 
-  describe 'GET /api/v1/users/martin' do
-    it 'lists a specific user' do
-    pending "WIP"
-      get "/api/v1/users/martin"
-      response.status.should == 200
-    end
-  end
 
   # WIP - returns all tasks today. 
   describe 'GET /api/v1/users/:id/confirmed_tasks' do
@@ -44,6 +37,7 @@ describe V1::Users do
       user.save
       get "/api/v1/users/#{ user.id }/unconfirmed_tasks"
       array = JSON.parse(response.body)
+      puts "ARRAY: #{array}"
       array.first['description'].should eq 'Mal hus'
     end
   end

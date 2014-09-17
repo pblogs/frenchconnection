@@ -9,7 +9,7 @@ describe User do
     expect(@user).to be_valid
   end
 
-  it "an user can have many tasks" do
+  it "a user can have many tasks" do
     @task = Fabricate(:task)
     @task2 = Fabricate(:task)
     @user.tasks << @task

@@ -3,6 +3,8 @@ module V1
     class Users < Grape::Entity
       expose :id, :created_at, :updated_at, :email
       expose :first_name, :last_name, :profile_url, :image_url
+      expose :tasks, using: V1::Entities::Tasks
+
       #expose :profile_image, as: :image_info, using: V1::Entities::Attachment,
       #  if: lambda { |user, options|
       #    user.profile_image.class.name == 'Attachment' }
@@ -23,8 +25,8 @@ module V1
         when 'String'     then image end
       end
 
-      def ads
-        object.active_ads.latest
+      def tasks
+        object.tasks
       end
     end
   end
