@@ -10,20 +10,10 @@ module V1
       #    user.profile_image.class.name == 'Attachment' }
       #expose :ads, using: V1::Entities::Ads, if: { include: :user_ads }
 
-      def id
-        object.id.to_s
-      end
-
       def profile_url
         "http://#{ ENV['DOMAIN'] }/profile/#{ object.slug }"
       end
 
-      def image_url
-        image = object.profile_image
-        case image.class.name
-        when 'Attachment' then image.url
-        when 'String'     then image end
-      end
 
       def tasks
         object.tasks
