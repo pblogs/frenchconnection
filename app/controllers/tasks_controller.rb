@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_paint_and_type, only: [:new, :edit, :create]
 
@@ -91,8 +91,19 @@ class TasksController < ApplicationController
     end
   end
 
+  # POST /tasks/1/complete
+  def complete
+    @user_task = @task.user_tasks.find_by(user: current_user)
+    @user_task.complete!
+    respond_to do |format|
+      format.html { redirect_to current_user }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
+    # TODO decent_exposure gem is probably better
     def set_task
       @task = Task.find(params[:id])
     end
