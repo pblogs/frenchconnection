@@ -3,9 +3,8 @@ module V1
 
     resource :users do
 
-
       params do
-        requires :id, type: Integer, desc: "Status id."
+        requires :id, type: Integer, desc: "User id."
       end
       route_param :id do
         get do
@@ -17,7 +16,7 @@ module V1
       # description., prosject_id
       # prosjektnanv og kundenavn, url til projekt
       
-      desc "Return user with ID."
+      desc "unconfirmed_tasks"
       params do
         requires :id, type: Integer, desc: "User id."
       end
