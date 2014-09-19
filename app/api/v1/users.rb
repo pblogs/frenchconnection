@@ -23,8 +23,7 @@ module V1
       route_param :id do
         get 'unconfirmed_tasks' do
           u = User.find(params[:id])
-          present :tasks, u.tasks, 
-            with: V1::Entities::Tasks
+          present :tasks, u.tasks, with: V1::Entities::Tasks
         end
       end
 
@@ -35,7 +34,7 @@ module V1
       route_param :id do
         get 'confirmed_tasks' do
           u = User.find(params[:id])
-          #tasks = u.tasks # TODO only return confirmed tasks
+          present :tasks, u.tasks, with: V1::Entities::Tasks
         end
       end
 
