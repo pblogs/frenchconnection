@@ -3,8 +3,9 @@ module V1
     version 'v1', using: :path, vendor: 'orwapp', cascade: false
 
     mount Users
-    mount V1::Entities::Tasks
-    #mount V1::Entities::Users
+    #mount Tasks
+    mount Projects
+    mount Customers
 
   end
 end
