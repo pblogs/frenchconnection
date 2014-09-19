@@ -2,7 +2,8 @@ class Task < ActiveRecord::Base
 
   belongs_to :project
   belongs_to :paint
-  has_and_belongs_to_many :users
+  has_many :user_tasks
+  has_many :users, through: :user_tasks
 
   has_many :hours_spents
 
@@ -38,5 +39,5 @@ class Task < ActiveRecord::Base
       Sms.send_msg("47#{u.mobile}", msg)
     end
   end
-  
+
 end
