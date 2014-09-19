@@ -5,6 +5,7 @@ module V1
     mount Users
     #mount Tasks
     mount Projects
+    mount Customers
 
   end
 end
