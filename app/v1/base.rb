@@ -5,6 +5,7 @@ module V1
     version 'v1', using: :path, vendor: 'orwapp', cascade: false
 
     mount V1::Entities::Users
+    mount V1::Entities::Projects
 
   end
 end
