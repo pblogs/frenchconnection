@@ -9,7 +9,7 @@ describe V1::Projects do
       response.status.should == 200
       hash = JSON.parse(response.body)
       puts "HASH: #{hash}"
-      hash['project']['name'].should eq 'New fence'
+      hash['projects']['name'].should eq 'New fence'
     end
   end
 end
