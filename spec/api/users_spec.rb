@@ -5,7 +5,6 @@ describe V1::Users do
   describe 'GET /api/v1/users/:id' do
     it 'lists a specific user' do
       user = Fabricate :user
-      user.should be_valid
       get "/api/v1/users/#{ user.id }"
       response.status.should == 200
       hash = JSON.parse(response.body)
@@ -37,7 +36,7 @@ describe V1::Users do
       user.save
       get "/api/v1/users/#{ user.id }/unconfirmed_tasks"
       hash = JSON.parse(response.body)
-      #puts "RESULT: #{hash}"
+      #puts "ARRAY: #{hash}"
       hash['tasks'].first['description'].should eq 'Mal hus'
     end
   end
