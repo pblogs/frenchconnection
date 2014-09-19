@@ -88,6 +88,6 @@
                   = link_to task.description, task
                   span.actions
                     = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
-                    = link_to fa_icon('check'), task_complete_path(task), method: :post, data: {confirm: "Are you sure?"}
+                    = link_to fa_icon('check'), complete_task_path(task), method: :post, data: {confirm: "Are you sure?"}
           - else
             p Du har ingen aktive prosjekter.
