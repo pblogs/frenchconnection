@@ -7,7 +7,7 @@ describe Task do
     @worker2 = Fabricate(:user, first_name: 'Barry')
     @task    = Fabricate(:task)
     @task2   = Fabricate(:task)
-    @task.user_ids = [@worker.id, @worker2.id]
+    @task.users = [@worker, @worker2]
     @task.save
     @task.reload
     @worker.reload

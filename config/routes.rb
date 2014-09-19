@@ -59,6 +59,9 @@ AllieroForms::Application.routes.draw do
   end
   resources :tasks do
     resources :hours_spents, :controller => 'tasks/hours_spent'
+    member do
+      post :complete
+    end
   end
 
 

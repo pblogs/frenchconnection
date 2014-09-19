@@ -16,7 +16,7 @@ gem 'thor'
 gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 gem 'iconv'
 gem 'pdfkit'
-
+gem 'symbolize'
 
 # API
 gem 'grape', github: 'intridea/grape'
