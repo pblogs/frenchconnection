@@ -85,6 +85,8 @@
             ul
               - @tasks.each do |task|
                 li
+                  - if task_needs_reporting(task)
+                    = fa_icon('exclamation-triangle')
                   = link_to task.description, task
                   span.actions
                     = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
