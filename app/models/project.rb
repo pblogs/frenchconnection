@@ -93,4 +93,8 @@ class Project < ActiveRecord::Base
     w.uniq.sort!.join(', ')
   end
 
+  def complete!
+    update_attribute(:complete, true)
+  end
+
 end
