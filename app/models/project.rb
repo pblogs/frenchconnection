@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   has_many :tasks
+  has_many :user_tasks,   :through => :tasks
   has_many :attachments
   has_many :hours_spents, :through => :tasks
   has_many :users,        :through => :tasks
