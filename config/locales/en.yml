@@ -6,3 +6,6 @@ en:
       We're ending the %{project_name} project today.
       Make sure you've reported all billable hours within the day.
       Regards, your project leader
+    notify:
+      missing_hours:
+        It seems that you haven't registered hours in one or more of your tasks
