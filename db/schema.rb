@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917164354) do
+ActiveRecord::Schema.define(version: 20140920114622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20140917164354) do
     t.integer  "department_id"
     t.boolean  "starred"
     t.string   "short_description"
+    t.boolean  "complete"
   end
 
   create_table "task_types", force: true do |t|

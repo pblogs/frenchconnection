@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
-                                     :hours_registered]
+                                     :hours_registered, :complete]
 
   # GET /projects
   # GET /projects.json
@@ -65,6 +65,17 @@ class ProjectsController < ApplicationController
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url }
+      format.json { head :no_content }
+    end
+  end
+
+  # POST /projects/1
+  # POST /projects/1.json
+  def complete
+    @project.complete!
+    CompleteProjectWorker.perform_async(@project.id)
+    respond_to do |format|
+      format.html { redirect_to customer_projects_url(@project.customer) }
       format.json { head :no_content }
     end
   end
