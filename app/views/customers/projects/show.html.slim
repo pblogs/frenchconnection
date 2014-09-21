@@ -4,7 +4,7 @@
   button
     = link_to 'Registrer ny oppgave', new_project_task_path(@project)
   - unless @project.complete
-    = link_to 'Complete project', complete_project_path(@project), data: {confirm: "Are you sure?"}, method: :post
+    = link_to 'Complete project', complete_project_path(@project), data: {confirm: t('generic.confirm')}, method: :post
 
 .button.green
   p
