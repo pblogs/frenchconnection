@@ -8,9 +8,7 @@ class Notify < Thor
 
     users_to_notify.each do |u|
       puts "Notify user: #{u.name}"
-      Sms.send_msg u.mobile, <<-eos
-        It seems that you haven't registered hours in one or more of your tasks
-      eos
+      Sms.send_msg u.mobile, I18n.t('sms.notify.missing_hours')
     end
   end
 
