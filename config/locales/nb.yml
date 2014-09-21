@@ -31,4 +31,7 @@ nb:
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
 
-
+  sms:
+    notify:
+      missing_hours:
+        It seems that you haven't registered hours in one or more of your tasks
