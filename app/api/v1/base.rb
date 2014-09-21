@@ -6,6 +6,7 @@ module V1
     #mount Tasks
     mount Projects
     mount Customers
+    mount HoursSpents
 
   end
 end
