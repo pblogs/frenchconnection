@@ -47,7 +47,9 @@ module V1
         get 'available_tasks' do
           user = User.find(params[:id])
           all_tasks = Task.all
-          unconnected_tasks = all_tasks.reject { |task| user.tasks.include? task }
+          unconnected_tasks = 
+            all_tasks.reject { |task| user.tasks.include? task }
+          
           present :tasks, unconnected_tasks, with: V1::Entities::Tasks
           header 'Access-Control-Allow-Origin', '*'
         end
@@ -75,8 +77,14 @@ module V1
         get 'tasks/:task_id/hours_spents' do
           user = User.find(params[:user_id])
           task_id = params[:task_id].to_i
-          hours_spents_on_task = user.hours_spents.select { |hour_spent| hour_spent.task_id == task_id }
-          present :hours_spents, hours_spents_on_task, with: V1::Entities::HoursSpents
+          hours_spents_on_task = 
+            user.hours_spents.select { 
+              |hour_spent| hour_spent.task_id == task_id }
+            
+          present :hours_spents, 
+                  hours_spents_on_task, 
+                  with: V1::Entities::HoursSpents
+          
           header 'Access-Control-Allow-Origin', '*'
         end
       end
@@ -90,10 +98,15 @@ module V1
           user = User.find(params[:user_id])
           task_id = params[:task_id].to_i
           date = params[:date]
-          hours_spents_on_task_on_date = user.hours_spents.select { 
-            |hour_spent| hour_spent.task_id == task_id && hour_spent.date.to_s == date
-          }
-          present :hours_spents, hours_spents_on_task_on_date, with: V1::Entities::HoursSpents
+          hours_spents_on_task_on_date = 
+            user.hours_spents.select { 
+              |hour_spent|  hour_spent.task_id == task_id && 
+                            hour_spent.date.to_s == date }
+              
+          present :hours_spents, 
+                  hours_spents_on_task_on_date, 
+                  with: V1::Entities::HoursSpents
+          
           header 'Access-Control-Allow-Origin', '*'
         end
       end
@@ -109,27 +122,26 @@ module V1
         end
         
         post 'tasks/:task_id/hours_spents/:date' do
-          hours_spent = HoursSpent.new
-          hours_spent.user_id                 = params[:user_id]
-          hours_spent.task_id                 = params[:task_id]
-          hours_spent.project_id              = Task.find(hours_spent.task_id).project_id
-          hours_spent.date                    = params[:date]
-          hours_spent.hour                    = params[:hour]
-          hours_spent.overtime_50             = params[:overtime_50]
-          hours_spent.overtime_100            = params[:overtime_100]
-          hours_spent.description             = params[:description]
-          hours_spent.runs_in_company_car     = params[:runs_in_company_car]
-          hours_spent.km_driven_own_car       = params[:km_driven_own_car]
-          hours_spent.toll_expenses_own_car   = params[:toll_expenses_own_car]
-          hours_spent.supplies_from_warehouse = params[:supplies_from_warehouse]
           
-          hours_spent.save!
           
-          present hours_spent.id
-          header 'Access-Control-Allow-Origin', '*'
+          request_params = ActionController::Parameters.new(params)
+          permitted_params = request_params.permit(:user_id, :task_id, :date,
+            :hour, :overtime_50, :overtime_100, :description,
+            :runs_in_company_car, :km_driven_own_car, :toll_expenses_own_car,
+            :supplies_from_warehouse)
+          
+          if hours_spent = HoursSpent.create(permitted_params)
+            hours_spent.project_id = Task.find(hours_spent.task_id).project_id
+            hours_spent.save!
+            present hours_spent.id
+            header 'Access-Control-Allow-Origin', '*'
+          else
+            error! hours_spent.errors, 400
+            header 'Access-Control-Allow-Origin', '*'
+          end
+
         end
       end
-
 
       params { requires :id }
       route_param :id do
