@@ -15,22 +15,23 @@ module V1
         end
         
         put do
-          
           hours_spent = HoursSpent.find(params[:hours_spent_id])
-          hours_spent.hour                    = params[:hour] || hours_spent.hour
-          hours_spent.overtime_50             = params[:overtime_50] || hours_spent.overtime_50 
-          hours_spent.overtime_100            = params[:overtime_100] || hours_spent.overtime_100
-          hours_spent.description             = params[:description] || hours_spent.description 
-          hours_spent.runs_in_company_car     = params[:runs_in_company_car] || hours_spent.runs_in_company_car
-          hours_spent.km_driven_own_car       = params[:km_driven_own_car] || hours_spent.km_driven_own_car
-          hours_spent.toll_expenses_own_car   = params[:toll_expenses_own_car] || hours_spent.toll_expenses_own_car
-          hours_spent.supplies_from_warehouse = params[:supplies_from_warehouse] || hours_spent.supplies_from_warehouse
           
-          hours_spent.save!
+          request_params = ActionController::Parameters.new(params)
+          permitted_params = request_params.permit(:hour, :overtime_50, 
+            :overtime_100, :description, :runs_in_company_car, 
+            :km_driven_own_car, :toll_expenses_own_car, 
+            :supplies_from_warehouse)
           
-          present 'OK'
-          header 'Access-Control-Allow-Origin', '*'
+          if hours_spent.update(permitted_params)
+            present :hours_spent, hours_spent, with: V1::Entities::HoursSpents
+            header 'Access-Control-Allow-Origin', '*'
+          else
+            error! hours_spent.errors, 400
+            header 'Access-Control-Allow-Origin', '*'
+          end
         end
+        
       end
 
     end

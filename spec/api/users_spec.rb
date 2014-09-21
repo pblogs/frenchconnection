@@ -36,7 +36,6 @@ describe V1::Users do
       user.save
       get "/api/v1/users/#{ user.id }/unconfirmed_tasks"
       hash = JSON.parse(response.body)
-      #puts "ARRAY: #{hash}"
       hash['tasks'].first['description'].should eq 'Mal hus'
     end
   end
@@ -59,20 +58,28 @@ describe V1::Users do
     end
   end
   
-  ##'tasks/:task_id/hours_spents/:date'
-  
   # returns hours_spent for user on task on date
   describe 'GET /api/v1/users/:id/tasks/:task_id/hours_spents/:date' do
     it 'returns HoursSpent for user on task on date' do
       date = Date.parse '2014-01-01'
       task = Fabricate(:task)
       user = Fabricate(:user)
-      hours_spent = Fabricate(:hours_spent, user: user, task: task, date: date, hour: 5)
-      hours_spent_same_task_date_different_user = Fabricate(:hours_spent, user: Fabricate(:user), task: task, date: date, hour: 6)
-      hours_spent_same_task_user_different_date = Fabricate(:hours_spent, user: user, task: task, date: date + 1, hour: 7)
-      hours_spent_same_date_user_different_task = Fabricate(:hours_spent, user: user, task: Fabricate(:task), date: date, hour: 8)
+      hours_spent = 
+        Fabricate(:hours_spent, user: user, 
+                  task: task, date: date, hour: 5)
       
-      get "/api/v1/users/#{ user.id }/tasks/#{ task.id }/hours_spents/#{ date }"
+      hours_spent_same_task_date_different_user = 
+        Fabricate(:hours_spent, user: Fabricate(:user), 
+                  task: task, date: date, hour: 6)
+      hours_spent_same_task_user_different_date = 
+        Fabricate(:hours_spent, user: user, 
+                  task: task, date: date + 1, hour: 7)
+      hours_spent_same_date_user_different_task = 
+        Fabricate(:hours_spent, user: user, 
+                  task: Fabricate(:task), date: date, hour: 8)
+      
+      get "/api/v1/users/#{ user.id }" +
+          "/tasks/#{ task.id }/hours_spents/#{ date }"
       hash = JSON.parse(response.body)
       #puts "ARRAY: #{hash}"
       
@@ -88,7 +95,10 @@ describe V1::Users do
       task = Fabricate(:task)
       user = Fabricate(:user)
       
-      post "/api/v1/users/#{ user.id }/tasks/#{ task.id }/hours_spents/#{ date }", { description: 'Malte hus', hour: 5 }
+      post "/api/v1/users/#{ user.id }/" +
+           "tasks/#{ task.id }/hours_spents/#{ date }", 
+           { description: 'Malte hus', hour: 5 }
+           
       hours_spent_id = response.body
       
       another_hours_spent = Fabricate(:hours_spent)
