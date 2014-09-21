@@ -4,12 +4,7 @@ class CompleteProjectWorker
   def perform(project_id)
     project = Project.find(project_id)
     project.users.workers.each do |worker|
-      Sms.send_msg(worker.mobile, <<-eos.gsub(/\s+/, " ").strip
-        We're ending the #{project.name} project today.
-        Make sure you've reported all billable hours within the day.
-        Regards, your project leader
-      eos
-      )
+      Sms.send_msg(worker.mobile, I18n.t('sms.complete_project', project_name: project.name))
     end
   end
 
