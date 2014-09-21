@@ -2,7 +2,7 @@ module V1
   module Entities
 
     class Tasks < Grape::Entity
-      expose :id, :description, :project_id, :project_url
+      expose :id, :description, :project_id
 
       def project_url
         project_id = object.project.id

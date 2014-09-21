@@ -24,6 +24,7 @@ module V1
         get 'unconfirmed_tasks' do
           u = User.find(params[:id])
           present :tasks, u.tasks, with: V1::Entities::Tasks
+          header 'Access-Control-Allow-Origin', '*'
         end
       end
 
@@ -35,6 +36,97 @@ module V1
         get 'confirmed_tasks' do
           u = User.find(params[:id])
           present :tasks, u.tasks, with: V1::Entities::Tasks
+        end
+      end
+      
+      desc "Tasks not connected to user"
+      params do
+        requires :id, type: Integer, desc: "User id."
+      end
+      route_param :id do
+        get 'available_tasks' do
+          user = User.find(params[:id])
+          all_tasks = Task.all
+          unconnected_tasks = all_tasks.reject { |task| user.tasks.include? task }
+          present :tasks, unconnected_tasks, with: V1::Entities::Tasks
+          header 'Access-Control-Allow-Origin', '*'
+        end
+      end
+      
+      
+      desc "HoursSpents by user"
+      params do
+        requires :id, type: Integer, desc: "User id."
+      end
+      route_param :id do
+        get 'hours_spents' do
+          user = User.find(params[:id])
+          hours_spents = user.hours_spents
+          present :hours_spents, hours_spents, with: V1::Entities::HoursSpents
+          header 'Access-Control-Allow-Origin', '*'
+        end
+      end
+      
+      desc "HoursSpents by user on task"
+      params do
+        requires :user_id, type: Integer, desc: "User id."
+      end
+      route_param :user_id do
+        get 'tasks/:task_id/hours_spents' do
+          user = User.find(params[:user_id])
+          task_id = params[:task_id].to_i
+          hours_spents_on_task = user.hours_spents.select { |hour_spent| hour_spent.task_id == task_id }
+          present :hours_spents, hours_spents_on_task, with: V1::Entities::HoursSpents
+          header 'Access-Control-Allow-Origin', '*'
+        end
+      end
+      
+      desc "HoursSpents by user on task on date"
+      params do
+        requires :user_id, type: Integer, desc: "User id."
+      end
+      route_param :user_id do
+        get 'tasks/:task_id/hours_spents/:date' do
+          user = User.find(params[:user_id])
+          task_id = params[:task_id].to_i
+          date = params[:date]
+          hours_spents_on_task_on_date = user.hours_spents.select { 
+            |hour_spent| hour_spent.task_id == task_id && hour_spent.date.to_s == date
+          }
+          present :hours_spents, hours_spents_on_task_on_date, with: V1::Entities::HoursSpents
+          header 'Access-Control-Allow-Origin', '*'
+        end
+      end
+      
+      desc "Create HoursSpents by user on task on date"
+      params do
+        requires :user_id, type: Integer, desc: "User id."
+      end
+      route_param :user_id do
+        options 'tasks/:task_id/hours_spents/:date' do
+          header 'Access-Control-Allow-Headers', 'Content-Type'
+          header 'Access-Control-Allow-Origin', '*'
+        end
+        
+        post 'tasks/:task_id/hours_spents/:date' do
+          hours_spent = HoursSpent.new
+          hours_spent.user_id                 = params[:user_id]
+          hours_spent.task_id                 = params[:task_id]
+          hours_spent.project_id              = Task.find(hours_spent.task_id).project_id
+          hours_spent.date                    = params[:date]
+          hours_spent.hour                    = params[:hour]
+          hours_spent.overtime_50             = params[:overtime_50]
+          hours_spent.overtime_100            = params[:overtime_100]
+          hours_spent.description             = params[:description]
+          hours_spent.runs_in_company_car     = params[:runs_in_company_car]
+          hours_spent.km_driven_own_car       = params[:km_driven_own_car]
+          hours_spent.toll_expenses_own_car   = params[:toll_expenses_own_car]
+          hours_spent.supplies_from_warehouse = params[:supplies_from_warehouse]
+          
+          hours_spent.save!
+          
+          present hours_spent.id
+          header 'Access-Control-Allow-Origin', '*'
         end
       end
 
