@@ -21,6 +21,9 @@ AllieroForms::Application.routes.draw do
   get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'
+    member do
+      post :complete
+    end
   end
 
   get '/timesheets' => 'excel#timesheets', as: :timesheets
