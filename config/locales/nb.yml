@@ -30,10 +30,15 @@ nb:
       short_w_year: "%d %B %Y"
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
+
   generic:
     confirm: "Are you sure?"
+
   sms:
     complete_project:
       We're ending the %{project_name} project today.
       Make sure you've reported all billable hours within the day.
       Regards, your project leader
+    notify:
+      missing_hours:
+        It seems that you haven't registered hours in one or more of your tasks
