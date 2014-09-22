@@ -42,7 +42,7 @@
       th 
     - @hours_registered.each do |hour|
       tr
-        td= hour.created_at.strftime("%d/%m")
+        td= hour.date.strftime("%d/%m")
         td= hour.user.name
         td= hour.changed_value_description
         td= hour.changed_value_hour
