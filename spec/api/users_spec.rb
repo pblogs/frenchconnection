@@ -36,10 +36,86 @@ describe V1::Users do
       user.save
       get "/api/v1/users/#{ user.id }/unconfirmed_tasks"
       hash = JSON.parse(response.body)
-      #puts "ARRAY: #{hash}"
       hash['tasks'].first['description'].should eq 'Mal hus'
     end
   end
+  
+  # returns all tasks not connected to user
+  describe 'GET /api/v1/users/:id/available_tasks' do
+    it 'returns Tasks not connected to user' do
+      user = Fabricate(:user)
+      task1 = Fabricate(:task, description: 'Task 1')
+      task2 = Fabricate(:task, description: 'Task 2')
+      task3 = Fabricate(:task, description: 'Task 3')
+      user.tasks << task1
+      user.save
+      get "/api/v1/users/#{ user.id }/available_tasks"
+      hash = JSON.parse(response.body)
+      #puts "ARRAY: #{hash}"
+      hash['tasks'].length.should eq 2
+      task_descriptions = hash['tasks'].collect { |task| task['description'] }
+      task_descriptions.should eq ['Task 2', 'Task 3']
+    end
+  end
+  
+  # returns hours_spent for user on task on date
+  describe 'GET /api/v1/users/:id/tasks/:task_id/hours_spents/:date' do
+    it 'returns HoursSpent for user on task on date' do
+      date = Date.parse '2014-01-01'
+      task = Fabricate(:task)
+      user = Fabricate(:user)
+      hours_spent = 
+        Fabricate(:hours_spent, user: user, 
+                  task: task, date: date, hour: 5)
+      
+      hours_spent_same_task_date_different_user = 
+        Fabricate(:hours_spent, user: Fabricate(:user), 
+                  task: task, date: date, hour: 6)
+      hours_spent_same_task_user_different_date = 
+        Fabricate(:hours_spent, user: user, 
+                  task: task, date: date + 1, hour: 7)
+      hours_spent_same_date_user_different_task = 
+        Fabricate(:hours_spent, user: user, 
+                  task: Fabricate(:task), date: date, hour: 8)
+      
+      get "/api/v1/users/#{ user.id }" +
+          "/tasks/#{ task.id }/hours_spents/#{ date }"
+      hash = JSON.parse(response.body)
+      #puts "ARRAY: #{hash}"
+      
+      hash['hours_spents'].length.should eq 1
+      hash['hours_spents'].first['hour'].should eq 5
+    end
+  end
+  
+  # creates HoursSpent for user on task on date
+  describe 'POST /api/v1/users/:id/tasks/:task_id/hours_spents/:date' do
+    it 'creates HoursSpent for user on task on date and returns its id' do
+      date = Date.parse '2014-01-01'
+      task = Fabricate(:task)
+      user = Fabricate(:user)
+      
+      post "/api/v1/users/#{ user.id }/" +
+           "tasks/#{ task.id }/hours_spents/#{ date }", 
+           { description: 'Malte hus', hour: 5 }
+           
+      hours_spent_id = response.body
+      
+      another_hours_spent = Fabricate(:hours_spent)
+      
+      hours_spent = HoursSpent.find(hours_spent_id)
+      
+      hours_spent.hour.should eq 5
+      hours_spent.description.should eq 'Malte hus'
+      hours_spent.user.should eq user
+      hours_spent.task.should eq task
+      hours_spent['date'].should eq date
+      
+    end
+  end
+  
+  
+  
   #describe 'GET /api/v1/users' do
   #  it 'returns array of users' do
   #    3.times { Fabricate :user }
