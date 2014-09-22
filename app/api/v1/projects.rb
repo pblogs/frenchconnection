@@ -2,6 +2,13 @@ module V1
   class Projects < Base
 
     resource :projects do
+      
+      desc "all projects"
+      get do
+        projects = Project.all
+        present :projects, projects, with: V1::Entities::Projects
+        header 'Access-Control-Allow-Origin', '*'
+      end
 
       params do
         requires :id, type: Integer, desc: "Project id."
