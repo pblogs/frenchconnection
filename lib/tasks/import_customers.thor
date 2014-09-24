@@ -19,24 +19,22 @@ class Customers < Thor
       customer_nr = e[0].to_s.strip
       name        = e[1].strip
       org_number  = e[2]
-      address     = "#{e[3].strip rescue nil} #{e[4].strip rescue nil}"
+      address     = "#{ e[3].strip rescue nil } #{ e[4].strip rescue nil }"
       area        = e[5].strip.titleize rescue nil
       phone       = e[6].gsub!(/\s/, '') rescue nil
 
-      c = Customer.new(customer_nr: customer_nr, name: name, org_number: org_number, 
-                       address: address, area: area, phone: phone)
+      c = Customer.new(customer_nr: customer_nr, name: name, 
+                       org_number: org_number, address: address, 
+                       area: area, phone: phone)
       if c.save
-        puts "Importing #{name} #{address}"
+        puts "Importing #{ name } #{address }"
       else
-        puts "Could not save  #{name} #{address}"
-        puts "c: #{c.inspect}"
-        c.errors.each { |k,v| p "#{k} - #{v}" }
+        puts "Could not save  #{ name } #{ address }"
+        puts "c: #{ c.inspect }"
+        c.errors.each { |k,v| p "#{ k } - #{ v }" }
         raise "\n"
       end
-
     end
-
-
 
   end
 end
