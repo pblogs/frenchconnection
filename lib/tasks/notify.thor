@@ -8,14 +8,15 @@ class Notify < Thor
 
     users_to_notify.each do |u|
       puts "Notify user: #{u.name}"
-      Sms.send_msg u.mobile, I18n.t('sms.notify.missing_hours')
+      Sms.send_msg(to: u.mobile, msg: I18n.t('sms.notify.missing_hours'))
     end
   end
 
   private
 
   def users_to_notify
-    projects = Project.where(sms_employee_if_hours_not_registered: true, complete: false)
+    projects = Project.where(sms_employee_if_hours_not_registered: true, 
+                             complete: false)
     projects.inject([]) do |users, project|
       project.user_tasks.each do |user_task|
         if user_task.hours_spents.where(date: Date.today).empty?
