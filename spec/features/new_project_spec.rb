@@ -60,37 +60,3 @@ def sign_in(user)
   end
   User.last.mobile.should eq user.mobile
 end
-
-
-#    Fabricate(:task_type, title: 'Maling')
-#    Fabricate(:customer,  name: 'Oslo Sporveier')
-#  end
-#
-#  it "for an existing company" do
-#    visit frontpage_manager_path
-#    click_link 'Nytt oppdrag'
-#    click_link 'Opprett kunde'
-#
-#    fill_in 'Navn', with: 'Oslo Sporveier AS'
-#    fill_in 'Addresse', with: 'Majorstuveien 12'
-#    fill_in 'Organisasjonsnummer', with: '000000000'
-#    fill_in 'Kontaktperson',  with: 'Ole Olsen'
-#    fill_in 'Telefonenummer', with: '22222222'
-#    click_button 'Lagre'
-#
-#
-#    click_link 'Registrer en nytt oppdrag på denne kunden'
-#    current_path.should == new_customer_task_path(Customer.last)
-#    #save_and_open_page
-#    
-#
-#    # Oppdragstype
-#    select 'Maling', from: 'task_task_type_id'
-#    select 'Acryl',  from: 'task_paint_id'
-#    select 'Josh',   from: 'task_user_id'
-#    fill_in 'Oppstartsdato', with: '01.05.2014'
-#    click_button 'Lagre oppdrag i Visma'
-#  end
-#end
-#
-#

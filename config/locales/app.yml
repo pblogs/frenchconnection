@@ -9,3 +9,7 @@ nb:
   hour: Vanlige timer
   piecework_hours: Akkordtimer
   runs_in_company_car: Kjøring i servicebil
+  project:
+    tasks:
+      save: Lagre oppgave
+  
