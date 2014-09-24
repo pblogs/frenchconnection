@@ -1,13 +1,15 @@
 class Sms
-  def self.send_msg(to:, msg:)
+  def self.send_msg(to:, msg:, dryrun: false)
     @to = to
     @msg = msg
-    if Rails.env.development?
+    if dryrun
       puts "Sending SMS\n to:#{ @to } msg:#{ @msg }"
     else
       puts Net::HTTP.get(URI.parse(self.url))
     end
   end
+
+  private
 
 
   def self.encode_msg

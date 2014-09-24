@@ -1,14 +1,18 @@
 class Notify < Thor
 
-  desc "missing_hours", "Notify users that has forgot to register hours"
+  desc "missing_hours --dryrun",
+    "Notify users that has forgot to register hours"
+  method_options :dryrun => :boolean
+  puts "Dry run, not sending SMS" if options[:dryrun]
 
   def missing_hours
     puts "Loading Rails environment..."
     require File.expand_path('config/environment.rb')
 
     users_to_notify.each do |u|
-      puts "Notify user: #{u.name}"
-      Sms.send_msg(to: u.mobile, msg: I18n.t('sms.notify.missing_hours'))
+      puts "Notify user: #{ u.name }"
+      Sms.send_msg(to: u.mobile, msg: I18n.t('sms.notify.missing_hours'), 
+                   dryrun: options['dryrun'].present?)
     end
   end
 
