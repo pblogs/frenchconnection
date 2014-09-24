@@ -20,7 +20,9 @@ class Notify < Thor
 
   def users_to_notify
     projects = Project.where(sms_employee_if_hours_not_registered: true, 
-                             complete: false)
+                             complete: nil)
+    puts "Found #{ projects.size } projects that requires notifications."
+    puts "#{ projects.pluck(:name) }"
     projects.inject([]) do |users, project|
       project.user_tasks.each do |user_task|
         if user_task.hours_spents.where(date: Date.today).empty?
