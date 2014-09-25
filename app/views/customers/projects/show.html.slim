@@ -7,6 +7,10 @@
     = link_to t('project.complete_link'), complete_project_path(@project),
       data: {confirm: t('generic.confirm')}, method: :post, class: 'pull-right'
 
+.badges
+  - if @project.complete
+    span.badge.success Completed
+
 .button.green
   p
     strong Prosjekteier: 
