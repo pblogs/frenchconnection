@@ -94,6 +94,8 @@ ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen',
 # Tasks for Danni - Snekker
 danni_task = Fabricate(:task, project: ryen, description: 'Lag et skur')
 danni_task.users << danni
+danni_task.users << @martin # Add martin so we have a user that doesn't register
+                            # any HoursSpent.
 danni_task.save
 
 # Tasks for Snekker Kari
