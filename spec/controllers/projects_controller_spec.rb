@@ -47,18 +47,40 @@ describe ProjectsController do
   let(:valid_session) { {} }
 
   describe "GET index" do
-    it "lists all departments that the current user has projects in. 
-      Also lists starred items"  do
-      bratfos = Fabricate(:department, title: 'Bratfos')
-      starred_project = Fabricate(:project, user: @user, starred: true, 
-                                 department: bratfos)
-      starred_customer = Fabricate(:customer, starred: true)
+
+    before do
+      @bratfos = Fabricate(:department, title: 'Bratfos')
       Fabricate(:project, name: 'not my project')
-      get :index, {}, valid_session
-      assigns(:departments).should eq([bratfos])
-      assigns(:starred_customers).should  eq([starred_customer])
-      assigns(:starred_projects).should  eq([starred_project])
+      @starred_customer = Fabricate(:customer, starred: true)
+      @starred_project = Fabricate(:project, user: @user, starred: true,
+                                  complete: false, department: @bratfos)
+      @completed_project = Fabricate(:project, user: @user, complete: true,
+                                     department: @bratfos)
     end
+
+    it "lists all departments that the current user has projects in"  do
+      Fabricate(:project, user: @user, starred: true,
+                complete: false, department: @bratfos)
+
+      get :index, {}, valid_session
+      assigns(:departments).should eq([@bratfos])
+    end
+
+    it "assigns starred customers" do
+      get :index, {}, valid_session
+      assigns(:starred_customers).should  eq([@starred_customer])
+    end
+
+    it "assigns starred projects" do
+      get :index, {}, valid_session
+      assigns(:starred_projects).should  eq([@starred_project])
+    end
+
+    it "assigns completed projects" do
+      get :index, {}, valid_session
+      assigns(:starred_projects).should  eq([@completed_project])
+    end
+
   end
 
   describe "GET show" do
