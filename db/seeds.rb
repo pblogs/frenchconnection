@@ -88,6 +88,7 @@ Fabricate(:user, roles: [:worker], department: snekker,
 # Projects
 ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', 
                  customer: sporveiene, 
+                 sms_employee_if_hours_not_registered: true,
                  department: service_avdeling, starred: true, user: @martin)
 
 
