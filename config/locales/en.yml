@@ -1,12 +1,17 @@
 en:
   generic:
-    confirm: "Are you sure?"
+    confirm: Are you sure?
+
+  project:
+    confirm_closing: End the project?
+    complete_link: End the project
+      
   sms:
     complete_project:
       We're ending the %{project_name} project today.
       Make sure you've reported all billable hours within the day.
       Regards, your project leader
     notify:
-      missing_hours:
+      missing_hours: |
         It seems that you haven't registered hours in one or more of your tasks
         Please do so on http://alliero.orwapp.com/
