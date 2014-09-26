@@ -5,9 +5,10 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @departments       = @current_user.project_departments
-    @starred_projects  = Project.where(user: @current_user, starred: true).all.to_a
-    @starred_customers = Customer.where(starred: true).all.to_a
+    @departments        = @current_user.project_departments
+    @starred_projects   = Project.where(user: @current_user, starred: true, complete: false)
+    @starred_customers  = Customer.where(starred: true)
+    @completed_projects = Project.where(user: @current_user, complete: true)
   end
 
   # GET /projects/1
