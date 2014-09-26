@@ -10,15 +10,14 @@
 
   .button-group
     label
-      input checked="" name="button-group" type="radio" value="item" 
-        span.button-group-item 
-          = link_to 'Vis alle timer'  
+      span.button-group-item
+        = link_to 'Vis alle timer'
     label
-      input name="button-group" type="radio" value="other-item" 
-        span.button-group-item Lag dagrapport
+      span.button-group-item
+        = link_to 'Lag dagrapport', daily_report_project_path(@project)
     label
-      input name="button-group" type="radio" value="other-item" 
-        span.button-group-item Lag timelister
+      span.button-group-item
+        = link_to 'Lag timelister'
   br 
   br 
   br 
