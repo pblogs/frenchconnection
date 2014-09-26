@@ -43,6 +43,7 @@ describe V1::Users do
   # returns all tasks not connected to user
   describe 'GET /api/v1/users/:id/available_tasks' do
     it 'returns Tasks not connected to user' do
+      Task.destroy_all
       user = Fabricate(:user)
       task1 = Fabricate(:task, description: 'Task 1')
       task2 = Fabricate(:task, description: 'Task 2')
