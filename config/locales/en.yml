@@ -5,6 +5,13 @@ en:
   project:
     confirm_closing: End the project?
     complete_link: End the project
+    
+    
+  task:
+    confirm: Confirm
+    confirmed: Task marked as confirmed
+    new_tasks: New tasks
+    my_tasks: My tasks
       
   sms:
     complete_project:
