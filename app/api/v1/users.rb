@@ -23,13 +23,17 @@ module V1
         end
         
         post 'tasks/:task_id/confirm_user_task' do
-          if user_task = UserTask.where(user_id: params[:user_id], 
-                                        task_id: params[:task_id]).first
+          if user_task = 
+              UserTask.where(user_id: params[:user_id], 
+                             task_id: params[:task_id]).first ||
+              UserTask.create(user_id: params[:user_id], 
+                             task_id: params[:task_id])
                                         
             user_task.confirm!
             present user_task.id
             header 'Access-Control-Allow-Origin', '*'
           else
+            puts 'NOt exists'
             error! 400
             header 'Access-Control-Allow-Origin', '*'
           end
