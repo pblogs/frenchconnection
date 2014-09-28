@@ -77,7 +77,8 @@ describe V1::Users do
       #puts "ARRAY: #{hash}"
       hash['tasks'].length.should eq 2
       task_descriptions = hash['tasks'].collect { |task| task['description'] }
-      task_descriptions.should =~ ['Task 3', 'Task 2'] # same elements, order unimportant
+      # same elements, order unimportant
+      task_descriptions.should =~ ['Task 3', 'Task 2'] 
     end
   end
   
