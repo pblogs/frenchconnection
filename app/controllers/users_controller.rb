@@ -12,11 +12,15 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @tasks = @current_user.tasks
-      .where(accepted: true)
-      .where("user_tasks.status = ?", :pending)
-      .order(created_at: :desc)
-    @new_tasks = @current_user.tasks.where(accepted: nil).order(created_at: :desc)
+    user_tasks = @current_user.user_tasks
+    @tasks = user_tasks
+      .where(status: :confirmed)
+      .collect { |user_task| user_task.task }
+      .sort { |a, b| b.created_at <=> a.created_at }
+    @new_tasks = user_tasks
+      .where(status: :pending)
+      .collect { |user_task| user_task.task }
+      .sort { |a, b| b.created_at <=> a.created_at }
   end
 
   # GET /users/new

@@ -16,5 +16,59 @@ describe V1::HoursSpent do
       
     end
   end
+  
+  # creates HoursSpent for user on task on date
+  describe 'POST /api/v1/hours_spents/users/:user_id/tasks/:task_id/dates/:date' do
+    it 'creates HoursSpent for user on task on date and returns its id' do
+      date = Date.parse '2014-01-01'
+      task = Fabricate(:task)
+      user = Fabricate(:user)
+      
+      post "/api/v1/hours_spents/users/#{ user.id }/" +
+           "tasks/#{ task.id }/dates/#{ date }", 
+           { description: 'Malte hus', hour: 5 }
+           
+      hours_spent_id = response.body
+      
+      another_hours_spent = Fabricate(:hours_spent)
+      
+      hours_spent = HoursSpent.find(hours_spent_id)
+      
+      hours_spent.hour.should eq 5
+      hours_spent.description.should eq 'Malte hus'
+      hours_spent.user.should eq user
+      hours_spent.task.should eq task
+      hours_spent['date'].should eq date
+      
+    end
+  end
+  
+  describe 'GET /api/v1/hours_spents/users/:user_id/tasks/:task_id/dates/:date' do
+    it 'returns HoursSpent for user on task on date' do
+      date = Date.parse '2014-01-01'
+      task = Fabricate(:task)
+      user = Fabricate(:user)
+      hours_spent = 
+        Fabricate(:hours_spent, user: user, 
+                  task: task, date: date, hour: 5)
+      
+      hours_spent_same_task_date_different_user = 
+        Fabricate(:hours_spent, user: Fabricate(:user), 
+                  task: task, date: date, hour: 6)
+      hours_spent_same_task_user_different_date = 
+        Fabricate(:hours_spent, user: user, 
+                  task: task, date: date + 1, hour: 7)
+      hours_spent_same_date_user_different_task = 
+        Fabricate(:hours_spent, user: user, 
+                  task: Fabricate(:task), date: date, hour: 8)
+      
+      get "/api/v1/hours_spents/users/#{ user.id }" +
+          "/tasks/#{ task.id }/dates/#{ date }"
+      hash = JSON.parse(response.body)
+      
+      hash['hours_spents'].length.should eq 1
+      hash['hours_spents'].first['hour'].should eq 5
+    end
+  end
 
 end
