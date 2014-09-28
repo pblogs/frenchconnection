@@ -11,10 +11,30 @@ module V1
           User.find(params[:id])
         end
       end
-
-      # Returner array med tasks. ID, title, 
-      # description., prosject_id
-      # prosjektnanv og kundenavn, url til projekt
+      
+      desc "Confirm user_task"
+      params do
+        requires :user_id, type: Integer, desc: "User id."
+      end
+      route_param :user_id do
+        options 'tasks/:task_id/confirm_user_task' do
+          header 'Access-Control-Allow-Headers', 'Content-Type'
+          header 'Access-Control-Allow-Origin', '*'
+        end
+        
+        post 'tasks/:task_id/confirm_user_task' do
+          if user_task = UserTask.where(user_id: params[:user_id], 
+                                        task_id: params[:task_id]).first
+                                        
+            user_task.confirm!
+            present user_task.id
+            header 'Access-Control-Allow-Origin', '*'
+          else
+            error! 400
+            header 'Access-Control-Allow-Origin', '*'
+          end
+        end
+      end
       
       desc "unconfirmed_tasks"
       params do
@@ -23,7 +43,11 @@ module V1
       route_param :id do
         get 'unconfirmed_tasks' do
           u = User.find(params[:id])
-          present :tasks, u.tasks, with: V1::Entities::Tasks
+          unconfirmed_tasks = 
+            u.user_tasks.where(status: :pending)
+            .collect { |user_task| user_task.task }
+          
+          present :tasks, unconfirmed_tasks, with: V1::Entities::Tasks
           header 'Access-Control-Allow-Origin', '*'
         end
       end
@@ -35,7 +59,12 @@ module V1
       route_param :id do
         get 'confirmed_tasks' do
           u = User.find(params[:id])
-          present :tasks, u.tasks, with: V1::Entities::Tasks
+          confirmed_tasks = 
+            u.user_tasks.where(status: :confirmed)
+            .collect { |user_task| user_task.task }
+          
+          present :tasks, confirmed_tasks, with: V1::Entities::Tasks
+          header 'Access-Control-Allow-Origin', '*'
         end
       end
       
@@ -122,8 +151,6 @@ module V1
         end
         
         post 'tasks/:task_id/hours_spents/:date' do
-          
-          
           request_params = ActionController::Parameters.new(params)
           permitted_params = request_params.permit(:user_id, :task_id, :date,
             :hour, :overtime_50, :overtime_100, :description,

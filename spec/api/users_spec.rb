@@ -11,19 +11,35 @@ describe V1::Users do
       hash['email'].should eq user.email
     end
   end
+   
+  describe 'POST /api/v1/users/:id/tasks/:task_id/confirm_user_task' do
+    it 'confirms user_task' do
+      user = Fabricate(:user)
+      task = Fabricate(:task)
+      user.tasks << task
+      user.save
 
+      post "/api/v1/users/#{ user.id }/tasks/#{ task.id }/confirm_user_task"
+      user.user_tasks.where(task_id: task.id).first.status.should eq :confirmed
+    end
+  end
 
   # WIP - returns all tasks today. 
   describe 'GET /api/v1/users/:id/confirmed_tasks' do
     it 'returns Tasks' do
-    pending "WIP"
       user = Fabricate(:user)
-      task = Fabricate(:task, description: 'Mal hus')
-      user.tasks << task
+      task1 = Fabricate(:task, description: 'Task 1')
+      task2 = Fabricate(:task, description: 'Task 2')
+      user.tasks << task1
+      user.tasks << task2
       user.save
+      
+      user.user_tasks.where(task_id: task1.id).first.confirm!
+      
       get "/api/v1/users/#{ user.id }/confirmed_tasks"
-      array = JSON.parse(response.body)
-      array.first['description'].should eq 'Mal hus'
+      
+      hash = JSON.parse(response.body)
+      hash['tasks'].first['description'].should eq 'Task 1'
     end
   end
 
@@ -31,12 +47,18 @@ describe V1::Users do
   describe 'GET /api/v1/users/:id/unconfirmed_tasks' do
     it 'returns Tasks' do
       user = Fabricate(:user)
-      task = Fabricate(:task, description: 'Mal hus')
-      user.tasks << task
+      task1 = Fabricate(:task, description: 'Task 1')
+      task2 = Fabricate(:task, description: 'Task 2')
+      user.tasks << task1
+      user.tasks << task2
       user.save
+      
+      user.user_tasks.where(task_id: task1.id).first.confirm!
+      
       get "/api/v1/users/#{ user.id }/unconfirmed_tasks"
+      
       hash = JSON.parse(response.body)
-      hash['tasks'].first['description'].should eq 'Mal hus'
+      hash['tasks'].first['description'].should eq 'Task 2'
     end
   end
   
@@ -55,7 +77,7 @@ describe V1::Users do
       #puts "ARRAY: #{hash}"
       hash['tasks'].length.should eq 2
       task_descriptions = hash['tasks'].collect { |task| task['description'] }
-      task_descriptions.should eq ['Task 2', 'Task 3']
+      task_descriptions.should =~ ['Task 3', 'Task 2'] # same elements, order unimportant
     end
   end
   

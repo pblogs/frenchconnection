@@ -13,10 +13,11 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @tasks = @current_user.tasks
-      .where(accepted: true)
+      .where("user_tasks.status = ?", :confirmed)
+      .order(created_at: :desc)
+    @new_tasks = @current_user.tasks
       .where("user_tasks.status = ?", :pending)
       .order(created_at: :desc)
-    @new_tasks = @current_user.tasks.where(accepted: nil).order(created_at: :desc)
   end
 
   # GET /users/new
