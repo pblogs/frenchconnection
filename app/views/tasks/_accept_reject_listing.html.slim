@@ -8,8 +8,4 @@ tbody
       = I18n.l(task.due_date,   format: :short_w_year)
     td 
       = form_tag(user_task_confirm_user_task_path(@current_user, task)) do
-        = submit_tag "Bekreft"
-      //= form_tag(user_task_accept_task_path(@current_user, task)) do
-      //  = submit_tag "Aksepter"
-      //= form_tag(user_task_accept_task_path(@current_user, task)) do
-      //  = submit_tag "Avvis"
+        = submit_tag I18n.t('task.confirm')
