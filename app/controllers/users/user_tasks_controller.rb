@@ -5,7 +5,7 @@ module Users
       @user_task = @user.user_tasks.where(task_id: params[:task_id]).first
       @user_task.confirm!
       redirect_to @current_user, 
-        notice: 'Oppgaven ble markert som bekreftet'
+        notice: I18n.t('task.confirmed')
     end
   end
 end

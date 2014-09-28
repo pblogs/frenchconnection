@@ -43,7 +43,7 @@
       br
   
       .my_tasks
-        strong.menu_header Nye oppgaver
+        strong.menu_header = I18n.t('task.new_tasks')
         .bar
         - if @new_tasks.present?
           ul.menu
@@ -79,7 +79,7 @@
   
     - if @current_user.has_role? :worker
         .my_tasks
-          strong.menu_header Mine oppgaver
+          strong.menu_header = I18n.t('task.my_tasks')
           .bar
           - if @tasks.present?
             ul

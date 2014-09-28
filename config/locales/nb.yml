@@ -16,6 +16,12 @@ nb:
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
+    
+  task:
+    confirm: Bekreft
+    confirmed: Oppgave bekreftet
+    new_tasks: Nye oppgaver
+    my_tasks: Mine oppgaver
 
   sms:
     complete_project: |
