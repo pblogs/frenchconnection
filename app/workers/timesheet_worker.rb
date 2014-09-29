@@ -19,7 +19,7 @@ class TimesheetWorker
       end
     end
 
-    ZippedReport.create(project: @project, zipfile: File.open(zipfile_path))
+    ZippedReport.timesheets.create(project: @project, zipfile: File.open(zipfile_path))
   end
 
   private
