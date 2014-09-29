@@ -23,7 +23,7 @@ class DailyReportWorker
         end
       end
 
-      ZippedReport.create(project: @project, zipfile: File.open(zipfile_path))
+      ZippedReport.daily_reports.create(project: @project, zipfile: File.open(zipfile_path))
 
     ensure
       files.each { |f| f.file.unlink }
