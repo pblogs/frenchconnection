@@ -7,7 +7,7 @@ class DailyReportScheduler
   recurrence { minutely(15) }
 
   def perform(*args)
-    Project.find_each do |project|
+    Project.joins(:hours_spents).distinct.find_each do |project|
       DailyReportWorker.perform_async(project.id)
     end
   end
