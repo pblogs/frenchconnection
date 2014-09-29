@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  get 'project_reports/daily_report'
+
   resources :changes
 
   resources :departments
@@ -23,6 +25,7 @@ AllieroForms::Application.routes.draw do
     resources :tasks, :controller => 'projects/tasks'
     member do
       post :complete
+      get :daily_report, controller: 'project_reports'
     end
   end
 
