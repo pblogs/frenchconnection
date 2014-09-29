@@ -8,7 +8,7 @@ class TimesheetScheduler
 
   def perform(*args)
     Project.joins(:hours_spents).distinct.find_each do |project|
-      DailyReportWorker.perform_async(project.id)
+      TimesheetWorker.perform_async(project.id)
     end
   end
 end
