@@ -1,7 +1,7 @@
 class ProjectReportsController < ApplicationController
   def daily_report
     project = Project.find(params[:id])
-    if report = ZippedReport.daily_reports.where(project: project).order(:created_at).last
+    if report = project.last_daily_report
       send_data report.zipfile.read,
                 filename: File.basename(report.zipfile.path)
     else
@@ -11,7 +11,7 @@ class ProjectReportsController < ApplicationController
 
   def timesheet
     project = Project.find(params[:id])
-    if report = ZippedReport.timesheets.where(project: project).order(:created_at).last
+    if report = project.last_timesheet
       send_data report.zipfile.read,
                 filename: File.basename(report.zipfile.path)
     else
