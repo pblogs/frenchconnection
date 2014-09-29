@@ -13,10 +13,10 @@
       span.button-group-item
         = link_to 'Vis alle timer'
     label
-      span.button-group-item
+      span.button-group-item(data-no-turbolink)
         = link_to 'Lag dagrapport', daily_report_project_path(@project)
     label
-      span.button-group-item
+      span.button-group-item(data-no-turbolink)
         = link_to 'Lag timelister', timesheet_project_path(@project)
   br 
   br 
