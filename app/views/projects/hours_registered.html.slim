@@ -14,11 +14,19 @@
         = link_to 'Vis alle timer'
     label
       span.button-group-item.tooltip-item(data-no-turbolink)
-        .tooltip= t(".report_generated_at", time: l(@project.last_daily_report.created_at))
+        .tooltip
+          - if @project.last_daily_report
+            = t(".report_generated_at", time: l(@project.last_daily_report.created_at))
+          - else
+            = t(".report_not_ready")
         = link_to 'Lag dagrapport', daily_report_project_path(@project)
     label
       span.button-group-item.tooltip-item(data-no-turbolink)
-        .tooltip= t(".report_generated_at", time: l(@project.last_timesheet.created_at))
+        .tooltip
+          - if @project.last_timesheet
+            = t(".report_generated_at", time: l(@project.last_timesheet.created_at))
+          - else
+            = t(".report_not_ready")
         = link_to 'Lag timelister', timesheet_project_path(@project)
   br 
   br 
