@@ -12,15 +12,17 @@ ul class="accordion-tabs-minimal"
 
     section
       ul.circle
-        h5 Kunder
-        - @starred_customers && @starred_customers.each do |s|
-          li= link_to s.name, s
+        - if @starred_customers 
+          h5 Kunder
+          - @starred_customers.each do |s|
+            li= link_to s.name, s
 
         br
         br
-        h5 Prosjekter
-        - @starred_projects && @starred_projects.each do |s|
-          li= link_to s.name, customer_project_path(s.customer, s)
+        - if @starred_projects 
+          h5 Prosjekter
+          - @starred_projects.each do |s|
+            li= link_to s.name, customer_project_path(s.customer, s)
 
   li class="tab-header-and-content"
     a href="#" class=" tab-link" Archive
