@@ -83,9 +83,9 @@ end
 group :development do
   gem 'ruby_gntp'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
+  gem 'better_errors'
 end
 
-gem 'better_errors'
 
 group :test do
   gem 'database_cleaner'
