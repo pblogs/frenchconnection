@@ -15,16 +15,19 @@ class DailyReportWorker
   def perform(project_id)
     @project = Project.find(project_id)
 
-    Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-      files.each do |f|
-        zipfile.add(f.filename, f.file.path)
+    begin
+
+      Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
+        files.each do |f|
+          zipfile.add(f.filename, f.file.path)
+        end
       end
+
+      ZippedReport.daily_reports.create(project: @project, zipfile: File.open(zipfile_path))
+
+    ensure
+      files.each { |f| f.file.unlink }
     end
-
-    ZippedReport.create(project: @project, zipfile: File.open(zipfile_path))
-
-  ensure
-    files.each { |f| f.file.unlink }
   end
 
   private
