@@ -16,7 +16,7 @@ nb:
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
-    
+
   task:
     confirm: Bekreft
     confirmed: Oppgave bekreftet
@@ -32,3 +32,7 @@ nb:
       missing_hours: |
         It seems that you haven't registered hours in one or more of your tasks
         Please do so on http://alliero.orwapp.com/
+
+  projects:
+    hours_registered:
+      report_generated_at: Report generated at %{time}

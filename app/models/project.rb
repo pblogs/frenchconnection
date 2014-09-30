@@ -98,4 +98,12 @@ class Project < ActiveRecord::Base
     update_attribute(:complete, true)
   end
 
+  # create methods on the fly for accessing last zipped reports
+  # of different types, e.g. last_timesheet, last_daily_report
+  ZippedReport.report_type_enum.each do |t|
+    define_method "last_#{t.last}" do
+      ZippedReport.where(report_type: t.last).order(:created_at).last
+    end
+  end
+
 end
