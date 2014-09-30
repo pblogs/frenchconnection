@@ -26,6 +26,7 @@ AllieroForms::Application.routes.draw do
     member do
       post :complete
       get :daily_report, controller: 'project_reports'
+      get :timesheet, controller: 'project_reports'
     end
   end
 
