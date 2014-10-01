@@ -6,6 +6,10 @@ en:
     confirm_closing: End the project?
     complete_link: End the project
     
+  favourites: Favourites
+  customers: Customers
+  archive: Archive 
+  projects: Prosjekter 
     
   task:
     confirm: Confirm
