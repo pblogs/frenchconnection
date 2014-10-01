@@ -1,22 +1,14 @@
-h3 Avdelinger
-br
-ul
-  - @departments && @departments.each do |d| 
-    li= link_to d.title, d
-
 
 ul class="accordion-tabs-minimal"
 
   li class="tab-header-and-content"
     a href="#" class="is-active tab-link" = t('favourites')
-
     section
       ul.circle
         - if @starred_customers.present?
           h5 = t('customers')
           - @starred_customers.each do |s|
             li= link_to s.name, s
-
         br
         br
         - if @starred_projects.present?
@@ -25,14 +17,25 @@ ul class="accordion-tabs-minimal"
             li= link_to s.name, customer_project_path(s.customer, s)
 
   li class="tab-header-and-content"
-    a href="#" class=" tab-link"= t('archive')
+    a href="#" class="tab-link"= t('departments')
+    section
+      h3 Avdelinger
+      br
+      ul
+        - @departments && @departments.each do |d| 
+          li= link_to d.title, d
 
-    - if @completed_projects.present?
-      section
+
+  li class="tab-header-and-content"
+    a href="#" class="tab-link"= t('archive')
+    section
+      - if @completed_projects.present?
         h5 = t('projects')
         ul
           - @completed_projects && @completed_projects.each do |p|
             li= link_to p.name, customer_project_path(p.customer, p)
+      - else 
+        p Det finnes ingen avslutted prosjekter
 br
 br
 br
