@@ -8,30 +8,31 @@ ul
 ul class="accordion-tabs-minimal"
 
   li class="tab-header-and-content"
-    a href="#" class="is-active tab-link" Favoritter
+    a href="#" class="is-active tab-link" = t('favourites')
 
     section
       ul.circle
-        - if @starred_customers 
-          h5 Kunder
+        - if @starred_customers.present?
+          h5 = t('customers')
           - @starred_customers.each do |s|
             li= link_to s.name, s
 
         br
         br
-        - if @starred_projects 
-          h5 Prosjekter
+        - if @starred_projects.present?
+          h5= t('projects')
           - @starred_projects.each do |s|
             li= link_to s.name, customer_project_path(s.customer, s)
 
   li class="tab-header-and-content"
-    a href="#" class=" tab-link" Archive
+    a href="#" class=" tab-link"= t('archive')
 
-    section
-      h5 Prosjekter
-      ul
-        - @completed_projects && @completed_projects.each do |p|
-          li= link_to p.name, customer_project_path(p.customer, p)
+    - if @completed_projects.present?
+      section
+        h5 = t('projects')
+        ul
+          - @completed_projects && @completed_projects.each do |p|
+            li= link_to p.name, customer_project_path(p.customer, p)
 br
 br
 br
