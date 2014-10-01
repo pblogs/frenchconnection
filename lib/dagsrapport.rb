@@ -86,8 +86,8 @@ class Dagsrapport
             :style => [gray_bg_bold_italic_font, gray_bg_bold_italic_font]
 
 
-          # Her listes alle timene som er ført på dette prosjektet.
-          # @workers er da f.eks. bare snekkere
+          # This is where all the hours registered on this project is listed
+          # e.g @workers contain only carpenters 
           #
           i = 1
           ai = -1
@@ -125,7 +125,9 @@ class Dagsrapport
           # Sum timer totalt
           sheet.add_row ['', 'Sum timer totalt: ',
                          @project.hours_spent_total(profession: @profession,
-                                                   changed: true, overtime: @overtime), nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil],
+                           changed: true, overtime: @overtime), 
+                           nil, nil, nil, nil, nil, nil, nil, 
+                           nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
                        gray_bg_align_right, gray_bg_align_right, 
