@@ -3,12 +3,12 @@ module V1
 
     resource :users do
       
-      #desc "All users with worker role"
-      #get 'workers' do
-      #  workers = User.select { |user| user.roles.include? 'worker' }
-      #  present :users, workers, with: V1::Entities::Users
-      #  header 'Access-Control-Allow-Origin', '*'
-      #end
+      desc "All users with worker role"
+      get 'workers' do
+        workers = User.select { |user| user.roles.include? 'worker' }
+        present :users, workers, with: V1::Entities::Users
+        header 'Access-Control-Allow-Origin', '*'
+      end
 
       desc "One user"
       params do
