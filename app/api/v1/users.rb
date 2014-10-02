@@ -12,14 +12,12 @@ module V1
 
       desc "One user"
       params do
-        requires :id, type: Integer, desc: "User id."
+        requires :user_id, type: Integer, desc: "User id."
       end
-      route_param :id do
-        get do
-          user = User.find(params[:id])
-          present :user, user, with: V1::Entities::Users
-          header 'Access-Control-Allow-Origin', '*'
-        end
+      get 'id/:user_id' do
+        user = User.find(params[:user_id])
+        present :user, user, with: V1::Entities::Users
+        header 'Access-Control-Allow-Origin', '*'
       end
       
     end
