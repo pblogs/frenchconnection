@@ -11,7 +11,9 @@ module V1
       end
 
       desc "One user"
-      params { requires :id }
+      params do
+        requires :id, type: Integer, desc: "User id."
+      end
       route_param :id do
         get do
           user = User.find(params[:id])
