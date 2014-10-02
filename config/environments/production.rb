@@ -4,7 +4,7 @@ AllieroForms::Application.configure do
       :email => {
       :email_prefix => "[AllieroForms-#{Rails.env}] ",
       :sender_address => %{"notifier" <notifier@orwapp.com>},
-      :exception_recipients => %w{martin@stabenfeldt.net}
+      :exception_recipients => %w{martin@stabenfeldt.net;andersbn@gmail.com}
     }
   # Settings specified here will take precedence over those in config/application.rb.
 
