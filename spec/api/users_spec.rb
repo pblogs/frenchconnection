@@ -16,10 +16,10 @@ describe V1::Users do
     end
   end
 
-  describe 'GET /api/v1/users/:id' do
+  describe 'GET /api/v1/users/id/:user_id' do
     it 'lists a specific user' do
       user = Fabricate :user
-      get "/api/v1/users/#{ user.id }"
+      get "/api/v1/users/id/#{ user.id }"
       response.status.should == 200
       hash = JSON.parse(response.body)
       u = hash['user']
