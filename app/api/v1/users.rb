@@ -6,7 +6,8 @@ module V1
       desc "All users with worker role"
       get 'workers' do
         workers = User.select { |user| user.roles.include? 'worker' }
-        present :users, workers, with: V1::Entities::Users
+        #present :users, workers, with: V1::Entities::Users
+        present workers
         header 'Access-Control-Allow-Origin', '*'
       end
 
@@ -16,7 +17,8 @@ module V1
       end
       get 'id/:user_id' do
         user = User.find(params[:user_id])
-        present :user, user, with: V1::Entities::Users
+        #present :user, user, with: V1::Entities::Users
+        present user
         header 'Access-Control-Allow-Origin', '*'
       end
       
