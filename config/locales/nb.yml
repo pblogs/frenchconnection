@@ -37,8 +37,9 @@ nb:
     hours_registered:
       report_generated_at: Report generated at %{time}
 
-  favourites: Favoritter
-  customers: Kunder
-  archive: Arkiv 
-  projects: Prosjekter 
-  departments: Avdelinger
+  generic:
+    favourites: Favoritter
+    customers: Kunder
+    archive: Arkiv 
+    projects: Prosjekter 
+    departments: Avdelinger
