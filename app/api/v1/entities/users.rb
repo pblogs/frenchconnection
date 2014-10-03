@@ -1,7 +1,7 @@
 module V1
   module Entities
     class Users < Grape::Entity
-      expose :id, :first_name, :last_name, :email, :mobile, :roles
+      expose :id, :first_name, :last_name, :email, :mobile
     end
   end
 end

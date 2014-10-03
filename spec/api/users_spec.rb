@@ -4,7 +4,7 @@ describe V1::Users do
   
   describe 'GET /api/v1/users/workers' do
     it 'lists all workers' do
-      pending 'test'
+      #pending 'test'
       user1 = Fabricate(:user, roles: [:worker])
       user2 = Fabricate(:user, roles: [:worker])
       user3 = Fabricate(:user, roles: [:worker, :project_leader])
@@ -19,7 +19,7 @@ describe V1::Users do
 
   describe 'GET /api/v1/users/id/:user_id' do
     it 'lists a specific user' do
-      pending 'test'
+      #pending 'test'
       user = Fabricate :user
       get "/api/v1/users/id/#{ user.id }"
       response.status.should == 200
