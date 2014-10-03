@@ -6,11 +6,12 @@ en:
     confirm_closing: End the project?
     complete_link: End the project
     
-  favourites: Favourites
-  customers: Customers
-  archive: Archive 
-  projects: Prosjekter 
-  departments: Departments
+  generic:
+    favourites: Favourites
+    customers: Customers
+    archive: Archive 
+    projects: Prosjekter 
+    departments: Departments
     
   task:
     confirm: Confirm
