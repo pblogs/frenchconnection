@@ -1,4 +1,3 @@
-
 class ExcelController < ApplicationController
   skip_before_filter :authenticate_user!
   layout :resolve_layout
@@ -19,6 +18,7 @@ class ExcelController < ApplicationController
       format.html do
         @hours_spent = @project.hours_spent_for_profession(@profession, 
                                                            overtime: @overtime)
+        render 'dagsrapport-table'
       end
     end
   end
@@ -73,7 +73,6 @@ class ExcelController < ApplicationController
     else
       'application'
     end
-    
   end
 
 end
