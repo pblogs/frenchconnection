@@ -21,7 +21,7 @@ describe V1::Users do
     it 'lists a specific user' do
       #pending 'test'
       user = Fabricate :user
-      get "/api/v1/users/id/#{ user.id }"
+      get "/api/v1/users/#{ user.id }"
       response.status.should == 200
       hash = JSON.parse(response.body)
       u = hash['user']
