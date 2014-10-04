@@ -1,4 +1,12 @@
 nb:
+  generic:
+    archive: Arkiv 
+    departments: Avdelinger
+    confirm: Er du sikker?
+    customers: Kunder
+    favourites: Favoritter
+    projects: Prosjekter 
+
   time:
     formats:
       short_w_year: "%d %B %Y"
@@ -10,8 +18,6 @@ nb:
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
 
-  generic:
-    confirm: Er du sikker?
 
   project:
     confirm_closing: Avslutte prosjektet?
@@ -37,9 +43,3 @@ nb:
     hours_registered:
       report_generated_at: Report generated at %{time}
 
-  generic:
-    favourites: Favoritter
-    customers: Kunder
-    archive: Arkiv 
-    projects: Prosjekter 
-    departments: Avdelinger
