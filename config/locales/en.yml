@@ -1,17 +1,15 @@
 en:
-  generic:
-    confirm: Are you sure?
-
   project:
     confirm_closing: End the project?
     complete_link: End the project
     
   generic:
-    favourites: Favourites
-    customers: Customers
     archive: Archive 
-    projects: Prosjekter 
+    customers: Customers
+    confirm: Are you sure?
     departments: Departments
+    favourites: Favourites
+    projects: Prosjekter 
     
   task:
     confirm: Confirm
