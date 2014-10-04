@@ -19,14 +19,14 @@ Fabricate(:customer_message,
           text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
 
 
-# Avdelinger
+# Departments
 service_avdeling = Department.create(title: '69850')
 d545  = Department.create(title: 'Avd. 545 Bratfoss')
 d546  = Department.create(title: 'Avd. 546 Vindusverksted')
 @d532 = Department.create(title: 'Avd. 532 Tak og fasade')
 
 
-# Fagkategorier
+# Professions
 murer      = Profession.create(title: 'Murer')
 maler      = Profession.create(title: 'Maler')
 snekker    = Profession.create(title: 'Snekker')
@@ -134,6 +134,21 @@ Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30,
 Fabricate(:hours_spent, created_at: '15.01.2014', overtime_100: 10, 
           task: snekker_kari_task, user: snekker_kari, project: ryen,
           description: 'snekker kari - 10 timer 100% overtid')
+
+# More workers with hours on Ryen
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+           task: Fabricate(:task, 
+                   project: Project.where(title: 'Nytt tak på Ryenhallen')),
+          user: Fabricate(:user),
+          description: "#{User.last.name} - 30 timer 100% overtid")
+
+Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+          task: Fabricate(:task, project: ryen),
+          user: Fabricate(:user),
+          description: "#{User.last.name} - 30 timer 100% overtid")
+#
+#
+###################
 
 # HoursSpent for Maren Maler
 Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21,         
