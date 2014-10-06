@@ -1,4 +1,3 @@
-
 class ExcelController < ApplicationController
   skip_before_filter :authenticate_user!
   layout :resolve_layout
@@ -19,6 +18,7 @@ class ExcelController < ApplicationController
       format.html do
         @hours_spent = @project.hours_spent_for_profession(@profession, 
                                                            overtime: @overtime)
+        render 'dagsrapport-table'
       end
     end
   end
@@ -27,13 +27,10 @@ class ExcelController < ApplicationController
     @customers = Customer.all
   end
 
-  ###############################
-  #    Timelisten gis til lønn. Pr mnd pr ansatt pr prosjekt.  
-  #    (rapporteres den 15 og ved månedsskiftet)
-  #    Scope en hel måned.
-  #    Fra dato og til dato: Bruk dato fra den første timen 
-  #    registrert og dato på siste time registerert.
-  #    prosjektnavnet må tas med i regnearket.
+  
+  # The timesheet is given to the customers HR department. It's used for
+  # calucation sallery for the workers.
+  # From and to date: Use the date from the first HoursSpent and the last.
   def timesheet
     @project = Project.find(params[:project_id])
     @user    = User.find(params[:user_id])
@@ -43,10 +40,7 @@ class ExcelController < ApplicationController
     send_file filename, filename:  filename
   end
 
-
-
   private
-
   
   def generate_dagsrapport_pdf(profession_title:, overtime:)
     filename = "/tmp/dagsrapport-#{profession_title.downcase}-#{overtime}.pdf"
@@ -73,7 +67,6 @@ class ExcelController < ApplicationController
     else
       'application'
     end
-    
   end
 
 end

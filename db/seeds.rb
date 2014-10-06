@@ -29,7 +29,7 @@ d546  = Department.create(title: 'Avd. 546 Vindusverksted')
 # Professions
 murer      = Profession.create(title: 'Murer')
 maler      = Profession.create(title: 'Maler')
-snekker    = Profession.create(title: 'Snekker')
+@snekker    = Profession.create(title: 'Snekker')
 elektriker = Profession.create(title: 'Elektriker')
 
 
@@ -66,86 +66,89 @@ Fabricate(:user, department: service_avdeling, roles: [:project_leader],
           department: service_avdeling)
 
 # Medarbeidere snekkere
-Fabricate(:user, roles: [:worker], department: snekker, 
-          department: service_avdeling, first_name: "Avni", 
-          last_name: "Lymany", mobile: 47625905, profession: snekker)
+Fabricate(:user, roles: [:worker], department: service_avdeling, 
+          first_name: "Avni", last_name: "Lymany", mobile: 47625905, 
+          profession: @snekker)
 
-danni = Fabricate(:user, roles: [:worker], department: snekker, 
+danni = Fabricate(:user, roles: [:worker], 
                   department: service_avdeling, first_name: "Danni", 
-                  last_name: "Runge", mobile: 91135576, profession: snekker)
-snekker2 = Fabricate(:user, roles: [:worker], department: snekker, 
+                  last_name: "Runge", mobile: 91135576, profession: @snekker)
+snekker2 = Fabricate(:user, roles: [:worker],
                   department: service_avdeling, first_name: "Snekker", 
-                  last_name: "Olsen", profession: snekker)
+                  last_name: "Olsen", profession: @snekker)
 
-snekker_kari = Fabricate(:user, roles: [:worker], department: snekker, 
+snekker_kari = Fabricate(:user, roles: [:worker],
                   department: service_avdeling, first_name: "Snekker", 
-                  last_name: "Kari", profession: snekker)
+                  last_name: "Kari", profession: @snekker)
 
-Fabricate(:user, roles: [:worker], department: snekker, 
+Fabricate(:user, roles: [:worker],
           department: service_avdeling, first_name: "Alexander", 
-          last_name: "Børresen", mobile: 48159427, profession: snekker)
+          last_name: "Børresen", mobile: 48159427, profession: @snekker)
 
 # Projects
-ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', 
+@ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', 
                  customer: sporveiene, 
                  sms_employee_if_hours_not_registered: true,
                  department: service_avdeling, starred: true, user: @martin)
 
 
 # Tasks for Danni - Snekker
-danni_task = Fabricate(:task, project: ryen, description: 'Lag et skur')
+danni_task = Fabricate(:task, project: @ryen, description: 'Lag et skur')
 danni_task.users << danni
 danni_task.users << @martin # Add martin so we have a user that doesn't register
                             # any HoursSpent.
 danni_task.save
 
 # Tasks for Snekker Kari
-snekker_kari_task = Fabricate(:task, project: ryen, description: 'Lag en bod')
+snekker_kari_task = Fabricate(:task, project: @ryen, description: 'Lag en bod')
 snekker_kari_task.users << snekker_kari
 snekker_kari_task.save
 
 # Tasks for Maren - Maler
-male_task = Fabricate(:task, project: ryen, description: 'Mal veggen')
+male_task = Fabricate(:task, project: @ryen, description: 'Mal veggen')
 male_task.users << maren_maler
 male_task.save
 
 # HoursSpent for Danni - Snekker
 Fabricate(:hours_spent, created_at: '01.01.2014', hour: 11,         
-          task: danni_task, user: danni, project: ryen,
+          task: danni_task, user: danni, project: @ryen,
           description: 'danni - 11 vanlige timer')
 
 Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12,  
-          task: danni_task, user: danni, project: ryen,
+          task: danni_task, user: danni, project: @ryen,
           description: 'danni - 12 timer 50% overtid')
 
 Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, 
-          task: danni_task, user: danni, project: ryen,
+          task: danni_task, user: danni, project: @ryen,
           description: 'danni - 13 timer 100% overtid')
 
 Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 20, 
-          task: danni_task, user: danni, project: ryen,
+          task: danni_task, user: danni, project: @ryen,
           description: 'danni - 20 timer 100% overtid')
 
 
 # Snekker Kari
 Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
-          task: snekker_kari_task, user: snekker_kari, project: ryen,
+          task: snekker_kari_task, user: snekker_kari, project: @ryen,
           description: 'snekker kari - 30 timer 100% overtid')
 Fabricate(:hours_spent, created_at: '15.01.2014', overtime_100: 10, 
-          task: snekker_kari_task, user: snekker_kari, project: ryen,
+          task: snekker_kari_task, user: snekker_kari, project: @ryen,
           description: 'snekker kari - 10 timer 100% overtid')
 
 # More workers with hours on Ryen
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
-           task: Fabricate(:task, 
-                   project: Project.where(title: 'Nytt tak på Ryenhallen')),
-          user: Fabricate(:user),
-          description: "#{User.last.name} - 30 timer 100% overtid")
+10.times do 
+  puts "Creating a new user task"
+  user = Fabricate(:user, profession: @snekker)
+  user_task = Fabricate(:task, project: @ryen, description: 'div for user')
+  user_task.users << user
+  user_task.save!
 
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
-          task: Fabricate(:task, project: ryen),
-          user: Fabricate(:user),
-          description: "#{User.last.name} - 30 timer 100% overtid")
+  hs = Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+             task: user_task, user: user, project: @ryen,
+             description: "#{user.name} - 30 timer 100% overtid")
+  puts "valid? #{hs.valid?}"
+end
+
 #
 #
 ###################
