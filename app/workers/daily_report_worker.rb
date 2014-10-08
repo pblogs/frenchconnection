@@ -23,7 +23,8 @@ class DailyReportWorker
         end
       end
 
-      ZippedReport.daily_reports.create(project: @project, zipfile: File.open(zipfile_path))
+      ZippedReport.daily_reports.create(project: @project, 
+                                        zipfile: File.open(zipfile_path))
 
     ensure
       files.each { |f| f.file.unlink }
@@ -53,7 +54,7 @@ class DailyReportWorker
 
   def zipfile_path
     @zipfile_path ||=
-        "/tmp/project-#{@project.id}-daily-report-#{timestamp}.zip"
+        "/tmp/project-#{ @project.id }-daily-report-#{ timestamp }.zip"
   end
 
   def timestamp
