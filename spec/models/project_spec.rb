@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
   describe "generic" do
     before :each do
-      @department = Fabricate(:department)
+      @department      = Fabricate(:department)
       @project_leader  = Fabricate(:user)
       @service         = Fabricate(:department, title: 'Service')
       @project         = Fabricate(:project, user: @project_leader, 
@@ -20,6 +20,7 @@ describe Project do
       @task.users << @mustafa_murer
       @task.save
       @project.save
+
       @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, 
                                       task: @task,
                                       user: @john_snekker)
@@ -27,9 +28,9 @@ describe Project do
                                       task: @task,
                                       user: @john_snekker)
       # Overtime 100
-      @overtime_100_for_john_s   = Fabricate(:hours_spent, overtime_100: 100, 
-                                        task: @task,
-                                        user: @john_snekker)
+      @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100, 
+                                            task: @task,
+                                            user: @john_snekker)
     end
 
     it "is valid from the Fabric" do
@@ -43,7 +44,6 @@ describe Project do
     it "knows which users that are involved" do
       @john_snekker.tasks.should include @task
       @project.users.should include(@john_snekker, @barry_snekker, @mustafa_murer)
-      @project.name_of_users.should eq 'John, Barry, Mustafa'
     end
 
     it "knows their names" do
@@ -74,13 +74,13 @@ describe Project do
       end
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour).should_not \
-          include(@overtime_100_for_john_s)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour)
+          .should_not include(@overtime_100_for_john_s)
       end
 
       it 'hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour).should \
-          include(@hours_for_snakker1)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour)
+          .should include(@hours_for_snakker1)
       end
 
       it "hours_spent_total" do
