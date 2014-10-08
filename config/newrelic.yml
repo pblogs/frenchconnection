@@ -193,6 +193,7 @@ development:
   # NOTE: for initial evaluation purposes, you may want to temporarily
   # turn the agent on in development mode.
   monitor_mode: false
+  app_name: alliero.orwapp.com
 
   # Rails Only - when running in Developer Mode, the New Relic Agent will
   # present performance information on the last 100 transactions you have
@@ -217,6 +218,7 @@ test:
 production:
   <<: *default_settings
   monitor_mode: true
+  app_name: alliero.orwapp.com
 
 # Many applications have a staging environment which behaves
 # identically to production. Support for that environment is provided
