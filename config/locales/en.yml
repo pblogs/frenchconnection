@@ -1,8 +1,4 @@
 en:
-  project:
-    confirm_closing: End the project?
-    complete_link: End the project
-    
   generic:
     archive: Archive 
     customers: Customers
@@ -10,6 +6,11 @@ en:
     departments: Departments
     favourites: Favourites
     projects: Prosjekter 
+
+  project:
+    confirm_closing: End the project?
+    complete_link: End the project
+    closed_projects: Closed projects
     
   task:
     confirm: Confirm
