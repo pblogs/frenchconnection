@@ -6,14 +6,6 @@
         - @task.errors.full_messages.each do |message|
           li = message
 
-  = label_tag 'task_type_id', 'Oppdragstype'
-  = f.select "task_type_id", 
-    options_from_collection_for_select(@task_types, "id", "title")
-
-  = label_tag 'paint_id', 'Malingstype'
-  = f.select 'paint_id', 
-    options_from_collection_for_select(@paint, "id", "title")
-
   = label_tag 'user_id', 'Henvis til utførende'
   = f.select 'user_id', 
     options_from_collection_for_select(@users, "id", "name")
