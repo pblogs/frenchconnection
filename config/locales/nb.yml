@@ -22,6 +22,7 @@ nb:
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
+    closed_projects: Avsluttede prosjekter
 
   task:
     confirm: Bekreft
