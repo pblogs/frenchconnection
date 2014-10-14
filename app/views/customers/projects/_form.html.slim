@@ -84,5 +84,34 @@
     = file_field_tag "attachments[]", type: :file, multiple: true
   hr
 
+  .field
+    = f.check_box :single_task
+    = f.label :single_task, t('.single_task')
+
+  = f.fields_for :tasks do |ff|
+
+    fieldset.task style="display:none"
+
+      .field
+        = ff.label :description, 'Beskrivelse'
+        = ff.text_area :description,  placeholder: 'Beskriv oppdraget'
+
+      .field
+        = ff.label :start_date, t('.start_date')
+        = ff.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
+
+      .field
+        = ff.label :due_date, t('.due_date')
+        = ff.text_field :due_date, class: :datepicker, placeholder: 'Velg dato'
+
+  hr
 
   .actions = f.submit 'Lagre'
+
+javascript:
+  var singleTaskCheckbox = $('#project_single_task');
+  var singleTaskFieldset = $("fieldset.task");
+  singleTaskFieldset.toggle(singleTaskCheckbox.is(':checked'));
+  singleTaskCheckbox.change(function() {
+    singleTaskFieldset.toggle(this.checked);
+  });
