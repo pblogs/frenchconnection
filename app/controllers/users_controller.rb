@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_department, only: [:new, :edit, :add_user, :update]
+  before_action :set_profession, only: [:new, :edit, :add_user, :update]
 
   # GET /users
   # GET /users.json
@@ -79,7 +80,8 @@ class UsersController < ApplicationController
       if @user.update_attributes(first_name: params[:user][:first_name], 
                               last_name: params[:user][:last_name], 
                               mobile: params[:user][:mobile], 
-                              department_id: params[:user][:department_id], 
+                              department_id: params[:user][:department_id],
+                              profession_id: params[:user][:profession_id],
                               roles: "{#{params[:user][:roles]}}", 
                               image: params[:user][:image], 
                               emp_id: params[:user][:emp_id])
@@ -116,6 +118,10 @@ class UsersController < ApplicationController
 
     def set_department
       @department = Department.all
+    end
+
+    def set_profession
+      @profession = Profession.all
     end
 
     # Never trust parameters from the scary internet, 
