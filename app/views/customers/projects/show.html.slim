@@ -12,7 +12,7 @@
     = link_to 'Registrer ny oppgave', new_project_task_path(@project)
   - unless @project.complete
     = link_to t('project.complete_link'), complete_project_path(@project),
-      data: {confirm: t('generic.confirm')}, method: :post, class: 'pull-right'
+      data: {confirm: t('generic.confirm')}, method: :post, class: 'pull-right complete'
 
 .badges
   - if @project.complete
