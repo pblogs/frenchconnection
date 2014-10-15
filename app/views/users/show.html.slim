@@ -78,7 +78,7 @@
       br
   
     - if @current_user.has_role? :worker
-        .my_tasks
+        .my_tasks.worker
           strong.menu_header = I18n.t('task.my_tasks')
           .bar
           - if @tasks.present?
@@ -90,6 +90,6 @@
                   = link_to task.description, task
                   span.actions
                     = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
-                    = link_to fa_icon('check'), complete_task_path(task), method: :post, data: {confirm: "Are you sure?"}
+                    = link_to fa_icon('check'), complete_task_path(task), method: :post, data: {confirm: "Are you sure?"}, class: 'complete'
           - else
             p Du har ingen aktive prosjekter.
