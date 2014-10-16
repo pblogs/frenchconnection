@@ -85,8 +85,9 @@
   hr
 
   .field.single-task
-    = f.check_box :single_task
-    = f.label :single_task, t('.single_task')
+    label for='project_single_task'
+      = f.check_box :single_task
+      = t('.single_task')
 
   = f.fields_for :tasks do |ff|
 
