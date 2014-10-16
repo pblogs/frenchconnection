@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 
-
 describe "Create a new project", :type => :feature do
   before :all do
     Customer.destroy_all
@@ -46,6 +45,29 @@ describe "Create a new project", :type => :feature do
     click_button 'Lagre'
   end
 
+  describe "with single task" do
+    it "redirects to created task" do
+      @customer = Fabricate(:customer, name: 'Oslo Sporveier AS')
+      sign_in(@project_leader)
+
+      visit new_customer_project_path(@customer)
+
+      fill_in 'Prosjektnummer', with: 'abc'
+      fill_in 'Oppstartsdato', with: '01.01.2014'
+      fill_in 'Dato for ferdigstillelse av oppdrag', with: '01.10.2014'
+      fill_in 'Beskrivelse', with: 'bra prosjekt'
+
+      find(:css, '.single-task input[type=checkbox]').set(true)
+      find(:css, '#project_tasks_attributes_0_description', visible: false).set('Lorem Ipsum')
+      find(:css, '#project_tasks_attributes_0_start_date', visible: false).set('01.01.2014')
+      find(:css, '#project_tasks_attributes_0_due_date', visible: false).set('01.10.2014')
+
+      click_button 'Lagre'
+
+      current_path.should == edit_project_task_path(Project.last, Task.last)
+
+    end
+  end
 
 
 end
@@ -54,8 +76,8 @@ def sign_in(user)
   visit root_path
   #click_link I18n.t('auth.sign_in.link')
   within '#main' do
-    fill_in 'user_mobile',    with: user.mobile
-    fill_in 'user_password',  with: 'topsecret'
+    fill_in 'user_mobile', with: user.mobile
+    fill_in 'user_password', with: 'topsecret'
     click_link_or_button 'Logg inn'
   end
   User.last.mobile.should eq user.mobile
