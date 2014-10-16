@@ -84,7 +84,7 @@
     = file_field_tag "attachments[]", type: :file, multiple: true
   hr
 
-  .field
+  .field.single-task
     = f.check_box :single_task
     = f.label :single_task, t('.single_task')
 
