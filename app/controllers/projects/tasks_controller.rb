@@ -44,11 +44,10 @@ class Projects::TasksController < ApplicationController
     @task.project = @project 
     @departments = Department.all
 
-
-
     respond_to do |format|
       if @task.save
-        format.html { redirect_to customer_project_path(@task.project.customer, @task.project),
+        format.html { redirect_to customer_project_path(@task.project.customer, 
+                                                        @task.project),
           notice: "Oppdraget ble opprettet" }
         format.json { render action: 'show', status: :created, location: @task }
       else
@@ -64,7 +63,8 @@ class Projects::TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, 
+        format.html { redirect_to customer_project_path(@task.project.customer, 
+                                                        @task.project),
                       notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
