@@ -15,6 +15,12 @@ class Project < ActiveRecord::Base
   validates :department_id,  :presence => true
   validates :project_number, :presence => true
 
+  accepts_nested_attributes_for :tasks
+  attr_accessor :single_task
+
+  def single_task?
+    single_task == '1'
+  end
 
   def professions
     professions = []

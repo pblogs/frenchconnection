@@ -22,6 +22,7 @@ class Customers::ProjectsController < ApplicationController
     @project     = @customer.projects.new
     @customers   = Customer.all
     @departments = Department.all
+    @project.tasks.build
   end
 
   # GET /projects/1/edit
@@ -43,6 +44,14 @@ class Customers::ProjectsController < ApplicationController
     @customers           = Customer.all
     @customer            = Customer.find(params[:customer_id])
 
+    if @project.single_task?
+      @task = @project.tasks.first
+      @task.project = @project
+      @task.customer_id = @project.customer_id # is this correct?
+    else
+      @project.tasks.clear
+    end
+
     respond_to do |format|
       if @project.save
 
@@ -53,8 +62,14 @@ class Customers::ProjectsController < ApplicationController
           end
         end
 
-        format.html { redirect_to customer_project_path(@project.customer, 
-                        @project), notice: 'Prosjektet ble lagret' }
+        format.html do
+          if @project.single_task?
+            redirect_to edit_project_task_path(@project, @task), notice: 'Prosjektet ble lagret'
+          else
+            redirect_to customer_project_path(@project.customer,
+                                              @project), notice: 'Prosjektet ble lagret'
+          end
+        end
         format.json { render action: 'show', status: :created, 
                       location: @project }
       else
@@ -131,6 +146,8 @@ class Customers::ProjectsController < ApplicationController
                                     :start_date,
                                     :short_description,
                                     :title,
+                                    :single_task,
+                                    tasks_attributes: [:description, :start_date, :due_date]
                                     )
   end
 end
