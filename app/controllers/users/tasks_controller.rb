@@ -52,13 +52,13 @@ module Users
 
     # GET /tasks/1/edit
     def edit
-      @task_types = TaskType.all
+
     end
 
     # POST /tasks
     # POST /tasks.json
     def create
-      @task_types = TaskType.all
+
       @paint = Paint.all
       @task = Task.new(task_params)
       if params[:customer_id].present?
@@ -122,7 +122,7 @@ module Users
       end
 
       def set_paint_and_type
-        @task_types = TaskType.all
+
         @paint      = Paint.all
         @users      = User.all
       end
