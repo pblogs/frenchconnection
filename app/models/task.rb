@@ -7,9 +7,9 @@ class Task < ActiveRecord::Base
 
   has_many :hours_spents
 
-  validates :project_id, :presence => true
+  validates :project_id, :presence => true, :unless => :single_task
   validates :start_date, :presence => true
-  validates :due_date,   :presence => true
+  validates :due_date, :presence => true
 
   attr_accessor :department_id
 
@@ -38,6 +38,10 @@ class Task < ActiveRecord::Base
     users.each do |u|
       Sms.send_msg(to: "47#{u.mobile}", msg: msg)
     end
+  end
+
+  def single_task
+    project.single_task?
   end
 
 end
