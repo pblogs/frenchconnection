@@ -1,4 +1,9 @@
 en:
+  customers:
+    projects:
+      form:
+        single_task: This project has only one task
+
   generic:
     archive: Archive 
     customers: Customers

@@ -1,4 +1,9 @@
 nb:
+  customers:
+    projects:
+      form:
+        single_task: This project has only one task
+
   generic:
     archive: Arkiv 
     departments: Avdelinger
