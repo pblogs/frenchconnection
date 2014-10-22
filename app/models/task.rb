@@ -11,6 +11,9 @@ class Task < ActiveRecord::Base
   validates :start_date, :presence => true
   validates :due_date, :presence => true
 
+  validate :start_date_must_be_within_projects_dates_range
+  validate :due_date_must_be_within_projects_dates_range
+
   attr_accessor :department_id
 
   after_create :notify_workers, if: :sms_employee_when_new_task_created
@@ -43,5 +46,18 @@ class Task < ActiveRecord::Base
   def single_task
     project.single_task?
   end
+
+  def start_date_must_be_within_projects_dates_range
+    if start_date.present? && !((project.start_date)..(project.due_date)).include?(start_date)
+      errors.add(:start_date, "must be within projects start_date and projects due_date")
+    end
+  end
+
+  def due_date_must_be_within_projects_dates_range
+    if due_date.present? && !((project.start_date)..(project.due_date)).include?(due_date)
+      errors.add(:due_date, "must be within projects start_date and projects due_date")
+    end
+  end
+
 
 end
