@@ -18,7 +18,7 @@ describe "Create a new project", :type => :feature do
     fill_in 'Addresse', with: 'Majorstuveien 12'
     fill_in 'Organisasjonsnummer', with: '000000000'
     fill_in 'Kontaktperson',  with: 'Ole Olsen'
-    fill_in 'Telefonenummer', with: '22222222'
+    fill_in 'Telefonnummer', with: '22222222'
     click_button 'Lagre'
 
 
