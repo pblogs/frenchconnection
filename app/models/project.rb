@@ -113,7 +113,6 @@ class Project < ActiveRecord::Base
 
   def build_single_task
     tasks.build do |t|
-      #t.project = @project
       t.customer_id = customer_id # is this correct?
       t.description = short_description
       t.start_date = start_date
