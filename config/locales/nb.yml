@@ -48,4 +48,7 @@ nb:
   projects:
     hours_registered:
       report_generated_at: Report generated at %{time}
-
+    tasks:
+      form:
+        project_start_date: "Project start date: %{start_date}"
+        project_due_date: "Project due date: %{due_date}"
