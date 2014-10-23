@@ -53,18 +53,20 @@
 
   .field
     = f.label :start_date, 'Oppstartsdato'
-    = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
+    = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato', data: {datepicker: {minDate: l(@project.start_date), maxDate: l(@project.due_date)}}
+    small= t('.project_start_date', start_date: l(@project.start_date))
 
   .field
     = f.label :due_date, 'Ferdigstillingsdato'
-    = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato'
+    = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato', data: {datepicker: {minDate: l(@project.start_date), maxDate: l(@project.due_date)}}
+    small= t('.project_due_date', due_date: l(@project.due_date))
 
   br
   br
   br
   br
   .actions = f.submit t('project.tasks.save'), class: 'button green'
-    
+
     
     
     
