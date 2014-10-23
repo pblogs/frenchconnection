@@ -15,7 +15,6 @@ class Project < ActiveRecord::Base
   validates :department_id,  :presence => true
   validates :project_number, :presence => true
 
-  accepts_nested_attributes_for :tasks
   attr_accessor :single_task
 
   def single_task?
@@ -109,6 +108,15 @@ class Project < ActiveRecord::Base
   ZippedReport.report_type_enum.each do |t|
     define_method "last_#{t.last}" do
       ZippedReport.where(report_type: t.last).order(:created_at).last
+    end
+  end
+
+  def build_single_task
+    tasks.build do |t|
+      t.customer_id = customer_id # is this correct?
+      t.description = short_description
+      t.start_date = start_date
+      t.due_date = due_date
     end
   end
 

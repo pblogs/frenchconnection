@@ -22,7 +22,6 @@ class Customers::ProjectsController < ApplicationController
     @project     = @customer.projects.new
     @customers   = Customer.all
     @departments = Department.all
-    @project.tasks.build
   end
 
   # GET /projects/1/edit
@@ -44,12 +43,8 @@ class Customers::ProjectsController < ApplicationController
     @customers           = Customer.all
     @customer            = Customer.find(params[:customer_id])
 
-    if @project.single_task?
-      @task = @project.tasks.first
-      @task.project = @project
-      @task.customer_id = @project.customer_id # is this correct?
-    else
-      @project.tasks.clear
+    if @project.single_task? && @project.valid?
+      @task = @project.build_single_task
     end
 
     respond_to do |format|
@@ -146,8 +141,7 @@ class Customers::ProjectsController < ApplicationController
                                     :start_date,
                                     :short_description,
                                     :title,
-                                    :single_task,
-                                    tasks_attributes: [:description, :start_date, :due_date]
+                                    :single_task
                                     )
   end
 end

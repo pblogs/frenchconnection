@@ -46,7 +46,7 @@ describe "Create a new project", :type => :feature do
   end
 
   describe "with single task" do
-    it "redirects to created task" do
+    before do
       @customer = Fabricate(:customer, name: 'Oslo Sporveier AS')
       sign_in(@project_leader)
 
@@ -58,14 +58,19 @@ describe "Create a new project", :type => :feature do
       fill_in 'Beskrivelse', with: 'bra prosjekt'
 
       find(:css, '.single-task input[type=checkbox]').set(true)
-      find(:css, '#project_tasks_attributes_0_description', visible: false).set('Lorem Ipsum')
-      find(:css, '#project_tasks_attributes_0_start_date', visible: false).set('01.01.2014')
-      find(:css, '#project_tasks_attributes_0_due_date', visible: false).set('01.10.2014')
 
       click_button 'Lagre'
+    end
 
+    it "redirects to created task" do
       current_path.should == edit_project_task_path(Project.last, Task.last)
+    end
 
+    it "has description and dates copied from project" do
+      t = Task.last
+      expect(t.start_date).to eq(t.project.start_date)
+      expect(t.due_date).to eq(t.project.due_date)
+      expect(t.description).to eq(t.project.short_description)
     end
   end
 
