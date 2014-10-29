@@ -6,8 +6,8 @@ ul class="accordion-tabs-minimal"
       ul.circle
         - if @starred_customers.present?
           h5 = t('generic.customers')
-          - @starred_customers.each do |s|
-            li= link_to s.name, s
+          - @starred_customers.each do |c|
+            li = link_to c.name, customer_projects_path(c)
         br
         br
         - if @starred_projects.present?
@@ -18,7 +18,7 @@ ul class="accordion-tabs-minimal"
   li class="tab-header-and-content"
     a href="#" class="tab-link"= t('generic.departments')
     section
-      h3 Avdelinger
+      h3= t('generic.customers')
       br
       ul
         - @departments && @departments.each do |d| 
