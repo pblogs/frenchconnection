@@ -3,16 +3,16 @@ require 'spec_helper'
 describe Task do
   before :each do
     @department = Fabricate(:department)
-    @worker  = Fabricate(:user, first_name: 'John')
+    @worker = Fabricate(:user, first_name: 'John')
     @worker2 = Fabricate(:user, first_name: 'Barry')
-    @task    = Fabricate(:task)
-    @task2   = Fabricate(:task)
+    @task = Fabricate(:task)
+    @task2 = Fabricate(:task)
     @task.users = [@worker, @worker2]
     @task.save
     @task.reload
     @worker.reload
   end
-  
+
   it "is valid from the Fabric" do
     expect(@task).to be_valid
   end
@@ -33,6 +33,30 @@ describe Task do
   describe "Notifications" do
     it "notifies by SMS when a worker is delegated at task" do
     end
+  end
+
+  describe "validations" do
+
+    before do
+      @project = Fabricate :project, start_date: 1.month.ago, due_date: 1.month.since
+    end
+
+    %i(start_date due_date).each do |s|
+
+      it "fails validation with #{s} before projects start_date" do
+        task = @project.tasks.build s => 2.months.ago
+        task.valid?
+        expect(task.errors[s].size).to eq(1)
+      end
+
+      it "passes validation with #{s} within projects start_date/due_date" do
+        task = @project.tasks.build s => 1.day.ago
+        task.valid?
+        expect(task.errors[s].size).to eq(0)
+      end
+
+    end
+
   end
 
 end
