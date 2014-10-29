@@ -46,7 +46,7 @@ class DailyReportWorker
 
   def generate_daily_report(project, profession, type)
     file = Tempfile.new self.class.to_s
-    url = url_helpers.dagsrapport_url(
+    url = url_helpers.daily_report_url(
         project.id, profession.id, type, host: host)
     kit = PDFKit.new(url)
     kit.to_pdf(file.path)
