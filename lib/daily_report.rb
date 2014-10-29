@@ -1,4 +1,4 @@
-class Dagsrapport
+class DailyReport
   require 'rubygems'
   require 'axlsx'
 
@@ -151,9 +151,9 @@ class Dagsrapport
         end
       end
       p.use_shared_strings = true
-      p.serialize "tmp/dagsrapport.xls"
+      p.serialize "tmp/daily_report.xls"
     end
-    "tmp/dagsrapport.xls"
+    "tmp/daily_report.xls"
   end
 
   private
