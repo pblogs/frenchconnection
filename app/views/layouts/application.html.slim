@@ -71,6 +71,10 @@ html
         .login_logout
           br
           - if signed_in?
-            span= "Logget inn som #{@current_user.name}"
+            span 
+              ="Logget inn som #{@current_user.name}"
+              br
+              - @current_user.roles.each do |r| 
+                em= t(r) 
             br
             = link_to 'Logg ut', destroy_user_session_path, method: :delete
