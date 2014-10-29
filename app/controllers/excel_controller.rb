@@ -2,23 +2,23 @@ class ExcelController < ApplicationController
   skip_before_filter :authenticate_user!
   layout :resolve_layout
   
-  def dagsrapport
+  def daily_report
     @project    = Project.find(params[:project_id])
     @profession = Profession.find(params[:profession_id])
     @workers    = @project.users_with_profession(profession: @profession)
     @overtime   = params[:overtime]
-    @filename   = Dagsrapport.new(project: @project, profession: @profession, 
+    @filename   = DailyReport.new(project: @project, profession: @profession, 
                                  overtime: @overtime).create_spreadsheet
     respond_to do |format|
       format.pdf do
-        filename = generate_dagsrapport_pdf(profession_title: @profession.title,
+        filename = generate_daily_report_pdf(profession_title: @profession.title,
                                            overtime: @overtime)
         send_file filename, filename: File.basename(filename)
       end
       format.html do
         @hours_spent = @project.hours_spent_for_profession(@profession, 
                                                            overtime: @overtime)
-        render 'dagsrapport-table'
+        render 'daily_report-table'
       end
     end
   end
@@ -42,8 +42,8 @@ class ExcelController < ApplicationController
 
   private
   
-  def generate_dagsrapport_pdf(profession_title:, overtime:)
-    filename = "/tmp/dagsrapport-#{profession_title.downcase}-#{overtime}.pdf"
+  def generate_daily_report_pdf(profession_title:, overtime:)
+    filename = "/tmp/daily_report-#{profession_title.downcase}-#{overtime}.pdf"
     url  = request.original_url.gsub('.pdf', '')
     kit  = PDFKit.new(url)
     kit.to_file(filename)
@@ -60,7 +60,7 @@ class ExcelController < ApplicationController
 
   def resolve_layout
     case action_name
-    when 'dagsrapport'
+    when 'daily_report'
       'excel'
     when 'timesheet'
       'excel'
