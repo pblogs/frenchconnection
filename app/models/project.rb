@@ -84,17 +84,6 @@ class Project < ActiveRecord::Base
     execution_address || customer.address
   end
 
-  #def name_of_users(profession: nil)
-  #  if profession
-  #    #raise "users_with_profession: #{users_with_profession(profession: profession)}"
-  #    users = users_with_profession(profession: profession)
-  #    users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
-  #    #u.pluck(:first_name).join(', ').collect { |n| n.strip }
-  #  else
-  #    users.pluck(:first_name).join(', ').collect { |n| n.strip }
-  #  end
-  #end
-
   def week_numbers
     w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
     w.uniq.sort!.join(', ')
