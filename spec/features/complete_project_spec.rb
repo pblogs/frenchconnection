@@ -7,10 +7,10 @@ Sidekiq::Testing.inline!
 feature 'Project leader completes a project' do
 
   scenario 'workers are notified'  do
-    @user = Fabricate :user, roles: [:project_leader]
-    @project = Fabricate :project
-    @worker = Fabricate :user, roles: [:worker]
-    @task = Fabricate :task, project: @project
+    @user      = Fabricate :user, roles: [:project_leader]
+    @project   = Fabricate :project
+    @worker    = Fabricate :user, roles: [:worker]
+    @task      = Fabricate :task, project: @project
     @user_task = Fabricate :user_task, user: @worker, task: @task
 
     sign_in @user

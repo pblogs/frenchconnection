@@ -35,13 +35,13 @@ class Project < ActiveRecord::Base
     users = users_with_profession(profession: profession)
     all_kinds_of_hours = users.collect { |u| 
       hours_spents.where(user: u ).to_a }.flatten
-    all = all_kinds_of_hours.select {|h| h.send(overtime) > 0 rescue nil }
+    all = all_kinds_of_hours.select { |h| h.send(overtime) > 0 rescue nil }
     all.select { |h| h.send(overtime).present? }
   end
 
   def hours_spent_total(profession: nil, changed: false, overtime: )
     users = profession ? users_with_profession(profession: profession) : users
-    users.inject { |u| hours_total_for(u, changed: changed, overtime: overtime) } rescue 0 # FIXME 
+    users.inject { |u| hours_total_for(u, changed: changed, overtime: overtime) } rescue 0 
   end
 
   def hours_total_for(user, changed: false, overtime:)
@@ -82,17 +82,6 @@ class Project < ActiveRecord::Base
   def address
     execution_address || customer.address
   end
-
-  #def name_of_users(profession: nil)
-  #  if profession
-  #    #raise "users_with_profession: #{users_with_profession(profession: profession)}"
-  #    users = users_with_profession(profession: profession)
-  #    users.pluck(:first_name).join(', ').split(',').collect { |n| n.strip }
-  #    #u.pluck(:first_name).join(', ').collect { |n| n.strip }
-  #  else
-  #    users.pluck(:first_name).join(', ').collect { |n| n.strip }
-  #  end
-  #end
 
   def week_numbers
     w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
