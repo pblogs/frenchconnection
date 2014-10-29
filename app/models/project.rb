@@ -41,9 +41,7 @@ class Project < ActiveRecord::Base
 
   def hours_spent_total(profession: nil, changed: false, overtime: )
     users = profession ? users_with_profession(profession: profession) : users
-    users.inject do |u| 
-      hours_total_for(u, changed: changed, overtime: overtime) rescue 0
-    end
+    users.inject { |u| hours_total_for(u, changed: changed, overtime: overtime) } rescue 0 
   end
 
   def hours_total_for(user, changed: false, overtime:)
