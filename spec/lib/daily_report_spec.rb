@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Dagsrapport do
+describe DailyReport do
 
   before do
     @project = Fabricate(:project)
@@ -16,7 +16,7 @@ describe Dagsrapport do
   end
 
   it 'has no syntax errors' do
-    Dagsrapport.new(project: @project, profession: @profession, overtime: 100)
+    DailyReport.new(project: @project, profession: @profession, overtime: 100)
       .create_spreadsheet.class.should eq String
   end
 
