@@ -35,13 +35,15 @@ class Project < ActiveRecord::Base
     users = users_with_profession(profession: profession)
     all_kinds_of_hours = users.collect { |u| 
       hours_spents.where(user: u ).to_a }.flatten
-    all = all_kinds_of_hours.select {|h| h.send(overtime) > 0 rescue nil }
+    all = all_kinds_of_hours.select { |h| h.send(overtime) > 0 rescue nil }
     all.select { |h| h.send(overtime).present? }
   end
 
   def hours_spent_total(profession: nil, changed: false, overtime: )
     users = profession ? users_with_profession(profession: profession) : users
-    users.inject { |u| hours_total_for(u, changed: changed, overtime: overtime) } rescue 0 # FIXME 
+    users.inject do |u| 
+      hours_total_for(u, changed: changed, overtime: overtime) rescue 0
+    end
   end
 
   def hours_total_for(user, changed: false, overtime:)
