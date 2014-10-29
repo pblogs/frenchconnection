@@ -17,8 +17,8 @@ AllieroForms::Application.routes.draw do
   mount API => '/'
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
 
-  get '/dagsrapport/:project_id/:profession_id/:overtime' => 'excel#dagsrapport', 
-    as: :dagsrapport
+  get '/daily_report/:project_id/:profession_id/:overtime' => 'excel#daily_report', 
+    as: :daily_report
 
   get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
   resources :projects do
