@@ -18,7 +18,7 @@ gem 'iconv'
 gem 'pdfkit'
 gem 'symbolize'
 gem 'sidekiq'
-gem 'sidetiq'
+gem 'pusher'
 
 # API
 gem 'grape', github: 'intridea/grape'

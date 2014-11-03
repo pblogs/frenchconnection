@@ -1,0 +1,18 @@
+p.wait-message
+  = t('.wait_msg')
+
+p.success-message.hidden
+  = t('.success_msg')
+  br
+  a.report-link href="#"
+    = t('.download')
+
+// This is really necessary, as we need a way to do some initialization
+// 1) only on this page
+// 2) and with data specific to current request
+javascript:
+  var userId = "#{current_user.id}";
+  var token = "#{@token}";
+  $(document).ready(function () {
+    app.registerPusherListener(userId, token);
+  });

@@ -52,3 +52,9 @@ nb:
       form:
         project_start_date: "Project start date: %{start_date}"
         project_due_date: "Project due date: %{due_date}"
+
+  project_reports:
+    create:
+      wait_msg: "Project is being generated. Please wait a few seconds."
+      success_msg: "Report is ready. Click the link below to download. Link is valid for 15 minutes."
+      download: "Download report"

@@ -14,20 +14,10 @@
         = link_to 'Vis alle timer'
     label
       span.button-group-item.tooltip-item(data-no-turbolink)
-        .tooltip
-          - if @project.last_daily_report
-            = t(".report_generated_at", time: l(@project.last_daily_report.created_at))
-          - else
-            = t(".report_not_ready")
-        = link_to 'Lag dagrapport', daily_report_project_path(@project)
+        = link_to 'Lag dagrapport', project_project_reports_path(@project, type: 'daily_report'), method: :post
     label
       span.button-group-item.tooltip-item(data-no-turbolink)
-        .tooltip
-          - if @project.last_timesheet
-            = t(".report_generated_at", time: l(@project.last_timesheet.created_at))
-          - else
-            = t(".report_not_ready")
-        = link_to 'Lag timelister', timesheet_project_path(@project)
+        = link_to 'Lag timelister', project_project_reports_path(@project, type: 'timesheet'), method: :post
   br 
   br 
   br 
@@ -52,7 +42,7 @@
     - @hours_registered.each do |hour|
       tr
         td= hour.date.strftime("%d/%m")
-        td= hour.user.name
+        td= hour.user.try(:name)
         td= hour.changed_value_description
         td= hour.changed_value_hour
         td= hour.changed_value_overtime_50
