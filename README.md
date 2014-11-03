@@ -4,3 +4,7 @@
 Ask martin@orwapp.com for sms gateway credentials. 
 You need to set these local variables send sms:
 BULKSMS_PASSWORD and BULKSMS_USERNAME
+
+
+## Style Guide
+Please follow our Style Guide: https://github.com/stabenfeldt/alliero-orwapp/wiki/Style-guide
