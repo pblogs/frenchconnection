@@ -18,7 +18,7 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe ProjectsController do
+describe ProjectsController, :type => :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
