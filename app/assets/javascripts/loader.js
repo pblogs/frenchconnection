@@ -6,12 +6,13 @@ $(document).ready(function () {
     cluster: "eu"
   });
 
-  // TODO remove this
-  Pusher.log = function(message) {
+  // uncomment for debugging pusher
+  /* Pusher.log = function(message) {
     if (window.console && window.console.log) {
       window.console.log(message);
     }
   };
+  */
 
   /* allow additional options for datepicker, based on:
   / http://stackoverflow.com/questions/8308008/jquery-datepicker-override-options-from-data-attribute
