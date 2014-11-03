@@ -32,7 +32,7 @@ class TimesheetWorker
 
       current
 
-    rescue Excpetion => e
+    rescue Exception => e
       Pusher["user-#{user_id}"].trigger("report", {
           id: current.id,
           token: token,
