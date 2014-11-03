@@ -18,8 +18,6 @@ module ApplicationHelper
   def pusher_id
     if ENV["PUSHER_URL"].present?
       ENV["PUSHER_URL"].scan(/\/\/(.{20})\:/).flatten.first
-    else
-      raise "PUSHER_URL environment variable not set"
     end
   end
 end
