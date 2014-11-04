@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HoursSpent::ChangesController do
+describe HoursSpent::ChangesController, :type => :controller do
   let(:valid_attributes) do
     { 
       hours_spent: Fabricate(:hours_spent)

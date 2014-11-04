@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ExcelController do
+describe ExcelController, :type => :controller do
   before do
     @project = Fabricate(:project)
     sign_in

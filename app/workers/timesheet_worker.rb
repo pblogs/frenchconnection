@@ -10,19 +10,35 @@ class TimesheetWorker
     end
   end
 
-  def perform(project_id)
-    @project = Project.find(project_id)
+  def perform(project_id, user_id, token)
+    begin
+      @project = Project.find(project_id)
 
-    Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-      files.each do |f|
-        zipfile.add(f.filename, f.file)
+      Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
+        files.each do |f|
+          zipfile.add(f.filename, f.file)
+        end
       end
-    end
 
-    current = ZippedReport.timesheets.create(project: @project,
-                                             zipfile: File.open(zipfile_path))
-    current.cleanup_old_reports
-    current
+      current = ZippedReport.timesheets.create(project: @project,
+                                               zipfile: File.open(zipfile_path))
+      ZippedReportCleanerWorker.perform_in(15.minutes, current.id)
+
+      Pusher["user-#{user_id}"].trigger("report", {
+          id: current.id,
+          token: token,
+          url: url_helpers.project_report_path(current)
+      })
+
+      current
+
+    rescue Exception => e
+      Pusher["user-#{user_id}"].trigger("report", {
+          id: current.id,
+          token: token,
+          error: e
+      })
+    end
   end
 
   private
