@@ -11,7 +11,7 @@ class ProjectReportsController < ApplicationController
       when 'daily_report', 'timesheet'
         worker = "#{type.camelize}Worker".constantize
         @token = SecureRandom::uuid
-        worker.perform_async(params[:project_id], current_user.id, @token)
+        worker.perform_in(5.seconds.since, params[:project_id], current_user.id, @token)
       else
         raise "Invalid report type: #{type}"
     end
