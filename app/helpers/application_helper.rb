@@ -14,4 +14,10 @@ module ApplicationHelper
   def nbsp
     "&nbsp;".html_safe
   end
+
+  def pusher_id
+    if ENV["PUSHER_URL"].present?
+      ENV["PUSHER_URL"].scan(/\/\/(.{20})\:/).flatten.first
+    end
+  end
 end
