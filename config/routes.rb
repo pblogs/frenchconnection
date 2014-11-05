@@ -1,7 +1,5 @@
 AllieroForms::Application.routes.draw do
 
-  get 'project_reports/daily_report'
-
   resources :changes
 
   resources :departments
@@ -23,12 +21,12 @@ AllieroForms::Application.routes.draw do
   get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
   resources :projects do
     resources :tasks, :controller => 'projects/tasks'
+    resources :project_reports, only: :create
     member do
       post :complete
-      get :daily_report, controller: 'project_reports'
-      get :timesheet, controller: 'project_reports'
     end
   end
+  resources :project_reports, only: :show
 
   get '/timesheets' => 'excel#timesheets', as: :timesheets
   get '/timesheet/:project_id/:user_id' => 'excel#timesheet', as: :timesheet
