@@ -5,7 +5,7 @@ class Customers::ProjectsController < ApplicationController
 
 
   def index
-    @projects = @customer.projects.open.all
+    @projects = @customer.projects.active.all
   end
 
   def show
