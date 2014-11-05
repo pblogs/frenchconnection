@@ -6,8 +6,8 @@ ul class="accordion-tabs-minimal"
       ul.circle
         - if @starred_customers.present?
           h5 = t('generic.customers')
-          - @starred_customers.each do |s|
-            li= link_to s.name, s
+          - @starred_customers.each do |c|
+            li = link_to c.name, customer_projects_path(c)
         br
         br
         - if @starred_projects.present?
@@ -18,8 +18,6 @@ ul class="accordion-tabs-minimal"
   li class="tab-header-and-content"
     a href="#" class="tab-link"= t('generic.departments')
     section
-      h3 Avdelinger
-      br
       ul
         - @departments && @departments.each do |d| 
           li= link_to d.title, d
@@ -29,7 +27,6 @@ ul class="accordion-tabs-minimal"
     a href="#" class="tab-link"= t('project.closed_projects')
     section
       - if @completed_projects.present?
-        h5 = t('generic.projects')
         ul
           - @completed_projects && @completed_projects.each do |p|
             li= link_to p.name, customer_project_path(p.customer, p)
