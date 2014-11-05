@@ -17,7 +17,7 @@ class Project < ActiveRecord::Base
 
   attr_accessor :single_task
 
-  scope :open, -> { where(complete: false) }
+  scope :active, -> { where(complete: false) }
   scope :complete,   -> { where(complete: true)  }
 
   def single_task?
