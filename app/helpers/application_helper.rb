@@ -20,4 +20,9 @@ module ApplicationHelper
       ENV["PUSHER_URL"].scan(/\/\/(.{20})\:/).flatten.first
     end
   end
+
+  def dictionary_url
+    'http://alliero-dictionary.orwapp.com'
+  end
+
 end
