@@ -2,9 +2,9 @@
 ## Alliero.orwapp.com
 
 This app is used to keep track of `HoursSpent`.
-Project leaders [1] create Projects. A Project consist of one or more Tasks.
+Project leaders [1] create projects. A `Project` consist of one or more `Tasks`.
 Each task can be delegated to one or more workers [2]. These workers report `HoursSpent` on the tasks they are given.
-Reports are created by ExcelController. It's not really Excel files, but HTML pages transformed to PDF with PDFKit.
+Reports are created by `ExcelController`. It's not really Excel files, but HTML pages transformed to PDF with PDFKit.
 These reports are used by our customer to generate invoices.
 
 
