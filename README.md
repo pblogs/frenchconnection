@@ -11,6 +11,7 @@ These reports are used by our customer to generate invoices.
 
 
 [1] Users with 'project_leader' role.
+
 [2] Users with 'worker' role.
 ## Style Guide
 Please follow our Style Guide: https://github.com/stabenfeldt/alliero-orwapp/wiki/Style-guide
