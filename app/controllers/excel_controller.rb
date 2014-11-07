@@ -12,7 +12,7 @@ class ExcelController < ApplicationController
     respond_to do |format|
       format.pdf do
         filename = generate_daily_report_pdf(profession_title: @profession.title,
-                                           overtime: @overtime)
+                                             overtime: @overtime)
         send_file filename, filename: File.basename(filename)
       end
       format.html do
@@ -28,11 +28,11 @@ class ExcelController < ApplicationController
     @workers    = @project.users
     @overtime   = params[:overtime]
     @filename   = WeeklyReport.new(project: @project, profession: @profession, 
-                                 overtime: @overtime).create_spreadsheet
+                                   overtime: @overtime).create_spreadsheet
     respond_to do |format|
       format.pdf do
         filename = generate_daily_report_pdf(profession_title: @profession.title,
-                                           overtime: @overtime)
+                                             overtime: @overtime)
         send_file filename, filename: File.basename(filename)
       end
       format.html do
