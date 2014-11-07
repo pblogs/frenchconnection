@@ -1,0 +1,24 @@
+- date = fetch_date(@month, @year)
+= image_tag 'alliero-bratfoss-h46.png'
+
+h3= "Project:  #{@project.name.titleize}"
+- if @monthly_report[@project.name]
+  table
+    thead
+      tr
+        td colspan=2 Profession/Department
+        td colspan=@total_weeks Week/Hour
+        td colspan=1 = date
+    tbody
+      tr
+        td colspan=2
+        - @monthly_report[@project.name].each do |k,v|
+          td.bold_data = (k == :sum) ? "Hours" :  k
+
+      - @monthly_report.each do |key,value|
+        tr
+          td colspan=2 = @project.name == key ? "Sum" : extract_prf_dep(key)
+          - value.each do |k,v|
+            td = v
+- else
+  h5= "No Hours Spent For '#{date}'"
