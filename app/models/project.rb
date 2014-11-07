@@ -31,6 +31,41 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
+  def generate_monthly_report(year, month)
+    starting_date = Date.parse "#{Date::MONTHNAMES[month.to_i]}, #{year}"
+    ending_date = starting_date.end_of_month
+    total_weeks = ((starting_date.strftime("%U").to_i + 1)..(ending_date.strftime("%U").to_i + 1)).to_a
+
+    project_hours = {}
+
+    hours_spents.where(date: starting_date..ending_date).order(:date).each do |hour_spent|
+      project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"] ||= {}
+      total_weeks.each { |week_no| project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"][week_no] ||= 0 }
+      project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"][:sum] ||= 0
+      project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"][hour_spent.date.cweek] += hour_spent.hour
+      project_hours[name] ||= {}
+      total_weeks.each { |week_no| project_hours[name][week_no] ||= 0 }
+      project_hours[name][hour_spent.date.cweek] += hour_spent.hour
+    end
+
+
+    # In order to move the sum hash to the end
+    sum_hash = project_hours[name]
+    if sum_hash
+      project_hours.delete(name)
+      project_hours[name] = sum_hash
+      project_hours[name][:sum] ||= 0
+
+      project_hours.each do |key, value|
+        project_hours[key].each do |k,v|
+          project_hours[key][:sum] += v unless k == :sum
+        end
+      end
+    end
+
+    [project_hours, total_weeks.count]
+  end
+
   def hours_spent_for_profession(profession, overtime:)
     users = users_with_profession(profession: profession)
     all_kinds_of_hours = users.collect { |u| 
