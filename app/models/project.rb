@@ -32,37 +32,10 @@ class Project < ActiveRecord::Base
   end
 
   def generate_monthly_report(year, month)
-    starting_date = Date.parse "#{Date::MONTHNAMES[month.to_i]}, #{year}"
-    ending_date = starting_date.end_of_month
-    total_weeks = ((starting_date.strftime("%U").to_i + 1)..(ending_date.strftime("%U").to_i + 1)).to_a
-
-    project_hours = {}
-
-    hours_spents.where(date: starting_date..ending_date).order(:date).each do |hour_spent|
-      project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"] ||= {}
-      total_weeks.each { |week_no| project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"][week_no] ||= 0 }
-      project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"][:sum] ||= 0
-      project_hours["#{hour_spent.user.profession.title}_#{hour_spent.user.department.title}"][hour_spent.date.cweek] += hour_spent.hour
-      project_hours[name] ||= {}
-      total_weeks.each { |week_no| project_hours[name][week_no] ||= 0 }
-      project_hours[name][hour_spent.date.cweek] += hour_spent.hour
-    end
-
-
-    # In order to move the sum hash to the end
-    sum_hash = project_hours[name]
-    if sum_hash
-      project_hours.delete(name)
-      project_hours[name] = sum_hash
-      project_hours[name][:sum] ||= 0
-
-      project_hours.each do |key, value|
-        project_hours[key].each do |k,v|
-          project_hours[key][:sum] += v unless k == :sum
-        end
-      end
-    end
-
+    starting_date, ending_date, total_weeks = get_month_metadata(year.to_i, month.to_i)
+    project_hours = initialize_project_hours(total_weeks)
+    project_hours = calculate_hours(project_hours, starting_date: starting_date,
+                                    ending_date: ending_date, total_weeks: total_weeks)
     [project_hours, total_weeks.count]
   end
 
@@ -144,4 +117,49 @@ class Project < ActiveRecord::Base
     end
   end
 
+  private
+
+    def get_month_metadata(year, month)
+      starting_date = Date.new(year, month, 1)
+      ending_date = starting_date.end_of_month
+      total_weeks = ((starting_date.cweek)..(ending_date.cweek)).to_a
+      [starting_date, ending_date, total_weeks]
+    end
+
+    def calculate_hours(project_hours, opts = {})
+      populate_hours(project_hours, starting_date: opts[:starting_date], ending_date: opts[:ending_date], total_weeks: opts[:total_weeks])
+      reorder_hash(project_hours)
+      populate_sum(project_hours)
+    end
+
+    def initialize_project_hours(total_weeks, project_hours = {})
+      project_hours[name] ||= {}
+      total_weeks.each { |week_no| project_hours[name][week_no] ||= 0 }
+      project_hours[name][:sum] = 0
+      project_hours
+    end
+
+    def populate_hours(project_hours, opts = {})
+      hours_spents.where(date: opts[:starting_date]..opts[:ending_date]).order(:date).each do |hour_spent|
+        project_hours[hour_spent.profession_department] ||= {}
+        opts[:total_weeks].each { |week_no| project_hours[hour_spent.profession_department][week_no] ||= 0 }
+        project_hours[hour_spent.profession_department][:sum] ||= 0
+        project_hours[hour_spent.profession_department][hour_spent.date.cweek] += hour_spent.hour
+        project_hours[name][hour_spent.date.cweek] += hour_spent.hour
+      end
+    end
+
+    def populate_sum(project_hours)
+      project_hours.each do |key, value|
+        project_hours[key].each do |k,v|
+          project_hours[key][:sum] += v unless k == :sum
+        end
+      end
+    end
+
+    def reorder_hash(project_hours)
+      sum_hash = project_hours[name]
+      project_hours.delete(name)
+      project_hours[name] = sum_hash
+    end
 end
