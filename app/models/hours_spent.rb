@@ -10,7 +10,7 @@ class HoursSpent < ActiveRecord::Base
   validates :date,        :presence => true
   validates :project_id,  :presence => true
 
-  # Sums all the different types of hours registered 
+  # Sums all the different types of hours registered
   # for one day, on one user.
   def sum(overtime: nil, changed: nil)
     if changed
@@ -44,4 +44,7 @@ class HoursSpent < ActiveRecord::Base
     change.try(value) || send(value)
   end
 
+  def profession_department
+    "#{user.profession.title}_#{user.department.title}"
+  end
 end
