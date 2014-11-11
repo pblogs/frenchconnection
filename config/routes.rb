@@ -18,7 +18,7 @@ AllieroForms::Application.routes.draw do
   get '/daily_report/:project_id/:profession_id/:overtime' => 'excel#daily_report', 
     as: :daily_report
 
-  get 'monthly_report/:project_id/:year/:month' => 'excel#monthly_report',
+  get 'monthly_report/:project_id/:year/:month/:overtime' => 'excel#monthly_report',
       as: :monthly_report
 
   get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
