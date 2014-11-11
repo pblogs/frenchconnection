@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id                     :integer          not null, primary key
+#  customer_id            :integer
+#  task_type_id           :integer
+#  start_date             :date
+#  customer_buys_supplies :boolean
+#  created_at             :datetime
+#  updated_at             :datetime
+#  paint_id               :integer
+#  accepted               :boolean
+#  description            :string(255)
+#  finished               :boolean          default(FALSE)
+#  project_id             :integer
+#  due_date               :date
+#
+
 class Task < ActiveRecord::Base
 
   belongs_to :project

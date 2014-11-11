@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: changes
+#
+#  id                      :integer          not null, primary key
+#  description             :text
+#  hours_spent_id          :integer
+#  changed_by_user_id      :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  runs_in_company_car     :integer
+#  km_driven_own_car       :float
+#  toll_expenses_own_car   :float
+#  supplies_from_warehouse :string(255)
+#  piecework_hours         :integer
+#  overtime_50             :integer
+#  overtime_100            :integer
+#  hour                    :integer
+#  text                    :string(255)
+#  reason                  :text
+#
+
 require 'spec_helper'
 
 describe Change do
@@ -17,7 +39,7 @@ describe Change do
 
     it 'create_from_hours_spent' do
       reason =  'I know he was sick that day'
-      @change = Change.create_from_hours_spent(hours_spent: @hours_spent, 
+      @change = Change.create_from_hours_spent(hours_spent: @hours_spent,
                          reason: reason )
 
       @change.hour.should eq @hours_spent.hour
@@ -32,7 +54,7 @@ describe Change do
     it 'returnes the changed values' do
       pending 'Test fails, works in real life'
       reason =  'I know he was sick that day'
-      @change = Change.create_from_hours_spent(hours_spent: @hours_spent, 
+      @change = Change.create_from_hours_spent(hours_spent: @hours_spent,
                          reason: reason )
 
       @change.hour         = 1
@@ -43,8 +65,8 @@ describe Change do
       @hours_spent.reload
       @hours_spent.changed_value_overtime_50.should eq 5
       @hours_spent.sum(change: true).should eq 6
-      
+
     end
-    
+
   end
 end

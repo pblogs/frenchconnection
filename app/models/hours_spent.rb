@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: hours_spents
+#
+#  id                      :integer          not null, primary key
+#  customer_id             :integer
+#  task_id                 :integer
+#  hour                    :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  date                    :date
+#  description             :text
+#  user_id                 :integer
+#  piecework_hours         :integer
+#  overtime_50             :integer
+#  overtime_100            :integer
+#  project_id              :integer
+#  runs_in_company_car     :integer
+#  km_driven_own_car       :float
+#  toll_expenses_own_car   :float
+#  supplies_from_warehouse :string(255)
+#
+
 class HoursSpent < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
@@ -10,19 +33,19 @@ class HoursSpent < ActiveRecord::Base
   validates :date,        :presence => true
   validates :project_id,  :presence => true
 
-  # Sums all the different types of hours registered 
+  # Sums all the different types of hours registered
   # for one day, on one user.
   def sum(overtime: nil, changed: nil)
     if changed
       (self.changed_value_hour            ||  0) +
       (self.changed_value_piecework_hours ||  0) +
       (self.changed_value_overtime_50     ||  0) +
-      (self.changed_value_overtime_100    ||  0)  
+      (self.changed_value_overtime_100    ||  0)
     else
       (self.hour            ||  0) +
       (self.piecework_hours ||  0) +
       (self.overtime_50     ||  0) +
-      (self.overtime_100    ||  0)  
+      (self.overtime_100    ||  0)
     end
   end
 
