@@ -15,6 +15,16 @@ module ApplicationHelper
     "&nbsp;".html_safe
   end
 
+  def pusher_id
+    if ENV["PUSHER_URL"].present?
+      ENV["PUSHER_URL"].scan(/\/\/(.{20})\:/).flatten.first
+    end
+  end
+
+  def dictionary_url
+    'http://alliero-dictionary.orwapp.com'
+  end
+
   def alphabet_paginate_prev_next params
     output = ''
     links = ''
