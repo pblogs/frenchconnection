@@ -2,7 +2,7 @@
 = image_tag 'alliero-bratfoss-h46.png'
 
 h3= "Project:  #{@project.name.titleize}"
-- if @monthly_report[@project.name]
+- if @monthly_report[@project.name][:sum] > 0
   table
     thead
       tr
