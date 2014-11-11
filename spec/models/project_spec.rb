@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id                                   :integer          not null, primary key
+#  project_number                       :string(255)
+#  name                                 :string(255)
+#  created_at                           :datetime
+#  updated_at                           :datetime
+#  customer_id                          :integer
+#  start_date                           :date
+#  due_date                             :date
+#  description                          :text
+#  user_id                              :integer
+#  execution_address                    :string(255)
+#  customer_reference                   :text
+#  comment                              :text
+#  sms_employee_if_hours_not_registered :boolean          default(FALSE)
+#  sms_employee_when_new_task_created   :boolean          default(FALSE)
+#  department_id                        :integer
+#  starred                              :boolean
+#  short_description                    :string(255)
+#  complete                             :boolean          default(FALSE)
+#
+
 require 'spec_helper'
 
 describe Project do
@@ -6,7 +31,7 @@ describe Project do
       @department      = Fabricate(:department)
       @project_leader  = Fabricate(:user)
       @service         = Fabricate(:department, title: 'Service')
-      @project         = Fabricate(:project, user: @project_leader, 
+      @project         = Fabricate(:project, user: @project_leader,
                                    department: @service)
       @snekker = Fabricate(:profession, title: 'snekker')
       @murer   = Fabricate(:profession, title: 'murer')
@@ -21,14 +46,14 @@ describe Project do
       @task.save
       @project.save
 
-      @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, 
+      @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10,
                                       task: @task,
                                       user: @john_snekker)
-      @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10, 
+      @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10,
                                       task: @task,
                                       user: @john_snekker)
       # Overtime 100
-      @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100, 
+      @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100,
                                             task: @task,
                                             user: @john_snekker)
     end
@@ -50,7 +75,7 @@ describe Project do
       @project.name_of_users.should eq 'John, Barry, Mustafa'
     end
 
-    describe 'hours_total_for(user)' do 
+    describe 'hours_total_for(user)' do
       it "knows how many hours each of them as worked" do
         Fabricate(:hours_spent, hour: 10, task: @task, user: @john_snekker)
         Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @john_snekker)
@@ -61,9 +86,9 @@ describe Project do
 
       it 'hours_total_for(user, changed: true)' do
 
-        @change1 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker1, 
+        @change1 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker1,
                                                  reason: 'works slow' )
-        @change2 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker2, 
+        @change2 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker2,
                                                  reason: 'works slow' )
         @change1.hour            = 1
         @change2.piecework_hours = 1
@@ -87,7 +112,7 @@ describe Project do
         Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
         Fabricate(:hours_spent, task: @task, hour: 10, user: @barry_snekker)
         Fabricate(:hours_spent, task: @task, hour: 10, user: @mustafa_murer)
-        Fabricate(:hours_spent, task: @task, 
+        Fabricate(:hours_spent, task: @task,
                   overtime_50: 10, user: @barry_snekker)
         @ot100 = Fabricate(:hours_spent, task: @task, overtime_100: 10,
                            user: @mustafa_murer)
@@ -98,10 +123,10 @@ describe Project do
       it "hours_spent_total(changed: true)" do
         pending "tests fails, but confirmed working"
         @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
-        @change = Change.create_from_hours_spent(hours_spent: @hour10, 
+        @change = Change.create_from_hours_spent(hours_spent: @hour10,
                                                  reason: 'works slow' )
         @change.update_attribute(:hour, 1)
-        @project.hours_spent_total(profession: @snekker, 
+        @project.hours_spent_total(profession: @snekker,
                                    changed: true).should eq 1
       end
     end
@@ -133,19 +158,19 @@ describe Project do
       @maintainance = Fabricate(:department, title: 'Maintainance')
       @customer1    = Fabricate(:customer)
       @customer2    = Fabricate(:customer)
-      @service_project1 = Fabricate(:project, user: @john_snekker, 
-                                    customer: @customer1, 
+      @service_project1 = Fabricate(:project, user: @john_snekker,
+                                    customer: @customer1,
                                     department: @service)
-      @maintainance_project1 = Fabricate(:project, user: @john_snekker, 
-                                         customer: @customer2, 
+      @maintainance_project1 = Fabricate(:project, user: @john_snekker,
+                                         customer: @customer2,
                       department: @maintainance)
     end
 
     it "knows which projects that are mine" do
       pending "works when testing manually"
       @john_snekker.reload
-      @john_snekker.owns_projects.to_a.should eq [@service_project1, 
-                                          @service_project2, 
+      @john_snekker.owns_projects.to_a.should eq [@service_project1,
+                                          @service_project2,
                                           @maintainance_project1]
     end
 

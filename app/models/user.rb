@@ -1,8 +1,39 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string(255)
+#  encrypted_password     :string(255)      not null
+#  roles                  :string(255)      is an Array
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  created_at             :datetime
+#  updated_at             :datetime
+#  first_name             :string(255)
+#  last_name              :string(255)
+#  department_id          :integer
+#  mobile                 :integer
+#  employee_nr            :string(255)
+#  image                  :string(255)
+#  emp_id                 :string(255)
+#  profession_id          :integer
+#  home_address           :string(255)
+#  home_area_code         :string(255)
+#  home_area              :string(255)
+#
+
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   ROLES = %w[admin project_leader worker economy]
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
@@ -43,7 +74,7 @@ class User < ActiveRecord::Base
   def avatar
     image.url.present? ? image.url : "http://robohash.org/#{name}"
   end
-  
+
   def full_name
     "#{ first_name } #{ last_name }".strip
   end
@@ -73,8 +104,8 @@ class User < ActiveRecord::Base
       pending_notifications << [notification, args]
     else
       token = args.first
-      reset_url =  "#{edit_user_password_url(self, 
-        reset_password_token: token, 
+      reset_url =  "#{edit_user_password_url(self,
+        reset_password_token: token,
         host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
       msg = "Klikk her for nytt passord hos Orwapp: #{reset_url}"
       Sms.send_msg(to: "47#{mobile}", msg: msg)

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: zipped_reports
+#
+#  id          :integer          not null, primary key
+#  project_id  :integer          not null
+#  zipfile     :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  report_type :string(255)
+#
+
 class ZippedReport < ActiveRecord::Base
   mount_uploader :zipfile, ZipfileUploader
 
