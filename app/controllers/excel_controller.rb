@@ -28,7 +28,8 @@ class ExcelController < ApplicationController
       @project =  Project.find(params[:project_id])
       @month =  params[:month]
       @year =  params[:year]
-      @monthly_report, @total_weeks =  @project.generate_monthly_report(@year, @month)
+      overtime   = params[:overtime]
+      @monthly_report, @total_weeks =  @project.generate_monthly_report(@year, @month, overtime)
 
       respond_to do |format|
         format.pdf do
