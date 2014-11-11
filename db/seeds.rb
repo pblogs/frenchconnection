@@ -21,8 +21,8 @@ Fabricate(:customer_message,
 
 # Departments
 service_avdeling = Department.create(title: '69850')
-d545  = Department.create(title: 'Avd. 545 Bratfoss')
-d546  = Department.create(title: 'Avd. 546 Vindusverksted')
+@d545  = Department.create(title: 'Avd. 545 Bratfoss')
+@d546  = Department.create(title: 'Avd. 546 Vindusverksted')
 @d532 = Department.create(title: 'Avd. 532 Tak og fasade')
 
 
@@ -110,19 +110,20 @@ male_task.users << maren_maler
 male_task.save
 
 # HoursSpent for Danni - Snekker
+# Only for week 1 in 2014
 Fabricate(:hours_spent, created_at: '01.01.2014', hour: 11,         
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 11 vanlige timer')
 
-Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12,  
+Fabricate(:hours_spent, created_at: '02.01.2014', overtime_50: 12,  
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 12 timer 50% overtid')
 
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, 
+Fabricate(:hours_spent, created_at: '03.01.2014', overtime_100: 13, 
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 13 timer 100% overtid')
 
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 20, 
+Fabricate(:hours_spent, created_at: '04.01.2014', overtime_100: 20, 
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 20 timer 100% overtid')
 
@@ -138,12 +139,12 @@ Fabricate(:hours_spent, created_at: '15.01.2014', overtime_100: 10,
 # More workers with hours on Ryen
 10.times do 
   puts "Creating a new user task"
-  user = Fabricate(:user, profession: @snekker)
+  user = Fabricate(:user, profession: @snekker, department: @d545)
   user_task = Fabricate(:task, project: @ryen, description: 'div for user')
   user_task.users << user
   user_task.save!
 
-  hs = Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+  hs = Fabricate(:hours_spent, created_at: '01.01.2014', overtime_100: 30, 
              task: user_task, user: user, project: @ryen,
              description: "#{user.name} - 30 timer 100% overtid")
   puts "valid? #{hs.valid?}"
