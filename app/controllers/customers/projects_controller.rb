@@ -4,37 +4,28 @@ class Customers::ProjectsController < ApplicationController
                                       :destroy, :new]
 
 
-  # GET /projects
-  # GET /projects.json
   def index
-    @projects = @customer.projects.all
+    @projects = @customer.projects.active.all
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
-    @departments         = Department.all
+    @departments = Department.all
   end
 
-
-  # GET /projects/new
   def new
     @project     = @customer.projects.new
     @customers   = Customer.all
     @departments = Department.all
   end
 
-  # GET /projects/1/edit
   def edit
-    @departments         = Department.all
+    @departments = Department.all
   end
 
-  # POST /projects
-  # POST /projects.json
   def create
-    @project             = Project.new(project_params)
-    @project.user        = @current_user
-    @departments         = Department.all
+    @project      = Project.new(project_params)
+    @project.user = @current_user
+    @departments  = Department.all
 
     # TODO make so that this param is sent under the project hash
     #@project.department_id = params[:department]
@@ -59,10 +50,12 @@ class Customers::ProjectsController < ApplicationController
 
         format.html do
           if @project.single_task?
-            redirect_to edit_project_task_path(@project, @task), notice: 'Prosjektet ble lagret'
+            redirect_to edit_project_task_path(@project, @task),
+              notice: 'Prosjektet ble lagret'
           else
             redirect_to customer_project_path(@project.customer,
-                                              @project), notice: 'Prosjektet ble lagret'
+                                              @project),
+                                              notice: 'Prosjektet ble lagret'
           end
         end
         format.json { render action: 'show', status: :created, 
@@ -75,8 +68,6 @@ class Customers::ProjectsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
   def update
     @departments         = Department.all
     respond_to do |format|
@@ -99,8 +90,6 @@ class Customers::ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project.destroy
     respond_to do |format|

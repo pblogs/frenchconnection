@@ -4,6 +4,7 @@ html
     title Alliero
     = stylesheet_link_tag "application", media: "all",  
       "data-turbolinks-track" => true
+    script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport" 
@@ -18,10 +19,11 @@ html
               - if @current_user.has_role? :project_leader
                 li= link_to 'Prosjekter', projects_path
                 li= link_to 'Kunder', customers_path
-                li= link_to 'Administrer brukere', users_path
+                li= link_to 'Administrer', users_path
               li= link_to 'Nyheter', '/'
               li= link_to 'Min side', @current_user
               li= link_to 'HMS', hms_path
+              li= link_to 'Ordbok', dictionary_url
             .breadcrumb = yield :breadcrumb
 
         section
@@ -78,3 +80,8 @@ html
                 em= t(r) 
             br
             = link_to 'Logg ut', destroy_user_session_path, method: :delete
+
+// This is really necessary, as we need a way to pass this id to js assets,
+// and it isn't known when assets are precompiled
+javascript:
+  var pusherId = "#{pusher_id}";

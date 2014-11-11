@@ -12,7 +12,7 @@ class DailyReportWorker
     end
   end
 
-  def perform(project_id)
+  def perform(project_id, user_id, token)
     @project = Project.find(project_id)
 
     begin
@@ -25,9 +25,21 @@ class DailyReportWorker
 
       current = ZippedReport.daily_reports.create(project: @project,
                         zipfile: File.open(zipfile_path))
-      current.cleanup_old_reports
-      current
+      ZippedReportCleanerWorker.perform_in(15.minutes, current.id)
 
+      Pusher["user-#{user_id}"].trigger("report", {
+          id: current.id,
+          token: token,
+          url: url_helpers.project_report_path(current)
+      })
+
+      current
+    rescue Exception => e
+      Pusher["user-#{user_id}"].trigger("report", {
+          id: current.id,
+          token: token,
+          error: e
+      })
     ensure
       files.each { |f| f.file.unlink }
     end

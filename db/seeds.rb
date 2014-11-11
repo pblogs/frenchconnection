@@ -110,28 +110,29 @@ male_task.users << maren_maler
 male_task.save
 
 # HoursSpent for Danni - Snekker
-Fabricate(:hours_spent, created_at: '01.01.2014', hour: 11,         
+# Only for week 1 in 2014
+Fabricate(:hours_spent, date: '01.01.2014', hour: 11,         
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 11 vanlige timer')
 
-Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 12,  
+Fabricate(:hours_spent, date: '02.01.2014', overtime_50: 12,  
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 12 timer 50% overtid')
 
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 13, 
+Fabricate(:hours_spent, date: '03.01.2014', overtime_100: 13, 
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 13 timer 100% overtid')
 
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 20, 
+Fabricate(:hours_spent, date: '04.01.2014', overtime_100: 20, 
           task: danni_task, user: danni, project: @ryen,
           description: 'danni - 20 timer 100% overtid')
 
 
 # Snekker Kari
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 30, 
           task: snekker_kari_task, user: snekker_kari, project: @ryen,
           description: 'snekker kari - 30 timer 100% overtid')
-Fabricate(:hours_spent, created_at: '15.01.2014', overtime_100: 10, 
+Fabricate(:hours_spent, date: '15.01.2014', overtime_100: 10, 
           task: snekker_kari_task, user: snekker_kari, project: @ryen,
           description: 'snekker kari - 10 timer 100% overtid')
 
@@ -143,7 +144,7 @@ Fabricate(:hours_spent, created_at: '15.01.2014', overtime_100: 10,
   user_task.users << user
   user_task.save!
 
-  hs = Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 30, 
+hs = Fabricate(:hours_spent, date: '01.01.2014', overtime_100: 30, 
              task: user_task, user: user, project: @ryen,
              description: "#{user.name} - 30 timer 100% overtid")
   puts "valid? #{hs.valid?}"
@@ -154,14 +155,14 @@ end
 ###################
 
 # HoursSpent for Maren Maler
-Fabricate(:hours_spent, created_at: '01.01.2014', hour: 21,         
+Fabricate(:hours_spent, date: '01.01.2014', hour: 21,         
           task: male_task, user: maren_maler, project: male_task.project,
           description: 'maren maler 21 vanlige timer')
 
-Fabricate(:hours_spent, created_at: '09.01.2014', overtime_50: 22,  
+Fabricate(:hours_spent, date: '09.01.2014', overtime_50: 22,  
           task: male_task, user: maren_maler, project: male_task.project,
           description: 'maren maler 22 timer 50% overtid')
 
-Fabricate(:hours_spent, created_at: '14.01.2014', overtime_100: 23, 
+Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 23, 
           task: male_task, user: maren_maler, project: male_task.project,
           description: 'maren maler 23 timer 100% overtid')
