@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_department, only: [:new, :edit, :add_user, :update]
   before_action :set_profession, only: [:new, :edit, :add_user, :update]
@@ -7,7 +7,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    alpha_paginate_options = {
+        :support_language => :en,
+        :pagination_class => 'pagination-centered',
+        :js => false,
+        :include_all => false
+    }
+    @users, @alpha_params = User.all.alpha_paginate(params[:letter],
+        alpha_paginate_options) { |user| user.last_name }
   end
 
   # GET /users/1
@@ -39,16 +46,16 @@ class UsersController < ApplicationController
   # POST /users.json
   def add_user
     @user = User.new(first_name: params[:user][:first_name],
-                     last_name: params[:user][:last_name], 
-                     mobile: params[:user][:mobile], 
-                     department_id: params[:user][:department_id], 
-                     roles: "{#{params[:user][:roles]}}", 
-                     image: params[:user][:image], 
+                     last_name: params[:user][:last_name],
+                     mobile: params[:user][:mobile],
+                     department_id: params[:user][:department_id],
+                     roles: "{#{params[:user][:roles]}}",
+                     image: params[:user][:image],
                      emp_id: params[:user][:emp_id],
                      password: "password")
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_path, 
+        format.html { redirect_to users_path,
                       notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -63,7 +70,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, 
+        format.html { redirect_to @user,
                     notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -77,15 +84,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update_attributes(first_name: params[:user][:first_name], 
-                              last_name: params[:user][:last_name], 
-                              mobile: params[:user][:mobile], 
+      if @user.update_attributes(first_name: params[:user][:first_name],
+                              last_name: params[:user][:last_name],
+                              mobile: params[:user][:mobile],
                               department_id: params[:user][:department_id],
                               profession_id: params[:user][:profession_id],
-                              roles: "{#{params[:user][:roles]}}", 
-                              image: params[:user][:image], 
+                              roles: "{#{params[:user][:roles]}}",
+                              image: params[:user][:image],
                               emp_id: params[:user][:emp_id])
-        format.html { redirect_to users_url, 
+        format.html { redirect_to users_url,
                     notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -124,11 +131,11 @@ class UsersController < ApplicationController
       @profession = Profession.all
     end
 
-    # Never trust parameters from the scary internet, 
+    # Never trust parameters from the scary internet,
     #only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, 
-                                  :tasks_id, :mobile, :emp_id, 
+      params.require(:user).permit(:first_name, :last_name,
+                                  :tasks_id, :mobile, :emp_id,
                                   :department_id, :roles, :image)
     end
 end
