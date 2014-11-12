@@ -61,6 +61,10 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    alphabetical_paginate (2.2.3)
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (5.0.1.20140414130214)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -401,6 +405,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  alphabetical_paginate
+  annotate
   axlsx (~> 2.0.1)
   better_errors
   binding_of_caller

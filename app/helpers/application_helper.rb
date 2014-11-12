@@ -24,5 +24,4 @@ module ApplicationHelper
   def dictionary_url
     'http://alliero-dictionary.orwapp.com'
   end
-
 end

@@ -25,9 +25,12 @@ gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
 gem 'grape-swagger'
 
+gem 'annotate'
+
 gem 'devise'
 gem 'carrierwave'
 gem 'axlsx', '~> 2.0.1'
+gem 'alphabetical_paginate'
 
 
 
@@ -56,7 +59,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-sass-rails'
 
 
-# Turbolinks makes following links in your web application faster. 
+# Turbolinks makes following links in your web application faster.
 # Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'jquery-turbolinks'
@@ -94,7 +97,7 @@ group :test do
   gem 'launchy'
   gem 'selenium-webdriver'
 end
-  
+
 
 
 group :production do
