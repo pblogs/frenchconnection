@@ -21,8 +21,8 @@ Fabricate(:customer_message,
 
 # Departments
 service_avdeling = Department.create(title: '69850')
-d545  = Department.create(title: 'Avd. 545 Bratfoss')
-d546  = Department.create(title: 'Avd. 546 Vindusverksted')
+@d545  = Department.create(title: 'Avd. 545 Bratfoss')
+@d546  = Department.create(title: 'Avd. 546 Vindusverksted')
 @d532 = Department.create(title: 'Avd. 532 Tak og fasade')
 
 
@@ -138,16 +138,13 @@ Fabricate(:hours_spent, date: '15.01.2014', overtime_100: 10,
 
 # More workers with hours on Ryen
 10.times do 
-  puts "Creating a new user task"
-  user = Fabricate(:user, profession: @snekker)
+  user = Fabricate(:user, profession: @snekker, department: @d545)
   user_task = Fabricate(:task, project: @ryen, description: 'div for user')
   user_task.users << user
   user_task.save!
-
-hs = Fabricate(:hours_spent, date: '01.01.2014', overtime_100: 30, 
+  Fabricate(:hours_spent, date: '01.01.2014', overtime_100: 30, 
              task: user_task, user: user, project: @ryen,
              description: "#{user.name} - 30 timer 100% overtid")
-  puts "valid? #{hs.valid?}"
 end
 
 #
