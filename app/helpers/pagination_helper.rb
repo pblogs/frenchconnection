@@ -1,7 +1,7 @@
 module PaginationHelper
   def alphabet_paginate_prev_next params
     output = params[:js] ? javascript_include_tag('alphabetical_paginate') : ''
-    output += pagination(gen_links(params), params)
+    output += pagination(links: gen_links(params), params: params)
     output.html_safe
   end
 
@@ -56,7 +56,7 @@ module PaginationHelper
     params[:availableLetters] -= ['*'] unless params[:others]
   end
 
-  def pagination(links, params)
+  def pagination(links:, params:)
     element = params[:bootstrap3] ? 'ul' : 'div'
     pagination_class = (params[:pagination_class] == 'none') ? '' :
                        params[:pagination_class]
