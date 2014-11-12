@@ -1,5 +1,7 @@
 h1 Brukere
 
+= alphabet_paginate_prev_next @alpha_params
+
 table[class="listusers"]
   thead
     tr
@@ -9,11 +11,11 @@ table[class="listusers"]
       th[class="department"] Avdeling
       th[class="role"] Rolle
       th[class="image"] Bilde
-      th[class="actions"] 
+      th[class="actions"]
   tbody
     - @users.each do |user|
-      tr
-        td[class="username"] 
+      tr[id="pagination_table"]
+        td[class="username"]
            = user.full_name
         td = user.mobile
         td = user.emp_id

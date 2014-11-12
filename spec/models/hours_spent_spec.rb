@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: hours_spents
+#
+#  id                      :integer          not null, primary key
+#  customer_id             :integer
+#  task_id                 :integer
+#  hour                    :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  date                    :date
+#  description             :text
+#  user_id                 :integer
+#  piecework_hours         :integer
+#  overtime_50             :integer
+#  overtime_100            :integer
+#  project_id              :integer
+#  runs_in_company_car     :integer
+#  km_driven_own_car       :float
+#  toll_expenses_own_car   :float
+#  supplies_from_warehouse :string(255)
+#
+
 require 'spec_helper'
 
 describe HoursSpent do
@@ -7,14 +30,14 @@ describe HoursSpent do
     @task       = Fabricate(:task)
     @task.user_ids = [@worker.id]
     @task.save
-    @hours_spent = Fabricate(:hours_spent, user: @worker, task: @task, 
+    @hours_spent = Fabricate(:hours_spent, user: @worker, task: @task,
                               hour: 10,
                               piecework_hours: 10,
                               overtime_50: 30,
                               overtime_100: 50)
     @hours_spent.should be_valid
 
-    @hours_spent2 = Fabricate(:hours_spent, user: @worker, task: @task, 
+    @hours_spent2 = Fabricate(:hours_spent, user: @worker, task: @task,
                               hour: 10)
     @hours_spent2.should be_valid
   end
@@ -51,7 +74,7 @@ describe HoursSpent do
     @change.update_attribute(:overtime_50, 5)
     @change.update_attribute(:overtime_100, 100)
     @hours_spent.changed_value(:overtime_50).should eq 5
-    @hours_spent.changed_value(:overtime_100).should eq 100 
+    @hours_spent.changed_value(:overtime_100).should eq 100
   end
 
 
