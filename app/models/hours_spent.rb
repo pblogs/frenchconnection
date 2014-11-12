@@ -67,4 +67,7 @@ class HoursSpent < ActiveRecord::Base
     change.try(value) || send(value)
   end
 
+  def profession_department
+    "#{user.profession.title}_#{user.department.title}"
+  end
 end
