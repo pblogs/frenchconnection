@@ -140,12 +140,12 @@ class Project < ActiveRecord::Base
     end
 
     def populate_hours(project_hours, opts = {})
-      hours_spents.where(created_at: opts[:starting_date]..opts[:ending_date]).order(:created_at).each do |hour_spent|
+      hours_spents.where(date: opts[:starting_date]..opts[:ending_date]).order(:date).each do |hour_spent|
         project_hours[hour_spent.profession_department] ||= {}
         opts[:total_weeks].each { |week_no| project_hours[hour_spent.profession_department][week_no] ||= 0 }
         project_hours[hour_spent.profession_department][:sum] ||= 0
-        project_hours[hour_spent.profession_department][hour_spent.created_at.to_date.cweek] += hour_spent.send(opts[:overtime]) rescue nil
-        project_hours[name][hour_spent.created_at.to_date.cweek] += hour_spent.send(opts[:overtime]) rescue nil
+        project_hours[hour_spent.profession_department][hour_spent.date.cweek] += hour_spent.send(opts[:overtime]) rescue nil
+        project_hours[name][hour_spent.date.cweek] += hour_spent.send(opts[:overtime]) rescue nil
       end
     end
 
