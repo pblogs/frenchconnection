@@ -43,6 +43,28 @@ class ExcelController < ApplicationController
     end
   end
 
+  def monthly_report
+    if Date::MONTHNAMES[params[:month].to_i]
+      @project =  Project.find(params[:project_id])
+      @month =  params[:month]
+      @year =  params[:year]
+      overtime   = params[:overtime]
+      @monthly_report, @total_weeks =  @project.generate_monthly_report(@year, @month, overtime)
+
+      respond_to do |format|
+        format.pdf do
+          filename = generate_monthly_report_pdf(@project.name)
+          send_file filename, filename: File.basename(filename)
+        end
+        format.html do
+          render 'monthly_report'
+        end
+      end
+    else
+      redirect_to root_path, alert: "Please Enter a Valid Month Number."
+    end
+  end
+
   def timesheets
     @customers = Customer.all
   end
@@ -70,6 +92,17 @@ class ExcelController < ApplicationController
     filename
   end
 
+  #######
+  ## Copied from the daily report action. Its not working locally
+  #######
+  def generate_monthly_report_pdf(project_name)
+    filename = "/tmp/monthly_report-#{project_name.downcase}.pdf"
+    url  = request.original_url.gsub('.pdf', '')
+    kit  = PDFKit.new(url)
+    kit.to_file(filename)
+    filename
+  end
+
   def offsett(nr)
     r = []
     nr.times do 
@@ -80,7 +113,7 @@ class ExcelController < ApplicationController
 
   def resolve_layout
     case action_name
-    when 'daily_report'
+    when 'daily_report', 'monthly_report'
       'excel'
     when 'timesheet'
       'excel'

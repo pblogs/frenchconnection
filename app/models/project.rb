@@ -34,10 +34,17 @@ class Project < ActiveRecord::Base
     users.where(profession_id: profession.id)
   end
 
+  def generate_monthly_report(year, month, overtime)
+    starting_date, ending_date, total_weeks = get_month_metadata(year.to_i, month.to_i)
+    project_hours = initialize_project_hours(total_weeks)
+    project_hours = calculate_hours(project_hours, starting_date: starting_date,
+                                    ending_date: ending_date, total_weeks: total_weeks, overtime: overtime)
+    [project_hours, total_weeks.count]
+  end
+
   def hours_spent_for_profession(profession, overtime:)
     users = users_with_profession(profession: profession)
-    all_kinds_of_hours = users.collect { |u| 
-      hours_spents.where(user: u ).to_a }.flatten
+    all_kinds_of_hours = users.collect { |u| hours_spents.where(user: u ).to_a }.flatten
     all = all_kinds_of_hours.select { |h| h.send(overtime) > 0 rescue nil }
     all.select { |h| h.send(overtime).present? }
   end
@@ -112,4 +119,50 @@ class Project < ActiveRecord::Base
     end
   end
 
+  private
+
+    def get_month_metadata(year, month)
+      starting_date = Date.new(year, month, 1)
+      ending_date = starting_date.end_of_month
+      total_weeks = ((starting_date.cweek)..(ending_date.cweek)).to_a
+      [starting_date, ending_date, total_weeks]
+    end
+
+    def calculate_hours(project_hours, opts = {})
+      populate_hours(project_hours, starting_date: opts[:starting_date], ending_date: opts[:ending_date],
+                     total_weeks: opts[:total_weeks], overtime: opts[:overtime])
+      reorder_hash(project_hours)
+      populate_sum(project_hours)
+    end
+
+    def initialize_project_hours(total_weeks, project_hours = {})
+      project_hours[name] ||= {}
+      total_weeks.each { |week_no| project_hours[name][week_no] ||= 0 }
+      project_hours[name][:sum] = 0
+      project_hours
+    end
+
+    def populate_hours(project_hours, opts = {})
+      hours_spents.where(date: opts[:starting_date]..opts[:ending_date]).order(:date).each do |hour_spent|
+        project_hours[hour_spent.profession_department] ||= {}
+        opts[:total_weeks].each { |week_no| project_hours[hour_spent.profession_department][week_no] ||= 0 }
+        project_hours[hour_spent.profession_department][:sum] ||= 0
+        project_hours[hour_spent.profession_department][hour_spent.date.cweek] += hour_spent.send(opts[:overtime]) rescue nil
+        project_hours[name][hour_spent.date.cweek] += hour_spent.send(opts[:overtime]) rescue nil
+      end
+    end
+
+    def populate_sum(project_hours)
+      project_hours.each do |key, value|
+        project_hours[key].each do |k,v|
+          project_hours[key][:sum] += v unless k == :sum
+        end
+      end
+    end
+
+    def reorder_hash(project_hours)
+      sum_hash = project_hours[name]
+      project_hours.delete(name)
+      project_hours[name] = sum_hash
+    end
 end
