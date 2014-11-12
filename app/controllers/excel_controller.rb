@@ -12,7 +12,27 @@ class ExcelController < ApplicationController
     respond_to do |format|
       format.pdf do
         filename = generate_daily_report_pdf(profession_title: @profession.title,
-                                           overtime: @overtime)
+                                             overtime: @overtime)
+        send_file filename, filename: File.basename(filename)
+      end
+      format.html do
+        @hours_spent = @project.hours_spent_for_profession(@profession, 
+                                                           overtime: @overtime)
+        render 'daily_report-table'
+      end
+    end
+  end
+
+  def weekly_report
+    @project    = Project.find(params[:project_id])
+    @workers    = @project.users
+    @overtime   = params[:overtime]
+    @filename   = WeeklyReport.new(project: @project, profession: @profession, 
+                                   overtime: @overtime).create_spreadsheet
+    respond_to do |format|
+      format.pdf do
+        filename = generate_daily_report_pdf(profession_title: @profession.title,
+                                             overtime: @overtime)
         send_file filename, filename: File.basename(filename)
       end
       format.html do
