@@ -28,8 +28,8 @@ describe TasksController, :type => :controller do
       project_id:   Fabricate(:project).id,
       task_type_id: Fabricate(:task_type).id,
       user_ids:     [Fabricate(:user, department: Fabricate(:department), emp_id: "12121", roles: ['project_leader']).id],
-      start_date:   1.days.since,
-      due_date:     3.days.since
+      start_date:   Time.now,
+      due_date:     Time.now.next_week
     }
   end
   before do
