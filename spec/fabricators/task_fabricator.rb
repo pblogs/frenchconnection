@@ -18,8 +18,11 @@
 #
 
 Fabricator(:task) do
-  project         { Fabricate(:project) }
-  start_date      { 1.days.since }
-  due_date        { 3.days.since }
+  start_date = Time.now
+  due_date   = Time.now.next_week
+  project     { Fabricate(:project, start_date: start_date, 
+                          due_date: due_date) }
+  start_date  { start_date }
+  due_date    { due_date }
   accepted true
 end
