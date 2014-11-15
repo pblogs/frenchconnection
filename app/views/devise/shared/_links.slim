@@ -2,7 +2,7 @@
   = link_to "Logg inn", new_session_path(resource_name)
   br
 - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-  = link_to "Glemt passordet ditt?", new_password_path(resource_name)
+  = link_to "Nytt passord", new_password_path(resource_name)
   br
 - if devise_mapping.confirmable? && controller_name != 'confirmations'
   = link_to "Har du ikke fått bekreftelsesmailen?", new_confirmation_path(resource_name)
