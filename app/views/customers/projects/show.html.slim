@@ -46,14 +46,15 @@
     = I18n.l(@project.start_date, format: :short_w_year)
   p
     strong Ferdigstilling: 
-    = I18n.l(@project.due_date, format: :short_w_year)
+    = I18n.l(@project.due_date, format: :short_w_year) rescue '-'
   
   strong Vedlegg
   br
   - @project.attachments.each do |a|
+    = a.description
+    br
     = link_to a.document.url, a.document.url
     br
-  
   
   .right
     = link_to 'Rediger', edit_customer_project_path(@project.customer, @project)
