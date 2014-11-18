@@ -28,5 +28,4 @@ table[class="listusers"]
           = link_to 'Slett', user, data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
-button
-  = link_to 'Lag ny bruker', new_user_path
+= link_to 'Lag ny bruker', new_user_path, class: "btn btn-primary"

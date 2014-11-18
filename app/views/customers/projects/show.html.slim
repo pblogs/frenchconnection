@@ -6,15 +6,12 @@
   strong= @project.name
 
 .action_buttons
-  button
-    = link_to "Vis timelister", hours_registered_path
-  button
-    = link_to 'Registrer ny oppgave', new_project_task_path(@project)
+  = link_to "Vis timelister", hours_registered_path, class: "btn btn-primary"
+  = link_to 'Registrer ny oppgave', new_project_task_path(@project), class: "btn btn-primary"
   - unless @project.complete
-    button
-      = link_to t('project.complete_link'), complete_project_path(@project),
+    = link_to t('project.complete_link'), complete_project_path(@project),
         data: {confirm: t('generic.confirm')}, method: :post, 
-        class: 'pull-right complete'
+        class: 'complete btn btn-primary'
 
 .badges
   - if @project.complete
