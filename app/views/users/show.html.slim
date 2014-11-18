@@ -24,23 +24,17 @@
 
   .center_column
     - if @current_user.has_role? :worker
-      .message_box
-        p 
-          = fa_icon 'bullhorn'
-          |   Fra sjefen:
-          blockquote
-              | Det er spådd regn i dag. Husk regntøy og ekstra sett med sokker.
-              | Ha en fin dag!
-      .menu_header 
-        ul
-          li
-            = fa_icon 'list-alt'
-            = link_to ' Mine meldinger', '#'
-          li
-            = fa_icon 'pencil'
-            = link_to ' Send melding', '#'
-      br
-      br
+      /.menu_header
+      /  ul
+      /    li
+      /      = fa_icon 'list-alt'
+      /      = link_to ' Mine meldinger', '#'
+      /    li
+      /      = fa_icon 'pencil'
+      /      = link_to ' Send melding', '#'
+      /br
+      /br
+      / uncomment the above when messages are implemented
   
       .my_tasks
         strong.menu_header = I18n.t('task.new_tasks')
@@ -48,12 +42,13 @@
         - if @new_tasks.present?
           ul.menu
             li
-              table
+              table.user_tasks
                 thead
                   th Kunde
                   th Beskrivelse
                   th Fra / Til
                   th Valg
+                tbody
                   - @new_tasks.each do |task|
                     = render partial: '/tasks/accept_reject_listing', 
                       locals: {task: task }
