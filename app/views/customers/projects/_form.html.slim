@@ -31,7 +31,7 @@
   
   .field
     = f.label :short_description, 'Kort beskrivelse'
-    = f.text_area :short_description, rows: 5, 
+    = f.text_field :short_description,
       placeholder: 'Denne vises i tabellen med oppdrag'
   
   .field
@@ -40,7 +40,7 @@
   
   .field
     = f.label :customer_reference, 'Kundereferanse'
-    = f.text_area :customer_reference
+    = f.text_field :customer_reference
 
   .field
     = f.label :comment, 'Kommentar'
@@ -75,13 +75,13 @@
 
   br
   hr
-  .field
-    = f.label :attachment, 'Velg vedlegg'
-    = file_field_tag "attachments[]", type: :file, multiple: true
+  .project-attachments
+    .field
+      = f.label :attachment, 'Velg vedlegg'
+      = file_field_tag "attachments[]", type: :file, multiple: true, id: nil
+      = text_field_tag "att_descriptions[]", nil, placeholder: 'Filbeskrivelse', id: nil
 
-  .field
-    = f.label :attachment, 'Velg vedlegg'
-    = file_field_tag "attachments[]", type: :file, multiple: true
+    button.plus-button type='button' +
   hr
 
   .field.single-task
