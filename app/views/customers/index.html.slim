@@ -15,7 +15,7 @@ table
       tr
         td = link_to customer.name, customer
         td = customer.address
-        td = customer.org_number
+        td = customer.org_number.to_i
         td = customer.contact_person
         td = customer.phone
         td = link_to t('create_a_new_project'), 
