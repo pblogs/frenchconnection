@@ -8,10 +8,18 @@ test:
   adapter: postgresql
   encoding: unicode
   database: alliero_orwapp_test
+  host: localhost
+  user: test
+  password: test
+  port: 15432
   pool: 5
 
 development:
   adapter: postgresql
   encoding: unicode
   database: alliero_orwapp_development
+  host: localhost
+  user: test
+  password: test
+  port: 15432
   pool: 5
