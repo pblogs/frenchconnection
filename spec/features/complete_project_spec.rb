@@ -16,7 +16,7 @@ feature 'Project leader completes a project' do
     sign_in @user
 
     visit customer_project_path(@project.customer, @project)
-    Sms.should_receive(:send_msg).with(hash_including(to: @worker.mobile))
+    Sms.should_receive(:send_msg).with(hash_including(to: "47#{@worker.mobile}"))
     expect { page.first('.action_buttons a.complete').click }
       .to change(Project.where(complete: true), :count).by(1)
 
