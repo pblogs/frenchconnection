@@ -40,7 +40,6 @@ class Customers::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-
         if params[:attachments]
           params[:attachments].each do |attachment| 
             @project.attachments.create!(document: attachment, 
@@ -69,7 +68,7 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def update
-    @departments         = Department.all
+    @departments = Department.all
     respond_to do |format|
       if @project.update(project_params)
 
