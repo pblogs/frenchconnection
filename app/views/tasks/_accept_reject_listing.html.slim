@@ -1,6 +1,6 @@
 tr
   td = task.project.customer.name
-  td = task.description.truncate(30)
+  td = task.description.present? ? task.description.truncate(30) : ''
   td
     = I18n.l(task.start_date, format: :short_w_year)
     span.spacer= '/'
