@@ -42,8 +42,9 @@ class Customers::ProjectsController < ApplicationController
       if @project.save
 
         if params[:attachments]
-          params[:attachments].each do |attachment| 
-            @project.attachments.create!(document: attachment, 
+          params[:attachments].each_with_index do |attachment, i|
+            @project.attachments.create!(document: attachment,
+                                         description: params[:att_descriptions][i],
                                          project: @project)
           end
         end
@@ -74,8 +75,9 @@ class Customers::ProjectsController < ApplicationController
       if @project.update(project_params)
 
         if params[:attachments]
-          params[:attachments].each do |attachment| 
-            @project.attachments.create!(document: attachment)
+          params[:attachments].each_with_index do |attachment, i|
+            @project.attachments.create!(document: attachment,
+                                         description: params[:att_descriptions][i])
           end
         end
 
