@@ -1,0 +1,9 @@
+When creating or changing something in the view, please make a quick video of 
+how it works from a user's perspective.
+
+This is how you make a recording in QuickTime Player for Mac:
+File, New Screen Recording.
+
+Save the video to "$RAILS_ROOT/feature-videos/#{pull_request_id}-#{description}.mov"
+.mov is just an example, use a format that most people can open.
+
