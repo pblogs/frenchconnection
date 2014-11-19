@@ -28,9 +28,9 @@ class Task < ActiveRecord::Base
 
   validates :project_id, :presence => true, :unless => :single_task
   validates :start_date, :presence => true
-  validates :due_date, :presence => true
 
-  validate :start_date_must_be_within_projects_dates_range
+  validate :start_date_must_be_within_projects_dates_range, 
+    if: Proc.new { |p| p.start_date.present? }
   validate :due_date_must_be_within_projects_dates_range
 
   attr_accessor :department_id
@@ -67,7 +67,7 @@ class Task < ActiveRecord::Base
   end
 
   def start_date_must_be_within_projects_dates_range
-    if start_date.present? && !((project.start_date)..(project.due_date)).include?(start_date)
+    if (start_date < project.start_date  || start_date > project.due_date rescue nil )
       errors.add(:start_date, "must be within projects start_date and projects due_date")
     end
   end
