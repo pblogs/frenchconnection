@@ -41,6 +41,9 @@ class Task < ActiveRecord::Base
     project.sms_employee_when_new_task_created
   end
 
+  def end_task
+  end
+
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +
