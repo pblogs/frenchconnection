@@ -7,12 +7,20 @@ nb:
   address: Adresse
   create_a_new_project: Lag et nytt prosjekt
   contact_person: Kontaktperson
+  complete: Avsluttet
+  customer: Kunde
   name: Navn
+  my_projects: Mine prosjekter
+  show_hours_registered: Vis timelister
+  register_new_task: Registrer ny oppgave
+  project_owner: Prosjekteier
   our_customers: Våre kunder
   org_nr: Org nr
   phone: Telefon
   tools: Verktøy
   has_no_due_date: Ingen dato satt
+  name: Navn
+  project_number: Prosjektnummer
 
   generic:
     archive: Arkiv 
