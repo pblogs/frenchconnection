@@ -104,7 +104,8 @@ class CustomersController < ApplicationController
           :include_all => false,
           :default_field => customers.order(:name).first.name[0]
       }
-      @customers, @alpha_params = Customer.all.alpha_paginate(params[:letter],
-                                                            alpha_paginate_options) { |customer| customer.name }
+      @customers, @alpha_params = Customer.all.alpha_paginate(
+                                    params[:letter],
+                                    alpha_paginate_options) { |c| c.name }
     end
 end
