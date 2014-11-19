@@ -2,7 +2,16 @@ nb:
   customers:
     projects:
       form:
-        single_task: This project has only one task
+        single_task: Dette prosjektet har bare en oppgave
+
+  address: Adresse
+  create_a_new_project: Lag et nytt prosjekt
+  contact_person: Kontaktperson
+  name: Navn
+  our_customers: Våre kunder
+  org_nr: Org nr
+  phone: Telefon
+  tools: Verktøy
 
   generic:
     archive: Arkiv 

@@ -1,34 +1,22 @@
-h1 Våre kunder
+h1 = t('our_customers')
 
 table
   thead
     tr
-      td = sort_link(@search, :name, 'Navn', default_order: :desc)
-      th Adresse
-      th Org nummer
-      th Kontaktperson
-      th Telefon
-      th Verktøy
+      td = sort_link(@search, :name, t('name'), default_order: :desc)
+      th = t('address')
+      th = t('org_nr')
+      th = t('contact_person')
+      th = t('phone')
+      th = t('tools')
 
   tbody
     - @customers.each do |customer|
       tr
         td = link_to customer.name, customer
         td = customer.address
-        td = customer.org_number
+        td = customer.org_number.to_i
         td = customer.contact_person
         td = customer.phone
-        td 
-           = link_to 'Lag et nytt prosjekt', 
-             new_customer_project_path(customer)
-        /td 
-          = link_to 'Vis', customer
-          br
-          = link_to 'Rediger', edit_customer_path(customer)
-          br
-          = link_to 'Slett', customer, data: {:confirm => 'Are you sure?'}, 
-            :method => :delete
-
-= link_to 'Opprett ny kunde', new_customer_path, class: 'red button'
-
-/= render 'angular_index'
+        td = link_to t('create_a_new_project'), 
+              new_customer_project_path(customer)

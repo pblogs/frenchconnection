@@ -40,10 +40,10 @@ class Customers::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-
         if params[:attachments]
-          params[:attachments].each do |attachment| 
-            @project.attachments.create!(document: attachment, 
+          params[:attachments].each_with_index do |attachment, i|
+            @project.attachments.create!(document: attachment,
+                                         description: params[:att_descriptions][i],
                                          project: @project)
           end
         end
@@ -69,13 +69,14 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def update
-    @departments         = Department.all
+    @departments = Department.all
     respond_to do |format|
       if @project.update(project_params)
 
         if params[:attachments]
-          params[:attachments].each do |attachment| 
-            @project.attachments.create!(document: attachment)
+          params[:attachments].each_with_index do |attachment, i|
+            @project.attachments.create!(document: attachment,
+                                         description: params[:att_descriptions][i])
           end
         end
 
