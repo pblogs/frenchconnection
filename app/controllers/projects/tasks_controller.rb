@@ -1,15 +1,12 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:new, :create, :index]
+  before_action :set_workers_and_dates, only: [:edit, :new]
 
-  # GET /tasks
-  # GET /tasks.json
   def index
     @tasks = Task.all
   end
 
-  # GET /tasks/1
-  # GET /tasks/1.json
   def show
   end
 
@@ -24,17 +21,10 @@ class Projects::TasksController < ApplicationController
   end
 
   def new
-    @project  = Project.find(params[:project_id])
-    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
-    @due_date = @project.due_date || @maxdate
-    @users_in_our_department = @current_user.department.users.order(last_name: :asc)
     @task = Task.new
   end
 
   def edit
-    @project = Project.find(params[:project_id])
-    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
-    @due_date = @project.due_date || @maxdate
     @departments = Department.all
   end
 
@@ -64,8 +54,6 @@ class Projects::TasksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
       if @task.update(task_params)
@@ -80,8 +68,6 @@ class Projects::TasksController < ApplicationController
     end
   end
 
-  # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
     @task.destroy
     respond_to do |format|
@@ -91,25 +77,31 @@ class Projects::TasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-    def set_customer
-      @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
-    end
+  def set_customer
+    @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
+  end
 
+  def set_workers_and_dates
+    @project  = Project.find(params[:project_id])
+    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
+    @due_date = @project.due_date || @maxdate
+    @users_in_our_department = @current_user.department.users.order(last_name: :asc)
+  end
 
-    def task_params
-      params.require(:task).permit(:customer_id, 
-                                   :start_date, 
-                                   :due_date,
-                                   :paint_id,
-                                   :description,
-                                   :customer_buys_supplies,
-                                   :department_id, 
-                                   :user_ids => []
-                                  )
-    end
+  def task_params
+    params.require(:task).permit(:customer_id, 
+                                 :start_date, 
+                                 :due_date,
+                                 :paint_id,
+                                 :description,
+                                 :customer_buys_supplies,
+                                 :department_id, 
+                                 :user_ids => []
+                                )
+  end
 end
