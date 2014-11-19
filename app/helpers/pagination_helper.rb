@@ -1,5 +1,5 @@
 module PaginationHelper
-  def alphabet_paginate_prev_next params
+  def alphabet_paginate_prev_next(params)
     output = params[:js] ? javascript_include_tag('alphabetical_paginate') : ''
     output += pagination(links: gen_links(params), params: params)
     output.html_safe
