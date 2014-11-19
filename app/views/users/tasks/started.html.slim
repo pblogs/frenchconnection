@@ -9,12 +9,10 @@
       thead
         th Kunde
         th Beskrivelse
-        th Timer
       tbody
         tr
           td = task.project.customer.name
           td = task.description
-          td = task.hours_total
 
   .button.green.half_size
     = fa_icon 'calendar'
