@@ -21,20 +21,23 @@
 
 .button.green
   p
-    strong= t('project_owner')
+    strong= t('project_owner') + ': '
     = @project.user.full_name rescue '-'
   p
-    strong = t('name'): 
+    strong = t('name') + ': '
     = @project.name
   p
-    strong = t('project_number') 
+    strong = t('project_number') + ': ' 
     = @project.project_number
   p
-    strong = t('customer'): 
+    strong = t('address') + ': '
+    = @project.address
+  p
+    strong = t('customer') + ': '
     = @project.customer.name
 
   p
-    strong Beskrivelse: 
+    strong = t('description') + ': '
     = simple_format @project.description
 
   p

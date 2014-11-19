@@ -5,6 +5,7 @@ nb:
         single_task: Dette prosjektet har bare en oppgave
 
   address: Adresse
+  description: Beskrivelse
   create_a_new_project: Lag et nytt prosjekt
   contact_person: Kontaktperson
   complete: Avsluttet
