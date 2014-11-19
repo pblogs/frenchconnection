@@ -8,6 +8,7 @@ class CustomersController < ApplicationController
     @search    = Customer.search(params[:q])
     @search.sorts = 'name asc' if @search.sorts.empty?
     @customers = @search.result
+    paginate_customers(@customers)
   end
 
   # GET /customers/1
@@ -27,6 +28,7 @@ class CustomersController < ApplicationController
   def search
     @customers = Customer.where("name ILIKE ?", "%#{params[:query]}%").all
     @search    = Customer.search(params[:q])
+    paginate_customers(@customers)
     render :index
   end
 
@@ -90,5 +92,18 @@ class CustomersController < ApplicationController
 
     def redirect_if_not_project_leader
       redirect_to root_url, notice: 'Only for admin' unless @current_user.roles.first.match /project_leader/
+    end
+
+    def paginate_customers(customers)
+      return if customers.empty?
+      alpha_paginate_options = {
+          :support_language => :en,
+          :pagination_class => 'pagination-centered',
+          :js => false,
+          :include_all => false,
+          :default_field => customers.order(:name).first.name[0]
+      }
+      @customers, @alpha_params = Customer.all.alpha_paginate(params[:letter],
+                                                            alpha_paginate_options) { |customer| customer.name }
     end
 end
