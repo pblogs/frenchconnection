@@ -26,6 +26,12 @@ class Task < ActiveRecord::Base
 
   has_many :hours_spents
 
+  scope :from_user, ->(user) { joins(:user_tasks)
+                                .where('user_tasks.user_id = ?', user.id) }
+  scope :by_status, ->(status) { joins(:user_tasks)
+                                  .where('user_tasks.status = ?', status) }
+  scope :ordered, -> { order('created_at DESC') }
+
   validates :project_id, :presence => true, :unless => :single_task
   validates :start_date, :presence => true
   validates :due_date, :presence => true

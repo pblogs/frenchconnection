@@ -43,6 +43,7 @@ nb:
     confirmed: Oppgave bekreftet
     new_tasks: Nye oppgaver
     my_tasks: Mine oppgaver
+    completed_tasks: Fullførte oppgaver
 
   sms:
     complete_project: |
