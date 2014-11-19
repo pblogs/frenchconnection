@@ -25,7 +25,9 @@ class Projects::TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @project = Project.find(params[:project_id])
+    @project  = Project.find(params[:project_id])
+    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
+    @due_date = @project.due_date || @maxdate
     @users_in_our_department = @current_user.department.users.all
     @task = Task.new
   end
