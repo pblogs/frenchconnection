@@ -91,7 +91,8 @@ class CustomersController < ApplicationController
     end
 
     def redirect_if_not_project_leader
-      redirect_to root_url, notice: 'Only for admin' unless @current_user.roles.first.match /project_leader/
+      redirect_to root_url, 
+        notice: 'Only for admin' unless @current_user.roles.first.match /project_leader/
     end
 
     def paginate_customers(customers)

@@ -22,10 +22,10 @@ require 'spec_helper'
 describe Task do
   before :each do
     @department = Fabricate(:department)
-    @worker = Fabricate(:user, first_name: 'John')
-    @worker2 = Fabricate(:user, first_name: 'Barry')
-    @task = Fabricate(:task)
-    @task2 = Fabricate(:task)
+    @worker     = Fabricate(:user, first_name: 'John')
+    @worker2    = Fabricate(:user, first_name: 'Barry')
+    @task       = Fabricate(:task)
+    @task2      = Fabricate(:task)
     @task.users = [@worker, @worker2]
     @task.save
     @task.reload

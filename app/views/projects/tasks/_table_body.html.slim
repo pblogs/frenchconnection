@@ -2,6 +2,12 @@ tr
   td = task.description
   td = task.name_of_users
   td = I18n.l task.start_date, format: :short_date
-  td = I18n.l task.due_date, format: :short_date
+  - if task.due_date.present?
+    td = I18n.l task.due_date,   format: :short_date 
+  - else
+    td = t('has_no_due_date')
   td
-    = link_to 'Rediger', edit_project_task_path(@project, task)
+    = link_to t('edit'), edit_project_task_path(@project, task)
+    = ', ' 
+    = link_to t('end_task'), project_task_end_task_path(@project, task), 
+      method: :put

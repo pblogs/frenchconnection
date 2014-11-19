@@ -23,21 +23,26 @@ class Projects::TasksController < ApplicationController
     @customers = Customer.all
   end
 
-  # GET /tasks/new
   def new
-    @project = Project.find(params[:project_id])
-    @users_in_our_department = @current_user.department.users.order(last_name: :asc)
+    @project  = Project.find(params[:project_id])
+    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
+    @due_date = @project.due_date || @maxdate
+    @users_in_our_department = @current_user.department.users.all
     @task = Task.new
   end
 
-  # GET /tasks/1/edit
   def edit
     @project = Project.find(params[:project_id])
+    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
+    @due_date = @project.due_date || @maxdate
     @departments = Department.all
   end
 
-  # POST /tasks
-  # POST /tasks.json
+  def end_task
+    @task = Task.find(params[:task_id])
+    @task.end_task
+  end
+
   def create
     @paint      = Paint.all
     @task       = Task.new(task_params)
