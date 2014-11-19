@@ -5,12 +5,9 @@ AllieroForms::Application.routes.draw do
   resources :departments
   resources :attachments
 
-  devise_for :users, :controllers => {
-    #passwords:          'users/passwords'
-    #omniauth_callbacks: 'users/omniauth_callbacks',
-    #confirmations:      'users/confirmations',
-    #registrations:      'users/registrations'
-  }
+  devise_for :users
+  #, :controllers => {
+  #}
 
   mount API => '/'
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
@@ -23,7 +20,10 @@ AllieroForms::Application.routes.draw do
 
   get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
   resources :projects do
-    resources :tasks, :controller => 'projects/tasks'
+    resources :tasks, :controller => 'projects/tasks' do
+      put :end_task
+    end
+
     resources :project_reports, only: :create
     member do
       post :complete

@@ -38,8 +38,11 @@ class Projects::TasksController < ApplicationController
     @departments = Department.all
   end
 
-  # POST /tasks
-  # POST /tasks.json
+  def end_task
+    @task = Task.find(params[:task_id])
+    @task.end_task
+  end
+
   def create
     @paint      = Paint.all
     @task       = Task.new(task_params)
