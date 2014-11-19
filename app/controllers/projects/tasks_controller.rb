@@ -23,7 +23,6 @@ class Projects::TasksController < ApplicationController
     @customers = Customer.all
   end
 
-  # GET /tasks/new
   def new
     @project  = Project.find(params[:project_id])
     @maxdate  = @project.due_date || Time.now + 10.years.to_i 
@@ -32,9 +31,10 @@ class Projects::TasksController < ApplicationController
     @task = Task.new
   end
 
-  # GET /tasks/1/edit
   def edit
     @project = Project.find(params[:project_id])
+    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
+    @due_date = @project.due_date || @maxdate
     @departments = Department.all
   end
 
