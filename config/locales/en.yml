@@ -22,6 +22,7 @@ en:
     confirmed: Task marked as confirmed
     new_tasks: New tasks
     my_tasks: My tasks
+    completed_tasks: Completed tasks
       
   sms:
     complete_project:

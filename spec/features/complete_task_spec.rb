@@ -35,6 +35,18 @@ feature 'Worker completes a task' do
     expect(page).to have_css '.my_tasks.worker ul li .actions', count: 0
   end
 
+  scenario 'completed task appears in "my work completed" section' do
+    @user = Fabricate :user, roles: [:worker]
+    @user_task = Fabricate :user_task, user: @user, status: :confirmed
+
+    sign_in @user
+    visit user_path(@user)
+
+    page.first(".my_tasks.worker ul li .actions .complete").click
+
+    expect(page).to have_css '.my_tasks.worker.completed ul li', count: 1
+  end
+
   # TODO move to helper
   def sign_in(user)
     visit root_path
