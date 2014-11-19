@@ -21,15 +21,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    user_tasks = @current_user.user_tasks
-    @tasks = user_tasks
-      .where(status: :confirmed)
-      .collect { |user_task| user_task.task }
-      .sort { |a, b| b.created_at <=> a.created_at }
-    @new_tasks = user_tasks
-      .where(status: :pending)
-      .collect { |user_task| user_task.task }
-      .sort { |a, b| b.created_at <=> a.created_at }
+    @tasks = Task.from_user(@current_user).by_status(:confirmed).ordered
+    @new_tasks = Task.from_user(@current_user).by_status(:pending).ordered
+    @completed_tasks = Task.from_user(@current_user).by_status(:complete).ordered
   end
 
   # GET /users/new
