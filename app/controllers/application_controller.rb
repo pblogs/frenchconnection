@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     @current_user ||= current_user
-    session[:current_user_id] = current_user.try(:id) # just a test
   end
 
 
