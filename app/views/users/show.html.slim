@@ -91,3 +91,13 @@
                       data: {confirm: "Are you sure?"}, class: 'complete'
           - else
             p Du har ingen aktive prosjekter.
+
+        .my_tasks.worker.completed
+          strong.menu_header = I18n.t('task.completed_tasks')
+          .bar
+          - if @completed_tasks.present?
+            ul
+              - @completed_tasks.each do |task|
+                li = link_to task.description, task
+          - else
+            p Du har ingen fullførte oppgaver.
