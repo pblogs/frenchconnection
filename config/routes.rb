@@ -101,5 +101,6 @@ AllieroForms::Application.routes.draw do
   get '/templates/:path' => 'templates#template',
     :constraints => { :path => /.+/  }  
 
+  get '/hse' => 'hse#redirect'
 
 end

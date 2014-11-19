@@ -105,3 +105,5 @@ group :production do
   gem 'roo' # Used for the Excel import
   gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
 end
+
+gem 'rest_client'
