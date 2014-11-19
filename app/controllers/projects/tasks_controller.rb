@@ -27,7 +27,7 @@ class Projects::TasksController < ApplicationController
     @project  = Project.find(params[:project_id])
     @maxdate  = @project.due_date || Time.now + 10.years.to_i 
     @due_date = @project.due_date || @maxdate
-    @users_in_our_department = @current_user.department.users.all
+    @users_in_our_department = @current_user.department.users.order(last_name: :asc)
     @task = Task.new
   end
 
