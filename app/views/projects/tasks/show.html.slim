@@ -13,8 +13,9 @@
         td = @task.description || 'Beskrivelse mangler'
         td 
           = I18n.l(@task.start_date, format: :short)
-          span.spacer= '/'
-          = I18n.l(@task.due_date,   format: :short)
+          - if @task.due_date
+            span.spacer= '/'
+            = I18n.l(@task.due_date,   format: :short)
   
 br
 br

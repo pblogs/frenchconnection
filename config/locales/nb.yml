@@ -12,6 +12,7 @@ nb:
   org_nr: Org nr
   phone: Telefon
   tools: Verktøy
+  has_no_due_date: Ingen dato satt
 
   generic:
     archive: Arkiv 
