@@ -26,7 +26,7 @@ class Projects::TasksController < ApplicationController
   # GET /tasks/new
   def new
     @project = Project.find(params[:project_id])
-    @users_in_our_department = @current_user.department.users.all
+    @users_in_our_department = @current_user.department.users.order(last_name: :asc)
     @task = Task.new
   end
 
