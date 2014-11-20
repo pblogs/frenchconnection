@@ -103,6 +103,7 @@ class CustomersController < ApplicationController
           :js => false,
           :include_all => false,
           :default_field => customers.order(:name).first.name[0]
+          .can_be_integer? ? '0-9' : customers.order(:name).first.name[0]
       }
       @customers, @alpha_params = Customer.all.alpha_paginate(
                                     params[:letter],

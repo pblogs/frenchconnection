@@ -68,9 +68,18 @@ module PaginationHelper
         (params[:bootstrap3] ? '</ul>' : '</div>')
   end
 
+  def current_letter_index(available_letters, current_field)
+    if current_field.can_be_integer?
+      available_letters.index('0-9')
+    else
+      available_letters.index(current_field)
+    end
+  end
+
   def gen_prev_link(params)
     return '' if params[:currentField].nil?
-    curr_letter_index = params[:availableLetters].index(params[:currentField])
+    curr_letter_index = current_letter_index(params[:availableLetters],
+                                                params[:currentField])
     prev_letter = params[:availableLetters][curr_letter_index - 1]
     (curr_letter_index > 0) ? gen_link(letter: prev_letter, symbol: '«') : ''
   end
@@ -88,7 +97,8 @@ module PaginationHelper
 
   def gen_next_link(params)
     return '' if params[:currentField].nil?
-    curr_letter_index = params[:availableLetters].index(params[:currentField])
+    curr_letter_index = current_letter_index(params[:availableLetters],
+                                                params[:currentField])
     next_letter = params[:availableLetters][curr_letter_index + 1]
     curr_letter_index < params[:availableLetters].count - 1 ?
         gen_link(letter: next_letter, symbol: '»') : ''

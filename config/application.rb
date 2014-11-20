@@ -37,6 +37,11 @@ module AllieroForms
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = "nb"
 
+    # Load core extensions
+    config.autoload_paths += Dir[File.join(Rails.root, 'lib',
+                                           'extensions',
+                                           '*.rb')].each {|l| require l }
+
     config.generators do |g|
       g.fixture_replacement :fabrication
       g.template_engine     :slim

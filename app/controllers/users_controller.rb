@@ -13,6 +13,7 @@ class UsersController < ApplicationController
         :js => false,
         :include_all => false,
         :default_field => User.order(:last_name).first.last_name[0]
+          .can_be_integer? ? '0-9' : User.order(:last_name).first.last_name[0]
     }
     @users, @alpha_params = User.all.alpha_paginate(params[:letter],
         alpha_paginate_options) { |user| user.last_name }
