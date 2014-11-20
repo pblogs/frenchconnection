@@ -84,7 +84,8 @@ class CustomersController < ApplicationController
       @customer = Customer.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Never trust parameters from the scary internet, 
+    # only allow the white list through.
     def customer_params
       params.require(:customer).permit(:name, :address, :org_number, :starred,
                                        :contact_person, :phone)
