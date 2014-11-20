@@ -10,7 +10,6 @@ table[class="listusers"]
       th[class="employee_id"] Ansattnr
       th[class="department"] Avdeling
       th[class="role"] Rolle
-      th[class="image"] Bilde
       th[class="actions"]
   tbody
     - @users.each do |user|
@@ -21,11 +20,12 @@ table[class="listusers"]
         td = user.emp_id
         td = Department.find(user.department_id).title
         td = I18n.t "roles.#{user.roles.first}"
-        td = image_tag user.image, :size => "50x40"
         td
-          = link_to 'Rediger', edit_user_path(user)
-          br
-          = link_to 'Slett', user, data: {:confirm => 'Are you sure?'}, :method => :delete
+          = link_to fa_icon('pencil-square-o'), edit_user_path(user)
+          = nbsp
+          = nbsp
+          = nbsp
+          = link_to fa_icon('recycle'), user, data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
 = link_to 'Lag ny bruker', new_user_path, class: "btn btn-primary"
