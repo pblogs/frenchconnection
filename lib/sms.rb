@@ -2,11 +2,11 @@ class Sms
   def self.send_msg(to:, msg:, dryrun: false)
     @to = to
     @msg = msg
-    if dryrun || Rails.env.development?
-      puts "NOT sending SMS\n to:#{ @to } msg:#{ @msg }"
+    if dryrun || !Rails.env.production?
+      Rails.logger.debug  "NOT sending SMS\n to:#{ @to } msg:#{ @msg }"
     else
-      puts "Sending SMS\n to:#{ @to } msg:#{ @msg }"
-      puts Net::HTTP.get(URI.parse(self.url))
+      Rails.logger.debug  "Sending SMS\n to:#{ @to } msg:#{ @msg }"
+      Rails.logger.debug  Net::HTTP.get(URI.parse(self.url))
     end
   end
 
