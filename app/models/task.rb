@@ -43,9 +43,6 @@ class Task < ActiveRecord::Base
 
   after_create :notify_workers, if: :sms_employee_when_new_task_created
 
-  def sms_employee_when_new_task_created
-    project.sms_employee_when_new_task_created
-  end
 
   def end_task
   end
@@ -63,10 +60,17 @@ class Task < ActiveRecord::Base
 
   private
 
+  def sms_employee_when_new_task_created
+    Rails.logger.debug "SEND SMS: #{ project.sms_employee_when_new_task_created }"
+    project.sms_employee_when_new_task_created
+  end
+
   def notify_workers
+    Rails.logger.debug "\n\n IN notify_workers\n\n"
     domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
     msg = "Du har fått tildelt en ny oppgave. Les mer: "+ "http://#{domain}/tasks/#{id}"
     users.each do |u|
+      Rails.logger.debug "Sms.send_msg(to: '47#{u.mobile}', msg: #{msg})"
       Sms.send_msg(to: "47#{u.mobile}", msg: msg)
     end
   end
