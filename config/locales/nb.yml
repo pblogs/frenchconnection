@@ -15,6 +15,10 @@ nb:
   show_hours_registered: Vis timelister
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
+  task_ended_by_admin: |
+    Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
+    24 timene. Hilsen %{from}
+    http://mobil.orwapp.com
   our_customers: Våre kunder
   org_nr: Org nr
   phone: Telefon
