@@ -25,7 +25,8 @@ table[class="listusers"]
           = nbsp
           = nbsp
           = nbsp
-          = link_to fa_icon('recycle'), user, data: {:confirm => 'Are you sure?'}, :method => :delete
+          = link_to fa_icon('recycle'), user, 
+            data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
 = link_to 'Lag ny bruker', new_user_path, class: "btn btn-primary"
