@@ -21,9 +21,11 @@ tr
         ul
         - @bad_users.each do |u|
           li= u.name
+        br
         = link_to t('end_task_hard'), 
           project_task_end_task_hard_path(@project, task), method: :put,
           data: { confirm: t('are_you_sure_about_hard_ending') }
+        hr
     - else
       = link_to t('end_task'), 
         project_task_end_task_path(@project, task), method: :put
