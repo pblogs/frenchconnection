@@ -1,5 +1,6 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_from_id, only: [:end_task, :end_task_hard]
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_workers_and_dates, only: [:edit, :new]
 
@@ -80,6 +81,10 @@ class Projects::TasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_task_from_id
+    @task = Task.find(params[:task_id])
   end
 
   def set_customer
