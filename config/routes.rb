@@ -22,6 +22,7 @@ AllieroForms::Application.routes.draw do
   resources :projects do
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task
+      put :end_task_hard
     end
 
     resources :project_reports, only: :create
