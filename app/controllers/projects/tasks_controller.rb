@@ -30,8 +30,13 @@ class Projects::TasksController < ApplicationController
   end
 
   def end_task
-    @task = Task.find(params[:task_id])
-    @task.end_task
+    @task.end_task(@current_user)
+    redirect_to :back, notice: I18n.t('task_ended')
+  end
+
+  def end_task_hard
+    @task.end_task_hard
+    redirect_to :back, notice: I18n.t('task_ended')
   end
 
   def create

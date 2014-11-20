@@ -57,10 +57,13 @@ class Task < ActiveRecord::Base
 
   def end_task(admin)
     notify_all_users_of_ending_task(admin)
-    end_tasks_for_all_users
     update_attributes(
       ended_at: Time.now, finished: true
     ) 
+  end
+
+  def end_task_hard
+    end_tasks_for_all_users
   end
 
   private
@@ -98,6 +101,7 @@ class Task < ActiveRecord::Base
 
   def notify_all_users_of_ending_task(admin)
     users.each do |user| 
+      Rails.logger.debug "Sending SMS to #{user.name}"
       Sms.send_msg(
         to: "47#{user.mobile}", 
         msg: I18n.t('task_ended_by_admin', 
