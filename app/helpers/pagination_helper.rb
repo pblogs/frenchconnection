@@ -88,9 +88,11 @@ module PaginationHelper
     links = ''
     params[:availableLetters].each do |l|
       value = params[:language].output_letter(l)
+      query = params[:query] ? params[:query] : ''
       links += (l == params[:currentField]) ?
-          gen_link(letter: l, symbol: value, element_class: 'active') :
-          gen_link(letter: l, symbol: value)
+          gen_link(letter: l, symbol: value, element_class: 'active',
+                   query: query) :
+          gen_link(letter: l, symbol: value, query: query)
     end
     links
   end
@@ -104,8 +106,10 @@ module PaginationHelper
         gen_link(letter: next_letter, symbol: '»') : ''
   end
 
-  def gen_link(letter:, symbol:, element_class: '')
-    "<li class=\"#{element_class}\"><a href=\"?letter=#{letter}\"" +
-        " data-letter=\"#{letter}\">#{symbol}</a></li>"
+  def gen_link(letter:, symbol:, element_class: '', query: '')
+    "<li class=\"#{element_class}\"><a
+        href=\"?letter=#{letter}&query=#{query}\"" +
+        " data-letter=\"#{letter}\">#{symbol}</a>
+    </li>"
   end
 end
