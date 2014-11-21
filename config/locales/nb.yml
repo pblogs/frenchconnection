@@ -5,6 +5,8 @@ nb:
         single_task: Dette prosjektet har bare en oppgave
 
   address: Adresse
+  active_tasks: Aktive oppgaver
+  closed_tasks: Avslutted oppgaver
   are_you_sure_about_hard_ending: |
     Helt sikker på at du vil avslutte oppgaven for alle?
   description: Beskrivelse
