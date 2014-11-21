@@ -30,10 +30,11 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, 
+        @current_user.favorites << @project
+          .set_as_favorite if params[:project][:starred].present?
+        format.html { redirect_to @project,
                       notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, 
                       location: @project }
@@ -50,6 +51,8 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        @current_user.favorites << @project
+          .set_as_favorite if params[:project][:starred].present?
         format.html { redirect_to @project, 
                       notice: 'Project was successfully updated.' }
         format.json { head :no_content }

@@ -40,6 +40,8 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
+        @current_user.favorites << @customer
+          .set_as_favorite if params[:customer][:starred].present?
         format.html { redirect_to @customer, 
                       notice: 'Customer was successfully created.' }
         format.json { render action: 'show', 
@@ -57,6 +59,8 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
+        @current_user.favorites << @customer
+          .set_as_favorite if params[:customer][:starred].present?
         format.html { redirect_to @customer, 
                       notice: 'Customer was successfully updated.' }
         format.json { head :no_content }
