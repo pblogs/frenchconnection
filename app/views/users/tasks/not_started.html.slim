@@ -1,8 +1,0 @@
-br
-- if @tasks.present?
-  = render(partial: "new_task", collection: @tasks, as: :task) 
-- else
-  .flash_message= "Det finnes ingen nye oppdrag. "
-  br
-  = "#{link_to 'Gå til Aktive oppdrag', user_tasks_started_path(@current_user), 
-     class: :secondary_button} ".html_safe
