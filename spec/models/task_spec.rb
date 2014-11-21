@@ -58,6 +58,28 @@ describe Task do
       @task.save
     end
 
+    it 'in_progress?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.user_tasks.last.update_attribute(:status, :confirmed)
+      @task.in_progress?.should eq true
+    end
+
+    it 'in_progress? if all UserTasks are completed?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.in_progress?.should eq false
+    end
+
+    it 'complete?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.complete?.should eq true
+    end
+
+    it 'complete? if one UserTask is not?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.user_tasks.last.update_attribute(:status, :confirmed)
+      @task.complete?.should eq false
+    end
+
     it 'closes all UserTasks' do
       UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :pending }
       @task.end_task_hard
@@ -65,25 +87,6 @@ describe Task do
       @task.reload
       UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :complete }
     end
-
-    it 'find tasks where not all user_tasks has been closed' do
-      @user_tasks = @task.user_tasks.all
-      @user_tasks.first.update_attribute(:status, :confirmed)
-      @task.save!
-      @project.find_task_by_status(:confirmed).should eq [@task]
-    end
-
-    #it 'find tasks where not all user_tasks has been closed' do
-    #  @user_tasks = @task.user_tasks.all
-    #  @user_tasks.first.update_attribute(:status, :pending)
-    #  @project.pending_tasks.should eq [@task]
-    #end
-
-    #it 'find tasks where not all user_tasks has been closed' do
-    #  @user_tasks = @task.user_tasks.all
-    #  @user_tasks.first.update_attribute(:status, :complete)
-    #  @project.open_tasks.should eq [@task]
-    #end
 
   end
 

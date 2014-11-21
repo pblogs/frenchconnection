@@ -66,6 +66,14 @@ class Task < ActiveRecord::Base
     end_tasks_for_all_users
   end
 
+  def in_progress?
+    UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
+  end
+
+  def complete?
+    UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
+  end
+
   private
 
   def sms_employee_when_new_task_created
