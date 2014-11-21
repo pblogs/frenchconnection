@@ -50,9 +50,10 @@ describe Task do
 
 
   describe "Ending a task" do
-    before do
+    before(:all) do
       @admin      = Fabricate(:user, first_name: 'Mr Admin')
-      @task       = Fabricate(:task, description: 'Digg a hole')
+      @project    = Fabricate(:project)
+      @task       = Fabricate(:task, project: @project)
       @task.users = [Fabricate(:user), Fabricate(:user)]
       @task.save
     end
@@ -60,8 +61,29 @@ describe Task do
     it 'closes all UserTasks' do
       UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :pending }
       @task.end_task_hard
+      @task.save!
+      @task.reload
       UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :complete }
     end
+
+    it 'find tasks where not all user_tasks has been closed' do
+      @user_tasks = @task.user_tasks.all
+      @user_tasks.first.update_attribute(:status, :confirmed)
+      @task.save!
+      @project.find_task_by_status(:confirmed).should eq [@task]
+    end
+
+    #it 'find tasks where not all user_tasks has been closed' do
+    #  @user_tasks = @task.user_tasks.all
+    #  @user_tasks.first.update_attribute(:status, :pending)
+    #  @project.pending_tasks.should eq [@task]
+    #end
+
+    #it 'find tasks where not all user_tasks has been closed' do
+    #  @user_tasks = @task.user_tasks.all
+    #  @user_tasks.first.update_attribute(:status, :complete)
+    #  @project.open_tasks.should eq [@task]
+    #end
 
   end
 
