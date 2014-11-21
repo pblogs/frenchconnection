@@ -64,10 +64,19 @@
   
 br
 br
-- if @project.tasks.present?
-  h2 Aktive oppgaver
-  .button.green
-    = render "projects/tasks/table_header"
+
+- if @in_progress.present?
+  h2= t('tasks_in_progress')
+  = render partial: "projects/tasks/table", 
+    locals: { tasks: @in_progress }
+  br
+  br
+
+
+- if @complete.present?
+  h2= t('complete_tasks')
+  = render partial: "projects/tasks/table", 
+    locals: { tasks: @complete }
   br
   br
 
