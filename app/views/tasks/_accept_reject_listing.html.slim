@@ -3,8 +3,9 @@ tr
   td = task.description.present? ? task.description.truncate(30) : ''
   td
     = I18n.l(task.start_date, format: :short_w_year)
-    span.spacer= '/'
-    = I18n.l(task.due_date,   format: :short_w_year)
+    - if task.due_date.present?
+      span.spacer= '/' 
+      = I18n.l(task.due_date,   format: :short_w_year)
   td
     = form_tag(user_task_confirm_user_task_path(@current_user, task)) do
       = submit_tag I18n.t('task.confirm')
