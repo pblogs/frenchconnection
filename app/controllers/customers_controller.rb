@@ -104,8 +104,8 @@ class CustomersController < ApplicationController
           :js => false,
           :include_all => false,
           :query => query,
-          :default_field => customers.order(:name).first.name[0]
-          .can_be_integer? ? '0-9' : customers.order(:name).first.name[0]
+          :default_field => get_paginate_default_field(
+                                customers.order(:name).first.name[0])
       }
       @customers, @alpha_params = customers.alpha_paginate(
                                     params[:letter],
