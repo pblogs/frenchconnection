@@ -101,6 +101,13 @@ class Project < ActiveRecord::Base
     update_attribute(:complete, true)
   end
 
+  # Returns tasks where one or more user_tasks is not complete
+  def find_task_by_status(status)
+    ids = user_tasks.where(status: status).pluck(:task_id).uniq
+    puts "IDS: #{ids}"
+    Task.find([ids]).all || nil
+  end
+
   # create methods on the fly for accessing last zipped reports
   # of different types, e.g. last_timesheet, last_daily_report
   ZippedReport.report_type_enum.each do |t|
