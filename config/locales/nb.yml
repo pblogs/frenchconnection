@@ -39,6 +39,14 @@ nb:
   name: Navn
   project_number: Prosjektnummer
 
+  top_nav:
+    projects: Prosjekter
+    customers: Kunder
+    manage: Administrer
+    my_page: Min side
+    hse: HMS
+    dictionary: Ordbok
+
   generic:
     archive: Arkiv 
     departments: Avdelinger
