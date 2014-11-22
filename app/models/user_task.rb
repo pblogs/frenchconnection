@@ -26,4 +26,8 @@ class UserTask < ActiveRecord::Base
     update_attribute(:status, :complete)
   end
 
+  def complete?
+    status == :complete
+  end
+
 end
