@@ -81,9 +81,9 @@ nb:
 
   sms:
     complete_project: |
-      We're ending the %{project_name} project today.
-      Make sure you've reported all billable hours within the day.
-      Regards, your project leader
+      Vi avslutter %{project_name} i dag.
+      Pass på at du registrerer alle timene i Orwapp i løpet av dagen.
+      Hilsen %{project_leader}
     new_task: "Du har fått tildelt en ny oppgave. Les mer: %{link}"
     notify:
       missing_hours: |
