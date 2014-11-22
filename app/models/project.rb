@@ -116,6 +116,14 @@ class Project < ActiveRecord::Base
     end
   end
 
+  def tasks_in_progress
+    tasks.select { |t| t.in_progress? }
+  end
+
+  def completed_tasks
+    tasks.select { |t| t.complete? }
+  end
+
   def build_single_task
     tasks.build do |t|
       t.customer_id = customer_id # is this correct?
