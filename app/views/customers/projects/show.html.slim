@@ -65,18 +65,18 @@
 br
 br
 
-- if @in_progress.present?
+- if @tasks_in_progress.present?
   h2= t('tasks_in_progress')
   = render partial: "projects/tasks/table", 
-    locals: { tasks: @in_progress }
+    locals: { tasks: @tasks_in_progress }
   br
   br
 
 
-- if @complete.present?
-  h2= t('complete_tasks')
+- if @completed_tasks.present?
+  h2= t('completed_tasks')
   = render partial: "projects/tasks/table", 
-    locals: { tasks: @complete }
+    locals: { tasks: @completed_tasks }
   br
   br
 
