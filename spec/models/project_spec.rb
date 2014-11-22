@@ -185,4 +185,26 @@ describe Project do
     end
   end
 
+  describe "In progress" do
+    before do
+      @project = Fabricate(:project)
+      @task1   = Fabricate(:task, project: @project)
+      @task2   = Fabricate(:task, project: @project)
+      @user1   = Fabricate(:user)
+      @user2   = Fabricate(:user)
+      @task1.users = [@user1, @user2]
+      @task1.save
+    end
+
+    it 'tasks_in_progress' do
+      @project.tasks_in_progress.should eq [@task1]
+    end
+
+    it 'completed_tasks' do
+      @task2.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @project.completed_tasks.should eq [@task2]
+    end
+    
+  end
+
 end
