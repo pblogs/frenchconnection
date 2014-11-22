@@ -22,8 +22,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @tasks = Task.from_user(@current_user).by_status(:confirmed).ordered
-    @new_tasks = Task.from_user(@current_user).by_status(:pending).ordered
+    @tasks           = Task.from_user(@current_user).by_status(:confirmed).ordered
+    @new_tasks       = Task.from_user(@current_user).by_status(:pending).ordered
     @completed_tasks = Task.from_user(@current_user).by_status(:complete).ordered
   end
 
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
                      roles: "{#{params[:user][:roles]}}",
                      image: params[:user][:image],
                      emp_id: params[:user][:emp_id],
-                     password: "password")
+                     password: 'topsecret')
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path,
