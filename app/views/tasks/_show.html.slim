@@ -11,8 +11,9 @@ table
       td = task.description
       td 
         = I18n.l(task.start_date, format: :short_w_year)
-        span.spacer= '/'
-        = I18n.l(task.due_date,   format: :short_w_year)
+        - if task.due_date.present?
+          span.spacer= '/'
+          = I18n.l(task.due_date,   format: :short_w_year)
 
   
 br

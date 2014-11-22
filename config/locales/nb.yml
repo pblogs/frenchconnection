@@ -5,16 +5,32 @@ nb:
         single_task: Dette prosjektet har bare en oppgave
 
   address: Adresse
+  active_tasks: Aktive oppgaver
+  completed_tasks: Avsluttede oppgaver
+  are_you_sure_about_soft_ending: |
+    Sende melding til alle om at oppgaven avsluttes?
+  are_you_sure_about_hard_ending: |
+    Helt sikker på at du vil avslutte oppgaven for alle?
   description: Beskrivelse
   create_a_new_project: Lag et nytt prosjekt
   contact_person: Kontaktperson
   complete: Avsluttet
   customer: Kunde
+  end_task: Avslutt oppgaven
+  end_task_hard: Tvungen avslutning
+  task_ended_at: Avsluttet for %{time} siden
+  task_ended: Oppgaven ble avsluttet
   name: Navn
   my_projects: Mine prosjekter
   show_hours_registered: Vis timelister
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
+  tasks_in_progress: Aktive oppgaver
+  task_ended_by_admin: |
+    Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
+    24 timene. Hilsen %{from}
+    http://mobil.orwapp.com
+  these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
   our_customers: Våre kunder
   org_nr: Org nr
   phone: Telefon
