@@ -25,7 +25,6 @@ describe Task do
     @worker     = Fabricate(:user, first_name: 'John')
     @worker2    = Fabricate(:user, first_name: 'Barry')
     @task       = Fabricate(:task)
-    @task2      = Fabricate(:task)
     @task.users = [@worker, @worker2]
     @task.save
     @task.reload
@@ -49,15 +48,58 @@ describe Task do
     @task.name_of_users.should eq 'John, Barry'
   end
 
+
+  describe "Ending a task" do
+    before(:all) do
+      @admin      = Fabricate(:user, first_name: 'Mr Admin')
+      @project    = Fabricate(:project)
+      @task       = Fabricate(:task, project: @project)
+      @task.users = [Fabricate(:user), Fabricate(:user)]
+      @task.save
+    end
+
+    it 'in_progress?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.user_tasks.last.update_attribute(:status, :confirmed)
+      @task.in_progress?.should eq true
+    end
+
+    it 'in_progress? if all UserTasks are completed?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.in_progress?.should eq false
+    end
+
+    it 'complete?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.complete?.should eq true
+    end
+
+    it 'complete? if one UserTask is not?' do
+      @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
+      @task.user_tasks.last.update_attribute(:status, :confirmed)
+      @task.complete?.should eq false
+    end
+
+    it 'closes all UserTasks' do
+      UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :pending }
+      @task.end_task_hard
+      @task.save!
+      @task.reload
+      UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :complete }
+    end
+
+  end
+
   describe "Notifications" do
+    pending "Add me"
     it "notifies by SMS when a worker is delegated at task" do
     end
   end
 
   describe "validations" do
-
     before do
-      @project = Fabricate :project, start_date: 1.month.ago, due_date: 1.month.since
+      @project = Fabricate :project, 
+        start_date: 1.month.ago, due_date: 1.month.since
     end
 
     %i(start_date due_date).each do |s|
@@ -73,9 +115,7 @@ describe Task do
         task.valid?
         expect(task.errors[s].size).to eq(0)
       end
-
     end
-
   end
 
 end

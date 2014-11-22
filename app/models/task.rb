@@ -44,9 +44,6 @@ class Task < ActiveRecord::Base
   after_create :notify_workers, if: :sms_employee_when_new_task_created
 
 
-  def end_task
-  end
-
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +
@@ -56,6 +53,25 @@ class Task < ActiveRecord::Base
 
   def name_of_users
     users.pluck(:first_name).join(', ' )
+  end
+
+  def end_task(admin)
+    notify_all_users_of_ending_task(admin)
+    update_attributes(
+      ended_at: Time.now, finished: true
+    ) 
+  end
+
+  def end_task_hard
+    end_tasks_for_all_users
+  end
+
+  def in_progress?
+    UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
+  end
+
+  def complete?
+    UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
   end
 
   private
@@ -91,5 +107,23 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def notify_all_users_of_ending_task(admin)
+    users.each do |user| 
+      Rails.logger.debug "Sending SMS to #{user.name}"
+      Sms.send_msg(
+        to: "47#{user.mobile}", 
+        msg: I18n.t('task_ended_by_admin', 
+                    description: description,
+                    from: admin.name
+                   )
+      )
+    end
+  end
+
+  def end_tasks_for_all_users
+    UserTask.where(task_id: id).all.each do |t| 
+      t.update_attribute(:status, :complete)
+    end
+  end
 
 end
