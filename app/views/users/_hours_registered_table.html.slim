@@ -1,0 +1,37 @@
+- if hours
+
+  table#hours_registered
+    tr
+      th Dato
+      th Ansatt
+      th Tekst
+      th Timer
+      th 50%
+      th 100%
+      th Servicebil
+      th Km egen bil
+      th Bomutg.
+      th Materiell
+      th 
+    - hours.each do |hour|
+      tr
+        td= hour.date.strftime("%d/%m")
+        td= hour.description
+        td= hour.hour
+        td= hour.overtime_50
+        td= hour.overtime_100
+        td= hour.runs_in_company_car
+        td= hour.km_driven_own_car
+        td= hour.toll_expenses_own_car
+        td= simple_format hour.supplies_from_warehouse
+        td
+          - if hour.change.present?
+            = link_to fa_icon('pencil'), edit_hours_spent_change_path(hour, hour.change)
+          - else
+            = link_to fa_icon('pencil'), new_hours_spent_change_path(hour)
+- else
+  br
+  br
+  p Det er ikke registert noen timer på dette prosjektet.
+  br
+  br
