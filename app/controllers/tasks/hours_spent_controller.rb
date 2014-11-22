@@ -33,7 +33,7 @@ class Tasks::HoursSpentController < ApplicationController
 
     respond_to do |format|
       if @hours_spent.save
-        format.html { redirect_to user_tasks_started_path(@current_user), 
+        format.html { redirect_to @current_user, 
                       notice: 'Timer registert' }
         format.json { render action: 'show', status: :created, 
                       location: @hours_spent }
