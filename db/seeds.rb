@@ -65,6 +65,10 @@ Fabricate(:user, department: service_avdeling, roles: [:project_leader],
           mobile:  93441707, last_name: "Stabenfeldt", 
           department: service_avdeling)
 
+Fabricate(:user, roles: [:project_leader], first_name: "Martin Arbeider",
+          mobile:  '010583', last_name: "Stabenfeldt", 
+          department: service_avdeling)
+
 # Medarbeidere snekkere
 Fabricate(:user, roles: [:worker], department: service_avdeling, 
           first_name: "Avni", last_name: "Lymany", mobile: 47625905, 
