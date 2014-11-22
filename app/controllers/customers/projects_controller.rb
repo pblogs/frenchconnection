@@ -10,11 +10,8 @@ class Customers::ProjectsController < ApplicationController
 
   def show
     @departments = Department.all
-    @in_progress = []
-    @in_progress << @project.tasks.by_status(:pending).to_a
-    @in_progress << @project.tasks.by_status(:confirmed).to_a
-    @in_progress.flatten!
-    @complete    = @project.tasks.by_status(:complete).to_a
+    @tasks_in_progress = @project.tasks_in_progress
+    @completed_tasks   = @project.completed_tasks
   end
 
   def new
