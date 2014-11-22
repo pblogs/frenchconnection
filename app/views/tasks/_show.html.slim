@@ -15,6 +15,9 @@ table
           span.spacer= '/'
           = I18n.l(task.due_date,   format: :short_w_year)
 
+h3= t('hours_registered')
+= render partial: 'users/hours_registered_table',
+  locals: { hours: @hours_registered }
   
 br
 br
