@@ -5,12 +5,12 @@
       th Kunde
       th Utførende
       th Beskrivelse
-      th Oppstart / Ferdigstilling
+      th= "#{t('start_date')" / #{t('due_date')}"
     tbody
       tr
         td = @task.project.customer.name
         td = @task.name_of_users
-        td = @task.description || 'Beskrivelse mangler'
+        td = @task.description || t('missing_description')
         td 
           = I18n.l(@task.start_date, format: :short)
           - if @task.due_date

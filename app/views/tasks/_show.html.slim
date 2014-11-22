@@ -3,7 +3,7 @@ table
     th Kunde
     th Utførende
     th Beskrivelse
-    th Oppstart / Ferdigstilling
+    th= "#{t('start_date')} / #{t('due_date')}"
   tbody
     tr
       td = link_to task.project.customer.name, task.project.customer
@@ -18,6 +18,4 @@ table
   
 br
 br
-//= link_to 'Tilbake', :back, class: :secondary_button
-//= link_to 'Rediger', edit_project_task_path(task.project, task), 
-//  class: :secondary_button
+= link_to 'Tilbake', :back, class: :secondary_button
