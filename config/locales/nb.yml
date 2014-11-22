@@ -6,7 +6,9 @@ nb:
 
   address: Adresse
   active_tasks: Aktive oppgaver
-  closed_tasks: Avslutted oppgaver
+  completed_tasks: Avsluttede oppgaver
+  are_you_sure_about_soft_ending: |
+    Sende melding til alle om at oppgaven avsluttes?
   are_you_sure_about_hard_ending: |
     Helt sikker på at du vil avslutte oppgaven for alle?
   description: Beskrivelse
@@ -23,6 +25,7 @@ nb:
   show_hours_registered: Vis timelister
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
+  tasks_in_progress: Aktive oppgaver
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
     24 timene. Hilsen %{from}

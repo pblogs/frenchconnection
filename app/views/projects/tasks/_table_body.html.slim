@@ -28,4 +28,5 @@ tr
         hr
     - elsif !task.complete?
       = link_to t('end_task'), 
-        project_task_end_task_path(@project, task), method: :put
+        project_task_end_task_path(@project, task), method: :put,
+        data: { confirm: t('are_you_sure_about_soft_ending') }
