@@ -23,6 +23,8 @@ nb:
   name: Navn
   my_projects: Mine prosjekter
   show_hours_registered: Vis timelister
+  start_date: Startdato
+  due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
   tasks_in_progress: Aktive oppgaver
