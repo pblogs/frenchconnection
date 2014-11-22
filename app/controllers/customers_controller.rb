@@ -28,7 +28,7 @@ class CustomersController < ApplicationController
   def search
     @customers = Customer.where("name ILIKE ?", "%#{params[:query]}%").all
     @search    = Customer.search(params[:q])
-    paginate_customers(@customers)
+    paginate_customers(@customers, params[:query])
     render :index
   end
 
@@ -96,17 +96,18 @@ class CustomersController < ApplicationController
         notice: 'Only for admin' unless @current_user.roles.first.match /project_leader/
     end
 
-    def paginate_customers(customers)
+    def paginate_customers(customers, query = '')
       return if customers.empty?
       alpha_paginate_options = {
           :support_language => :en,
           :pagination_class => 'pagination-centered',
           :js => false,
           :include_all => false,
-          :default_field => customers.order(:name).first.name[0]
-          .can_be_integer? ? '0-9' : customers.order(:name).first.name[0]
+          :query => query,
+          :default_field => get_paginate_default_field(
+                                customers.order(:name).first.name[0])
       }
-      @customers, @alpha_params = Customer.all.alpha_paginate(
+      @customers, @alpha_params = customers.alpha_paginate(
                                     params[:letter],
                                     alpha_paginate_options) { |c| c.name }
     end

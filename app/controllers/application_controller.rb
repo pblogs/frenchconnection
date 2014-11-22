@@ -16,6 +16,17 @@ class ApplicationController < ActionController::Base
   def index
   end
 
+  private
+  def get_paginate_default_field(first_char)
+    if first_char.can_be_integer?
+      '0-9'
+    elsif ('a'..'z').include?(first_char) || ('A'..'Z').include?(first_char)
+      first_char
+    else
+      '*'
+    end
+  end
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :mobile]
