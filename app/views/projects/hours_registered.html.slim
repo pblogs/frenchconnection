@@ -23,44 +23,9 @@
 
 
 
-  table#hours_registered
-    tr
-      th
-        = sort_link(@search, :created_at, 'Dato ')
-        = fa_icon 'sort'
-      th Ansatt
-      th Tekst
-      th Timer
-      th 50%
-      th 100%
-      th Servicebil
-      th Km egen bil
-      th Bomutg.
-      th Materiell
-      th 
-    - @hours_registered.each do |hour|
-      tr
-        td= hour.date.strftime("%d/%m")
-        td= hour.user.try(:name)
-        td= hour.changed_value_description
-        td= hour.changed_value_hour
-        td= hour.changed_value_overtime_50
-        td= hour.changed_value_overtime_100
-        td= hour.changed_value_runs_in_company_car
-        td= hour.changed_value_km_driven_own_car
-        td= hour.changed_value_toll_expenses_own_car
-        td= simple_format hour.changed_value_supplies_from_warehouse
-        td
-          - if hour.change.present?
-            = link_to 'Endre', edit_hours_spent_change_path(hour, hour.change)
-          - else
-            = link_to 'Endre', new_hours_spent_change_path(hour)
-- else
-  br
-  br
-  p Det er ikke registert noen timer på dette prosjektet.
-  br
-  br
+  = render partial: 'hours_registered_table',
+    locals: { hours: @hours_registered }
   
 
-= link_to 'Tilbake', :back, class: 'pull-right'
+br
+= link_to 'Tilbake', :back

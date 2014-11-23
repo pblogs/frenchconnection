@@ -15,7 +15,13 @@ table
           span.spacer= '/'
           = I18n.l(task.due_date,   format: :short_w_year)
 
+br
+br
+br
+h3= t('hours_registered')
+= render partial: 'users/hours_registered_table',
+  locals: { hours: @hours_registered }
   
 br
 br
-= link_to 'Tilbake', :back, class: :secondary_button
+= link_to 'Tilbake', @current_user, class: :secondary_button

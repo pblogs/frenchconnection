@@ -93,7 +93,7 @@ class Project < ActiveRecord::Base
   end
 
   def week_numbers
-    w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
+    w = hours_spents.collect { |h| h.date.to_datetime.cweek }
     w.uniq.sort!.join(', ')
   end
 

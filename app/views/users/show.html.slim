@@ -24,18 +24,6 @@
 
   .center_column
     - if @current_user.has_role? :worker
-      /.menu_header
-      /  ul
-      /    li
-      /      = fa_icon 'list-alt'
-      /      = link_to ' Mine meldinger', '#'
-      /    li
-      /      = fa_icon 'pencil'
-      /      = link_to ' Send melding', '#'
-      /br
-      /br
-      / uncomment the above when messages are implemented
-  
       .my_tasks
         strong.menu_header = I18n.t('task.new_tasks')
         .bar
@@ -85,7 +73,7 @@
                     = fa_icon('exclamation-triangle')
                   = link_to task.description, task
                   span.actions
-                    = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
+                    = link_to fa_icon('pencil-square-o'), new_task_hours_spent_path(task)
                     = link_to fa_icon('check'), 
                       complete_task_path(task), method: :post, 
                       data: {confirm: "Are you sure?"}, class: 'complete'
