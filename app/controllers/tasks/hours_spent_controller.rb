@@ -50,7 +50,7 @@ class Tasks::HoursSpentController < ApplicationController
   def update
     respond_to do |format|
       if @hours_spent.update(hours_spent_params)
-        format.html { redirect_to @hours_spent, 
+        format.html { redirect_to @hours_spent.task, 
                       notice: 'Endringene er lagret' }
         format.json { head :no_content }
       else
