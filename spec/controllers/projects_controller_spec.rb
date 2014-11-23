@@ -25,18 +25,21 @@ describe ProjectsController, :type => :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     { 
-      project_number: 'P01',
-      customer_id:    Fabricate(:customer).id,
-      department_id:  Fabricate(:department).id,
-      name:           Faker::Lorem.words(3).join(''),
-      start_date:     '01.05.1983',
-      due_date:       '01.08.1983',
-      description:    'New fence',
+      project_number:       'P01',
+      customer_id:          Fabricate(:customer).id,
+      department_id:        Fabricate(:department).id,
+      name:                 Faker::Lorem.words(3).join(''),
+      start_date:           '01.05.1983',
+      due_date:             '01.08.1983',
+      description:          'New fence',
+      short_description:    'New fence'
     }
   end
 
   before do
-    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: Fabricate(:department), emp_id: "12121", roles: ["project_leader"])
+    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', 
+                      department: Fabricate(:department), emp_id: "12121", 
+                      roles: ["project_leader"])
     sign_in @user
     Project.destroy_all
   end
