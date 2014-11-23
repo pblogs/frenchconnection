@@ -9,6 +9,8 @@ class ExcelController < ApplicationController
     @overtime   = params[:overtime]
     @filename   = DailyReport.new(project: @project, profession: @profession, 
                                  overtime: @overtime).create_spreadsheet
+    @week_numbers = @project.week_numbers(profession: @profession)
+
     respond_to do |format|
       format.pdf do
         filename = generate_daily_report_pdf(profession_title: @profession.title,
