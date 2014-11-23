@@ -103,7 +103,6 @@ describe TasksController, :type => :controller do
         Task.any_instance.stub(:save).and_return(false)
         post :create, {:task => { 
           "project_id" => @project.id,
-          "task_type_id" => @task_type.id
           }}, valid_session
         assigns(:task).should be_a_new(Task)
       end

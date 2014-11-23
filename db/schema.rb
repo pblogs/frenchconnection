@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120183009) do
+ActiveRecord::Schema.define(version: 20141123115505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,12 +145,10 @@ ActiveRecord::Schema.define(version: 20141120183009) do
 
   create_table "tasks", force: true do |t|
     t.integer  "customer_id"
-    t.integer  "task_type_id"
     t.date     "start_date"
     t.boolean  "customer_buys_supplies"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "paint_id"
     t.boolean  "accepted"
     t.string   "description"
     t.boolean  "finished",               default: false
@@ -160,7 +158,6 @@ ActiveRecord::Schema.define(version: 20141120183009) do
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
-  add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id", using: :btree
 
   create_table "user_tasks", force: true do |t|
     t.integer  "user_id",    null: false
