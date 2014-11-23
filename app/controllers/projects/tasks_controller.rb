@@ -77,7 +77,9 @@ class Projects::TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to customer_project_path(@task.project.customer, 
+                                                      @task.project),
+                                                      notice: I18n.t('task.destroyed')}
       format.json { head :no_content }
     end
   end
