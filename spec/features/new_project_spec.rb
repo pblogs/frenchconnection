@@ -9,9 +9,9 @@ describe "Create a new project", :type => :feature do
 
   it "for a new company", js: true do
     sign_in(@project_leader)
-    visit user_path(@project_leader)
-    current_path.should eq user_path(@project_leader)
-    click_link 'Opprett nytt prosjekt'
+    visit root_path
+    click_link 'Prosjekter'
+    click_link 'Lag nytt prosjekt'
     click_link 'Opprett kunde'
 
     fill_in 'Navn', with: 'Oslo Sporveier AS'
