@@ -81,6 +81,10 @@ nb:
     new_tasks: Nye oppgaver
     my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
+    destroyed: Oppgave slettet
+
+  hours_spent:
+    editing: Rediger timer registert på %{customer_name}, %{project}
 
   sms:
     complete_project: |
