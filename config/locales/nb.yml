@@ -83,6 +83,12 @@ nb:
     completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
 
+  devise:
+    failure:
+      user:
+        not_found_in_database: |
+          Vi fant ingen bruker med det telefonnummeret i databasen
+
   hours_spent:
     editing: Rediger timer registert på %{customer_name}, %{project}
 
