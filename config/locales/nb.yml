@@ -1,11 +1,13 @@
 nb:
   customers:
+    edit: Rediger kunde
     projects:
       form:
         single_task: Dette prosjektet har bare en oppgave
 
   address: Adresse
   active_tasks: Aktive oppgaver
+  back: Tilbake
   completed_tasks: Avsluttede oppgaver
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
