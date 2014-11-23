@@ -56,7 +56,6 @@ AllieroForms::Application.routes.draw do
       post :accept_task
       post :finished
       get :send_message
-      
     end
     resources :tasks, :controller => 'users/user_tasks' do
       post :confirm_user_task

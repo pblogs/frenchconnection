@@ -41,16 +41,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def add_user
-    @user = User.new(first_name: params[:user][:first_name],
-                     last_name: params[:user][:last_name],
-                     mobile: params[:user][:mobile],
-                     department_id: params[:user][:department_id],
-                     roles: "{#{params[:user][:roles]}}",
-                     image: params[:user][:image],
-                     emp_id: params[:user][:emp_id],
-                     password: 'topsecret')
+    @user = User.new(user_params)
+    @user.password = @user.password_confirmation = 'topsecret'
+    @user.roles = [params['user']['roles']]
     respond_to do |format|
-      if @user.save
+      if @user.save!
         format.html { redirect_to users_path,
                       notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
@@ -120,18 +115,19 @@ class UsersController < ApplicationController
     end
 
     def set_department
-      @department = Department.all
+      @departments = Department.all
     end
 
     def set_profession
-      @profession = Profession.all
+      @professions = Profession.all
     end
 
     # Never trust parameters from the scary internet,
     #only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name,
-                                  :tasks_id, :mobile, :emp_id,
+                                  :tasks_id, :mobile, :emp_id, :profession_id,
                                   :department_id, :roles, :image)
     end
+
 end
