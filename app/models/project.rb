@@ -63,7 +63,8 @@ class Project < ActiveRecord::Base
     starting_date, ending_date, total_weeks = get_month_metadata(year.to_i, month.to_i)
     project_hours = initialize_project_hours(total_weeks)
     project_hours = calculate_hours(project_hours, starting_date: starting_date,
-                                    ending_date: ending_date, total_weeks: total_weeks, overtime: overtime)
+                                    ending_date: ending_date, 
+                                    total_weeks: total_weeks, overtime: overtime)
     [project_hours, total_weeks.count]
   end
 
@@ -118,9 +119,15 @@ class Project < ActiveRecord::Base
     execution_address || customer.address
   end
 
-  def week_numbers
-    w = hours_spents.collect { |h| h.date.to_datetime.cweek }
-    w.uniq.sort!.join(', ')
+  def week_numbers(profession: nil, overtime: nil)
+    if profession
+      dates = users_with_profession(profession: profession)
+        .each.collect {|u| u.hours_spents.pluck(:date) }.flatten
+      week_numbers = dates.collect {|d| d.cweek }
+    else
+      week_numbers = hours_spents.collect { |h| h.date.to_datetime.cweek }
+    end
+    week_numbers.uniq.sort.join(', ')
   end
 
   def complete!
@@ -169,7 +176,8 @@ class Project < ActiveRecord::Base
     end
 
     def calculate_hours(project_hours, opts = {})
-      populate_hours(project_hours, starting_date: opts[:starting_date], ending_date: opts[:ending_date],
+      populate_hours(project_hours, starting_date: opts[:starting_date], 
+                     ending_date: opts[:ending_date],
                      total_weeks: opts[:total_weeks], overtime: opts[:overtime])
       reorder_hash(project_hours)
       populate_sum(project_hours)
