@@ -34,6 +34,7 @@ class Task < ActiveRecord::Base
 
   validates :project_id, :presence => true, :unless => :single_task
   validates :start_date, :presence => true
+  validates :description, :presence => true
 
   validate :start_date_must_be_within_projects_dates_range, 
     if: Proc.new { |p| p.start_date.present? }
