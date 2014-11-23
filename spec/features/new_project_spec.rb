@@ -56,6 +56,7 @@ describe "Create a new project", :type => :feature do
       fill_in 'Oppstartsdato', with: '01.01.2014'
       fill_in 'Dato for ferdigstillelse av oppdrag', with: '01.10.2014'
       fill_in 'Beskrivelse', with: 'bra prosjekt'
+      fill_in 'Kort beskrivelse', with: 'bra prosjekt'
 
       find(:css, '.single-task input[type=checkbox]').set(true)
 

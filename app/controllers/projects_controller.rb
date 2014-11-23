@@ -102,6 +102,7 @@ class ProjectsController < ApplicationController
                                       :delivery_address, 
                                       :due_date,
                                       :description,
+                                      :short_description,
                                       :execution_address, 
                                       :name, 
                                       :department_id,
