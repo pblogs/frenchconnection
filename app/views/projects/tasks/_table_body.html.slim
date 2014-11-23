@@ -7,7 +7,7 @@ tr
   - else
     td = t('has_no_due_date')
   td
-    = link_to fa_icon('pencil'), edit_project_task_path(@project, task)
+    = link_to fa_icon('pencil-square-o'), edit_project_task_path(@project, task)
 
     // TODO Refactor to helper
     - if task.ended_at
