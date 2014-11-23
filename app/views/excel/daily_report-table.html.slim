@@ -15,7 +15,7 @@ br
     span.cell1
       strong År
     span.data_cell
-      strong = " #{@project.created_at.year}"
+      strong = " #{@project.start_date.year}"
     span.cell3
       strong Pågår
   br
@@ -56,7 +56,7 @@ table
   tbody
     - @hours_spent.each_with_index do |hs,i|
       tr
-        td= hs.created_at.strftime("%d/%m")
+        td= hs.date.strftime("%d/%m")
         td= hs.changed_value(:description) 
         - return_users_nr_in_array(@workers, user: hs.user).times do
           td= nbsp
@@ -67,37 +67,3 @@ table
       td.gray_bg(colspan='2')= "Sum #{t(@overtime).downcase} pr person"
       - @workers.each do |w|
         td.number= @project.hours_total_for(w, changed: true, overtime: @overtime)
-
-      /- return_users_nr_in_array(@workers, user: hs.user).times do
-      /  td
-      /- add_remaining_tds(@workers, user: w).times do
-      /  td  'h'
-
-
-//  #nyrap
-//    #header.bg_gray
-//      .cell.date Dato
-//      .cell.description Beskrivelse
-//      - @workers.each do |w| 
-//          .cell.name.vertical-textX = w.name 
-//    #body
-//      - @hours_spent.each_with_index do |hs,i|
-//        .clearfix
-//        .row
-//          .cell.date=        hs.created_at.strftime("%d/%m")
-//          .cell.description= hs.changed_value(:description) 
-//          - return_users_nr_in_array(@workers, user: hs.user).times do
-//            .cell= nbsp
-//          .cell.overtime= hs.changed_value(@overtime) 
-//    #sum
-//      .cell.intro = "Sum #{t(@overtime).downcase} pr person"
-//      - @workers.each do |w|
-//        .cell.number= @project.hours_total_for(w, changed: true, overtime: @overtime)
-//  
-//  
-//        //- return_users_nr_in_array(@workers, user: hs.user).times do
-//        //  td
-//        //td
-//          = hs.changed_value(@overtime) 
-//        /- add_remaining_tds(@workers, user: hs.user).times do
-//          td

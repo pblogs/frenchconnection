@@ -15,6 +15,7 @@ nb:
   create_a_new_project: Lag et nytt prosjekt
   contact_person: Kontaktperson
   complete: Avsluttet
+  hours_registered: Timer registrert
   customer: Kunde
   end_task: Avslutt oppgaven
   end_task_hard: Tvungen avslutning
@@ -80,6 +81,16 @@ nb:
     new_tasks: Nye oppgaver
     my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
+    destroyed: Oppgave slettet
+
+  devise:
+    failure:
+      user:
+        not_found_in_database: |
+          Vi fant ingen bruker med det telefonnummeret i databasen
+
+  hours_spent:
+    editing: Rediger timer registert på %{customer_name}, %{project}
 
   sms:
     complete_project: |

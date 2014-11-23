@@ -7,7 +7,8 @@ tr
   - else
     td = t('has_no_due_date')
   td
-    = link_to fa_icon('pencil'), edit_project_task_path(@project, task)
+    = link_to fa_icon('pencil-square-o'), edit_project_task_path(@project, task)
+    = link_to fa_icon('trash'), project_task_path(@project, task), method: :delete
 
     // TODO Refactor to helper
     - if task.ended_at
