@@ -23,11 +23,11 @@
 
   .field
     = f.label :department_id, 'Avdeling'
-    = f.collection_select :department_id, @department, :id, :title
+    = f.collection_select :department_id, @departments, :id, :title
 
   .field
     = f.label :profession_id, t('.profession')
-    = f.collection_select :profession_id, @profession, :id, :title
+    = f.collection_select :profession_id, @professions, :id, :title
 
   br
   .field
