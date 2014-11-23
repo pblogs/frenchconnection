@@ -18,18 +18,23 @@ p
 
 
 br
-= link_to 'Lag et nytt prosjekt', 
-  new_customer_project_path(@customer), class: 'red btn btn-primary'
 br
 br
 
 br
 br
 br
+
+- if @customer.projects.active.present?
+  h3 Prosjekter
+  = render partial: "projects/table", 
+    locals: { projects: @customer.projects.active } 
+
 p
-  = link_to 'Rediger', edit_customer_path(@customer)
-  '|
-  = link_to 'Tilbake', customers_path
+  = link_to 'Lag et nytt prosjekt', 
+    new_customer_project_path(@customer), class: 'red btn btn-primary'
+br
+
 = link_to t('customers.edit'), edit_customer_path(@customer)
 br
 = link_to t('back'), customers_path
