@@ -29,7 +29,7 @@ class Notify < Thor
           users << user_task.user
         end
       end
-      users
+      users.uniq
     end
   end
 end
