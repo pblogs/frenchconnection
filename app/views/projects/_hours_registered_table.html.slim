@@ -27,9 +27,9 @@
         td= simple_format hour.changed_value_supplies_from_warehouse
         td
           - if hour.change.present?
-            = link_to 'Endre', edit_hours_spent_change_path(hour, hour.change)
+            = link_to fa_icon('pencil-square-o'), edit_hours_spent_change_path(hour, hour.change)
           - else
-            = link_to 'Endre', new_hours_spent_change_path(hour)
+            = link_to fa_icon('pencil-square-o'), new_hours_spent_change_path(hour)
 - else
   br
   br
