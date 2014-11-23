@@ -26,8 +26,9 @@ describe TasksController, :type => :controller do
   let(:valid_attributes) do
     { 
       project_id:   Fabricate(:project).id,
-      task_type_id: Fabricate(:task_type).id,
-      user_ids:     [Fabricate(:user, department: Fabricate(:department), emp_id: "12121", roles: ['project_leader']).id],
+      description: 'work hard or go home',
+      user_ids:     [Fabricate(:user, department: Fabricate(:department), 
+                               emp_id: "12121", roles: ['project_leader']).id],
       start_date:   Time.now,
       due_date:     Time.now.next_week
     }
