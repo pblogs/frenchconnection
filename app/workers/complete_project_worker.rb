@@ -8,8 +8,8 @@ class CompleteProjectWorker
                    msg: I18n.t('sms.complete_project', 
                                project_name: (project.name rescue '-'),
                                project_leader: (project.user.name rescue '-')
-                                             )
                               )
+                  )
     end
   end
 
