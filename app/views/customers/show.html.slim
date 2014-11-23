@@ -30,3 +30,6 @@ p
   = link_to 'Rediger', edit_customer_path(@customer)
   '|
   = link_to 'Tilbake', customers_path
+= link_to t('customers.edit'), edit_customer_path(@customer)
+br
+= link_to t('back'), customers_path
