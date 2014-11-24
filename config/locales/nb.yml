@@ -9,6 +9,7 @@ nb:
   active_tasks: Aktive oppgaver
   back: Tilbake
   completed_tasks: Avsluttede oppgaver
+  courses: Kurs
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
   are_you_sure_about_hard_ending: |
