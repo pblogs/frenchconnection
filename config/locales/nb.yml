@@ -30,6 +30,7 @@ nb:
   due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
+  instructions: Instruksjoner
   tasks_in_progress: Aktive oppgaver
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
@@ -110,11 +111,28 @@ nb:
       report_generated_at: Report generated at %{time}
     tasks:
       form:
-        project_start_date: "Project start date: %{start_date}"
-        project_due_date: "Project due date: %{due_date}"
+        project_start_date: "Prosjekt start dato: %{start_date}"
+        project_due_date: "Prosjekt ferdig dato: %{due_date}"
 
   project_reports:
     create:
-      wait_msg: "Project is being generated. Please wait a few seconds."
-      success_msg: "Report is ready. Click the link below to download. Link is valid for 15 minutes."
-      download: "Download report"
+      wait_msg: Rapporten genereres nå. Vennligst vent noen sekunder...
+      success_msg: |
+        Rapporten er klar. Last ned fra lenken under. Lenken er gyldig i 15 min.
+      download: Last ned rapport
+
+  instructions:
+    header: Instruksjoner
+    download: Last ned
+    construction_site: Arbeidsplass
+    scaffold: Stilas
+    concrete_mixer: Tvangsblander
+    gjerdesag: Gjerdesag
+    boltpistol: Boltepistol
+    vinkelsliper: Vinkelsliper
+    spikerpistol: Spikerpistol
+    kjedesag: Kjedesag
+    sikkerhetssele_fallblokk: Sikkerhetssele fallblokk
+    hoystrykksspyler: Høytrykkspyler
+
+

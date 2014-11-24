@@ -86,6 +86,7 @@ AllieroForms::Application.routes.draw do
   
   get '/blog'  => 'static_pages#blog',  as: :blog
   get '/hms'   => 'static_pages#hms',   as: :hms
+  get '/instructions'   => 'static_pages#instructions',   as: :instructions
   get '/video' => 'static_pages#video', as: :video
 
   # You can have the root of your site routed with "root"
