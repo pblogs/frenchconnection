@@ -117,7 +117,7 @@ nb:
 
   project_reports:
     create:
-      wait_msg: Rapporten genereres nå. Vennligst vent noen sekunder...
+      wait_msg: Rapporten genereres nå. Vennligst vent...
       success_msg: |
         Rapporten er klar. Last ned fra lenken under. Lenken er gyldig i 15 min.
       download: Last ned rapport
