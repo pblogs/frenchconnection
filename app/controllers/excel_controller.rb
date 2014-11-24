@@ -13,7 +13,8 @@ class ExcelController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        filename = generate_daily_report_pdf(profession_title: @profession.title,
+        filename = generate_daily_report_pdf(project: @project, 
+                                             profession_title: @profession.title,
                                              overtime: @overtime)
         send_file filename, filename: File.basename(filename)
       end
@@ -33,7 +34,8 @@ class ExcelController < ApplicationController
                                    overtime: @overtime).create_spreadsheet
     respond_to do |format|
       format.pdf do
-        filename = generate_daily_report_pdf(profession_title: @profession.title,
+        filename = generate_daily_report_pdf(project: @project,
+                                             profession_title: @profession.title,
                                              overtime: @overtime)
         send_file filename, filename: File.basename(filename)
       end
@@ -55,7 +57,7 @@ class ExcelController < ApplicationController
 
       respond_to do |format|
         format.pdf do
-          filename = generate_monthly_report_pdf(@project.name)
+          filename = generate_monthly_report_pdf(project: @project)
           send_file filename, filename: File.basename(filename)
         end
         format.html do
@@ -86,23 +88,28 @@ class ExcelController < ApplicationController
 
   private
   
-  def generate_daily_report_pdf(profession_title:, overtime:)
-    filename = "/tmp/daily_report-#{profession_title.downcase}-#{overtime}.pdf"
+  def generate_daily_report_pdf(project:, profession_title:, overtime:)
+    filename = "/tmp/daily_report-#{project.project_number.parameterize}-" +
+               "#{project.address.parameterize}-" +
+               "#{profession_title.parameterize}-#{overtime}"+
+               "#{DateTime.now.strftime'%Y-%m-%d'}.pdf"
     url  = request.original_url.gsub('.pdf', '')
     kit  = PDFKit.new(url)
     kit.to_file(filename)
     filename
   end
 
-  #######
-  ## Copied from the daily report action. Its not working locally
-  #######
-  def generate_monthly_report_pdf(project_name)
-    filename = "/tmp/monthly_report-#{project_name.downcase}.pdf"
+  def generate_monthly_report_pdf(project:)
+    filename = generate_filename(report_name: 'monthly_report', project: project)
     url  = request.original_url.gsub('.pdf', '')
     kit  = PDFKit.new(url)
     kit.to_file(filename)
     filename
+  end
+
+  def generate_filename(report_name:, project: project)
+     "/tmp/monthly_report-#{p.project_number.parameterize}" +
+     "-#{p.address.parameterize}-#{DateTime.now.strftime'%Y-%m-%d'}.pdf"
   end
 
   def offsett(nr)
