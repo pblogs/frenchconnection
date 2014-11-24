@@ -56,11 +56,13 @@ class TimesheetWorker
   end
 
   def zipfile_path
-    @zipfile_path ||= "/tmp/project-#{@project.id}-timesheet-#{timestamp}.zip"
+    @zipfile_path ||= 
+      "/tmp/timesheet-#{@project.project_number.parameterize}-" +
+      "#{@project.address.parameterize}-#{timestamp}.zip"
   end
 
   def timestamp
-    DateTime.now.strftime '%Y-%m-%d-%H-%M'
+    DateTime.now.strftime'%Y-%m-%d'
   end
 
   def host
