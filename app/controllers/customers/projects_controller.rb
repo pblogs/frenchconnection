@@ -20,6 +20,7 @@ class Customers::ProjectsController < ApplicationController
 
   def edit
     @departments = Department.all
+    @is_favorite = @project.is_favorite_of?(@current_user)
   end
 
   def create
@@ -37,6 +38,7 @@ class Customers::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
+        set_favorite
         if params[:attachments]
           params[:attachments].each_with_index do |attachment, i|
             @project.attachments.create!(document: attachment,
@@ -69,7 +71,7 @@ class Customers::ProjectsController < ApplicationController
     @departments = Department.all
     respond_to do |format|
       if @project.update(project_params)
-
+        set_favorite
         if params[:attachments]
           params[:attachments].each_with_index do |attachment, i|
             @project.attachments.create!(document: attachment,
@@ -105,6 +107,14 @@ class Customers::ProjectsController < ApplicationController
 
   def set_customer
     @customer = Customer.find(params[:customer_id])
+  end
+
+  def set_favorite
+    if params[:project][:starred]
+      @current_user.favorites << @project.set_as_favorite
+    else
+      @project.unset_favorite(@current_user)
+    end
   end
 
   def project_params
