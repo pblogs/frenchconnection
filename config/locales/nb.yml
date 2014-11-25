@@ -36,7 +36,7 @@ nb:
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
     24 timene. Hilsen %{from}
-    http://mobil.orwapp.com
+    http://allieroapp.orwapp.com
   these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
   our_customers: Våre kunder
   org_nr: Org nr
