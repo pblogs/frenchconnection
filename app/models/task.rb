@@ -84,7 +84,8 @@ class Task < ActiveRecord::Base
   def notify_workers
     Rails.logger.debug "\n\n IN notify_workers\n\n"
     domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
-    msg = I18n.t('sms.new_task', link: "http://#{domain}/tasks/#{id}")
+    #msg = I18n.t('sms.new_task', link: "http://#{domain}/tasks/#{id}")
+    msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
     users.each do |u|
       Rails.logger.debug "Sms.send_msg(to: '47#{u.mobile}', msg: #{msg})"
       Sms.send_msg(to: "47#{u.mobile}", msg: msg)
