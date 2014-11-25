@@ -33,8 +33,9 @@ class TimesheetWorker
       current
 
     rescue Exception => e
+      Rails.logger.error(e)
       Pusher["user-#{user_id}"].trigger("report", {
-          id: current.id,
+          id: current.try(:id),
           token: token,
           error: e
       })
