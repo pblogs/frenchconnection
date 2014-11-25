@@ -51,15 +51,17 @@ describe ProjectsController, :type => :controller do
     before do
       @bratfos = Fabricate(:department, title: 'Bratfos')
       Fabricate(:project, name: 'not my project')
-      @starred_customer = Fabricate(:customer, starred: true)
-      @starred_project = Fabricate(:project, user: @user, starred: true,
+      @starred_customer = Fabricate(:customer)
+      @starred_project = Fabricate(:project, user: @user,
                                   complete: false, department: @bratfos)
+      @user.favorites << @starred_customer.set_as_favorite
+      @user.favorites << @starred_project.set_as_favorite
       @completed_project = Fabricate(:project, user: @user, complete: true,
                                      department: @bratfos)
     end
 
     it "lists all departments that the current user has projects in"  do
-      Fabricate(:project, user: @user, starred: true,
+      Fabricate(:project, user: @user,
                 complete: false, department: @bratfos)
 
       get :index, {}, valid_session
