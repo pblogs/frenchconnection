@@ -90,12 +90,12 @@ class CustomersController < ApplicationController
     # Never trust parameters from the scary internet, 
     # only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :address, :org_number, :starred,
+      params.require(:customer).permit(:name, :address, :org_number,
                                        :contact_person, :phone)
     end
 
     def set_favorite
-      if params[:customer][:starred]
+      if params[:starred]
         @current_user.favorites << @customer.set_as_favorite
       else
         @customer.unset_favorite(@current_user)

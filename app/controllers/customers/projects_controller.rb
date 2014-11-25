@@ -110,7 +110,7 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def set_favorite
-    if params[:project][:starred]
+    if params[:starred]
       @current_user.favorites << @project.set_as_favorite
     else
       @project.unset_favorite(@current_user)
@@ -134,7 +134,6 @@ class Customers::ProjectsController < ApplicationController
                                     :project_number, 
                                     :sms_employee_if_hours_not_registered, 
                                     :sms_employee_when_new_task_created,
-                                    :starred,
                                     :start_date,
                                     :short_description,
                                     :title,

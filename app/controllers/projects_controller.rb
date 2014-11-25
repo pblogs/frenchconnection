@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @departments        = @current_user.project_departments
     @starred_projects   = Project.favored_by(@current_user)
     @starred_customers  = Customer.favored_by(@current_user)
-    @completed_projects = @current_user.projects.complete
+    @completed_projects = Project.where(user: @current_user, complete: true)
   end
 
   # GET /projects/1
@@ -107,14 +107,13 @@ class ProjectsController < ApplicationController
                                       :execution_address, 
                                       :name, 
                                       :department_id,
-                                      :starred,
                                       :start_date,
                                       :company_id
                                      )
     end
 
     def set_favorite
-      if params[:project][:starred]
+      if params[:starred]
         @current_user.favorites << @project.set_as_favorite
       else
         @project.unset_favorite(@current_user)
