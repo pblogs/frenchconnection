@@ -6,9 +6,8 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @departments        = @current_user.project_departments
-    @starred_projects   = Project.where(user: @current_user, starred: true, 
-                                        complete: false)
-    @starred_customers  = Customer.where(starred: true)
+    @starred_projects   = Project.favored_by(@current_user)
+    @starred_customers  = Customer.favored_by(@current_user)
     @completed_projects = Project.where(user: @current_user, complete: true)
   end
 
@@ -33,7 +32,8 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, 
+        set_favorite
+        format.html { redirect_to @project,
                       notice: 'Prosjektet ble lagret' }
         format.json { render action: 'show', status: :created, 
                       location: @project }
@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        set_favorite
         format.html { redirect_to @project, 
                       notice: 'Project was successfully updated.' }
         format.json { head :no_content }
@@ -106,9 +107,16 @@ class ProjectsController < ApplicationController
                                       :execution_address, 
                                       :name, 
                                       :department_id,
-                                      :starred,
                                       :start_date,
                                       :company_id
                                      )
+    end
+
+    def set_favorite
+      if params[:starred]
+        @current_user.favorites << @project.set_as_favorite
+      else
+        @project.unset_favorite(@current_user)
+      end
     end
 end

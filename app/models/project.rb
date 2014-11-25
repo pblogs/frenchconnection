@@ -24,6 +24,8 @@
 #
 
 class Project < ActiveRecord::Base
+  include Favorable
+
   has_many :tasks
   has_many :user_tasks,   :through => :tasks
   has_many :attachments
@@ -33,6 +35,7 @@ class Project < ActiveRecord::Base
   belongs_to :customer
   belongs_to :user
   belongs_to :department
+  has_many :favorites, as: :favorable
 
   validates :customer_id,       :presence => true
   validates :start_date,        :presence => true

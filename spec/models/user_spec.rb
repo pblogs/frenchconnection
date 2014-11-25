@@ -62,4 +62,38 @@ describe User do
 
   end
 
+  describe 'favorites' do
+    before do
+      @project = Fabricate(:project)
+      @second_project = Fabricate(:project)
+
+      @customer = Fabricate(:customer)
+      @second_customer = Fabricate(:customer)
+
+      @user.favorites << [@project.set_as_favorite,
+                          @second_project.set_as_favorite]
+      @user.favorites << [@customer.set_as_favorite,
+                          @second_customer.set_as_favorite]
+    end
+
+    it 'user can have more favoured projects' do
+      expect(Project.favored_by(@user)).to include @project
+      expect(Project.favored_by(@user)).to include @second_project
+    end
+
+    it 'user can have more favoured customers' do
+      expect(Customer.favored_by(@user)).to include @customer
+      expect(Customer.favored_by(@user)).to include @second_customer
+    end
+
+    it 'can be removed' do
+      @project.unset_favorite(@user)
+      @customer.unset_favorite(@user)
+
+      expect(Project.favored_by(@user).count).to eq 1
+      expect(Customer.favored_by(@user).count).to eq 1
+    end
+
+  end
+
 end
