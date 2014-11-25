@@ -1,0 +1,17 @@
+h1 = t('instructions.header') 
+
+section.video_nav
+  strong.video_nav_header = t('instructions.download')
+
+  ul.instructions
+    - @files.each do |url,title|
+      li
+        = link_to "#{title}", 
+          "http://home.powertech.no/martins/orwapp-assets/#{url}", target: '_blank'
+
+
+
+br
+br
+br
+= link_to t('back'), :back

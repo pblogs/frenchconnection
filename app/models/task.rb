@@ -4,17 +4,16 @@
 #
 #  id                     :integer          not null, primary key
 #  customer_id            :integer
-#  task_type_id           :integer
 #  start_date             :date
 #  customer_buys_supplies :boolean
 #  created_at             :datetime
 #  updated_at             :datetime
-#  paint_id               :integer
 #  accepted               :boolean
 #  description            :string(255)
 #  finished               :boolean          default(FALSE)
 #  project_id             :integer
 #  due_date               :date
+#  ended_at               :datetime
 #
 
 class Task < ActiveRecord::Base
@@ -34,6 +33,7 @@ class Task < ActiveRecord::Base
 
   validates :project_id, :presence => true, :unless => :single_task
   validates :start_date, :presence => true
+  validates :description, :presence => true
 
   validate :start_date_must_be_within_projects_dates_range, 
     if: Proc.new { |p| p.start_date.present? }

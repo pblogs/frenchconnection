@@ -1,12 +1,15 @@
 nb:
   customers:
+    edit: Rediger kunde
     projects:
       form:
         single_task: Dette prosjektet har bare en oppgave
 
   address: Adresse
   active_tasks: Aktive oppgaver
+  back: Tilbake
   completed_tasks: Avsluttede oppgaver
+  courses: Kurs
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
   are_you_sure_about_hard_ending: |
@@ -15,6 +18,7 @@ nb:
   create_a_new_project: Lag et nytt prosjekt
   contact_person: Kontaktperson
   complete: Avsluttet
+  hours_registered: Timer registrert
   customer: Kunde
   end_task: Avslutt oppgaven
   end_task_hard: Tvungen avslutning
@@ -27,6 +31,7 @@ nb:
   due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
+  instructions: Instruksjoner
   tasks_in_progress: Aktive oppgaver
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
@@ -80,6 +85,16 @@ nb:
     new_tasks: Nye oppgaver
     my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
+    destroyed: Oppgave slettet
+
+  devise:
+    failure:
+      user:
+        not_found_in_database: |
+          Vi fant ingen bruker med det telefonnummeret i databasen
+
+  hours_spent:
+    editing: Rediger timer registert på %{customer_name}, %{project}
 
   sms:
     complete_project: |
@@ -97,11 +112,28 @@ nb:
       report_generated_at: Report generated at %{time}
     tasks:
       form:
-        project_start_date: "Project start date: %{start_date}"
-        project_due_date: "Project due date: %{due_date}"
+        project_start_date: "Prosjekt start dato: %{start_date}"
+        project_due_date: "Prosjekt ferdig dato: %{due_date}"
 
   project_reports:
     create:
-      wait_msg: "Project is being generated. Please wait a few seconds."
-      success_msg: "Report is ready. Click the link below to download. Link is valid for 15 minutes."
-      download: "Download report"
+      wait_msg: Rapporten genereres nå. Vennligst vent...
+      success_msg: |
+        Rapporten er klar. Last ned fra lenken under. Lenken er gyldig i 15 min.
+      download: Last ned rapport
+
+  instructions:
+    header: Instruksjoner
+    download: Last ned
+    construction_site: Arbeidsplass
+    scaffold: Stilas
+    concrete_mixer: Tvangsblander
+    gjerdesag: Gjerdesag
+    boltpistol: Boltepistol
+    vinkelsliper: Vinkelsliper
+    spikerpistol: Spikerpistol
+    kjedesag: Kjedesag
+    sikkerhetssele_fallblokk: Sikkerhetssele fallblokk
+    hoystrykksspyler: Høytrykkspyler
+
+

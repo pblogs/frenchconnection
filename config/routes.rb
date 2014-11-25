@@ -56,7 +56,6 @@ AllieroForms::Application.routes.draw do
       post :accept_task
       post :finished
       get :send_message
-      
     end
     resources :tasks, :controller => 'users/user_tasks' do
       post :confirm_user_task
@@ -87,6 +86,7 @@ AllieroForms::Application.routes.draw do
   
   get '/blog'  => 'static_pages#blog',  as: :blog
   get '/hms'   => 'static_pages#hms',   as: :hms
+  get '/instructions'   => 'static_pages#instructions',   as: :instructions
   get '/video' => 'static_pages#video', as: :video
 
   # You can have the root of your site routed with "root"

@@ -10,94 +10,53 @@
         li= link_to 'Se timelister',  edit_user_registration_path, class: :muted_text
         li= link_to 'Meld avvik',     edit_user_registration_path, class: :muted_text
       br
-      br
   
-      strong.menu_header Kurs og sertifiseringer
-      .bar
-      ul
-        - if @current_user.has_role? :project_leader
-          li= link_to 'Visma økonomi', '#'
-          li= link_to 'HMS i arbeidslivet',  '#'
-        - if @current_user.has_role? :worker
-          li= link_to 'Stilas', '#'
-          li= link_to 'Grunnmur',  '#'
 
   .center_column
-    - if @current_user.has_role? :worker
-      /.menu_header
-      /  ul
-      /    li
-      /      = fa_icon 'list-alt'
-      /      = link_to ' Mine meldinger', '#'
-      /    li
-      /      = fa_icon 'pencil'
-      /      = link_to ' Send melding', '#'
-      /br
-      /br
-      / uncomment the above when messages are implemented
+    .my_tasks
+      strong.menu_header = I18n.t('task.new_tasks')
+      .bar
+      - if @new_tasks.present?
+        ul.menu
+          li
+            table.user_tasks
+              thead
+                th Kunde
+                th Beskrivelse
+                th Fra / Til
+                th Valg
+              tbody
+                - @new_tasks.each do |task|
+                  = render partial: '/tasks/accept_reject_listing', 
+                    locals: {task: task }
+      - else
+        span Ingen nye oppgaver.
+
   
-      .my_tasks
-        strong.menu_header = I18n.t('task.new_tasks')
+      .my_tasks.worker
+        strong.menu_header = I18n.t('task.my_tasks')
         .bar
-        - if @new_tasks.present?
-          ul.menu
-            li
-              table.user_tasks
-                thead
-                  th Kunde
-                  th Beskrivelse
-                  th Fra / Til
-                  th Valg
-                tbody
-                  - @new_tasks.each do |task|
-                    = render partial: '/tasks/accept_reject_listing', 
-                      locals: {task: task }
+        - if @tasks.present?
+          ul
+            - @tasks.each do |task|
+              li
+                - if task_needs_reporting(task)
+                  = fa_icon('exclamation-triangle')
+                = link_to task.description, task
+                span.actions
+                  = link_to fa_icon('pencil-square-o'), new_task_hours_spent_path(task)
+                  = link_to fa_icon('check'), 
+                    complete_task_path(task), method: :post, 
+                    data: {confirm: "Are you sure?"}, class: 'complete'
         - else
-          span Ingen nye oppgaver.
+          p Du har ingen aktive prosjekter.
 
-    - if @current_user.has_role? :project_leader
-      br
-      br
-      h5
-        = fa_icon 'list-alt'
-        = link_to " Mine prosjekter", projects_path
-      br
-
-      h5
-        = fa_icon 'pencil-square-o'
-        = link_to  ' Opprett nytt prosjekt', new_assignment_path
-      br
-        
-      h5
-        = fa_icon 'pencil-square-o'
-        = link_to  ' Timelister', timesheets_path
-      br
-  
-    - if @current_user.has_role? :worker
-        .my_tasks.worker
-          strong.menu_header = I18n.t('task.my_tasks')
-          .bar
-          - if @tasks.present?
-            ul
-              - @tasks.each do |task|
-                li
-                  - if task_needs_reporting(task)
-                    = fa_icon('exclamation-triangle')
-                  = link_to task.description, task
-                  span.actions
-                    = link_to fa_icon('pencil'), new_task_hours_spent_path(task)
-                    = link_to fa_icon('check'), 
-                      complete_task_path(task), method: :post, 
-                      data: {confirm: "Are you sure?"}, class: 'complete'
-          - else
-            p Du har ingen aktive prosjekter.
-
-        .my_tasks.worker.completed
-          strong.menu_header = I18n.t('task.completed_tasks')
-          .bar
-          - if @completed_tasks.present?
-            ul
-              - @completed_tasks.each do |task|
-                li = link_to task.description, task
-          - else
-            p Du har ingen fullførte oppgaver.
+      .my_tasks.worker.completed
+        strong.menu_header = I18n.t('task.completed_tasks')
+        .bar
+        - if @completed_tasks.present?
+          ul
+            - @completed_tasks.each do |task|
+              li = link_to task.description, task
+        - else
+          p Du har ingen fullførte oppgaver.

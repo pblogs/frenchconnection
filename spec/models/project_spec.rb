@@ -132,15 +132,22 @@ describe Project do
     end
 
 
-    it "lists week numbers" do
-      HoursSpent.destroy_all
-      Fabricate(:hours_spent, created_at: '01.01.2014', task: @task, hour: 10,
-                user: @john_snekker)
-      Fabricate(:hours_spent, created_at: '09.01.2014', task: @task, hour: 10,
-                user: @mustafa_murer)
-      Fabricate(:hours_spent, created_at: '14.01.2014', task: @task, hour: 10,
-                user: @barry_snekker)
-      @project.week_numbers.should eq "1, 2, 3"
+    describe "lists week numbers" do
+      before do
+        HoursSpent.destroy_all
+        Fabricate(:hours_spent, date: '01.01.2014', task: @task, hour: 10,
+                  user: @john_snekker)
+        Fabricate(:hours_spent, date: '09.01.2014', task: @task, hour: 10,
+                  user: @mustafa_murer)
+        Fabricate(:hours_spent, date: '14.01.2014', task: @task, hour: 10,
+                  user: @barry_snekker)
+      end
+      it 'week_numbers' do
+        @project.week_numbers.should eq "1, 2, 3"
+      end
+      it 'week_numbers(profession: @profession)' do
+        @project.week_numbers(profession: @snekker).should eq "1, 3"
+      end
     end
 
     it "lists all types of professions involved" do
