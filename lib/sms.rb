@@ -2,11 +2,13 @@ class Sms
   def self.send_msg(to:, msg:, dryrun: false)
     @to = to
     @msg = msg
-    if dryrun || Rails.env.development?
-      puts "NOT sending SMS\n to:#{ @to } msg:#{ @msg }"
+    if dryrun || !Rails.env.production?
+      Rails.logger.debug  "NOT sending SMS\n to:#{ @to } msg:#{ @msg }"
+      puts  "NOT sending SMS\n to:#{ @to } msg:#{ @msg }"
     else
-      puts "Sending SMS\n to:#{ @to } msg:#{ @msg }"
-      puts Net::HTTP.get(URI.parse(self.url))
+      puts  "Sending SMS\n to:#{ @to } msg:#{ @msg }"
+      Rails.logger.debug  "Sending SMS\n to:#{ @to } msg:#{ @msg }"
+      Rails.logger.debug  Net::HTTP.get(URI.parse(self.url))
     end
   end
 
@@ -21,10 +23,10 @@ class Sms
 
   def self.url
     "http://bulksms.vsms.net:5567/eapi/submission/send_sms/2/2.0?" + 
-    "username=#{ ENV['BULKSMS_USERNAME'] }" +
-    "&password=#{ ENV['BULKSMS_PASSWORD'] }&sender=Orwapp" +
+    "username=#{ENV['BULKSMS_USERNAME']}" +
+    "&password=#{ENV['BULKSMS_PASSWORD']}&sender=Orwapp" +
     "&allow_concat_text_sms=1&concat_text_sms_max_parts=8" +
-    "&want_report=8&message=#{ encode_msg }&msisdn=#{ @to }"
+    "&want_report=8&message=#{encode_msg}&msisdn=#{@to}"
   end
 
 end

@@ -7,6 +7,7 @@ class ProjectReportsController < ApplicationController
   end
 
   def create
+    @project = Project.find(params[:project_id])
     case type = params[:type]
       when 'daily_report', 'timesheet'
         worker = "#{type.camelize}Worker".constantize

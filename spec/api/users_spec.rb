@@ -19,7 +19,6 @@ describe V1::Users do
 
   describe 'GET /api/v1/users/id/:user_id' do
     it 'lists a specific user' do
-      #pending 'test'
       user = Fabricate :user
       get "/api/v1/users/#{ user.id }"
       response.status.should == 200

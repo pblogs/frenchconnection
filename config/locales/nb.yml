@@ -1,20 +1,43 @@
 nb:
   customers:
+    edit: Rediger kunde
     projects:
       form:
         single_task: Dette prosjektet har bare en oppgave
 
   address: Adresse
+  active_tasks: Aktive oppgaver
+  back: Tilbake
+  completed_tasks: Avsluttede oppgaver
+  courses: Kurs
+  are_you_sure_about_soft_ending: |
+    Sende melding til alle om at oppgaven avsluttes?
+  are_you_sure_about_hard_ending: |
+    Helt sikker på at du vil avslutte oppgaven for alle?
   description: Beskrivelse
   create_a_new_project: Lag et nytt prosjekt
   contact_person: Kontaktperson
   complete: Avsluttet
+  hours_registered: Timer registrert
   customer: Kunde
+  end_task: Avslutt oppgaven
+  end_task_hard: Tvungen avslutning
+  task_ended_at: Avsluttet for %{time} siden
+  task_ended: Oppgaven ble avsluttet
   name: Navn
   my_projects: Mine prosjekter
   show_hours_registered: Vis timelister
+  start_date: Startdato
+  due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
+  instructions: Instruksjoner
+  tasks_in_progress: Aktive oppgaver
+  task_ended_by_admin: |
+    Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
+    24 timene. Hilsen %{from}
+    http://mobil.orwapp.com
+  these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
   our_customers: Våre kunder
   org_nr: Org nr
   phone: Telefon
@@ -22,6 +45,14 @@ nb:
   has_no_due_date: Ingen dato satt
   name: Navn
   project_number: Prosjektnummer
+
+  top_nav:
+    projects: Prosjekter
+    customers: Kunder
+    manage: Administrer
+    my_page: Min side
+    hse: HMS
+    dictionary: Ordbok
 
   generic:
     archive: Arkiv 
@@ -54,12 +85,23 @@ nb:
     new_tasks: Nye oppgaver
     my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
+    destroyed: Oppgave slettet
+
+  devise:
+    failure:
+      user:
+        not_found_in_database: |
+          Vi fant ingen bruker med det telefonnummeret i databasen
+
+  hours_spent:
+    editing: Rediger timer registert på %{customer_name}, %{project}
 
   sms:
     complete_project: |
-      We're ending the %{project_name} project today.
-      Make sure you've reported all billable hours within the day.
-      Regards, your project leader
+      Vi avslutter %{project_name} i dag.
+      Pass på at du registrerer alle timene i Orwapp i løpet av dagen.
+      Hilsen %{project_leader}
+    new_task: "Du har fått tildelt en ny oppgave. Les mer: %{link}"
     notify:
       missing_hours: |
         It seems that you haven't registered hours in one or more of your tasks
@@ -70,11 +112,28 @@ nb:
       report_generated_at: Report generated at %{time}
     tasks:
       form:
-        project_start_date: "Project start date: %{start_date}"
-        project_due_date: "Project due date: %{due_date}"
+        project_start_date: "Prosjekt start dato: %{start_date}"
+        project_due_date: "Prosjekt ferdig dato: %{due_date}"
 
   project_reports:
     create:
-      wait_msg: "Project is being generated. Please wait a few seconds."
-      success_msg: "Report is ready. Click the link below to download. Link is valid for 15 minutes."
-      download: "Download report"
+      wait_msg: Rapporten genereres nå. Vennligst vent...
+      success_msg: |
+        Rapporten er klar. Last ned fra lenken under. Lenken er gyldig i 15 min.
+      download: Last ned rapport
+
+  instructions:
+    header: Instruksjoner
+    download: Last ned
+    construction_site: Arbeidsplass
+    scaffold: Stilas
+    concrete_mixer: Tvangsblander
+    gjerdesag: Gjerdesag
+    boltpistol: Boltepistol
+    vinkelsliper: Vinkelsliper
+    spikerpistol: Spikerpistol
+    kjedesag: Kjedesag
+    sikkerhetssele_fallblokk: Sikkerhetssele fallblokk
+    hoystrykksspyler: Høytrykkspyler
+
+

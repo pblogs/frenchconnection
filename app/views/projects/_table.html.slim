@@ -8,7 +8,7 @@ table
       th Beskrivelse
 
   tbody
-    - @projects.each do |project|
+    - projects.each do |project|
       tr
         td = link_to project.project_number,
                 customer_project_path(project.customer, project)

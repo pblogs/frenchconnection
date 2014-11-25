@@ -6,7 +6,10 @@ class CompleteProjectWorker
     project.users.workers.distinct.each do |worker|
       Sms.send_msg(to: "47#{worker.mobile}",
                    msg: I18n.t('sms.complete_project', 
-                               project_name: project.name))
+                               project_name: (project.name rescue '-'),
+                               project_leader: (project.user.name rescue '-')
+                              )
+                  )
     end
   end
 

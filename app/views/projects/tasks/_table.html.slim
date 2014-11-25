@@ -6,4 +6,5 @@ table
     th Ferdigstilling
     th 
   tbody
-    = render partial: "projects/tasks/table_body", collection: @project.tasks, as: :task
+    = render partial: "projects/tasks/table_body", 
+      collection: tasks, as: :task

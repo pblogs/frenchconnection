@@ -4,17 +4,16 @@
 #
 #  id                     :integer          not null, primary key
 #  customer_id            :integer
-#  task_type_id           :integer
 #  start_date             :date
 #  customer_buys_supplies :boolean
 #  created_at             :datetime
 #  updated_at             :datetime
-#  paint_id               :integer
 #  accepted               :boolean
 #  description            :string(255)
 #  finished               :boolean          default(FALSE)
 #  project_id             :integer
 #  due_date               :date
+#  ended_at               :datetime
 #
 
 class Task < ActiveRecord::Base
@@ -34,6 +33,7 @@ class Task < ActiveRecord::Base
 
   validates :project_id, :presence => true, :unless => :single_task
   validates :start_date, :presence => true
+  validates :description, :presence => true
 
   validate :start_date_must_be_within_projects_dates_range, 
     if: Proc.new { |p| p.start_date.present? }
@@ -43,12 +43,6 @@ class Task < ActiveRecord::Base
 
   after_create :notify_workers, if: :sms_employee_when_new_task_created
 
-  def sms_employee_when_new_task_created
-    project.sms_employee_when_new_task_created
-  end
-
-  def end_task
-  end
 
   def hours_total
     self.hours_spents.sum(:hour) +
@@ -61,12 +55,38 @@ class Task < ActiveRecord::Base
     users.pluck(:first_name).join(', ' )
   end
 
+  def end_task(admin)
+    notify_all_users_of_ending_task(admin)
+    update_attributes(
+      ended_at: Time.now, finished: true
+    ) 
+  end
+
+  def end_task_hard
+    end_tasks_for_all_users
+  end
+
+  def in_progress?
+    UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
+  end
+
+  def complete?
+    UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
+  end
+
   private
 
+  def sms_employee_when_new_task_created
+    Rails.logger.debug "SEND SMS: #{ project.sms_employee_when_new_task_created }"
+    project.sms_employee_when_new_task_created
+  end
+
   def notify_workers
+    Rails.logger.debug "\n\n IN notify_workers\n\n"
     domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
-    msg = "Du har fått tildelt en ny oppgave. Les mer: "+ "http://#{domain}/tasks/#{id}"
+    msg = I18n.t('sms.new_task', link: "http://#{domain}/tasks/#{id}")
     users.each do |u|
+      Rails.logger.debug "Sms.send_msg(to: '47#{u.mobile}', msg: #{msg})"
       Sms.send_msg(to: "47#{u.mobile}", msg: msg)
     end
   end
@@ -87,5 +107,23 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def notify_all_users_of_ending_task(admin)
+    users.each do |user| 
+      Rails.logger.debug "Sending SMS to #{user.name}"
+      Sms.send_msg(
+        to: "47#{user.mobile}", 
+        msg: I18n.t('task_ended_by_admin', 
+                    description: description,
+                    from: admin.name
+                   )
+      )
+    end
+  end
+
+  def end_tasks_for_all_users
+    UserTask.where(task_id: id).all.each do |t| 
+      t.update_attribute(:status, :complete)
+    end
+  end
 
 end
