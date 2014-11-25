@@ -10,7 +10,8 @@ module Favorable
     end
 
     def unset_favorite(user)
-      Favorite.find_by(user_id: user.id, favorable: self).destroy
+      Favorite.find_by(user_id: user.id,
+                       favorable: self).destroy if is_favorite_of?(user)
     end
 
     def is_favorite_of?(user)
