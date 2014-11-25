@@ -1,6 +1,7 @@
 h1 = t('our_customers')
 
-= alphabet_paginate_prev_next @alpha_params unless @customers.empty?
+- unless @customers.empty? || @show_all
+  = alphabet_paginate_prev_next @alpha_params
 
 table
   thead
