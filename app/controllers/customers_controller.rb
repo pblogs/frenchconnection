@@ -23,6 +23,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
+    @is_favorite = @customer.is_favorite_of?(@current_user)
   end
 
   def search
@@ -40,7 +41,8 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to @customer, 
+        set_favorite
+        format.html { redirect_to @customer,
                       notice: 'Customer was successfully created.' }
         format.json { render action: 'show', 
                       status: :created, location: @customer }
@@ -57,7 +59,8 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html { redirect_to @customer, 
+        set_favorite
+        format.html { redirect_to @customer,
                       notice: 'Customer was successfully updated.' }
         format.json { head :no_content }
       else
@@ -87,8 +90,16 @@ class CustomersController < ApplicationController
     # Never trust parameters from the scary internet, 
     # only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :address, :org_number, :starred,
+      params.require(:customer).permit(:name, :address, :org_number,
                                        :contact_person, :phone)
+    end
+
+    def set_favorite
+      if params[:starred]
+        @current_user.favorites << @customer.set_as_favorite
+      else
+        @customer.unset_favorite(@current_user)
+      end
     end
 
     def redirect_if_not_project_leader

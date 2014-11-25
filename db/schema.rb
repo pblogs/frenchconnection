@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141123115505) do
+ActiveRecord::Schema.define(version: 20141125101941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,12 @@ ActiveRecord::Schema.define(version: 20141123115505) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "changes", force: true do |t|
@@ -79,11 +85,18 @@ ActiveRecord::Schema.define(version: 20141123115505) do
     t.integer  "customer_nr"
     t.string   "area"
     t.string   "email"
-    t.boolean  "starred"
   end
 
   create_table "departments", force: true do |t|
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "favorites", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "favorable_id"
+    t.string   "favorable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -132,7 +145,6 @@ ActiveRecord::Schema.define(version: 20141123115505) do
     t.boolean  "sms_employee_if_hours_not_registered", default: false
     t.boolean  "sms_employee_when_new_task_created",   default: false
     t.integer  "department_id"
-    t.boolean  "starred"
     t.string   "short_description"
     t.boolean  "complete",                             default: false
   end
@@ -168,13 +180,13 @@ ActiveRecord::Schema.define(version: 20141123115505) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email"
-    t.string   "encrypted_password",                           null: false
-    t.string   "roles",                                                     array: true
+    t.string   "email",                            default: ""
+    t.string   "encrypted_password",               default: "",         null: false
+    t.string   "roles",                            default: ["worker"],              array: true
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0, null: false
+    t.integer  "sign_in_count",                    default: 0,          null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -186,9 +198,9 @@ ActiveRecord::Schema.define(version: 20141123115505) do
     t.integer  "department_id"
     t.integer  "mobile",                 limit: 8
     t.string   "employee_nr"
+    t.integer  "profession_id"
     t.string   "image"
     t.string   "emp_id"
-    t.integer  "profession_id"
     t.string   "home_address"
     t.string   "home_area_code"
     t.string   "home_area"
