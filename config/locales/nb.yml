@@ -36,7 +36,7 @@ nb:
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
     24 timene. Hilsen %{from}
-    http://mobil.orwapp.com
+    http://allieroapp.orwapp.com
   these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
   our_customers: Våre kunder
   org_nr: Org nr
@@ -105,7 +105,7 @@ nb:
     notify:
       missing_hours: |
         It seems that you haven't registered hours in one or more of your tasks
-        Please do so on http://alliero.orwapp.com/
+        Please do so on http://allieroapp.orwapp.com/
 
   projects:
     hours_registered:

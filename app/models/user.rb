@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :tasks
   has_many :hours_spents
   has_many :categories, :through => :projects
+  has_many :favorites, dependent: :destroy
 
 
   def self.get_roles
