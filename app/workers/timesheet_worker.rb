@@ -13,6 +13,7 @@ class TimesheetWorker
   def perform(project_id, user_id, token)
     begin
       @project = Project.find(project_id)
+      return unless @project
 
       Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
         files.each do |f|
@@ -34,17 +35,18 @@ class TimesheetWorker
 
     rescue Exception => e
       Pusher["user-#{user_id}"].trigger("report", {
-          id: current.id,
+          id: current.try(:id),
           token: token,
           error: e
       })
+      raise e
     end
   end
 
   private
 
   def files
-    @project.users.map do |u|
+    @project.users.uniq.map do |u|
       generate_timesheet(@project, u)
     end
   end

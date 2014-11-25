@@ -14,6 +14,18 @@ describe V1::Tasks do
     end
   end
   
+  describe 'POST /api/v1/tasks/:task_id/users/:user_id/complete_user_task' do
+    it 'marks user_task as complete' do
+      user = Fabricate(:user)
+      task = Fabricate(:task)
+      user.tasks << task
+      user.save
+
+      post "/api/v1/tasks/#{ task.id }/users/#{ user.id }/complete_user_task"
+      user.user_tasks.where(task_id: task.id).first.status.should eq :complete
+    end
+  end
+  
   describe 'GET /api/v1/tasks/unconfirmed/:user_id' do
     it 'returns Tasks' do
       user = Fabricate(:user)

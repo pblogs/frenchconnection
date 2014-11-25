@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id                                   :integer          not null, primary key
+#  project_number                       :string(255)
+#  name                                 :string(255)
+#  created_at                           :datetime
+#  updated_at                           :datetime
+#  customer_id                          :integer
+#  start_date                           :date
+#  due_date                             :date
+#  description                          :text
+#  user_id                              :integer
+#  execution_address                    :string(255)
+#  customer_reference                   :text
+#  comment                              :text
+#  sms_employee_if_hours_not_registered :boolean          default(FALSE)
+#  sms_employee_when_new_task_created   :boolean          default(FALSE)
+#  department_id                        :integer
+#  starred                              :boolean
+#  short_description                    :string(255)
+#  complete                             :boolean          default(FALSE)
+#
+
 class Project < ActiveRecord::Base
   include Favorable
 
@@ -12,10 +37,11 @@ class Project < ActiveRecord::Base
   belongs_to :department
   has_many :favorites, as: :favorable
 
-  validates :customer_id,    :presence => true
-  validates :start_date,     :presence => true
-  validates :department_id,  :presence => true
-  validates :project_number, :presence => true
+  validates :customer_id,       :presence => true
+  validates :start_date,        :presence => true
+  validates :department_id,     :presence => true
+  validates :project_number,    :presence => true
+  validates :short_description, :presence => true
 
   attr_accessor :single_task
 
@@ -40,7 +66,8 @@ class Project < ActiveRecord::Base
     starting_date, ending_date, total_weeks = get_month_metadata(year.to_i, month.to_i)
     project_hours = initialize_project_hours(total_weeks)
     project_hours = calculate_hours(project_hours, starting_date: starting_date,
-                                    ending_date: ending_date, total_weeks: total_weeks, overtime: overtime)
+                                    ending_date: ending_date, 
+                                    total_weeks: total_weeks, overtime: overtime)
     [project_hours, total_weeks.count]
   end
 
@@ -95,13 +122,26 @@ class Project < ActiveRecord::Base
     execution_address || customer.address
   end
 
-  def week_numbers
-    w = hours_spents.collect { |h| h.created_at.to_datetime.cweek }
-    w.uniq.sort!.join(', ')
+  def week_numbers(profession: nil, overtime: nil)
+    if profession
+      dates = users_with_profession(profession: profession)
+        .each.collect {|u| u.hours_spents.pluck(:date) }.flatten
+      week_numbers = dates.collect {|d| d.cweek }
+    else
+      week_numbers = hours_spents.collect { |h| h.date.to_datetime.cweek }
+    end
+    week_numbers.uniq.sort.join(', ')
   end
 
   def complete!
     update_attribute(:complete, true)
+  end
+
+  # Returns tasks where one or more user_tasks is not complete
+  def find_task_by_status(status)
+    ids = user_tasks.where(status: status).pluck(:task_id).uniq
+    puts "IDS: #{ids}"
+    Task.find([ids]).all || nil
   end
 
   # create methods on the fly for accessing last zipped reports
@@ -110,6 +150,14 @@ class Project < ActiveRecord::Base
     define_method "last_#{t.last}" do
       ZippedReport.where(report_type: t.last).order(:created_at).last
     end
+  end
+
+  def tasks_in_progress
+    tasks.select { |t| t.in_progress? }
+  end
+
+  def completed_tasks
+    tasks.select { |t| t.complete? }
   end
 
   def build_single_task
@@ -131,7 +179,8 @@ class Project < ActiveRecord::Base
     end
 
     def calculate_hours(project_hours, opts = {})
-      populate_hours(project_hours, starting_date: opts[:starting_date], ending_date: opts[:ending_date],
+      populate_hours(project_hours, starting_date: opts[:starting_date], 
+                     ending_date: opts[:ending_date],
                      total_weeks: opts[:total_weeks], overtime: opts[:overtime])
       reorder_hash(project_hours)
       populate_sum(project_hours)

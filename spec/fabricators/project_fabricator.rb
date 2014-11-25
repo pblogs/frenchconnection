@@ -31,4 +31,5 @@ Fabricator(:project) do
   due_date       { Time.now.next_week }
   description    "Lag en ny port ved innkjøringen til parkeringen "
   department      { Fabricate(:department) }
+  short_description { 'work hard' }
 end

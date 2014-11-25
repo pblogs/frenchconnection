@@ -33,7 +33,7 @@ class Tasks::HoursSpentController < ApplicationController
 
     respond_to do |format|
       if @hours_spent.save
-        format.html { redirect_to user_tasks_started_path(@current_user), 
+        format.html { redirect_to @current_user, 
                       notice: 'Timer registert' }
         format.json { render action: 'show', status: :created, 
                       location: @hours_spent }
@@ -50,7 +50,7 @@ class Tasks::HoursSpentController < ApplicationController
   def update
     respond_to do |format|
       if @hours_spent.update(hours_spent_params)
-        format.html { redirect_to @hours_spent, 
+        format.html { redirect_to @hours_spent.task, 
                       notice: 'Endringene er lagret' }
         format.json { head :no_content }
       else
@@ -87,6 +87,7 @@ class Tasks::HoursSpentController < ApplicationController
                                           :overtime_100,
                                           :runs_in_company_car,
                                           :km_driven_own_car,
+                                          :toll_expenses_own_car,
                                           :supplies_from_warehouse,
                                           :piecework_hours,
                                           :hour, :description, :date)

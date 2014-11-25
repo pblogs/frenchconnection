@@ -1,7 +1,8 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task_from_id, only: [:end_task, :end_task_hard]
   before_action :set_customer, only: [:new, :create, :index]
-  before_action :set_workers_and_dates, only: [:edit, :new]
+  before_action :set_workers_and_dates, only: [:edit, :new, :create]
 
   def index
     @tasks = Task.all
@@ -29,16 +30,21 @@ class Projects::TasksController < ApplicationController
   end
 
   def end_task
-    @task = Task.find(params[:task_id])
-    @task.end_task
+    @task.end_task(@current_user)
+    redirect_to :back, notice: I18n.t('task_ended')
+  end
+
+  def end_task_hard
+    @task.end_task_hard
+    redirect_to :back, notice: I18n.t('task_ended')
   end
 
   def create
-    @paint      = Paint.all
-    @task       = Task.new(task_params)
-    @project    = Project.find(params[:project_id])
-    @task.project = @project 
-    @departments = Department.all
+    @paint        = Paint.all
+    @task         = Task.new(task_params)
+    @project      = Project.find(params[:project_id])
+    @task.project = @project
+    @departments  = Department.all
 
     respond_to do |format|
       if @task.save
@@ -71,7 +77,12 @@ class Projects::TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to customer_project_path(@task.project.customer, 
+                                                      @task.project,
+                                                      anchor: :tasks
+                                                     ),
+                      notice: I18n.t('task.destroyed')
+                      }
       format.json { head :no_content }
     end
   end
@@ -80,6 +91,10 @@ class Projects::TasksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_task_from_id
+    @task = Task.find(params[:task_id])
   end
 
   def set_customer

@@ -26,6 +26,7 @@ gem 'grape-entity'
 gem 'grape-swagger'
 
 gem 'annotate'
+gem 'wkhtmltopdf-binary'
 
 gem 'devise'
 gem 'carrierwave'

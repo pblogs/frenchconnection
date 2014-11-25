@@ -157,21 +157,19 @@ ActiveRecord::Schema.define(version: 20141125101941) do
 
   create_table "tasks", force: true do |t|
     t.integer  "customer_id"
-    t.integer  "task_type_id"
     t.date     "start_date"
     t.boolean  "customer_buys_supplies"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "paint_id"
     t.boolean  "accepted"
     t.string   "description"
     t.boolean  "finished",               default: false
     t.integer  "project_id"
     t.date     "due_date"
+    t.datetime "ended_at"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
-  add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id", using: :btree
 
   create_table "user_tasks", force: true do |t|
     t.integer  "user_id",    null: false

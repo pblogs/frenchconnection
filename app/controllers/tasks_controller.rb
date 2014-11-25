@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    @hours_registered = @task.hours_spents.where(user: @current_user).all
   end
 
   def active
