@@ -25,18 +25,21 @@ describe ProjectsController, :type => :controller do
   # adjust the attributes here as well.
   let(:valid_attributes) do
     { 
-      project_number: 'P01',
-      customer_id:    Fabricate(:customer).id,
-      department_id:  Fabricate(:department).id,
-      name:           Faker::Lorem.words(3).join(''),
-      start_date:     '01.05.1983',
-      due_date:       '01.08.1983',
-      description:    'New fence',
+      project_number:       'P01',
+      customer_id:          Fabricate(:customer).id,
+      department_id:        Fabricate(:department).id,
+      name:                 Faker::Lorem.words(3).join(''),
+      start_date:           '01.05.1983',
+      due_date:             '01.08.1983',
+      description:          'New fence',
+      short_description:    'New fence'
     }
   end
 
   before do
-    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', department: Fabricate(:department), emp_id: "12121", roles: ["project_leader"])
+    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', 
+                      department: Fabricate(:department), emp_id: "12121", 
+                      roles: ["project_leader"])
     sign_in @user
     Project.destroy_all
   end
@@ -197,13 +200,18 @@ describe ProjectsController, :type => :controller do
     end
   end
 
-  # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte som har levert timer på den dagen.
+  # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte 
+  # som har levert timer på den dagen.
+  #
   describe "List hours registered" do
     it "populates an array with @hours_spent for the project" do
       project = Fabricate(:project)
       task = Fabricate(:task, project: project)
       department = Fabricate(:department)
-      hs = Fabricate(:hours_spent, task: task, hour: 50, user: Fabricate(:user, department: department, emp_id: "12121", roles: ["project_leader"]))
+      hs = Fabricate(:hours_spent, task: task, hour: 50,
+                     user: Fabricate(:user, department: 
+                                     department, emp_id: "12121", 
+                                     roles: ["project_leader"]))
       get :hours_registered, {:id => project.to_param}, valid_session
       assigns(:hours_registered).should eq([hs])
     end

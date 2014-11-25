@@ -2,7 +2,7 @@ class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :set_task_from_id, only: [:end_task, :end_task_hard]
   before_action :set_customer, only: [:new, :create, :index]
-  before_action :set_workers_and_dates, only: [:edit, :new]
+  before_action :set_workers_and_dates, only: [:edit, :new, :create]
 
   def index
     @tasks = Task.all
@@ -77,7 +77,12 @@ class Projects::TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to customer_project_path(@task.project.customer, 
+                                                      @task.project,
+                                                      anchor: :tasks
+                                                     ),
+                      notice: I18n.t('task.destroyed')
+                      }
       format.json { head :no_content }
     end
   end

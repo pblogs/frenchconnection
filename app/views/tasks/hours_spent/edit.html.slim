@@ -1,8 +1,10 @@
-h1 Editing hours_spent
+h5= t('hours_spent.editing', customer_name: @hours_spent.project.customer.name, 
+                             project: @hours_spent.project.name)
 
+br
 == render 'form'
 
-= link_to 'Vis', @hours_spent
+= link_to t('show'), @hours_spent
 '|
-= link_to 'Tilbake', hours_spents_path
+= link_to t('back'), hours_spents_path
 

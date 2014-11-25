@@ -13,6 +13,7 @@ class TimesheetWorker
   def perform(project_id, user_id, token)
     begin
       @project = Project.find(project_id)
+      return unless @project
 
       Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
         files.each do |f|

@@ -29,6 +29,32 @@ module V1
         end
       end
       
+      desc "Mark user_task as complete"
+      params do
+        requires :task_id, type: Integer, desc: "Task id."
+      end
+      route_param :task_id do
+        options 'users/:user_id/complete_user_task' do
+          header 'Access-Control-Allow-Headers', 'Content-Type'
+          header 'Access-Control-Allow-Origin', '*'
+        end   
+        post 'users/:user_id/complete_user_task' do
+          if user_task = UserTask
+                         .where(user_id: params[:user_id], 
+                            task_id: params[:task_id])
+                         .first_or_create(user_id: params[:user_id],
+                            task_id: params[:task_id])
+                                        
+            user_task.complete!
+            present user_task.id
+            header 'Access-Control-Allow-Origin', '*'
+          else
+            error! 400
+            header 'Access-Control-Allow-Origin', '*'
+          end
+        end
+      end
+      
       desc "unconfirmed_tasks"
       get 'unconfirmed/:user_id' do
         u = User.find(params[:user_id])

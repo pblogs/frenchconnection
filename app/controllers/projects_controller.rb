@@ -83,8 +83,7 @@ class ProjectsController < ApplicationController
   end
 
   def hours_registered
-    @search           = @project.hours_spents.search
-    @hours_registered = @search.result
+    @hours_registered =  @project.hours_spents.all
   end
 
   private
@@ -103,6 +102,7 @@ class ProjectsController < ApplicationController
                                       :delivery_address, 
                                       :due_date,
                                       :description,
+                                      :short_description,
                                       :execution_address, 
                                       :name, 
                                       :department_id,

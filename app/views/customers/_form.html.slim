@@ -12,9 +12,8 @@
       | Merk som favoritt
 
   .field
-    label
-      = 'Navn'
-      input id="customer_name" name="customer[name]" ng-model="customer.name" type="text"
+    = f.label :name, 'Navn'
+    = f.text_field :name
 
   .field
     = f.label :org_number, 'Organisasjonsnummer'
