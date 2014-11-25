@@ -29,7 +29,7 @@ class CustomersController < ApplicationController
   def search
     @customers = Customer.where("name ILIKE ?", "%#{params[:query]}%").all
     @search    = Customer.search(params[:q])
-    paginate_customers(@customers, params[:query])
+    @show_all = true
     render :index
   end
 
