@@ -46,7 +46,7 @@ class TimesheetWorker
   private
 
   def files
-    @project.users.map do |u|
+    @project.users.uniq.map do |u|
       generate_timesheet(@project, u)
     end
   end
