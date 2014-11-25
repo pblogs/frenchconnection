@@ -58,7 +58,10 @@ class TimesheetWorker
   end
 
   def zipfile_path
-    @zipfile_path ||= "/tmp/project-#{@project.id}-timesheet-#{timestamp}.zip"
+    # projesjtnummer-adresse-dato
+    @zipfile_path ||= 
+      "/tmp/timesheet-#{@project.project_number}-"+
+      "#{@project.address}-#{timestamp}.zip"
   end
 
   def timestamp
