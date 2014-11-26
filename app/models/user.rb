@@ -68,6 +68,10 @@ class User < ActiveRecord::Base
     "#{ first_name } #{ last_name }"
   end
 
+  def full_last_name
+    "#{ last_name } #{ first_name }".strip
+  end
+
   def self.workers
     User.where("'worker' = ANY (roles)")
   end
