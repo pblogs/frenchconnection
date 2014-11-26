@@ -15,7 +15,7 @@ table[class="listusers"]
     - @users.each do |user|
       tr[id="pagination_table"]
         td[class="username"]
-           = user.full_name
+           = user.full_last_name
         td = user.mobile
         td = user.emp_id
         td = Department.find(user.department_id).title
