@@ -6,6 +6,13 @@
 #         - git push git@heroku.com:alliero-orwapp.git $CIRCLE_SHA1:master
 #         - heroku run rake db:migrate --app alliero-orwapp
 # 
+deployment:
+  staging:
+    branch: staging
+    heroku:
+      appname: alliero-orwapp-staging
+
 dependencies:
   pre:
     - mkdir tmp
+
