@@ -9,7 +9,9 @@ class ExcelController < ApplicationController
     @overtime   = params[:overtime]
     @filename   = DailyReport.new(project: @project, profession: @profession, 
                                  overtime: @overtime).create_spreadsheet
-    @week_numbers = @project.week_numbers(profession: @profession)
+    @hours_spent = @project.hours_spent_for_profession(@profession, 
+                                                       overtime: @overtime)
+    @week_numbers = HoursSpent.week_numbers(@hours_spent)
 
     respond_to do |format|
       format.pdf do
@@ -19,8 +21,6 @@ class ExcelController < ApplicationController
         send_file filename, filename: File.basename(filename)
       end
       format.html do
-        @hours_spent = @project.hours_spent_for_profession(@profession, 
-                                                           overtime: @overtime)
         render 'daily_report-table'
       end
     end

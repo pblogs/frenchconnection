@@ -122,16 +122,6 @@ class Project < ActiveRecord::Base
     execution_address || customer.address
   end
 
-  def week_numbers(profession: nil, overtime: nil)
-    if profession
-      dates = users_with_profession(profession: profession)
-        .each.collect {|u| u.hours_spents.pluck(:date) }.flatten
-      week_numbers = dates.collect {|d| d.cweek }
-    else
-      week_numbers = hours_spents.collect { |h| h.date.to_datetime.cweek }
-    end
-    week_numbers.uniq.sort.join(', ')
-  end
 
   def complete!
     update_attribute(:complete, true)
