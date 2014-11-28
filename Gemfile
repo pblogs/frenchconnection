@@ -108,3 +108,6 @@ group :production do
 end
 
 gem 'rest_client'
+
+gem 'dalli'
+gem 'memcachier'
