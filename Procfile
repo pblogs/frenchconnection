@@ -1,2 +1,2 @@
-web: bundle exec passenger start -p $PORT --max-pool-size 3
+web: bundle exec passenger start -p $PORT --max-pool-size $MAX_POOL_SIZE
 sidekiq: bundle exec sidekiq -c 10
