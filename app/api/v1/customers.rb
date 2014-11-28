@@ -1,12 +1,22 @@
 module V1
   class Customers < Base
 
+    include Grape::Rails::Cache
+
     resource :customers do
       
       desc "all customers"
       get do
         customers = Customer.all
-        present :customers, customers, with: V1::Entities::Customers
+        last_updated = Customer.last_updated_at
+        cache(
+            key: "api:v1:customers:#{last_updated.to_i}",
+            etag: last_updated,
+            expires_in: 2.hours) do
+
+          present :customers, customers, with: V1::Entities::Customers
+          
+        end
         header 'Access-Control-Allow-Origin', '*'
       end
 
