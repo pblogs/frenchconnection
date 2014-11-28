@@ -25,4 +25,10 @@ class Customer < ActiveRecord::Base
   has_many :projects, dependent: :destroy
   has_many :favorites, as: :favorable
 
+  class << self
+    def last_updated_at
+      Customer.order(:updated_at).select(:id, :updated_at).last.try(:updated_at)
+    end
+  end
+
 end

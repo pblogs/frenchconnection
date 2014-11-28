@@ -176,6 +176,9 @@ GEM
     grape-entity (0.4.4)
       activesupport
       multi_json (>= 1.3.2)
+    grape-rails-cache (0.1.2)
+      activesupport
+      grape
     grape-swagger (0.8.0)
       grape
       grape-entity
@@ -433,6 +436,7 @@ DEPENDENCIES
   foreman
   grape!
   grape-entity
+  grape-rails-cache
   grape-swagger
   guard-rspec
   iconv
