@@ -7,14 +7,14 @@ module V1
       
       desc "all customers"
       get do
+        header 'Access-Control-Allow-Origin', '*'
+
         last_updated = Customer.last_updated_at
         cache(
             key: "api:v1:customers:#{last_updated.to_i}",
             expires_in: 2.hours) do
 
           customers = Customer.all
-
-          # TODO header 'Access-Control-Allow-Origin', '*'
           present(:customers, customers, with: V1::Entities::Customers)
 
         end
