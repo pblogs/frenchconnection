@@ -67,3 +67,19 @@ table
       td.gray_bg(colspan='2')= "Sum #{t(@overtime).downcase} pr person"
       - @workers.each do |w|
         td.number= @project.hours_total_for(w, changed: true, overtime: @overtime)
+
+-if @overtime == 'runs_in_company_car'
+  table
+    thead
+      tr.gray_bg
+        td Dato
+        td Supplies
+        td Navn
+        td Tekst
+    tbody
+      - @hours_spent.each do |hs|
+        tr
+          td= hs.date.strftime("%d/%m")
+          td= hs.supplies_from_warehouse
+          td= hs.user.name
+          td= hs.description
