@@ -4,8 +4,7 @@ class DailyReportWorker
 
   sidekiq_options retry: false
 
-  TYPES = %w(hour overtime_50 overtime_100
-             runs_in_company_car supplies_from_warehouse)
+  TYPES = %w(hour overtime_50 overtime_100 runs_in_company_car)
 
   ReportFile = Struct.new(:file, :profession, :type) do
     def filename
