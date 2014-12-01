@@ -1,9 +1,9 @@
 - content_for :breadcrumb do
-  = link_to 'Mine prosjekter', projects_path
+  = link_to t('My Projects'), projects_path
   = fa_icon 'chevron-right'
   = link_to @project.name, customer_project_path(@project.customer, @project)
   = fa_icon 'chevron-right'
-  strong= 'Dagsrapport'
+  strong= t('Day report')
 
 = image_tag 'alliero-bratfoss-h46.png'
 
@@ -13,35 +13,35 @@ br
 .details
   div
     span.cell1
-      strong År
+      strong= t('Year')
     span.data_cell
       strong = " #{@project.start_date.year}"
     span.cell3
-      strong Pågår
+      strong= t('Progress')
   br
   div
     span.cell1
-      strong Uke
+      strong= t('Week')
     span.data_cell
       strong = @week_numbers
     span.cell3
-      strong Ferdigstilt
+      strong= t('Completed')
   br
   div
     span.cell1
-      strong Prosjektnummer
+      strong= t('Project number')
     span.data_cell
       strong= " #{@project.project_number}"
   br
   div
     span.cell1
-      strong Kunde
+      strong= t('Customer')
     span.data_cell
       strong= " #{@project.customer.name}"
   br
   div
     span.cell1
-      strong Adresse
+      strong= t('Address')
     span.data_cell
       strong= " #{@project.address}"
 
@@ -49,8 +49,8 @@ br
 table
   thead
     tr.gray_bg
-      td Dato
-      td Beskrivelse
+      td= t('Date')
+      td= t('Description')
       - @workers.each do |w| 
         td = w.name 
   tbody
@@ -72,10 +72,10 @@ table
   table
     thead
       tr.gray_bg
-        td Dato
-        td Supplies
-        td Navn
-        td Tekst
+        td= t('Date')
+        td= t('Supplies')
+        td= t('Name')
+        td= t('Text')
     tbody
       - @hours_spent.each do |hs|
         tr
