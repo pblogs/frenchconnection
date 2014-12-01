@@ -4,7 +4,8 @@ class DailyReportWorker
 
   sidekiq_options retry: false
 
-  TYPES = %w(hour overtime_50 overtime_100 runs_in_company_car)
+  TYPES = %w(hour overtime_50 overtime_100
+             runs_in_company_car supplies_from_warehouse)
 
   ReportFile = Struct.new(:file, :profession, :type) do
     def filename
@@ -25,6 +26,7 @@ class DailyReportWorker
 
       current = ZippedReport.daily_reports.create(project: @project,
                         zipfile: File.open(zipfile_path))
+
       ZippedReportCleanerWorker.perform_in(15.minutes, current.id)
 
       Pusher["user-#{user_id}"].trigger("report", {
