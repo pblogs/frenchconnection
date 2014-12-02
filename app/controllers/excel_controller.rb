@@ -7,7 +7,7 @@ class ExcelController < ApplicationController
     @profession = Profession.find(params[:profession_id])
     @workers    = @project.users_with_profession(profession: @profession)
     @overtime   = params[:overtime]
-    @filename   = DailyReport.new(project: @project, profession: @profession, 
+    @filename   = DailyReport.new(project: @project, profession: @profession,
                                  overtime: @overtime).create_spreadsheet
     @hours_spent = @project.hours_spent_for_profession(@profession, 
                                                        overtime: @overtime)
