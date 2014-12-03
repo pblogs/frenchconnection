@@ -11,15 +11,17 @@
       @users_in_our_department, :id, :full_last_name) do |b|
       = b.label(:"data-value" => b.value) { b.check_box + b.text }
 
+  /= collection_radio_buttons(nil, :work_category_id, 
+    WorkCategory.all, :id, :title,  { checked: @task.work_category.try(:id) })  do |r|
 
   h4 = t('task.what')
-  = collection_radio_buttons(:work_category, :certificate_ids, 
-    WorkCategory.all, :id, :title) do |r|
+  = f.collection_radio_buttons(:work_category_id, WorkCategory.all,
+    :id, :title, { checked: @task.work_category.try(:id) } ) do |r|
     = r.label { r.radio_button + I18n.t("work_categories.#{r.text.parameterize}")  }
 
   h4 = t('task.where')
-  = collection_radio_buttons(:location, :certificate_ids, 
-    Location.all, :id, :name) do |r|
+  = f.collection_radio_buttons(:location_id, Location.all,
+    :id, :name, { checked: @task.location.try(:id) } ) do |r|
     = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
 
   br
