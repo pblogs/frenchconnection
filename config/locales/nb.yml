@@ -28,6 +28,7 @@ nb:
   my_projects: Mine prosjekter
   show_hours_registered: Vis timelister
   start_date: Startdato
+  stopped_us_saving: hindret oss å lagre
   due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
@@ -90,6 +91,8 @@ nb:
     my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
+    what: Hva skal gjøres?
+    where: Hvor skal det gjøres?
 
   devise:
     failure:
@@ -150,6 +153,15 @@ nb:
     rental_price_pr_day: Leiepris pr dag
     edit: Rediger
 
+  work_categories:
+    welding: Sveising
+    roof-tiling: Taklegging
+
+  locations:
+    roof-top: Tak
+    construction-site: Anleggsområdet
+    traffic: I trafikken
+
   activerecord:
     errors:
       template:
@@ -158,6 +170,8 @@ nb:
           other: "%{count} feil forhindret %{model} fra å lagres"
         body:    "Det var feil med følgende felt:"
     attributes:
+      task:
+        description: Beskrivelse
       inventory:
         certificates: Nødvendig sertifikat
         name: Navn

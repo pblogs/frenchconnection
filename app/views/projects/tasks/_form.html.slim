@@ -1,15 +1,26 @@
 = form_for [@project, @task] do |f|
   - if @task.errors.any?
     #error_explanation
-      strong= "#{pluralize(@task.errors.count, "feil")} hindret oss å lagre:"
+      strong= "#{pluralize(@task.errors.count, "feil")}  #{t('stopped_us_saving')}"
       ul
         - @task.errors.full_messages.each do |message|
           li = message
 
-  div.employees
+  /div.employees
     = collection_check_boxes(:task, :user_ids, 
       @users_in_our_department, :id, :full_last_name) do |b|
       = b.label(:"data-value" => b.value) { b.check_box + b.text }
+
+
+  h4 = t('task.what')
+  = collection_radio_buttons(:work_category, :certificate_ids, 
+    WorkCategory.all, :id, :title) do |r|
+    = r.label { r.radio_button + I18n.t("work_categories.#{r.text.parameterize}")  }
+
+  h4 = t('task.where')
+  = collection_radio_buttons(:location, :certificate_ids, 
+    Location.all, :id, :name) do |r|
+    = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
 
   br
   br
