@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203141639) do
+ActiveRecord::Schema.define(version: 20141203103439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,12 +183,6 @@ ActiveRecord::Schema.define(version: 20141203141639) do
     t.integer  "department_id"
     t.string   "short_description"
     t.boolean  "complete",                             default: false
-  end
-
-  create_table "sertificates", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "task_types", force: true do |t|
