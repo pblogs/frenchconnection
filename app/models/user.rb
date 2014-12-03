@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
 
   belongs_to :department
   belongs_to :profession
+  has_and_belongs_to_many :certificates
   mount_uploader :image, ImageUploader
 
   def has_role?(role)
