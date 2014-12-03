@@ -172,3 +172,7 @@ Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 23,
 Fabricate(:certificate, title: 'Truck driver')
 Fabricate(:certificate, title: 'Small lift')
 Fabricate(:certificate, title: 'Climber')
+
+# WorkCategories
+Fabricate(:work_category, title: 'Welding')
+Fabricate(:work_category, title: 'Roof tiling')
