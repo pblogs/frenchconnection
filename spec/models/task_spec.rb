@@ -91,8 +91,8 @@ describe Task do
 
   describe "Notifications" do
     pending "Add me"
-    it "notifies by SMS when a worker is delegated at task" do
-    end
+    #it "notifies by SMS when a worker is delegated at task" do
+    #end
   end
 
   describe "validations" do
