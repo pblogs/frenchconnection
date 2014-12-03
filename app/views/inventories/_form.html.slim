@@ -1,7 +1,8 @@
 = form_for @inventory do |f|
   - if @inventory.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@inventory.errors.count, "error")} prohibited this inventory from being saved:"
+      h2
+        = "#{pluralize(@inventory.errors.count, "feil")} forhindret objekte fra å bli lagret"
       ul
         - @inventory.errors.full_messages.each do |message|
           li = message
@@ -18,9 +19,10 @@
       Certificate.all, :id, :title)  do |b| 
       = b.label { b.check_box + b.text }
   .field
-    = f.label :can_be_rented_by_other_companies
-    = f.check_box :can_be_rented_by_other_companies
+    = f.label :can_be_rented_by_other_companies do
+      = f.check_box :can_be_rented_by_other_companies
+      = t('inventories.can_be_rented_by_other_companies')
   .field
     = f.label :rental_price_pr_day
     = f.number_field :rental_price_pr_day
-  .actions = f.submit 'Save'
+  .actions = f.submit t('save')
