@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203115611) do
+ActiveRecord::Schema.define(version: 20141203141639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,8 +141,6 @@ ActiveRecord::Schema.define(version: 20141203115611) do
   create_table "inventories", force: true do |t|
     t.string   "name"
     t.string   "description"
-    t.date     "booked_from"
-    t.date     "booked_to"
     t.integer  "certificates_id"
     t.boolean  "can_be_rented_by_other_companies", default: false
     t.integer  "rental_price_pr_day"
@@ -185,6 +183,12 @@ ActiveRecord::Schema.define(version: 20141203115611) do
     t.integer  "department_id"
     t.string   "short_description"
     t.boolean  "complete",                             default: false
+  end
+
+  create_table "sertificates", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "task_types", force: true do |t|
