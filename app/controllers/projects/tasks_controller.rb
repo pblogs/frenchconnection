@@ -114,7 +114,6 @@ class Projects::TasksController < ApplicationController
                                  :due_date,
                                  :paint_id,
                                  :description,
-                                 :customer_buys_supplies,
                                  :department_id, 
                                  :user_ids => []
                                 )

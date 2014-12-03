@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  customer_id            :integer
 #  start_date             :date
-#  customer_buys_supplies :boolean
 #  created_at             :datetime
 #  updated_at             :datetime
 #  accepted               :boolean

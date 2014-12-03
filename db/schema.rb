@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203152321) do
+ActiveRecord::Schema.define(version: 20141203181357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,12 +194,11 @@ ActiveRecord::Schema.define(version: 20141203152321) do
   create_table "tasks", force: true do |t|
     t.integer  "customer_id"
     t.date     "start_date"
-    t.boolean  "customer_buys_supplies"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "accepted"
     t.string   "description"
-    t.boolean  "finished",               default: false
+    t.boolean  "finished",         default: false
     t.integer  "project_id"
     t.date     "due_date"
     t.datetime "ended_at"
@@ -207,6 +206,11 @@ ActiveRecord::Schema.define(version: 20141203152321) do
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
+
+  create_table "tasks_work_categories", force: true do |t|
+    t.integer "work_category_id"
+    t.integer "task_id"
+  end
 
   create_table "user_tasks", force: true do |t|
     t.integer  "user_id",    null: false
