@@ -1,13 +1,13 @@
-h1 Listing inventories
+h1 = t('inventories.index')
 
 table
   thead
     tr
-      th Title
-      th Description
-      th Certificates
-      th Can be rented by other companies
-      th Rental price pr day
+      th = t('inventories.name')
+      th = t('inventories.description')
+      th = t('inventories.certificates')
+      th = t('inventories.can_be_rented_by_other_companies')
+      th = t('inventories.rental_price_pr_day')
       th
       th
       th
@@ -15,15 +15,15 @@ table
   tbody
     - @inventories.each do |inventory|
       tr
-        td = inventory.title
+        td = inventory.name
         td = inventory.description
-        td = inventory.certificates
+        td = inventory.certificates.pluck(:title).join(', ')
         td = inventory.can_be_rented_by_other_companies
         td = inventory.rental_price_pr_day
-        td = link_to 'Show', inventory
-        td = link_to 'Edit', edit_inventory_path(inventory)
-        td = link_to 'Destroy', inventory, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to t('show'), inventory
+        td = link_to t('edit'), edit_inventory_path(inventory)
+        td = link_to t('destroy'), inventory, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Inventory', new_inventory_path
+= link_to t('inventories.create_new'), new_inventory_path, class: 'btn btn-primary'
