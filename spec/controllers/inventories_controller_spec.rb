@@ -20,6 +20,11 @@ require 'spec_helper'
 
 describe InventoriesController do
 
+  before do
+    @user = Fabricate(:user)
+    sign_in @user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Inventory. As you add validations to Inventory, be sure to
   # adjust the attributes here as well.
