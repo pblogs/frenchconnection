@@ -45,6 +45,10 @@ nb:
   has_no_due_date: Ingen dato satt
   name: Navn
   project_number: Prosjektnummer
+  save: Lagre
+  show: Vis
+  edit: Rediger
+  destroy: Slett
 
   top_nav:
     projects: Prosjekter
@@ -136,4 +140,28 @@ nb:
     sikkerhetssele_fallblokk: Sikkerhetssele fallblokk
     hoystrykksspyler: Høytrykkspyler
 
+  inventories:
+    can_be_rented_by_other_companies: Tilgjenglig for utleie
+    create_new: Legg inn mer
+    certificates: Sertifikater
+    description: Beskrivelse
+    name: Navn
+    index: Verktøy og maskiner
+    rental_price_pr_day: Leiepris pr dag
+    edit: Rediger
+
+  activerecord:
+    errors:
+      template:
+        header:
+          one:   "1 feil forhindret %{model} fra å bli lagret"
+          other: "%{count} feil forhindret %{model} fra å lagres"
+        body:    "Det var feil med følgende felt:"
+    attributes:
+      inventory:
+        certificates: Nødvendig sertifikat
+        name: Navn
+        description: Beskrivelse
+        can_be_rented_by_other_companies: Tilgjenglig for utleie
+        rental_price_pr_day: Leiepris pr dag
 
