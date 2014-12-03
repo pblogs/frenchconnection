@@ -174,5 +174,10 @@ Fabricate(:certificate, title: 'Small lift')
 Fabricate(:certificate, title: 'Climber')
 
 # WorkCategories
-Fabricate(:work_category, title: 'Welding')
-Fabricate(:work_category, title: 'Roof tiling')
+Fabricate(:work_categories, title: 'Welding')
+Fabricate(:work_categories, title: 'Roof tiling')
+
+# Locations
+Fabricate(:locations, name: 'Roof top')
+Fabricate(:locations, name: 'Construction site')
+Fabricate(:locations, name: 'Traffic')
