@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Certificate do
-  let(:driving_licence) { Fabricate(:certificate, title: 'Driving licence')  }
+  let(:driving_licence) { Fabricate(:certificate, title: 'Driving licence') }
   let(:user) { Fabricate(:user, certificates: [driving_licence]) }
 
   it 'a user has a certificate' do
