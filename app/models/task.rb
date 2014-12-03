@@ -80,8 +80,8 @@ class Task < ActiveRecord::Base
   private
 
   def sms_employee_when_new_task_created
-    Rails.logger.debug "sms_employee_when_new_task_created set?:"+
-                        "#{project.sms_employee_when_new_task_created}"
+    Rails.logger.debug "sms_employee_when_new_task_created set? "+
+                        "(#{project.sms_employee_when_new_task_created})"
     project.sms_employee_when_new_task_created
   end
 
@@ -94,6 +94,8 @@ class Task < ActiveRecord::Base
   end
 
   def notify_new_workers
+    Rails.logger.debug "@old_workers: #{@old_workers.inspect}"
+    Rails.logger.debug "users: #{@users.inspect}"
     new_workers = users - @old_workers
     Rails.logger.debug "after save: notify_new_workers: "+
       "#{new_workers.each { |u| p u.name } }}"
@@ -101,8 +103,8 @@ class Task < ActiveRecord::Base
   end
 
   def remember_old_workers
-    Rails.logger.debug "remember_old_workers: #{users.each { |u| p u.name }}"
-    @old_workers = users
+    Rails.logger.debug "\n\n remember_old_workers: #{users.each { |u| p u.name }}"
+    @old_workers = users.all
   end
 
   def single_task
