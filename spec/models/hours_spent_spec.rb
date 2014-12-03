@@ -76,7 +76,7 @@ describe HoursSpent do
     HoursSpent.week_numbers_for_dates(dates).should eq '1, 2, 3, 5'
   end
 
-  it 'week_numbers(hours_spents)', focus: true do
+  it 'week_numbers(hours_spents)' do
     hours_spents = [Fabricate(:hours_spent, date: Date.parse('01-01-2014')),
                     Fabricate(:hours_spent, date: Date.parse('08-01-2014')),
                     Fabricate(:hours_spent, date: Date.parse('08-01-2014')),
