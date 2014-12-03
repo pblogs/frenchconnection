@@ -100,6 +100,14 @@ describe Task do
     #end
   end
 
+  describe 'Location' do
+    @roof_top =  Fabricate(:location, name: 'Roof top') 
+    @task = Fabricate(:task, location: @roof_top)
+    it 'has a location' do
+      @task.location.should eq @roof_top
+    end
+  end
+
   describe "validations" do
     before do
       @project = Fabricate :project, 

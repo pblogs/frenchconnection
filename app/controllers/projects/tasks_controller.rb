@@ -114,6 +114,8 @@ class Projects::TasksController < ApplicationController
                                  :due_date,
                                  :paint_id,
                                  :description,
+                                 :work_category_id,
+                                 :location_id,
                                  :department_id, 
                                  :user_ids => []
                                 )
