@@ -19,7 +19,7 @@
 require 'spec_helper'
 
 describe Task do
-  before :each do
+  before(:each) do
     @department = Fabricate(:department)
     @worker     = Fabricate(:user, first_name: 'John')
     @worker2    = Fabricate(:user, first_name: 'Barry')
@@ -89,9 +89,17 @@ describe Task do
 
   end
 
-  describe "Notifications" do
-    pending "Add me"
+  describe "Notifications", focus: true do
+    before do
+      @project = Fabricate(:project, sms_employee_when_new_task_created: true)
+      @task    = Fabricate(:task, project: @project)
+    end
     it "notifies by SMS when a worker is delegated at task" do
+      @user = Fabricate(:user, mobile: 93441707)
+      @task.users << @user
+      @task.save
+      Sms.send_msg(to: 4793441707, msg: 'hi') # This should at least trigger the line below?
+      Sms.any_instance.should_receive(:send_msg)
     end
   end
 
