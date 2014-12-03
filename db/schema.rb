@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203103439) do
+ActiveRecord::Schema.define(version: 20141203152321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 20141203103439) do
     t.integer  "project_id"
     t.date     "due_date"
     t.datetime "ended_at"
+    t.integer  "work_category_id"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
@@ -244,6 +245,12 @@ ActiveRecord::Schema.define(version: 20141203103439) do
 
   add_index "users", ["profession_id"], name: "index_users_on_profession_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "work_categories", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "zipped_reports", force: true do |t|
     t.integer  "project_id",  null: false

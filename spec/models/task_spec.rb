@@ -23,7 +23,8 @@ describe Task do
     @department = Fabricate(:department)
     @worker     = Fabricate(:user, first_name: 'John')
     @worker2    = Fabricate(:user, first_name: 'Barry')
-    @task       = Fabricate(:task)
+    @welding    = Fabricate(:work_category, title: 'Welding')
+    @task       = Fabricate(:task, work_category: @welding)
     @task.users = [@worker, @worker2]
     @task.save
     @task.reload
@@ -36,6 +37,10 @@ describe Task do
 
   it "belongs to a project" do
     expect(@task.project.class).to eq Project
+  end
+
+  it 'has a type of work', focus: true do
+    expect(@task.work_category.class).to eq WorkCategory
   end
 
 

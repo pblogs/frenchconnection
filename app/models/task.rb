@@ -19,10 +19,9 @@
 class Task < ActiveRecord::Base
 
   belongs_to :project
-  belongs_to :paint
+  belongs_to :work_category
   has_many :user_tasks
   has_many :users, through: :user_tasks
-
   has_many :hours_spents
 
   scope :from_user, ->(user) { joins(:user_tasks)
