@@ -1,0 +1,33 @@
+h1 Listing inventories
+
+table
+  thead
+    tr
+      th Title
+      th Description
+      th Booked from
+      th Booked to
+      th Certificates
+      th Can be rented by other companies
+      th Rental price pr day
+      th
+      th
+      th
+
+  tbody
+    - @inventories.each do |inventory|
+      tr
+        td = inventory.title
+        td = inventory.description
+        td = inventory.booked_from
+        td = inventory.booked_to
+        td = inventory.certificates
+        td = inventory.can_be_rented_by_other_companies
+        td = inventory.rental_price_pr_day
+        td = link_to 'Show', inventory
+        td = link_to 'Edit', edit_inventory_path(inventory)
+        td = link_to 'Destroy', inventory, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Inventory', new_inventory_path
