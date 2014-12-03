@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :inventories
+
   resources :changes
 
   resources :departments

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203100531) do
+ActiveRecord::Schema.define(version: 20141203103439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 20141203100531) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "certificates_inventories", force: true do |t|
+    t.integer "certificate_id"
+    t.integer "inventory_id"
   end
 
   create_table "certificates_locations", force: true do |t|
@@ -132,6 +137,20 @@ ActiveRecord::Schema.define(version: 20141203100531) do
 
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
   add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id", using: :btree
+
+  create_table "inventories", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.date     "booked_from"
+    t.date     "booked_to"
+    t.integer  "certificates_id"
+    t.boolean  "can_be_rented_by_other_companies", default: false
+    t.integer  "rental_price_pr_day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "inventories", ["certificates_id"], name: "index_inventories_on_certificates_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "name"

@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @inventory.title
+p
+  strong Description:
+  = @inventory.description
+p
+  strong Booked from:
+  = @inventory.booked_from
+p
+  strong Booked to:
+  = @inventory.booked_to
+p
+  strong Certificates:
+  = @inventory.certificates
+p
+  strong Can be rented by other companies:
+  = @inventory.can_be_rented_by_other_companies
+p
+  strong Rental price pr day:
+  = @inventory.rental_price_pr_day
+
+= link_to 'Edit', edit_inventory_path(@inventory)
+'|
+= link_to 'Back', inventories_path

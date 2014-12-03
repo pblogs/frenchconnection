@@ -167,3 +167,8 @@ Fabricate(:hours_spent, date: '09.01.2014', overtime_50: 22,
 Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 23, 
           task: male_task, user: maren_maler, project: male_task.project,
           description: 'maren maler 23 timer 100% overtid')
+
+# Certificates
+Fabricate(:certificate, title: 'Truck driver')
+Fabricate(:certificate, title: 'Small lift')
+Fabricate(:certificate, title: 'Climber')
