@@ -92,7 +92,7 @@ nb:
     completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
     what: Hva skal gjøres?
-    where: Hvor skal det gjøres?
+    where: Hvor skal arbeidet utføres?
 
   devise:
     failure:
