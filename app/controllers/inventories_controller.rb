@@ -69,6 +69,8 @@ class InventoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inventory_params
-      params.require(:inventory).permit(:title, :description, :booked_from, :booked_to, :certificates_id, :can_be_rented_by_other_companies, :rental_price_pr_day)
+      params.require(:inventory).permit(:name, :description, :certificates_id,
+                                        :can_be_rented_by_other_companies,
+                                        :rental_price_pr_day)
     end
 end

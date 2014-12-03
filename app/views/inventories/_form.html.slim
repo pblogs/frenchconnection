@@ -13,12 +13,6 @@
     = f.label :description
     = f.text_field :description
   .field
-    = f.label :booked_from
-    = f.date_select :booked_from
-  .field
-    = f.label :booked_to
-    = f.date_select :booked_to
-  .field
     = f.label :certificates
     = collection_check_boxes(:inventory, :certificate_ids, 
       Certificate.all, :id, :title)  do |b| 
