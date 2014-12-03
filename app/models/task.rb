@@ -42,11 +42,6 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
 
-  after_create      :notify_workers,       if: :sms_employee_when_new_task_created
-  after_initialize  :remember_old_workers, if: :sms_employee_when_new_task_created
-  after_save        :notify_new_workers,   if: :sms_employee_when_new_task_created
-
-
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +
@@ -78,32 +73,6 @@ class Task < ActiveRecord::Base
   end
 
   private
-
-  def sms_employee_when_new_task_created
-    Rails.logger.debug "sms_employee_when_new_task_created set?:"+
-                        "#{project.sms_employee_when_new_task_created}"
-    project.sms_employee_when_new_task_created
-  end
-
-  def notify_workers(workers: nil)
-    msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
-    workers ||= users
-    workers.each do |u|
-      Sms.send_msg(to: "47#{u.mobile}", msg: msg)
-    end
-  end
-
-  def notify_new_workers
-    new_workers = users - @old_workers
-    Rails.logger.debug "after save: notify_new_workers: "+
-      "#{new_workers.each { |u| p u.name } }}"
-    notify_workers(workers: new_workers)
-  end
-
-  def remember_old_workers
-    Rails.logger.debug "remember_old_workers: #{users.each { |u| p u.name }}"
-    @old_workers = users
-  end
 
   def single_task
     project.single_task?
