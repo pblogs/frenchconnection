@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203011755) do
+ActiveRecord::Schema.define(version: 20141203100531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,11 @@ ActiveRecord::Schema.define(version: 20141203011755) do
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "certificates_locations", force: true do |t|
+    t.integer "certificate_id"
+    t.integer "location_id"
   end
 
   create_table "certificates_users", force: true do |t|
@@ -128,6 +133,15 @@ ActiveRecord::Schema.define(version: 20141203011755) do
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
   add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id", using: :btree
 
+  create_table "locations", force: true do |t|
+    t.string   "name"
+    t.integer  "certificates_id"
+    t.boolean  "outdoor"
+    t.boolean  "indoor"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "professions", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -152,12 +166,6 @@ ActiveRecord::Schema.define(version: 20141203011755) do
     t.integer  "department_id"
     t.string   "short_description"
     t.boolean  "complete",                             default: false
-  end
-
-  create_table "sertificates", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "task_types", force: true do |t|
