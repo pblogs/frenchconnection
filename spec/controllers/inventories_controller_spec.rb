@@ -23,7 +23,7 @@ describe InventoriesController do
   # This should return the minimal set of attributes required to create a valid
   # Inventory. As you add validations to Inventory, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "title" => "MyString" } }
+  let(:valid_attributes) { { "name" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe InventoriesController do
       it "assigns a newly created but unsaved inventory as @inventory" do
         # Trigger the behavior that occurs when invalid params are submitted
         Inventory.any_instance.stub(:save).and_return(false)
-        post :create, {:inventory => { "title" => "invalid value" }}, valid_session
+        post :create, {:inventory => { "name" => "invalid value" }}, valid_session
         assigns(:inventory).should be_a_new(Inventory)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Inventory.any_instance.stub(:save).and_return(false)
-        post :create, {:inventory => { "title" => "invalid value" }}, valid_session
+        post :create, {:inventory => { "name" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe InventoriesController do
         # specifies that the Inventory created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        Inventory.any_instance.should_receive(:update).with({ "title" => "MyString" })
-        put :update, {:id => inventory.to_param, :inventory => { "title" => "MyString" }}, valid_session
+        Inventory.any_instance.should_receive(:update).with({ "name" => "MyString" })
+        put :update, {:id => inventory.to_param, :inventory => { "name" => "MyString" }}, valid_session
       end
 
       it "assigns the requested inventory as @inventory" do
@@ -128,7 +128,7 @@ describe InventoriesController do
         inventory = Inventory.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Inventory.any_instance.stub(:save).and_return(false)
-        put :update, {:id => inventory.to_param, :inventory => { "title" => "invalid value" }}, valid_session
+        put :update, {:id => inventory.to_param, :inventory => { "name" => "invalid value" }}, valid_session
         assigns(:inventory).should eq(inventory)
       end
 
@@ -136,7 +136,7 @@ describe InventoriesController do
         inventory = Inventory.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Inventory.any_instance.stub(:save).and_return(false)
-        put :update, {:id => inventory.to_param, :inventory => { "title" => "invalid value" }}, valid_session
+        put :update, {:id => inventory.to_param, :inventory => { "name" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end
