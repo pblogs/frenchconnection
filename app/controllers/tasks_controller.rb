@@ -129,7 +129,6 @@ class TasksController < ApplicationController
                                    :description,
                                    :project_id,
                                    :user_id,
-                                   :customer_buys_supplies,
                                    :department_id, 
                                    :user_ids => []
                                   )
