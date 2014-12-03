@@ -39,7 +39,7 @@ describe Task do
     expect(@task.project.class).to eq Project
   end
 
-  it 'has a type of work', focus: true do
+  it 'has a type of work' do
     expect(@task.work_category.class).to eq WorkCategory
   end
 

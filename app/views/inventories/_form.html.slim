@@ -2,7 +2,7 @@
   - if @inventory.errors.any?
     #error_explanation
       h2
-        = "#{pluralize(@inventory.errors.count, "feil")} forhindret objekte fra å bli lagret"
+        = "#{pluralize(@inventory.errors.count, "feil")} #{t('stopped_us_saving')}"
       ul
         - @inventory.errors.full_messages.each do |message|
           li = message
