@@ -38,4 +38,30 @@ describe UserTask do
     expect(@user_task.reload.status).to eq :complete
   end
 
+  describe 'when sms_employee is set in project' do
+    let!(:project) { Fabricate(:project, sms_employee_when_new_task_created:
+                              true) }
+    let!(:task) { Fabricate(:task, project: project) }
+    let!(:user) { Fabricate(:user) }
+    it 'notifies each new worker by sms when created' do
+      Sms.should_receive(:send_msg).with(to: "47#{user.mobile}",
+             msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+      task.users << user
+      task.save!
+    end
+  end
+
+  describe 'when sms_employee is not set in project' do
+    let!(:project) { Fabricate(:project, sms_employee_when_new_task_created:
+        false) }
+    let!(:task) { Fabricate(:task, project: project) }
+    let!(:user) { Fabricate(:user) }
+    it 'does not notify new worker when created' do
+      Sms.should_not_receive(:send_msg)
+
+      task.users << user
+      task.save!
+    end
+  end
+
 end
