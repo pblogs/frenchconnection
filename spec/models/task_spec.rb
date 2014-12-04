@@ -100,6 +100,19 @@ describe Task do
       @task.users << @user
       @task.save
     end
+
+    it "notifies only new workers when task is updated" do
+      @user = Fabricate(:user)
+      Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
+           msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+      @task.users << @user
+
+      @user_second = Fabricate(:user)
+      Sms.should_receive(:send_msg).with(to: "47#{@user_second.mobile}",
+             msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+      Sms.should_not_receive(:send_msg).with(to: "47#{@user.mobile}")
+      @task.users << @user_second
+    end
   end
 
   describe "validations" do
