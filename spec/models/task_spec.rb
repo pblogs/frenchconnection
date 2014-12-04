@@ -89,17 +89,16 @@ describe Task do
 
   end
 
-  describe "Notifications", focus: true do
+  describe "Notifications" do
     before do
       @project = Fabricate(:project, sms_employee_when_new_task_created: true)
       @task    = Fabricate(:task, project: @project)
     end
     it "notifies by SMS when a worker is delegated at task" do
       @user = Fabricate(:user, mobile: 93441707)
+      Sms.should_receive(:send_msg)
       @task.users << @user
       @task.save
-      Sms.any_instance.should_receive(:send_msg)
-      Sms.send_msg(to: 4793441707, msg: 'hi') # This should at least trigger the line below?
     end
   end
 
