@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 $ ->
   # Go the the new task for company page on click.
   $(document).on 'click', '.new_task_on_company', (e) ->
@@ -25,3 +21,7 @@ $ ->
     $("#department_#{id}").show()
 
 
+  # Naviagate to Tools from tasks/form
+  $(document).on 'click', '[data-tools="1"]', (e) ->
+    e.preventDefault()
+    $('#task_goto_tools').val(1)

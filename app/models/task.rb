@@ -40,6 +40,7 @@ class Task < ActiveRecord::Base
     if: Proc.new { |p| p.due_date.present? }
 
   attr_accessor :department_id
+  attr_accessor :goto_tools
 
   after_create :notify_workers, if: :sms_employee_when_new_task_created
 

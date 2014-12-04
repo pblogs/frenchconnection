@@ -116,6 +116,7 @@ class Projects::TasksController < ApplicationController
                                  :description,
                                  :work_category_id,
                                  :location_id,
+                                 :goto_tools,
                                  :department_id, 
                                  :user_ids => []
                                 )
