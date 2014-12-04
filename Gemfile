@@ -24,6 +24,7 @@ gem 'pusher'
 gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
 gem 'grape-swagger'
+gem 'grape-rails-cache'
 
 gem 'annotate'
 gem 'wkhtmltopdf-binary'
@@ -96,7 +97,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>= 2.44.0'
 end
 
 
@@ -108,3 +109,6 @@ group :production do
 end
 
 gem 'rest_client'
+
+gem 'dalli'
+gem 'memcachier'

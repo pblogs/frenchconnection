@@ -19,6 +19,14 @@
 
 # Developer environment spesific
 .env-development
+.env
 
 # Images uploaded with CarrierWave locally
 public/uploads/
+
+# Ignore idea files
+/.idea/
+*.iml
+
+# Ignore redis files
+dump.rdb
