@@ -1,4 +1,6 @@
 = form_for [@project, @task] do |f|
+  = hidden_field(:task, :goto_tools)
+
   - if @task.errors.any?
     #error_explanation
       strong= "#{pluralize(@task.errors.count, "feil")}  #{t('stopped_us_saving')}"
@@ -47,4 +49,7 @@
   br
   br
   br
-  .actions = f.submit t('project.tasks.save'), class: 'button green'
+  .actions 
+    = f.submit t('project.tasks.save'), class: 'button'
+    br
+    = f.submit t('project.tasks.tools'), 'data-goto-tools' => 1, class: 'button'
