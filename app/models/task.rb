@@ -42,9 +42,6 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
 
-  after_create :notify_workers, if: :sms_employee_when_new_task_created
-
-
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +
@@ -78,19 +75,31 @@ class Task < ActiveRecord::Base
   private
 
   def sms_employee_when_new_task_created
-    Rails.logger.debug "SEND SMS: #{ project.sms_employee_when_new_task_created }"
+    Rails.logger.debug "sms_employee_when_new_task_created set? "+
+                        "(#{project.sms_employee_when_new_task_created})"
     project.sms_employee_when_new_task_created
   end
 
-  def notify_workers
-    Rails.logger.debug "\n\n IN notify_workers\n\n"
-    domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
-    #msg = I18n.t('sms.new_task', link: "http://#{domain}/tasks/#{id}")
+  def notify_workers(workers: nil)
     msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
-    users.each do |u|
-      Rails.logger.debug "Sms.send_msg(to: '47#{u.mobile}', msg: #{msg})"
+    workers ||= users
+    workers.each do |u|
       Sms.send_msg(to: "47#{u.mobile}", msg: msg)
     end
+  end
+
+  def notify_new_workers
+    Rails.logger.debug "@old_workers: #{@old_workers.inspect}"
+    Rails.logger.debug "users: #{@users.inspect}"
+    new_workers = users - @old_workers
+    Rails.logger.debug "after save: notify_new_workers: "+
+      "#{new_workers.each { |u| p u.name } }}"
+    notify_workers(workers: new_workers)
+  end
+
+  def remember_old_workers
+    Rails.logger.debug "\n\n remember_old_workers: #{users.each { |u| p u.name }}"
+    @old_workers = users.all
   end
 
   def single_task
@@ -114,7 +123,6 @@ class Task < ActiveRecord::Base
 
   def notify_all_users_of_ending_task(admin)
     users.each do |user| 
-      Rails.logger.debug "Sending SMS to #{user.name}"
       Sms.send_msg(
         to: "47#{user.mobile}", 
         msg: I18n.t('task_ended_by_admin', 

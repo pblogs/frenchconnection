@@ -18,6 +18,24 @@ class UserTask < ActiveRecord::Base
 
   symbolize :status, in: %i(pending confirmed complete), default: :pending
 
+  after_create :notify_worker, if: :sms_employee_when_new_task_created
+
+  def notify_worker
+    msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
+    Rails.logger.debug "\n Notify worker: #{user.name}"
+    Sms.send_msg(to: "47#{user.mobile}", msg: msg)
+  end
+
+  def sms_employee_when_new_task_created
+    if task.project.present?
+      Rails.logger.debug "\n sms_employee_when_new_task_created set?:"+
+        "#{task.project.sms_employee_when_new_task_created}\n"
+      task.project.sms_employee_when_new_task_created
+    else
+      false
+    end
+  end
+
   def confirm!
     update_attribute(:status, :confirmed)
   end
