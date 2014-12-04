@@ -1,9 +1,11 @@
 AllieroForms::Application.routes.draw do
 
+  namespace :inventories do
+    post :search
+  end
+
   resources :inventories
-
   resources :changes
-
   resources :departments
   resources :attachments
 
