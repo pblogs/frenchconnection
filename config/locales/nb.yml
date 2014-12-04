@@ -146,7 +146,7 @@ nb:
 
   inventories:
     can_be_rented_by_other_companies: Tilgjenglig for utleie
-    create_new: Legg inn mer
+    create_new: Legg inn nytt verktøy eller kjøretøy
     certificates: Sertifikater
     description: Beskrivelse
     name: Navn
