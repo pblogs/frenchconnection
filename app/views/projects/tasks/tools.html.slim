@@ -3,3 +3,13 @@ h1 tools
 = form_tag(inventories_search_path) do
   = text_field_tag :search, params[:search], placeholder: I18n.t('inventories.search_placeholder')
   = submit_tag t('search'), name: nil
+
+table
+  thead
+    td What
+    td Options
+  tbody
+    - @inventories && @inventories.each do |i|
+      tr
+        td= i.name
+

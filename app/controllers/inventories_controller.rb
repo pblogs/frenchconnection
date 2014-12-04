@@ -62,7 +62,7 @@ class InventoriesController < ApplicationController
   end
 
   def search
-    @inventories = Inventory.where('name ILIKE ?', "%#{params[:query]}%").all.to_a
+    @inventories = Inventory.where('name ILIKE ?', "%#{params[:search]}%").all.to_a
     render 'projects/tasks/tools'
   end
 
