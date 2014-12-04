@@ -60,12 +60,22 @@ class Projects::TasksController < ApplicationController
     end
   end
 
+  def tools
+    
+  end
+
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to customer_project_path(@task.project.customer, 
-                                                        @task.project),
-                      notice: 'Task was successfully updated.' }
+        format.html { 
+          if params[:task][:goto_tools].present?
+            redirect_to project_task_tools_path(@task.project, @task)
+          else
+            redirect_to customer_project_path(@task.project.customer, 
+              @task.project),
+              notice: I18n.t('notifications.successfully_updated')
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -22,6 +22,8 @@ $ ->
 
 
   # Naviagate to Tools from tasks/form
-  $(document).on 'click', '[data-tools="1"]', (e) ->
+  $(document).on 'click', '[data-goto-tools="1"]', (e) ->
     e.preventDefault()
+    console.log('click')
     $('#task_goto_tools').val(1)
+    $('form').submit()
