@@ -79,10 +79,6 @@ nb:
       short_date: "%B %d"
 
 
-  project:
-    confirm_closing: Avslutte prosjektet?
-    complete_link: Avslutt prosjektet
-    closed_projects: Avsluttede prosjekter
 
   task:
     confirm: Bekreft
@@ -115,10 +111,14 @@ nb:
         It seems that you haven't registered hours in one or more of your tasks
         Please do so on http://allieroapp.orwapp.com/
 
-  projects:
+  project:
+    confirm_closing: Avslutte prosjektet?
+    complete_link: Avslutt prosjektet
+    closed_projects: Avsluttede prosjekter
     hours_registered:
       report_generated_at: Report generated at %{time}
     tasks:
+      tools: Verktøy
       form:
         project_start_date: "Prosjekt start dato: %{start_date}"
         project_due_date: "Prosjekt ferdig dato: %{due_date}"
