@@ -52,4 +52,6 @@
   .actions 
     = f.submit t('project.tasks.save'), class: 'button'
     br
-    = f.submit t('project.tasks.tools'), 'data-goto-tools' => 1, class: 'button'
+    /= f.submit t('project.tasks.tools'), 'data-goto-tools' => 1, class: 'button'
+    /= link_to t('project.tasks.tools'), '#', 'data-goto-tools' => 1, class: 'button'
+    span(data-goto-tools='1') Verktøy
