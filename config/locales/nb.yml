@@ -50,6 +50,7 @@ nb:
   show: Vis
   edit: Rediger
   destroy: Slett
+  search: Søk
 
   top_nav:
     projects: Prosjekter
@@ -153,6 +154,7 @@ nb:
     index: Verktøy og maskiner
     rental_price_pr_day: Leiepris pr dag
     edit: Rediger
+    search_placeholder: Søk etter verktøy og maskiner..
 
   work_categories:
     welding: Sveising
