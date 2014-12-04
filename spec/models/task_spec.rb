@@ -98,8 +98,8 @@ describe Task do
       @user = Fabricate(:user, mobile: 93441707)
       @task.users << @user
       @task.save
-      Sms.send_msg(to: 4793441707, msg: 'hi') # This should at least trigger the line below?
       Sms.any_instance.should_receive(:send_msg)
+      Sms.send_msg(to: 4793441707, msg: 'hi') # This should at least trigger the line below?
     end
   end
 
