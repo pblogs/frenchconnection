@@ -13,7 +13,6 @@
 #  customer_nr    :integer
 #  area           :string(255)
 #  email          :string(255)
-#  starred        :boolean
 #
 
 require 'spec_helper'

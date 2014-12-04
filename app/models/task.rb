@@ -42,11 +42,6 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
 
-  after_create      :notify_workers,       if: :sms_employee_when_new_task_created
-  after_initialize  :remember_old_workers, if: :sms_employee_when_new_task_created
-  after_save        :notify_new_workers,   if: :sms_employee_when_new_task_created
-
-
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +
