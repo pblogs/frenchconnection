@@ -3,7 +3,7 @@
 
   - if @task.errors.any?
     #error_explanation
-      strong= "#{pluralize(@task.errors.count, "feil")}  #{t('stopped_us_saving')}"
+      strong= "#{@task.errors.count}" + " feil " + t('stopped_us_saving')
       ul
         - @task.errors.full_messages.each do |message|
           li = message

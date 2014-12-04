@@ -12,7 +12,6 @@ class Projects::TasksController < ApplicationController
   end
 
   def search
-
   end
 
   # Part of the new task steps
@@ -57,8 +56,8 @@ class Projects::TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to customer_project_path(@task.project.customer, 
-                                                        @task.project),
-          notice: "Oppdraget ble opprettet" }
+                          @task.project),
+                          notice: "Oppgaven ble lagret" }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
