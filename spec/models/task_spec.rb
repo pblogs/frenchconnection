@@ -99,6 +99,8 @@ describe Task do
       Sms.should_receive(:send_msg)
       @task.users << @user
       @task.save
+      Sms.should_receive(:send_msg)
+      Sms.send_msg(to: 4793441707, msg: 'hi') # This should at least trigger the line below?
     end
   end
 
