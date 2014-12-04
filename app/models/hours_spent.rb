@@ -50,6 +50,16 @@ class HoursSpent < ActiveRecord::Base
   end
 
 
+  # TODO  Move into a date helper
+  def self.week_numbers_for_dates(dates)
+    dates.collect { |d| d.cweek }.sort.uniq.join(', ')
+  end
+
+  def self.week_numbers(hours_spents)
+    dates = hours_spents.collect { |hs| hs.date }
+    week_numbers_for_dates(dates)
+  end
+
   # Used to return values from Changed if it exists
   # E.g. @hours_spent.changed_value_overtime_50
   #
