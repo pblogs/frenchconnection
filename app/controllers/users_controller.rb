@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @user.password = @user.password_confirmation = 'topsecret'
     @user.roles = [params['user']['roles']]
     respond_to do |format|
-      if @user.save!
+      if @user.save
         format.html { redirect_to users_path,
                       notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
