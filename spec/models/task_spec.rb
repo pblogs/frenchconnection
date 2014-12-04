@@ -89,7 +89,7 @@ describe Task do
 
   end
 
-  describe "Notifications", focus: true do
+  describe "Notifications" do
     before do
       @project = Fabricate(:project, sms_employee_when_new_task_created: true)
       @task    = Fabricate(:task, project: @project)
