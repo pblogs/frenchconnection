@@ -1,5 +1,5 @@
-#App.factory 'Inventory', ->
-#  return [
-#    { name: 'Cat bulldozer' },
-#    { name: 'Kamatzu crane' }
-#  ]
+App.factory 'Inventory', ->
+  return [
+    { name: 'Cat bulldozer' },
+    { name: 'Kamatzu crane' }
+  ]
