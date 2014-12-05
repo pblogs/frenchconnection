@@ -4,9 +4,7 @@
     "dependencies": {
       "angular":          "latest",
       "angular-route":    "latest",
-      "angular-resource": "latest",
-      "restangular":      "latest",
-      "lodash":           "latest"
+      "angular-resource": "latest"
     }
   },
   "vendor": {
