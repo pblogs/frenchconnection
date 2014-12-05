@@ -44,6 +44,7 @@ AllieroForms::Application.routes.draw do
   namespace :tasks do
     get :active
     get :report
+    post :select_tools, as: :select_tools
   end
 
   get '/customers/search' => 'customers#search', as: :customer_search
