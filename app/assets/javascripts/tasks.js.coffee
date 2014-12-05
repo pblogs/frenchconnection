@@ -22,8 +22,18 @@ $ ->
 
 
   # Naviagate to Tools from tasks/form
-  $(document).on 'click', '[data-goto-tools="1"]', (e) ->
+  $(document).on 'click', '[data-goto-tools]', (e) ->
     e.preventDefault()
-    console.log('click')
     $('#task_goto_tools').val(1)
     $('form').submit()
+
+  $(document).on 'click', '[data-select]', (e) ->
+    inventory_id = $('[data-select]').closest('[data-id]').data('id')
+    url = $('[data-select]').closest('[data-url]').data('url')
+
+    # $.post( url, { kind_of: 'tools', id: inventory_id } )
+
+    #$.post "ajax/test.html", (data) ->
+    #  $(".result").html(data)
+    #      return
+
