@@ -184,8 +184,6 @@ describe TasksController, :type => :controller do
   end
 
   describe "POST complete" do
-
-
     it "changes the user_task status" do
       task = Task.create! valid_attributes
       current_user = task.users.first
@@ -193,6 +191,16 @@ describe TasksController, :type => :controller do
       post :complete, {id: task.to_param}, valid_session
       user_task = task.user_tasks.find_by(user: current_user)
       expect(user_task.status).to eq :complete
+    end
+  end
+
+  describe "select inventory" do
+    it 'adds the spesified inventory to @task.inventories' do
+      task = Fabricate(:task)
+      crane = Fabricate(:inventory, name: 'Crane')
+      post :select_inventory, {id: task.id, inventory_id: crane.id}, valid_session
+      task.reload
+      task.inventories.last.should eq crane
     end
   end
 

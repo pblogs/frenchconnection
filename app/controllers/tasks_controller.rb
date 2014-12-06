@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete,
+                                  :select_inventory]
   before_action :set_customer, only: [:new, :create, :index]
-  before_action :set_paint_and_type, only: [:new, :edit, :create]
 
   # GET /tasks
   # GET /tasks.json
@@ -102,6 +102,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def select_inventory
+    @task.inventories << Inventory.find(params[:id])
+    @task.save
+    render text: '200 OK'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     # TODO decent_exposure gem is probably better
@@ -113,14 +119,9 @@ class TasksController < ApplicationController
       @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
     end
 
-    def set_paint_and_type
-      @task_types = TaskType.all
-      @paint      = Paint.all
-      @users      = User.workers.all
-    end
+
 
     def task_params
-      
       params.require(:task).permit(:customer_id, 
                                    :task_type_id, 
                                    :start_date, 
