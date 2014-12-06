@@ -1,39 +1,29 @@
 div ng-controller="ToolsController"
   h1 tools
   
-  span 
-    | Scope: {{test}}
-  = form_tag(inventories_search_path) do
-    = text_field_tag :search, params[:search],
-      placeholder: I18n.t('inventories.search_placeholder')
-    = submit_tag t('search'), name: nil
-  
-  div(ng-include='"/templates/_tools.html.slim"')
+  | Search:
+  input ng-model="searchText" /
+  table#searchTextResults ng-show="searchText"
+    tr
+      th What
+      th Options
+    tr ng-repeat=("tool in tools | filter:searchText") 
+      td 
+        | {{tool.name}}
+      td 
+        button(ng-click="select(tool)") Select
 
-  /- if @inventories.present?
-  /  table.inventories_search_result
-  /    thead
-  /      td What
-  /      td Options
-  /    tbody
-  /      - @inventories.each do |i|
-  /        tr(data-id="#{i.id}" data-url="#{tasks_select_tools_path}")
-  /          td= i.name
-  /          td
-  /            button(data-select='') Select
-  /  
-  /hr
-  /
-  /- if @selected.present?
-  /  table.inventories_search_result
-  /    thead
-  /      td What
-  /      td Options
-  /    tbody
-  /      - @selected.each do |i|
-  /        tr
-  /          td= i.name
-  /          td
-  /            button Select
-  /  
-  /hr
+
+  div(ng-show="selected")
+    h5 Selected tools
+    table#selectedTools
+      tr
+        th What
+        th Options
+      tr ng-repeat=("tool in selected") 
+        td 
+          | {{tool.name}}
+        td 
+          button(ng-click="select(tool)") Remove
+
+
