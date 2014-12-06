@@ -95,7 +95,7 @@ class Task < ActiveRecord::Base
   end
 
   def single_task
-    project.single_task?
+    project.try(:single_task?)
   end
 
   def start_date_must_be_within_projects_dates_range
