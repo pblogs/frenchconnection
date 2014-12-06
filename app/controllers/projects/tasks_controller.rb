@@ -18,13 +18,7 @@ class Projects::TasksController < ApplicationController
   def tools
   end
 
-  def select_inventory(kind_of:, id:)
-    if kind_of == 'tools'
-      i = Inventory.find(id)
-      @task.inventories << i
-    end
-    
-  end
+
   def active
     @tasks = Task.where(accepted: true, finished: false).order(created_at: :desc)
     render :index
