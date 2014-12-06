@@ -6,6 +6,7 @@
 #= require angular
 #= require angular-route
 #= require angular-resource
+#= require ng-rails-csrf
 
 #= require angular-app/app
 #= require_tree .
