@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Inventory do
+  let(:task) { Fabricate(:task)  }
   let(:buldoze_driver) { Fabricate(:certificate, title: 'Bulldoze Driver')  }
   let(:bulldozer) { Fabricate(:inventory, name: 'Big Cat', 
                               certificates: [buldoze_driver]) }
@@ -12,4 +13,10 @@ describe Inventory do
   it 'requires sertificates' do
     bulldozer.certificates.should eq [buldoze_driver]
   end
+
+  it 'belongs to a task that requires it to get the job done' do
+    task.inventories = [bulldozer]
+    task.inventories.first.should eq bulldozer
+  end
+
 end

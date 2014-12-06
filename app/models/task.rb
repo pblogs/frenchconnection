@@ -23,6 +23,7 @@ class Task < ActiveRecord::Base
   has_many :user_tasks
   has_many :users, through: :user_tasks
   has_many :hours_spents
+  has_and_belongs_to_many :inventories
 
   scope :from_user, ->(user) { joins(:user_tasks)
                                 .where('user_tasks.user_id = ?', user.id) }
