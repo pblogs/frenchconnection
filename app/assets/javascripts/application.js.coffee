@@ -7,6 +7,10 @@
 #= require angular-route
 #= require angular-resource
 
+#= require_self
+#= require_tree ./models
+#= require_tree ./controllers
+#= require ./angular-app/router
 
 @App = angular.module("Orwapp", ["ngResource"])
 
