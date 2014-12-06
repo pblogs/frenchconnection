@@ -1,4 +1,5 @@
-@ToolsController = ($scope) ->
+angular.module('Orwapp').controller 'ToolsController', ($scope) ->
+
   $scope.test = 'martin'
   $scope.tools = [
     { name: 'Cat bulldozer' },
