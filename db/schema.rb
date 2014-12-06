@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203190456) do
+ActiveRecord::Schema.define(version: 20141206141043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,11 @@ ActiveRecord::Schema.define(version: 20141203190456) do
   end
 
   add_index "inventories", ["certificates_id"], name: "index_inventories_on_certificates_id", using: :btree
+
+  create_table "inventories_tasks", force: true do |t|
+    t.integer "inventory_id"
+    t.integer "task_id"
+  end
 
   create_table "locations", force: true do |t|
     t.string   "name"
