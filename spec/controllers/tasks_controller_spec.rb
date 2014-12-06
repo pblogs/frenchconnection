@@ -35,7 +35,6 @@ describe TasksController, :type => :controller do
   end
   before do
     sign_in
-    Task.destroy_all
   end
 
   # This should return the minimal set of values that should be in the session
@@ -196,9 +195,10 @@ describe TasksController, :type => :controller do
 
   describe "select inventory" do
     it 'adds the spesified inventory to @task.inventories' do
+      Task.destroy_all
       task = Fabricate(:task)
       crane = Fabricate(:inventory, name: 'Crane')
-      post :select_inventory, {id: task.id, inventory_id: crane.id}, valid_session
+      post :select_inventory, {task_id: task.id, inventory_id: crane.id}, valid_session
       task.reload
       task.inventories.last.should eq crane
     end

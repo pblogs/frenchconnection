@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete,
-                                  :select_inventory]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
   before_action :set_customer, only: [:new, :create, :index]
 
   # GET /tasks
@@ -103,7 +102,8 @@ class TasksController < ApplicationController
   end
 
   def select_inventory
-    @task.inventories << Inventory.find(params[:id])
+    @task = Task.find(params[:task_id])
+    @task.inventories << Inventory.find(params[:inventory_id])
     @task.save
     render text: '200 OK'
   end
