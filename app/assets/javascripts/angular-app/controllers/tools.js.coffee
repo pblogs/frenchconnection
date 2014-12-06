@@ -1,7 +1,4 @@
-angular.module('Orwapp').controller 'ToolsController', ($scope) ->
+angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory) ->
 
   $scope.test = 'martin'
-  $scope.tools = [
-    { name: 'Cat bulldozer' },
-    { name: 'Kamatzu crane' }
-  ]
+  $scope.tools = Inventory
