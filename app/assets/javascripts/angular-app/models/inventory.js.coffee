@@ -5,16 +5,6 @@ angular.module('Orwapp').factory 'Inventory', ($resource) ->
                       { id: "@id" }
 
   return Inventory
-
-
-
-
-
-
-
-
-
-
   #return [
   #  { name: 'Cat bulldozer' },
   #  { name: 'Kamatzu crane' }
