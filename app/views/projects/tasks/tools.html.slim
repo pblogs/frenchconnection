@@ -1,15 +1,21 @@
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
-  h1 tools
+  h1 Tools
   
   | Search:
   input ng-model="searchText" /
+  br
+  br
+  br
   table#searchTextResults ng-show="searchText"
     tr
       th What
+      th Price pr day
       th Options
     tr ng-repeat=("tool in tools | filter:searchText") 
       td 
         | {{tool.name}}
+      td 
+        | {{tool.rental_price_pr_day}}
       td 
         button(ng-click="select(tool)") Select
 
@@ -28,6 +34,11 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
         td 
           | {{tool.name}}
         td 
+          | {{tool.rental_price_pr_day}}
+        td 
           button(ng-click="select(tool)") Remove
+          span not implemented
 
 
+= link_to t('task.select_workers'), project_task_workers_path(@task.project, @task),
+  class: 'btn btn-primary'
