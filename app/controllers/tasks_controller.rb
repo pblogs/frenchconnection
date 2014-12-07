@@ -105,7 +105,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:task_id])
     @task.inventories << Inventory.find(params[:inventory_id])
     @task.save
-    render text: '200 OK'
+    render json: @task
   end
 
   private
