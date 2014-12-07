@@ -91,6 +91,7 @@ nb:
     destroyed: Oppgave slettet
     what: Hva skal gjøres?
     where: Hvor skal arbeidet utføres?
+    order_resources_and_save_task: Bestill resurser og lagre oppgaven
 
   devise:
     failure:

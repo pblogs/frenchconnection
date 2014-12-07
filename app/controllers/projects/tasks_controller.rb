@@ -1,6 +1,6 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_task_from_id, only: [:end_task, :end_task_hard, :tools]
+  before_action :set_task_from_id, only: [:end_task, :end_task_hard, :tools, :review]
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_workers_and_dates, only: [:edit, :new, :create]
 
@@ -12,6 +12,9 @@ class Projects::TasksController < ApplicationController
   end
 
   def search
+  end
+
+  def review
   end
 
   # Part of the new task steps
