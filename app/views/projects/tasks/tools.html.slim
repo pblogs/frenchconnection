@@ -1,8 +1,8 @@
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
-  h1 Tools
+  h1 Search for the tools required to get the job done
   
   | Search:
-  input ng-model="searchText" /
+  input ng-model="searchText" placeholder='machines, lifts, tools ..' /
   br
   br
   br
@@ -40,5 +40,8 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
           span not implemented
 
 
-= link_to t('task.select_workers'), project_task_workers_path(@task.project, @task),
-  class: 'btn btn-primary'
+br
+br
+br
+= link_to 'Find someone to execute the job', project_task_workers_path(@task.project, @task),
+  class: 'btn btn-primary pull-right'
