@@ -101,11 +101,21 @@ class TasksController < ApplicationController
     end
   end
 
+  # POST :select_inventory, { task_id: task.id, inventory_id: inventory.id }
   def select_inventory
     @task = Task.find(params[:task_id])
     @task.inventories << Inventory.find(params[:inventory_id])
     @task.save
     render json: @task
+  end
+
+  def qualified_workers
+    @workers = User.select { |user| user.roles.include? 'worker' }
+    render json: @workers
+  end
+
+
+  def select_workers
   end
 
   private
