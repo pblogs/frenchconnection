@@ -50,6 +50,5 @@
   br
   br
   .actions 
-    = f.submit t('project.tasks.save'), class: 'button'
-    br
-    span(data-goto-tools) Verktøy
+    = link_to 'Fortsett', '#', data: { 'goto-tools' => 1 },
+      class: 'btn btn-primary'
