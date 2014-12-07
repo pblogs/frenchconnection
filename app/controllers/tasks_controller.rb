@@ -116,6 +116,10 @@ class TasksController < ApplicationController
 
 
   def select_workers
+    @task = Task.find(params[:task_id])
+    @task.users << User.find(params[:worker_id])
+    @task.save
+    render json: @task
   end
 
   private
