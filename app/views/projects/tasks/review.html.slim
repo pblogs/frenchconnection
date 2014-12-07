@@ -1,21 +1,33 @@
 h1 Review task
 
-h4 What
-= @task.work_category.title
-= @task.description
+section.task
+  h4 What
+  p.what
+    strong = @task.work_category.title
+    span   = @task.description
 
-h4 When
-= @task.start_date
-= @task.due_date || 'No due date set'
+section.task
+  h4 When
+  strong= "Start: "
+  em = "#{@task.start_date}"
+  br
+  strong= "End: "
+  em = "#{@task.due_date || 'No due date set'}"
 
 h4 Where
-= @task.location.name
-= @task.project.address || 'No address registered on the project'
+section.task
+  p.where
+    strong = @task.location.name
+    span   = @task.project.address.present? || 'No address registered on the project'
 
 h4 Tools
-ul
+table
+  th What
+  th Price pr day 
   - @task.inventories.each do |t|
-    li = t.name
+    tr
+      td = t.name
+      td = t.rental_price_pr_day
 
 
 h3 Save as template
