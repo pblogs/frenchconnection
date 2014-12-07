@@ -26,6 +26,7 @@ AllieroForms::Application.routes.draw do
       put :end_task
       put :end_task_hard
       get :tools
+      get :workers
     end
 
     resources :project_reports, only: :create
@@ -44,7 +45,9 @@ AllieroForms::Application.routes.draw do
   namespace :tasks do
     get :active
     get :report
+    get :qualified_workers
     post :select_inventory, as: :select_inventory
+    post :select_workers,   as: :select_workers
   end
 
   get '/customers/search' => 'customers#search', as: :customer_search

@@ -18,6 +18,13 @@ class Projects::TasksController < ApplicationController
   def tools
   end
 
+  # Part of the new task steps
+  def workers
+    @task = Task.find(params[:task_id])
+    # Select workers that matches the criterias: sertificate for 
+    # selected tools and location
+  end
+
 
   def active
     @tasks = Task.where(accepted: true, finished: false).order(created_at: :desc)

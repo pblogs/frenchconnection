@@ -1,0 +1,43 @@
+div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
+  p
+    strong
+      = "Workers that has the required qualitications to operate " 
+      =  "#{@task.inventories.pluck(:name).uniq!.join(', ')}"
+  
+  /| Search:
+  /input ng-model="searchText" /
+  table#searchTextResults
+    tr
+      th Who
+      th Price pr day
+      th Options
+    tr ng-repeat=("worker in workers") 
+      td 
+        | {{worker.first_name}} {{worker.last_name}}
+      td 
+        | {{worker.rental_price_pr_day}}
+      td 
+        button(ng-click="select(worker)") Select
+
+
+  br
+  br
+  br
+  div(ng-show="selected")
+    h5 Selected workers
+    table#selectedWorkers
+      tr
+        th What
+        th Price pr day
+        th Options
+      tr ng-repeat=("worker in selected_workers") 
+        td 
+          | {{worker.name}}
+        td 
+          | {{worker.rental_price_pr_day}}
+        td 
+          button(ng-click="select(worker)") Remove
+          span not implemented
+
+
+/= link_to t('task.select_workers'), 
