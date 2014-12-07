@@ -6,10 +6,13 @@ angular.module('Orwapp').controller 'WorkersForTaskController', ($scope, User, $
   # TODO Populate this with @task.users when initializing
   $scope.selected_workers = []
 
-  $scope.select = (worker) ->
+  $scope.select = (worker, index) ->
     url          = '/tasks/select_workers'
     worker_id    = worker.id
     task_id      = $('[data-task-id]').first().data('task-id')
+
+    # Remove selected worker from the workers array
+    $scope.workers.splice(index, 1)
 
     # Let Rails know about the selection
     $http(
