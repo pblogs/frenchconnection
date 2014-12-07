@@ -1,0 +1,30 @@
+h1 Review task
+
+h4 What
+= @task.work_category.title
+= @task.description
+
+h4 When
+= @task.start_date
+= @task.due_date || 'No due date set'
+
+h4 Where
+= @task.location.name
+= @task.project.address || 'No address registered on the project'
+
+h4 Tools
+ul
+  - @task.inventories.each do |t|
+    li = t.name
+
+
+h3 Save as template
+= form_tag(inventories_search_path) do
+  = text_field_tag :search, params[:search],
+    placeholder: 'Enter a name for the template'
+
+  = submit_tag 'save', name: nil
+
+
+= link_to t('task.order_resources_and_save_task'),
+  project_task_review_path(@task.project, @task), class: 'btn btn-primary pull-right'

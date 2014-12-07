@@ -27,6 +27,7 @@ AllieroForms::Application.routes.draw do
       put :end_task_hard
       get :tools
       get :workers
+      get :review
     end
 
     resources :project_reports, only: :create
