@@ -66,9 +66,15 @@ class Projects::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to customer_project_path(@task.project.customer, 
-                          @task.project),
-                          notice: "Oppgaven ble lagret" }
+        format.html { 
+          if params[:task][:goto_tools].present?
+            redirect_to project_task_tools_path(@task.project, @task)
+          else
+            redirect_to customer_project_path(@task.project.customer, 
+                            @task.project),
+                            notice: "Oppgaven ble lagret"
+          end
+          }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
