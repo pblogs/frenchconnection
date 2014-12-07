@@ -9,8 +9,9 @@ describe V1::Inventories do
       inventory3 = Fabricate(:inventory)
       get "/api/v1/inventories/"
       response.status.should == 200
-      hash = JSON.parse(response.body)
-      ids = hash['inventories'].collect { |u| u['id'] }
+      parsed_body = JSON.parse(response.body)
+      puts "parsed_body: #{parsed_body}"
+      ids = parsed_body.collect { |u| u['id'] }
       ids.should =~ [inventory3.id, inventory2.id, inventory1.id] 
     end
   end
