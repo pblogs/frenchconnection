@@ -2,9 +2,7 @@ angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory, $http
 
   $scope.test = 'martin'
   $scope.tools = Inventory.query()
-  $scope.selected = []
-
-  console.log "Found inventories: #{$scope.tools}"
+  $scope.selected_tools = []
 
   $scope.select = (tool) ->
     url          = '/tasks/select_inventory'
@@ -17,15 +15,11 @@ angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory, $http
       url: url
       params: {task_id: task_id, inventory_id: inventory_id }
     ).success((data, status) ->
-      #alert('saved')
       #return
     ).error (data, status) ->
       alert('failed')
-      #$scope.data = data or "Request failed"
-      #$scope.status = status
       return
     
-    
     # Put it in selected
-    $scope.selected.push tool
+    $scope.selected_tools.push tool
  
