@@ -1,15 +1,14 @@
 div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   p
     strong
-      = "Workers that has the required qualitications to operate " 
+      = "Personell that has the required qualitications to operate: " 
       =  "#{@task.inventories.pluck(:name).uniq!.join(', ')}"
   
-  /| Search:
-  /input ng-model="searchText" /
+  h3 Our guys
   table#searchTextResults
     tr
       th Who
-      th Price pr day
+      th Cost / day
       th Options
     tr ng-repeat=("worker in workers") 
       td 
@@ -23,12 +22,30 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   br
   br
   br
+  h3 Results from Orwapp's partners
+  table
+    tr
+      th Name
+      th Supplier
+      th Cost / day
+      th Options
+    tr
+      td Mitch Buchannon
+      th Manpower
+      th $1000
+      th 
+        button(ng-click="select(worker)") Select
+
+
+  br
+  br
+  br
   div(ng-show="selected_workers")
     h5 Selected workers
     table#selectedWorkers
       tr
         th Who
-        th Price pr day
+        th Cost / day
         th Options
       tr ng-repeat=("worker in selected_workers") 
         td 
@@ -36,7 +53,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
         td 
           | {{worker.rental_price_pr_day}}
         td 
-          button(ng-click="select(worker)") Remove
+          button(ng-click="select(worker, $index)") Remove
           span not implemented
 
 
