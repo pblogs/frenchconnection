@@ -14,13 +14,17 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
         button(ng-click="select(tool)") Select
 
 
-  div(ng-show="selected")
+  br
+  br
+  br
+  div(ng-show="selected_tools")
     h5 Selected tools
     table#selectedTools
       tr
         th What
+        th Price pr day
         th Options
-      tr ng-repeat=("tool in selected") 
+      tr ng-repeat=("tool in selected_tools") 
         td 
           | {{tool.name}}
         td 
