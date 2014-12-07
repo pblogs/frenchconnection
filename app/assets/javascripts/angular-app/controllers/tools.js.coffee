@@ -13,7 +13,9 @@ angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory, $http
     # Hent Inventory fra DB i models/inventory.js.coffee
     # Hent TaskID fra form(data-task-id)
     inventory_id = tool.id
-    console.log "id is #{inventory_id}"
+    task_id = $('[data-task-id]').first().data('task-id')
+    console.log "inventory_id is #{inventory_id}"
+    console.log "task_id is #{task_id}"
 
     # Let Rails know about the selection
     $http(
