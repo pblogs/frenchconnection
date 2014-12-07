@@ -9,15 +9,15 @@ module V1
       get do
         header 'Access-Control-Allow-Origin', '*'
 
-        last_updated = Inventory.last_updated_at
-        cache(
-            key: "api:v1:inventories:#{last_updated.to_i}",
-            expires_in: 2.hours) do
+        Inventory.all.to_a
+        #last_updated = Inventory.last_updated_at
+        #cache(
+        #    key: "api:v1:inventories:#{last_updated.to_i}",
+        #    expires_in: 2.hours) do
 
-          inventories = Inventory.all
-          present(:inventories, inventories, with: V1::Entities::Inventories)
-
-        end
+        #  inventories = Inventory.all
+        #  #present(:inventories, inventories, with: V1::Entities::Inventories)
+        #end
       end
 
       desc "Get a inventory"
