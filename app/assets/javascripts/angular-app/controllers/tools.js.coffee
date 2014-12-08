@@ -1,4 +1,5 @@
-angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory, $http) ->
+angular.module('Orwapp').controller 'ToolsController', ['$scope', '$http', 'Inventory', ($scope, Inventory, $http) ->
+  
 
   $scope.test = 'martin'
   $scope.tools = Inventory.query()
@@ -23,9 +24,4 @@ angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory, $http
     # Put it in selected
     $scope.selected_tools.push tool
 
-
-ToolsController.$inject = [
-  '$scope',
-  '$http',
-  'Inventory'
 ]
