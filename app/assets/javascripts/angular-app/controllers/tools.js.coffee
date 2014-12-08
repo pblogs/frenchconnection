@@ -1,4 +1,5 @@
-angular.module('Orwapp').controller 'ToolsController', ['$scope', '$http', 'Inventory', ($scope, Inventory, $http) ->
+angular.module('Orwapp').controller 'ToolsController',
+['$scope', 'Inventory', '$http', ($scope, Inventory, $http) ->
   
 
   $scope.test = 'martin'
