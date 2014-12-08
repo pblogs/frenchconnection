@@ -1,5 +1,5 @@
 angular.module('Orwapp').controller 'WorkersForTaskController',
-["$scope", ($scope, User, $http) ->
+($scope, User, $http) ->
 
   $scope.workers = User.query()
   console.log "Found workers: #{$scope.workers}"
@@ -28,4 +28,6 @@ angular.module('Orwapp').controller 'WorkersForTaskController',
     
     # Put it in selected
     $scope.selected_workers.push worker
-] 
+
+
+WorkersForTaskController.$inject = ["$scope", 'User', '$http']
