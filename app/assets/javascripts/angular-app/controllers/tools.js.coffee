@@ -22,4 +22,10 @@ angular.module('Orwapp').controller 'ToolsController', ($scope, Inventory, $http
     
     # Put it in selected
     $scope.selected_tools.push tool
- 
+
+
+ToolsController.$inject = [
+  '$scope',
+  '$http',
+  'Inventory'
+]
