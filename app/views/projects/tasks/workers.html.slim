@@ -2,7 +2,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   p
     strong
       = "Personell that has the required qualitications to operate: " 
-      =  "#{@task.inventories.pluck(:name).uniq!.join(', ')}"
+      =  "#{@task.inventories.pluck(:name).uniq.join(', ')}"
   
   h3 Our guys
   table#searchTextResults
