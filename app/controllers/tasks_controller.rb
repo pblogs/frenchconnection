@@ -38,7 +38,6 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task_types = TaskType.all
-    @paint = Paint.all
     @task = Task.new(task_params)
 
     if params[:customer_id].present?

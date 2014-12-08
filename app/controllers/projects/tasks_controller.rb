@@ -58,7 +58,6 @@ class Projects::TasksController < ApplicationController
   end
 
   def create
-    @paint        = Paint.all
     @task         = Task.new(task_params)
     @project      = Project.find(params[:project_id])
     @task.project = @project
