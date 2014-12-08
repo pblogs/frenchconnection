@@ -181,3 +181,10 @@ Fabricate(:work_category, title: 'Roof tiling')
 Fabricate(:location, name: 'Roof top')
 Fabricate(:location, name: 'Construction site')
 Fabricate(:location, name: 'Traffic')
+
+# Inventories
+Fabricate(:inventory, name: 'Cat bulldozer')
+Fabricate(:inventory, name: 'Small lift')
+Fabricate(:inventory, name: 'Big lift')
+Fabricate(:inventory, name: 'Truck')
+Fabricate(:inventory, name: 'Concrete blender')
