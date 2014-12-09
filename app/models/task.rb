@@ -78,7 +78,11 @@ class Task < ActiveRecord::Base
 
   def qualified_workers
     certificates = inventories.collect { |i| i.certificates.to_a }.flatten
-    certificates.collect { |c| c.users }.flatten
+    if certificates.present?
+      certificates.collect { |c| c.users }.flatten
+    else
+      User.workers
+    end
   end
 
   private
