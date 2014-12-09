@@ -131,17 +131,29 @@ describe Task do
   end
 
   describe 'Resources', focus: true do
-    let(:task) { Fabricate(:task)  }
-    let(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
-    let(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
+    let!(:task) { Fabricate(:task)  }
+    let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
+    let!(:blender) { Fabricate(:inventory, name: 'Concrete blender') } 
+    let!(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
                               certificates: [lift_certificate]) }
-    let(:user) { Fabricate(:user) }
+    let!(:lift_operator) { Fabricate(:user, first_name: 'Lift O', 
+                                     certificates: [lift_certificate]) }
+    let!(:user_with_no_certs) { Fabricate(:user, first_name: 'Unskilled') }
 
     it 'knows which users that can do the job' do
       task.inventories << lift
-      user.certificates = [lift_certificate]
-      expect(task.qualified_workers).to eq [user] 
+      expect(task.qualified_workers).to eq [lift_operator] 
     end
+
+    it 'lists all users for a tool that does not require a certificate' do
+      task.inventories << blender
+      expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
+    end
+
+    it 'lists all users if the task does not contain any tools' do
+      expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
+    end
+
   end
 
 end
