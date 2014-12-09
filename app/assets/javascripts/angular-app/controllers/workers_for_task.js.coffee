@@ -2,7 +2,6 @@ angular.module('Orwapp').controller ["$scope", 'User', '$http', 'WorkersForTaskC
 ($scope, User, $http) ->
 
   $scope.workers = User.query()
-  console.log "Found workers: #{$scope.workers}"
 
   # TODO Populate this with @task.users when initializing
   $scope.selected_workers = []
