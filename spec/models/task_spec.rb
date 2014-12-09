@@ -130,15 +130,15 @@ describe Task do
     end
   end
 
-  describe 'Resources', focus: true do
+  describe 'Resources' do
     let!(:task) { Fabricate(:task)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
     let!(:blender) { Fabricate(:inventory, name: 'Concrete blender') } 
     let!(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
                               certificates: [lift_certificate]) }
-    let!(:lift_operator) { Fabricate(:user, first_name: 'Lift O', 
+    let!(:lift_operator) { Fabricate(:user, roles: [:worker], first_name: 'Lift O', 
                                      certificates: [lift_certificate]) }
-    let!(:user_with_no_certs) { Fabricate(:user, first_name: 'Unskilled') }
+    let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker], first_name: 'Unskilled') }
 
     it 'knows which users that can do the job' do
       task.inventories << lift
