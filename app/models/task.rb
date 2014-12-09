@@ -76,20 +76,19 @@ class Task < ActiveRecord::Base
     UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
   end
 
+  def qualified_workers
+    certificates = inventories.collect { |i| i.certificates.to_a }.flatten
+    certificates.collect { |c| c.users }.flatten
+  end
+
   private
 
   def sms_employee_when_new_task_created
-    Rails.logger.debug "SEND SMS: #{ project.sms_employee_when_new_task_created }"
     project.sms_employee_when_new_task_created
   end
 
   def notify_workers
-    Rails.logger.debug "\n\n IN notify_workers\n\n"
-    domain = "#{ ENV['DOMAIN'] || 'allieroforms.dev' }"
-    #msg = I18n.t('sms.new_task', link: "http://#{domain}/tasks/#{id}")
-    msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
     users.each do |u|
-      Rails.logger.debug "Sms.send_msg(to: '47#{u.mobile}', msg: #{msg})"
       Sms.send_msg(to: "47#{u.mobile}", msg: msg)
     end
   end
@@ -97,6 +96,7 @@ class Task < ActiveRecord::Base
   def single_task
     project.try(:single_task?)
   end
+
 
   def start_date_must_be_within_projects_dates_range
     if (start_date < project.start_date ||
@@ -115,7 +115,6 @@ class Task < ActiveRecord::Base
 
   def notify_all_users_of_ending_task(admin)
     users.each do |user| 
-      Rails.logger.debug "Sending SMS to #{user.name}"
       Sms.send_msg(
         to: "47#{user.mobile}", 
         msg: I18n.t('task_ended_by_admin', 
@@ -131,5 +130,6 @@ class Task < ActiveRecord::Base
       t.update_attribute(:status, :complete)
     end
   end
+  
 
 end
