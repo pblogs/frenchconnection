@@ -17,7 +17,7 @@ section.task
 h4 Where
 section.task
   p.where
-    strong = @task.location.name
+    strong = @task.location.try(:name)
     span   = @task.project.address.present? ? @task.project.address :  'No address registered on the project'
 
 h4 Tools
@@ -51,4 +51,5 @@ h3 Save as template
 
 
 = link_to t('task.order_resources_and_save_task'),
-  project_task_review_path(@task.project, @task), class: 'btn btn-primary pull-right'
+  task_save_and_order_path(@task), class: 'btn btn-primary pull-right',
+  method: :post

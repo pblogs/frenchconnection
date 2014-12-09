@@ -78,6 +78,7 @@ AllieroForms::Application.routes.draw do
     resources :changes, :controller => 'hours_spent/changes'
   end
   resources :tasks do
+    post :save_and_order,   as: :save_and_order
     resources :hours_spents, :controller => 'tasks/hours_spent'
     member do
       post :complete
