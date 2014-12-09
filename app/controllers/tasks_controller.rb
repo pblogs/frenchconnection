@@ -34,6 +34,13 @@ class TasksController < ApplicationController
     @task_types = TaskType.all
   end
 
+  def save_and_order
+    # TODO Mark the task as reviewed and saved here. Order resources.
+    @task = Task.find(params[:task_id])
+    redirect_to(customer_project_path(@task.project.customer, @task.project),
+                notice: 'Task saved and the required resources are ordered.')
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create
