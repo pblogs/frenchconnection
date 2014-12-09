@@ -19,37 +19,40 @@
 require 'spec_helper'
 
 describe Task do
-  before :each do
-    @department = Fabricate(:department)
-    @worker     = Fabricate(:user, first_name: 'John')
-    @worker2    = Fabricate(:user, first_name: 'Barry')
-    @welding    = Fabricate(:work_category, title: 'Welding')
-    @task       = Fabricate(:task, work_category: @welding)
-    @task.users = [@worker, @worker2]
-    @task.save
-    @task.reload
-    @worker.reload
-  end
 
-  it "is valid from the Fabric" do
-    expect(@task).to be_valid
-  end
+  describe 'Basics' do
+    before :each do
+      @department = Fabricate(:department)
+      @worker     = Fabricate(:user, first_name: 'John')
+      @worker2    = Fabricate(:user, first_name: 'Barry')
+      @welding    = Fabricate(:work_category, title: 'Welding')
+      @task       = Fabricate(:task, work_category: @welding)
+      @task.users = [@worker, @worker2]
+      @task.save
+      @task.reload
+      @worker.reload
+    end
 
-  it "belongs to a project" do
-    expect(@task.project.class).to eq Project
-  end
+    it "is valid from the Fabric" do
+      expect(@task).to be_valid
+    end
 
-  it 'has a type of work' do
-    expect(@task.work_category.class).to eq WorkCategory
-  end
+    it "belongs to a project" do
+      expect(@task.project.class).to eq Project
+    end
+
+    it 'has a type of work' do
+      expect(@task.work_category.class).to eq WorkCategory
+    end
 
 
-  it "has one or more workers" do
-    expect(@task.users).to include(@worker, @worker)
-  end
+    it "has one or more workers" do
+      expect(@task.users).to include(@worker, @worker)
+    end
 
-  it "knows their names" do
-    @task.name_of_users.should eq 'John, Barry'
+    it "knows their names" do
+      @task.name_of_users.should eq 'John, Barry'
+    end
   end
 
 
@@ -101,14 +104,16 @@ describe Task do
   end
 
   describe 'Location' do
-    @roof_top =  Fabricate(:location, name: 'Roof top') 
-    @task = Fabricate(:task, location: @roof_top)
+    before do
+      @roof_top =  Fabricate(:location, name: 'Roof top') 
+      @task = Fabricate(:task, location: @roof_top)
+    end
     it 'has a location' do
       @task.location.should eq @roof_top
     end
   end
 
-  describe "validations" do
+  describe "Validations" do
     before do
       @project = Fabricate :project, 
         start_date: 1.month.ago, due_date: 1.month.since
@@ -128,6 +133,10 @@ describe Task do
         expect(task.errors[s].size).to eq(0)
       end
     end
+  end
+
+  describe 'Resources' do
+    
   end
 
 end
