@@ -97,11 +97,6 @@ describe Task do
 
   end
 
-  describe "Notifications" do
-    pending "Add me"
-    #it "notifies by SMS when a worker is delegated at task" do
-    #end
-  end
 
   describe 'Location' do
     before do
@@ -135,8 +130,18 @@ describe Task do
     end
   end
 
-  describe 'Resources' do
-    
+  describe 'Resources', focus: true do
+    let(:task) { Fabricate(:task)  }
+    let(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
+    let(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
+                              certificates: [lift_certificate]) }
+    let(:user) { Fabricate(:user) }
+
+    it 'knows which users that can do the job' do
+      task.inventories << lift
+      user.certificates = [lift_certificate]
+      expect(task.qualified_workers).to eq [user] 
+    end
   end
 
 end
