@@ -1,5 +1,5 @@
-angular.module('orwapp').controller ["$scope", 'User', '$http', 'WorkersForTaskController',
-($scope, User, $http) ->
+angular.module('orwapp').controller 'WorkersForTaskController',
+["$scope", 'User', '$http', ($scope, User, $http) ->
 
   $scope.workers = User.query()
   # TODO Populate this with @task.users when initializing
