@@ -1,4 +1,4 @@
-angular.module('Orwapp').controller 'ToolsController',
+angular.module('orwapp').controller 'ToolsController',
 ['$scope', 'Inventory', '$http', ($scope, Inventory, $http) ->
   
 

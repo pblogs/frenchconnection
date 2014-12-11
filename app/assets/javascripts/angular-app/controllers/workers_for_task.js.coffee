@@ -1,8 +1,7 @@
-angular.module('Orwapp').controller ["$scope", 'User', '$http', 'WorkersForTaskController',
+angular.module('orwapp').controller ["$scope", 'User', '$http', 'WorkersForTaskController',
 ($scope, User, $http) ->
 
   $scope.workers = User.query()
-
   # TODO Populate this with @task.users when initializing
   $scope.selected_workers = []
 
