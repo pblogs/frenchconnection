@@ -1,1 +1,1 @@
-angular.module("Orwapp", ["ngResource", "ng-rails-csrf"])
+angular.module("orwapp", ["ngResource", "ng-rails-csrf"])
