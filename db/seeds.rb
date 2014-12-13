@@ -7,7 +7,7 @@ Profession.destroy_all
 # Customers
 sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
 ostbanehallen = Fabricate(:customer, name: 'Østbanehallen')
-slottet       = Fabricate(:customer, name: 'Det kongelige slott', starred: true)
+slottet       = Fabricate(:customer, name: 'Det kongelige slott')
 
 
 # Custom message.
@@ -93,7 +93,7 @@ Fabricate(:user, roles: [:worker],
 @ryen = Fabricate(:project, name: 'Nytt tak på Ryenhallen', 
                  customer: sporveiene, 
                  sms_employee_if_hours_not_registered: true,
-                 department: service_avdeling, starred: true, user: @martin)
+                 department: service_avdeling, user: @martin)
 
 
 # Tasks for Danni - Snekker
@@ -169,21 +169,25 @@ Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 23,
           description: 'maren maler 23 timer 100% overtid')
 
 # Certificates
+Certificate.destroy_all
 truck_cert     = Fabricate(:certificate, title: 'Truck driver')
 lift_cert      = Fabricate(:certificate, title: 'Small lift')
 climber_cert   = Fabricate(:certificate, title: 'Climber')
 bulldozer_cert = Fabricate(:certificate, title: 'Bulldozer cert')
 
 # WorkCategories
+WorkCategory.destroy_all
 Fabricate(:work_category, title: 'Welding')
 Fabricate(:work_category, title: 'Roof tiling')
 
 # Locations
+Location.destroy_all
 Fabricate(:location, name: 'Roof top')
 Fabricate(:location, name: 'Construction site')
 Fabricate(:location, name: 'Traffic')
 
 # Inventories
+Inventory.destroy_all
 cat_bulldozer = Fabricate(:inventory, name: 'Cat bulldozer', certificates: [bulldozer_cert])
 small_lift    = Fabricate(:inventory, name: 'Small lift', certificates: [lift_cert])
 big_lift      = Fabricate(:inventory, name: 'Big lift', certificates: [lift_cert])
@@ -191,6 +195,6 @@ truck         = Fabricate(:inventory, name: 'Truck', certificates: [truck_cert])
 Fabricate(:inventory, name: 'Concrete blender')
 
 # Workers that can operate these machines
-Fabricate(:user, name: 'Bobb Bulldozer', certificates: [bulldozer_cert])
-Fabricate(:user, name: 'Tore Trøkk',     certificates: [truck_cert])
-Fabricate(:user, name: 'Lise Lift',      certificates: [lift_cert])
+Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer', certificates: [bulldozer_cert])
+Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [truck_cert])
+Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
