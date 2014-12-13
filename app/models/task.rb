@@ -79,7 +79,7 @@ class Task < ActiveRecord::Base
   def qualified_workers
     certificates = inventories.collect { |i| i.certificates.to_a }.flatten
     if certificates.present?
-      certificates.collect { |c| c.users }.flatten
+      certificates.collect { |c| c.users }.flatten.uniq
     else
       User.workers
     end
