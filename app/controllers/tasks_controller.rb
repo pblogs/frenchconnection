@@ -1,5 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
+  before_action :set_task_by_task_id, 
+    only: [:save_and_order, :select_inventory, :qualified_workers, 
+           :selected_workers, :remove_selected_worker]
+
   before_action :set_customer, only: [:new, :create, :index]
 
   # GET /tasks
@@ -36,7 +40,6 @@ class TasksController < ApplicationController
 
   def save_and_order
     # TODO Mark the task as reviewed and saved here. Order resources.
-    @task = Task.find(params[:task_id])
     redirect_to(customer_project_path(@task.project.customer, @task.project),
                 notice: 'Task saved and the required resources are ordered.')
   end
@@ -109,20 +112,23 @@ class TasksController < ApplicationController
 
   # POST :select_inventory, { task_id: task.id, inventory_id: inventory.id }
   def select_inventory
-    @task = Task.find(params[:task_id])
     @task.inventories << Inventory.find(params[:inventory_id])
     @task.save
     render json: @task
   end
 
   def qualified_workers
-    @workers = User.select { |user| user.roles.include? 'worker' }
-    render json: @workers
+    render json: @task.qualified_workers
   end
 
 
   def select_workers
-    @task = Task.find(params[:task_id])
+    @task.users << User.find(params[:worker_id])
+    @task.save
+    render json: @task
+  end
+
+  def remove_selected_worker
     @task.users << User.find(params[:worker_id])
     @task.save
     render json: @task
@@ -139,6 +145,9 @@ class TasksController < ApplicationController
       @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
     end
 
+    def set_task_by_task_id
+      @task = Task.find(params[:task_id])
+    end
 
 
     def task_params
