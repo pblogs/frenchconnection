@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
   before_action :set_task_by_task_id, 
     only: [:save_and_order, :select_inventory, :qualified_workers, 
-           :selected_workers, :remove_selected_worker]
+           :selected_workers, :select_workers, :remove_selected_worker]
 
   before_action :set_customer, only: [:new, :create, :index]
 
