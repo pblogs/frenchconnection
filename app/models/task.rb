@@ -79,7 +79,9 @@ class Task < ActiveRecord::Base
   def qualified_workers
     certificates = inventories.collect { |i| i.certificates.to_a }.flatten
     if certificates.present?
-      certificates.collect { |c| c.users }.flatten.uniq
+      workers = certificates.collect { |c| c.users }.flatten.uniq
+      # Don't list workers that has already been selected.
+      workers - users
     else
       User.workers
     end
