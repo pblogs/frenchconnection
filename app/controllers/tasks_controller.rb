@@ -121,6 +121,9 @@ class TasksController < ApplicationController
     render json: @task.qualified_workers
   end
 
+  def selected_workers
+    render json: @task.users
+  end
 
   def select_workers
     @task.users << User.find(params[:worker_id])
@@ -129,7 +132,7 @@ class TasksController < ApplicationController
   end
 
   def remove_selected_worker
-    @task.users << User.find(params[:worker_id])
+    @task.users.delete User.find(params[:worker_id])
     @task.save
     render json: @task
   end

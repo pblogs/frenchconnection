@@ -4,36 +4,16 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       = "Personell that has the required qualitications to operate: " 
       =  "#{@task.inventories.pluck(:name).uniq.join(', ')}"
   
-  h3 Our guys
-  table#searchTextResults
+  /h3 Our guys
+  / FIXME tabel below visible even with workers empty.
+  table(ng-show="workers" id="searchTextResults")
     tr
       th Who
-      th Cost / day
       th Options
     tr ng-repeat=("worker in workers") 
       td 
         | {{worker.first_name}} {{worker.last_name}}
       td 
-        | {{worker.rental_price_pr_day}}
-      td 
-        button(ng-click="select(worker)") Select
-
-
-  br
-  br
-  br
-  h3 Results from Orwapp's partners
-  table
-    tr
-      th Name
-      th Supplier
-      th Cost / day
-      th Options
-    tr
-      td Mitch Buchannon
-      th Manpower
-      th $1000
-      th 
         button(ng-click="select(worker)") Select
 
 
@@ -53,7 +33,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
         td 
           | {{worker.rental_price_pr_day}}
         td 
-          button(ng-click="select(worker, $index)") Remove
+          button(ng-click="remove_selected_worker(worker, $index)") Remove
           span not implemented
 
 

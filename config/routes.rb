@@ -49,6 +49,8 @@ AllieroForms::Application.routes.draw do
     get :qualified_workers
     post :select_inventory, as: :select_inventory
     post :select_workers,   as: :select_workers
+    get :selected_workers,  as: :selected_workers
+    delete :remove_selected_worker
   end
 
   get '/customers/search' => 'customers#search', as: :customer_search
