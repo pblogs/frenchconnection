@@ -1,7 +1,20 @@
 angular.module('orwapp').controller 'WorkersForTaskController',
 ["$scope", 'User', '$http', ($scope, User, $http) ->
 
-  $scope.workers = User.query()
+  task_id      = $('[data-task-id]').first().data('task-id')
+
+  # TODO Move this to a model or something.
+  $http(
+    method: 'GET',
+    url: '/tasks/qualified_workers',
+    params: { task_id: task_id }
+  ).success((data, status) ->
+    $scope.workers = data
+  ).error (data, status) ->
+    alert('failed')
+    return
+
+
   # TODO Populate this with @task.users when initializing
   $scope.selected_workers = []
 
