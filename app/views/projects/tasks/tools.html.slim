@@ -1,3 +1,15 @@
+br
+- content_for :breadcrumb do
+  = link_to t('.what'), edit_project_task_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.tools'), project_task_tools_path(@task.project, @task),
+    class: 'current'
+  = fa_icon 'chevron-right'
+  = link_to t('.workers'), project_task_workers_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.review'), project_task_review_path(@task.project, @task)
+
+
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
   h1 Search for the tools required to get the job done
   
