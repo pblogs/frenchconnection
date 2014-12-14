@@ -23,7 +23,8 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
       th What
       th Price pr day
       th Options
-    tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
+    /tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
+    tr ng-repeat=("inventory in inventories  | filter:searchText") 
       td 
         | {{inventory.name}}
       td 
