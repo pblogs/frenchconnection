@@ -1,8 +1,20 @@
+- content_for :breadcrumb do
+  br
+  = link_to t('.what'), edit_project_task_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.tools'), project_task_tools_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.workers'), project_task_workers_path(@task.project, @task),
+    class: 'current'
+  = fa_icon 'chevron-right'
+  = link_to t('.review'), project_task_review_path(@task.project, @task)
+
 div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
-  p
-    strong
-      = "Personell that has the required qualitications to operate: " 
-      =  "#{@task.inventories.pluck(:name).uniq.join(', ')}"
+  - if @task.inventories.present?
+    p
+      strong
+        = "Personell that has the required qualitications to operate: " 
+        =  "#{@task.inventories.pluck(:name).uniq.join(', ')}"
   
   /h3 Our guys
   / FIXME tabel below visible even with workers empty.
@@ -10,7 +22,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
     tr
       th Who
       th Options
-    tr ng-repeat=("worker in workers") 
+    tr ng-repeat=("worker in workers track by worker.id") 
       td 
         | {{worker.first_name}} {{worker.last_name}}
       td 
@@ -26,7 +38,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       tr
         th Who
         th Options
-      tr ng-repeat=("worker in selected_workers") 
+      tr ng-repeat=("worker in selected_workers track by worker.id") 
         td 
           | {{worker.first_name}} {{worker.last_name}}
         td 
