@@ -46,7 +46,7 @@ describe UsersController, :type => :controller do
         }.to change(User, :count).by(1)
       end
 
-      it "assigns a newly created user as @user", focus: true do
+      it "assigns a newly created user as @user" do
         pending
         valid_attributes['department_id'] = 1
         post :create, {:user => valid_attributes}, valid_session
