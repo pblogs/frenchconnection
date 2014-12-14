@@ -1,7 +1,7 @@
 angular.module('orwapp').controller 'WorkersForTaskController',
 ["$scope", 'User', '$http', ($scope, User, $http) ->
 
-  task_id      = $('[data-task-id]').first().data('task-id')
+  task_id = $('[data-task-id]').first().data('task-id')
 
   # qualified_workers
   # TODO Move this to a model or something.
@@ -34,30 +34,29 @@ angular.module('orwapp').controller 'WorkersForTaskController',
     url          = '/tasks/select_workers'
     worker_id    = worker.id
     task_id      = $('[data-task-id]').first().data('task-id')
-
-    $scope.workers.splice(index, 1)
     $http(
       method: 'POST'
       url: url
       params: {task_id: task_id, worker_id: worker_id }
     ).success((data, status) ->
-      #return
+      $scope.workers.splice(index, 1)
+      $scope.selected_workers.push worker
     ).error (data, status) ->
       alert('failed')
       return
-    $scope.selected_workers.push worker
 
+
+  # Remove selected worker
   $scope.remove_selected_worker = (worker, index) ->
     url          = '/tasks/remove_selected_worker'
     worker_id    = worker.id
     task_id      = $('[data-task-id]').first().data('task-id')
-    $scope.selected_workers.splice(index, 1)
     $http(
       method: 'DELETE'
       url: url
       params: {task_id: task_id, worker_id: worker_id }
     ).success((data, status) ->
-      #return
+      $scope.selected_workers.splice(index, 1)
     ).error (data, status) ->
       alert('failed')
       return
