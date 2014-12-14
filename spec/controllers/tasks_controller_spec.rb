@@ -195,12 +195,24 @@ describe TasksController, :type => :controller do
 
   describe "select inventory" do
     it 'adds the spesified inventory to @task.inventories' do
-      Task.destroy_all
+      #Task.destroy_all
       task = Fabricate(:task)
       crane = Fabricate(:inventory, name: 'Crane')
       post :select_inventory, {task_id: task.id, inventory_id: crane.id}, valid_session
       task.reload
       task.inventories.last.should eq crane
+    end
+
+    it '/task/:task_id/inventories - lists all available except whats chosen' do
+      pending "WIP"
+      task = Fabricate(:task)
+      crane = Fabricate(:inventory, name: 'Crane')
+      truck = Fabricate(:inventory, name: 'Truck')
+      #task.update_attribute(:inventories, truck)
+      task.inventories << truck
+      task.save
+      get :inventories, { task_id: task.id }, valid_session
+      assigns(:inventories).should eq([crane])
     end
   end
 
