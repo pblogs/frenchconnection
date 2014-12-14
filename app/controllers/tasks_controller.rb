@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
   before_action :set_task_by_task_id, 
     only: [:save_and_order, :select_inventory, :qualified_workers, 
-           :selected_workers, :select_workers, :remove_selected_worker]
+           :selected_workers, :select_workers, :remove_selected_worker,
+           :selected_inventories, :remove_selected_inventory]
 
   before_action :set_customer, only: [:new, :create, :index]
 
@@ -118,21 +119,31 @@ class TasksController < ApplicationController
   end
 
   def qualified_workers
-    render json: @task.qualified_workers
+    render json: @task.qualified_workers.uniq
   end
 
   def selected_workers
-    render json: @task.users
+    render json: @task.users.uniq
   end
 
   def select_workers
     @task.users << User.find(params[:worker_id])
     @task.save
-    render json: @task
+    render json: @task.users
   end
 
   def remove_selected_worker
     @task.users.delete User.find(params[:worker_id])
+    @task.save
+    render json: @task
+  end
+
+  def selected_inventories
+    render json: @task.inventories.uniq
+  end
+
+  def remove_selected_inventory
+    @task.inventories.delete Inventory.find(params[:inventory_id])
     @task.save
     render json: @task
   end

@@ -25,16 +25,12 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
     table#selectedWorkers
       tr
         th Who
-        th Cost / day
         th Options
       tr ng-repeat=("worker in selected_workers") 
         td 
           | {{worker.first_name}} {{worker.last_name}}
         td 
-          | {{worker.rental_price_pr_day}}
-        td 
           button(ng-click="remove_selected_worker(worker, $index)") Remove
-          span not implemented
 
 
 br
