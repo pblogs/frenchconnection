@@ -1,53 +1,60 @@
-h1 Review task
+/h1= t('.header')
 
 section.task
-  h4 What
+  h4 
+    = link_to t('.what'), edit_project_task_path(@task.project, @task)
   p.what
     strong = @task.work_category.title
     span   = @task.description
 
 section.task
-  h4 When
+  h4
+    = link_to t('.when'), edit_project_task_path(@task.project, @task)
   strong= "Start: "
   em = "#{@task.start_date}"
   br
   strong= "End: "
   em = "#{@task.due_date || 'No due date set'}"
 
-h4 Where
 section.task
+  h4
+    = link_to t('.where'), edit_project_task_path(@task.project, @task)
   p.where
     strong = @task.location.try(:name)
-    span   = @task.project.address.present? ? @task.project.address :  'No address registered on the project'
+    span   = @task.project.address.present? ? @task.project.address : 'No address registered on the project'
 
-h4 Tools
-table
-  th What
-  th Price pr day 
-  - @task.inventories.each do |t|
-    tr
-      td = t.name
-      td = t.rental_price_pr_day
-
-
-h4 Workers
-table
-  th Who
-  th Price pr day 
-  - @task.users.uniq.each do |t|
-    tr
-      td = t.name
-      td $292
-
+section.task
+  h4
+    = link_to t('.tools'), project_task_tools_path(@task.project, @task)
+  table
+    th = t('.what')
+    th = t('.price_pr_day')
+    - @task.inventories.each do |t|
+      tr
+        td = t.name
+        td = t.rental_price_pr_day
+  
+  
+section.task
+  h4
+    = link_to t('.workers'), project_task_workers_path(@task.project, @task)
+  table
+    th =t('.who')
+    th =t('.price_pr_day')
+    - @task.users.uniq.each do |t|
+      tr
+        td = t.name
+        td $292
+  
 br
 br
 br
-h3 Save as template
-= form_tag(inventories_search_path) do
-  = text_field_tag :search, params[:search],
-    placeholder: 'Enter a name for the template'
-
-  = submit_tag 'save', name: nil
+/h3 Save as template
+/= form_tag(inventories_search_path) do
+/  = text_field_tag :search, params[:search],
+/    placeholder: 'Enter a name for the template'
+/
+/  = submit_tag 'save', name: nil
 
 
 = link_to t('task.order_resources_and_save_task'),

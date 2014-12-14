@@ -9,6 +9,7 @@ nb:
   active_tasks: Aktive oppgaver
   back: Tilbake
   completed_tasks: Avsluttede oppgaver
+  certificates: Sertifikater
   courses: Kurs
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
@@ -113,6 +114,17 @@ nb:
         It seems that you haven't registered hours in one or more of your tasks
         Please do so on http://allieroapp.orwapp.com/
 
+  projects:
+    tasks:
+      review:
+        header: Bekreft ny oppgave
+        what: Hva skal gjøres
+        when: Når
+        where: Hvor
+        tools: Verktøy og maskiner
+        who: Hvem
+        price_pr_day: Pris pr dag
+        workers: Arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
