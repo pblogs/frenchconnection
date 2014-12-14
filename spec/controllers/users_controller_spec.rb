@@ -7,6 +7,10 @@ describe UsersController, :type => :controller do
     sign_in @user
   end
 
+  let(:valid_attributes) do
+    Fabricate.build(:user).serializable_hash
+  end
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
