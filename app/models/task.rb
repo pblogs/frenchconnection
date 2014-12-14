@@ -81,9 +81,9 @@ class Task < ActiveRecord::Base
     if certificates.present?
       workers = certificates.collect { |c| c.users }.flatten.uniq
       # Don't list workers that has already been selected.
-      workers - users
+      workers - self.users
     else
-      User.workers
+      User.workers - self.users
     end
   end
 

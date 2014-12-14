@@ -154,6 +154,13 @@ describe Task do
       expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
     end
 
+    it 'lists qualitications except those who are selected already' do
+      task.users << lift_operator
+      task.save
+      task.reload
+      expect(task.qualified_workers).to eq [user_with_no_certs] 
+    end
+
   end
 
 end
