@@ -11,37 +11,38 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
       th What
       th Price pr day
       th Options
-    tr ng-repeat=("tool in tools | filter:searchText") 
+    tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
       td 
-        | {{tool.name}}
+        | {{inventory.name}}
       td 
-        | {{tool.rental_price_pr_day}}
+        | {{inventory.rental_price_pr_day}}
       td 
-        button(ng-click="select(tool)") Select
+        button(ng-click="select(inventory, index)") Select
 
 
   br
   br
   br
-  div(ng-show="selected_tools")
+  // FIXME This div shows even though selected_inventories is empty.
+  div(ng-show="selected_inventories")
     h5 Selected tools
     table#selectedTools
       tr
         th What
         th Price pr day
         th Options
-      tr ng-repeat=("tool in selected_tools") 
+      tr ng-repeat=("inventory in selected_inventories track by inventory.id") 
         td 
-          | {{tool.name}}
+          | {{inventory.name}}
         td 
-          | {{tool.rental_price_pr_day}}
+          | {{inventory.rental_price_pr_day}}
         td 
-          button(ng-click="select(tool)") Remove
-          span not implemented
+          button(ng-click="remove_selected_inventory(inventory, index)") Remove
 
 
 br
 br
 br
-= link_to 'Find someone to execute the job', project_task_workers_path(@task.project, @task),
+= link_to 'Find someone to execute the job',
+  project_task_workers_path(@task.project, @task),
   class: 'btn btn-primary pull-right'
