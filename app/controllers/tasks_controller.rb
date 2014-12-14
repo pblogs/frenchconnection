@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   before_action :set_task_by_task_id, 
     only: [:save_and_order, :select_inventory, :qualified_workers, 
            :selected_workers, :select_workers, :remove_selected_worker,
+           :inventories,
            :selected_inventories, :remove_selected_inventory]
 
   before_action :set_customer, only: [:new, :create, :index]
@@ -146,6 +147,11 @@ class TasksController < ApplicationController
     @task.inventories.delete Inventory.find(params[:inventory_id])
     @task.save
     render json: @task
+  end
+
+  def inventories
+    #inventories = Inventory.all - @task.inventories.to_a
+    render json:  Inventory.all # inventories   
   end
 
   private

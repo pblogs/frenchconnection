@@ -2,7 +2,7 @@ angular.module('orwapp').controller 'ToolsController',
 ['$scope', 'Inventory', '$http', ($scope, Inventory, $http) ->
   
 
-  # Fetch all available inventories
+  # Fetch all available inventories, except what's already chosen.
   $scope.inventories = Inventory.query()
   task_id      = $('[data-task-id]').first().data('task-id')
 
