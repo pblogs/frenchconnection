@@ -3,6 +3,13 @@ angular.module('orwapp').controller 'ToolsController',
   
 
   # Fetch all available inventories, except what's already chosen.
+
+  # @jakub, can you show me how I implement this?
+  # -> $scope.inventories = Inventory.query(task_id: task_id)
+  # That should return Inventory.all minus @task.inventories
+  # I can create an API endpoint that returns the correct inventories, but I'm
+  # not sure how to add params to the query() method.
+
   $scope.inventories = Inventory.query()
   task_id      = $('[data-task-id]').first().data('task-id')
 
@@ -32,16 +39,6 @@ angular.module('orwapp').controller 'ToolsController',
     ).error (data, status) ->
       alert('failed')
       return
-
-
-  ## Figure out why this error occours from time to time:
-  # Test by adding and removing tools multiple times.
-  #
-  ## Error: [ngRepeat:dupes] Duplicates in a repeater are not allowed. 
-  # Use 'track by' expression to specify unique keys. 
-  # Repeater: inventory in inventories track by inventory.id | filter:searchText, 
-  # Duplicate key: 14, Duplicate value: {"id":14,"name":"Concrete blender",
-  # "description":"5 tons of Cat","certificates_id":null,
 
 
   $scope.remove_selected_inventory = (inventory, index) ->
