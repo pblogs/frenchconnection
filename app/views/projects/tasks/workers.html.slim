@@ -22,7 +22,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
     tr
       th Who
       th Options
-    tr ng-repeat=("worker in workers track by worker.id") 
+    tr ng-repeat=("worker in workers track by $index") 
       td 
         | {{worker.first_name}} {{worker.last_name}}
       td 
@@ -38,7 +38,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       tr
         th Who
         th Options
-      tr ng-repeat=("worker in selected_workers track by worker.id") 
+      tr ng-repeat=("worker in selected_workers track by $index") 
         td 
           | {{worker.first_name}} {{worker.last_name}}
         td 
