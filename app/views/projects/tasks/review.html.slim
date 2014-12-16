@@ -1,4 +1,14 @@
-/h1= t('.header')
+- content_for :breadcrumb do
+  br
+  br
+  = link_to t('.what'), edit_project_task_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.tools'), project_task_tools_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.workers'), project_task_workers_path(@task.project, @task)
+  = fa_icon 'chevron-right'
+  = link_to t('.review'), project_task_review_path(@task.project, @task),
+    class: 'current'
 
 section.task
   h4 
