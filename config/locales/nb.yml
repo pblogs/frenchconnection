@@ -23,6 +23,10 @@ nb:
   customer: Kunde
   end_task: Avslutt oppgaven
   end_task_hard: Tvungen avslutning
+  end_date: Ferdigstillelse
+  start_date: Oppstart
+  from: Fra
+  to: Til
   task_ended_at: Avsluttet for %{time} siden
   task_ended: Oppgaven ble avsluttet
   name: Navn
@@ -116,15 +120,15 @@ nb:
 
   projects:
     tasks:
-      review:
-        header: Bekreft ny oppgave
-        what: Hva skal gjøres
-        when: Når
-        where: Hvor
-        tools: Verktøy og maskiner
-        who: Hvem
-        price_pr_day: Pris pr dag
-        workers: Arbeidere
+      review: Bekreft og bestill
+      header: Bekreft ny oppgave
+      what: Hva skal gjøres
+      when: Når
+      where: Hvor
+      tools: Verktøy og maskiner
+      who: Hvem
+      price_pr_day: Pris pr dag
+      workers: Arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
