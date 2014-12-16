@@ -1,44 +1,44 @@
 - content_for :breadcrumb do
   br
   br
-  = link_to t('.what'), edit_project_task_path(@task.project, @task)
+  = link_to t('projects.tasks.what'), edit_project_task_path(@task.project, @task)
   = fa_icon 'chevron-right'
-  = link_to t('.tools'), project_task_tools_path(@task.project, @task)
+  = link_to t('projects.tasks.tools'), project_task_tools_path(@task.project, @task)
   = fa_icon 'chevron-right'
-  = link_to t('.workers'), project_task_workers_path(@task.project, @task)
+  = link_to t('projects.tasks.workers'), project_task_workers_path(@task.project, @task)
   = fa_icon 'chevron-right'
-  = link_to t('.review'), project_task_review_path(@task.project, @task),
+  = link_to t('projects.tasks.review'), project_task_review_path(@task.project, @task),
     class: 'current'
 
 section.task
   h4 
-    = link_to t('.what'), edit_project_task_path(@task.project, @task)
+    = link_to t('projects.tasks.what'), edit_project_task_path(@task.project, @task)
   p.what
     strong = @task.work_category.title
     span   = @task.description
 
 section.task
   h4
-    = link_to t('.when'), edit_project_task_path(@task.project, @task)
-  strong= "Start: "
-  em = "#{@task.start_date}"
+    = link_to t('projects.tasks.when'), edit_project_task_path(@task.project, @task)
+  strong= t('from')
+  em = "  #{@task.start_date}"
   br
-  strong= "End: "
-  em = "#{@task.due_date || 'No due date set'}"
+  strong= t('to')
+  em = "  #{@task.due_date || 'No due date set'}"
 
 section.task
   h4
-    = link_to t('.where'), edit_project_task_path(@task.project, @task)
+    = link_to t('projects.tasks.where'), edit_project_task_path(@task.project, @task)
   p.where
     strong = @task.location.try(:name)
     span   = @task.project.address.present? ? @task.project.address : 'No address registered on the project'
 
 section.task
   h4
-    = link_to t('.tools'), project_task_tools_path(@task.project, @task)
+    = link_to t('projects.tasks.tools'), project_task_tools_path(@task.project, @task)
   table
-    th = t('.what')
-    th = t('.price_pr_day')
+    th = t('projects.tasks.what')
+    th = t('projects.tasks.price_pr_day')
     - @task.inventories.each do |t|
       tr
         td = t.name
