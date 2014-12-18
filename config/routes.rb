@@ -63,6 +63,7 @@ AllieroForms::Application.routes.draw do
     collection do
       post :add_user
     end
+    
   end
 
   resources :hours_spents
@@ -76,9 +77,6 @@ AllieroForms::Application.routes.draw do
     end
   end
 
-
-
- 
 
   # The priority is based upon order of 
   # creation: first created -> highest priority.
