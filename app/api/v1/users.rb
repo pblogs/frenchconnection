@@ -1,8 +1,8 @@
 module V1
   class Users < Base
-
+    
     resource :users do
-      
+
       desc "All users with worker role"
       get 'workers' do
         workers = User.select { |user| user.roles.include? 'worker' }
