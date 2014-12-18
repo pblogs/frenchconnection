@@ -20,7 +20,7 @@ module AllieroForms
       allow do
         origins '*'
         
-        resource '*',
+        resource '/users/sign_in.json',
         :headers => :any,
         :methods => [:get, :post, :options]
       end
