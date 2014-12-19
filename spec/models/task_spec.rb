@@ -57,10 +57,10 @@ describe Task do
 
 
   describe "Ending a task" do
-    before(:all) do
-      @admin      = Fabricate(:user, first_name: 'Mr Admin')
-      @project    = Fabricate(:project)
-      @task       = Fabricate(:task, project: @project)
+    before(:each) do
+      Task.destroy_all
+      UserTask.destroy_all
+      @task       = Fabricate(:task)
       @task.users = [Fabricate(:user), Fabricate(:user)]
       @task.save
     end
@@ -68,10 +68,12 @@ describe Task do
     it 'in_progress?' do
       @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
       @task.user_tasks.last.update_attribute(:status, :confirmed)
+      @task.save!
+      @task.reload
       @task.in_progress?.should eq true
     end
 
-    it 'in_progress? if all UserTasks are completed?' do
+    it 'in_progress? if all UserTasks are completed?'  do
       @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
       @task.in_progress?.should eq false
     end
@@ -106,6 +108,31 @@ describe Task do
     it 'has a location' do
       @task.location.should eq @roof_top
     end
+  end
+
+  describe "Notifications" do
+    before do
+      @project = Fabricate(:project, sms_employee_when_new_task_created: true)
+      @task    = Fabricate(:task, project: @project)
+    end
+    it "notifies by SMS when a worker is delegated at task" do
+      @user = Fabricate(:user, mobile: 93441707)
+      Sms.should_receive(:send_msg)
+      @task.users << @user
+      @task.save
+    end
+
+    it "notifies only new workers when task is updated" do
+      @user = Fabricate(:user)
+      Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
+           msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+      @task.users << @user
+
+      @user_second = Fabricate(:user)
+      Sms.should_receive(:send_msg).with(to: "47#{@user_second.mobile}",
+             msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+      Sms.should_not_receive(:send_msg).with(to: "47#{@user.mobile}")
+      @task.users << @user_second
   end
 
   describe "Validations" do
@@ -160,7 +187,6 @@ describe Task do
       task.reload
       expect(task.qualified_workers).to eq [user_with_no_certs] 
     end
-
   end
-
+  end
 end

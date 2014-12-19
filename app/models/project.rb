@@ -18,7 +18,6 @@
 #  sms_employee_if_hours_not_registered :boolean          default(FALSE)
 #  sms_employee_when_new_task_created   :boolean          default(FALSE)
 #  department_id                        :integer
-#  starred                              :boolean
 #  short_description                    :string(255)
 #  complete                             :boolean          default(FALSE)
 #

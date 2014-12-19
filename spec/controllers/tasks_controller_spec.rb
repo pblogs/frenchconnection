@@ -44,6 +44,7 @@ describe TasksController, :type => :controller do
 
   describe "GET index" do
     it "assigns all tasks as @tasks" do
+      Task.destroy_all
       task = Task.create! valid_attributes
       get :index, {}, valid_session
       assigns(:tasks).should eq([task])
