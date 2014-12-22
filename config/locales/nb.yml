@@ -1,6 +1,7 @@
 nb:
   customers:
     edit: Rediger kunde
+    new: Opprett kunde
     projects:
       form:
         single_task: Dette prosjektet har bare en oppgave
