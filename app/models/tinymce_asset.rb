@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: tinymce_assets
+#
+#  id          :integer          not null, primary key
+#  image       :string(255)
+#  description :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class TinymceAsset < ActiveRecord::Base
   validates :image, presence: true
 
