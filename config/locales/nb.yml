@@ -1,6 +1,7 @@
 nb:
   customers:
     edit: Rediger kunde
+    new: Opprett kunde
     projects:
       form:
         single_task: Dette prosjektet har bare en oppgave
@@ -22,6 +23,7 @@ nb:
   hours_registered: Timer registrert
   customer: Kunde
   end_task: Avslutt oppgaven
+  notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
   start_date: Oppstart
@@ -31,6 +33,7 @@ nb:
   task_ended: Oppgaven ble avsluttet
   name: Navn
   my_projects: Mine prosjekter
+  search: Søk
   show_hours_registered: Vis timelister
   start_date: Startdato
   stopped_us_saving: hindret oss å lagre
@@ -138,6 +141,7 @@ nb:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
     closed_projects: Avsluttede prosjekter
+    create_new: Opprett nytt prosjekt
     hours_registered:
       report_generated_at: Report generated at %{time}
     tasks:
