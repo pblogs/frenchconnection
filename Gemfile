@@ -25,6 +25,7 @@ gem 'activeadmin', github: 'activeadmin'
 
 gem 'tinymce-rails', '4.1.6'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
+gem 'html_truncator', '0.4.0'
 
 gem 'tinymce-rails', '4.1.6'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'

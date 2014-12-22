@@ -5,4 +5,5 @@
 .content
   = image_tag blog_article.image.url
   h5 = blog_article.title
-  p = blog_article.content.html_safe
+  p = HTML_Truncator.truncate(sanitize(blog_article.content,
+  tags: %w(div p span ul li a)), 25).html_safe
