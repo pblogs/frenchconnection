@@ -1,13 +1,4 @@
-- content_for :breadcrumb do
-  br
-  = link_to t('projects.tasks.what'), edit_project_task_path(@task.project, @task)
-  = fa_icon 'chevron-right'
-  = link_to t('projects.tasks.tools'), project_task_tools_path(@task.project, @task)
-  = fa_icon 'chevron-right'
-  = link_to t('projects.tasks.workers'), project_task_workers_path(@task.project, @task),
-    class: 'current'
-  = fa_icon 'chevron-right'
-  = link_to t('projects.tasks.review'), project_task_review_path(@task.project, @task)
+= render 'new_task_breadcrumb'
 
 div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   - if @task.inventories.present?

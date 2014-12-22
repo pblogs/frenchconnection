@@ -130,7 +130,11 @@ nb:
   projects:
     create_new: Opprett nytt prosjekt
     tasks:
-      review: Bekreft og bestill
+      review_crumb: Bekreft og bestill
+      review:
+        workers: Arbeidere
+        address_missing: Mangler adresse
+        who: Hvem
       header: Bekreft ny oppgave
       what: Hva skal gjøres
       when: Når
