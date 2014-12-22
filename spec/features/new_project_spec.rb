@@ -3,17 +3,17 @@ require 'spec_helper'
 
 describe "Create a new project", :type => :feature do
   before :all do
-    Customer.destroy_all
     @project_leader = Fabricate(:user, roles: ['project_leader'])
   end
 
-  it "for a new company", js: true do
+  it "for a new customer", js: true do
     sign_in(@project_leader)
     visit root_path
-    click_link 'Prosjekter'
-    click_link 'Lag nytt prosjekt'
-    click_link 'Opprett kunde'
+    click_link I18n.t('top_nav.projects')
+    click_link I18n.t('projects.create_new')
+    click_link I18n.t('customers.new')
 
+    # Create the new customer
     fill_in 'Navn', with: 'Oslo Sporveier AS'
     fill_in 'Addresse', with: 'Majorstuveien 12'
     fill_in 'Organisasjonsnummer', with: '000000000'
@@ -21,28 +21,36 @@ describe "Create a new project", :type => :feature do
     fill_in 'Telefonnummer', with: '22222222'
     click_button 'Lagre'
 
-
-    click_link 'Lag et nytt prosjekt'
-    current_path.should == new_customer_project_path(Customer.last)
-    fill_in 'Oppstartsdato', with: '01.05.2014'
+    # Then create the project
+    click_link I18n.t('projects.create_new')
+    fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
+    fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
+    fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
+    fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
+    fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
     click_button 'Lagre'
   end
 
-  it "for an existing company" do
-    pending "WIP"
-    Fabricate(:customer, name: 'Oslo Sporveier AS')
+  it "search for an existing company" do
+    @customer = Fabricate(:customer, name: 'Oslo Sporveier AS')
     sign_in(@project_leader)
-    click_link 'Min side'
-    click_link 'Opprett nytt prosjekt'
+    expect{
+      click_link I18n.t('top_nav.projects')
+      click_link I18n.t('projects.create_new')
 
-    select 'Oslo Sporveier AS', from: :customer
-    click_link 'Registrer prosjekt'
-    current_path.should == new_customer_project_path(Customer.last)
+      fill_in 'query', with: 'Oslo Sporveier AS'
+      click_link_or_button I18n.t('search')
+      click_link "Oslo Sporveier AS"
+      click_link I18n.t('projects.create_new')
 
-    fill_in 'Oppstartsdato', with: '01.01.2014'
-    fill_in 'Dato for ferdigstillelse av oppdrag', with: '01.10.2014'
-    fill_in 'Beskrivelse', with: 'bra prosjekt'
-    click_button 'Lagre'
+      fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
+      fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
+      fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
+      fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
+      fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
+
+      click_button 'Lagre'
+    }.to change(Project, :count).by(1)
   end
 
   describe "with single task" do
@@ -51,12 +59,11 @@ describe "Create a new project", :type => :feature do
       sign_in(@project_leader)
 
       visit new_customer_project_path(@customer)
-
-      fill_in 'Prosjektnummer', with: 'abc'
-      fill_in 'Oppstartsdato', with: '01.01.2014'
-      fill_in 'Dato for ferdigstillelse av oppdrag', with: '01.10.2014'
-      fill_in 'Beskrivelse', with: 'bra prosjekt'
-      fill_in 'Kort beskrivelse', with: 'bra prosjekt'
+      fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
+      fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
+      fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
+      fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
+      fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
 
       find(:css, '.single-task input[type=checkbox]').set(true)
 
