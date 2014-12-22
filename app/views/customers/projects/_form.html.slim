@@ -22,48 +22,48 @@
 
 
   .field
-    = f.label :project_number, 'Prosjektnummer'
+    = f.label :project_number
     = f.text_field :project_number
   
   .field
-    = f.label :name, 'Prosjektnavn'
+    = f.label :name
     = f.text_field :name
   
   .field
-    = f.label :short_description, 'Kort beskrivelse'
+    = f.label :short_description
     = f.text_field :short_description,
       placeholder: 'Denne vises i tabellen med oppdrag'
   
   .field
-    = f.label :description, 'Beskrivelse'
+    = f.label :description
     = f.text_area :description, rows: 5
   
   .field
-    = f.label :customer_reference, 'Kundereferanse'
+    = f.label :customer_reference
     = f.text_field :customer_reference
 
   .field
-    = f.label :comment, 'Kommentar'
+    = f.label :comment
     = f.text_area :comment
 
   .field
     h3 Dato
-    = f.label :start_date, 'Oppstartsdato'
+    = f.label :start_date
     = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
 
   .field
-    = f.label :due_date, 'Dato for ferdigstillelse av oppdrag'
+    = f.label :due_date
     = f.text_field :due_date, class: :datepicker,  placeholder: 'Velg dato'
 
   hr
 
   .field.radio_group
-    h3 Adresse
+    h3 = Project.human_attribute_name("execution_address")
     = f.text_area :execution_address
 
 
   .field
-    h3 Varsel
+    h3 = I18n.t('notifications')
     label
       = f.check_box :sms_employee_if_hours_not_registered
       = 'Send SMS til ansatt som ikke har ført timer kl 17 samme dag'
@@ -91,4 +91,4 @@
 
   hr
 
-  .actions = f.submit 'Lagre'
+  .actions = f.submit t('save')
