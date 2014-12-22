@@ -4,5 +4,5 @@ h1 Editing task
 
 = link_to 'Vis', @task
 '|
-= link_to 'Tilbake', tasks_path
+= link_to 'Tilbake', customer_project_path(@task.project.customer, @task.project)
 

@@ -39,7 +39,7 @@ class Customers::ProjectsController < ApplicationController
     end
 
     respond_to do |format|
-      if @project.save!
+      if @project.save
         set_favorite
         if params[:attachments]
           params[:attachments].each_with_index do |attachment, i|

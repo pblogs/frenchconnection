@@ -88,7 +88,7 @@ GEM
     bourbon (3.2.3)
       sass (~> 3.2)
       thor
-    bower-rails (0.7.3)
+    bower-rails (0.9.2)
     builder (3.2.2)
     callsite (0.0.11)
     capybara (2.2.1)
@@ -247,6 +247,7 @@ GEM
     net-ssh (2.9.1)
     netrc (0.7.9)
     newrelic_rpm (3.9.4.245)
+    ng-rails-csrf (0.1.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -449,6 +450,7 @@ DEPENDENCIES
   meta_request
   neat
   newrelic_rpm
+  ng-rails-csrf
   passenger
   pdfkit
   pg

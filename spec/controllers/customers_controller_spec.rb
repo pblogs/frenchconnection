@@ -24,13 +24,7 @@ describe CustomersController, :type => :controller do
   # Customer. As you add validations to Customer, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { 
-      name: 'Mirsa',  
-      address: 'Grenda 2',
-      org_number: 00000000,    
-      contact_person: 'Slatan',
-      phone: 98989898
-    }
+    Fabricate.build(:customer).serializable_hash
   end
 
   before do
