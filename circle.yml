@@ -1,12 +1,9 @@
-# Don't deploy anything automagically now.
-# deployment:
-#     production:
-#       branch: master
-#       commands:
-#         - git push git@heroku.com:alliero-orwapp.git $CIRCLE_SHA1:master
-#         - heroku run rake db:migrate --app alliero-orwapp
-# 
 deployment:
+  production:
+    branch: master
+    commands:
+      - git push git@heroku.com:alliero-orwapp.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app alliero-orwapp
   staging:
     branch: staging
     heroku:
