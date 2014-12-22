@@ -7,6 +7,9 @@ Each task can be delegated to one or more workers [2]. These workers report `Hou
 Reports are created by `ExcelController`. It's not really Excel files, but HTML pages transformed to PDF with PDFKit.
 These reports are used by our customer to generate invoices.
 
+[1] Users with 'project_leader' role.
+[2] Users with 'worker' role.
+
 ## Workflow for developers
 
   1. Pick an open issue you want to implement or I delegate a task to you because I think you're the best suited to fix it. :-)
@@ -28,8 +31,7 @@ Save the video to "$RAILS_ROOT/feature-videos/#{pull_request_id}-#{description}.
 .mov is just an example, use a format that most people can open.
 
 
-[1] Users with 'project_leader' role.
-[2] Users with 'worker' role.
+
 ## Style Guide
 Please follow our [Style Guide](https://github.com/stabenfeldt/alliero-orwapp/wiki/Style-guide)
 
