@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
   ROLES = %w[admin project_leader worker economy]
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
 
   belongs_to :department
