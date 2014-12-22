@@ -93,6 +93,7 @@ nb:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
     closed_projects: Avsluttede prosjekter
+    projects.create_new: Opprett nytt prosjekt
 
   task:
     confirm: Bekreft
@@ -127,6 +128,7 @@ nb:
         Please do so on http://allieroapp.orwapp.com/
 
   projects:
+    create_new: Opprett nytt prosjekt
     tasks:
       review: Bekreft og bestill
       header: Bekreft ny oppgave
