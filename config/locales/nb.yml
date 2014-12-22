@@ -21,11 +21,13 @@ nb:
   hours_registered: Timer registrert
   customer: Kunde
   end_task: Avslutt oppgaven
+  notifications: Varslinger
   end_task_hard: Tvungen avslutning
   task_ended_at: Avsluttet for %{time} siden
   task_ended: Oppgaven ble avsluttet
   name: Navn
   my_projects: Mine prosjekter
+  search: Søk
   show_hours_registered: Vis timelister
   start_date: Startdato
   due_date: Ferdigstilling
@@ -45,6 +47,7 @@ nb:
   has_no_due_date: Ingen dato satt
   name: Navn
   project_number: Prosjektnummer
+  save: Lagre
 
   top_nav:
     projects: Prosjekter
@@ -109,6 +112,7 @@ nb:
         Please do so on http://allieroapp.orwapp.com/
 
   projects:
+    create_new: Opprett nytt prosjekt
     hours_registered:
       report_generated_at: Report generated at %{time}
     tasks:
