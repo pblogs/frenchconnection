@@ -29,6 +29,14 @@
     = f.label :profession_id, t('.profession')
     = f.collection_select :profession_id, @professions, :id, :title
 
+  .field
+    = f.label :certificate_ids, t('certificates')
+    = collection_check_boxes(:user, :certificate_ids, 
+      Certificate.all, :id, :title) do |c|
+      = c.label { c.check_box + c.text }
+
+
+
   br
   .field
     = f.label :roles, 'Roller'

@@ -1,18 +1,34 @@
 = form_for [@project, @task] do |f|
+  = hidden_field(:task, :goto_tools)
+
   - if @task.errors.any?
     #error_explanation
-      strong= "#{pluralize(@task.errors.count, "feil")} hindret oss å lagre:"
+      strong= "#{@task.errors.count}" + " feil " + t('stopped_us_saving')
       ul
         - @task.errors.full_messages.each do |message|
           li = message
 
-  div.employees
+  /div.employees
     = collection_check_boxes(:task, :user_ids, 
       @users_in_our_department, :id, :full_last_name) do |b|
       = b.label(:"data-value" => b.value) { b.check_box + b.text }
 
+  /= collection_radio_buttons(nil, :work_category_id, 
+    WorkCategory.all, :id, :title,  { checked: @task.work_category.try(:id) })  do |r|
+
+  h4 = t('task.what')
+  = f.collection_radio_buttons(:work_category_id, WorkCategory.all,
+    :id, :title, { checked: @task.work_category.try(:id) } ) do |r|
+    = r.label { r.radio_button + I18n.t("work_categories.#{r.text.parameterize}")  }
+
+  h4 = t('task.where')
+  = f.collection_radio_buttons(:location_id, Location.all,
+    :id, :name, { checked: @task.location.try(:id) } ) do |r|
+    = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
+
   br
   br
+
   .field
     = f.label :description, 'Beskrivelse'
     = f.text_area :description,  placeholder: 'Beskriv oppdraget'
@@ -34,4 +50,6 @@
   br
   br
   br
-  .actions = f.submit t('project.tasks.save'), class: 'button green'
+  .actions 
+    = link_to 'Fortsett', '#', data: { 'goto-tools' => 1 },
+      class: 'btn btn-primary'

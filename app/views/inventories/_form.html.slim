@@ -1,0 +1,28 @@
+= form_for @inventory do |f|
+  - if @inventory.errors.any?
+    #error_explanation
+      h2
+        = "#{pluralize(@inventory.errors.count, "feil")} #{t('stopped_us_saving')}"
+      ul
+        - @inventory.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_field :description
+  .field
+    = f.label :certificates
+    = collection_check_boxes(:inventory, :certificate_ids, 
+      Certificate.all, :id, :title)  do |b| 
+      = b.label { b.check_box + b.text }
+  .field
+    = f.label :can_be_rented_by_other_companies do
+      = f.check_box :can_be_rented_by_other_companies
+      = t('inventories.can_be_rented_by_other_companies')
+  .field
+    = f.label :rental_price_pr_day
+    = f.number_field :rental_price_pr_day
+  .actions = f.submit t('save')

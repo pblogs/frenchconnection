@@ -15,7 +15,7 @@ br
     tbody
       - @tasks.each do |task|
         tr.green.button
-          td = task.customer.name
+          td = task.project.customer.name
           td = task.task_type.title
           td = task.start_date.strftime("%B %d")
           td
