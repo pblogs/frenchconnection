@@ -1,13 +1,15 @@
 AllieroForms::Application.routes.draw do
 
-  resources :changes
+  namespace :inventories do
+    post :search
+  end
 
+  resources :inventories
+  resources :changes
   resources :departments
   resources :attachments
 
   devise_for :users
-  #, :controllers => {
-  #}
 
   mount API => '/'
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
@@ -23,6 +25,9 @@ AllieroForms::Application.routes.draw do
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task
       put :end_task_hard
+      get :tools
+      get :workers
+      get :review
     end
 
     resources :project_reports, only: :create
@@ -41,6 +46,14 @@ AllieroForms::Application.routes.draw do
   namespace :tasks do
     get :active
     get :report
+    get :qualified_workers
+    post :select_inventory, as: :select_inventory
+    post :select_workers,   as: :select_workers
+    get :selected_workers,  as: :selected_workers
+    get :selected_inventories
+    get :inventories
+    delete :remove_selected_worker
+    delete :remove_selected_inventory
   end
 
   get '/customers/search' => 'customers#search', as: :customer_search
@@ -70,6 +83,7 @@ AllieroForms::Application.routes.draw do
     resources :changes, :controller => 'hours_spent/changes'
   end
   resources :tasks do
+    post :save_and_order,   as: :save_and_order
     resources :hours_spents, :controller => 'tasks/hours_spent'
     member do
       post :complete

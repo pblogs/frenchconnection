@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  customer_id            :integer
 #  start_date             :date
-#  customer_buys_supplies :boolean
 #  created_at             :datetime
 #  updated_at             :datetime
 #  accepted               :boolean
@@ -19,11 +18,12 @@
 class Task < ActiveRecord::Base
 
   belongs_to :project
-  belongs_to :paint
+  belongs_to :work_category
+  belongs_to :location
   has_many :user_tasks
   has_many :users, through: :user_tasks
-
   has_many :hours_spents
+  has_and_belongs_to_many :inventories
 
   scope :from_user, ->(user) { joins(:user_tasks)
                                 .where('user_tasks.user_id = ?', user.id) }
@@ -41,6 +41,7 @@ class Task < ActiveRecord::Base
     if: Proc.new { |p| p.due_date.present? }
 
   attr_accessor :department_id
+  attr_accessor :goto_tools
 
   def hours_total
     self.hours_spents.sum(:hour) +
@@ -65,6 +66,9 @@ class Task < ActiveRecord::Base
   end
 
   def in_progress?
+    UserTask.where(task_id: id).each do |t|
+      puts "UserTask.find #{t.id} - Status: #{t.status}" if t.status != :complete
+    end 
     UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
   end
 
@@ -72,12 +76,27 @@ class Task < ActiveRecord::Base
     UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
   end
 
+  def qualified_workers
+    certificates = inventories.collect { |i| i.certificates.to_a }.flatten
+    if certificates.present?
+      workers = certificates.collect { |c| c.users }.flatten.uniq
+      # Don't list workers that has already been selected.
+      workers - self.users
+    else
+      User.workers - self.users
+    end
+  end
+
   private
 
   def sms_employee_when_new_task_created
-    Rails.logger.debug "sms_employee_when_new_task_created set? "+
-                        "(#{project.sms_employee_when_new_task_created})"
     project.sms_employee_when_new_task_created
+  end
+
+  def notify_workers
+    users.each do |u|
+      project.sms_employee_when_new_task_created
+    end
   end
 
   def notify_workers(workers: nil)
@@ -103,8 +122,9 @@ class Task < ActiveRecord::Base
   end
 
   def single_task
-    project.single_task?
+    project.try(:single_task?)
   end
+
 
   def start_date_must_be_within_projects_dates_range
     if (start_date < project.start_date ||
@@ -138,5 +158,5 @@ class Task < ActiveRecord::Base
       t.update_attribute(:status, :complete)
     end
   end
-
+  
 end

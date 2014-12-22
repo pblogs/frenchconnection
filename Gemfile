@@ -6,6 +6,8 @@ ruby '2.1.2'
 gem 'rails'
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
 gem 'rails_12factor', group: :production
+gem 'ng-rails-csrf'
+
 
 gem 'quiet_assets'
 gem 'pg'

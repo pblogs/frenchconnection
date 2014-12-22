@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
+  before_action :set_task_by_task_id, 
+    only: [:save_and_order, :select_inventory, :qualified_workers, 
+           :selected_workers, :select_workers, :remove_selected_worker,
+           :inventories,
+           :selected_inventories, :remove_selected_inventory]
+
   before_action :set_customer, only: [:new, :create, :index]
-  before_action :set_paint_and_type, only: [:new, :edit, :create]
 
   # GET /tasks
   # GET /tasks.json
@@ -35,11 +40,16 @@ class TasksController < ApplicationController
     @task_types = TaskType.all
   end
 
+  def save_and_order
+    # TODO Mark the task as reviewed and saved here. Order resources.
+    redirect_to(customer_project_path(@task.project.customer, @task.project),
+                notice: 'Task saved and the required resources are ordered.')
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create
     @task_types = TaskType.all
-    @paint = Paint.all
     @task = Task.new(task_params)
 
     if params[:customer_id].present?
@@ -102,6 +112,48 @@ class TasksController < ApplicationController
     end
   end
 
+  # POST :select_inventory, { task_id: task.id, inventory_id: inventory.id }
+  def select_inventory
+    @task.inventories << Inventory.find(params[:inventory_id])
+    @task.save
+    render json: @task
+  end
+
+  def qualified_workers
+    render json: @task.qualified_workers.uniq
+  end
+
+  def selected_workers
+    render json: @task.users.uniq
+  end
+
+  def select_workers
+    @task.users << User.find(params[:worker_id])
+    @task.save
+    render json: @task.users
+  end
+
+  def remove_selected_worker
+    @task.users.delete User.find(params[:worker_id])
+    @task.save
+    render json: @task
+  end
+
+  def selected_inventories
+    render json: @task.inventories.uniq
+  end
+
+  def remove_selected_inventory
+    @task.inventories.delete Inventory.find(params[:inventory_id])
+    @task.save
+    render json: @task
+  end
+
+  def inventories
+    #inventories = Inventory.all - @task.inventories.to_a
+    render json:  Inventory.all # inventories   
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     # TODO decent_exposure gem is probably better
@@ -113,14 +165,12 @@ class TasksController < ApplicationController
       @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
     end
 
-    def set_paint_and_type
-      @task_types = TaskType.all
-      @paint      = Paint.all
-      @users      = User.workers.all
+    def set_task_by_task_id
+      @task = Task.find(params[:task_id])
     end
 
+
     def task_params
-      
       params.require(:task).permit(:customer_id, 
                                    :task_type_id, 
                                    :start_date, 
@@ -129,7 +179,6 @@ class TasksController < ApplicationController
                                    :description,
                                    :project_id,
                                    :user_id,
-                                   :customer_buys_supplies,
                                    :department_id, 
                                    :user_ids => []
                                   )

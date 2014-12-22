@@ -167,3 +167,34 @@ Fabricate(:hours_spent, date: '09.01.2014', overtime_50: 22,
 Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 23,
           task: male_task, user: maren_maler, project: male_task.project,
           description: 'maren maler 23 timer 100% overtid')
+
+# Certificates
+Certificate.destroy_all
+truck_cert     = Fabricate(:certificate, title: 'Truck driver')
+lift_cert      = Fabricate(:certificate, title: 'Small lift')
+climber_cert   = Fabricate(:certificate, title: 'Climber')
+bulldozer_cert = Fabricate(:certificate, title: 'Bulldozer cert')
+
+# WorkCategories
+WorkCategory.destroy_all
+Fabricate(:work_category, title: 'Welding')
+Fabricate(:work_category, title: 'Roof tiling')
+
+# Locations
+Location.destroy_all
+Fabricate(:location, name: 'Roof top')
+Fabricate(:location, name: 'Construction site')
+Fabricate(:location, name: 'Traffic')
+
+# Inventories
+Inventory.destroy_all
+cat_bulldozer = Fabricate(:inventory, name: 'Cat bulldozer', certificates: [bulldozer_cert])
+small_lift    = Fabricate(:inventory, name: 'Small lift', certificates: [lift_cert])
+big_lift      = Fabricate(:inventory, name: 'Big lift', certificates: [lift_cert])
+truck         = Fabricate(:inventory, name: 'Truck', certificates: [truck_cert])
+Fabricate(:inventory, name: 'Concrete blender')
+
+# Workers that can operate these machines
+Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer', certificates: [bulldozer_cert])
+Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [truck_cert])
+Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
