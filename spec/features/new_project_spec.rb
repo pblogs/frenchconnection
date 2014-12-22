@@ -40,7 +40,9 @@ describe "Create a new project", :type => :feature do
 
       fill_in 'query', with: 'Oslo Sporveier AS'
       click_link_or_button I18n.t('search')
-      click_link "Oslo Sporveier AS"
+      within('#customer_search_result') do
+        click_link "Oslo Sporveier AS"
+      end
       click_link I18n.t('projects.create_new')
 
       fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
