@@ -1,0 +1,17 @@
+nb:
+  activerecord:
+    models:
+      project:
+        one: Prosjekt
+        other: Prosjekter
+    attributes:
+      project:
+        project_number: Prosjektnummer
+        name: Navn
+        short_description: Kortbeskrivelse
+        description: Beskrivelse
+        customer_reference: Kundereferanse
+        comment: Kommentar
+        start_date: Oppstartsdato
+        due_date: Sluttdato
+        execution_address: Adresse

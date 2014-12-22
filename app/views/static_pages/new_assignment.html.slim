@@ -5,7 +5,7 @@ br
 
 = form_tag("/customers/search", method: "get") do
   = text_field_tag(:query, nil, placeholder: 'Søk på kundenavn..')
-  = submit_tag("Søk")
+  = submit_tag t('search')
 
 
   br
@@ -15,7 +15,7 @@ br
 
 
 br
-= link_to "Opprett kunde", new_customer_path, class: "btn btn-primary"
+= link_to t('customers.new'), new_customer_path, class: "btn btn-primary"
 
 
 

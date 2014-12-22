@@ -3,7 +3,7 @@ h1 = t('our_customers')
 - unless @customers.empty? || @show_all
   = alphabet_paginate_prev_next @alpha_params
 
-table
+table#customer_search_result
   thead
     tr
       td = sort_link(@search, :name, t('name'), default_order: :desc)

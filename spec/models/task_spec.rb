@@ -133,6 +133,7 @@ describe Task do
              msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
       Sms.should_not_receive(:send_msg).with(to: "47#{@user.mobile}")
       @task.users << @user_second
+    end
   end
 
   describe "Validations" do
@@ -187,6 +188,5 @@ describe Task do
       task.reload
       expect(task.qualified_workers).to eq [user_with_no_certs] 
     end
-  end
   end
 end
