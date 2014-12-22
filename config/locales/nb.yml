@@ -10,6 +10,7 @@ nb:
   active_tasks: Aktive oppgaver
   back: Tilbake
   completed_tasks: Avsluttede oppgaver
+  certificates: Sertifikater
   courses: Kurs
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
@@ -24,6 +25,10 @@ nb:
   end_task: Avslutt oppgaven
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
+  end_date: Ferdigstillelse
+  start_date: Oppstart
+  from: Fra
+  to: Til
   task_ended_at: Avsluttet for %{time} siden
   task_ended: Oppgaven ble avsluttet
   name: Navn
@@ -31,6 +36,7 @@ nb:
   search: Søk
   show_hours_registered: Vis timelister
   start_date: Startdato
+  stopped_us_saving: hindret oss å lagre
   due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
@@ -49,6 +55,10 @@ nb:
   name: Navn
   project_number: Prosjektnummer
   save: Lagre
+  show: Vis
+  edit: Rediger
+  destroy: Slett
+  search: Søk
 
   top_nav:
     projects: Prosjekter
@@ -83,14 +93,19 @@ nb:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
     closed_projects: Avsluttede prosjekter
+    projects.create_new: Opprett nytt prosjekt
 
   task:
     confirm: Bekreft
     confirmed: Oppgave bekreftet
+    edit: Rediger oppgave
     new_tasks: Nye oppgaver
     my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
+    what: Hva skal gjøres?
+    where: Hvor skal arbeidet utføres?
+    order_resources_and_save_task: Bestill resurser og lagre oppgaven
 
   devise:
     failure:
@@ -114,9 +129,25 @@ nb:
 
   projects:
     create_new: Opprett nytt prosjekt
+    tasks:
+      review: Bekreft og bestill
+      header: Bekreft ny oppgave
+      what: Hva skal gjøres
+      when: Når
+      where: Hvor
+      tools: Verktøy og maskiner
+      who: Hvem
+      price_pr_day: Pris pr dag
+      workers: Arbeidere
+  project:
+    confirm_closing: Avslutte prosjektet?
+    complete_link: Avslutt prosjektet
+    closed_projects: Avsluttede prosjekter
+    create_new: Opprett nytt prosjekt
     hours_registered:
       report_generated_at: Report generated at %{time}
     tasks:
+      tools: Verktøy
       form:
         project_start_date: "Prosjekt start dato: %{start_date}"
         project_due_date: "Prosjekt ferdig dato: %{due_date}"
@@ -142,4 +173,40 @@ nb:
     sikkerhetssele_fallblokk: Sikkerhetssele fallblokk
     hoystrykksspyler: Høytrykkspyler
 
+  inventories:
+    can_be_rented_by_other_companies: Tilgjenglig for utleie
+    create_new: Legg inn nytt verktøy eller kjøretøy
+    certificates: Sertifikater
+    description: Beskrivelse
+    name: Navn
+    index: Verktøy og maskiner
+    rental_price_pr_day: Leiepris pr dag
+    edit: Rediger
+    search_placeholder: Søk etter verktøy og maskiner..
+
+  work_categories:
+    welding: Sveising
+    roof-tiling: Taklegging
+
+  locations:
+    roof-top: Tak
+    construction-site: Anleggsområdet
+    traffic: I trafikken
+
+  activerecord:
+    errors:
+      template:
+        header:
+          one:   "1 feil forhindret %{model} fra å bli lagret"
+          other: "%{count} feil forhindret %{model} fra å lagres"
+        body:    "Det var feil med følgende felt:"
+    attributes:
+      task:
+        description: Beskrivelse
+      inventory:
+        certificates: Nødvendig sertifikat
+        name: Navn
+        description: Beskrivelse
+        can_be_rented_by_other_companies: Tilgjenglig for utleie
+        rental_price_pr_day: Leiepris pr dag
 

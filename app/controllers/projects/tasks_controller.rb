@@ -1,6 +1,7 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_task_from_id, only: [:end_task, :end_task_hard]
+  before_action :set_task_from_id, only: [:end_task, :end_task_hard, :tools,
+                                          :review, :inventories]
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_workers_and_dates, only: [:edit, :new, :create]
 
@@ -10,6 +11,25 @@ class Projects::TasksController < ApplicationController
 
   def show
   end
+
+  def search
+  end
+
+  def review
+  end
+
+  # Part of the new task steps
+  def tools
+  end
+
+
+  # Part of the new task steps
+  def workers
+    @task = Task.find(params[:task_id])
+    # Select workers that matches the criterias: sertificate for 
+    # selected tools and location
+  end
+
 
   def active
     @tasks = Task.where(accepted: true, finished: false).order(created_at: :desc)
@@ -40,7 +60,6 @@ class Projects::TasksController < ApplicationController
   end
 
   def create
-    @paint        = Paint.all
     @task         = Task.new(task_params)
     @project      = Project.find(params[:project_id])
     @task.project = @project
@@ -48,9 +67,15 @@ class Projects::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to customer_project_path(@task.project.customer, 
-                                                        @task.project),
-          notice: "Oppdraget ble opprettet" }
+        format.html { 
+          if params[:task][:goto_tools].present?
+            redirect_to project_task_tools_path(@task.project, @task)
+          else
+            redirect_to customer_project_path(@task.project.customer, 
+                            @task.project),
+                            notice: "Oppgaven ble lagret"
+          end
+          }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
@@ -60,12 +85,22 @@ class Projects::TasksController < ApplicationController
     end
   end
 
+  def tools
+    
+  end
+
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to customer_project_path(@task.project.customer, 
-                                                        @task.project),
-                      notice: 'Task was successfully updated.' }
+        format.html { 
+          if params[:task][:goto_tools].present?
+            redirect_to project_task_tools_path(@task.project, @task)
+          else
+            redirect_to customer_project_path(@task.project.customer, 
+              @task.project),
+              notice: I18n.t('notifications.successfully_updated')
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -114,7 +149,9 @@ class Projects::TasksController < ApplicationController
                                  :due_date,
                                  :paint_id,
                                  :description,
-                                 :customer_buys_supplies,
+                                 :work_category_id,
+                                 :location_id,
+                                 :goto_tools,
                                  :department_id, 
                                  :user_ids => []
                                 )

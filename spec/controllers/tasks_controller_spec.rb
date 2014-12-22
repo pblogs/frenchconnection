@@ -35,7 +35,6 @@ describe TasksController, :type => :controller do
   end
   before do
     sign_in
-    Task.destroy_all
   end
 
   # This should return the minimal set of values that should be in the session
@@ -45,6 +44,7 @@ describe TasksController, :type => :controller do
 
   describe "GET index" do
     it "assigns all tasks as @tasks" do
+      Task.destroy_all
       task = Task.create! valid_attributes
       get :index, {}, valid_session
       assigns(:tasks).should eq([task])
@@ -184,8 +184,6 @@ describe TasksController, :type => :controller do
   end
 
   describe "POST complete" do
-
-
     it "changes the user_task status" do
       task = Task.create! valid_attributes
       current_user = task.users.first
@@ -193,6 +191,29 @@ describe TasksController, :type => :controller do
       post :complete, {id: task.to_param}, valid_session
       user_task = task.user_tasks.find_by(user: current_user)
       expect(user_task.status).to eq :complete
+    end
+  end
+
+  describe "select inventory" do
+    it 'adds the spesified inventory to @task.inventories' do
+      #Task.destroy_all
+      task = Fabricate(:task)
+      crane = Fabricate(:inventory, name: 'Crane')
+      post :select_inventory, {task_id: task.id, inventory_id: crane.id}, valid_session
+      task.reload
+      task.inventories.last.should eq crane
+    end
+
+    it '/task/:task_id/inventories - lists all available except whats chosen' do
+      pending "WIP"
+      task = Fabricate(:task)
+      crane = Fabricate(:inventory, name: 'Crane')
+      truck = Fabricate(:inventory, name: 'Truck')
+      #task.update_attribute(:inventories, truck)
+      task.inventories << truck
+      task.save
+      get :inventories, { task_id: task.id }, valid_session
+      assigns(:inventories).should eq([crane])
     end
   end
 

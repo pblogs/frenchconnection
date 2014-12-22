@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong =t('inventories.name') +': '
+  = @inventory.name
+p
+  strong =t('inventories.description') +': '
+  = @inventory.description
+p
+  strong =t('inventories.certificates') +': '
+  = @inventory.certificates.pluck(:title).join(', ')
+p
+  strong =t('inventories.can_be_rented_by_other_companies') +': '
+  = @inventory.can_be_rented_by_other_companies
+p
+  strong =t('inventories.rental_price_pr_day') +': '
+  = @inventory.rental_price_pr_day
+
+= link_to t('edit'), edit_inventory_path(@inventory)
+'|
+= link_to t('back'), inventories_path
