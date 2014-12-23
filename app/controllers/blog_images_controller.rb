@@ -11,6 +11,10 @@ class BlogImagesController < ApplicationController
               url: @asset.image.url
           }
       }, content_type: "text/html"
+    else
+      render json: {
+          error: { message: @asset.errors.full_messages }
+      }, content_type: "text/html"
     end
   end
 end
