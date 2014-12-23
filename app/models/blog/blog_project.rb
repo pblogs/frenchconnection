@@ -16,6 +16,9 @@
 class BlogProject < ActiveRecord::Base
   include Blog
 
+  validates :title, presence: true
+  validates :content, presence: true
+
   has_many :blog_images, as: :owner, dependent: :destroy
 
   mount_uploader :image, DocumentUploader

@@ -15,4 +15,9 @@
 
 class BlogVideo < ActiveRecord::Base
   include Blog
+
+  validates :title, presence: true
+  validates :content, presence: true
+  validates :video_url, presence: true
+
 end
