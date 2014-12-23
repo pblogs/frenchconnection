@@ -1,8 +1,8 @@
-class TinymceAssetsController < ApplicationController
+class BlogImagesController < ApplicationController
   skip_before_filter :authenticate_user!
 
   def create
-    @asset = TinymceAsset.new(image: params[:file], description: params[:alt])
+    @asset = BlogImage.new(image: params[:file], description: params[:alt])
     if @asset.save!
       render json: {
           image: {

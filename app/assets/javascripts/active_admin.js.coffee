@@ -9,5 +9,6 @@ $(document).ready ->
       | bullist numlist outdent indent | table | fontsizeselect | uploadimage"
     editor_selector: "tinymce"
     plugins: "image link uploadimage"
+    uploadimage_form_url: "/blog_images"
     menubar: false
   return

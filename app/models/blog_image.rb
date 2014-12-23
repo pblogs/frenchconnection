@@ -9,7 +9,7 @@
 #  updated_at  :datetime
 #
 
-class TinymceAsset < ActiveRecord::Base
+class BlogImage < ActiveRecord::Base
   validates :image, presence: true
 
   mount_uploader :image, ImageUploader
