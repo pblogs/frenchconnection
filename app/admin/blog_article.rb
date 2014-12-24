@@ -11,7 +11,8 @@ ActiveAdmin.register BlogArticle do
                                                 value: f.object.class.name }
       f.input :title
       f.input :content, input_html: { class: :tinymce },
-              hint: I18n.t('blog.save_article_for_image_upload')
+              hint: f.object.new_record? ?
+                      I18n.t('blog.save_article_for_image_upload') : ''
       f.has_many :blog_images, allow_destroy: true do |ff|
         ff.input :image, as: :file,
                  hint: f.image_tag(ff.object.image.url(:small))
