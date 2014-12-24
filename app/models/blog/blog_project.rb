@@ -17,7 +17,7 @@ class BlogProject < ActiveRecord::Base
   include Blog
 
   validates :title, presence: true
-  validates :content, presence: true
+  validates :content, presence: true, if: -> { published }
 
   has_many :blog_images, as: :owner, dependent: :destroy
 

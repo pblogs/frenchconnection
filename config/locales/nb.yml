@@ -116,6 +116,12 @@ nb:
     no_projects: Ingen prosjekter til stede
     no_videos: Ingen videoer
     videos: Videoer
+    save_article_for_image_upload: For bildeopplasting til å arbeide,
+      Artikkelen må lagres først
+    save_project_for_image_upload: For bildeopplasting til å arbeide,
+      Prosjektet må lagres først
+    save_video_for_image_upload: For bildeopplasting til å arbeide,
+      Video må lagres først
 
   certificates:
     header: Sertifikater
