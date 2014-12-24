@@ -9,7 +9,8 @@ ActiveAdmin.register BlogArticle do
       f.input :type, as: :hidden, input_html: { id: :content_type,
                                                 value: f.object.class.name }
       f.input :title
-      f.input :content, input_html: { class: :tinymce }
+      f.input :content, input_html: { class: :tinymce },
+              hint: I18n.t('blog.save_article_for_image_upload')
       f.input :image, as: :file,
               hint: f.image_tag(f.object.image.url)
       f.input :published

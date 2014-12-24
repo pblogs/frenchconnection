@@ -45,6 +45,12 @@ en:
     no_projects: No projects present
     no_videos: No videos
     videos: Videos
+    save_article_for_image_upload: In order for image upload to work,
+      article must be saved first
+    save_project_for_image_upload: In order for image upload to work,
+          project must be saved first
+    save_video_for_image_upload: In order for image upload to work,
+              video must be saved first
 
   activerecord:
     attributes:
