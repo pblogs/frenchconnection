@@ -7,5 +7,10 @@ module Blog
                             published: true, date: Date.today)
                               .order(publish_date: :desc)
                               .order(updated_at: :desc) }
+
+    def main_image
+      BlogImage.where(owner: self, main: true).first ||
+          BlogImage.where(owner: self).first
+    end
   end
 end
