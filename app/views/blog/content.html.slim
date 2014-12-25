@@ -4,7 +4,7 @@
       h2 = @content.title
       p = l @content.updated_at, format: :short_w_year
     .main_image
-      = image_tag @content.image.url
+      = image_tag @content.main_image.image.url rescue nil
   hr
   .content
     = @content.content.html_safe
