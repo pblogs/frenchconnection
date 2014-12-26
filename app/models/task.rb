@@ -18,8 +18,8 @@
 class Task < ActiveRecord::Base
 
   belongs_to :project
-  belongs_to :work_category
   belongs_to :location
+  belongs_to :profession
   has_many :user_tasks
   has_many :users, through: :user_tasks
   has_many :hours_spents

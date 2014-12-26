@@ -27,10 +27,10 @@ service_avdeling = Department.create(title: '69850')
 
 
 # Professions
-murer      = Profession.create(title: 'Murer')
-maler      = Profession.create(title: 'Maler')
-@snekker    = Profession.create(title: 'Snekker')
-elektriker = Profession.create(title: 'Elektriker')
+murer      = Profession.create(title: 'bricklayer')
+maler      = Profession.create(title: 'painter')
+@snekker   = Profession.create(title: 'carpenter')
+elektriker = Profession.create(title: 'electrician')
 
 
 # A user has one of these roles.
@@ -175,10 +175,6 @@ lift_cert      = Fabricate(:certificate, title: 'Small lift')
 climber_cert   = Fabricate(:certificate, title: 'Climber')
 bulldozer_cert = Fabricate(:certificate, title: 'Bulldozer cert')
 
-# WorkCategories
-WorkCategory.destroy_all
-Fabricate(:work_category, title: 'Welding')
-Fabricate(:work_category, title: 'Roof tiling')
 
 # Locations
 Location.destroy_all
