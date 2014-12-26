@@ -28,7 +28,7 @@ feature 'Active Admin' do
     sign_in(@project_leader)
 
     visit '/admin/blog_articles/new'
-    fill_in 'blog_article_title', with: 'Test article'
+    fill_in 'blog_article_title', with: 'New Test article'
     fill_in 'blog_article_content', with: 'Test article content'
     check 'blog_article_published'
     fill_in 'blog_article_publish_date', with: publish_date
@@ -38,7 +38,7 @@ feature 'Active Admin' do
 
     within first(:css, '.news') do
       expect(page).to have_css 'ul li .content'
-      expect(page).to have_content 'Test article'
+      expect(page).to have_content 'New Test article'
     end
   end
 
@@ -64,7 +64,7 @@ feature 'Active Admin' do
     sign_in(@project_leader)
 
     visit '/admin/blog_articles/new'
-    fill_in 'blog_article_title', with: 'Test article'
+    fill_in 'blog_article_title', with: 'New Test article'
     fill_in 'blog_article_content', with: 'Test article content'
     fill_in 'blog_article_publish_date',
             with: -> { Time.now.strftime('%Y-%m-%d') }

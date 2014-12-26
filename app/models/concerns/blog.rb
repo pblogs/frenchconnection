@@ -9,8 +9,7 @@ module Blog
                               .order(updated_at: :desc) }
 
     def main_image
-      BlogImage.where(owner: self, main: true).first ||
-          BlogImage.where(owner: self).first
+      blog_images.where(main: true).first || blog_images.first
     end
   end
 end
