@@ -18,15 +18,15 @@
 
 require 'spec_helper'
 
-describe Task do
+describe Task, focus: true do
 
   describe 'Basics' do
     before :each do
       @department = Fabricate(:department)
       @worker     = Fabricate(:user, first_name: 'John')
       @worker2    = Fabricate(:user, first_name: 'Barry')
-      @welding    = Fabricate(:work_category, title: 'Welding')
-      @task       = Fabricate(:task, work_category: @welding)
+      @welder     = Fabricate(:profession, title: 'Welder')
+      @task       = Fabricate(:task, profession: @welder)
       @task.users = [@worker, @worker2]
       @task.save
       @task.reload
@@ -41,8 +41,8 @@ describe Task do
       expect(@task.project.class).to eq Project
     end
 
-    it 'has a type of work' do
-      expect(@task.work_category.class).to eq WorkCategory
+    it 'belongs to a profession' do
+      expect(@task.profession.class).to eq Profession
     end
 
 
