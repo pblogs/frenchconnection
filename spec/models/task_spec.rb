@@ -18,15 +18,14 @@
 
 require 'spec_helper'
 
-describe Task, focus: true do
+describe Task do
 
   describe 'Basics' do
     before :each do
       @department = Fabricate(:department)
       @worker     = Fabricate(:user, first_name: 'John')
       @worker2    = Fabricate(:user, first_name: 'Barry')
-      @welder     = Fabricate(:profession, title: 'Welder')
-      @task       = Fabricate(:task, profession: @welder)
+      @task       = Fabricate(:task)
       @task.users = [@worker, @worker2]
       @task.save
       @task.reload
@@ -40,11 +39,6 @@ describe Task, focus: true do
     it "belongs to a project" do
       expect(@task.project.class).to eq Project
     end
-
-    it 'belongs to a profession' do
-      expect(@task.profession.class).to eq Profession
-    end
-
 
     it "has one or more workers" do
       expect(@task.users).to include(@worker, @worker)
@@ -164,9 +158,11 @@ describe Task, focus: true do
     let!(:blender) { Fabricate(:inventory, name: 'Concrete blender') } 
     let!(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
                               certificates: [lift_certificate]) }
-    let!(:lift_operator) { Fabricate(:user, roles: [:worker], first_name: 'Lift O', 
+    let!(:lift_operator) { Fabricate(:user, roles: [:worker],
+                                     first_name: 'Lift Oper', 
                                      certificates: [lift_certificate]) }
-    let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker], first_name: 'Unskilled') }
+    let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker],
+                                          first_name: 'Unskilled') }
 
     it 'knows which users that can do the job' do
       task.inventories << lift
