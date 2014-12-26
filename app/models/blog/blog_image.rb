@@ -11,7 +11,6 @@
 
 class BlogImage < ActiveRecord::Base
   validates :image, presence: true
-  validates :owner, presence: true
 
   belongs_to :owner, polymorphic: true
 
