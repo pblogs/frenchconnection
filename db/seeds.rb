@@ -194,3 +194,9 @@ Fabricate(:inventory, name: 'Concrete blender')
 Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer', certificates: [bulldozer_cert])
 Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [truck_cert])
 Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
+
+# Skills
+Fabricate(:skill, title: 'welding')
+Fabricate(:skill, title: 'painting')
+Fabricate(:skill, title: 'digging')
+Fabricate(:skill, title: 'driving')
