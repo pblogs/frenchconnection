@@ -8,10 +8,11 @@
         - @task.errors.full_messages.each do |message|
           li = message
 
-  h4 = t('task.what')
-  = f.collection_radio_buttons(:work_category_id, WorkCategory.all,
-    :id, :title, { checked: @task.work_category.try(:id) } ) do |r|
-    = r.label { r.radio_button + I18n.t("work_categories.#{r.text.parameterize}")  }
+
+  h4 = t('task.skills')
+  = collection_check_boxes(:task, :skills_ids, 
+    Skill.all, :id, :title)  do |b| 
+    = b.label { b.check_box + b.text }
 
   h4 = t('task.where')
   = f.collection_radio_buttons(:location_id, Location.all,
