@@ -105,6 +105,7 @@ nb:
     destroyed: Oppgave slettet
     what: Hva skal gjøres?
     where: Hvor skal arbeidet utføres?
+    what_profession: Hvilket yrke
     order_resources_and_save_task: Bestill resurser og lagre oppgaven
 
   devise:
@@ -188,14 +189,17 @@ nb:
     edit: Rediger
     search_placeholder: Søk etter verktøy og maskiner..
 
-  work_categories:
-    welding: Sveising
-    roof-tiling: Taklegging
-
   locations:
     roof-top: Tak
     construction-site: Anleggsområdet
     traffic: I trafikken
+
+  professions:
+    bricklayer: Murer
+    painter: Maler
+    carpenter: Snekker
+    electrician: Elektriker
+
 
   activerecord:
     errors:
