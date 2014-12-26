@@ -7,7 +7,7 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         panel I18n.t('blog.news') do
           ul do
-            BlogArticle.published.limit(4).map do |article|
+            BlogArticle.published.limit(3).map do |article|
               li link_to(article.title, edit_admin_blog_article_path(article))
             end
           end
