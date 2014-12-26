@@ -15,3 +15,8 @@ nb:
         start_date: Oppstartsdato
         due_date: Sluttdato
         execution_address: Adresse
+      task:
+        description: Beskrivelse
+        start_date: Oppstartsdato
+        due_date: Sluttdato
+        address: Adresse
