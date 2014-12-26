@@ -6,7 +6,7 @@ describe "Create a new project", :type => :feature do
     @project_leader = Fabricate(:user, roles: ['project_leader'])
   end
 
-  it "for a new customer", js: true do
+  it "for a new customer" do
     sign_in(@project_leader)
     visit root_path
     click_link I18n.t('top_nav.projects')
@@ -86,7 +86,6 @@ describe "Create a new project", :type => :feature do
 
   def sign_in(user)
     visit root_path
-    #click_link I18n.t('auth.sign_in.link')
     within '#main' do
       fill_in 'user_mobile', with: user.mobile
       fill_in 'user_password', with: 'topsecret'
