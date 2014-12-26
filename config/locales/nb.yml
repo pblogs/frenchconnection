@@ -9,6 +9,7 @@ nb:
   address: Adresse
   active_tasks: Aktive oppgaver
   back: Tilbake
+  continue: Fortsett
   completed_tasks: Avsluttede oppgaver
   certificates: Sertifikater
   courses: Kurs
@@ -26,7 +27,6 @@ nb:
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
-  start_date: Oppstart
   from: Fra
   to: Til
   task_ended_at: Avsluttet for %{time} siden
