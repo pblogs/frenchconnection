@@ -44,8 +44,10 @@ feature 'Upload Images Through Tinymce' do
     visit edit_admin_blog_article_path(@article)
 
     within(:css, '.has_many_container.blog_images') do
-      expect(page).to have_css('img[src="' +
-                           @article.blog_images.last.image.url(:small) + '"]')
+      expect do
+        blog_image_url = @article.blog_images.last.image.url(:small)
+        page.to have_css('img[src="' + blog_image_url + '"]')
+      end
     end
   end
 end
