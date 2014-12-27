@@ -114,3 +114,6 @@ gem 'rest_client'
 
 gem 'dalli'
 gem 'memcachier'
+
+gem 'rack-cors',
+    :require => 'rack/cors'
