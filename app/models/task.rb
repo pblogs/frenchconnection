@@ -66,9 +66,6 @@ class Task < ActiveRecord::Base
   end
 
   def in_progress?
-    UserTask.where(task_id: id).each do |t|
-      puts "UserTask.find #{t.id} - Status: #{t.status}" if t.status != :complete
-    end 
     UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
   end
 
