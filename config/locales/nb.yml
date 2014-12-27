@@ -34,6 +34,8 @@ nb:
   name: Navn
   my_projects: Mine prosjekter
   search: Søk
+  select: Velg
+  remove: Fjern
   show_hours_registered: Vis timelister
   start_date: Startdato
   stopped_us_saving: hindret oss å lagre
@@ -133,21 +135,23 @@ nb:
     create_new: Opprett nytt prosjekt
     tasks:
       review:
+        what: Verktøy / maskin
         workers: Arbeidere
         address_missing: Mangler adresse
         who: Hvem
       tools:
         header: Søk etter maskiner og verktøy 
-      breadcrumb:
+        find_someone_to_execute_the_job: Finn personell til å gjøre jobben
+      headers:
         review: Bekreft og bestill
         header: Bekreft ny oppgave
         what: Hva skal gjøres
         when: Når
         where: Hvor
         tools: Verktøy og maskiner
-        who: Hvem
-        price_pr_day: Pris pr dag
         workers: Arbeidere
+      who: Hvem
+      price_pr_day: Pris pr dag
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
