@@ -9,15 +9,17 @@
           li = message
 
 
-  h4 = t('task.skills')
-  = collection_check_boxes(:task, :skills_ids, 
-    Skill.all, :id, :title)  do |b| 
-    = b.label { b.check_box + b.text }
+  h5 = t('task.skills')
+  .check_boxes 
+    = collection_check_boxes(:task, :skills_ids, 
+      Skill.all, :id, :title)  do |b| 
+      = b.label { b.check_box + b.text }
 
-  h4 = t('task.where')
-  = f.collection_radio_buttons(:location_id, Location.all,
-    :id, :name, { checked: @task.location.try(:id) } ) do |r|
-    = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
+  h5 = t('task.where')
+  .check_boxes 
+    = f.collection_radio_buttons(:location_id, Location.all,
+      :id, :name, { checked: @task.location.try(:id) } ) do |r|
+      = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
 
   br
   br
