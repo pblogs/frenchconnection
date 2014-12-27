@@ -98,15 +98,16 @@ nb:
   task:
     confirm: Bekreft
     confirmed: Oppgave bekreftet
-    edit: Rediger oppgave
-    new_tasks: Nye oppgaver
-    my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
+    edit: Rediger oppgave
+    my_tasks: Mine oppgaver
+    new_tasks: Nye oppgaver
+    order_resources_and_save_task: Bestill resurser og lagre oppgaven
+    skills: Ferdigheter
     what: Hva skal gjøres?
     where: Hvor skal arbeidet utføres?
     what_profession: Hvilket yrke
-    order_resources_and_save_task: Bestill resurser og lagre oppgaven
 
   devise:
     failure:
@@ -131,19 +132,22 @@ nb:
   projects:
     create_new: Opprett nytt prosjekt
     tasks:
-      review_crumb: Bekreft og bestill
       review:
         workers: Arbeidere
         address_missing: Mangler adresse
         who: Hvem
-      header: Bekreft ny oppgave
-      what: Hva skal gjøres
-      when: Når
-      where: Hvor
-      tools: Verktøy og maskiner
-      who: Hvem
-      price_pr_day: Pris pr dag
-      workers: Arbeidere
+      tools:
+        header: Søk etter maskiner og verktøy 
+      breadcrumb:
+        review: Bekreft og bestill
+        header: Bekreft ny oppgave
+        what: Hva skal gjøres
+        when: Når
+        where: Hvor
+        tools: Verktøy og maskiner
+        who: Hvem
+        price_pr_day: Pris pr dag
+        workers: Arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet

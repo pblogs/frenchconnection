@@ -1,7 +1,7 @@
 = render 'new_task_breadcrumb'
 
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
-  h1 Search for the tools required to get the job done
+  h1 = t('.header')
   
   | Search:
   input ng-model="searchText" placeholder='machines, lifts, tools ..' /
