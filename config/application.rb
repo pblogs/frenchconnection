@@ -71,6 +71,17 @@ module AllieroForms
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     #config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+    
+    # Ensure Rack::Cors to run before Warden::Manager used by Devise
+    config.middleware.insert_before Warden::Manager, Rack::Cors do
+      allow do
+        origins '*'
+       
+        resource '/users/sign_in.json',
+        :headers => :any,
+        :methods => [:get, :post, :options]
+      end
+    end
 
 
   end
