@@ -8,6 +8,7 @@ module V1
     mount Customers
     mount HoursSpents
     mount Inventories
+    mount MobilePictures
 
   end
 end
