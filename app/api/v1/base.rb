@@ -7,6 +7,7 @@ module V1
     mount Projects
     mount Customers
     mount HoursSpents
+    mount MobilePictures
 
   end
 end
