@@ -196,6 +196,7 @@ Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [tru
 Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
 
 # Skills
+Skill.destroy_all
 Fabricate(:skill, title: 'welding')
 Fabricate(:skill, title: 'painting')
 Fabricate(:skill, title: 'digging')
