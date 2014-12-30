@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :certificates
+
   namespace :inventories do
     post :search
   end
@@ -100,6 +102,7 @@ AllieroForms::Application.routes.draw do
   
   get '/blog'  => 'static_pages#blog',  as: :blog
   get '/hms'   => 'static_pages#hms',   as: :hms
+  get '/admin' => 'static_pages#admin',   as: :admin
   get '/instructions'   => 'static_pages#instructions',   as: :instructions
   get '/video' => 'static_pages#video', as: :video
 
