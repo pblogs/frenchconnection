@@ -8,6 +8,7 @@ nb:
 
   address: Adresse
   active_tasks: Aktive oppgaver
+  are_you_sure: Er du sikker?
   back: Tilbake
   continue: Fortsett
   completed_tasks: Avsluttede oppgaver
@@ -57,6 +58,8 @@ nb:
   name: Navn
   project_number: Prosjektnummer
   save: Lagre
+  yes: Ja
+  no: Nei
   show: Vis
   edit: Rediger
   destroy: Slett
@@ -78,6 +81,11 @@ nb:
     favourites: Favoritter
     projects: Prosjekter 
 
+  admin:
+    header: Administrer resurser
+    users: Brukere
+    inventories: Verktøy og maskiner
+    certificates: Sertifikater
   time:
     formats:
       short_w_year: "%d %B %Y"
@@ -98,6 +106,7 @@ nb:
     projects.create_new: Opprett nytt prosjekt
 
   task:
+    no_due_date_set: Sluttdato ikke satt
     confirm: Bekreft
     confirmed: Oppgave bekreftet
     completed_tasks: Fullførte oppgaver
