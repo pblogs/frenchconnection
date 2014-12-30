@@ -15,7 +15,7 @@ section.task
   em = "  #{@task.start_date}"
   br
   strong= t('to')
-  em = "  #{@task.due_date || 'No due date set'}"
+  em = "  #{@task.due_date || t('task.no_due_date_set')}"
 
 section.task
   h4
