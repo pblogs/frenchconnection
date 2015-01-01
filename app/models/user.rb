@@ -31,8 +31,8 @@
 
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
+  include User::Role
 
-  ROLES = %w[admin project_leader worker economy]
 
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
@@ -43,8 +43,10 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   has_many :skills
 
-  def has_role?(role)
-    roles.include? role.to_s
+  after_initialize :set_default_role, :if => :new_record?
+
+  def set_default_role
+    self.role ||= :worker
   end
 
   validates :first_name, presence: true
