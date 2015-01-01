@@ -16,7 +16,7 @@ html
         - if signed_in?
           nav
             ul#top_nav
-              - if @current_user.has_role? :project_leader
+              - if @current_user.is? 'project_leader'
                 li= link_to t('top_nav.projects'),  projects_path
                 li= link_to t('top_nav.customers'), customers_path
                 li= link_to t('top_nav.manage'),    admin_path
@@ -75,8 +75,7 @@ html
             span 
               ="Logget inn som #{@current_user.name}"
               br
-              - @current_user.roles.each do |r| 
-                em= t(r) 
+              em= t(@current_user.role)
             br
             = link_to 'Logg ut', destroy_user_session_path, method: :delete
 
