@@ -7,7 +7,7 @@ end
 
 feature "Task" do
   scenario "Create a new task", js: true do
-    @project_leader = Fabricate(:user, roles: ['project_leader'])
+    @project_leader = Fabricate(:user, roles: [:project_leader])
     project_start_date = '01.01.2014'
     @project        = Fabricate(:project, start_date: project_start_date)
     sign_in(@project_leader)
