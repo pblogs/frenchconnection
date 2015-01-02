@@ -43,12 +43,6 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   has_many :skills
 
-  after_initialize :set_default_role, :if => :new_record?
-
-  def set_default_role
-    self.role ||= :worker
-  end
-
   validates :first_name, presence: true
   validates :last_name,  presence: true
   validates :mobile,     uniqueness: true

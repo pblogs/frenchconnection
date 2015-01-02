@@ -37,9 +37,7 @@ describe ProjectsController, :type => :controller do
   end
 
   before do
-    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', 
-                      department: Fabricate(:department), emp_id: "12121", 
-                      roles: ["project_leader"])
+    @user = Fabricate(:user, roles: [:project_leader])
     sign_in @user
     Project.destroy_all
   end
