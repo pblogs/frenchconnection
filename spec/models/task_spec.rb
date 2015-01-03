@@ -153,7 +153,7 @@ describe Task do
   end
 
   describe 'Resources' do
-    User.destroy_all
+    before { User.destroy_all }
     let!(:task)             { Fabricate(:task)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
     let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') } 
