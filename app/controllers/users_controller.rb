@@ -106,6 +106,7 @@ class UsersController < ApplicationController
     end
 
   def fix_roles_params
+    return if params[:user][:roles].blank?
     params[:user][:roles].reject!(&:blank?)
     params[:user][:roles] = params[:user][:roles].collect { |a| a.to_sym }
   end
