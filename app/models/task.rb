@@ -105,23 +105,17 @@ class Task < ActiveRecord::Base
   end
 
   def notify_new_workers
-    Rails.logger.debug "@old_workers: #{@old_workers.inspect}"
-    Rails.logger.debug "users: #{@users.inspect}"
     new_workers = users - @old_workers
-    Rails.logger.debug "after save: notify_new_workers: "+
-      "#{new_workers.each { |u| p u.name } }}"
     notify_workers(workers: new_workers)
   end
 
   def remember_old_workers
-    Rails.logger.debug "\n\n remember_old_workers: #{users.each { |u| p u.name }}"
     @old_workers = users.all
   end
 
   def single_task
     project.try(:single_task?)
   end
-
 
   def start_date_must_be_within_projects_dates_range
     if (start_date < project.start_date ||
