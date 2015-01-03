@@ -153,16 +153,17 @@ describe Task do
   end
 
   describe 'Resources' do
-    let!(:task) { Fabricate(:task)  }
+    User.destroy_all
+    let!(:task)             { Fabricate(:task)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
-    let!(:blender) { Fabricate(:inventory, name: 'Concrete blender') } 
-    let!(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
-                              certificates: [lift_certificate]) }
-    let!(:lift_operator) { Fabricate(:user, roles: [:worker],
-                                     first_name: 'Lift Oper', 
-                                     certificates: [lift_certificate]) }
+    let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') } 
+    let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000', 
+                                certificates: [lift_certificate]) }
+    let!(:lift_operator)    { Fabricate(:user, roles: [:worker],
+                                first_name: 'Lift Oper', 
+                                certificates: [lift_certificate]) }
     let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker],
-                                          first_name: 'Unskilled') }
+                                  first_name: 'Unskilled') }
 
     it 'knows which users that can do the job' do
       task.inventories << lift
