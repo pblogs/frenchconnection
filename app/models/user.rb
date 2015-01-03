@@ -57,10 +57,6 @@ class User < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
 
 
-  def self.get_roles
-    ROLES
-  end
-
   def name
     "#{ first_name } #{ last_name }"
   end
@@ -72,6 +68,7 @@ class User < ActiveRecord::Base
   def self.workers
     User.where("'worker' = ANY (roles)")
   end
+
 
   def avatar
     image.url.present? ? image.url : "http://robohash.org/#{name}"
