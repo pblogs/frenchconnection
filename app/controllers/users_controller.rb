@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_department, only: [:new, :edit, :add_user, :update, :create]
-  before_action :set_profession, only: [:new, :edit, :add_user, :update, :create]
-  before_action :fix_roles_params, only: [:update, :create, :add_user]
+  before_action :set_department, only: [:new, :edit, :update, :create]
+  before_action :set_profession, only: [:new, :edit, :update, :create]
+  before_action :fix_roles_params, only: [:update, :create]
 
   # GET /users
   # GET /users.json
@@ -30,7 +30,6 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @form_action = add_user_users_path
     @user = User.new
   end
 
@@ -38,24 +37,6 @@ class UsersController < ApplicationController
   def edit
     @form_action = user_path(@user)
   end
-
-  # POST /users
-  # POST /users.json
-  def add_user
-    @user = User.new(user_params)
-    @user.password = @user.password_confirmation = srand.to_s[0..10]
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to users_path,
-                      notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
 
   def create
     @user = User.new(user_params)
