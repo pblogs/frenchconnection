@@ -75,7 +75,7 @@ html
             span 
               ="Logget inn som #{@current_user.name}"
               br
-              em= "Rolle: #{@current_user.roles.join(',')}"
+              em= user_roles(@current_user)
             br
             = link_to 'Logg ut', destroy_user_session_path, method: :delete
 

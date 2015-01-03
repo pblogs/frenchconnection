@@ -11,6 +11,10 @@ module ApplicationHelper
     array.size - return_users_nr_in_array(@workers, user: user) -1
   end
 
+  def user_roles(user)
+    user.roles.collect { |r| I18n.t("roles.#{r}") }.join(', ')
+  end
+
   def nbsp
     "&nbsp;".html_safe
   end
