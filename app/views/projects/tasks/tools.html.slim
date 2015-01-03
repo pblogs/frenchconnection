@@ -1,18 +1,18 @@
 = render 'new_task_breadcrumb'
 
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
-  h1 Search for the tools required to get the job done
+  h1 = t('.header')
   
-  | Search:
-  input ng-model="searchText" placeholder='machines, lifts, tools ..' /
+  | #{t('search')}: 
+  input ng-model="searchText.title" placeholder='machines, lifts, tools ..' /
   br
   br
   br
   table#searchTextResults ng-show="searchText"
     tr
-      th What
-      th Price pr day
-      th Options
+      th = t('.what')
+      th = t('.price_pr_day')
+      th = t('.options')
     /tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
     tr ng-repeat=("inventory in inventories track by $index | filter:searchText") 
       td 
@@ -20,7 +20,7 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
       td 
         | {{inventory.rental_price_pr_day}}
       td 
-        button(ng-click="select(inventory, index)") Select
+        button(ng-click="select(inventory, index)") = t('select')
 
 
   br
@@ -28,24 +28,25 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
   br
   // FIXME This div shows even though selected_inventories is empty.
   div(ng-show="selected_inventories")
-    h5 Selected tools
+    h5 = t('.selected_tools')
     table#selectedTools
       tr
-        th What
-        th Price pr day
-        th Options
+        th = t('.what')
+        th = t('.price_pr_day')
+        th = t('.options')
       tr ng-repeat=("inventory in selected_inventories track by $index") 
         td 
           | {{inventory.name}}
         td 
           | {{inventory.rental_price_pr_day}}
         td 
-          button(ng-click="remove_selected_inventory(inventory, index)") Remove
+          button(
+            ng-click="remove_selected_inventory(inventory, index)")
+            = t('remove')
 
-
 br
 br
 br
-= link_to 'Find someone to execute the job',
+= link_to t('.find_someone_to_execute_the_job'),
   project_task_workers_path(@task.project, @task),
   class: 'btn btn-primary pull-right'

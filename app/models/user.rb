@@ -31,20 +31,16 @@
 
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
+  include User::Role
 
-  ROLES = %w[admin project_leader worker economy]
-
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
 
   belongs_to :department
   belongs_to :profession
   has_and_belongs_to_many :certificates
   mount_uploader :image, ImageUploader
-
-  def has_role?(role)
-    roles.include? role.to_s
-  end
+  has_many :skills
 
   validates :first_name, presence: true
   validates :last_name,  presence: true
@@ -61,20 +57,12 @@ class User < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
 
 
-  def self.get_roles
-    ROLES
-  end
-
   def name
     "#{ first_name } #{ last_name }"
   end
 
   def full_last_name
     "#{ last_name } #{ first_name }".strip
-  end
-
-  def self.workers
-    User.where("'worker' = ANY (roles)")
   end
 
   def avatar
@@ -101,6 +89,16 @@ class User < ActiveRecord::Base
 
   def owns_project_ids
     owns_projects.pluck(:department_id).compact
+  end
+
+  def self.roles_to_mask(roles)
+    (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  # Heavy to load all users. Perhaps set the role with 
+  # user.worker == true if sorting on role_mask is to hard.
+  def self.workers
+    User.all.select { |u| u.is? :worker }
   end
 
   protected

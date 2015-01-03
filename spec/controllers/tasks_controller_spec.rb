@@ -27,8 +27,8 @@ describe TasksController, :type => :controller do
     { 
       project_id:   Fabricate(:project).id,
       description: 'work hard or go home',
-      user_ids:     [Fabricate(:user, department: Fabricate(:department), 
-                               emp_id: "12121", roles: ['project_leader']).id],
+      user_ids:     [Fabricate(:user, department: Fabricate(:department),
+                               roles: [:project_leader]).id],
       start_date:   Time.now,
       due_date:     Time.now.next_week
     }
@@ -209,7 +209,6 @@ describe TasksController, :type => :controller do
       task = Fabricate(:task)
       crane = Fabricate(:inventory, name: 'Crane')
       truck = Fabricate(:inventory, name: 'Truck')
-      #task.update_attribute(:inventories, truck)
       task.inventories << truck
       task.save
       get :inventories, { task_id: task.id }, valid_session

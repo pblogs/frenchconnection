@@ -10,4 +10,5 @@
 
 class Profession < ActiveRecord::Base
   validates :title, :uniqueness => true
+  has_many :skills
 end

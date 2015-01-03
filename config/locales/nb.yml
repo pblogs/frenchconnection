@@ -8,7 +8,9 @@ nb:
 
   address: Adresse
   active_tasks: Aktive oppgaver
+  are_you_sure: Er du sikker?
   back: Tilbake
+  continue: Fortsett
   completed_tasks: Avsluttede oppgaver
   certificates: Sertifikater
   courses: Kurs
@@ -26,7 +28,6 @@ nb:
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
-  start_date: Oppstart
   from: Fra
   to: Til
   task_ended_at: Avsluttet for %{time} siden
@@ -34,6 +35,8 @@ nb:
   name: Navn
   my_projects: Mine prosjekter
   search: Søk
+  select: Velg
+  remove: Fjern
   show_hours_registered: Vis timelister
   start_date: Startdato
   stopped_us_saving: hindret oss å lagre
@@ -55,6 +58,8 @@ nb:
   name: Navn
   project_number: Prosjektnummer
   save: Lagre
+  yes: Ja
+  no: Nei
   show: Vis
   edit: Rediger
   destroy: Slett
@@ -76,6 +81,11 @@ nb:
     favourites: Favoritter
     projects: Prosjekter 
 
+  admin:
+    header: Administrer resurser
+    users: Brukere
+    inventories: Verktøy og maskiner
+    certificates: Sertifikater
   time:
     formats:
       short_w_year: "%d %B %Y"
@@ -96,16 +106,19 @@ nb:
     projects.create_new: Opprett nytt prosjekt
 
   task:
+    no_due_date_set: Sluttdato ikke satt
     confirm: Bekreft
     confirmed: Oppgave bekreftet
-    edit: Rediger oppgave
-    new_tasks: Nye oppgaver
-    my_tasks: Mine oppgaver
     completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
+    edit: Rediger oppgave
+    my_tasks: Mine oppgaver
+    new_tasks: Nye oppgaver
+    order_resources_and_save_task: Bestill resurser og lagre oppgaven
+    skills: Ferdigheter
     what: Hva skal gjøres?
     where: Hvor skal arbeidet utføres?
-    order_resources_and_save_task: Bestill resurser og lagre oppgaven
+    what_profession: Hvilket yrke
 
   devise:
     failure:
@@ -130,19 +143,24 @@ nb:
   projects:
     create_new: Opprett nytt prosjekt
     tasks:
-      review_crumb: Bekreft og bestill
       review:
+        what: Verktøy / maskin
         workers: Arbeidere
         address_missing: Mangler adresse
         who: Hvem
-      header: Bekreft ny oppgave
-      what: Hva skal gjøres
-      when: Når
-      where: Hvor
-      tools: Verktøy og maskiner
+      tools:
+        header: Søk etter maskiner og verktøy 
+        find_someone_to_execute_the_job: Finn personell til å gjøre jobben
+      headers:
+        review: Bekreft og bestill
+        header: Bekreft ny oppgave
+        what: Hva skal gjøres
+        when: Når
+        where: Hvor
+        tools: Verktøy og maskiner
+        workers: Arbeidere
       who: Hvem
       price_pr_day: Pris pr dag
-      workers: Arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
@@ -188,14 +206,17 @@ nb:
     edit: Rediger
     search_placeholder: Søk etter verktøy og maskiner..
 
-  work_categories:
-    welding: Sveising
-    roof-tiling: Taklegging
-
   locations:
     roof-top: Tak
     construction-site: Anleggsområdet
     traffic: I trafikken
+
+  professions:
+    bricklayer: Murer
+    painter: Maler
+    carpenter: Snekker
+    electrician: Elektriker
+
 
   activerecord:
     errors:

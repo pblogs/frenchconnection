@@ -2,25 +2,24 @@
 
 section.task
   h4 
-    = link_to t('projects.tasks.what'),
+    = link_to t('projects.tasks.headers.what'),
       edit_project_task_path(@task.project, @task)
   p.what
-    strong = @task.work_category.title
-    span   = @task.description
+    strong = @task.description
 
 section.task
   h4
-    = link_to t('projects.tasks.when'),
+    = link_to t('projects.tasks.headers.when'),
       edit_project_task_path(@task.project, @task)
   strong= t('from')
   em = "  #{@task.start_date}"
   br
   strong= t('to')
-  em = "  #{@task.due_date || 'No due date set'}"
+  em = "  #{@task.due_date || t('task.no_due_date_set')}"
 
 section.task
   h4
-    = link_to t('projects.tasks.where'),
+    = link_to t('projects.tasks.headers.where'),
       edit_project_task_path(@task.project, @task)
   p.where
     strong = @task.location.try(:name)
@@ -28,10 +27,10 @@ section.task
 
 section.task
   h4
-    = link_to t('projects.tasks.tools'),
+    = link_to t('projects.tasks.headers.tools'),
       project_task_tools_path(@task.project, @task)
   table
-    th = t('projects.tasks.what')
+    th = t('projects.tasks.review.what')
     th = t('projects.tasks.price_pr_day')
     - @task.inventories.each do |t|
       tr
@@ -41,7 +40,8 @@ section.task
   
 section.task
   h4
-    = link_to t('.workers'), project_task_workers_path(@task.project, @task)
+    = link_to t('projects.tasks.headers.workers'),
+      project_task_workers_path(@task.project, @task)
   table
     th =t('.who')
     th =t('projects.tasks.price_pr_day')

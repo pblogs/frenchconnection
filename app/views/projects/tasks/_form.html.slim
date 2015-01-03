@@ -8,48 +8,38 @@
         - @task.errors.full_messages.each do |message|
           li = message
 
-  /div.employees
-    = collection_check_boxes(:task, :user_ids, 
-      @users_in_our_department, :id, :full_last_name) do |b|
-      = b.label(:"data-value" => b.value) { b.check_box + b.text }
 
-  /= collection_radio_buttons(nil, :work_category_id, 
-    WorkCategory.all, :id, :title,  { checked: @task.work_category.try(:id) })  do |r|
+  h5 = t('task.skills')
+  .check_boxes 
+    = collection_check_boxes(:task, :skills_ids, 
+      Skill.all, :id, :title)  do |b| 
+      = b.label { b.check_box + b.text }
 
-  h4 = t('task.what')
-  = f.collection_radio_buttons(:work_category_id, WorkCategory.all,
-    :id, :title, { checked: @task.work_category.try(:id) } ) do |r|
-    = r.label { r.radio_button + I18n.t("work_categories.#{r.text.parameterize}")  }
-
-  h4 = t('task.where')
-  = f.collection_radio_buttons(:location_id, Location.all,
-    :id, :name, { checked: @task.location.try(:id) } ) do |r|
-    = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
+  h5 = t('task.where')
+  .check_boxes 
+    = f.collection_radio_buttons(:location_id, Location.all,
+      :id, :name, { checked: @task.location.try(:id) } ) do |r|
+      = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
 
   br
   br
 
   .field
-    = f.label :description, 'Beskrivelse'
-    = f.text_area :description,  placeholder: 'Beskriv oppdraget'
+    = f.label :description
+    = f.text_area :description, placeholder: 'Beskriv oppdraget'
 
   .field
-    = f.label :start_date, 'Oppstartsdato'
+    = f.label :start_date
     = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato', 
-      data: {datepicker: {minDate: l(@project.start_date), maxDate: l(@maxdate)}}
-    small= t('.project_start_date', start_date: l(@project.start_date))
+      data: { datepicker: { minDate: l(@project.start_date), maxDate: l(@maxdate) } }
 
   .field
-    = f.label :due_date, 'Ferdigstillingsdato'
+    = f.label :due_date
     = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato', 
-      data: {datepicker: {minDate: l(@project.start_date), maxDate: l(@maxdate)}}
-    - if @project.due_date 
-      small= t('.project_due_date', due_date: l(@project.due_date))
+      data: { datepicker: { minDate: l(@project.start_date), maxDate: l(@maxdate) } }
 
-  br
-  br
   br
   br
   .actions 
-    = link_to 'Fortsett', '#', data: { 'goto-tools' => 1 },
+    = link_to t('continue'), '#', data: { 'goto-tools' => 1 },
       class: 'btn btn-primary'

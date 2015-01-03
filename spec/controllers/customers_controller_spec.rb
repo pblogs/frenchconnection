@@ -28,7 +28,8 @@ describe CustomersController, :type => :controller do
   end
 
   before do
-    sign_in
+    user = Fabricate(:user, roles: [:project_leader])
+    sign_in(user)
   end
 
   # This should return the minimal set of values that should be in the session

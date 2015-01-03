@@ -1,24 +1,24 @@
 - content_for :breadcrumb do
   br
   br
-  = link_to t('projects.tasks.what'),
+  = link_to t('projects.tasks.headers.what'),
     edit_project_task_path(@task.project, @task),
     class: "#{ body_id == 'tasks_edit' ? 'current' : nil }"
 
   = fa_icon 'chevron-right'
 
-  = link_to t('projects.tasks.tools'),
+  = link_to t('projects.tasks.headers.tools'),
     project_task_tools_path(@task.project, @task),
     class: "#{ body_id == 'tasks_tools' ? 'current' : nil }"
 
   = fa_icon 'chevron-right'
 
-  = link_to t('projects.tasks.workers'),
+  = link_to t('projects.tasks.headers.workers'),
     project_task_workers_path(@task.project, @task),
     class: "#{ body_id == 'tasks_workers' ? 'current' : nil }"
 
   = fa_icon 'chevron-right'
 
-  = link_to t('projects.tasks.review_crumb'),
+  = link_to t('projects.tasks.headers.review'),
     project_task_review_path(@task.project, @task),
     class: "#{ body_id == 'tasks_review' ? 'current' : nil }"

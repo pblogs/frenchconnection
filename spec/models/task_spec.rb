@@ -25,8 +25,7 @@ describe Task do
       @department = Fabricate(:department)
       @worker     = Fabricate(:user, first_name: 'John')
       @worker2    = Fabricate(:user, first_name: 'Barry')
-      @welding    = Fabricate(:work_category, title: 'Welding')
-      @task       = Fabricate(:task, work_category: @welding)
+      @task       = Fabricate(:task)
       @task.users = [@worker, @worker2]
       @task.save
       @task.reload
@@ -40,11 +39,6 @@ describe Task do
     it "belongs to a project" do
       expect(@task.project.class).to eq Project
     end
-
-    it 'has a type of work' do
-      expect(@task.work_category.class).to eq WorkCategory
-    end
-
 
     it "has one or more workers" do
       expect(@task.users).to include(@worker, @worker)
@@ -159,22 +153,27 @@ describe Task do
   end
 
   describe 'Resources' do
-    let!(:task) { Fabricate(:task)  }
+    before { User.destroy_all }
+    let!(:task)             { Fabricate(:task)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
-    let!(:blender) { Fabricate(:inventory, name: 'Concrete blender') } 
-    let!(:lift) { Fabricate(:inventory, name: 'Lift 2000', 
-                              certificates: [lift_certificate]) }
-    let!(:lift_operator) { Fabricate(:user, roles: [:worker], first_name: 'Lift O', 
-                                     certificates: [lift_certificate]) }
-    let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker], first_name: 'Unskilled') }
+    let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') } 
+    let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000', 
+                                certificates: [lift_certificate]) }
+    let!(:lift_operator)    { Fabricate(:user, roles: [:worker],
+                                first_name: 'Lift Oper', 
+                                certificates: [lift_certificate]) }
+    let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker],
+                                  first_name: 'Unskilled') }
 
     it 'knows which users that can do the job' do
       task.inventories << lift
+      task.save
       expect(task.qualified_workers).to eq [lift_operator] 
     end
 
     it 'lists all users for a tool that does not require a certificate' do
       task.inventories << blender
+      task.save
       expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
     end
 
