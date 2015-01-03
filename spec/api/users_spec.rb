@@ -3,11 +3,12 @@ require 'spec_helper'
 describe V1::Users do
   
   describe 'GET /api/v1/users/workers' do
+    User.destroy_all
     it 'lists all workers' do
-      user1 = Fabricate(:user, roles: [:worker])
-      user2 = Fabricate(:user, roles: [:worker])
-      user3 = Fabricate(:user, roles: [:worker, :project_leader])
-      user4 = Fabricate(:user, roles: [:project_leader])
+      user1 = Fabricate(:user, id: 1, roles: [:worker])
+      user2 = Fabricate(:user, id: 2, roles: [:worker])
+      user3 = Fabricate(:user, id: 3, roles: [:worker, :project_leader])
+      Fabricate(:user, id: 4, roles: [:project_leader])
       get "/api/v1/users/workers"
       response.status.should == 200
       hash = JSON.parse(response.body)
