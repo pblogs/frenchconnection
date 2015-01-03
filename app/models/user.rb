@@ -65,11 +65,6 @@ class User < ActiveRecord::Base
     "#{ last_name } #{ first_name }".strip
   end
 
-  def self.workers
-    User.where("'worker' = ANY (roles)")
-  end
-
-
   def avatar
     image.url.present? ? image.url : "http://robohash.org/#{name}"
   end
@@ -94,6 +89,16 @@ class User < ActiveRecord::Base
 
   def owns_project_ids
     owns_projects.pluck(:department_id).compact
+  end
+
+  def self.roles_to_mask(roles)
+    (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+
+  # Heavy to load all users. Perhaps set the role with 
+  # user.worker == true if sorting on role_mask is to hard.
+  def self.workers
+    User.all.select { |u| u.is? :worker }
   end
 
   protected
