@@ -35,14 +35,13 @@
       Certificate.all, :id, :title) do |c|
       = c.label { c.check_box + c.text }
 
-
-
   br
   .field
     = f.label :roles, 'Roller'
-    - User.get_roles.each do |role|
-      label
-        = f.radio_button :roles, role, :checked => @user.roles.try(:first) == role
+    - for role in User::ROLES
+      = label_tag "user_roles_#{role}"
+        = check_box_tag "user[roles][#{role}]", role, 
+          @user.roles.include?(role), {:name => "user[roles][]"}
         = I18n.t("roles.#{role}")
   .field
     = f.label :image, 'Bilde'
