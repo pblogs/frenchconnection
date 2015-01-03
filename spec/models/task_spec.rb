@@ -167,11 +167,13 @@ describe Task do
 
     it 'knows which users that can do the job' do
       task.inventories << lift
+      task.save
       expect(task.qualified_workers).to eq [lift_operator] 
     end
 
     it 'lists all users for a tool that does not require a certificate' do
       task.inventories << blender
+      task.save
       expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
     end
 
