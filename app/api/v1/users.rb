@@ -5,8 +5,7 @@ module V1
       
       desc "All users with worker role"
       get 'workers' do
-        workers = User.select { |user| user.roles.include? 'worker' }
-        #present :users, workers, with: V1::Entities::Users
+        workers = User.select { |user| user.is? 'worker' }
         present :users, workers
         header 'Access-Control-Allow-Origin', '*'
       end
@@ -18,7 +17,6 @@ module V1
       route_param :user_id do
         get do
           user = User.find(params[:user_id])
-          #present :user, user, with: V1::Entities::Users
           present :user, user
           header 'Access-Control-Allow-Origin', '*'
         end

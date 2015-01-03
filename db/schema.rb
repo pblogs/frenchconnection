@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229223521) do
+ActiveRecord::Schema.define(version: 20141230122521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,17 @@ ActiveRecord::Schema.define(version: 20141229223521) do
     t.boolean  "complete",                             default: false
   end
 
+  create_table "skills", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "skills_tasks", force: true do |t|
+    t.integer "skill_id"
+    t.integer "task_id"
+  end
+
   create_table "task_types", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -223,6 +234,8 @@ ActiveRecord::Schema.define(version: 20141229223521) do
     t.datetime "ended_at"
     t.integer  "work_category_id"
     t.integer  "location_id"
+    t.integer  "profession_id"
+    t.integer  "skills_ids"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
@@ -260,16 +273,11 @@ ActiveRecord::Schema.define(version: 20141229223521) do
     t.string   "home_address"
     t.string   "home_area_code"
     t.string   "home_area"
+    t.integer  "roles_mask"
   end
 
   add_index "users", ["profession_id"], name: "index_users_on_profession_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "work_categories", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "zipped_reports", force: true do |t|
     t.integer  "project_id",  null: false

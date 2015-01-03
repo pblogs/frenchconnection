@@ -2,24 +2,24 @@ h1 Brukere
 
 = alphabet_paginate_prev_next @alpha_params
 
-table[class="listusers"]
+table.listusers
   thead
     tr
-      th[class="username"] Navn
-      th[class="phone_number"] Mobil
-      th[class="employee_id"] Ansattnr
-      th[class="department"] Avdeling
-      th[class="role"] Rolle
-      th[class="actions"]
+      th.username       Navn
+      th.phone_number   Mobil
+      th.employee_id    Ansattnr
+      th.department     Avdeling
+      th.role           Rolle
+      th.actions
   tbody
     - @users.each do |user|
-      tr[id="pagination_table"]
-        td[class="username"]
+      tr#pagination_table
+        td.username
            = user.full_last_name
         td = user.mobile
         td = user.emp_id
         td = Department.find(user.department_id).title
-        td = I18n.t "roles.#{user.roles.first}"
+        td = user_roles(user)
         td
           = link_to fa_icon('pencil-square-o'), edit_user_path(user)
           = nbsp

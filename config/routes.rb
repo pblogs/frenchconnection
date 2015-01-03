@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :certificates
+
   namespace :inventories do
     post :search
   end
@@ -73,9 +75,6 @@ AllieroForms::Application.routes.draw do
     resources :tasks, :controller => 'users/user_tasks' do
       post :confirm_user_task
     end
-    collection do
-      post :add_user
-    end
   end
 
   resources :hours_spents
@@ -100,6 +99,7 @@ AllieroForms::Application.routes.draw do
   
   get '/blog'  => 'static_pages#blog',  as: :blog
   get '/hms'   => 'static_pages#hms',   as: :hms
+  get '/admin' => 'static_pages#admin',   as: :admin
   get '/instructions'   => 'static_pages#instructions',   as: :instructions
   get '/video' => 'static_pages#video', as: :video
 

@@ -37,9 +37,7 @@ describe ProjectsController, :type => :controller do
   end
 
   before do
-    @user = Fabricate(:user, first_name: 'John', last_name: 'Jonassen', 
-                      department: Fabricate(:department), emp_id: "12121", 
-                      roles: ["project_leader"])
+    @user = Fabricate(:user, roles: [:project_leader])
     sign_in @user
     Project.destroy_all
   end
@@ -209,11 +207,9 @@ describe ProjectsController, :type => :controller do
     it "populates an array with @hours_spent for the project" do
       project = Fabricate(:project)
       task = Fabricate(:task, project: project)
-      department = Fabricate(:department)
       hs = Fabricate(:hours_spent, task: task, hour: 50,
-                     user: Fabricate(:user, department: 
-                                     department, emp_id: "12121", 
-                                     roles: ["project_leader"]))
+                     user: Fabricate(:user,
+                                     roles: [:project_leader]))
       get :hours_registered, {:id => project.to_param}, valid_session
       assigns(:hours_registered).should eq([hs])
     end

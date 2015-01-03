@@ -10,14 +10,17 @@
   .field
     = f.label :name
     = f.text_field :name
+
   .field
     = f.label :description
     = f.text_field :description
+
   .field
     = f.label :certificates
     = collection_check_boxes(:inventory, :certificate_ids, 
       Certificate.all, :id, :title)  do |b| 
       = b.label { b.check_box + b.text }
+
   .field
     = f.label :can_be_rented_by_other_companies do
       = f.check_box :can_be_rented_by_other_companies

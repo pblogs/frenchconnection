@@ -27,10 +27,10 @@ service_avdeling = Department.create(title: '69850')
 
 
 # Professions
-murer      = Profession.create(title: 'Murer')
-maler      = Profession.create(title: 'Maler')
-@snekker    = Profession.create(title: 'Snekker')
-elektriker = Profession.create(title: 'Elektriker')
+murer      = Profession.create(title: 'bricklayer')
+maler      = Profession.create(title: 'painter')
+@snekker   = Profession.create(title: 'carpenter')
+elektriker = Profession.create(title: 'electrician')
 
 
 # A user has one of these roles.
@@ -175,10 +175,6 @@ lift_cert      = Fabricate(:certificate, title: 'Small lift')
 climber_cert   = Fabricate(:certificate, title: 'Climber')
 bulldozer_cert = Fabricate(:certificate, title: 'Bulldozer cert')
 
-# WorkCategories
-WorkCategory.destroy_all
-Fabricate(:work_category, title: 'Welding')
-Fabricate(:work_category, title: 'Roof tiling')
 
 # Locations
 Location.destroy_all
@@ -198,3 +194,10 @@ Fabricate(:inventory, name: 'Concrete blender')
 Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer', certificates: [bulldozer_cert])
 Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [truck_cert])
 Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
+
+# Skills
+Skill.destroy_all
+Fabricate(:skill, title: 'welding')
+Fabricate(:skill, title: 'painting')
+Fabricate(:skill, title: 'digging')
+Fabricate(:skill, title: 'driving')

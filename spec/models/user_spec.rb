@@ -40,6 +40,20 @@ describe User do
     expect(@user).to be_valid
   end
 
+  it 'default role' do
+    expect(@user.roles).to eq [:worker]
+  end
+
+  it 'check role' do
+    expect(@user.is?('worker')).to be_true
+  end
+
+  it 'multiple roles' do
+    @user.roles= [:worker, :admin]
+    @user.save
+    expect(@user.roles).to eq [:admin, :worker]
+  end
+
   it "a user can have many tasks" do
     @task = Fabricate(:task)
     @task2 = Fabricate(:task)
