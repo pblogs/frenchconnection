@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_department, only: [:new, :edit, :add_user, :update]
-  before_action :set_profession, only: [:new, :edit, :add_user, :update]
+  before_action :set_department, only: [:new, :edit, :add_user, :update, :create]
+  before_action :set_profession, only: [:new, :edit, :add_user, :update, :create]
+  before_action :fix_roles_params, only: [:update, :create, :add_user]
 
   # GET /users
   # GET /users.json
@@ -42,8 +43,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def add_user
     @user = User.new(user_params)
-    @user.password = @user.password_confirmation = 'topsecret'
-    @user.roles = [params['user']['roles']]
+    @user.password = @user.password_confirmation = srand.to_s[0..10]
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path,
@@ -56,12 +56,13 @@ class UsersController < ApplicationController
     end
   end
 
+
   def create
     @user = User.new(user_params)
-
+    @user.password = @user.password_confirmation = srand.to_s[0..10]
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user,
+        format.html { redirect_to users_path,
                     notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -122,5 +123,10 @@ class UsersController < ApplicationController
          :tasks_id, :mobile, :emp_id, :profession_id,
         :department_id, :image, roles: [], :certificate_ids => [])
     end
+
+  def fix_roles_params
+    params[:user][:roles].reject!(&:blank?)
+    params[:user][:roles] = params[:user][:roles].collect { |a| a.to_sym }
+  end
 
 end

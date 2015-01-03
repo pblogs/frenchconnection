@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include User::Role
 
-
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
 
