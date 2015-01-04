@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   belongs_to :profession
   has_and_belongs_to_many :certificates
   mount_uploader :image, ImageUploader
-  has_many :skills
+  has_and_belongs_to_many :skills
 
   validates :first_name, presence: true
   validates :last_name,  presence: true
