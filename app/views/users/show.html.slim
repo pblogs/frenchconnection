@@ -30,7 +30,7 @@
                   = render partial: '/tasks/accept_reject_listing', 
                     locals: {task: task }
       - else
-        span = t(projects.tasks.no_new_tasks)
+        span = t('projects.tasks.no_new_tasks')
 
   
       .my_tasks.worker
@@ -50,7 +50,7 @@
                     complete_task_path(task), method: :post, 
                     data: { confirm: I18n.t('are_you_sure') }, class: 'complete'
         - else
-          p= t(projects.tasks.no_active_tasks)
+          p= t('projects.tasks.no_active_tasks')
 
       .my_tasks.worker.completed
         strong.menu_header = I18n.t('task.completed_tasks')
@@ -60,4 +60,4 @@
             - @completed_tasks.each do |task|
               li = link_to task.description, task
         - else
-          p= t(projects.tasks.no_complete_tasks)
+          p= t('projects.tasks.no_complete_tasks')
