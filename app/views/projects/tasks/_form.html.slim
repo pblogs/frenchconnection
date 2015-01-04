@@ -9,11 +9,11 @@
           li = message
 
 
-  h5 = t('task.skills')
+  h5 = t('task.what')
   .check_boxes 
     = collection_check_boxes(:task, :skills_ids, 
-      Skill.all, :id, :title)  do |b| 
-      = b.label { b.check_box + b.text }
+      Skill.all, :id, :title)  do |c| 
+      = c.label { c.check_box + I18n.t("skills.#{c.text}") }
 
   h5 = t('task.where')
   .check_boxes 
@@ -42,4 +42,4 @@
   br
   .actions 
     = link_to t('continue'), '#', data: { 'goto-tools' => 1 },
-      class: 'btn btn-primary'
+      class: 'btn btn-primary pull-right'
