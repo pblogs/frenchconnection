@@ -2,7 +2,10 @@
 
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
   h1 = t('.header')
+  p.flash-notice
+    = t('.help_text')
   input ng-model="searchText.name" placeholder=t('.search_placeholder')
+
   br
   br
   br
@@ -11,7 +14,6 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
       th = t('.what')
       th = t('price_pr_day')
       th = t('options')
-    /tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
     tr ng-repeat=("inventory in inventories | filter: searchText")
       td 
         | {{inventory.name}}
