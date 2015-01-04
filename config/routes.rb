@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :skills
+
   resources :certificates
 
   namespace :inventories do
