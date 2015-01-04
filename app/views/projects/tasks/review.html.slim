@@ -25,18 +25,19 @@ section.task
     strong = @task.location.try(:name)
     span = @task.project.address.present? ? @task.project.address : t('.address_missing')
 
-section.task
-  h4
-    = link_to t('projects.tasks.headers.tools'),
-      project_task_tools_path(@task.project, @task)
-  table
-    th = t('projects.tasks.review.what')
-    th = t('projects.tasks.price_pr_day')
-    - @task.inventories.each do |t|
-      tr
-        td = t.name
-        td = t.rental_price_pr_day
-  
+- if @task.inventories.present?
+  section.task
+    h4
+      = link_to t('projects.tasks.headers.tools'),
+        project_task_tools_path(@task.project, @task)
+    table
+      th = t('projects.tasks.review.what')
+      th = t('projects.tasks.price_pr_day')
+      - @task.inventories.each do |t|
+        tr
+          td = t.name
+          td = t.rental_price_pr_day
+    
   
 section.task
   h4
