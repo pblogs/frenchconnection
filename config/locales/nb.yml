@@ -12,7 +12,6 @@ nb:
   back: Tilbake
   continue: Fortsett
   completed_tasks: Avsluttede oppgaver
-  certificates: Sertifikater
   courses: Kurs
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
@@ -42,6 +41,7 @@ nb:
   show_hours_registered: Vis timelister
   start_date: Startdato
   stopped_us_saving: hindret oss å lagre
+  price_pr_day: Pris pr dag
   due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
@@ -58,12 +58,14 @@ nb:
   tools: Verktøy
   has_no_due_date: Ingen dato satt
   name: Navn
+  options: Valg
   project_number: Prosjektnummer
   save: Lagre
   show: Vis
   edit: Rediger
   destroy: Slett
   search: Søk
+  title: Navn
 
   top_nav:
     projects: Prosjekter
@@ -99,6 +101,10 @@ nb:
       short_date: "%B %d"
 
 
+  certificates:
+    header: Sertifikater
+    create_new: Lag nytt sertifikat
+
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
@@ -119,6 +125,7 @@ nb:
     what: Hva skal gjøres?
     where: Hvor skal arbeidet utføres?
     what_profession: Hvilket yrke
+    review_and_submit: Se igjennom og bekreft
 
   devise:
     failure:
@@ -141,10 +148,12 @@ nb:
         Please do so on http://allieroapp.orwapp.com/
         
   skills:
+    title: Ferdigheter
     welding: Sveising
     painting: Maling
     digging: Graving
     driving: Kjøring
+    create_new: Lag ny ferdighet
 
 
 
@@ -160,8 +169,12 @@ nb:
         address_missing: Mangler adresse
         who: Hvem
       tools:
+        selected_tools: Verktøy valgt
+        price_pr_day: Pris pr dag
+        what: Hva
         header: Søk etter maskiner og verktøy 
         find_someone_to_execute_the_job: Finn personell til å gjøre jobben
+        search_placeholder: Søk..
       headers:
         review: Bekreft og bestill
         header: Bekreft ny oppgave
@@ -172,6 +185,8 @@ nb:
         workers: Arbeidere
       who: Hvem
       price_pr_day: Pris pr dag
+      workers:
+        people_with_required_skills: Personell med kompetanse for
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet

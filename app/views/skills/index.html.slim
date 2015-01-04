@@ -1,10 +1,9 @@
-h1 Listing skills
+h1 = t('skills.header')
 
 table
   thead
     tr
-      th Title
-      th
+      th = t('title')
       th
       th
 
@@ -12,10 +11,10 @@ table
     - @skills.each do |skill|
       tr
         td = skill.title
-        td = link_to 'Show', skill
-        td = link_to 'Edit', edit_skill_path(skill)
-        td = link_to 'Destroy', skill, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to t('edit'), edit_skill_path(skill)
+        td = link_to t('destroy'), skill, data: {:confirm => t('are_you_sure')},
+              :method => :delete
 
 br
 
-= link_to 'New Skill', new_skill_path
+= link_to t('skills.create_new'), new_skill_path, class: 'btn btn-primary'

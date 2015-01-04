@@ -2,17 +2,15 @@
 
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
   h1 = t('.header')
-  
-  | #{t('search')}: 
-  input ng-model="searchText.title" placeholder='machines, lifts, tools ..' /
+  input ng-model="searchText.title" placeholder=t('.search_placeholder')
   br
   br
   br
   table#searchTextResults ng-show="searchText"
     tr
       th = t('.what')
-      th = t('.price_pr_day')
-      th = t('.options')
+      th = t('price_pr_day')
+      th = t('options')
     /tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
     tr ng-repeat=("inventory in inventories track by $index | filter:searchText") 
       td 
@@ -32,8 +30,8 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
     table#selectedTools
       tr
         th = t('.what')
-        th = t('.price_pr_day')
-        th = t('.options')
+        th = t('price_pr_day')
+        th = t('options')
       tr ng-repeat=("inventory in selected_inventories track by $index") 
         td 
           | {{inventory.name}}
@@ -47,6 +45,6 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
 br
 br
 br
-= link_to t('.find_someone_to_execute_the_job'),
+= link_to t('continue'),
   project_task_workers_path(@task.project, @task),
   class: 'btn btn-primary pull-right'
