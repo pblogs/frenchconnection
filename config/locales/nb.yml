@@ -66,6 +66,7 @@ nb:
   destroy: Slett
   search: Søk
   title: Navn
+  who: Hvem
 
   top_nav:
     projects: Prosjekter
@@ -187,6 +188,7 @@ nb:
       price_pr_day: Pris pr dag
       workers:
         people_with_required_skills: Personell med kompetanse for
+        selected_workers: Valgte arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
