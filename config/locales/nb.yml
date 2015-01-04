@@ -28,6 +28,8 @@ nb:
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
+  yes: Ja
+  nope: Nei
   from: Fra
   to: Til
   task_ended_at: Avsluttet for %{time} siden
@@ -58,8 +60,6 @@ nb:
   name: Navn
   project_number: Prosjektnummer
   save: Lagre
-  yes: Ja
-  no: Nei
   show: Vis
   edit: Rediger
   destroy: Slett
@@ -139,10 +139,21 @@ nb:
       missing_hours: |
         It seems that you haven't registered hours in one or more of your tasks
         Please do so on http://allieroapp.orwapp.com/
+        
+  skills:
+    welding: Sveising
+    painting: Maling
+    digging: Graving
+    driving: Kjøring
+
+
 
   projects:
     create_new: Opprett nytt prosjekt
     tasks:
+      no_active_tasks: Du har ingen aktive oppgaver
+      no_complete_tasks: Du har ingen fullførte oppgaver
+      no_new_tasks: Ingen nye oppgaver
       review:
         what: Verktøy / maskin
         workers: Arbeidere
