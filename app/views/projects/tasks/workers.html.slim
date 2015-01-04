@@ -6,9 +6,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       = t('.people_with_required_skills')
       strong=  ":  #{@task.inventories.pluck(:name).uniq.join(', ')}"
   
-  /h3 Our guys
-  / FIXME tabel below visible even with workers empty.
-  table(ng-show="workers" id="searchTextResults")
+  table(ng-show="workers.length > 0" id="searchTextResults")
     tr
       th = t('who')
       th = t('options')
@@ -22,19 +20,17 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   br
   br
   br
-  // The div below is visible all the time. Why? Should only be visible when
-  // selected_workers contain workers.
-  div(ng-show="selected_workers")
-    h5 Selected workers
+  div(ng-show="selected_workers.length > 0")
+    h5 = t('.selected_workers')
     table#selectedWorkers
       tr
-        th Who
-        th Options
+        th = t('who')
+        th = t('options')
       tr ng-repeat=("worker in selected_workers track by $index") 
         td 
           | {{worker.first_name}} {{worker.last_name}}
         td 
-          button(ng-click="remove_selected_worker(worker, $index)") Remove
+          button(ng-click="remove_selected_worker(worker, $index)") = t('remove')
 
 
 br

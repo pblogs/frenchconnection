@@ -2,17 +2,17 @@
 
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
   h1 = t('.header')
-  input ng-model="searchText.title" placeholder=t('.search_placeholder')
+  input ng-model="searchText.name" placeholder=t('.search_placeholder')
   br
   br
   br
-  table#searchTextResults ng-show="searchText"
+  table#searchTextResults ng-show="searchText.name"
     tr
       th = t('.what')
       th = t('price_pr_day')
       th = t('options')
     /tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
-    tr ng-repeat=("inventory in inventories track by $index | filter:searchText") 
+    tr ng-repeat=("inventory in inventories | filter: searchText")
       td 
         | {{inventory.name}}
       td 
@@ -24,8 +24,7 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
   br
   br
   br
-  // FIXME This div shows even though selected_inventories is empty.
-  div(ng-show="selected_inventories")
+  div(ng-show="selected_inventories.length > 0")
     h5 = t('.selected_tools')
     table#selectedTools
       tr
