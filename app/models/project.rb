@@ -40,6 +40,7 @@ class Project < ActiveRecord::Base
   validates :start_date,        :presence => true
   validates :department_id,     :presence => true
   validates :project_number,    :presence => true
+  validates :name,              :presence => true
   validates :short_description, :presence => true
 
   attr_accessor :single_task
