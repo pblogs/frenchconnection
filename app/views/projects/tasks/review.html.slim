@@ -43,13 +43,16 @@ section.task
   h4
     = link_to t('projects.tasks.headers.workers'),
       project_task_workers_path(@task.project, @task)
-  table
-    th =t('.who')
-    th =t('projects.tasks.price_pr_day')
-    - @task.users.uniq.each do |t|
-      tr
-        td = t.name
-        td $292
+  - if @task.users.present?
+    table
+      th =t('.who')
+      th =t('projects.tasks.price_pr_day')
+      - @task.users.uniq.each do |t|
+        tr
+          td = t.name
+          td $292
+  - else
+    p Du må velge noen som kan utføre oppgaven. 
   
 br
 br
