@@ -35,6 +35,12 @@
       Certificate.all, :id, :title) do |c|
       = c.label { c.check_box + c.text }
 
+  .field
+    = f.label :skill_ids, t('skills')
+    = collection_check_boxes(:user, :skill_ids, 
+      Skill.all, :id, :title) do |c|
+      = c.label { c.check_box + I18n.t("skills.#{c.text}") }
+
   br
   .field
     = f.label :roles, 'Roller'
