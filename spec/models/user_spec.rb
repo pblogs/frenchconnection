@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  email                  :string(255)
 #  encrypted_password     :string(255)      not null
-#  roles                  :string(255)      is an Array
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
@@ -27,6 +26,7 @@
 #  home_address           :string(255)
 #  home_area_code         :string(255)
 #  home_area              :string(255)
+#  roles_mask             :integer
 #
 
 require 'spec_helper'
