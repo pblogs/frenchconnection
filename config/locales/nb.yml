@@ -160,6 +160,8 @@ nb:
 
   projects:
     create_new: Opprett nytt prosjekt
+    no_started_customers_or_projects: Du har ingen favoritter
+    no_departments: Her vil du se avdelingene prosjektene dine høre til
     tasks:
       no_active_tasks: Du har ingen aktive oppgaver
       no_complete_tasks: Du har ingen fullførte oppgaver
