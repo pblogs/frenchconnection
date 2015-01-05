@@ -4,7 +4,11 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
   h1 = t('.header')
   p.flash-notice
     = t('.help_text')
-  input ng-model="searchText.name" placeholder=t('.search_placeholder')
+  input(
+    id='search'
+    ng-model="searchText.name"
+    placeholder=t('.search_placeholder')
+  )
 
   br
   br

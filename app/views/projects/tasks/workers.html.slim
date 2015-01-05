@@ -6,7 +6,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       = t('.people_with_required_skills')
       strong=  ":  #{@task.inventories.pluck(:name).uniq.join(', ')}"
   
-  table(ng-show="workers.length > 0" id="searchTextResults")
+  table(ng-show="workers.length > 0" id="workers")
     tr
       th = t('who')
       th = t('options')
