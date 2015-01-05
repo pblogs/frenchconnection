@@ -42,6 +42,7 @@ class TasksController < ApplicationController
 
   def save_and_order
     # TODO Mark the task as reviewed and saved here. Order resources.
+    @task.update_attribute(:draft, false)
     redirect_to(customer_project_path(@task.project.customer, @task.project),
                 notice: 'Task saved and the required resources are ordered.')
   end

@@ -53,7 +53,7 @@ feature "Task" do
     page.should have_content @lisa_lift_operator.first_name
     expect {
       click_link I18n.t('task.order_resources_and_save_task')
-    }.to change{ Task.last.status }.from(:pending).to(:active) 
+    }.to change{ Task.last.draft }.from(true).to(false) 
   end
 
 

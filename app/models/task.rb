@@ -70,10 +70,12 @@ class Task < ActiveRecord::Base
   end
 
   def in_progress?
+    return false if draft
     UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
   end
 
   def complete?
+    return false if draft
     UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
   end
 

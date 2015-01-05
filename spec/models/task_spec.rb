@@ -63,6 +63,7 @@ describe Task do
     end
 
     it 'in_progress?' do
+      @task.update_attribute(:draft, false)
       @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
       @task.user_tasks.last.update_attribute(:status, :confirmed)
       @task.save!
