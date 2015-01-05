@@ -191,6 +191,16 @@ describe Project do
     end
   end
 
+  describe "Drafts" do
+    before do
+      @project = Fabricate(:project)
+      @task1   = Fabricate(:task, project: @project, draft: true)
+    end
+    it 'task_drafts' do
+      expect(@project.task_drafts.to_a).to eq [@task1]
+    end
+  end
+
   describe "In progress" do
     before do
       @project = Fabricate(:project)

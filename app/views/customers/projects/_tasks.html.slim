@@ -1,0 +1,13 @@
+section#tasks
+
+  - if @drafts.present?
+    h2= t('drafts')
+    = render partial: "projects/tasks/table", 
+      locals: { tasks: @drafts }
+
+  - if @tasks_in_progress.present?
+    h2= t('tasks_in_progress')
+    = render partial: "projects/tasks/table", 
+      locals: { tasks: @tasks_in_progress }
+    br
+    br

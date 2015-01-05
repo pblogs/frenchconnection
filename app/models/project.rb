@@ -45,8 +45,12 @@ class Project < ActiveRecord::Base
 
   attr_accessor :single_task
 
-  scope :active, -> { where(complete: false) }
-  scope :complete,   -> { where(complete: true)  }
+  scope :active,    -> { where(complete: false) }
+  scope :complete,  -> { where(complete: true)  }
+
+  def task_drafts
+    tasks.where(draft: true)
+  end
 
   def single_task?
     single_task == '1'

@@ -28,4 +28,5 @@ Fabricator(:task) do
   due_date    { due_date }
   description { 'paint building' }
   accepted true
+  draft false
 end
