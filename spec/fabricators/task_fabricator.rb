@@ -17,6 +17,7 @@
 #  location_id      :integer
 #  profession_id    :integer
 #  skills_ids       :integer
+#  draft            :boolean          default(TRUE)
 #
 
 Fabricator(:task) do
