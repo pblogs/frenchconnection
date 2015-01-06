@@ -34,6 +34,7 @@ feature "Task" do
     expect {
       fill_in 'search', with: 'lift'
       within(:css, '#searchTextResults') do
+        page.should have_content @lift.name
         click_link_or_button I18n.t('select')
       end
     }.to change{ Task.last.inventories.first }.from(nil).to(@lift) 
@@ -42,6 +43,7 @@ feature "Task" do
     # The workers page
     expect {
       within(:css, 'table#workers') do
+        page.should have_content @lisa_lift_operator.first_name
         click_link_or_button I18n.t('select')
       end
     }.to change{ Task.last.users.first }.from(nil).to(@lisa_lift_operator) 
@@ -54,6 +56,9 @@ feature "Task" do
     expect {
       click_link I18n.t('task.order_resources_and_save_task')
     }.to change{ Task.last.draft }.from(true).to(false) 
+
+    # Check that the seleted workers are notified
+    
   end
 
 
