@@ -108,25 +108,28 @@ describe Project do
       end
 
       it "hours_spent_total" do
+        HoursSpent.destroy_all
         Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
         Fabricate(:hours_spent, task: @task, hour: 10, user: @barry_snekker)
         Fabricate(:hours_spent, task: @task, hour: 10, user: @mustafa_murer)
         Fabricate(:hours_spent, task: @task,
                   overtime_50: 10, user: @barry_snekker)
-        @ot100 = Fabricate(:hours_spent, task: @task, overtime_100: 10,
+        Fabricate(:hours_spent, task: @task, overtime_100: 10,
                            user: @mustafa_murer)
         @project.reload
         @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
       end
 
       it "hours_spent_total(changed: true)" do
-        pending "tests fails, but confirmed working"
+        HoursSpent.destroy_all
         @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
         @change = Change.create_from_hours_spent(hours_spent: @hour10,
                                                  reason: 'works slow' )
         @change.update_attribute(:hour, 1)
+        @change.reload
+        @project.reload
         @project.hours_spent_total(profession: @snekker,
-                                   changed: true).should eq 1
+                                   changed: true, overtime: :hour).should eq 1
       end
     end
 
