@@ -33,7 +33,7 @@ describe ExcelProjectTools do
 
   it %q{returns a comma separated string of names for profession} do
     ExcelProjectTools.user_names(project: @project, 
-      profession_title: 'Snekker').should eq ['Snekker Jens', " Snekker 2"]
+      profession_title: 'Snekker').should include('Snekker Jens', ' Snekker 2')
   end
 
   it 'sum_piecework_hours' do
