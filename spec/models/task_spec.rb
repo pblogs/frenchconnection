@@ -113,20 +113,26 @@ describe Task do
     before do
       @project = Fabricate(:project, sms_employee_when_new_task_created: true)
       @task    = Fabricate(:task, project: @project)
-    end
-    it "notifies by SMS when a worker is delegated at task" do
       @user = Fabricate(:user, mobile: 93441707)
+    end
+
+    it "notifies by SMS when a worker is delegated at task" do
       Sms.should_receive(:send_msg)
       @task.users << @user
       @task.save
     end
 
+    it "does not send any SMS on a task that is draft" do
+      Sms.should_not_receive(:send_msg)
+      @task.update_attribute(:draft, true)
+      @task.users << @user
+      @task.save
+    end
+
     it "notifies only new workers when task is updated" do
-      @user = Fabricate(:user)
       Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
            msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
       @task.users << @user
-
       @user_second = Fabricate(:user)
       Sms.should_receive(:send_msg).with(to: "47#{@user_second.mobile}",
              msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
