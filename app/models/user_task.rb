@@ -21,6 +21,7 @@ class UserTask < ActiveRecord::Base
   after_create :notify_worker, if: :sms_employee_when_new_task_created
 
   def notify_worker
+    return if task.draft
     msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
     Rails.logger.debug "\n Notify worker: #{user.name}"
     Sms.send_msg(to: "47#{user.mobile}", msg: msg)
