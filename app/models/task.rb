@@ -101,6 +101,10 @@ class Task < ActiveRecord::Base
     users.each do |u|
       project.sms_employee_when_new_task_created
     end
+  def save_and_order_resources!
+    self.draft = false
+    self.save
+    # Order resources
   end
 
   def notify_workers(workers: nil)
