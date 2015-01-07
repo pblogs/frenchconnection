@@ -91,38 +91,40 @@ class Task < ActiveRecord::Base
     end
   end
 
-  private
-
-  def sms_employee_when_new_task_created
-    project.sms_employee_when_new_task_created
-  end
-
-  def notify_workers
-    users.each do |u|
-      project.sms_employee_when_new_task_created
-    end
   def save_and_order_resources!
     self.draft = false
     self.save
     # Order resources
   end
 
-  def notify_workers(workers: nil)
-    msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
-    workers ||= users
-    workers.each do |u|
-      Sms.send_msg(to: "47#{u.mobile}", msg: msg)
-    end
-  end
+  private
 
-  def notify_new_workers
-    new_workers = users - @old_workers
-    notify_workers(workers: new_workers)
-  end
+  #def sms_employee_when_new_task_created
+  #  project.sms_employee_when_new_task_created
+  #end
 
-  def remember_old_workers
-    @old_workers = users.all
-  end
+  #def notify_workers
+  #  users.each do |u|
+  #    project.sms_employee_when_new_task_created
+  #  end
+  #end
+
+  #def notify_workers(workers: nil)
+  #  msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
+  #  workers ||= users
+  #  workers.each do |u|
+  #    Sms.send_msg(to: "47#{u.mobile}", msg: msg)
+  #  end
+  #end
+
+  #def notify_new_workers
+  #  new_workers = users - @old_workers
+  #  notify_workers(workers: new_workers)
+  #end
+
+  #def remember_old_workers
+  #  @old_workers = users.all
+  #end
 
   def single_task
     project.try(:single_task?)
