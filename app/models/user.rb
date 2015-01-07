@@ -92,9 +92,6 @@ class User < ActiveRecord::Base
     owns_projects.pluck(:department_id).compact
   end
 
-  def self.roles_to_mask(roles)
-    (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
-  end
 
   # Heavy to load all users. Perhaps set the role with 
   # user.worker == true if sorting on role_mask is to hard.
