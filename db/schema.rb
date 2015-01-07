@@ -11,18 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20141125101941) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
-=======
 ActiveRecord::Schema.define(version: 20141229223521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
->>>>>>> a3b3419... new table MobilePictures, api endpoints and tests
 
   create_table "api_keys", force: true do |t|
     t.string  "name"
@@ -52,30 +44,6 @@ ActiveRecord::Schema.define(version: 20141229223521) do
     t.text     "description"
   end
 
-<<<<<<< HEAD
-=======
-  create_table "certificates", force: true do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "certificates_inventories", force: true do |t|
-    t.integer "certificate_id"
-    t.integer "inventory_id"
-  end
-
-  create_table "certificates_locations", force: true do |t|
-    t.integer "certificate_id"
-    t.integer "location_id"
-  end
-
-  create_table "certificates_users", force: true do |t|
-    t.integer "certificate_id"
-    t.integer "user_id"
-  end
-
->>>>>>> a3b3419... new table MobilePictures, api endpoints and tests
   create_table "changes", force: true do |t|
     t.text     "description"
     t.integer  "hours_spent_id"
@@ -149,34 +117,6 @@ ActiveRecord::Schema.define(version: 20141229223521) do
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
   add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id", using: :btree
 
-<<<<<<< HEAD
-=======
-  create_table "inventories", force: true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "certificates_id"
-    t.boolean  "can_be_rented_by_other_companies", default: false
-    t.integer  "rental_price_pr_day"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "inventories", ["certificates_id"], name: "index_inventories_on_certificates_id", using: :btree
-
-  create_table "inventories_tasks", force: true do |t|
-    t.integer "inventory_id"
-    t.integer "task_id"
-  end
-
-  create_table "locations", force: true do |t|
-    t.string   "name"
-    t.integer  "certificates_id"
-    t.boolean  "outdoor"
-    t.boolean  "indoor"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "mobile_pictures", force: true do |t|
     t.integer  "task_id"
     t.integer  "user_id"
@@ -191,7 +131,6 @@ ActiveRecord::Schema.define(version: 20141229223521) do
   add_index "mobile_pictures", ["task_id"], name: "index_mobile_pictures_on_task_id", using: :btree
   add_index "mobile_pictures", ["user_id"], name: "index_mobile_pictures_on_user_id", using: :btree
 
->>>>>>> a3b3419... new table MobilePictures, api endpoints and tests
   create_table "professions", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
