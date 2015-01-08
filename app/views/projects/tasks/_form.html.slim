@@ -21,6 +21,10 @@
       :id, :name, { checked: @task.location.try(:id) } ) do |r|
       = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
 
+  .field
+    = f.label :address
+    = f.text_area :address
+
   br
   br
 
