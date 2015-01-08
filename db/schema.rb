@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105123437) do
+ActiveRecord::Schema.define(version: 20150107183914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20150105123437) do
     t.integer  "profession_id"
     t.integer  "skills_ids"
     t.boolean  "draft",            default: true
+    t.string   "address"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
