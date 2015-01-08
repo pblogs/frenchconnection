@@ -6,7 +6,6 @@ RSpec.configure do |c|
 end
 
 feature "Task" do
-  pending "WIP - works testing manually. Martin"
   before do
     @project_leader     = Fabricate(:user, roles: [:project_leader])
     @project_start_date = '01.01.2014'
@@ -20,6 +19,7 @@ feature "Task" do
   end
 
   scenario "Create a new task", js: true do
+    pending "WIP - works testing manually. Martin"
     sign_in(@project_leader)
     visit customer_project_path(@project.customer, @project)
     expect {
