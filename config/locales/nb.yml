@@ -178,7 +178,12 @@ nb:
         header: Søk etter maskiner og verktøy 
         find_someone_to_execute_the_job: Finn personell til å gjøre jobben
         search_placeholder: Søk..
-        help_text: Velg verktøy og maskiner som trengs for å gjøre jobben
+        help_text_1:
+          Velg verktøy og maskiner som trengs for å gjøre jobben.
+        help_text_2:
+          Trykk Fortsett uten å velge om ønskelig. 
+        help_text_3:
+          Da vises alle arbeidere uavhengig av yrke og kvalifikasjoner.
       headers:
         review: Bekreft og bestill
         header: Bekreft ny oppgave
