@@ -4,8 +4,10 @@ html
     title Alliero
     = stylesheet_link_tag "application", media: "all",  
       "data-turbolinks-track" => true
+
     - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
+
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport" 

@@ -46,11 +46,9 @@ section.task
   - if @task.users.present?
     table
       th =t('.who')
-      th =t('projects.tasks.price_pr_day')
-      - @task.users.uniq.each do |t|
+      - @task.users.uniq.each do |u|
         tr
-          td = t.name
-          td $292
+          td = u.name
   - else
     p Du må velge noen som kan utføre oppgaven. 
   
