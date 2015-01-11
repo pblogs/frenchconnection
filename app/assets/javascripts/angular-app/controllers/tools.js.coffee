@@ -10,9 +10,8 @@ angular.module('orwapp').controller 'ToolsController',
   # I can create an API endpoint that returns the correct inventories, but I'm
   # not sure how to add params to the query() method.
 
+  $scope.inventories = Inventory.query()
   task_id      = $('[data-task-id]').first().data('task-id')
-
-  $scope.inventories = Inventory.query(task_id: task_id)
 
   # Popululate selected_inventories with @task.inventories
   $http(
@@ -20,6 +19,7 @@ angular.module('orwapp').controller 'ToolsController',
     url: '/tasks/selected_inventories',
     params: { task_id: task_id }
   ).success((data, status) ->
+    $scope.workers = data
     $scope.selected_inventories = data
   ).error (data, status) ->
     alert('failed')
@@ -28,7 +28,7 @@ angular.module('orwapp').controller 'ToolsController',
   $scope.select = (inventory, index) ->
     url          = '/tasks/select_inventory'
     inventory_id = inventory.id
-
+    task_id      = $('[data-task-id]').first().data('task-id')
     $http(
       method: 'POST'
       url: url
@@ -44,6 +44,7 @@ angular.module('orwapp').controller 'ToolsController',
   $scope.remove_selected_inventory = (inventory, index) ->
       url          = '/tasks/remove_selected_inventory'
       inventory_id    = inventory.id
+      task_id      = $('[data-task-id]').first().data('task-id')
       $http(
         method: 'DELETE'
         url: url

@@ -27,7 +27,6 @@
 #  home_address           :string(255)
 #  home_area_code         :string(255)
 #  home_area              :string(255)
-#  roles_mask             :integer
 #
 
 require 'spec_helper'
