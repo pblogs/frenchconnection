@@ -112,8 +112,8 @@ describe Task do
   describe "Notifications" do
     before do
       @project = Fabricate(:project, sms_employee_when_new_task_created: true)
-      @task    = Fabricate(:task, project: @project)
-      @user = Fabricate(:user, mobile: 93441707)
+      @task    = Fabricate(:task, project: @project, draft: false)
+      @user    = Fabricate(:user, mobile: 93441707)
     end
 
     it "notifies by SMS when a worker is delegated at task" do
@@ -129,13 +129,27 @@ describe Task do
       @task.save
     end
 
+    it 'sends sms to all users when a task is no longer a draft' do
+      # A tasks starts as draft. @task.draft is set as false when 
+      # save_and_order_resources! is excuted.
+      @task.update_attribute(:draft, true)
+      Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
+                                        msg: I18n.t('sms.new_task',
+                                        link: "http://allieroapp.orwapp.com"))
+      @task.users << @user
+      @task.save_and_order_resources!
+      expect(@task.draft).to eq false
+    end
+
     it "notifies only new workers when task is updated" do
       Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
-           msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+                                        msg: I18n.t('sms.new_task',
+                                        link: "http://allieroapp.orwapp.com"))
       @task.users << @user
       @user_second = Fabricate(:user)
       Sms.should_receive(:send_msg).with(to: "47#{@user_second.mobile}",
-             msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+                                         msg: I18n.t('sms.new_task',
+                                         link: "http://allieroapp.orwapp.com"))
       Sms.should_not_receive(:send_msg).with(to: "47#{@user.mobile}")
       @task.users << @user_second
     end
