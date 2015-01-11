@@ -33,7 +33,7 @@ section.task
     table
       th = t('projects.tasks.review.what')
       th = t('projects.tasks.price_pr_day')
-      - @task.inventories.each do |t|
+      - @task.inventories.uniq.each do |t|
         tr
           td = t.name
           td = t.rental_price_pr_day
