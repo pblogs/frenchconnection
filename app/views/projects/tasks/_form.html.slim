@@ -11,7 +11,7 @@
 
   h5 = t('task.what')
   .check_boxes 
-    = collection_check_boxes(:task, :skills_ids, 
+    = collection_check_boxes(:task, :skill_ids, 
       Skill.all, :id, :title)  do |c| 
       = c.label { c.check_box + I18n.t("skills.#{c.text}") }
 
