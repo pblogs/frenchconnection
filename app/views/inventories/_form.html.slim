@@ -16,10 +16,10 @@
     = f.text_field :description
 
   .field
-    = f.label :certificates
+    = f.label :certificates, t('certificates.header')
     = collection_check_boxes(:inventory, :certificate_ids, 
-      Certificate.all, :id, :title)  do |b| 
-      = b.label { b.check_box + b.text }
+      Certificate.all, :id, :title)  do |c| 
+      = c.label { c.check_box + c.text }
 
   .field
     = f.label :can_be_rented_by_other_companies do
