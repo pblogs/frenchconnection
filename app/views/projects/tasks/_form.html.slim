@@ -1,5 +1,5 @@
 = form_for [@project, @task] do |f|
-  = hidden_field(:task, :goto_tools, value: 1)
+  = hidden_field(:task, :goto_tools)
 
   - if @task.errors.any?
     #error_explanation
@@ -9,21 +9,17 @@
           li = message
 
 
-  h5 = t('task.what')
+  h5 = t('task.skills')
   .check_boxes 
-    = collection_check_boxes(:task, :skill_ids, 
-      Skill.all, :id, :title)  do |c| 
-      = c.label { c.check_box + I18n.t("skills.#{c.text}") }
+    = collection_check_boxes(:task, :skills_ids, 
+      Skill.all, :id, :title)  do |b| 
+      = b.label { b.check_box + b.text }
 
   h5 = t('task.where')
   .check_boxes 
     = f.collection_radio_buttons(:location_id, Location.all,
       :id, :name, { checked: @task.location.try(:id) } ) do |r|
       = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
-
-  .field
-    = f.label :address
-    = f.text_area :address
 
   br
   br
@@ -34,8 +30,7 @@
 
   .field
     = f.label :start_date
-    = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato',
-      value: I18n.l(@project.start_date),
+    = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato', 
       data: { datepicker: { minDate: l(@project.start_date), maxDate: l(@maxdate) } }
 
   .field
@@ -46,4 +41,5 @@
   br
   br
   .actions 
-    = f.submit t('continue'), class: 'pull-right'
+    = link_to t('continue'), '#', data: { 'goto-tools' => 1 },
+      class: 'btn btn-primary'

@@ -40,17 +40,12 @@ class Project < ActiveRecord::Base
   validates :start_date,        :presence => true
   validates :department_id,     :presence => true
   validates :project_number,    :presence => true
-  validates :name,              :presence => true
   validates :short_description, :presence => true
 
   attr_accessor :single_task
 
-  scope :active,    -> { where(complete: false) }
-  scope :complete,  -> { where(complete: true)  }
-
-  def task_drafts
-    tasks.where(draft: true)
-  end
+  scope :active, -> { where(complete: false) }
+  scope :complete,   -> { where(complete: true)  }
 
   def single_task?
     single_task == '1'
@@ -84,9 +79,7 @@ class Project < ActiveRecord::Base
 
   def hours_spent_total(profession: nil, changed: false, overtime: )
     users = profession ? users_with_profession(profession: profession) : users
-    sum = 0
-    users.each { |u| sum += hours_total_for(u, changed: changed, overtime: overtime) rescue 0} 
-    sum
+    users.inject { |u| hours_total_for(u, changed: changed, overtime: overtime) } rescue 0
   end
 
   def hours_total_for(user, changed: false, overtime:)
@@ -116,12 +109,11 @@ class Project < ActiveRecord::Base
   end
 
   def name_of_users(profession: nil)
-    return unless users
     if profession
       u = users_with_profession(profession: profession)
-      u.each.collect {|user| user.name}.join(', ')
+      u.pluck(:first_name).join(', ')
     else
-      users.each.collect {|user| user.name}.join(', ')
+      users.pluck(:first_name).join(', ')
     end
   end
 

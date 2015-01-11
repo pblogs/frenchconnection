@@ -19,7 +19,6 @@ $light-gray: #DDD;
 $light-red: #FBE3E4;
 $light-yellow: #FFF6BF;
 $light-green: #E6EFC2;
-$light-blue: #264d85;
 
 // Background Color
 $base-background-color: white;
@@ -40,7 +39,7 @@ $base-border-color: $light-gray;
 // Flash Colors
 $alert-color: $light-yellow;
 $error-color: $light-red;
-$notice-color: #264d85; // $light-blue;
+$notice-color: $light-yellow;
 $success-color: $light-green;
 
 // Forms

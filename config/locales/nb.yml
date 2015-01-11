@@ -12,6 +12,7 @@ nb:
   back: Tilbake
   continue: Fortsett
   completed_tasks: Avsluttede oppgaver
+  certificates: Sertifikater
   courses: Kurs
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
@@ -27,8 +28,6 @@ nb:
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
-  yes: Ja
-  nope: Nei
   from: Fra
   to: Til
   task_ended_at: Avsluttet for %{time} siden
@@ -41,7 +40,6 @@ nb:
   show_hours_registered: Vis timelister
   start_date: Startdato
   stopped_us_saving: hindret oss å lagre
-  price_pr_day: Pris pr dag
   due_date: Ferdigstilling
   register_new_task: Registrer ny oppgave
   project_owner: Prosjekteier
@@ -58,15 +56,14 @@ nb:
   tools: Verktøy
   has_no_due_date: Ingen dato satt
   name: Navn
-  options: Valg
   project_number: Prosjektnummer
   save: Lagre
+  yes: Ja
+  no: Nei
   show: Vis
   edit: Rediger
   destroy: Slett
   search: Søk
-  title: Navn
-  who: Hvem
 
   top_nav:
     projects: Prosjekter
@@ -102,14 +99,6 @@ nb:
       short_date: "%B %d"
 
 
-  certificates:
-    header: Sertifikater
-    create_new: Lag nytt sertifikat
-    truck-driver: Truck
-    small-lift: Lite lift
-    climber: Klatresertifikat
-    bulldozer-cert: Bulldozer
-
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet
@@ -130,7 +119,6 @@ nb:
     what: Hva skal gjøres?
     where: Hvor skal arbeidet utføres?
     what_profession: Hvilket yrke
-    review_and_submit: Se igjennom og bekreft
 
   devise:
     failure:
@@ -151,40 +139,18 @@ nb:
       missing_hours: |
         It seems that you haven't registered hours in one or more of your tasks
         Please do so on http://allieroapp.orwapp.com/
-        
-  skills:
-    title: Ferdigheter
-    welding: Sveising
-    painting: Maling
-    digging: Graving
-    driving: Kjøring
-    create_new: Lag ny ferdighet
-
-
 
   projects:
     create_new: Opprett nytt prosjekt
-    no_started_customers_or_projects: Du har ingen favoritter
-    no_departments: Her vil du se avdelingene prosjektene dine høre til
     tasks:
-      no_active_tasks: Du har ingen aktive oppgaver
-      no_complete_tasks: Du har ingen fullførte oppgaver
-      no_new_tasks: Ingen nye oppgaver
       review:
         what: Verktøy / maskin
         workers: Arbeidere
         address_missing: Mangler adresse
         who: Hvem
       tools:
-        selected_tools: Verktøy valgt
-        price_pr_day: Pris pr dag
-        what: Hva
         header: Søk etter maskiner og verktøy 
         find_someone_to_execute_the_job: Finn personell til å gjøre jobben
-        search_placeholder: Søk..
-        help_text:
-          Velg verktøy og maskiner som trengs for å gjøre jobben.
-        no_special_tools_required: Gå videre uten å velge verktøy
       headers:
         review: Bekreft og bestill
         header: Bekreft ny oppgave
@@ -195,9 +161,6 @@ nb:
         workers: Arbeidere
       who: Hvem
       price_pr_day: Pris pr dag
-      workers:
-        people_with_required_skills: Personell med kompetanse for
-        selected_workers: Valgte arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
     complete_link: Avslutt prosjektet

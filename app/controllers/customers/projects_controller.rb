@@ -9,8 +9,7 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def show
-    @departments       = Department.all
-    @drafts            = @project.task_drafts
+    @departments = Department.all
     @tasks_in_progress = @project.tasks_in_progress
     @completed_tasks   = @project.completed_tasks
   end

@@ -3,34 +3,37 @@
 div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   - if @task.inventories.present?
     p
-      = t('.people_with_required_skills')
-      strong=  ":  #{@task.inventories.pluck(:name).uniq.join(', ')}"
+      strong
+        = "Personell that has the required qualitications to operate: " 
+        =  "#{@task.inventories.pluck(:name).uniq.join(', ')}"
   
-  table(ng-show="workers.length > 0" id="workers")
+  /h3 Our guys
+  / FIXME tabel below visible even with workers empty.
+  table(ng-show="workers" id="searchTextResults")
     tr
-      th = t('who')
-      th = t('options')
+      th Who
+      th Options
     tr ng-repeat=("worker in workers track by $index") 
       td 
         | {{worker.first_name}} {{worker.last_name}}
       td 
-        button(ng-click="select(worker)") = t('select')
+        button(ng-click="select(worker)") Select
 
 
   br
   br
   br
-  div(ng-show="selected_workers.length > 0")
-    h5 = t('.selected_workers')
+  div(ng-show="selected_workers")
+    h5 Selected workers
     table#selectedWorkers
       tr
-        th = t('who')
-        th = t('options')
+        th Who
+        th Options
       tr ng-repeat=("worker in selected_workers track by $index") 
         td 
           | {{worker.first_name}} {{worker.last_name}}
         td 
-          button(ng-click="remove_selected_worker(worker, $index)") = t('remove')
+          button(ng-click="remove_selected_worker(worker, $index)") Remove
 
 
 br

@@ -2,24 +2,19 @@
 
 div ng-controller="ToolsController" data-task-id="#{@task.id}"
   h1 = t('.header')
-  p.flash-notice
-    = t('.help_text')
-    br
-  input(
-    id='search'
-    ng-model="searchText.name"
-    placeholder=t('.search_placeholder')
-  )
-
+  
+  | #{t('search')}: 
+  input ng-model="searchText.title" placeholder='machines, lifts, tools ..' /
   br
   br
   br
-  table#searchTextResults ng-show="searchText.name"
+  table#searchTextResults ng-show="searchText"
     tr
       th = t('.what')
-      th = t('price_pr_day')
-      th = t('options')
-    tr ng-repeat=("inventory in inventories | filter: searchText")
+      th = t('.price_pr_day')
+      th = t('.options')
+    /tr ng-repeat=("inventory in inventories track by inventory.id | filter:searchText") 
+    tr ng-repeat=("inventory in inventories track by $index | filter:searchText") 
       td 
         | {{inventory.name}}
       td 
@@ -31,13 +26,14 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
   br
   br
   br
-  div(ng-show="selected_inventories.length > 0")
+  // FIXME This div shows even though selected_inventories is empty.
+  div(ng-show="selected_inventories")
     h5 = t('.selected_tools')
     table#selectedTools
       tr
         th = t('.what')
-        th = t('price_pr_day')
-        th = t('options')
+        th = t('.price_pr_day')
+        th = t('.options')
       tr ng-repeat=("inventory in selected_inventories track by $index") 
         td 
           | {{inventory.name}}
@@ -51,12 +47,6 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
 br
 br
 br
-= link_to t('continue'),
+= link_to t('.find_someone_to_execute_the_job'),
   project_task_workers_path(@task.project, @task),
   class: 'btn btn-primary pull-right'
-br
-br
-= link_to t('.no_special_tools_required'), 
-  project_task_workers_path(@task.project, @task),
-  class: 'pull-right'
-br
