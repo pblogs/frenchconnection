@@ -184,6 +184,7 @@ nb:
           Trykk Fortsett uten å velge om ønskelig. 
         help_text_3:
           Da vises alle arbeidere uavhengig av yrke og kvalifikasjoner.
+        no_special_tools_required: Gå videre uten å velge verktøy
       headers:
         review: Bekreft og bestill
         header: Bekreft ny oppgave

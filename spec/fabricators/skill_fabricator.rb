@@ -9,5 +9,5 @@
 #
 
 Fabricator(:skill) do
-  title "MyString"
+  title     { Faker::Lorem.word }
 end
