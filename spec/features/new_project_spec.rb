@@ -23,6 +23,7 @@ describe "Create a new project", :type => :feature do
 
     # Then create the project
     click_link I18n.t('projects.create_new')
+    fill_in Project.human_attribute_name("name"), with: 'Project name'
     fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
     fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
     fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
@@ -47,6 +48,7 @@ describe "Create a new project", :type => :feature do
 
       fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
       fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
+      fill_in Project.human_attribute_name("name"), with: 'Project name'
       fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
       fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
       fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
@@ -62,6 +64,7 @@ describe "Create a new project", :type => :feature do
 
       visit new_customer_project_path(@customer)
       fill_in Project.human_attribute_name("start_date"), with: '01.01.2014'
+      fill_in Project.human_attribute_name("name"), with: 'Project name'
       fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
       fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
       fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
