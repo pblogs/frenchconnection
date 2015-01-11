@@ -30,10 +30,10 @@
     = f.collection_select :profession_id, @professions, :id, :title
 
   .field
-    = f.label :certificate_ids, t('certificates')
+    = f.label :certificates, t('certificates.header')
     = collection_check_boxes(:user, :certificate_ids, 
       Certificate.all, :id, :title) do |c|
-      = c.label { c.check_box + c.text }
+      = c.label { c.check_box + I18n.t("certificates.#{c.text.parameterize}") }
 
   .field
     = f.label :skill_ids, t('task.skills')

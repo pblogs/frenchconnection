@@ -105,6 +105,10 @@ nb:
   certificates:
     header: Sertifikater
     create_new: Lag nytt sertifikat
+    truck-driver: Truck
+    small-lift: Lite lift
+    climber: Klatresertifikat
+    bulldozer-cert: Bulldozer
 
   project:
     confirm_closing: Avslutte prosjektet?
