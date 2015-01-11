@@ -35,7 +35,7 @@
   .field
     = f.label :start_date
     = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato',
-      value: @project.start_date,
+      value: I18n.l(@project.start_date),
       data: { datepicker: { minDate: l(@project.start_date), maxDate: l(@maxdate) } }
 
   .field

@@ -58,3 +58,9 @@ br
 = link_to t('continue'),
   project_task_workers_path(@task.project, @task),
   class: 'btn btn-primary pull-right'
+br
+br
+= link_to t('.no_special_tools_required'), 
+  project_task_workers_path(@task.project, @task),
+  class: 'pull-right'
+br
