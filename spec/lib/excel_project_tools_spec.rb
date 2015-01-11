@@ -6,19 +6,19 @@ describe ExcelProjectTools do
     @project = Fabricate(:project)
     @user1 = Fabricate(:user, first_name: 'John')
     @snekker_profession = Fabricate(:profession, title: 'Snekker')
-    @snekker1 = Fabricate(:user, first_name: 'Snekker', last_name: 'Jens',
+    @snekker_jens = Fabricate(:user, first_name: 'Snekker Jens',
       profession: @snekker_profession)
-    @snekker2 = Fabricate(:user, first_name: 'Snekker', last_name: '2',
+    @snekker2 = Fabricate(:user, first_name: 'Snekker 2',
       profession: @snekker_profession)
     @task = Fabricate(:task, project: @project)
     @user1.tasks << @task
-    @snekker1.tasks << @task
+    @snekker_jens.tasks << @task
     @snekker2.tasks << Fabricate(:task, project: @project)
 
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
     @hours_for_jens = Fabricate(:hours_spent, hour: 19, 
-                                        task: @task, user: @snekker1 )
+                                        task: @task, user: @snekker_jens )
   end
 
   it 'comma separated string with changed values for overtime' do
@@ -33,7 +33,7 @@ describe ExcelProjectTools do
 
   it %q{returns a comma separated string of names for profession} do
     ExcelProjectTools.user_names(project: @project, 
-    profession_title: 'Snekker').should include(@snekker1.name)
+      profession_title: 'Snekker').should eq ['Snekker Jens', " Snekker 2"]
   end
 
   it 'sum_piecework_hours' do

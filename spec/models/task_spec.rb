@@ -2,22 +2,18 @@
 #
 # Table name: tasks
 #
-#  id               :integer          not null, primary key
-#  customer_id      :integer
-#  start_date       :date
-#  created_at       :datetime
-#  updated_at       :datetime
-#  accepted         :boolean
-#  description      :string(255)
-#  finished         :boolean          default(FALSE)
-#  project_id       :integer
-#  due_date         :date
-#  ended_at         :datetime
-#  work_category_id :integer
-#  location_id      :integer
-#  profession_id    :integer
-#  skills_ids       :integer
-#  draft            :boolean          default(TRUE)
+#  id                     :integer          not null, primary key
+#  customer_id            :integer
+#  start_date             :date
+#  customer_buys_supplies :boolean
+#  created_at             :datetime
+#  updated_at             :datetime
+#  accepted               :boolean
+#  description            :string(255)
+#  finished               :boolean          default(FALSE)
+#  project_id             :integer
+#  due_date               :date
+#  ended_at               :datetime
 #
 
 require 'spec_helper'
@@ -64,7 +60,6 @@ describe Task do
     end
 
     it 'in_progress?' do
-      @task.update_attribute(:draft, false)
       @task.user_tasks.each { |t| t.update_attribute(:status, :complete) }
       @task.user_tasks.last.update_attribute(:status, :confirmed)
       @task.save!
@@ -112,44 +107,24 @@ describe Task do
   describe "Notifications" do
     before do
       @project = Fabricate(:project, sms_employee_when_new_task_created: true)
-      @task    = Fabricate(:task, project: @project, draft: false)
-      @user    = Fabricate(:user, mobile: 93441707)
+      @task    = Fabricate(:task, project: @project)
     end
-
     it "notifies by SMS when a worker is delegated at task" do
+      @user = Fabricate(:user, mobile: 93441707)
       Sms.should_receive(:send_msg)
       @task.users << @user
       @task.save
     end
 
-    it "does not send any SMS on a task that is draft" do
-      Sms.should_not_receive(:send_msg)
-      @task.update_attribute(:draft, true)
-      @task.users << @user
-      @task.save
-    end
-
-    it 'sends sms to all users when a task is no longer a draft' do
-      # A tasks starts as draft. @task.draft is set as false when 
-      # save_and_order_resources! is excuted.
-      @task.update_attribute(:draft, true)
-      Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
-                                        msg: I18n.t('sms.new_task',
-                                        link: "http://allieroapp.orwapp.com"))
-      @task.users << @user
-      @task.save_and_order_resources!
-      expect(@task.draft).to eq false
-    end
-
     it "notifies only new workers when task is updated" do
+      @user = Fabricate(:user)
       Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
-                                        msg: I18n.t('sms.new_task',
-                                        link: "http://allieroapp.orwapp.com"))
+           msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
       @task.users << @user
+
       @user_second = Fabricate(:user)
       Sms.should_receive(:send_msg).with(to: "47#{@user_second.mobile}",
-                                         msg: I18n.t('sms.new_task',
-                                         link: "http://allieroapp.orwapp.com"))
+             msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
       Sms.should_not_receive(:send_msg).with(to: "47#{@user.mobile}")
       @task.users << @user_second
     end

@@ -27,7 +27,6 @@
 #  home_address           :string(255)
 #  home_area_code         :string(255)
 #  home_area              :string(255)
-#  roles_mask             :integer
 #
 
 class User < ActiveRecord::Base
@@ -41,7 +40,7 @@ class User < ActiveRecord::Base
   belongs_to :profession
   has_and_belongs_to_many :certificates
   mount_uploader :image, ImageUploader
-  has_and_belongs_to_many :skills
+  has_many :skills
 
   validates :first_name, presence: true
   validates :last_name,  presence: true
@@ -92,6 +91,9 @@ class User < ActiveRecord::Base
     owns_projects.pluck(:department_id).compact
   end
 
+  def self.roles_to_mask(roles)
+    (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
 
   # Heavy to load all users. Perhaps set the role with 
   # user.worker == true if sorting on role_mask is to hard.

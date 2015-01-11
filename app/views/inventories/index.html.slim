@@ -18,7 +18,7 @@ table
         td = inventory.name
         td = inventory.description
         td = inventory.certificates.pluck(:title).join(', ')
-        td = inventory.can_be_rented_by_other_companies ? t('yes') : t('nope')
+        td = inventory.can_be_rented_by_other_companies ? t('yes') : t('no')
         td = inventory.rental_price_pr_day
         /td = link_to t('show'), inventory
         td = link_to t('edit'), edit_inventory_path(inventory)
