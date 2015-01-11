@@ -34,9 +34,12 @@ describe Project do
                                    department: @service)
       @snekker = Fabricate(:profession, title: 'snekker')
       @murer   = Fabricate(:profession, title: 'murer')
-      @john_snekker  = Fabricate(:user, first_name: 'John', profession: @snekker)
-      @barry_snekker = Fabricate(:user, first_name: 'Barry', profession: @snekker)
-      @mustafa_murer = Fabricate(:user, first_name: 'Mustafa', profession: @murer)
+      @john_snekker  = Fabricate(:user, first_name: 'John', last_name: 'W',
+                                 profession: @snekker)
+      @barry_snekker = Fabricate(:user, first_name: 'Barry',last_name: 'W',
+                                 profession: @snekker)
+      @mustafa_murer = Fabricate(:user, first_name: 'Mustafa',last_name: 'W',
+                                 profession: @murer)
 
       @task  = Fabricate(:task, project: @project)
       @task.users << @john_snekker
@@ -71,7 +74,7 @@ describe Project do
     end
 
     it "knows their names" do
-      @project.name_of_users.should eq 'John, Barry, Mustafa'
+      @project.name_of_users.should eq 'John W, Barry W, Mustafa W'
     end
 
     describe 'hours_total_for(user)' do
