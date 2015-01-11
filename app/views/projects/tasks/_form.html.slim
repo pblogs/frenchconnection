@@ -1,5 +1,5 @@
 = form_for [@project, @task] do |f|
-  = hidden_field(:task, :goto_tools)
+  = hidden_field(:task, :goto_tools, value: 1)
 
   - if @task.errors.any?
     #error_explanation
@@ -46,5 +46,4 @@
   br
   br
   .actions 
-    = link_to t('continue'), '#', data: { 'goto-tools' => 1 },
-      class: 'btn btn-primary pull-right'
+    = f.submit t('continue'), class: 'pull-right'
