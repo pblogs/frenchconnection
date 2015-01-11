@@ -27,39 +27,38 @@ feature "Task" do
       choose I18n.t('locations.roof-top')
       fill_in Task.human_attribute_name("description"), with: 'welding on top'
       fill_in Task.human_attribute_name("start_date"),  with: @project_start_date
-      click_link I18n.t('continue')
-      expect(current_path).to eq customer_project_path(@project.customer, @project)
+      click_link_or_button I18n.t('continue')
     }.to change(Task, :count).by(1)
 
-    ## The tools page
-    #expect {
-    #  fill_in 'search', with: 'lift'
-    #  within(:css, '#searchTextResults') do
-    #    page.should have_content @lift.name
-    #    click_link_or_button I18n.t('select')
-    #  end
-    #}.to change{ Task.last.inventories.first }.from(nil).to(@lift) 
-    #click_link I18n.t('continue')
+    # The tools page
+    expect {
+      fill_in 'search', with: 'lift'
+      within(:css, '#searchTextResults') do
+        page.should have_content @lift.name
+        click_link_or_button I18n.t('select')
+      end
+    }.to change{ Task.last.inventories.first }.from(nil).to(@lift) 
+    click_link I18n.t('continue')
 
-    ## The workers page
-    ## Check that the seleted workers are notified
-    ##Sms.should_receive(:send_msg).with(to: "47#{@lisa_lift_operator.mobile}")
-    #
-    #expect {
-    #  within(:css, 'table#workers') do
-    #    page.should have_content @lisa_lift_operator.first_name
-    #    click_link_or_button I18n.t('select')
-    #  end
-    #}.to change{ Task.last.users.first }.from(nil).to(@lisa_lift_operator) 
-    #click_link I18n.t('task.review_and_submit')
+    # The workers page
+    # Check that the seleted workers are notified
+    #Sms.should_receive(:send_msg).with(to: "47#{@lisa_lift_operator.mobile}")
+    
+    expect {
+      within(:css, 'table#workers') do
+        page.should have_content @lisa_lift_operator.first_name
+        click_link_or_button I18n.t('select')
+      end
+    }.to change{ Task.last.users.first }.from(nil).to(@lisa_lift_operator) 
+    click_link I18n.t('task.review_and_submit')
 
-    ## The review page
-    #page.should have_content @location.name
-    #page.should have_content @lift.name
-    #page.should have_content @lisa_lift_operator.first_name
-    #expect {
-    #  click_link I18n.t('task.order_resources_and_save_task')
-    #}.to change{ Task.last.draft }.from(true).to(false) 
+    # The review page
+    page.should have_content @location.name
+    page.should have_content @lift.name
+    page.should have_content @lisa_lift_operator.first_name
+    expect {
+      click_link I18n.t('task.order_resources_and_save_task')
+    }.to change{ Task.last.draft }.from(true).to(false) 
 
 
   end
