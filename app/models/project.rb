@@ -116,11 +116,12 @@ class Project < ActiveRecord::Base
   end
 
   def name_of_users(profession: nil)
+    return unless users
     if profession
       u = users_with_profession(profession: profession)
-      u.pluck(:first_name).join(', ')
+      u.each.collect {|user| user.name}.join(', ')
     else
-      users.pluck(:first_name).join(', ')
+      users.each.collect {|user| user.name}.join(', ')
     end
   end
 
