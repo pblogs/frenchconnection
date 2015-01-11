@@ -10,6 +10,7 @@ describe V1::Inventories do
       get "/api/v1/inventories/"
       response.status.should == 200
       parsed_body = JSON.parse(response.body)
+      puts "parsed_body: #{parsed_body}"
       ids = parsed_body.collect { |u| u['id'] }
       ids.should =~ [inventory3.id, inventory2.id, inventory1.id] 
     end

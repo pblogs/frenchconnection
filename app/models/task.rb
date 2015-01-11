@@ -2,22 +2,17 @@
 #
 # Table name: tasks
 #
-#  id               :integer          not null, primary key
-#  customer_id      :integer
-#  start_date       :date
-#  created_at       :datetime
-#  updated_at       :datetime
-#  accepted         :boolean
-#  description      :string(255)
-#  finished         :boolean          default(FALSE)
-#  project_id       :integer
-#  due_date         :date
-#  ended_at         :datetime
-#  work_category_id :integer
-#  location_id      :integer
-#  profession_id    :integer
-#  skills_ids       :integer
-#  draft            :boolean          default(TRUE)
+#  id                     :integer          not null, primary key
+#  customer_id            :integer
+#  start_date             :date
+#  created_at             :datetime
+#  updated_at             :datetime
+#  accepted               :boolean
+#  description            :string(255)
+#  finished               :boolean          default(FALSE)
+#  project_id             :integer
+#  due_date               :date
+#  ended_at               :datetime
 #
 
 class Task < ActiveRecord::Base
@@ -66,23 +61,15 @@ class Task < ActiveRecord::Base
     ) 
   end
 
-  #def default_address
-  #  address.present? ? address : nil || 
-  #  project.address.present? ? project.address : nil ||
-  #  project.customer.address.present? ? project.customer.address : nil
-  #end
-
   def end_task_hard
     end_tasks_for_all_users
   end
 
   def in_progress?
-    return false if draft
     UserTask.where(task_id: id).all.any? { |t| t.status != :complete }
   end
 
   def complete?
-    return false if draft
     UserTask.where(task_id: id).all.all? { |t| t.status == :complete }
   end
 
@@ -97,17 +84,33 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def save_and_order_resources!
-    self.draft = false
-    self.save
-    notify_workers
-    # Order resources
-  end
-
   private
 
+  def sms_employee_when_new_task_created
+    project.sms_employee_when_new_task_created
+  end
+
   def notify_workers
-    user_tasks.each { |t| t.notify_worker }
+    users.each do |u|
+      project.sms_employee_when_new_task_created
+    end
+  end
+
+  def notify_workers(workers: nil)
+    msg = I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com")
+    workers ||= users
+    workers.each do |u|
+      Sms.send_msg(to: "47#{u.mobile}", msg: msg)
+    end
+  end
+
+  def notify_new_workers
+    new_workers = users - @old_workers
+    notify_workers(workers: new_workers)
+  end
+
+  def remember_old_workers
+    @old_workers = users.all
   end
 
   def single_task

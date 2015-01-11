@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
   before_action :set_task_by_task_id, 
-    only: [:save_and_order_resources, :select_inventory, :qualified_workers, 
+    only: [:save_and_order, :select_inventory, :qualified_workers, 
            :selected_workers, :select_workers, :remove_selected_worker,
            :inventories,
            :selected_inventories, :remove_selected_inventory]
@@ -21,8 +21,7 @@ class TasksController < ApplicationController
   end
 
   def active
-    @tasks = Task.where(accepted: true, finished: false)
-      .order(created_at: :desc)
+    @tasks = Task.where(accepted: true, finished: false).order(created_at: :desc)
     render :index
   end
 
@@ -41,14 +40,10 @@ class TasksController < ApplicationController
     @task_types = TaskType.all
   end
 
-  def save_and_order_resources
-    if @task.save_and_order_resources!
-      redirect_to(customer_project_path(@task.project.customer, @task.project),
+  def save_and_order
+    # TODO Mark the task as reviewed and saved here. Order resources.
+    redirect_to(customer_project_path(@task.project.customer, @task.project),
                 notice: 'Task saved and the required resources are ordered.')
-    else
-      redirect_to(customer_project_path(@task.project.customer, @task.project),
-                  warning: 'Something went wrong with save_and_order_resources')
-    end
   end
 
   # POST /tasks
