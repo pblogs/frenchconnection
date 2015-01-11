@@ -125,7 +125,7 @@ describe CertificatesController do
       it "redirects to the certificate" do
         certificate = Certificate.create! valid_attributes
         put :update, {:id => certificate.to_param, :certificate => valid_attributes}, valid_session
-        response.should redirect_to(certificate)
+        response.should redirect_to(certificates_path)
       end
     end
 

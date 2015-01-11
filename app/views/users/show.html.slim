@@ -30,7 +30,7 @@
                   = render partial: '/tasks/accept_reject_listing', 
                     locals: {task: task }
       - else
-        span Ingen nye oppgaver.
+        span = t('projects.tasks.no_new_tasks')
 
   
       .my_tasks.worker
@@ -44,12 +44,13 @@
                   = fa_icon('exclamation-triangle')
                 = link_to task.description, task
                 span.actions
-                  = link_to fa_icon('pencil-square-o'), new_task_hours_spent_path(task)
+                  = link_to fa_icon('pencil-square-o'),
+                    new_task_hours_spent_path(task)
                   = link_to fa_icon('check'), 
                     complete_task_path(task), method: :post, 
-                    data: {confirm: "Are you sure?"}, class: 'complete'
+                    data: { confirm: I18n.t('are_you_sure') }, class: 'complete'
         - else
-          p Du har ingen aktive prosjekter.
+          p= t('projects.tasks.no_active_tasks')
 
       .my_tasks.worker.completed
         strong.menu_header = I18n.t('task.completed_tasks')
@@ -59,4 +60,4 @@
             - @completed_tasks.each do |task|
               li = link_to task.description, task
         - else
-          p Du har ingen fullførte oppgaver.
+          p= t('projects.tasks.no_complete_tasks')

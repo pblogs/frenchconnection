@@ -144,16 +144,19 @@ class Projects::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:customer_id, 
-                                 :start_date, 
-                                 :due_date,
-                                 :paint_id,
-                                 :description,
-                                 :location_id,
-                                 :goto_tools,
-                                 :profession_id,
-                                 :department_id, 
-                                 :user_ids => []
-                                )
+    params.require(:task).permit(
+      :address,
+      :customer_id, 
+      :description,
+      :due_date,
+      :department_id, 
+      :goto_tools,
+      :location_id,
+      :paint_id,
+      :profession_id,
+      :start_date, 
+      :user_ids => [],
+      :skill_ids => [],
+  )
   end
 end

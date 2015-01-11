@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :skills
+
   resources :certificates
 
   namespace :inventories do
@@ -82,7 +84,7 @@ AllieroForms::Application.routes.draw do
     resources :changes, :controller => 'hours_spent/changes'
   end
   resources :tasks do
-    post :save_and_order,   as: :save_and_order
+    post :save_and_order_resources,   as: :save_and_order_resources
     resources :hours_spents, :controller => 'tasks/hours_spent'
     member do
       post :complete
