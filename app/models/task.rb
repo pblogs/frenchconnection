@@ -80,7 +80,7 @@ class Task < ActiveRecord::Base
       # Don't list workers that has already been selected.
       workers - self.users
     else
-      User.workers - self.users
+      User.with_role(:worker) - self.users
     end
   end
 

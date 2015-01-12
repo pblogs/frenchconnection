@@ -97,8 +97,9 @@ class User < ActiveRecord::Base
 
   # Heavy to load all users. Perhaps set the role with 
   # user.worker == true if sorting on role_mask is to hard.
-  def self.workers
-    User.all.select { |u| u.is? :worker }
+
+  def self.with_role(role)
+    User.all.select { |u| u.is? role }
   end
 
   protected
