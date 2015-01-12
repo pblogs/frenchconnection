@@ -39,7 +39,7 @@
     = f.label :skill_ids, t('task.skills')
     = collection_check_boxes(:user, :skill_ids, 
       Skill.all, :id, :title) do |c|
-      = c.label { c.check_box + c.text) }
+      = c.label { c.check_box + c.text }
 
   br
   .field
