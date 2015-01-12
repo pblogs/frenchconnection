@@ -33,13 +33,13 @@
     = f.label :certificates, t('certificates.header')
     = collection_check_boxes(:user, :certificate_ids, 
       Certificate.all, :id, :title) do |c|
-      = c.label { c.check_box + I18n.t("certificates.#{c.text.parameterize}") }
+      = c.label { c.check_box + c.text }
 
   .field
     = f.label :skill_ids, t('task.skills')
     = collection_check_boxes(:user, :skill_ids, 
       Skill.all, :id, :title) do |c|
-      = c.label { c.check_box + I18n.t("skills.#{c.text}") }
+      = c.label { c.check_box + c.text) }
 
   br
   .field

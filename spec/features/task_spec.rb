@@ -10,7 +10,7 @@ feature "Task" do
     @project_leader     = Fabricate(:user, roles: [:project_leader])
     @project_start_date = '01.01.2014'
     @project            = Fabricate(:project, start_date: @project_start_date)
-    @welding            = Fabricate(:skill, title: 'welding')
+    @skill              = Fabricate(:skill, title: 'welding')
     @location           = Fabricate(:location, name: 'roof-top')
     @lift_cert          = Fabricate(:certificate, title: 'lift certificate') 
     @lift               = Fabricate(:inventory, name: 'lift',
@@ -23,8 +23,8 @@ feature "Task" do
     visit customer_project_path(@project.customer, @project)
     expect {
       click_link I18n.t('register_new_task')
-      check  I18n.t('skills.welding')
-      choose I18n.t('locations.roof-top')
+      check  @skill.title
+      choose @location.name
       fill_in Task.human_attribute_name("description"), with: 'welding on top'
       fill_in Task.human_attribute_name("start_date"),  with: @project_start_date
       click_link_or_button I18n.t('save_and_continue')
