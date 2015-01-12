@@ -41,12 +41,21 @@ describe User do
     expect(@user).to be_valid
   end
 
-  it 'default role' do
-    expect(@user.roles).to eq [:worker]
-  end
+  describe 'Roles' do
+    it 'default role' do
+      expect(@user.roles).to eq [:worker]
+    end
 
-  it 'check role' do
-    expect(@user.is?('worker')).to be_true
+    it 'check role' do
+      expect(@user.is?('worker')).to be_true
+    end
+
+    it 'find users by role' do
+      @project_leader = Fabricate(:user, roles: [:project_leader])
+      expect(User.with_role(:worker)).to include @user
+      expect(User.with_role(:project_leader)).to include @project_leader
+    end
+    
   end
 
   it 'multiple roles' do
@@ -63,7 +72,7 @@ describe User do
     expect(@user.tasks).to include(@task, @task2)
   end
 
-  describe 'project_departments' do
+  describe 'Departments' do
     before do
       @service = Fabricate(:department, title: 'Service')
       @support = Fabricate(:department, title: 'Support')
