@@ -89,6 +89,7 @@ nb:
     users: Brukere
     inventories: Verktøy og maskiner
     certificates: Sertifikater
+    skills: Ferdigheter
   time:
     formats:
       short_w_year: "%d %B %Y"
@@ -127,7 +128,7 @@ nb:
     new_tasks: Nye oppgaver
     order_resources_and_save_task: Bestill resurser og lagre oppgaven
     skills: Ferdigheter
-    what: Hva skal gjøres?
+    what: Hvilke ferdigheter trengs?
     where: Hvor skal arbeidet utføres?
     what_profession: Hvilket yrke
     review_and_submit: Se igjennom og bekreft
