@@ -1,0 +1,16 @@
+p
+  strong = t('name') + ": "
+  = @location.name
+p
+  strong = t('certificates.header') + ": "
+  = @location.certificates.pluck(:title).join(', ')
+p
+  strong = t('indoor') + ": "
+  = @location.indoor
+p
+  strong = t('outdoor') + ": "
+  = @location.outdoor
+
+= link_to t('edit'), edit_location_path(@location)
+'|
+= link_to t('back'), locations_path
