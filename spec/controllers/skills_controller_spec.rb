@@ -79,7 +79,7 @@ describe SkillsController do
 
       it "redirects to the created skill" do
         post :create, {:skill => valid_attributes}, valid_session
-        response.should redirect_to(Skill.last)
+        response.should redirect_to(skills_path)
       end
     end
 
@@ -121,7 +121,7 @@ describe SkillsController do
       it "redirects to the skill" do
         skill = Skill.create! valid_attributes
         put :update, {:id => skill.to_param, :skill => valid_attributes}, valid_session
-        response.should redirect_to(skill)
+        response.should redirect_to(skills_path)
       end
     end
 
