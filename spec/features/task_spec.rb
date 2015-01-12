@@ -41,9 +41,6 @@ feature "Task" do
     click_link I18n.t('continue')
 
     # The workers page
-    # Check that the seleted workers are notified
-    #Sms.should_receive(:send_msg).with(to: "47#{@lisa_lift_operator.mobile}")
-    
     expect {
       within(:css, 'table#workers') do
         page.should have_content @lisa_lift_operator.first_name
@@ -60,8 +57,6 @@ feature "Task" do
       click_link I18n.t('task.order_resources_and_save_task')
     }.to change{ Task.last.draft }.from(true).to(false) 
 
-
   end
 
 end
-
