@@ -27,7 +27,7 @@ feature "Task" do
       choose I18n.t('locations.roof-top')
       fill_in Task.human_attribute_name("description"), with: 'welding on top'
       fill_in Task.human_attribute_name("start_date"),  with: @project_start_date
-      click_link_or_button I18n.t('continue')
+      click_link_or_button I18n.t('save_and_continue')
     }.to change(Task, :count).by(1)
 
     # The tools page
@@ -38,7 +38,7 @@ feature "Task" do
         click_link_or_button I18n.t('select')
       end
     }.to change{ Task.last.inventories.first }.from(nil).to(@lift) 
-    click_link I18n.t('continue')
+    click_link I18n.t('save_and_continue')
 
     # The workers page
     expect {
