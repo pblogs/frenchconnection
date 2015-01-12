@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  resources :locations
+
   resources :skills
 
   resources :certificates

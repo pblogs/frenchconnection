@@ -249,6 +249,7 @@ nb:
     search_placeholder: Søk etter verktøy og maskiner..
 
   locations:
+    title: Lokasjoner
     roof-top: Tak
     construction-site: Anleggsområdet
     traffic: I trafikken

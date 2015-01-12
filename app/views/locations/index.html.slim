@@ -1,0 +1,28 @@
+h1 = t('locations.title')
+
+table
+  thead
+    tr
+      th = t('inventories.name')
+      th = t('inventories.certificates')
+      th = t('inventories.indoor')
+      th = t('inventories.outdoor')
+      th
+      th
+      th
+
+
+  tbody
+    - @locations.each do |location|
+      tr
+        td = location.name
+        td = location.certificates.pluck(:title).join(', ')
+        td = location.indoor
+        td = location.outdoor
+        td = link_to t('edit'), edit_location_path(location)
+        td = link_to t('destroy'), location,
+            data: {:confirm => t('are_you_sure')}, :method => :delete
+
+br
+
+= link_to 'New Location', new_location_path

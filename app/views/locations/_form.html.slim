@@ -1,0 +1,24 @@
+= form_for @location do |f|
+  - if @location.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@location.errors.count, "error")} prohibited this location from being saved:"
+      ul
+        - @location.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :certificates, t('certificates.header')
+    = collection_check_boxes(:location, :certificate_ids, 
+      Certificate.all, :id, :title)  do |c| 
+      = c.label { c.check_box + c.text }
+  .field
+    = f.label :indoor do
+      = f.check_box :indoor
+      = t('indoor')
+    = f.label :outdoor do
+      = f.check_box :outdoor
+      = t('outdoor')
+  .actions = f.submit 'Save'
