@@ -91,6 +91,7 @@ nb:
     users: Brukere
     inventories: Verktøy og maskiner
     certificates: Sertifikater
+    locations: Lokasjoner
     skills: Ferdigheter
   time:
     formats:
