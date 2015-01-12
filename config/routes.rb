@@ -1,15 +1,13 @@
 AllieroForms::Application.routes.draw do
 
-  resources :locations
-
-  resources :skills
-
-  resources :certificates
 
   namespace :inventories do
     post :search
   end
 
+  resources :locations
+  resources :skills
+  resources :certificates
   resources :inventories
   resources :changes
   resources :departments
