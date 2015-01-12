@@ -37,6 +37,7 @@ feature "Task" do
         page.should have_content @lift.name
         click_link_or_button I18n.t('select')
       end
+      page.should have_content I18n.t('projects.tasks.tools.selected_tools')
     }.to change{ Task.last.inventories.first }.from(nil).to(@lift) 
     click_link I18n.t('save_and_continue')
 
@@ -46,6 +47,7 @@ feature "Task" do
         page.should have_content @lisa_lift_operator.first_name
         click_link_or_button I18n.t('select')
       end
+      page.should have_content I18n.t('projects.tasks.workers.selected_workers')
     }.to change{ Task.last.users.first }.from(nil).to(@lisa_lift_operator) 
     click_link I18n.t('task.review_and_submit')
 
