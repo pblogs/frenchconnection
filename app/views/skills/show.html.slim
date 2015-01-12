@@ -1,9 +1,7 @@
-p#notice = notice
-
 p
-  strong Title:
+  strong Tittel:
   = @skill.title
 
-= link_to 'Edit', edit_skill_path(@skill)
+= link_to t('edit'), edit_skill_path(@skill)
 '|
-= link_to 'Back', skills_path
+= link_to t('back'), skills_path

@@ -44,10 +44,10 @@ class TasksController < ApplicationController
   def save_and_order_resources
     if @task.save_and_order_resources!
       redirect_to(customer_project_path(@task.project.customer, @task.project),
-                notice: 'Task saved and the required resources are ordered.')
+        notice: I18n.t('tasks.saved_resources_ordered'))
     else
       redirect_to(customer_project_path(@task.project.customer, @task.project),
-                  warning: 'Something went wrong with save_and_order_resources')
+        warning: I18n.t('could_not_save'))
     end
   end
 
