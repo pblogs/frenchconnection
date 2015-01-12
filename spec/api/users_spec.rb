@@ -5,7 +5,6 @@ describe V1::Users do
   describe 'GET /api/v1/users/workers' do
     User.destroy_all
     it 'lists all workers' do
-      pending "temporary WIP - martin"
       user1 = Fabricate(:user, roles: [:worker])
       user2 = Fabricate(:user, roles: [:worker])
       user3 = Fabricate(:user, roles: [:worker, :project_leader])
