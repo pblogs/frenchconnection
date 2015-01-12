@@ -2,7 +2,7 @@ class Sms
   def self.send_msg(to:, msg:, dryrun: false)
     @to = to
     @msg = msg
-    if dryrun || !Rails.env.production?
+    if dryrun || (!Rails.env.production? || !Rails.env.staging?)
       Rails.logger.debug  "NOT sending SMS\n to:#{ @to } msg:#{ @msg }"
     else
       Rails.logger.debug  "Sending SMS\n to:#{ @to } msg:#{ @msg }"
