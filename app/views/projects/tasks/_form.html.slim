@@ -13,13 +13,13 @@
   .check_boxes 
     = collection_check_boxes(:task, :skill_ids, 
       Skill.all, :id, :title)  do |c| 
-      = c.label { c.check_box + I18n.t("skills.#{c.text}") }
+      = c.label { c.check_box + t("skills.#{c.text.parameterize}") }
 
   h5 = t('task.where')
   .check_boxes 
     = f.collection_radio_buttons(:location_id, Location.all,
       :id, :name, { checked: @task.location.try(:id) } ) do |r|
-      = r.label { r.radio_button + I18n.t("locations.#{r.text.parameterize}")  }
+      = r.label { r.radio_button + t("locations.#{r.text.parameterize}")  }
 
   .field
     = f.label :address
@@ -46,4 +46,4 @@
   br
   br
   .actions 
-    = f.submit t('continue'), class: 'pull-right'
+    = f.submit t('save_and_continue'), class: 'pull-right'

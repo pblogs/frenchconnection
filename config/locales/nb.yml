@@ -11,8 +11,10 @@ nb:
   are_you_sure: Er du sikker?
   back: Tilbake
   continue: Fortsett
+  save_and_continue: Lagre og gå videre
   completed_tasks: Avsluttede oppgaver
   courses: Kurs
+  could_not_save: Lagring feilet
   are_you_sure_about_soft_ending: |
     Sende melding til alle om at oppgaven avsluttes?
   are_you_sure_about_hard_ending: |
@@ -128,6 +130,7 @@ nb:
     new_tasks: Nye oppgaver
     order_resources_and_save_task: Bestill resurser og lagre oppgaven
     skills: Ferdigheter
+    saved_resources_ordered: Oppgaven er lagret og resursene bestilt
     what: Hvilke ferdigheter trengs?
     where: Hvor skal arbeidet utføres?
     what_profession: Hvilket yrke
@@ -154,6 +157,7 @@ nb:
         Please do so on http://allieroapp.orwapp.com/
         
   skills:
+    header: Ferdigheter
     title: Ferdigheter
     welding: Sveising
     painting: Maling
