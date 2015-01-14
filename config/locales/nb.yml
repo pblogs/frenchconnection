@@ -11,6 +11,9 @@ nb:
   are_you_sure: Er du sikker?
   back: Tilbake
   continue: Fortsett
+  drafts: Kladder
+  indoor: Innendørs
+  outdoor: Utendørs
   save_and_continue: Lagre og gå videre
   completed_tasks: Avsluttede oppgaver
   courses: Kurs
