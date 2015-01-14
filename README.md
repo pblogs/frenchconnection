@@ -15,6 +15,7 @@ These reports are used by our customer to generate invoices.
   1. Pick an open issue you want to implement or I delegate a task to you because I think you're the best suited to fix it. :-)
   2. Create a comment where you estimate how many hours you think it will take and when you can have it ready.
   3. Start working when we have accepted the estimated time.
+  4. Do not start working on anything that hasn't our approval. That goes for time and the feature itself. Don't start implementing things you think are needed if they are not requested explicitly.
   4. Write integration tests.
   5. Submit a pull request when you're ready. We'll review and accept it when it looks good.
      Attach image or video. See the section below.
