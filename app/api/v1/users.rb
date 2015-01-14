@@ -5,7 +5,7 @@ module V1
       
       desc "All users with worker role"
       get 'workers' do
-        workers = User.select { |user| user.is? 'worker' }
+        workers = User.with_role(:worker)
         present :users, workers
         header 'Access-Control-Allow-Origin', '*'
       end
