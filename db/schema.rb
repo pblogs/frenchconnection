@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150107183914) do
-=======
-ActiveRecord::Schema.define(version: 20141229223521) do
->>>>>>> restore-master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,7 +138,6 @@ ActiveRecord::Schema.define(version: 20141229223521) do
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
   add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id", using: :btree
 
-<<<<<<< HEAD
   create_table "inventories", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -169,8 +164,6 @@ ActiveRecord::Schema.define(version: 20141229223521) do
     t.datetime "updated_at"
   end
 
-=======
->>>>>>> restore-master
   create_table "mobile_pictures", force: true do |t|
     t.integer  "task_id"
     t.integer  "user_id"
