@@ -1,4 +1,4 @@
-![CircleCi](https://circleci.com/gh/stabenfeldt/alliero-orwapp.png?circle-token=33b26842e62a1537d5582f72c7c718eea9a5bfc6)
+[![Code Climate](https://codeclimate.com/repos/5480807a69568040da000005/badges/e983a328555515b381da/gpa.svg)](https://codeclimate.com/repos/5480807a69568040da000005/feed)
 ## Alliero.orwapp.com
 
 This app is used to keep track of `HoursSpent`.
