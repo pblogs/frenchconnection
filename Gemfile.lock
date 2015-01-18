@@ -456,7 +456,7 @@ DEPENDENCIES
   pusher
   quiet_assets
   rack-cors
-  rails (= 4.1.5)
+  rails
   rails-footnotes (>= 4.0.0, < 5)
   rails-i18n (~> 4.0.0)
   rails_12factor
