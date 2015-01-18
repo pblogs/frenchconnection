@@ -1,30 +1,30 @@
 require 'spec_helper'
 
 describe V1::Users do
+  before do
+    @worker = Fabricate(:user, id: 1, roles: [:worker])
+    Fabricate(:user, id: 2, roles: [:worker])
+    Fabricate(:user, id: 3, roles: [:worker, :project_leader])
+    Fabricate(:user, id: 4, roles: [:project_leader])
+  end
   
   describe 'GET /api/v1/users/workers' do
-    User.destroy_all
     it 'lists all workers' do
-      user1 = Fabricate(:user, roles: [:worker])
-      user2 = Fabricate(:user, roles: [:worker])
-      user3 = Fabricate(:user, roles: [:worker, :project_leader])
-      Fabricate(:user, roles: [:project_leader])
       get "/api/v1/users/workers"
       response.status.should == 200
       hash = JSON.parse(response.body)
       worker_ids = hash['users'].collect { |u| u['id'] }
-      worker_ids.should =~ [user3.id, user2.id, user1.id] 
+      worker_ids.should =~ [1,2,3] 
     end
   end
 
   describe 'GET /api/v1/users/id/:user_id' do
     it 'lists a specific user' do
-      user = Fabricate :user
-      get "/api/v1/users/#{ user.id }"
+      get "/api/v1/users/#{ @worker.id }"
       response.status.should == 200
       hash = JSON.parse(response.body)
       u = hash['user']
-      u['email'].should eq user.email
+      u['email'].should eq @worker.email
     end
   end
   
