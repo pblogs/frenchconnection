@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe V1::Users do
   before do
+    User.destroy_all
     @worker = Fabricate(:user, id: 1, roles: [:worker])
     Fabricate(:user, id: 2, roles: [:worker])
     Fabricate(:user, id: 3, roles: [:worker, :project_leader])
