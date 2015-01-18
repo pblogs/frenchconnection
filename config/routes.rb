@@ -77,6 +77,10 @@ AllieroForms::Application.routes.draw do
     resources :tasks, :controller => 'users/user_tasks' do
       post :confirm_user_task
     end
+    collection do
+      post :add_user
+    end
+    
   end
 
   resources :hours_spents
@@ -91,9 +95,6 @@ AllieroForms::Application.routes.draw do
     end
   end
 
-
-
- 
 
   # The priority is based upon order of 
   # creation: first created -> highest priority.

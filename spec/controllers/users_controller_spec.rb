@@ -95,7 +95,6 @@ describe UsersController, :type => :controller do
       end
 
       it "redirects to the user" do
-        pending
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
         response.should redirect_to(user)
