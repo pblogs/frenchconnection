@@ -124,7 +124,7 @@ ActiveAdmin.setup do |config|
   #
   # You can completely disable comments:
   config.allow_comments = false
-  
+
   # You can disable the menu item for the comments index page:
   # config.show_comments_in_menu = false
   #
@@ -169,6 +169,7 @@ ActiveAdmin.setup do |config|
   #
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
+  config.register_javascript 'tinymce.js'
 
   # == CSV options
   #
