@@ -1,5 +1,10 @@
 AllieroForms::Application.routes.draw do
 
+<<<<<<< HEAD
+=======
+  ActiveAdmin.routes(self)
+  resources :changes
+>>>>>>> install active admin, set authorization
 
   namespace :inventories do
     post :search

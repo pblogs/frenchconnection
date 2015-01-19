@@ -15,12 +15,13 @@ gem 'newrelic_rpm'
 gem 'foreman'
 gem 'passenger'
 gem 'thor'
-gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'iconv'
 gem 'pdfkit'
 gem 'symbolize'
 gem 'sidekiq'
 gem 'pusher'
+gem 'activeadmin', github: 'activeadmin'
 
 # API
 gem 'grape', github: 'intridea/grape'
@@ -60,7 +61,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-sass-rails'
+gem 'jquery-ui-rails'
 
 
 # Turbolinks makes following links in your web application faster.
