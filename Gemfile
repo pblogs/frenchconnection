@@ -23,6 +23,10 @@ gem 'sidekiq'
 gem 'pusher'
 gem 'activeadmin', github: 'activeadmin'
 
+gem 'tinymce-rails', '4.1.6'
+gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
+gem 'html_truncator', '0.4.0'
+
 # API
 gem 'grape', github: 'intridea/grape'
 gem 'grape-entity'
@@ -34,6 +38,7 @@ gem 'wkhtmltopdf-binary'
 
 gem 'devise'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'axlsx', '~> 2.0.1'
 gem 'alphabetical_paginate'
 
@@ -115,8 +120,3 @@ gem 'rest_client'
 
 gem 'dalli'
 gem 'memcachier'
-
-
-gem 'angular_rails_csrf'
-gem 'rack-cors',
-  :require => 'rack/cors'
