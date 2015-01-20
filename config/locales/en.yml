@@ -45,3 +45,43 @@ en:
     no_projects: No projects present
     no_videos: No videos
     videos: Videos
+
+  activerecord:
+    attributes:
+      blog_article:
+        title: Title
+        content: Content
+        image: Image
+        locale: Locale
+        published: Published
+        publish_date: Publish date
+        created_at: Created at
+        updated_at: Updated at
+      blog_project:
+        title: Title
+        content: Content
+        image: Image
+        locale: Locale
+        published: Published
+        publish_date: Publish date
+        created_at: Created at
+        updated_at: Updated at
+      blog_video:
+        title: Title
+        content: Content
+        video_url: Video url
+        locale: Locale
+        published: Published
+        publish_date: Publish date
+        created_at: Created at
+        updated_at: Updated at
+    models:
+      blog_article:
+        one: Article
+        other: Articles
+      blog_project:
+        one: Project
+        other: Projects
+      blog_video:
+        one: Video
+        other: Videos
