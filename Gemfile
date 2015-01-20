@@ -22,7 +22,9 @@ gem 'symbolize'
 gem 'sidekiq'
 gem 'pusher'
 gem 'activeadmin', github: 'activeadmin'
-gem 'tinymce-rails'
+
+gem 'tinymce-rails', '4.1.6'
+gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 
 gem 'tinymce-rails', '4.1.6'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'

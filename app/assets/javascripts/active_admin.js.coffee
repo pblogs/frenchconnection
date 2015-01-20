@@ -4,8 +4,10 @@ $(document).ready ->
   tinyMCE.init
     mode: "textareas"
     theme: "modern"
+    toolbar: "undo redo | styleselect | bold italic
+      | alignleft aligncenter alignright alignjustify
+      | bullist numlist outdent indent | table | fontsizeselect | uploadimage"
     editor_selector: "tinymce"
-    toolbar: "styleselect | bold italic | undo redo | image | link"
-    plugins: "image link"
+    plugins: "image link uploadimage"
     menubar: false
   return
