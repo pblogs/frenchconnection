@@ -12,5 +12,7 @@
 class BlogImage < ActiveRecord::Base
   validates :image, presence: true
 
+  belongs_to :owner, polymorphic: true
+
   mount_uploader :image, ImageUploader
 end

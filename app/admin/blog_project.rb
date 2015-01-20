@@ -5,6 +5,9 @@ ActiveAdmin.register BlogProject do
   form html: { enctype: 'multipart/form-data' } do |f|
     f.semantic_errors
     f.inputs do
+      f.input :id, as: :hidden, input_html: { id: :content_id }
+      f.input :type, as: :hidden, input_html: { id: :content_type,
+                                                value: f.object.class.name }
       f.input :title
       f.input :content, input_html: { class: :tinymce }
       f.input :image, as: :file,

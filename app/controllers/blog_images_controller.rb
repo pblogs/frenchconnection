@@ -2,7 +2,9 @@ class BlogImagesController < ApplicationController
   skip_before_filter :authenticate_user!
 
   def create
-    @asset = BlogImage.new(image: params[:file], description: params[:alt])
+    owner = JSON.parse(params[:hint]).symbolize_keys
+    @asset = BlogImage.new(image: params[:file],
+                            owner_type: owner[:type], owner_id: owner[:id])
     if @asset.save!
       render json: {
           image: {
