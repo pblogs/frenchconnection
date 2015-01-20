@@ -79,6 +79,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     alphabetical_paginate (2.2.3)
+    angular_rails_csrf (1.0.3)
+      rails (>= 3, < 5)
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -303,6 +305,7 @@ GEM
       rack (>= 0.4)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
+    rack-cors (0.3.1)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
     rack-test (0.6.2)
@@ -424,9 +427,6 @@ GEM
     tinymce-rails-imageupload (4.0.16.beta)
       railties (>= 3.2, < 5)
       tinymce-rails (~> 4.0)
-    treetop (1.4.15)
-      polyglot
-      polyglot (>= 0.3.1)
     turbolinks (2.2.1)
       coffee-rails
     tzinfo (1.2.2)
@@ -452,6 +452,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   alphabetical_paginate
+  angular_rails_csrf
   annotate
   axlsx (~> 2.0.1)
   better_errors
@@ -494,6 +495,7 @@ DEPENDENCIES
   pg
   pusher
   quiet_assets
+  rack-cors
   rails
   rails-footnotes (>= 4.0.0, < 5)
   rails-i18n (~> 4.0.0)
