@@ -127,4 +127,6 @@ AllieroForms::Application.routes.draw do
 
   get '/hse' => 'hse#redirect', as: 'hse'
 
+  post '/tinymce_assets' => 'tinymce_assets#create', as: :tinymce_assets
+
 end
