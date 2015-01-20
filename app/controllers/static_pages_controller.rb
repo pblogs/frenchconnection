@@ -5,6 +5,13 @@ class StaticPagesController < ApplicationController
     @blog_projects = BlogProject.published.limit(4)
   end
 
+  def content
+    @content = get_content
+    if @content.nil?
+      redirect_to :root
+    end
+  end
+
   def video
     @current = params[:id].present? ?
         BlogVideo.find_by(id: params[:id], published: true) :
@@ -39,6 +46,14 @@ class StaticPagesController < ApplicationController
 
   def new_assignment
     @customers = Customer.all
+  end
+
+  private
+
+  def get_content
+    type = params[:content_type].present? ?
+        params[:content_type].classify.constantize : nil
+    type.find(params[:id]) rescue nil
   end
 
 end

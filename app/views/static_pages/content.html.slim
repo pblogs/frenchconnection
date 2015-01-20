@@ -1,0 +1,10 @@
+.blog_content
+  section.header
+    .title
+      h2 = @content.title
+      p = l @content.updated_at, format: :short_w_year
+    .main_image
+      = image_tag @content.image.url
+  hr
+  .content
+    = @content.content.html_safe
