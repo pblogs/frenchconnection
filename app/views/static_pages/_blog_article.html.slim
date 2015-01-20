@@ -1,0 +1,8 @@
+.date
+  em = blog_article.publish_date.day
+  em.month = l blog_article.publish_date, format: :short_month
+  em.year = blog_article.publish_date.year
+.content
+  = image_tag blog_article.image.url
+  h5 = blog_article.title
+  p = blog_article.content.html_safe
