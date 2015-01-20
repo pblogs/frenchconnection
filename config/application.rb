@@ -54,6 +54,9 @@ module AllieroForms
                                            'extensions',
                                            '*.rb')].each {|l| require l }
 
+    # Load models sub folders
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
+
     config.generators do |g|
       g.fixture_replacement :fabrication
       g.template_engine     :slim

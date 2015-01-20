@@ -1,6 +1,8 @@
 class StaticPagesController < ApplicationController
 
   def blog
+    @blog_articles = BlogArticle.published.limit(3)
+    @blog_projects = BlogProject.published.limit(4)
   end
 
   def video

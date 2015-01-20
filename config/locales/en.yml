@@ -35,3 +35,11 @@ en:
         Please do so on http://alliero.orwapp.com/
   date:
     date: Date
+    formats:
+      short_month: "%^b"
+
+  blog:
+    news: News
+    latest_projects: Latest projects
+    no_articles: No articles present
+    no_projects: No projects present

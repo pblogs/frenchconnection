@@ -107,7 +107,13 @@ nb:
       short_w_year: "%d %B %Y"
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
+      short_month: "%^b"
 
+  blog:
+    news: Nyheter
+    latest_projects: Siste prosjekter
+    no_articles: Ingen artikler stede
+    no_projects: Ingen prosjekter til stede
 
   certificates:
     header: Sertifikater
