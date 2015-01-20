@@ -96,6 +96,7 @@ nb:
     certificates: Sertifikater
     locations: Lokasjoner
     skills: Ferdigheter
+    cms: CMS
   time:
     formats:
       short_w_year: "%d %B %Y"
