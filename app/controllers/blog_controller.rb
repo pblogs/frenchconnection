@@ -26,6 +26,10 @@ class BlogController < ApplicationController
   def admin
   end
 
+  def administration
+  end
+
+
   def instructions
     @url = 'http://home.powertech.no/martins/orwapp-assets/'
     @files = {

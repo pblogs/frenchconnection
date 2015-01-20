@@ -106,6 +106,8 @@ AllieroForms::Application.routes.draw do
   get '/instructions'   => 'blog#instructions',   as: :instructions
   get '/video' => 'blog#video', as: :video
   get '/video/:id' => 'blog#video', as: :current_video
+  get '/administration' => 'blog#administration', as: :administration
+
 
   # You can have the root of your site routed with "root"
   root 'blog#index'
