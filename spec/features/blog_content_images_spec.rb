@@ -33,6 +33,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'article main image is displayed on the front page', js: true do
+    pending "not implemented in the views" 
     sign_in(@project_leader)
     visit edit_admin_blog_article_path(@article)
 
@@ -57,6 +58,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'projects can have multiple images', js: true do
+    pending "not implemented in the views" 
     sign_in(@project_leader)
     visit edit_admin_blog_project_path(@project)
 
@@ -77,6 +79,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'project main image is displayed on the front page', js: true do
+    pending "not implemented in the views" 
     sign_in(@project_leader)
     visit edit_admin_blog_project_path(@project)
 
