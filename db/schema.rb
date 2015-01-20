@@ -62,7 +62,6 @@ ActiveRecord::Schema.define(version: 20150107183914) do
   create_table "blog_articles", force: true do |t|
     t.string   "title"
     t.text     "content"
-    t.string   "image"
     t.string   "locale"
     t.boolean  "published"
     t.date     "publish_date"
@@ -77,12 +76,12 @@ ActiveRecord::Schema.define(version: 20150107183914) do
     t.datetime "updated_at"
     t.string   "owner_type"
     t.integer  "owner_id"
+    t.boolean  "main"
   end
 
   create_table "blog_projects", force: true do |t|
     t.string   "title"
     t.text     "content"
-    t.string   "image"
     t.string   "locale"
     t.boolean  "published"
     t.date     "publish_date"
