@@ -1,0 +1,20 @@
+h3.header = t('blog.news')
+section.news
+  - if @blog_articles.present?
+    ul
+      - @blog_articles.each do |article|
+        li
+          = render 'blog_article', blog_article: article
+  - else
+    p = t('blog.no_articles')
+
+section.projects
+  h3.header = t('blog.latest_projects')
+  br
+  - if @blog_projects.present?
+    ul
+      - @blog_projects.each do |project|
+        li
+          = render 'blog_project', blog_project: project
+  - else
+    p = t('blog.no_projects')

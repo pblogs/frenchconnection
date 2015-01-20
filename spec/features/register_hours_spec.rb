@@ -26,6 +26,4 @@ describe "Registered hours on a Task" do
     h.overtime_50.should eq 50
     h.description.should eq 'Malt begge sider av veggen.'
   end
-
-  
 end
