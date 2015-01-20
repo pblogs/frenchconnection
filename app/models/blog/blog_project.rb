@@ -22,6 +22,4 @@ class BlogProject < ActiveRecord::Base
   has_many :blog_images, as: :owner, dependent: :destroy
 
   accepts_nested_attributes_for :blog_images, allow_destroy: true
-
-  mount_uploader :image, DocumentUploader
 end
