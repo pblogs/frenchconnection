@@ -1,7 +1,5 @@
 class BlogArticle < ActiveRecord::Base
-  scope :published, -> { where('published = :published and publish_date <=
-                                :date', published: true, date: Date.today)
-                                  .order('publish_date DESC') }
+  include Blog
 
   mount_uploader :image, DocumentUploader
 end
