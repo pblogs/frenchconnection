@@ -1,6 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery-ui
+#= require tinymce-jquery
 #
 #= require jquery.turbolinks
 #= require turbolinks
