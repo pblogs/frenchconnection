@@ -1,5 +1,7 @@
 AllieroForms::Application.routes.draw do
 
+  ActiveAdmin.routes(self)
+  resources :changes
 
   namespace :inventories do
     post :search
@@ -99,19 +101,21 @@ AllieroForms::Application.routes.draw do
   # The priority is based upon order of 
   # creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  
-  get '/blog'  => 'static_pages#blog',  as: :blog
-  get '/hms'   => 'static_pages#hms',   as: :hms
-  get '/admin' => 'static_pages#admin',   as: :admin
-  get '/instructions'   => 'static_pages#instructions',   as: :instructions
-  get '/video' => 'static_pages#video', as: :video
+  get '/blog'  => 'blog#index',  as: :blog
+  get '/hms'   => 'blog#hms',   as: :hms
+  get '/instructions'   => 'blog#instructions',   as: :instructions
+  get '/video' => 'blog#video', as: :video
+  get '/video/:id' => 'blog#video', as: :current_video
+  get '/administration' => 'blog#administration', as: :administration
+
 
   # You can have the root of your site routed with "root"
-  root 'static_pages#blog'
-  get '/manager' => 'static_pages#frontpage_manager', as: :frontpage_manager
-  get '/worker'  => 'static_pages#frontpage_user', as: :frontpage_user
-  get '/new_assignment' => 'static_pages#new_assignment', as: :new_assignment
+  root 'blog#index'
+  get '/manager' => 'blog#frontpage_manager', as: :frontpage_manager
+  get '/worker'  => 'blog#frontpage_user', as: :frontpage_user
+  get '/new_assignment' => 'blog#new_assignment', as: :new_assignment
   get '/sallery/:user_id/:project_id/'  => 'excel#sallery', as: :sallery_report
+  get '/blog/:content_type/:id' => 'blog#content', as: :blog_content
 
 
   get '/html_export/:user_id/:project_id/' => 'excel#html_export', as: :html_export
@@ -120,5 +124,7 @@ AllieroForms::Application.routes.draw do
     :constraints => { :path => /.+/  }  
 
   get '/hse' => 'hse#redirect', as: 'hse'
+
+  post '/blog_images' => 'blog_images#create', as: :blog_images
 
 end

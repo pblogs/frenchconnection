@@ -43,6 +43,9 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  # include feature helper
+  config.include FeatureHelper, type: :feature
+
   def api_key
     @api_key ||= Fabricate :api_key
   end

@@ -22,7 +22,7 @@ html
               - if @current_user.is? 'project_leader'
                 li= link_to t('top_nav.projects'),  projects_path
                 li= link_to t('top_nav.customers'), customers_path
-                li= link_to t('top_nav.manage'),    admin_path
+                li= link_to t('top_nav.manage'),    administration_path
               li= link_to t('top_nav.my_page'), @current_user
               li= link_to t('top_nav.hse'),     hms_path
               li= link_to t('top_nav.dictionary'), dictionary_url

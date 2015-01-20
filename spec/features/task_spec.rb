@@ -26,7 +26,6 @@ feature "Task" do
       check  @skill.title
       choose @location.name
       fill_in Task.human_attribute_name("description"), with: 'welding on top'
-      fill_in Task.human_attribute_name("start_date"),  with: @project_start_date
       click_link_or_button I18n.t('save_and_continue')
     }.to change(Task, :count).by(1)
 
@@ -60,5 +59,4 @@ feature "Task" do
     }.to change{ Task.last.draft }.from(true).to(false) 
 
   end
-
 end

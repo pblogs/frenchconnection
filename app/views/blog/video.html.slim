@@ -1,0 +1,18 @@
+- if @current
+  - url = @current.video_url
+  h1.current_video = @current.title
+
+  section.video_content
+    iframe(allowfullscreen="" frameborder="0" height="315"
+      src==url width="560")
+
+  - unless @blog_videos.empty?
+    section.video_nav
+      strong.video_nav_header Andre videoer
+
+      ul
+        - @blog_videos.each do |video|
+          li = link_to video.title, current_video_path(video)
+
+- else
+  p = t('blog.no_videos')

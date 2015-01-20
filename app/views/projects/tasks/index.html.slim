@@ -8,7 +8,6 @@ br
     thead
       tr
         th Kunde
-        th Type oppdrag
         th Oppstartsdato
         th
   
@@ -16,7 +15,6 @@ br
       - @tasks.each do |task|
         tr.green.button
           td = task.project.customer.name
-          td = task.task_type.title
           td = task.start_date.strftime("%B %d")
           td
             = link_to 'Vis, ', task

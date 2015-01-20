@@ -96,6 +96,7 @@ nb:
     certificates: Sertifikater
     locations: Lokasjoner
     skills: Ferdigheter
+    cms: CMS
   time:
     formats:
       short_w_year: "%d %B %Y"
@@ -107,7 +108,21 @@ nb:
       short_w_year: "%d %B %Y"
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
+      short_month: "%^b"
 
+  blog:
+    news: Nyheter
+    latest_projects: Siste prosjekter
+    no_articles: Ingen artikler stede
+    no_projects: Ingen prosjekter til stede
+    no_videos: Ingen videoer
+    videos: Videoer
+    save_article_for_image_upload: For bildeopplasting til å arbeide,
+      Artikkelen må lagres først
+    save_project_for_image_upload: For bildeopplasting til å arbeide,
+      Prosjektet må lagres først
+    save_video_for_image_upload: For bildeopplasting til å arbeide,
+      Video må lagres først
 
   certificates:
     header: Sertifikater
@@ -264,6 +279,9 @@ nb:
     carpenter: Snekker
     electrician: Elektriker
 
+  errors:
+    messages:
+      extension_white_list_error: Ugyldig filformat
 
   activerecord:
     errors:
@@ -281,4 +299,40 @@ nb:
         description: Beskrivelse
         can_be_rented_by_other_companies: Tilgjenglig for utleie
         rental_price_pr_day: Leiepris pr dag
-
+      blog_article:
+        title: Tittel
+        content: Innhold
+        image: Bilde
+        locale: Locale
+        published: Publisert
+        publish_date: Utgivelsesdato
+        created_at: Opprettet på
+        updated_at: Oppdatert
+      blog_project:
+        title: Tittel
+        content: Innhold
+        image: Bilde
+        locale: Locale
+        published: Publisert
+        publish_date: Utgivelsesdato
+        created_at: Opprettet på
+        updated_at: Oppdatert
+      blog_video:
+        title: Tittel
+        content: Innhold
+        video_url: Video url
+        locale: Locale
+        published: Publisert
+        publish_date: Utgivelsesdato
+        created_at: Opprettet på
+        updated_at: Oppdatert
+    models:
+      blog_article:
+        one: Artikkel
+        other: Artikler
+      blog_project:
+        one: Prosjekt
+        other: Prosjekter
+      blog_video:
+        one: Video
+        other: Videoer
