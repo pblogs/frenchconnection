@@ -13,6 +13,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'articles can have multiple images', js: true do
+    pending "not implemented in the views" 
     sign_in(@project_leader)
     visit edit_admin_blog_article_path(@article)
 
