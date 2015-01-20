@@ -16,5 +16,7 @@
 class BlogArticle < ActiveRecord::Base
   include Blog
 
+  has_many :blog_images, as: :owner, dependent: :destroy
+
   mount_uploader :image, DocumentUploader
 end
