@@ -26,5 +26,18 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
+
+    columns do
+      column do
+        panel I18n.t('blog.videos') do
+          ul do
+            BlogVideo.published.map do |video|
+              li link_to(video.title, edit_admin_blog_video_path(video))
+            end
+          end
+        end
+      end
+    end
+
   end
 end

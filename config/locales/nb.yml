@@ -114,6 +114,8 @@ nb:
     latest_projects: Siste prosjekter
     no_articles: Ingen artikler stede
     no_projects: Ingen prosjekter til stede
+    no_videos: Ingen videoer
+    videos: Videoer
 
   certificates:
     header: Sertifikater

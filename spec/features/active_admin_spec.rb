@@ -93,4 +93,30 @@ feature 'Active Admin' do
       expect(page).to have_content I18n.t('blog.no_projects')
     end
   end
+
+  scenario 'published videos display on video page' do
+    publish_date = Time.now.strftime('%Y-%m-%d')
+    other_video = Fabricate(:blog_video)
+    sign_in(@project_leader)
+
+    visit '/admin/blog_videos/new'
+    fill_in 'blog_video_title', with: 'Another test video'
+    fill_in 'blog_video_content', with: 'Another test video content'
+    fill_in 'blog_video_video_url', with: '//www.youtube.com/embed/o0nm5Oqh6TY'
+    check 'blog_video_published'
+    fill_in 'blog_video_publish_date', with: publish_date
+    first('input[type="submit"]').click
+
+    visit '/video'
+
+    within first(:css, 'h1.current_video') do
+      expect(page).to have_content 'Another test video'
+    end
+    expect(page).to have_css('section.video_content')
+    expect(page).to have_css('section.video_nav')
+    within first(:css, 'section.video_nav') do
+      expect(page).to have_content other_video.title
+      expect(page).not_to have_content 'Another test video'
+    end
+  end
 end

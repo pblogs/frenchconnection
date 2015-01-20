@@ -6,6 +6,11 @@ class StaticPagesController < ApplicationController
   end
 
   def video
+    @current = params[:id].present? ?
+        BlogVideo.find_by(id: params[:id], published: true) :
+        BlogVideo.published.first
+    @blog_videos = BlogVideo.published
+                    .where('id != :id', id: @current.id) if @current.present?
   end
 
   def hms
