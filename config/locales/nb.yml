@@ -289,4 +289,40 @@ nb:
         description: Beskrivelse
         can_be_rented_by_other_companies: Tilgjenglig for utleie
         rental_price_pr_day: Leiepris pr dag
-
+      blog_article:
+        title: Tittel
+        content: Innhold
+        image: Bilde
+        locale: Locale
+        published: Publisert
+        publish_date: Utgivelsesdato
+        created_at: Opprettet på
+        updated_at: Oppdatert
+      blog_project:
+        title: Tittel
+        content: Innhold
+        image: Bilde
+        locale: Locale
+        published: Publisert
+        publish_date: Utgivelsesdato
+        created_at: Opprettet på
+        updated_at: Oppdatert
+      blog_video:
+        title: Tittel
+        content: Innhold
+        video_url: Video url
+        locale: Locale
+        published: Publisert
+        publish_date: Utgivelsesdato
+        created_at: Opprettet på
+        updated_at: Oppdatert
+    models:
+      blog_article:
+        one: Artikkel
+        other: Artikler
+      blog_project:
+        one: Prosjekt
+        other: Prosjekter
+      blog_video:
+        one: Video
+        other: Videoer
