@@ -1,10 +1,7 @@
 AllieroForms::Application.routes.draw do
 
-<<<<<<< HEAD
-=======
   ActiveAdmin.routes(self)
   resources :changes
->>>>>>> install active admin, set authorization
 
   namespace :inventories do
     post :search
@@ -118,6 +115,7 @@ AllieroForms::Application.routes.draw do
   get '/worker'  => 'static_pages#frontpage_user', as: :frontpage_user
   get '/new_assignment' => 'static_pages#new_assignment', as: :new_assignment
   get '/sallery/:user_id/:project_id/'  => 'excel#sallery', as: :sallery_report
+  get '/blog/:content_type/:id' => 'static_pages#content', as: :blog_content
 
 
   get '/html_export/:user_id/:project_id/' => 'excel#html_export', as: :html_export
