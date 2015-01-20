@@ -1,5 +1,5 @@
 class AuthorizationAdapter < ActiveAdmin::AuthorizationAdapter
   def authorized?(action, subject = nil)
-    user.roles.include?('project_leader')
+    user.is?('project_leader')
   end
 end
