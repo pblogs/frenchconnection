@@ -279,6 +279,9 @@ nb:
     carpenter: Snekker
     electrician: Elektriker
 
+  errors:
+    messages:
+      extension_white_list_error: Ugyldig filformat
 
   activerecord:
     errors:
