@@ -1,22 +1,34 @@
-.button.green
-  
-  table
-    thead
-      th Kunde
-      th Utførende
-      th Beskrivelse
-      th= "#{t('start_date')} / #{t('due_date')}"
-    tbody
-      tr
-        td = @task.project.customer.name
-        td = @task.name_of_users
-        td = @task.description || t('missing_description')
-        td 
-          = I18n.l(@task.start_date, format: :short)
-          - if @task.due_date
-            span.spacer= '/'
-            = I18n.l(@task.due_date,   format: :short)
-  
+table
+  thead
+    th Kunde
+    th Utførende
+    th Beskrivelse
+    th= "#{t('start_date')} / #{t('due_date')}"
+  tbody
+    tr
+      td = @task.project.customer.name
+      td = @task.name_of_users
+      td = @task.description || t('missing_description')
+      td 
+        = I18n.l(@task.start_date, format: :short)
+        - if @task.due_date
+          span.spacer= '/'
+          = I18n.l(@task.due_date,   format: :short)
+
+h3 Bilder
+- if @task.mobile_pictures.present?
+  ul.image_listing
+    - @task.mobile_pictures.each do |pic|
+      li
+        = image_tag pic.url
+        blockquote
+          p= pic.description
+        span.name= "#{pic.user.name}"
+        span.date= l pic.created_at, format: :short_w_year
+- else
+  = t('task.no_images_taken_on_this_task')
+
+
 br
 br
-= link_to 'Tilbake', :back, class: 'red btn btn-primary'
+= link_to t('back'), project_task_path(@task.project, @task)
