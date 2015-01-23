@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    redirect_to customer_project_path(@project.customer, @project)
   end
 
   # GET /projects/new

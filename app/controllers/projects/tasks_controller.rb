@@ -10,6 +10,7 @@ class Projects::TasksController < ApplicationController
   end
 
   def show
+    render 'tasks/show'
   end
 
   def search

@@ -102,6 +102,7 @@ nb:
       short_w_year: "%d %B %Y"
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
+      short_month: "%^b"
   date:
     date: Dato
     formats:
@@ -140,6 +141,7 @@ nb:
     projects.create_new: Opprett nytt prosjekt
 
   task:
+    no_images_taken_on_this_task: Det er ikke tatt noen bilder på denne oppgaven
     no_due_date_set: Sluttdato ikke satt
     confirm: Bekreft
     confirmed: Oppgave bekreftet

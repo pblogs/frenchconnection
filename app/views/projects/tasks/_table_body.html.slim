@@ -1,5 +1,5 @@
 tr
-  td = task.description
+  td = link_to task.description, task
   td = task.name_of_users
   td = I18n.l task.start_date, format: :short_date
   - if task.due_date.present?

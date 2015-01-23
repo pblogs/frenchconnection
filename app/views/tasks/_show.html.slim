@@ -24,4 +24,21 @@ h3= t('hours_registered')
   
 br
 br
-= link_to 'Tilbake', @current_user, class: :secondary_button
+section
+  h3 Bilder
+  - if @task.mobile_pictures.present?
+    ul.image_listing
+      - @task.mobile_pictures.each do |pic|
+        li
+          = image_tag pic.url
+          blockquote
+            p= pic.description
+          span.name= "#{pic.user.name}"
+          span.date= l pic.created_at, format: :short_w_year
+  - else
+    = t('task.no_images_taken_on_this_task')
+
+
+br
+br
+= link_to t('back'), project_path(@task.project)
