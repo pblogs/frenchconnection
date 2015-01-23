@@ -13,9 +13,10 @@ feature 'Blog Content Images' do
   end
 
   scenario 'articles can have multiple images', js: true do
-    pending "not implemented in the views" 
+    pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_article_path(@article)
+    current_path.should eq edit_admin_blog_article_path(@article)
 
     first(:css, '.has_many_container.blog_images a.button.has_many_add').click
     attach_file 'blog_article_blog_images_attributes_0_image',
@@ -34,7 +35,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'article main image is displayed on the front page', js: true do
-    pending "not implemented in the views" 
+    pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_article_path(@article)
 
@@ -59,7 +60,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'projects can have multiple images', js: true do
-    pending "not implemented in the views" 
+    pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_project_path(@project)
 
@@ -80,7 +81,7 @@ feature 'Blog Content Images' do
   end
 
   scenario 'project main image is displayed on the front page', js: true do
-    pending "not implemented in the views" 
+    pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_project_path(@project)
 
