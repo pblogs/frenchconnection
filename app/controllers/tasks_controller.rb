@@ -155,8 +155,8 @@ class TasksController < ApplicationController
   end
 
   def inventories
-    #inventories = Inventory.all - @task.inventories.to_a
-    render json:  Inventory.all # inventories   
+    inventories = Inventory.all - @task.inventories.to_a
+    render json:  inventories   
   end
 
   private
