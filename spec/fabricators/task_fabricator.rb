@@ -18,6 +18,7 @@
 #  profession_id    :integer
 #  skills_ids       :integer
 #  draft            :boolean          default(TRUE)
+#  address          :string(255)
 #
 
 Fabricator(:task) do
