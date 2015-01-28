@@ -28,7 +28,6 @@ describe "Create a new project", :type => :feature do
     fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
     fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
     fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
-    fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
     click_button 'Lagre'
   end
 
@@ -51,7 +50,6 @@ describe "Create a new project", :type => :feature do
       fill_in Project.human_attribute_name("name"), with: 'Project name'
       fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
       fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
-      fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
 
       click_button 'Lagre'
     }.to change(Project, :count).by(1)
@@ -68,7 +66,6 @@ describe "Create a new project", :type => :feature do
       fill_in Project.human_attribute_name("due_date"),   with: '01.10.2014'
       fill_in Project.human_attribute_name("description"), with: 'bra prosjekt'
       fill_in Project.human_attribute_name("project_number"), with: 'pl 22'
-      fill_in Project.human_attribute_name("short_description"), with: 'short desc.'
 
       find(:css, '.single-task input[type=checkbox]').set(true)
 
@@ -83,7 +80,7 @@ describe "Create a new project", :type => :feature do
       t = Task.last
       expect(t.start_date).to eq(t.project.start_date)
       expect(t.due_date).to eq(t.project.due_date)
-      expect(t.description).to eq(t.project.short_description)
+      expect(t.description).to eq(t.project.description)
     end
   end
 
