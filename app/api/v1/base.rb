@@ -9,6 +9,8 @@ module V1
     mount HoursSpents
     mount Inventories
     mount MobilePictures
+    mount BlogArticles
+    mount BlogProjects
 
   end
 end
