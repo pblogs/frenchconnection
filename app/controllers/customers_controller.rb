@@ -43,7 +43,7 @@ class CustomersController < ApplicationController
       if @customer.save
         set_favorite
         format.html { redirect_to @customer,
-                      notice: 'Customer was successfully created.' }
+                      notice: I18n.t('saved') }
         format.json { render action: 'show', 
                       status: :created, location: @customer }
       else
@@ -61,7 +61,7 @@ class CustomersController < ApplicationController
       if @customer.update(customer_params)
         set_favorite
         format.html { redirect_to @customer,
-                      notice: 'Customer was successfully updated.' }
+                      notice: I18n.t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

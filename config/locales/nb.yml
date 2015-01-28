@@ -43,6 +43,8 @@ nb:
   my_projects: Mine prosjekter
   search: Søk
   select: Velg
+  saved: Lagret!
+  updated: Endringene ble lagret
   remove: Fjern
   show_hours_registered: Vis timelister
   start_date: Startdato

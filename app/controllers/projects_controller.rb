@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
       if @project.update(project_params)
         set_favorite
         format.html { redirect_to @project, 
-                      notice: 'Project was successfully updated.' }
+                      notice: I18n.t('saved') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
