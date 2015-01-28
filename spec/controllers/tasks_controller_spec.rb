@@ -205,14 +205,14 @@ describe TasksController, :type => :controller do
     end
 
     it '/task/:task_id/inventories - lists all available except whats chosen' do
-      pending "WIP"
       task = Fabricate(:task)
       crane = Fabricate(:inventory, name: 'Crane')
       truck = Fabricate(:inventory, name: 'Truck')
       task.inventories << truck
       task.save
       get :inventories, { task_id: task.id }, valid_session
-      assigns(:inventories).should eq([crane])
+      hash = JSON.parse(response.body)
+      hash.first['name'].should eq crane.name
     end
   end
 
