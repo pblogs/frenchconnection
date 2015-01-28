@@ -5,8 +5,7 @@ table
     tr
       th = t('inventories.name')
       th = t('inventories.certificates')
-      th = t('inventories.indoor')
-      th = t('inventories.outdoor')
+      th = t('where')
       th
       th
       th
@@ -17,12 +16,13 @@ table
       tr
         td = location.name
         td = location.certificates.pluck(:title).join(', ')
-        td = location.indoor
-        td = location.outdoor
+        td 
+          = location.indoor  ? t('indoor')  : nil
+          = location.outdoor ? t('outdoor') : nil
         td = link_to t('edit'), edit_location_path(location)
         td = link_to t('destroy'), location,
             data: {:confirm => t('are_you_sure')}, :method => :delete
 
 br
 
-= link_to 'Lag ny lokasjon', new_location_path
+= link_to t('locations.create_new'), new_location_path

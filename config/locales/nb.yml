@@ -16,6 +16,7 @@ nb:
   outdoor: Utendørs
   save_and_continue: Lagre og gå videre
   completed_tasks: Avsluttede oppgaver
+  the_location: lokasjonen
   courses: Kurs
   could_not_save: Lagring feilet
   are_you_sure_about_soft_ending: |
@@ -72,6 +73,7 @@ nb:
   search: Søk
   title: Navn
   who: Hvem
+  where: Hvor
 
   top_nav:
     projects: Prosjekter
@@ -272,9 +274,11 @@ nb:
 
   locations:
     title: Lokasjoner
+    new: Ny lokasjon
     roof-top: Tak
     construction-site: Anleggsområdet
     traffic: I trafikken
+    create_new: Lag ny lokasjon
 
   professions:
     bricklayer: Murer
@@ -296,6 +300,9 @@ nb:
     attributes:
       task:
         description: Beskrivelse
+      location:
+        name: Navn
+        certificates: Sertifikater
       inventory:
         certificates: Nødvendig sertifikat
         name: Navn
