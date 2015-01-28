@@ -138,7 +138,6 @@ class Customers::ProjectsController < ApplicationController
                                     :sms_employee_if_hours_not_registered, 
                                     :sms_employee_when_new_task_created,
                                     :start_date,
-                                    :short_description,
                                     :title,
                                     :single_task
                                     )

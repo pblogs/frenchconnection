@@ -5,7 +5,6 @@ table
       th Navn
       th Oppstart
       th Ferdigstilling
-      th Beskrivelse
 
   tbody
     - projects.each do |project|
@@ -16,4 +15,3 @@ table
                 customer_project_path(project.customer, project)
         td = project.start_date
         td = project.due_date
-        td = project.short_description
