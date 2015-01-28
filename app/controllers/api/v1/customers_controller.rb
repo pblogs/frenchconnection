@@ -34,7 +34,7 @@ module Api
         respond_to do |format|
           if @customer.save!
             format.html { redirect_to @customer, 
-                          notice: 'Customer was successfully created.' }
+                          notice: I18n.t('saved') }
             format.json { render action: 'show', 
                           status: :created, location: @customer }
           else
