@@ -19,7 +19,6 @@
 #  km_driven_own_car       :float
 #  toll_expenses_own_car   :float
 #  supplies_from_warehouse :string(255)
-#  approved                :boolean          default(FALSE)
 #  changed_hour_id         :integer
 #  change_reason           :string(255)
 #  changed_by_user_id      :integer
