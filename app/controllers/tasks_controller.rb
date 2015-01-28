@@ -119,8 +119,10 @@ class TasksController < ApplicationController
 
   # POST :select_inventory, { task_id: task.id, inventory_id: inventory.id }
   def select_inventory
-    @task.inventories << Inventory.find(params[:inventory_id])
-    @task.save
+    unless @task.inventory_ids.include? params[:inventory_id].to_i
+      @task.inventories << Inventory.find(params[:inventory_id])
+      @task.save
+    end
     render json: @task
   end
 
@@ -133,8 +135,10 @@ class TasksController < ApplicationController
   end
 
   def select_workers
-    @task.users << User.find(params[:worker_id])
-    @task.save
+    unless @task.user_ids.include? params[:worker_id].to_i
+      @task.users << User.find(params[:worker_id])
+      @task.save
+    end
     render json: @task.users
   end
 
