@@ -4,7 +4,6 @@ angular.module('orwapp').controller 'WorkersForTaskController',
   task_id = $('[data-task-id]').first().data('task-id')
 
   # qualified_workers
-  # TODO Move this to a model or something.
   $http(
     method: 'GET',
     url: '/tasks/qualified_workers',
@@ -18,7 +17,6 @@ angular.module('orwapp').controller 'WorkersForTaskController',
 
 
   # selected_workers
-  # TODO Move this to a model or something.
   $http(
     method: 'GET',
     url: '/tasks/selected_workers',
@@ -57,8 +55,8 @@ angular.module('orwapp').controller 'WorkersForTaskController',
       params: {task_id: task_id, worker_id: worker_id }
     ).success((data, status) ->
       $scope.selected_workers.splice(index, 1)
+      $scope.workers.push worker
     ).error (data, status) ->
       alert('failed')
       return
-    $scope.workers.push worker
 ]
