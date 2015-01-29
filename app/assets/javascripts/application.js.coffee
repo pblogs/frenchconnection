@@ -9,6 +9,7 @@
 #= require angular-route
 #= require angular-resource
 #= require ng-rails-csrf
+#= require lodash
 
 #= require angular-app/app
 #= require_tree .

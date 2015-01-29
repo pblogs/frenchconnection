@@ -27,7 +27,8 @@ angular.module('orwapp').controller 'ToolsController',
       url: url
       params: { task_id: task_id, inventory_id: inventory_id }
     ).success((data, status) ->
-      $scope.inventories.splice(index, 1)
+      _.remove $scope.inventories, (i) ->
+        i.id == inventory.id
       $scope.selected_inventories.push(inventory)
     ).error (data, status) ->
       alert('failed')
