@@ -25,7 +25,7 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
       td 
         | {{inventory.rental_price_pr_day}}
       td 
-        button(ng-click="select(inventory, index)") = t('select')
+        button(ng-click="select(inventory, $index)") = t('select')
 
 
   br
@@ -45,7 +45,7 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
           | {{inventory.rental_price_pr_day}}
         td 
           button(
-            ng-click="remove_selected_inventory(inventory, index)")
+            ng-click="remove_selected_inventory(inventory, $index)")
             = t('remove')
 
 br
