@@ -19,7 +19,7 @@ angular.module('orwapp').controller 'ToolsController',
     alert('failed')
     return
 
-  $scope.select = (inventory, index) ->
+  $scope.select = (inventory) ->
     url          = '/tasks/select_inventory'
     inventory_id = inventory.id
     $http(
