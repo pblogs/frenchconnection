@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128093158) do
+ActiveRecord::Schema.define(version: 20150129103937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,14 @@ ActiveRecord::Schema.define(version: 20150128093158) do
     t.float    "km_driven_own_car"
     t.float    "toll_expenses_own_car"
     t.string   "supplies_from_warehouse"
+<<<<<<< HEAD
+=======
+    t.boolean  "approved",                default: false
+    t.integer  "changed_hour_id"
+    t.string   "change_reason"
+    t.integer  "changed_by_user_id"
+    t.string   "kind_of"
+>>>>>>> 2a1e2ce... Add kind_of to HoursSpent
   end
 
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
