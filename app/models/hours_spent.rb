@@ -36,6 +36,16 @@ class HoursSpent < ActiveRecord::Base
   validates :date,        :presence => true
   validates :project_id,  :presence => true
 
+  symbolize :kind_of, in: %i(personal billable)
+
+  scope :for_user_on_project, ->(user, project) { 
+    where(user_id: user.id, project_id: project.id) }
+
+  scope :changed, -> { where.not('changed_hour_id' => nil)  }
+
+  scope :year,  ->(year)  { where('extract(year  from date) = ?',  year) }
+  scope :month, ->(month) { where('extract(month from date) = ?',  month) }
+
   # Sums all the different types of hours registered
   # for one day, on one user.
   def sum(overtime: nil, changed: nil)
