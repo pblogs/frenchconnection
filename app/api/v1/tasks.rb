@@ -77,6 +77,17 @@ module V1
         header 'Access-Control-Allow-Origin', '*'
       end
       
+      desc "complete_tasks"
+      get 'complete/:user_id' do
+        u = User.find(params[:user_id])
+        complete_tasks = 
+          u.user_tasks.where(status: :complete)
+          .collect { |user_task| user_task.task }
+        
+        present :tasks, complete_tasks, with: V1::Entities::Tasks
+        header 'Access-Control-Allow-Origin', '*'
+      end
+      
       desc "Tasks not connected to user"
       get 'available/:user_id' do
         user = User.find(params[:user_id])
