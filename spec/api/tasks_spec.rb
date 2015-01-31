@@ -62,6 +62,27 @@ describe V1::Tasks do
     end
   end
   
+  describe 'GET /api/v1/tasks/complete/:user_id' do
+    it 'returns complete tasks that are not finished' do
+      user = Fabricate(:user)
+      task1 = Fabricate(:task, description: 'Task 1')
+      task2 = Fabricate(:task, description: 'Task 2')
+      user.tasks << task1
+      user.tasks << task2
+      user.save
+      
+      user.user_tasks.where(task_id: task1.id).first.complete!
+      user.user_tasks.where(task_id: task2.id).first.complete!
+      
+      task2.update_attributes(finished: true)
+      
+      get "/api/v1/tasks/complete/#{ user.id }"
+      
+      hash = JSON.parse(response.body)
+      hash['tasks'].first['description'].should eq 'Task 1'
+    end
+  end
+  
   describe 'GET /api/v1/tasks/available/:user_id' do
     it 'returns Tasks not connected to user' do
       Task.destroy_all
