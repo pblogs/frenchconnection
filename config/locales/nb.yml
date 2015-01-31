@@ -179,8 +179,8 @@ nb:
     new_task: "Du har fått tildelt en ny oppgave. Les mer: %{link}"
     notify:
       missing_hours: |
-        It seems that you haven't registered hours in one or more of your tasks
-        Please do so on http://allieroapp.orwapp.com/
+        Du har visst glemt å registrere timer på en eller flere av
+        oppgavene dine. Registrert timer i Orwapp appen nå! :-)
         
   skills:
     header: Ferdigheter
