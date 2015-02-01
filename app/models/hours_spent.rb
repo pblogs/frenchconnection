@@ -41,10 +41,14 @@ class HoursSpent < ActiveRecord::Base
   scope :for_user_on_project, ->(user, project) { 
     where(user_id: user.id, project_id: project.id) }
 
+
   scope :changed, -> { where.not('changed_hour_id' => nil)  }
 
   scope :year,  ->(year)  { where('extract(year  from date) = ?',  year) }
   scope :month, ->(month) { where('extract(month from date) = ?',  month) }
+
+  scope :personal, -> { where(kind_of: 'personal') } 
+  scope :billable, -> { where(kind_of: 'billable') } 
 
   # Sums all the different types of hours registered
   # for one day, on one user.
@@ -62,6 +66,10 @@ class HoursSpent < ActiveRecord::Base
     end
   end
 
+  def self.create_all(params)
+    HoursSpent.create!(params.merge(kind_of: :personal))
+    HoursSpent.create!(params.merge(kind_of: :billable))
+  end
 
   # TODO  Move into a date helper
   def self.week_numbers_for_dates(dates)
