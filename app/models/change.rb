@@ -32,6 +32,7 @@ class Change < ActiveRecord::Base
       'task_id',
       'date',
       'user_id',
+      'kind_of',
       'project_id'
     ))
     c.hours_spent_id = hours_spent.id
