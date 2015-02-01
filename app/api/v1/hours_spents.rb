@@ -16,9 +16,12 @@ module V1
           :runs_in_company_car, :km_driven_own_car, :toll_expenses_own_car,
           :supplies_from_warehouse)
         
-        if hours_spent = HoursSpent.create(permitted_params)
-          hours_spent.project_id = Task.find(hours_spent.task_id).project_id
-          hours_spent.save!
+          project_id  = Task.find(params[:task_id]).project_id
+          hours_spent = HoursSpent.create_all(
+            permitted_params.merge(project_id: project_id)
+          )
+
+        if hours_spent.save!
           present hours_spent.id
           header 'Access-Control-Allow-Origin', '*'
         else
@@ -38,10 +41,9 @@ module V1
           header 'Access-Control-Allow-Origin', '*'
         end
         put do
-          hours_spent = HoursSpent.find(params[:hours_spent_id])
-          
-          request_params = ActionController::Parameters.new(params)
-          permitted_params = request_params.permit(:hour, :overtime_50, 
+          hours_spent      = HoursSpent.personal.find(params[:hours_spent_id])
+          request_params   = ActionController::Parameters.new(params)
+          permitted_params = request_params.permit(:hour, :overtime_50,
             :overtime_100, :description, :runs_in_company_car, 
             :km_driven_own_car, :toll_expenses_own_car, 
             :supplies_from_warehouse)
@@ -59,19 +61,14 @@ module V1
       desc "HoursSpents by user"
       get ':user_id' do
         user = User.find(params[:user_id])
-        hours_spents = user.hours_spents
+        hours_spents = user.hours_spents.personal
         present :hours_spents, hours_spents, with: V1::Entities::HoursSpents
         header 'Access-Control-Allow-Origin', '*'
       end
       
       desc "HoursSpents by user on task"
       get 'users/:user_id/tasks/:task_id' do
-        user = User.find(params[:user_id])
-        task_id = params[:task_id].to_i
-        hours_spents_on_task = 
-          user.hours_spents.select { 
-            |hour_spent| hour_spent.task_id == task_id }
-          
+        hours_spents_on_task = HoursSpent.for_user_on_task(user_id, task_id)
         present :hours_spents, 
                 hours_spents_on_task, 
                 with: V1::Entities::HoursSpents
@@ -81,16 +78,11 @@ module V1
       
       desc "HoursSpents by user on task on date"
       get 'users/:user_id/tasks/:task_id/dates/:date' do
-        user = User.find(params[:user_id])
-        task_id = params[:task_id].to_i
-        date = params[:date]
-        hours_spents_on_task_on_date = 
-          user.hours_spents.select { 
-            |hour_spent|  hour_spent.task_id == task_id && 
-                          hour_spent.date.to_s == date }
+        hours_spent = HoursSpent.for_user_on_task(params[:user_id], params[:task_id])
+          .where(date: params[:date])
             
         present :hours_spents, 
-                hours_spents_on_task_on_date, 
+                hours_spent, 
                 with: V1::Entities::HoursSpents
         
         header 'Access-Control-Allow-Origin', '*'

@@ -41,6 +41,8 @@ class HoursSpent < ActiveRecord::Base
   scope :for_user_on_project, ->(user, project) { 
     where(user_id: user.id, project_id: project.id) }
 
+  scope :for_user_on_task, ->(user_id, task_id) { 
+    where(user_id: user_id, task_id: task_id) }
 
   scope :changed, -> { where.not('changed_hour_id' => nil)  }
 
