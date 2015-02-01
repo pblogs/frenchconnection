@@ -28,11 +28,9 @@ describe V1::HoursSpent do
            "tasks/#{ task.id }/dates/#{ date }", 
            { description: 'Malte hus', hour: 5 }
            
-      hours_spent_id = response.body
-      
+      hours_spent_id      = response.body
       another_hours_spent = Fabricate(:hours_spent)
-      
-      hours_spent = HoursSpent.find(hours_spent_id)
+      hours_spent         = HoursSpent.find(hours_spent_id)
       
       hours_spent.hour.should eq 5
       hours_spent.description.should eq 'Malte hus'
