@@ -300,6 +300,8 @@ nb:
           other: "%{count} feil forhindret %{model} fra å lagres"
         body:    "Det var feil med følgende felt:"
     attributes:
+      hours_spent:
+        description: Beskrivelse
       task:
         description: Beskrivelse
       location:
