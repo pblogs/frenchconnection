@@ -77,7 +77,6 @@ class Tasks::HoursSpentController < ApplicationController
       @hours_spent = HoursSpent.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def hours_spent_params
       params.require(:hours_spent).permit(:customer_id, 
                                           :task_id, 
