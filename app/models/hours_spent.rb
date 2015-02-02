@@ -36,7 +36,7 @@ class HoursSpent < ActiveRecord::Base
   validates :date,        :presence => true
   validates :project_id,  :presence => true
 
-  symbolize :kind_of, in: %i(personal billable), default: :personal
+  symbolize :of_kind, in: %i(personal billable), default: :personal
 
   scope :for_user_on_project, ->(user, project) { 
     where(user_id: user.id, project_id: project.id) }
