@@ -22,6 +22,7 @@ h3= t('hours_registered')
 = render partial: 'users/hours_registered_table',
   locals: { hours: @hours_registered }
   
+= link_to 'Registrer timer', new_task_hours_spent_path(task)
 br
 br
 section
