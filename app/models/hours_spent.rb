@@ -44,11 +44,9 @@ class HoursSpent < ActiveRecord::Base
   scope :for_user_on_task, ->(user_id, task_id) { 
     where(user_id: user_id, task_id: task_id) }
 
-  scope :changed, -> { where.not('changed_hour_id' => nil)  }
-
-  scope :year,  ->(year)  { where('extract(year  from date) = ?',  year) }
-  scope :month, ->(month) { where('extract(month from date) = ?',  month) }
-
+  scope :changed,  -> { where.not('changed_hour_id' => nil)  }
+  scope :year,     ->(year)  { where('extract(year  from date) = ?',  year) }
+  scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
   scope :personal, -> { where(kind_of: 'personal') } 
   scope :billable, -> { where(kind_of: 'billable') } 
 
