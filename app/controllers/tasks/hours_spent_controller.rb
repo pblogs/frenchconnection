@@ -20,7 +20,6 @@ class Tasks::HoursSpentController < ApplicationController
 
   # GET /hours_spents/1/edit
   def edit
-    #raise "Du kan ikke endre timer i etterkant. Det må prosjektelder gjøre"
   end
 
   # POST /hours_spents
