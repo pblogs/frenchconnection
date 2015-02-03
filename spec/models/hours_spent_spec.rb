@@ -84,6 +84,12 @@ describe HoursSpent do
       @user.hours_spents.billable.first.description.should eq 'bill and pers'
       @user.hours_spents.personal.first.description.should eq 'bill and pers'
     end
+
+    it 'find_billable(hour_id)' do
+      billable = @user.hours_spents.billable.first
+      personal = @user.hours_spents.personal.first
+      HoursSpent.find_billable(personal.id).first.should eq billable
+    end
   end
 
 
