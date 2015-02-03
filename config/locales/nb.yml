@@ -169,7 +169,7 @@ nb:
           Vi fant ingen bruker med det telefonnummeret i databasen
 
   hours_spent:
-    editing: Rediger timer registert på %{customer_name}, %{project}
+    editing: Rediger timer registert på %{project}
 
   sms:
     complete_project: |
