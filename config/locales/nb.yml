@@ -302,6 +302,7 @@ nb:
     attributes:
       hours_spent:
         description: Beskrivelse
+        change_reason: Hvorfor gjøre endringer?
       task:
         description: Beskrivelse
       location:
