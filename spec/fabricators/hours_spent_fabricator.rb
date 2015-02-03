@@ -31,5 +31,5 @@ Fabricator(:hours_spent) do
   task        { Fabricate(:task) }
   project     { Fabricate(:project) }
   user        { Fabricate(:user) }
-  kind_of 'personal'
+  of_kind 'personal'
 end
