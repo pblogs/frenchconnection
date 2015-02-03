@@ -92,8 +92,6 @@ describe Task do
     it 'closes all UserTasks' do
       UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :pending }
       @task.end_task_hard
-      @task.save!
-      @task.reload
       UserTask.where(task_id: @task.id).all.each { |ut| ut.status.should eq :complete }
     end
 
