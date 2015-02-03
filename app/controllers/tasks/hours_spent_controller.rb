@@ -6,9 +6,9 @@ class Tasks::HoursSpentController < ApplicationController
   # GET /hours_spents.json
   def index
     if @task.project.complete?
-      @hours_spents = @task.hours_spents.personal.all
+      @hours = @task.hours_spents.personal.all
     else
-      @hours_spents = @task.hours_spents.billable.all
+      @hours = @task.hours_spents.billable.all
     end
   end
 
