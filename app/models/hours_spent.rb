@@ -48,6 +48,7 @@ class HoursSpent < ActiveRecord::Base
   scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
   scope :personal, -> { where(of_kind: 'personal') } 
   scope :billable, -> { where(of_kind: 'billable') } 
+  scope :find_billable, ->(hour_id) { where(personal_id: hour_id) }
 
   # Sums all the different types of hours registered
   # for one day, on one user.
@@ -59,8 +60,10 @@ class HoursSpent < ActiveRecord::Base
   end
 
   def self.create_all(params)
-    HoursSpent.create!(params.merge(of_kind: :personal))
-    HoursSpent.create!(params.merge(of_kind: :billable))
+    personal = HoursSpent.create!(params.merge(of_kind: :personal))
+    billable = HoursSpent.create!(params.merge(of_kind: :billable,
+                                               personal_id: personal.id))
+    personal.update_attribute(:billable_id, billable.id)
   end
 
   # TODO  Move into a date helper
