@@ -1,10 +1,6 @@
 angular.module('orwapp').controller 'ToolsController',
 ['$scope', 'Inventory', '$http', ($scope, Inventory, $http) ->
   
-
-  # Fetch all available inventories, except what's already chosen.
-
-
   task_id = $('[data-task-id]').first().data('task-id')
   $scope.inventories = Inventory.query(task_id: task_id)
 
@@ -19,7 +15,8 @@ angular.module('orwapp').controller 'ToolsController',
     alert('failed')
     return
 
-  $scope.select = (inventory) ->
+  # select_inventory
+  $scope.select  = (inventory) ->
     url          = '/tasks/select_inventory'
     inventory_id = inventory.id
     $http(
@@ -35,9 +32,10 @@ angular.module('orwapp').controller 'ToolsController',
       return
 
 
+  # remove_selected_inventory
   $scope.remove_selected_inventory = (inventory, index) ->
       url          = '/tasks/remove_selected_inventory'
-      inventory_id    = inventory.id
+      inventory_id = inventory.id
       $http(
         method: 'DELETE'
         url: url
