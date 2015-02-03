@@ -68,11 +68,6 @@ class Task < ActiveRecord::Base
     ) 
   end
 
-  #def default_address
-  #  address.present? ? address : nil || 
-  #  project.address.present? ? project.address : nil ||
-  #  project.customer.address.present? ? project.customer.address : nil
-  #end
 
   def end_task_hard
     end_tasks_for_all_users

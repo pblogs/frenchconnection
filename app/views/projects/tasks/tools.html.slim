@@ -11,9 +11,6 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
     placeholder=t('.search_placeholder')
   )
 
-  br
-  br
-  br
   table#searchTextResults ng-show="searchText.name"
     tr
       th = t('.what')
@@ -28,10 +25,7 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
         button(ng-click="select(inventory)") = t('select')
 
 
-  br
-  br
-  br
-  div(ng-show="selected_inventories.length > 0")
+  .selected_inventories(ng-show="selected_inventories.length > 0")
     h5 = t('.selected_tools')
     table#selectedTools
       tr
@@ -48,15 +42,11 @@ div ng-controller="ToolsController" data-task-id="#{@task.id}"
             ng-click="remove_selected_inventory(inventory, $index)")
             = t('remove')
 
-br
-br
-br
-= link_to t('save_and_continue'),
-  project_task_workers_path(@task.project, @task),
-  class: 'btn btn-primary pull-right'
-br
-br
-= link_to t('.no_special_tools_required'), 
-  project_task_workers_path(@task.project, @task),
-  class: 'pull-right'
-br
+
+.links
+  = link_to t('save_and_continue'),
+    project_task_workers_path(@task.project, @task),
+    class: 'btn btn-primary pull-right'
+  = link_to t('.no_special_tools_required'), 
+    project_task_workers_path(@task.project, @task),
+    class: 'pull-right no-tools'
