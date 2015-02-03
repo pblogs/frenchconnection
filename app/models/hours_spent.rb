@@ -49,6 +49,7 @@ class HoursSpent < ActiveRecord::Base
   scope :personal, -> { where(of_kind: 'personal') } 
   scope :billable, -> { where(of_kind: 'billable') } 
   scope :find_billable, ->(hour_id) { where(personal_id: hour_id) }
+  scope :find_personal, ->(hour_id) { where(billable_id: hour_id) }
 
   # Sums all the different types of hours registered
   # for one day, on one user.
