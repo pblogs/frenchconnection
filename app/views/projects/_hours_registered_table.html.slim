@@ -17,14 +17,14 @@
       tr
         td= hour.date.strftime("%d/%m")
         td= hour.user.try(:name)
-        td= hour.changed_value_description
-        td= hour.changed_value_hour
-        td= hour.changed_value_overtime_50
-        td= hour.changed_value_overtime_100
-        td= hour.changed_value_runs_in_company_car
-        td= hour.changed_value_km_driven_own_car
-        td= hour.changed_value_toll_expenses_own_car
-        td= simple_format hour.changed_value_supplies_from_warehouse
+        td= hour.description
+        td= hour.hour
+        td= hour.overtime_50
+        td= hour.overtime_100
+        td= hour.runs_in_company_car
+        td= hour.km_driven_own_car
+        td= hour.toll_expenses_own_car
+        td= simple_format hour.supplies_from_warehouse
         td= link_to fa_icon('pencil-square-o'),
               edit_task_hours_spent_path(hour.task, hour)
 - else
