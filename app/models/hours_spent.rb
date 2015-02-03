@@ -24,6 +24,10 @@
 #  changed_by_user_id      :integer
 #
 
+# Billable hours is only visible and editable for project_leaders that owns
+# that project.
+# Personal hours is only visible and editable for users that belong to that 
+# task.
 class HoursSpent < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
