@@ -1,7 +1,6 @@
 AllieroForms::Application.routes.draw do
 
   ActiveAdmin.routes(self)
-  resources :changes
 
   namespace :inventories do
     post :search
@@ -11,7 +10,6 @@ AllieroForms::Application.routes.draw do
   resources :skills
   resources :certificates
   resources :inventories
-  resources :changes
   resources :departments
   resources :attachments
 
@@ -87,7 +85,7 @@ AllieroForms::Application.routes.draw do
 
   resources :hours_spents
   resources :hours_spent do
-    resources :changes, :controller => 'hours_spent/changes'
+    #resources :changes, :controller => 'hours_spent/changes'
   end
   resources :tasks do
     post :save_and_order_resources,   as: :save_and_order_resources
