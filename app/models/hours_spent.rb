@@ -25,9 +25,15 @@
 #
 
 # Billable hours is only visible and editable for project_leaders that owns
-# that project.
+# that project. Billable hours is created when the project is 'closed'.
+# When the project_leader clicks 'approved', then the billable hours's approved
+# attribute is set as true.
+#
+# The worker is not able to update HoursSpent when the project is 'closed'
+#
 # Personal hours is only visible and editable for users that belong to that 
-# task.
+# task, when the project is still active.
+# 
 class HoursSpent < ActiveRecord::Base
   belongs_to :user
   belongs_to :task
