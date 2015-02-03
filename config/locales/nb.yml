@@ -350,3 +350,18 @@ nb:
       blog_video:
         one: Video
         other: Videoer
+
+  months:
+    nr_1: Januar
+    nr_2: Februar
+    nr_3: Mars
+    nr_4: April
+    nr_5: Mai
+    nr_6: Juni
+    nr_7: Juli
+    nr_8: August
+    nr_9: September
+    nr_10: Oktober
+    nr_11: November
+    nr_12: Desember
+
