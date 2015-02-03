@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202205857) do
+ActiveRecord::Schema.define(version: 20150203115630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,10 @@ ActiveRecord::Schema.define(version: 20150202205857) do
     t.integer  "hour"
     t.string   "text"
     t.text     "reason"
+    t.integer  "user_id"
   end
+
+  add_index "changes", ["user_id"], name: "index_changes_on_user_id", using: :btree
 
   create_table "customer_messages", force: true do |t|
     t.string   "text"
@@ -189,6 +192,10 @@ ActiveRecord::Schema.define(version: 20150202205857) do
     t.float    "km_driven_own_car"
     t.float    "toll_expenses_own_car"
     t.string   "supplies_from_warehouse"
+    t.boolean  "approved",                default: false
+    t.integer  "changed_hour_id"
+    t.string   "change_reason"
+    t.integer  "changed_by_user_id"
     t.string   "of_kind"
   end
 
