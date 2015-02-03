@@ -70,12 +70,6 @@ class HoursSpent < ActiveRecord::Base
       (self.overtime_100    ||  0)
   end
 
-  def self.create_all(params)
-    personal = HoursSpent.create!(params.merge(of_kind: :personal))
-    billable = HoursSpent.create!(params.merge(of_kind: :billable,
-                                               personal_id: personal.id))
-    personal.update_attribute(:billable_id, billable.id)
-  end
 
   # TODO  Move into a date helper
   def self.week_numbers_for_dates(dates)
