@@ -203,14 +203,16 @@ describe ProjectsController, :type => :controller do
   # som har levert timer på den dagen.
   #
   describe "List hours registered" do
-    it "populates an array with @hours_spent for the project" do
+    it "populates an array with @hours for the project" do
       project = Fabricate(:project)
-      task = Fabricate(:task, project: project)
-      hs = Fabricate(:hours_spent, task: task, hour: 50,
-                     user: Fabricate(:user,
-                                     roles: [:project_leader]))
-      get :hours_registered, {:id => project.to_param}, valid_session
-      assigns(:hours_registered).should eq([hs])
+      task    = Fabricate(:task, project: project)
+      hs      = Fabricate(:hours_spent, task: task, hour: 50,
+                          project: project,
+                          date: DateTime.new(2015,05,01))
+      get :hours_registered, { id: project.id,
+                               date: { year: 2015, month: 5 },
+                             }, valid_session
+      assigns(:hours).should eq([hs])
     end
   end
 

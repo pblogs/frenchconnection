@@ -5,9 +5,26 @@
   = fa_icon 'chevron-right'
   strong= 'Timelister'
 
+  h1 = "Timer registrert på #{@project.name}"
+  br 
+  br 
+  br 
+  = form_tag(hours_registered_path(@project), method: "get", id: "time") do
+    = select_year(Date.today,
+      start_year: @year || Date.today.year,
+      end_year: Date.today.years_ago(5).year)
+    .hide = select_month(@month, field_name: :month)
+    /= submit_tag 'Finn timer'
+
+  
+  .button-group.month-list
+    - @months.each do |m|
+      label
+        input checked="#{@month == m}" name="button-group" type="radio" value="#{m}" /
+        span.button-group-item = t("months.nr_#{m}")
+  br
 
 - if @hours_registered.present?
-
   .button-group
     label
       span.button-group-item.tooltip-item(data-no-turbolink)
@@ -23,9 +40,11 @@
 
 
 
-  = render partial: 'hours_registered_table',
-    locals: { hours: @hours_registered }
-  
+
+strong Sum timer for ansatt på dette prosjektet
+= render partial: 'hours_registered_table',
+  locals: { hours: @hours }
+
 
 br
 = link_to 'Tilbake', :back

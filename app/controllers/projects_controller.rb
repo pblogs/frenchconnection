@@ -85,7 +85,16 @@ class ProjectsController < ApplicationController
   end
 
   def hours_registered
-    @hours_registered =  @project.hours_spents.all
+    @months = (1..12).to_a
+    if params[:show_all].present?
+      @hours = @project.hours_spents.all
+    else
+      @year  = params[:date].present? ? params[:date][:year].to_i  : Time.now.year
+      @month = params[:date].present? ? params[:date][:month].to_i : Time.now.month
+      @hours = HoursSpent.where(project_id: @project.id)
+        .where('extract(year from date) = ?',  @year)
+        .where('extract(month from date) = ?', @month).all
+    end
   end
 
   private
