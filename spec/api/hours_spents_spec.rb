@@ -35,7 +35,6 @@ describe V1::HoursSpent do
       
       hours_spent.hour.should eq 5
       hours_spent.description.should eq 'Malte hus'
-      @user.hours_spents.billable.first.description.should eq 'Malte hus'
       @user.hours_spents.personal.first.description.should eq 'Malte hus'
       hours_spent.user.should eq @user
       hours_spent.task.should eq @task

@@ -17,7 +17,7 @@ module V1
           :supplies_from_warehouse)
         
           project_id  = Task.find(params[:task_id]).project_id
-          hours_spent = HoursSpent.create_all(
+          hours_spent = HoursSpent.create(
             permitted_params.merge(project_id: project_id)
           )
 
