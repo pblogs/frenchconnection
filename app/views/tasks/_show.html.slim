@@ -22,7 +22,12 @@ h3= t('hours_registered')
 = render partial: 'users/hours_spents_table',
   locals: { hours: @hours }
   
-= link_to 'Registrer timer', new_task_hours_spent_path(task)
+- if @task.active?
+  = link_to 'Registrer timer', new_task_hours_spent_path(task)
+- else
+  span Oppgaven er avsluttet
+  
+
 br
 br
 section
