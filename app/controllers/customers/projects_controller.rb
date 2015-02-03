@@ -83,7 +83,7 @@ class Customers::ProjectsController < ApplicationController
         end
 
         format.html { redirect_to [@project.customer, @project], 
-                      notice: 'Project was successfully updated.' }
+                      notice: t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, 
-                      notice: 'Prosjektet ble lagret' }
+                      notice: t('saved') }
         format.json { render action: 'show', status: :created, 
                       location: @project }
       else
@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, 
-                      notice: 'Project was successfully updated.' }
+                      notice: t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
