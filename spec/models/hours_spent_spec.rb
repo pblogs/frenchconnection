@@ -75,27 +75,18 @@ describe HoursSpent do
     before do
       @task = Fabricate(:task)
       @user = Fabricate(:user)
-      HoursSpent.create_all(task: @task, user: @user, hour: 10,
-         date: '01.01.2015', project: Fabricate(:project),
-         description: 'bill and pers')
+      @billable = Fabricate(:hours_spent, user: @user, task: @task,
+                            description: 'billable', of_kind: 'billable')
+      @personal = Fabricate(:hours_spent, user: @user, task: @task,
+                            description: 'personal', of_kind: 'personal')
+ 
     end
 
-    it 'creates both records on create_all' do
-      @user.hours_spents.billable.first.description.should eq 'bill and pers'
-      @user.hours_spents.personal.first.description.should eq 'bill and pers'
+    it 'scopes' do
+      @user.hours_spents.billable.first.description.should eq 'billable'
+      @user.hours_spents.personal.first.description.should eq 'personal'
     end
 
-    it 'find_billable(hour_id)' do
-      billable = @user.hours_spents.billable.first
-      personal = @user.hours_spents.personal.first
-      HoursSpent.find_billable(personal.id).first.should eq billable
-    end
-
-    it 'find_personal(hour_id)' do
-      billable = @user.hours_spents.billable.first
-      personal = @user.hours_spents.personal.first
-      HoursSpent.find_personal(billable.id).first.should eq personal
-    end
   end
 
 

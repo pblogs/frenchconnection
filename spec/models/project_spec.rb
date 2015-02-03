@@ -123,7 +123,7 @@ describe Project do
         @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
       end
 
-      it "hours_spent_total(changed: true)" do
+      it "hours_spent_total - changed by project leader" do
         HoursSpent.destroy_all
         @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
         @change = Change.create_from_hours_spent(hours_spent: @hour10,
