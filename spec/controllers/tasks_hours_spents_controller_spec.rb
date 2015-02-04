@@ -24,13 +24,17 @@ describe Tasks::HoursSpentsController, :type => :controller do
   # HoursSpent. As you add validations to HoursSpent, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
+    #Fabricate.build(:hours_spent).attributes
+    @project = Fabricate(:project)
+    @task = Fabricate(:task, project: @project)
+    @user = Fabricate(:user)
     { 
-      task_id:     Fabricate(:task).id,
+      task_id:     @task.id,
       hour:        rand(200..450),
       description: 'Sparklet dritbra',
       date: '2014-04-14',
-      user_id: Fabricate(:user).id,
-      project_id: Fabricate(:project).id
+      user_id: @user.id,
+      project_id: @project.id,
     }
   end
 
@@ -41,12 +45,24 @@ describe Tasks::HoursSpentsController, :type => :controller do
   before(:each) { HoursSpent.destroy_all ; Customer.destroy_all }
 
   describe "GET index" do
-    it "assigns all hours_spents as @hours_spents" do
-      sign_in
-      hours_spent = HoursSpent.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:hours_spents).should eq([hours_spent])
+    context "project completed" do
+      it "assigns all hours_spents as @hours" do
+        sign_in
+        hours_spent = HoursSpent.create! valid_attributes
+        hours_spent.project.update_attribute(:complete, true)
+        get :index, {}, valid_session
+        assigns(:hours).should eq([hours_spent])
+      end
     end
+    context "project active" do
+      it "assigns all hours_spents as @hours" do
+        sign_in
+        hours_spent = HoursSpent.create! valid_attributes.merge(complete: false)
+        get :index, {}, valid_session
+        assigns(:hours).should eq([hours_spent])
+      end
+    end
+
   end
 
   describe "GET show" do
