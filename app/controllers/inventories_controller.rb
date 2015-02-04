@@ -76,6 +76,7 @@ class InventoriesController < ApplicationController
     def inventory_params
       params.require(:inventory).permit(:name, :description, :certificates_id,
                                         :can_be_rented_by_other_companies,
-                                        :rental_price_pr_day)
+                                        :rental_price_pr_day,
+                                        :certificate_ids => [])
     end
 end
