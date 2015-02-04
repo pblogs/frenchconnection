@@ -305,6 +305,8 @@ nb:
         change_reason: Hvorfor gjøre endringer?
       task:
         description: Beskrivelse
+      certificate:
+        title: Tittel
       location:
         name: Navn
         certificates: Sertifikater
