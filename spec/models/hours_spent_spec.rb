@@ -27,6 +27,11 @@
 require 'spec_helper'
 
 describe HoursSpent do
+  it "is valid from the Fabric" do
+    @hours_spent  = Fabricate(:hours_spent)
+    expect(@hours_spent).to be_valid
+  end
+
   describe 'generic' do
     before(:all) do
       @department = Fabricate(:department)
