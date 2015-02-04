@@ -1,7 +1,7 @@
 = form_for @certificate do |f|
   - if @certificate.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@certificate.errors.count, "error")} prohibited this certificate from being saved:"
+      h2 = "#{pluralize(@certificate.errors.count, "feil")} forhindret oss i å lagre:"
       ul
         - @certificate.errors.full_messages.each do |message|
           li = message
@@ -9,4 +9,4 @@
   .field
     = f.label :title
     = f.text_field :title
-  .actions = f.submit 'Save'
+  .actions = f.submit t('save')
