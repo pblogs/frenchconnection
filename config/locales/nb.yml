@@ -302,6 +302,8 @@ nb:
     attributes:
       task:
         description: Beskrivelse
+      certificate:
+        title: Tittel
       location:
         name: Navn
         certificates: Sertifikater
