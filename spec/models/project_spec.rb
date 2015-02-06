@@ -51,9 +51,9 @@ describe Project do
       @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10,
                                       task: @task,
                                       user: @john_snekker)
-      @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10,
+      @hours_for_barry    = Fabricate(:hours_spent, piecework_hours: 10,
                                       task: @task,
-                                      user: @john_snekker)
+                                      user: @barry_snekker)
       # Overtime 100
       @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100,
                                             task: @task,
@@ -86,18 +86,8 @@ describe Project do
         @project.hours_total_for(@john_snekker, overtime: :hour).should eq 20
       end
 
-      it 'hours_total_for(user, changed: true)' do
-
-        @change1 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker1,
-                                                 reason: 'works slow' )
-        @change2 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker2,
-                                                 reason: 'works slow' )
-        @change1.hour            = 1
-        @change2.piecework_hours = 1
-        @change1.save
-        @change2.save
-
-        @project.hours_total_for(@john_snekker, changed: true, overtime: :hour).should eq 1
+      it 'hours_total_for(user)' do
+        @project.hours_total_for(@john_snekker, overtime: :hour).should eq 10
       end
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
@@ -123,17 +113,31 @@ describe Project do
         @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
       end
 
-      it "hours_spent_total - changed by project leader" do
-        HoursSpent.destroy_all
-        @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
-        @change = Change.create_from_hours_spent(hours_spent: @hour10,
-                                                 reason: 'works slow' )
-        @change.update_attribute(:hour, 1)
-        @change.reload
-        @project.reload
-        @project.hours_spent_total(profession: @snekker,
-                                   changed: true, overtime: :hour).should eq 1
+      context "a complete project" do
+        before do
+          HoursSpent.destroy_all
+          Fabricate(:hours_spent, of_kind: :billable, task: @task,
+                    hour: 50, user: @john_snekker)
+          Fabricate(:hours_spent, of_kind: :personal, task: @task, hour: 10,
+                    user: @john_snekker)
+        end
+
+        context "a UNcomplete project" do
+          it "hours_spent_total" do
+            @project.update_attribute(:complete, true)
+            @project.hours_spent_total(profession: @snekker,
+                                       overtime: :hour).should eq 50
+          end
+        end
+
+        context "a UNcomplete project" do
+          it "hours_spent_total" do
+            @project.hours_spent_total(profession: @snekker,
+                                       overtime: :hour).should eq 10
+          end
+        end
       end
+
     end
 
 
