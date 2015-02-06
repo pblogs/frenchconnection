@@ -81,34 +81,28 @@ class Project < ActiveRecord::Base
     all.select { |h| h.send(overtime).present? }
   end
 
-  def hours_spent_total(profession: nil, changed: false, overtime: )
+  def hours_spent_total(profession: nil,  overtime: )
     users = profession ? users_with_profession(profession: profession) : users
     sum = 0
-    users.each { |u| sum += hours_total_for(u, changed: changed, overtime: overtime) rescue 0} 
+    users.each { |u| sum += hours_total_for(u, overtime: overtime) rescue 0} 
     sum
   end
 
-  def hours_total_for(user, changed: false, overtime:)
+  def hours_total_for(user, overtime:)
     sum = 0
-    hours_spents.where(user: user).each do |h|
-      if changed
-        if overtime
-          sum += h.changed_value(overtime)        || 0
-        else
-          sum += h.changed_value_hour             || 0
-          sum += h.changed_value_piecework_hours  || 0
-          sum += h.changed_value_overtime_50      || 0
-          sum += h.changed_value_overtime_100     || 0
-        end
+    if complete?
+      hours = hours_spents.billable.where(user: user).all
+    else
+      hours = hours_spents.personal.where(user: user).all
+    end
+    hours.each do |h|
+      if overtime
+        sum += h.send(overtime)   || 0
       else
-        if overtime
-          sum += h.send(overtime)    || 0
-        else
-          sum += h.hour             || 0
-          sum += h.piecework_hours  || 0
-          sum += h.overtime_50      || 0
-          sum += h.overtime_100     || 0
-        end
+        sum += h.hour             || 0
+        sum += h.piecework_hours  || 0
+        sum += h.overtime_50      || 0
+        sum += h.overtime_100     || 0
       end
     end
     sum ? sum : 0
