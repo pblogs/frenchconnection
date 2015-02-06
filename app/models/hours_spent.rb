@@ -24,15 +24,27 @@
 #  changed_by_user_id      :integer
 #
 
-# Billable hours is only visible and editable for project_leaders that owns
-# that project. Billable hours is created when the project is 'closed'.
-# When the project_leader clicks 'approved', then the billable hours's approved
-# attribute is set as true.
+# When a user registers hours on a task, it's registered as personal hours.
+# The project leader can list these hours pr month on each project.
+# If the project leader wants to approve or change anything, he needs to press 
+# freeze hours. This will make a billabel copy of the personal hours.
 #
-# The worker is not able to update HoursSpent when the project is 'closed'
+# The 'Approve hours' and edit options will be available after 'freeze hours' is clicked.
+# The personal hours in this scope will ba marked as frozen. 
 #
-# Personal hours is only visible and editable for users that belong to that 
-# task, when the project is still active.
+# Meaning that when listing hours for project 1 in january, it will not 
+# display personal hours that's frozen, only billable hours. 
+# If a user register more hours for january after they has been frozen by the project leader,
+# then they will be listed above the billable as new. 
+#
+# Example of hours listed for project/1/month/1/year/2015
+#  @new_hours = @project.hours_spent.personal.not_frozen.year(2015).month(1)
+#  @billable_approved_hours = @project.hours_spent.billable.approved.year(2015).month(1)
+#  @billable_not_approved_hours = @project.hours_spent.billable.not_approved.year(2015).month(1)
+#
+# Billable hours that is not approved, will be highlighted. These will not be used in calculations when generating reports.
+# Any change the project leader makes to these hours will be on the billable version. 
+# PDF reports generated will use the billable and approved hours.
 # 
 class HoursSpent < ActiveRecord::Base
   belongs_to :user
