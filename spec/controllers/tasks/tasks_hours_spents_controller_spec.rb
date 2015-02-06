@@ -23,12 +23,14 @@ describe Tasks::HoursSpentsController, :type => :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # HoursSpent. As you add validations to HoursSpent, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) do
+  before do
     @project = Fabricate(:project)
     @task = Fabricate(:task, project: @project)
     @user = Fabricate(:user)
+  end
     # attrs = FactoryGirl.attributes_for(:description, :thing_id => @thing)
+  # adjust the attributes here as well.
+  let(:valid_attributes) do
     {
         task_id: @task.id,
         hour: rand(200..450),
@@ -43,7 +45,8 @@ describe Tasks::HoursSpentsController, :type => :controller do
   # in order to pass any filters (e.g. authentication) defined in
   # HoursSpentsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-  before(:each) { HoursSpent.destroy_all; Customer.destroy_all }
+  #before(:each) { HoursSpent.destroy_all; Customer.destroy_all }
+  #before { @task = Fabricate(:task) }
 
   describe "GET index" do
 
@@ -75,7 +78,7 @@ describe Tasks::HoursSpentsController, :type => :controller do
     it "assigns the requested hours_spent as @hours_spent" do
       sign_in
       hours_spent = HoursSpent.create! valid_attributes
-      get :show, {:id => hours_spent.to_param}, valid_session
+      get :show, { :task_id => @task.id, :id => hours_spent.to_param}, valid_session
       assigns(:hours_spent).should eq(hours_spent)
     end
   end
@@ -83,7 +86,7 @@ describe Tasks::HoursSpentsController, :type => :controller do
   describe "GET new" do
     it "assigns a new hours_spent as @hours_spent" do
       sign_in
-      get :new, {}, valid_session
+      get :new, { :task_id => @task.id }, valid_session
       assigns(:hours_spent).should be_a_new(HoursSpent)
     end
   end
@@ -92,35 +95,39 @@ describe Tasks::HoursSpentsController, :type => :controller do
     it "assigns the requested hours_spent as @hours_spent" do
       sign_in
       hours_spent = HoursSpent.create! valid_attributes
-      get :edit, {:id => hours_spent.to_param}, valid_session
+      get :edit, {:task_id => @task.id, :id => hours_spent.to_param}, valid_session
       assigns(:hours_spent).should eq(hours_spent)
     end
   end
 
   describe "POST create" do
+    #before #{ @task = Fabricate(:task) }
     describe "with valid params" do
       it "creates a new HoursSpent" do
         sign_in
         expect {
-          post :create, {:hours_spent => valid_attributes}, valid_session
+          post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
         }.to change(HoursSpent, :count).by(1)
       end
 
       it "assigns a newly created hours_spent as @hours_spent" do
         sign_in
-        post :create, {:hours_spent => valid_attributes}, valid_session
+        post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
         assigns(:hours_spent).should be_a(HoursSpent)
         assigns(:hours_spent).should be_persisted
       end
 
       it "redirects to the created hours_spent" do
+        #Task.destroy_all
+        #before { @task = Fabricate(:task) }
         sign_in
-        post :create, {:hours_spent => valid_attributes}, valid_session
-        response.should redirect_to(HoursSpent.last)
+        post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
+        response.should redirect_to(task_hours_spents_path(@task))
       end
     end
 
     describe "with invalid params" do
+      #before { @task = Fabricate(:task) }
       it "assigns a newly created but unsaved hours_spent as @hours_spent" do
         sign_in
         # Trigger the behavior that occurs when invalid params are submitted
@@ -134,7 +141,9 @@ describe Tasks::HoursSpentsController, :type => :controller do
         sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        post :create, {:hours_spent => {"hour" => "invalid value"}}, valid_session
+        post :create, {:task_id => @task.id,
+                       :hours_spent => {"hour" => "invalid value"}},
+                       valid_session
         response.should render_template("new")
       end
     end
@@ -184,7 +193,9 @@ describe Tasks::HoursSpentsController, :type => :controller do
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        put :update, {:id => hours_spent.to_param, :hours_spent => {"hour" => "invalid value"}}, valid_session
+        put :update, {:task_id => @task.id, :id => hours_spent.to_param,
+                      :hours_spent => {"hour" => "invalid value"}},
+                       valid_session
         response.should render_template("edit")
       end
     end
@@ -195,14 +206,15 @@ describe Tasks::HoursSpentsController, :type => :controller do
       sign_in
       hours_spent = HoursSpent.create! valid_attributes
       expect {
-        delete :destroy, {:id => hours_spent.to_param}, valid_session
+        delete :destroy, {:task_id => hours_spent.task.id,
+                          :id => hours_spent.to_param}, valid_session
       }.to change(HoursSpent, :count).by(-1)
     end
 
     it "redirects to the hours_spents list" do
       sign_in
       hours_spent = HoursSpent.create! valid_attributes
-      delete :destroy, {:id => hours_spent.to_param}, valid_session
+      delete :destroy, {:task_id => @task.id, :id => hours_spent.to_param}, valid_session
       response.should redirect_to(hours_spents_url)
     end
   end
