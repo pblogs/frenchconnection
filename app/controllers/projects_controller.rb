@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
-                                     :hours_registered, :complete]
+                                     :hours, :complete]
 
   # GET /projects
   # GET /projects.json
@@ -84,7 +84,7 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def hours_registered
+  def hours
     @months = (1..12).to_a
     if params[:show_all].present?
       @hours = @project.hours_spents.all

@@ -209,7 +209,7 @@ describe ProjectsController, :type => :controller do
       hs      = Fabricate(:hours_spent, task: task, hour: 50,
                           project: project,
                           date: DateTime.new(2015,05,01))
-      get :hours_registered, { id: project.id,
+      get :hours, { id: project.id,
                                date: { year: 2015, month: 5 },
                              }, valid_session
       assigns(:hours).should eq([hs])
