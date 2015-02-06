@@ -24,7 +24,7 @@ AllieroForms::Application.routes.draw do
   get 'monthly_report/:project_id/:year/:month/:overtime' => 'excel#monthly_report',
       as: :monthly_report
 
-  get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
+  get '/projects/:id/hours' => 'projects#hours', as: :hours
   resources :projects do
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task

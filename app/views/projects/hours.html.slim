@@ -9,7 +9,7 @@
   br 
   br 
   br 
-  = form_tag(hours_registered_path(@project), method: "get", id: "time") do
+  = form_tag(hours_path(@project), method: "get", id: "time") do
     = select_year(Date.today,
       start_year: @year || Date.today.year,
       end_year: Date.today.years_ago(5).year)
