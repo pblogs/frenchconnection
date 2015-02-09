@@ -132,7 +132,7 @@ describe Tasks::HoursSpentsController, :type => :controller do
         sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        post :create, {:hours_spent => {"hour" => "invalid value"}},
+        post :create, { :task_id => @task.id, :hours_spent => {"hour" => "invalid value"}},
              valid_session
         assigns(:hours_spent).should be_a_new(HoursSpent)
       end
@@ -160,21 +160,24 @@ describe Tasks::HoursSpentsController, :type => :controller do
         # submitted in the request.
         customer_id = Fabricate(:customer).id.to_s
         HoursSpent.any_instance.should_receive(:update).with({"customer_id" => customer_id})
-        put :update, {:id => hours_spent.to_param, :hours_spent => {"customer_id" => customer_id}}, valid_session
+        put :update, { :task_id => @task.id, :id => hours_spent.to_param,
+                       :hours_spent => {"customer_id" => customer_id}}, valid_session
       end
 
       it "assigns the requested hours_spent as @hours_spent" do
         sign_in
         hours_spent = HoursSpent.create! valid_attributes
-        put :update, {:id => hours_spent.to_param, :hours_spent => valid_attributes}, valid_session
+        put :update, { :task_id => @task.id, :id => hours_spent.to_param,
+                       :hours_spent => valid_attributes}, valid_session
         assigns(:hours_spent).should eq(hours_spent)
       end
 
       it "redirects to the hours_spent" do
         sign_in
         hours_spent = HoursSpent.create! valid_attributes
-        put :update, {:id => hours_spent.to_param, :hours_spent => valid_attributes}, valid_session
-        response.should redirect_to(hours_spent)
+        put :update, { :task_id => @task.id, :id => hours_spent.to_param,
+                       :hours_spent => valid_attributes}, valid_session
+        response.should redirect_to(hours_spent.task)
       end
     end
 
@@ -184,7 +187,8 @@ describe Tasks::HoursSpentsController, :type => :controller do
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        put :update, {:id => hours_spent.to_param, :hours_spent => {"hour" => "invalid value"}}, valid_session
+        put :update, { :task_id => @task.id, :id => hours_spent.to_param,
+                       :hours_spent => {"hour" => "invalid value" } }, valid_session
         assigns(:hours_spent).should eq(hours_spent)
       end
 
@@ -193,8 +197,8 @@ describe Tasks::HoursSpentsController, :type => :controller do
         hours_spent = HoursSpent.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
-        put :update, {:task_id => @task.id, :id => hours_spent.to_param,
-                      :hours_spent => {"hour" => "invalid value"}},
+        put :update, { :task_id => @task.id, :id => hours_spent.to_param,
+                       :hours_spent => {"hour" => "invalid value"}},
                        valid_session
         response.should render_template("edit")
       end
@@ -206,15 +210,16 @@ describe Tasks::HoursSpentsController, :type => :controller do
       sign_in
       hours_spent = HoursSpent.create! valid_attributes
       expect {
-        delete :destroy, {:task_id => hours_spent.task.id,
-                          :id => hours_spent.to_param}, valid_session
+        delete :destroy, { :task_id => hours_spent.task.id,
+                           :id => hours_spent.to_param}, valid_session
       }.to change(HoursSpent, :count).by(-1)
     end
 
     it "redirects to the hours_spents list" do
       sign_in
       hours_spent = HoursSpent.create! valid_attributes
-      delete :destroy, {:task_id => @task.id, :id => hours_spent.to_param}, valid_session
+      delete :destroy, { :task_id => @task.id, :id => hours_spent.to_param},
+        valid_session
       response.should redirect_to(hours_spents_url)
     end
   end
