@@ -67,12 +67,16 @@ class HoursSpent < ActiveRecord::Base
   scope :for_user_on_task, ->(user_id, task_id) { 
     where(user_id: user_id, task_id: task_id) }
 
-  scope :year,     ->(year)  { where('extract(year  from date) = ?',  year) }
-  scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
-  scope :personal, -> { where(of_kind: 'personal') } 
-  scope :billable, -> { where(of_kind: 'billable') } 
-  scope :find_billable, ->(hour_id) { billable.where(personal_id: hour_id) }
-  scope :find_personal, ->(hour_id) { personal.where(billable_id: hour_id) }
+  scope :year,       ->(year)  { where('extract(year  from date) = ?',  year) }
+  scope :month,      ->(month) { where('extract(month from date) = ?',  month) }
+  scope :personal,   -> { where(of_kind: 'personal') } 
+  scope :billable,   -> { where(of_kind: 'billable') } 
+  scope :approved,   -> { where(approved: true) } 
+  scope :not_approved,   -> { where(approved: false) } 
+  scope :frozen_by_admin, -> { where(frozen_by_admin: true) } 
+  scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
+  #scope :find_billable, ->(hour_id) { billable.where(personal_id: hour_id) }
+  #scope :find_personal, ->(hour_id) { personal.where(billable_id: hour_id) }
 
   # Sums all the different types of hours registered
   # for one day, on one user.
