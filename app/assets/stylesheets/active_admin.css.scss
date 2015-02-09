@@ -28,3 +28,17 @@
   padding: 8px 10px 7px;
   display: inline-block;
 }
+
+li.has_many_container.blog_images {
+  fieldset{
+    float: left;
+    width: 15%;
+    height: 250px;
+  }
+
+  a.button.has_many_add {
+    display: block;
+    clear: both;
+    width: 7%;
+  }
+}
