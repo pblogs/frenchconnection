@@ -184,12 +184,14 @@ nb:
         
   skills:
     header: Ferdigheter
+    new: Ny ferdighet
+    edit: Rediger ferdighet
+    create_new: Lag ny ferdighet
     title: Ferdigheter
     welding: Sveising
     painting: Maling
     digging: Graving
     driving: Kjøring
-    create_new: Lag ny ferdighet
 
 
 
@@ -303,6 +305,8 @@ nb:
       task:
         description: Beskrivelse
       certificate:
+        title: Tittel
+      skill:
         title: Tittel
       location:
         name: Navn
