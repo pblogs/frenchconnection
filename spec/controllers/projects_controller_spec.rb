@@ -203,16 +203,38 @@ describe ProjectsController, :type => :controller do
   # som har levert timer på den dagen.
   #
   describe "List hours registered" do
-    it "populates an array with @hours for the project" do
-      project = Fabricate(:project)
-      task    = Fabricate(:task, project: project)
-      hs      = Fabricate(:hours_spent, task: task, hour: 50,
-                          project: project,
-                          date: DateTime.new(2015,05,01))
-      get :hours, { id: project.id,
-                               date: { year: 2015, month: 5 },
-                             }, valid_session
-      assigns(:hours).should eq([hs])
+    before do
+      @project   = Fabricate(:project)
+      @task      = Fabricate(:task, project: @project)
+      @user      = Fabricate(:user)
+      @task.users << @user
+      @new_hours = Fabricate(:hours_spent, task: @task, of_kind: :personal,
+                            description: 'new_hours')
+      @billable_approved = Fabricate(:hours_spent, task: @task,
+                                     description: 'billable_approved',
+                                     of_kind: :billable, approved: true)
+      @billable_not_approved = Fabricate(:hours_spent, task: @task,
+                                         description: 'billable_not_approved',
+                                         of_kind: :billable, approved: false)
+    end
+    context 'with :show_all param', focus: true do
+      it "finds all hours" do
+        get :hours, { id: @project.id, show_all: 1 }, valid_session
+        assigns(:new_hours).should eq([@new_hours])
+        assigns(:billable_approved).should eq([@billable_approved])
+        assigns(:billable_not_approved).should eq([@billable_not_approved])
+      end
+    end
+
+    context 'without :show_all param' do
+      it "populates an array with @hours for the project" do
+        get :hours, { id: @project.id,
+                      date: { year: 2015, month: 5 },
+                    }, valid_session
+        assigns(:new_hours).should eq([@new_hours])
+        assigns(:billable_approved).should eq([@billable_approved])
+        assigns(:billable_not_approved).should eq([@billable_not_approved])
+      end
     end
   end
 
