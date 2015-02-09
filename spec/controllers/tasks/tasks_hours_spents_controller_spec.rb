@@ -28,50 +28,35 @@ describe Tasks::HoursSpentsController, :type => :controller do
     @task = Fabricate(:task, project: @project)
     @user = Fabricate(:user)
   end
-    # attrs = FactoryGirl.attributes_for(:description, :thing_id => @thing)
+  # attrs = FactoryGirl.attributes_for(:description, :thing_id => @thing)
   # adjust the attributes here as well.
   let(:valid_attributes) do
     {
-        task_id: @task.id,
-        hour: rand(200..450),
-        description: 'Sparklet dritbra',
-        date: '2014-04-14',
-        user_id: @user.id,
-        project_id: @project.id,
+      task_id: @task.id,
+      hour: rand(200..450),
+      description: 'Sparklet dritbra',
+      date: '2014-04-14',
+      user_id: @user.id,
+      project_id: @project.id,
     }
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # HoursSpentsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-  #before(:each) { HoursSpent.destroy_all; Customer.destroy_all }
-  #before { @task = Fabricate(:task) }
 
   describe "GET index" do
-
-    context "project completed" do
-      it "assigns all hours_spents as @hours" do
-        sign_in
-        hours_spent = HoursSpent.create! valid_attributes
-        hours_spent.project.update_attribute(:complete, true)
-        get :index, {task_id: @task.id}, valid_session
-
-        assigns(:hours).should eq([hours_spent])
-      end
+    #before do
+    #  @new_hours = @project.hours_spent.personal.not_frozen.year(2015).month(1)
+    #  @billable_approved_hours = @project.hours_spent.billable.approved.year(2015).month(1)
+    #  @billable_not_approved_hours = @project.hours_spent
+    #    .billable.not_approved.year(2015).month(1)
+    #end
+    it "assigns all hours_spents as @hours" do
+      sign_in
+      hours_spent = HoursSpent.create! valid_attributes
+      hours_spent.project.update_attribute(:complete, true)
+      get :index, {task_id: @task.id}, valid_session
+      assigns(:hours).should eq([hours_spent])
     end
-
-    context "project active" do
-      it "assigns all hours_spents as @hours" do
-        sign_in
-        hours_spent = HoursSpent.create! valid_attributes
-        hours_spent.project.update_attribute(:complete, false)
-        # POST /tasks/:task_id/hours_spents(.:format)  tasks/hours_spent#create
-        get :index, {task_id: @task.id}, valid_session
-        assigns(:hours).should eq([hours_spent])
-      end
-    end
-
   end
 
   describe "GET show" do
@@ -133,7 +118,7 @@ describe Tasks::HoursSpentsController, :type => :controller do
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
         post :create, { :task_id => @task.id, :hours_spent => {"hour" => "invalid value"}},
-             valid_session
+          valid_session
         assigns(:hours_spent).should be_a_new(HoursSpent)
       end
 
@@ -143,7 +128,7 @@ describe Tasks::HoursSpentsController, :type => :controller do
         HoursSpent.any_instance.stub(:save).and_return(false)
         post :create, {:task_id => @task.id,
                        :hours_spent => {"hour" => "invalid value"}},
-                       valid_session
+        valid_session
         response.should render_template("new")
       end
     end
@@ -199,7 +184,7 @@ describe Tasks::HoursSpentsController, :type => :controller do
         HoursSpent.any_instance.stub(:save).and_return(false)
         put :update, { :task_id => @task.id, :id => hours_spent.to_param,
                        :hours_spent => {"hour" => "invalid value"}},
-                       valid_session
+        valid_session
         response.should render_template("edit")
       end
     end
