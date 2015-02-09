@@ -9,19 +9,16 @@ gem 'rails_12factor', group: :production
 gem 'ng-rails-csrf'
 
 
-gem 'quiet_assets'
 gem 'pg'
 gem 'newrelic_rpm'
-gem 'foreman'
-gem 'passenger'
-gem 'thor'
 #gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'iconv'
 gem 'pdfkit'
 gem 'symbolize'
 gem 'sidekiq'
-gem 'pusher'
+
+
 gem 'activeadmin', github: 'activeadmin'
 
 gem 'tinymce-rails', '4.1.6'
@@ -101,6 +98,7 @@ group :development do
   gem 'ruby_gntp'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'better_errors'
+  gem 'quiet_assets'
 end
 
 
@@ -112,6 +110,12 @@ group :test do
 end
 
 
+group :development, :production do
+  gem 'foreman'
+  gem 'passenger'
+  gem 'thor'
+  gem 'pusher'
+end
 
 group :production do
   gem 'exception_notification'

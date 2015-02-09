@@ -32,7 +32,6 @@ describe ProjectsController, :type => :controller do
       start_date:           '01.05.1983',
       due_date:             '01.08.1983',
       description:          'New fence',
-      short_description:    'New fence'
     }
   end
 

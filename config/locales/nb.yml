@@ -17,6 +17,7 @@ nb:
   save_and_continue: Lagre og gå videre
   read_more: Les mer..
   completed_tasks: Avsluttede oppgaver
+  the_location: lokasjonen
   courses: Kurs
   could_not_save: Lagring feilet
   are_you_sure_about_soft_ending: |
@@ -43,6 +44,8 @@ nb:
   my_projects: Mine prosjekter
   search: Søk
   select: Velg
+  saved: Lagret!
+  updated: Endringene ble lagret
   remove: Fjern
   show_hours_registered: Vis timelister
   start_date: Startdato
@@ -73,6 +76,7 @@ nb:
   search: Søk
   title: Navn
   who: Hvem
+  where: Hvor
 
   top_nav:
     projects: Prosjekter
@@ -97,12 +101,13 @@ nb:
     certificates: Sertifikater
     locations: Lokasjoner
     skills: Ferdigheter
-    cms: CMS
+    cms: Nyheter
   time:
     formats:
       short_w_year: "%d %B %Y"
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
+      short_month: "%^b"
   date:
     date: Dato
     formats:
@@ -141,6 +146,7 @@ nb:
     projects.create_new: Opprett nytt prosjekt
 
   task:
+    no_images_taken_on_this_task: Det er ikke tatt noen bilder på denne oppgaven
     no_due_date_set: Sluttdato ikke satt
     confirm: Bekreft
     confirmed: Oppgave bekreftet
@@ -174,17 +180,19 @@ nb:
     new_task: "Du har fått tildelt en ny oppgave. Les mer: %{link}"
     notify:
       missing_hours: |
-        It seems that you haven't registered hours in one or more of your tasks
-        Please do so on http://allieroapp.orwapp.com/
+        Du har visst glemt å registrere timer på en eller flere av
+        oppgavene dine. Registrert timer i Orwapp appen nå! :-)
         
   skills:
     header: Ferdigheter
+    new: Ny ferdighet
+    edit: Rediger ferdighet
+    create_new: Lag ny ferdighet
     title: Ferdigheter
     welding: Sveising
     painting: Maling
     digging: Graving
     driving: Kjøring
-    create_new: Lag ny ferdighet
 
 
 
@@ -271,9 +279,11 @@ nb:
 
   locations:
     title: Lokasjoner
+    new: Ny lokasjon
     roof-top: Tak
     construction-site: Anleggsområdet
     traffic: I trafikken
+    create_new: Lag ny lokasjon
 
   professions:
     bricklayer: Murer
@@ -295,6 +305,13 @@ nb:
     attributes:
       task:
         description: Beskrivelse
+      certificate:
+        title: Tittel
+      skill:
+        title: Tittel
+      location:
+        name: Navn
+        certificates: Sertifikater
       inventory:
         certificates: Nødvendig sertifikat
         name: Navn

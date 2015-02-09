@@ -10,6 +10,7 @@
   "vendor": {
     "name": "bower-rails generated vendor assets",
     "dependencies": {
+      "lodash": "latest"
     }
   }
 }

@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    redirect_to customer_project_path(@project.customer, @project)
   end
 
   # GET /projects/new
@@ -52,7 +53,7 @@ class ProjectsController < ApplicationController
       if @project.update(project_params)
         set_favorite
         format.html { redirect_to @project, 
-                      notice: 'Project was successfully updated.' }
+                      notice: I18n.t('saved') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -103,7 +104,6 @@ class ProjectsController < ApplicationController
                                       :delivery_address, 
                                       :due_date,
                                       :description,
-                                      :short_description,
                                       :execution_address, 
                                       :name, 
                                       :department_id,

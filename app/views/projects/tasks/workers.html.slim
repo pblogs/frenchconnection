@@ -17,9 +17,6 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
         button(ng-click="select(worker)") = t('select')
 
 
-  br
-  br
-  br
   div(ng-show="selected_workers.length > 0")
     h5 = t('.selected_workers')
     table#selectedWorkers
@@ -33,8 +30,5 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
           button(ng-click="remove_selected_worker(worker, $index)") = t('remove')
 
 
-br
-br
-br
-= link_to t('task.review_and_submit'),
+p= link_to t('task.review_and_submit'),
   project_task_review_path(@task.project, @task), class: 'btn btn-primary pull-right'

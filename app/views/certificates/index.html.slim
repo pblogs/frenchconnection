@@ -6,13 +6,11 @@ table
       th = t('title')
       th
       th
-      th
 
   tbody
     - @certificates.each do |certificate|
       tr
         td = certificate.title
-        td = link_to t('show'), certificate
         td = link_to t('edit'), edit_certificate_path(certificate)
         td = link_to t('destroy'), 
              certificate, data: {:confirm => I18n.t('are_you_sure')}, :method => :delete

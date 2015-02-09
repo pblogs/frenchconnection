@@ -5,7 +5,6 @@
 #  id           :integer          not null, primary key
 #  title        :string(255)
 #  content      :text
-#  image        :string(255)
 #  locale       :string(255)
 #  published    :boolean
 #  publish_date :date

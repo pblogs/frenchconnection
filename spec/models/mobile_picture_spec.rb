@@ -28,7 +28,7 @@ describe MobilePicture do
     expect(@mobile_picture.task).to eq @task
   end
 
-  it 'a task has many pictures', focus:true do
+  it 'a task has many pictures' do
     @mobile_picture2 = Fabricate(:mobile_picture, task: @task)
     expect(@task.mobile_pictures.to_a).to include(@mobile_picture, @mobile_picture2)
   end
