@@ -42,7 +42,8 @@
 #  @billable_approved_hours = @project.hours_spent.billable.approved.year(2015).month(1)
 #  @billable_not_approved_hours = @project.hours_spent.billable.not_approved.year(2015).month(1)
 #
-# Billable hours that is not approved, will be highlighted. These will not be used in calculations when generating reports.
+# Billable hours that is not approved, will be highlighted. 
+# These will not be used in calculations when generating reports.
 # Any change the project leader makes to these hours will be on the billable version. 
 # PDF reports generated will use the billable and approved hours.
 # 
