@@ -90,7 +90,7 @@ describe InventoriesController do
 
       it "redirects to the created inventory" do
         post :create, {:inventory => valid_attributes}, valid_session
-        response.should redirect_to(Inventory.last)
+        response.should redirect_to(inventories_path)
       end
     end
 
@@ -135,7 +135,7 @@ describe InventoriesController do
         inventory = Inventory.create! valid_attributes
         put :update, {:id => inventory.to_param,
                       :inventory => valid_attributes}, valid_session
-        response.should redirect_to(inventory)
+        response.should redirect_to(inventories_path)
       end
     end
 

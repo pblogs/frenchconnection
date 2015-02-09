@@ -41,7 +41,6 @@ class Project < ActiveRecord::Base
   validates :department_id,     :presence => true
   validates :project_number,    :presence => true
   validates :name,              :presence => true
-  validates :short_description, :presence => true
 
   attr_accessor :single_task
 
@@ -169,8 +168,8 @@ class Project < ActiveRecord::Base
 
   def build_single_task
     tasks.build do |t|
-      t.customer_id = customer_id # is this correct?
-      t.description = short_description
+      t.customer_id = customer_id
+      t.description = description
       t.start_date = start_date
       t.due_date = due_date
     end

@@ -18,6 +18,7 @@
 #  profession_id    :integer
 #  skills_ids       :integer
 #  draft            :boolean          default(TRUE)
+#  address          :string(255)
 #
 
 class Task < ActiveRecord::Base
@@ -67,11 +68,6 @@ class Task < ActiveRecord::Base
     ) 
   end
 
-  #def default_address
-  #  address.present? ? address : nil || 
-  #  project.address.present? ? project.address : nil ||
-  #  project.customer.address.present? ? project.customer.address : nil
-  #end
 
   def end_task_hard
     end_tasks_for_all_users

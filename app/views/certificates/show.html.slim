@@ -1,7 +1,7 @@
 p
-  strong Title:
+  strong = t('title')
   = @certificate.title
 
-= link_to 'Edit', edit_certificate_path(@certificate)
+= link_to t('edit'), edit_certificate_path(@certificate)
 '|
-= link_to 'Back', certificates_path
+= link_to t('back'), certificates_path

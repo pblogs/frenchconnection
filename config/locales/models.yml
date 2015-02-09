@@ -8,7 +8,6 @@ nb:
       project:
         project_number: Prosjektnummer
         name: Navn
-        short_description: Kortbeskrivelse
         description: Beskrivelse
         customer_reference: Kundereferanse
         comment: Kommentar
