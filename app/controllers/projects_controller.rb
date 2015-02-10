@@ -87,21 +87,21 @@ class ProjectsController < ApplicationController
 
   def hours
     if params[:show_all].present?
-      #@hours = @project.hours_spents.all
-
       @new_hours = @project.hours_spents.personal.not_frozen_by_admin
       @billable_approved = @project.hours_spents.billable.approved
       @billable_not_approved = @project.hours_spents.billable.not_approved
     else
       @year  = params[:date].present? ? params[:date][:year].to_i  : Time.now.year
       @month = params[:date].present? ? params[:date][:month].to_i : Time.now.month
-      @new_hours = @project.hours_spents.personal.not_frozen_by_admin
-      @billable_approved = @project.hours_spents.billable.approved
-      @billable_not_approved = @project.hours_spents.billable.not_approved
-
-      @hours = HoursSpent.where(project_id: @project.id)
-        .where('extract(year from date) = ?',  @year)
-        .where('extract(month from date) = ?', @month).all
+      @new_hours             = @project.hours_spents.personal
+                                .not_frozen_by_admin
+                                .month(@month).year(@year)
+      @billable_approved     = @project.hours_spents
+                                .billable.approved
+                                .month(@month).year(@year)
+      @billable_not_approved = @project.hours_spents.billable
+                                .not_approved
+                                .month(@month).year(@year)
     end
   end
 
