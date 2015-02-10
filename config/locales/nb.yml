@@ -1,4 +1,6 @@
 nb:
+  jupp: Ja
+  nope: Nei
   customers:
     edit: Rediger kunde
     new: Opprett kunde
@@ -34,8 +36,6 @@ nb:
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
-  yes: Ja
-  nope: Nei
   from: Fra
   to: Til
   task_ended_at: Avsluttet for %{time} siden
