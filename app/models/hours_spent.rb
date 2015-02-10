@@ -75,8 +75,6 @@ class HoursSpent < ActiveRecord::Base
   scope :not_approved,   -> { where(approved: false) } 
   scope :frozen_by_admin, -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
-  #scope :find_billable, ->(hour_id) { billable.where(personal_id: hour_id) }
-  #scope :find_personal, ->(hour_id) { personal.where(billable_id: hour_id) }
 
   # Sums all the different types of hours registered
   # for one day, on one user.
