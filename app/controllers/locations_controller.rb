@@ -42,7 +42,7 @@ class LocationsController < ApplicationController
   def update
     respond_to do |format|
       if @location.update(location_params)
-        format.html { redirect_to locations_path, notice: 'Location was successfully updated.' }
+        format.html { redirect_to locations_path, notice: t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +69,9 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:name, :certificates_id, :indoor, :outdoor)
+      params.require(:location).permit(:name,
+                                       :indoor,
+                                       :outdoor,
+                                       :certificate_ids => [])
     end
 end

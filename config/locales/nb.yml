@@ -15,6 +15,7 @@ nb:
   indoor: Innendørs
   outdoor: Utendørs
   save_and_continue: Lagre og gå videre
+  read_more: Les mer..
   completed_tasks: Avsluttede oppgaver
   the_location: lokasjonen
   courses: Kurs
@@ -184,12 +185,14 @@ nb:
         
   skills:
     header: Ferdigheter
+    new: Ny ferdighet
+    edit: Rediger ferdighet
+    create_new: Lag ny ferdighet
     title: Ferdigheter
     welding: Sveising
     painting: Maling
     digging: Graving
     driving: Kjøring
-    create_new: Lag ny ferdighet
 
 
 
@@ -306,6 +309,8 @@ nb:
       task:
         description: Beskrivelse
       certificate:
+        title: Tittel
+      skill:
         title: Tittel
       location:
         name: Navn
