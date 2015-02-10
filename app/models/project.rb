@@ -88,6 +88,31 @@ class Project < ActiveRecord::Base
     sum
   end
 
+  # Used by /projects/:id/hours
+  # Sums all hours for each user for the given month
+  def hours_for_all_users(month_nr)
+    m = month_nr
+    sum = []
+    users.each do |u|
+      hours          = hours_spents.month(m).where(user: u).sum(:hours)
+      overtime_50    = hours_spents.month(m).where(user: u).sum(:overtime_50)
+      overtime_100   = hours_spents.month(m).where(user: u).sum(:overtime_100)
+      runs_in_company_car = hours_spents.month(m).where(user: u)
+        .sum(:runs_in_company_car)
+      km_driven_own_car = hours_spents.month(m).where(user: u)
+        .sum(:km_driven_own_car)
+      toll_expenses_own_car = hours_spents.month(m).where(user: u)
+        .sum(:toll_expenses_own_car)
+      approved = hours_spents.where(user: u).not_approved.exists?
+
+      sum << { user: u, hours: hours, overtime_50: overtime_50,
+        overtime_100: overtime_100, runs_in_company_car: runs_in_company_car,
+        km_driven_own_car: km_driven_own_car,
+        toll_expenses_own_car: toll_expenses_own_car, approved: approved
+      }
+    end
+  end
+
   def hours_total_for(user, overtime:)
     sum = 0
     if complete?
