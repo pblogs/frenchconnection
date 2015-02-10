@@ -230,7 +230,14 @@ describe Project do
       @task2.user_tasks.each { |t| t.update_attribute(:status, :complete) }
       @project.completed_tasks.should eq [@task2]
     end
-    
   end
+
+  #describe 'Calculations' do
+  #  before do
+  #    @project = Fabricate(:project)
+  #    @task = Fabricate(:task, project: @project)
+  #    Fabricate(:hours_spent, hour: 10, )
+  #  end
+  #end
 
 end
