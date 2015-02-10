@@ -38,6 +38,17 @@ class UsersController < ApplicationController
     @form_action = user_path(@user)
   end
 
+  # GET /users/:user_id/projects/:project_id/hours
+  def hours
+    @user     = User.find(params[:user_id])
+    @project  = Project.find(params[:project_id])
+    @projects = @user.projects
+    @hours    = @project.hours_spents.where(user: @user)
+    if request.post?
+      @hours.each { |h| h.update_attribute(:approved, true) }
+    end
+  end
+
   def create
     @user = User.new(user_params)
     @user.password = @user.password_confirmation = srand.to_s[0..10]
