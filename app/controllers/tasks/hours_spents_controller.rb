@@ -75,6 +75,25 @@ module Tasks
       end
     end
 
+    # hours_spent_for_admin 
+    # POST   /hours_spents/:hours_spent_id/for_admin(.:format) 
+    # GET    /hours_spents/:hours_spent_id/for_admin(.:format)
+    # PATCH  /hours_spents/:hours_spent_id/for_admin(.:format)
+    def for_admin
+      @hour = HoursSpent.find(params[:hours_spent_id])
+      if request.patch? 
+        @new_hour = HoursSpent.new(@hour.attributes
+          .except('id', 'created_at', 'updated_at'))
+        @new_hour.update_attributes(hours_spent_params)
+        @new_hour.old_values = @hour.attributes
+        @new_hour.of_kind = 'billable'
+        if @new_hour.save!
+          @hour.update_attribute(:frozen_by_admin, true)
+        end
+      end
+      redirect_to user_hours_path(@hour.user, @hour.project)
+    end
+
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_hours_spent
