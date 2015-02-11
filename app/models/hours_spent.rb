@@ -86,6 +86,14 @@ class HoursSpent < ActiveRecord::Base
       (self.overtime_100    ||  0)
   end
 
+  def billable?
+    self.of_kind == :billable
+  end
+
+  def personal?
+    self.of_kind == :personal
+  end
+
 
   # TODO  Move into a date helper
   def self.week_numbers_for_dates(dates)
