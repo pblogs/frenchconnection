@@ -11,7 +11,7 @@
       th Km egen bil
       th Bomutg.
       th Materiell
-      th Godkjent?
+      th Status
       th 
     - hours.each do |hour|
       tr
@@ -27,6 +27,8 @@
         td
           span(class="#{'badge-success' if hour.approved?}")
             = t(hour.approved? ? 'jupp' : 'nope')
+            - if hour.billable?
+              = " (Redigert)" 
         td= link_to fa_icon('pencil-square-o'),
               edit_task_hours_spent_path(hour.task, hour)
   = button_to 'Godkjenn timene', user_approve_hours_path(@user, @project),
