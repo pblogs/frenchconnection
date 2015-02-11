@@ -202,7 +202,7 @@ describe ProjectsController, :type => :controller do
   # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte 
   # som har levert timer på den dagen.
   #
-  describe "List hours registered", focus: true do
+  describe "List hours registered" do
     before do
       @project   = Fabricate(:project)
       @task      = Fabricate(:task, project: @project)
@@ -234,8 +234,7 @@ describe ProjectsController, :type => :controller do
     context 'with date params' do
       before do
         @different_month = Fabricate(:hours_spent, task: @task, of_kind: :personal,
-          description: 'new_hours different month',
-          date: Time.parse('01.06.2015'))
+          description: 'new_hours different month', date: Time.parse('01.06.2015'))
       end
 
       it "populates an array with @hours for the project" do

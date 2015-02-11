@@ -1,13 +1,13 @@
 p
   strong Kunde:
-  = @hours_spent.project.customer.name
+  = @hours.project.customer.name
 p
   strong Task:
-  = @hours_spent.task
+  = @hours.task
 p
   strong Hour:
-  = @hours_spent.hour
+  = @hours.hour
 
-= link_to 'Edit', edit_hours_spent_path(@hours_spent)
+= link_to 'Edit', edit_hours_spent_path(@hours)
 '|
 = link_to 'Tilbake', hours_spents_path
