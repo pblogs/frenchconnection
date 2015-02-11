@@ -93,6 +93,7 @@ AllieroForms::Application.routes.draw do
       post :for_admin
       get :for_admin
       patch :for_admin
+      get  :approve
     end
     member do
       post :complete
