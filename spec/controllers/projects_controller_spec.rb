@@ -212,22 +212,22 @@ describe ProjectsController, :type => :controller do
                              description: 'new_hours',
                              date: Time.parse('01.05.2015'))
 
-      @billable_approved = Fabricate(:hours_spent, task: @task,
+      @billable_approved = Fabricate(:hours_spent, task: @task, user: @user,
                                      description: 'billable_approved',
+                                     hour: 20,
                                      of_kind: :billable, approved: true,
                                      date: Time.parse('01.05.2015'))
 
-      @billable_not_approved = Fabricate(:hours_spent, task: @task,
+      @billable_not_approved = Fabricate(:hours_spent, task: @task, user: @user,
                                          description: 'billable_not_approved',
+                                         hour: 20,
                                          of_kind: :billable, approved: false,
                                          date: Time.parse('01.05.2015'))
     end
     context 'with :show_all param' do
       it "finds all hours" do
         get :hours, { id: @project.id, show_all: 1 }, valid_session
-        assigns(:new_hours).should eq([@new_hours])
-        assigns(:billable_approved).should eq([@billable_approved])
-        assigns(:billable_not_approved).should eq([@billable_not_approved])
+        expect(assigns(:hours)).to eq @project.hours_for_all_users
       end
     end
 
@@ -241,9 +241,9 @@ describe ProjectsController, :type => :controller do
         get :hours, { id: @project.id,
                       date: { year: 2015, month: 5 },
                     }, valid_session
-        assigns(:new_hours).should eq([@new_hours])
-        assigns(:billable_approved).should eq([@billable_approved])
-        assigns(:billable_not_approved).should eq([@billable_not_approved])
+        #assigns(:hours).should eq([@new_hours])
+        expect(assigns(:hours)).to eq @project
+          .hours_for_all_users(month_nr: @month, year: @year)
       end
     end
   end
