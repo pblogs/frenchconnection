@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210115604) do
+ActiveRecord::Schema.define(version: 20150211193951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20150210115604) do
     t.float    "km_driven_own_car"
     t.float    "toll_expenses_own_car"
     t.string   "supplies_from_warehouse"
-    t.string   "of_kind"
+    t.string   "of_kind",                 default: "personal"
     t.integer  "billable_id"
     t.integer  "personal_id"
     t.boolean  "approved",                default: false
