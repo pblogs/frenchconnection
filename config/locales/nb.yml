@@ -306,6 +306,9 @@ nb:
       hours_spent:
         description: Beskrivelse
         change_reason: Hvorfor gjøre endringer?
+        hour: Vanlige timer
+        overtime_50: 50%
+        overtime_100: 100%
       task:
         description: Beskrivelse
       certificate:
