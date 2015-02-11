@@ -20,7 +20,7 @@ module Tasks
 
     # GET /hours_spents/new
     def new
-      @hours_spent = HoursSpent.new
+      @hour = HoursSpent.new
     end
 
     # GET /hours_spents/1/edit
@@ -31,20 +31,20 @@ module Tasks
     # POST /hours_spents.json
     def create
       @task                = Task.find(params[:task_id])
-      @hours_spent         = @current_user.hours_spents.new(hours_spent_params)
-      @hours_spent.task    = @task
-      @hours_spent.project = @task.project
+      @hour         = @current_user.hours_spents.new(hours_spent_params)
+      @hour.task    = @task
+      @hour.project = @task.project
 
       respond_to do |format|
-        if @hours_spent.save
+        if @hour.save
           format.html { redirect_to task_hours_spents_path(@task),
-                                    notice: 'Timer registert' }
+                        notice: 'Timer registert' }
           format.json { render action: 'show', status: :created,
-                               location: @hours_spent }
+                        location: @hour }
         else
           format.html { render action: 'new' }
-          format.json { render json: @hours_spent.errors,
-                               status: :unprocessable_entity }
+          format.json { render json: @hour.errors,
+                        status: :unprocessable_entity }
         end
       end
     end
@@ -53,22 +53,23 @@ module Tasks
     # PATCH/PUT /hours_spents/1.json
     def update
       respond_to do |format|
-        if @hours_spent.update(hours_spent_params)
-          format.html { redirect_to @hours_spent.task,
-                                    notice: 'Endringene er lagret' }
+        if @hour.update(hours_spent_params)
+          format.html { redirect_to @hour.task,
+                        notice: 'Endringene er lagret' }
           format.json { head :no_content }
         else
           format.html { render action: 'edit' }
-          format.json { render json: @hours_spent.errors,
-                               status: :unprocessable_entity }
+          format.json { render json: @hour.errors,
+                        status: :unprocessable_entity }
         end
       end
     end
 
+
     # DELETE /hours_spents/1
     # DELETE /hours_spents/1.json
     def destroy
-      @hours_spent.destroy
+      @hour.destroy
       respond_to do |format|
         format.html { redirect_to hours_spents_url }
         format.json { head :no_content }
@@ -97,7 +98,7 @@ module Tasks
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_hours_spent
-      @hours_spent = HoursSpent.find(params[:id])
+      @hour = HoursSpent.find(params[:id])
     end
 
     def hours_spent_params
