@@ -95,6 +95,10 @@ class HoursSpent < ActiveRecord::Base
     self.of_kind == :personal
   end
 
+  def approve!
+    update_attribute(:approved, true)
+  end
+
 
   # TODO  Move into a date helper
   def self.week_numbers_for_dates(dates)
