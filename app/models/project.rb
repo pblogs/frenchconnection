@@ -90,27 +90,24 @@ class Project < ActiveRecord::Base
 
   # Used by /projects/:id/hours
   # Sums all hours for each user for the given month
-  def hours_for_all_users(month_nr)
-    m = month_nr
+  def hours_for_all_users(month_nr: nil, year: nil)
+    require 'ostruct'
     sum = []
-    users.each do |u|
-      hours          = hours_spents.month(m).where(user: u).sum(:hours)
-      overtime_50    = hours_spents.month(m).where(user: u).sum(:overtime_50)
-      overtime_100   = hours_spents.month(m).where(user: u).sum(:overtime_100)
-      runs_in_company_car = hours_spents.month(m).where(user: u)
-        .sum(:runs_in_company_car)
-      km_driven_own_car = hours_spents.month(m).where(user: u)
-        .sum(:km_driven_own_car)
-      toll_expenses_own_car = hours_spents.month(m).where(user: u)
-        .sum(:toll_expenses_own_car)
-      approved = hours_spents.where(user: u).not_approved.exists?
-
-      sum << { user: u, hours: hours, overtime_50: overtime_50,
-        overtime_100: overtime_100, runs_in_company_car: runs_in_company_car,
-        km_driven_own_car: km_driven_own_car,
-        toll_expenses_own_car: toll_expenses_own_car, approved: approved
-      }
+    if month_nr && year
+      users.each do |u|
+        sum_hours_for_user(user: u, month_nr: month_nr, year: year)
+        user = build_sum_for_user(u)
+        sum << user unless user.blank?
+      end
+    else
+      users.each do |u|
+        sum_hours_for_user_total(user: u)
+        user = build_sum_for_user(u)
+        sum << user unless user.blank?
+      end
     end
+    sum
+    #binding.pry
   end
 
   def hours_total_for(user, overtime: nil)
@@ -161,7 +158,6 @@ class Project < ActiveRecord::Base
   # Returns tasks where one or more user_tasks is not complete
   def find_task_by_status(status)
     ids = user_tasks.where(status: status).pluck(:task_id).uniq
-    puts "IDS: #{ids}"
     Task.find([ids]).all || nil
   end
 
@@ -230,6 +226,50 @@ class Project < ActiveRecord::Base
           project_hours[key][:sum] += v unless k == :sum
         end
       end
+    end
+
+    def sum_hours_for_user(user:, month_nr:, year:)
+      m = month_nr; y = year; u = user
+      @hour           = hours_spents.year(y).month(m).where(user: u).sum(:hour)
+      @overtime_50    = hours_spents.year(y).month(m).where(user: u).sum(:overtime_50)
+      @overtime_100   = hours_spents.year(y).month(m).where(user: u).sum(:overtime_100)
+      @runs_in_company_car = hours_spents.month(m).where(user: u)
+        .sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.month(m).where(user: u)
+        .sum(:km_driven_own_car)
+      @toll_expenses_own_car = hours_spents.month(m).where(user: u)
+        .sum(:toll_expenses_own_car)
+      @approved = hours_spents.month(m).year(y).where(user: u).not_approved.exists?
+    end
+    
+    def sum_hours_for_user_total(user:)
+      u = user
+      @hour           = hours_spents.where(user: u).sum(:hour)
+      @overtime_50    = hours_spents.where(user: u).sum(:overtime_50)
+      @overtime_100   = hours_spents.where(user: u).sum(:overtime_100)
+      @runs_in_company_car = hours_spents.where(user: u).sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.where(user: u).sum(:km_driven_own_car)
+      @toll_expenses_own_car = hours_spents.where(user: u)
+        .sum(:toll_expenses_own_car)
+      @approved = hours_spents.where(user: u).not_approved.exists?
+    end
+
+    def build_sum_for_user(u)
+      user = OpenStruct.new
+      user.user                  = u
+      user.hour                  = @hour
+      user.overtime_50           = @overtime_50
+      user.overtime_100          = @overtime_100
+      user.runs_in_company_car   = @runs_in_company_car
+      user.km_driven_own_car     = @km_driven_own_car
+      user.toll_expenses_own_car = @toll_expenses_own_car
+      user.approved              = @approved
+      return user if @hour > 0 ||
+        @overtime_50  > 0||
+        @overtime_100  > 0||
+        @runs_in_company_car > 0 ||
+        @km_driven_own_car > 0 ||
+        @toll_expenses_own_car > 0
     end
 
     def reorder_hash(project_hours)
