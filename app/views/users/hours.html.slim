@@ -5,6 +5,7 @@ ul.accordion
     li(class="#{ p == @project ? 'active' : nil }")
       = link_to p.name, user_hours_path(@user, p),
         class: 'js-accordion-trigger'
+      = link_to fa_icon('dashboard'), hours_path(p)
 
 /= render '/projects/year_and_month_selector'
 
