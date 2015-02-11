@@ -1,8 +1,9 @@
-h1 Editing hours_spent
+h1 Rediger timer
 
-== render 'form'
+- if @hour.user != @current_user
+  == render 'form_for_admin'
+- else
+  == render 'form'
 
-= link_to 'Vis', @hours_spent
-'|
-= link_to 'Tilbake', hours_spents_path
+= link_to t('back'), hours_spents_path
 
