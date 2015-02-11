@@ -1,10 +1,10 @@
-/h5= t('hours_spent.editing', project: @hours_spent.project.name)
 h5 Rediger timer
 
-br
-== render 'form'
+- if @hour.user != @current_user
+  == render 'form_for_admin'
+- else
+  == render 'form'
 
-= link_to t('show'), @hours_spent
-'|
+
 = link_to t('back'), hours_spents_path
 
