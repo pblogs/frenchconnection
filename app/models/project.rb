@@ -96,14 +96,14 @@ class Project < ActiveRecord::Base
     if month_nr && year
       users.each do |u|
         sum_hours_for_user(user: u, month_nr: month_nr, year: year)
-        user = build_sum_for_user(u)
-        sum << user unless user.blank?
+        hour = build_sum_for_user(u)
+        sum << hour unless hour.blank?
       end
     else
       users.each do |u|
         sum_hours_for_user_total(user: u)
-        user = build_sum_for_user(u)
-        sum << user unless user.blank?
+        hour = build_sum_for_user(u)
+        sum << hour unless hour.blank?
       end
     end
     sum
@@ -239,7 +239,8 @@ class Project < ActiveRecord::Base
         .sum(:km_driven_own_car)
       @toll_expenses_own_car = hours_spents.month(m).where(user: u)
         .sum(:toll_expenses_own_car)
-      @approved = hours_spents.month(m).year(y).where(user: u).not_approved.exists?
+      @approved = !hours_spents.month(m).year(y).where(user: u).not_approved.exists?
+      @hour_object = hours_spents.where(user: u).first
     end
     
     def sum_hours_for_user_total(user:)
@@ -251,24 +252,27 @@ class Project < ActiveRecord::Base
       @km_driven_own_car = hours_spents.where(user: u).sum(:km_driven_own_car)
       @toll_expenses_own_car = hours_spents.where(user: u)
         .sum(:toll_expenses_own_car)
-      @approved = hours_spents.where(user: u).not_approved.exists?
+      @approved = !hours_spents.where(user: u).not_approved.exists?
+      @hour_object = hours_spents.where(user: u).first
     end
 
     def build_sum_for_user(u)
-      user = OpenStruct.new
-      user.user                  = u
-      user.hour                  = @hour
-      user.overtime_50           = @overtime_50
-      user.overtime_100          = @overtime_100
-      user.runs_in_company_car   = @runs_in_company_car
-      user.km_driven_own_car     = @km_driven_own_car
-      user.toll_expenses_own_car = @toll_expenses_own_car
-      user.approved              = @approved
-      return user if @hour > 0 ||
-        @overtime_50  > 0||
-        @overtime_100  > 0||
-        @runs_in_company_car > 0 ||
-        @km_driven_own_car > 0 ||
+      hour = OpenStruct.new
+      hour.user                  = u
+      hour.hour                  = @hour
+      hour.hour_object           = @hour_object
+      hour.overtime_50           = @overtime_50
+      hour.overtime_100          = @overtime_100
+      hour.runs_in_company_car   = @runs_in_company_car
+      hour.km_driven_own_car     = @km_driven_own_car
+      hour.toll_expenses_own_car = @toll_expenses_own_car
+      hour.approved              = @approved
+
+      return hour if @hour     > 0 ||
+        @overtime_50           > 0 ||
+        @overtime_100          > 0 ||
+        @runs_in_company_car   > 0 ||
+        @km_driven_own_car     > 0 ||
         @toll_expenses_own_car > 0
     end
 

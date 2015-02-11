@@ -44,9 +44,15 @@ class UsersController < ApplicationController
     @project  = Project.find(params[:project_id])
     @projects = @user.projects
     @hours    = @project.hours_spents.where(user: @user)
+      .not_frozen_by_admin
+      .personal
+    @hours   += @project.hours_spents.where(user: @user).approved
+    #puts "hours is #{@hours.inspect}"
+    # Update all hours as approved. TODO: Use a separate function for this
     if request.post?
       @hours.each { |h| h.update_attribute(:approved, true) }
     end
+    #binding.pry
   end
 
   def create

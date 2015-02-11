@@ -1,8 +1,8 @@
-- if hours
+- if hours.present?
 
+  strong = title
   table#hours_registered
     tr
-      th Dato
       th Ansatt
       th Tekst
       th Timer
@@ -11,11 +11,10 @@
       th Servicebil
       th Km egen bil
       th Bomutg.
-      th Materiell
+      th Godkjent?
       th 
     - hours.each do |hour|
       tr
-        td= hour.date.strftime("%d/%m")
         td= hour.user.try(:name)
         td= hour.description
         td= hour.hour
@@ -24,14 +23,16 @@
         td= hour.runs_in_company_car
         td= hour.km_driven_own_car
         td= hour.toll_expenses_own_car
-        td= simple_format hour.supplies_from_warehouse
+        td= hour.approved ? t('jupp') : t('nope')
         td= link_to fa_icon('pencil-square-o'),
-              edit_task_hours_spent_path(hour.task, hour)
+              user_hours_path(hour.user, hour.hour_object.project)
 - else
   br
   br
   p Det er ikke registert noen timer på dette prosjektet.
   br
   br
-= link_to 'Vis alle', hours_path({:show_all => 1}), class: 'pull-right'
+
+- unless params[:show_all]
+  = link_to 'Vis alle', hours_path({:show_all => 1}), class: 'pull-right'
 

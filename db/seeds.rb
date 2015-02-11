@@ -123,19 +123,19 @@ male_task.save
 # HoursSpent for Danni - Snekker
 # Only for week 1 in 2014
 Fabricate(:hours_spent, date: '01.01.2014', hour: 11,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 11 vanlige timer')
 
 Fabricate(:hours_spent, date: '02.01.2014', overtime_50: 12,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 12 timer 50% overtid')
 
 Fabricate(:hours_spent, date: '03.01.2014', overtime_100: 13,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 13 timer 100% overtid')
 
 Fabricate(:hours_spent, date: '04.01.2014', overtime_100: 20,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 20 timer 100% overtid')
 
 
