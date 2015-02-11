@@ -24,10 +24,9 @@
 #  changed_by_user_id      :integer
 #
 
-# When a user registers hours on a task, it's registered as personal hours.
-# The project leader can list these hours pr month on each project.
-# If the project leader wants to approve or change anything, he needs to press 
-# freeze hours. This will make a billabel copy of the personal hours.
+# When a user registers hours on a task, it's registered as personal hours. HoursSpent.new(of_kind: :personal)
+# The project leader can list these hours pr month on each project. If the project leader wants to approve or change anything,
+# he needs to press freeze hours. This will make a billabel copy of the personal hours. HoursSpent.new(of_kind: :billable)
 #
 # The 'Approve hours' and edit options will be available after 'freeze hours' is clicked.
 # The personal hours in this scope will ba marked as frozen. 
