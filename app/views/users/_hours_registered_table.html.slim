@@ -27,10 +27,14 @@
         td
           span(class="#{'badge-success' if hour.approved?}")
             = t(hour.approved? ? 'jupp' : 'nope')
-            - if hour.billable?
-              = " (Redigert)" 
+          - if hour.billable?
+            .tooltip-item
+              =  'Redigert'
+              .tooltip 
+                p= hour.change_reason
         td= link_to fa_icon('pencil-square-o'),
-              edit_task_hours_spent_path(hour.task, hour)
+              edit_task_hours_spent_path(hour.task, hour), id: 'edit_hour'
+
   = button_to 'Godkjenn timene', user_approve_hours_path(@user, @project),
     class: 'btn btn-primary'
 - else

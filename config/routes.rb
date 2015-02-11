@@ -86,13 +86,13 @@ AllieroForms::Application.routes.draw do
   end
 
   resources :hours_spents do
-    post :for_admin
-    get :for_admin
-    patch :for_admin
   end
   resources :tasks do
     post :save_and_order_resources,   as: :save_and_order_resources
     resources :hours_spents, :controller => 'tasks/hours_spents' do
+      post :for_admin
+      get :for_admin
+      patch :for_admin
     end
     member do
       post :complete

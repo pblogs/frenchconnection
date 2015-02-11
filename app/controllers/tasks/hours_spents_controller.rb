@@ -83,14 +83,18 @@ module Tasks
     def for_admin
       @hour = HoursSpent.find(params[:hours_spent_id])
       if request.patch? 
-        @new_hour = HoursSpent.new(@hour.attributes
-          .except('id', 'created_at', 'updated_at'))
-        @new_hour.update_attributes(hours_spent_params)
-        @new_hour.old_values = @hour.attributes
-        @new_hour.of_kind = 'billable'
-        if @new_hour.save!
-          @hour.update_attribute(:frozen_by_admin, true)
+
+        if @hour.personal?
+          @new_hour = create_billable_hour
+          if @new_hour.save!
+            #binding.pry
+            #raise "Saving new hours: #{@new_hour.inspect}"
+            @hour.update_attribute(:frozen_by_admin, true)
+          end
+        elsif @hour.billable?
+          @hour.update(hours_spent_params)
         end
+
       end
       redirect_to user_hours_path(@hour.user, @hour.project)
     end
@@ -101,6 +105,20 @@ module Tasks
       @hour = HoursSpent.find(params[:id])
     end
 
+    def create_billable_hour
+      new_hour = HoursSpent.new(@hour.attributes
+        .except('id', 'created_at', 'updated_at'))
+      new_hour.update_attributes(hours_spent_params)
+      new_hour.old_values = @hour.attributes
+      new_hour.of_kind = :billable
+      new_hour
+      #binding.pry
+    end
+
+
+
+
+
     def hours_spent_params
       params.require(:hours_spent).permit(:customer_id,
                                           :task_id,
@@ -110,6 +128,7 @@ module Tasks
                                           :overtime_100,
                                           :runs_in_company_car,
                                           :km_driven_own_car,
+                                          :change_reason,
                                           :toll_expenses_own_car,
                                           :supplies_from_warehouse,
                                           :piecework_hours,

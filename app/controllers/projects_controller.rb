@@ -87,21 +87,23 @@ class ProjectsController < ApplicationController
 
   def hours
     if params[:show_all].present?
-      @new_hours = @project.hours_spents.personal.not_frozen_by_admin
-      @billable_approved = @project.hours_spents.billable.approved
-      @billable_not_approved = @project.hours_spents.billable.not_approved
+      @hours = @project.hours_for_all_users
+      #raise "hours: #{@hours.inspect}"
+      #@billable_not_approved = @project.hours_spents.billable.not_approved
     else
       @year  = params[:date].present? ? params[:date][:year].to_i  : Time.now.year
       @month = params[:date].present? ? params[:date][:month].to_i : Time.now.month
-      @new_hours             = @project.hours_spents.personal
-                                .not_frozen_by_admin
-                                .month(@month).year(@year)
-      @billable_approved     = @project.hours_spents
-                                .billable.approved
-                                .month(@month).year(@year)
-      @billable_not_approved = @project.hours_spents.billable
-                                .not_approved
-                                .month(@month).year(@year)
+      @hours = @project.hours_for_all_users(month_nr: @month, year: @year)
+
+      #@new_hours             = @project.hours_spents.personal
+      #                          .not_frozen_by_admin
+      #                          .month(@month).year(@year)
+      #@billable_approved     = @project.hours_spents
+      #                          .billable.approved
+      #                          .month(@month).year(@year)
+      #@billable_not_approved = @project.hours_spents.billable
+      #                          .not_approved
+      #                          .month(@month).year(@year)
     end
   end
 
