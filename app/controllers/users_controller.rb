@@ -46,8 +46,9 @@ class UsersController < ApplicationController
     @hours    = @project.hours_spents.where(user: @user)
       .not_frozen_by_admin
       .personal
-    @hours   += @project.hours_spents.where(user: @user).approved
-    #puts "hours is #{@hours.inspect}"
+    @hours += @project.hours_spents.where(user: @user).approved
+    @hours += @project.hours_spents.where(user: @user).billable
+
     # Update all hours as approved. TODO: Use a separate function for this
     if request.post?
       @hours.each { |h| h.update_attribute(:approved, true) }

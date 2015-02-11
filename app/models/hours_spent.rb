@@ -96,7 +96,11 @@ class HoursSpent < ActiveRecord::Base
   end
 
   def approve!
-    update_attribute(:approved, true)
+    update_attributes(approved: true, frozen_by_admin: true)
+  end
+
+  def requires_approval?
+    personal? && !frozen_by_admin
   end
 
 

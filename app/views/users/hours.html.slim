@@ -8,7 +8,6 @@ ul.accordion
 
 /= render '/projects/year_and_month_selector'
 
-.shadow-box
-  p
-  = render partial: 'hours_registered_table',
-    locals: { hours: @hours }
+= render partial: 'hours_registered_table',
+  locals: { hours: @hours, title: '' }
+

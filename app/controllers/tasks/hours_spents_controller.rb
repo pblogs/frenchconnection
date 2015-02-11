@@ -76,6 +76,12 @@ module Tasks
       end
     end
 
+    def approve
+      @hour = HoursSpent.find(params[:hours_spent_id])
+      @hour.approve!
+      redirect_to user_hours_path(@hour.user, @hour.project)
+    end
+
     # hours_spent_for_admin 
     # POST   /hours_spents/:hours_spent_id/for_admin(.:format) 
     # GET    /hours_spents/:hours_spent_id/for_admin(.:format)
