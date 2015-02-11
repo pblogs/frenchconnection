@@ -78,17 +78,20 @@ describe Project do
     end
 
     describe 'hours_total_for(user)' do
-      it "knows how many hours each of them as worked" do
-        Fabricate(:hours_spent, hour: 10, task: @task, user: @john_snekker)
-        Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @john_snekker)
-        # Test creating hours on an other user
+      before do
+        Fabricate(:hours_spent, of_kind: 'billable', hour: 10,
+                  task: @task, user: @john_snekker)
+        Fabricate(:hours_spent, approved: true, piecework_hours: 10,
+                  task: @task, user: @john_snekker)
+        # This should not be counted
         Fabricate(:hours_spent, hour: 10, task: @task, user: @barry_snekker)
-        @project.hours_total_for(@john_snekker, overtime: :hour).should eq 20
       end
 
-      it 'hours_total_for(user)' do
+      it "sums approved and billable hours" do
         @project.hours_total_for(@john_snekker, overtime: :hour).should eq 10
+        @project.hours_total_for(@john_snekker).should eq 20
       end
+
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
         @project.hours_spent_for_profession(@snekker, overtime: :hour)
@@ -102,40 +105,16 @@ describe Project do
 
       it "hours_spent_total" do
         HoursSpent.destroy_all
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @mustafa_murer)
-        Fabricate(:hours_spent, task: @task,
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @john_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task,
+                  hour: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task,
                   overtime_50: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, task: @task, overtime_100: 10,
-                           user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task,
+                  overtime_100: 10, user: @mustafa_murer)
         @project.reload
         @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
-      end
-
-      context "a complete project" do
-        before do
-          HoursSpent.destroy_all
-          Fabricate(:hours_spent, of_kind: :billable, task: @task,
-                    hour: 50, user: @john_snekker)
-          Fabricate(:hours_spent, of_kind: :personal, task: @task, hour: 10,
-                    user: @john_snekker)
-        end
-
-        context "a UNcomplete project" do
-          it "hours_spent_total" do
-            @project.update_attribute(:complete, true)
-            @project.hours_spent_total(profession: @snekker,
-                                       overtime: :hour).should eq 50
-          end
-        end
-
-        context "a UNcomplete project" do
-          it "hours_spent_total" do
-            @project.hours_spent_total(profession: @snekker,
-                                       overtime: :hour).should eq 10
-          end
-        end
       end
 
     end

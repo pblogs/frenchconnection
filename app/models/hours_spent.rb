@@ -48,6 +48,7 @@
 # PDF reports generated will use the billable and approved hours.
 # 
 class HoursSpent < ActiveRecord::Base
+  TYPES = %w(hour piecework_hours overtime_50 overtime_100)
   belongs_to :user
   belongs_to :task
   belongs_to :project
