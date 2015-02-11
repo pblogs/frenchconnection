@@ -74,7 +74,7 @@ class HoursSpent < ActiveRecord::Base
   scope :personal,   -> { where(of_kind: 'personal') } 
   scope :billable,   -> { where(of_kind: 'billable') } 
   scope :approved,   -> { where(approved: true) } 
-  scope :not_approved,   -> { where(approved: false) } 
+  scope :not_approved,   -> { personal.not_frozen_by_admin.where(approved: false) } 
   scope :frozen_by_admin, -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
 
