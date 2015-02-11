@@ -23,9 +23,22 @@
         td= hour.runs_in_company_car
         td= hour.km_driven_own_car
         td= hour.toll_expenses_own_car
-        td= hour.approved ? t('jupp') : t('nope')
+        td.approved= hour.approved ? t('jupp') : t('nope')
         td= link_to fa_icon('pencil-square-o'),
               user_hours_path(hour.user, hour.hour_object.project)
+
+
+  br
+  = button_to t('hours_spent.approve_all_hours'),
+    project_approve_hours_path(@project),
+    params: { year: @year, month: @month] },
+    class: 'btn btn-primary'
+
+  = button_to t('hours_spent.generate_pdf'),
+    project_approve_hours_path(@project),
+    params: { year: @year, month: @month] },
+    class: 'btn btn-primary'
+
 - else
   br
   br
@@ -34,5 +47,5 @@
   br
 
 - unless params[:show_all]
-  = link_to 'Vis alle', hours_path({:show_all => 1}), class: 'pull-right'
+  = link_to t('hours_spent.show_all'), hours_path({:show_all => 1}), class: 'pull-right'
 
