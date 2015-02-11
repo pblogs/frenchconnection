@@ -51,7 +51,7 @@ class UsersController < ApplicationController
 
     # Update all hours as approved. TODO: Use a separate function for this
     if request.post?
-      @hours.each { |h| h.update_attribute(:approved, true) }
+      @hours.each { |h| h.approve! }
     end
     #binding.pry
   end
