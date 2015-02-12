@@ -11,6 +11,8 @@ module V1
     mount MobilePictures
     mount BlogArticles
     mount BlogProjects
+    mount Certificates
+    mount Skills
 
   end
 end
