@@ -94,7 +94,6 @@ describe V1::Tasks do
       user.save
       get "/api/v1/tasks/available/#{ user.id }"
       hash = JSON.parse(response.body)
-      #puts "ARRAY: #{hash}"
       hash['tasks'].length.should eq 2
       task_descriptions = hash['tasks'].collect { |task| task['description'] }
       # same elements, order unimportant
