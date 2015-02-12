@@ -1,7 +1,6 @@
 AllieroForms::Application.routes.draw do
 
   ActiveAdmin.routes(self)
-  resources :changes
 
   namespace :inventories do
     post :search
@@ -11,7 +10,6 @@ AllieroForms::Application.routes.draw do
   resources :skills
   resources :certificates
   resources :inventories
-  resources :changes
   resources :departments
   resources :attachments
 
@@ -26,7 +24,7 @@ AllieroForms::Application.routes.draw do
   get 'monthly_report/:project_id/:year/:month/:overtime' => 'excel#monthly_report',
       as: :monthly_report
 
-  get '/projects/:id/hours_registered' => 'projects#hours_registered', as: :hours_registered
+  get '/projects/:id/hours' => 'projects#hours', as: :hours
   resources :projects do
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task
@@ -71,6 +69,8 @@ AllieroForms::Application.routes.draw do
   resources :users do 
     get '/tasks/started'     => 'users/tasks#started'
     get '/tasks/not_started' => 'users/tasks#not_started'
+    get '/projects/:project_id/hours'=> 'users#hours', as: :hours
+    post '/projects/:project_id/hours'=> 'users#hours', as: :approve_hours
     resources :tasks, :controller => 'users/tasks' do
       post :accept_task
       post :finished
@@ -85,13 +85,16 @@ AllieroForms::Application.routes.draw do
     
   end
 
-  resources :hours_spents
-  resources :hours_spent do
-    resources :changes, :controller => 'hours_spent/changes'
+  resources :hours_spents do
   end
   resources :tasks do
     post :save_and_order_resources,   as: :save_and_order_resources
-    resources :hours_spents, :controller => 'tasks/hours_spent'
+    resources :hours_spents, :controller => 'tasks/hours_spents' do
+      post :for_admin
+      get :for_admin
+      patch :for_admin
+      get  :approve
+    end
     member do
       post :complete
     end

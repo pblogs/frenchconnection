@@ -1,0 +1,33 @@
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  = fa_icon 'chevron-right'
+  = link_to @project.name, customer_project_path(@project.customer, @project)
+  = fa_icon 'chevron-right'
+  strong= 'Timelister'
+
+  h1 = "Timer registrert på #{@project.name}"
+  br 
+  br 
+  br 
+  = render 'year_and_month_selector'
+
+/- if @hours_registered.present?
+/  .button-group
+/    label
+/      span.button-group-item.tooltip-item(data-no-turbolink)
+/        = link_to 'Lag dagrapport', project_project_reports_path(@project, 
+/          type: 'daily_report'), method: :post
+/    label
+/      span.button-group-item.tooltip-item(data-no-turbolink)
+/        = link_to 'Lag timelister', project_project_reports_path(@project, 
+/          type: 'timesheet'), method: :post
+
+
+
+
+= render partial: 'hours_registered_table',
+  locals: { hours: @hours, title: "Sum timer pr ansatt på dette prosjektet" }
+
+
+br
+= link_to 'Tilbake', :back

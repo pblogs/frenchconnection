@@ -31,4 +31,6 @@ Fabricator(:hours_spent) do
   task        { Fabricate(:task) }
   project     { Fabricate(:project) }
   user        { Fabricate(:user) }
+  of_kind     'personal'
+  approved    false
 end

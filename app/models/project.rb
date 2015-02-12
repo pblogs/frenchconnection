@@ -81,34 +81,46 @@ class Project < ActiveRecord::Base
     all.select { |h| h.send(overtime).present? }
   end
 
-  def hours_spent_total(profession: nil, changed: false, overtime: )
-    users = profession ? users_with_profession(profession: profession) : users
+  def hours_spent_total(profession: nil,  overtime: )
+    users = profession ? users_with_profession(profession: profession) : self.users
     sum = 0
-    users.each { |u| sum += hours_total_for(u, changed: changed, overtime: overtime) rescue 0} 
+    users.each { |u| sum += hours_total_for(u, overtime: overtime) rescue 0} 
     sum
   end
 
-  def hours_total_for(user, changed: false, overtime:)
+  # Used by /projects/:id/hours
+  # Sums all hours for each user for the given month
+  def hours_for_all_users(month_nr: nil, year: nil)
+    require 'ostruct'
+    sum = []
+    if month_nr && year
+      users.each do |u|
+        sum_hours_for_user(user: u, month_nr: month_nr, year: year)
+        hour = build_sum_for_user(u)
+        sum << hour unless hour.blank?
+      end
+    else
+      users.each do |u|
+        sum_hours_for_user_total(user: u)
+        hour = build_sum_for_user(u)
+        sum << hour unless hour.blank?
+      end
+    end
+    sum
+    #binding.pry
+  end
+
+  def hours_total_for(user, overtime: nil)
     sum = 0
-    hours_spents.where(user: user).each do |h|
-      if changed
-        if overtime
-          sum += h.changed_value(overtime)        || 0
-        else
-          sum += h.changed_value_hour             || 0
-          sum += h.changed_value_piecework_hours  || 0
-          sum += h.changed_value_overtime_50      || 0
-          sum += h.changed_value_overtime_100     || 0
-        end
-      else
-        if overtime
-          sum += h.send(overtime)    || 0
-        else
-          sum += h.hour             || 0
-          sum += h.piecework_hours  || 0
-          sum += h.overtime_50      || 0
-          sum += h.overtime_100     || 0
-        end
+    # Summer approved og billable
+    #binding.pry
+    if overtime
+      sum += hours_spents.where(user: user).billable.sum(overtime)
+      sum += hours_spents.where(user: user).approved.sum(overtime)
+    else
+      HoursSpent::TYPES.each do |type|
+        sum += hours_spents.where(user: user).billable.sum(type)
+        sum += hours_spents.where(user: user).approved.sum(type)
       end
     end
     sum ? sum : 0
@@ -146,7 +158,6 @@ class Project < ActiveRecord::Base
   # Returns tasks where one or more user_tasks is not complete
   def find_task_by_status(status)
     ids = user_tasks.where(status: status).pluck(:task_id).uniq
-    puts "IDS: #{ids}"
     Task.find([ids]).all || nil
   end
 
@@ -215,6 +226,54 @@ class Project < ActiveRecord::Base
           project_hours[key][:sum] += v unless k == :sum
         end
       end
+    end
+
+    def sum_hours_for_user(user:, month_nr:, year:)
+      m = month_nr; y = year; u = user
+      @hour           = hours_spents.year(y).month(m).where(user: u).sum(:hour)
+      @overtime_50    = hours_spents.year(y).month(m).where(user: u).sum(:overtime_50)
+      @overtime_100   = hours_spents.year(y).month(m).where(user: u).sum(:overtime_100)
+      @runs_in_company_car = hours_spents.month(m).where(user: u)
+        .sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.month(m).where(user: u)
+        .sum(:km_driven_own_car)
+      @toll_expenses_own_car = hours_spents.month(m).where(user: u)
+        .sum(:toll_expenses_own_car)
+      @approved = !hours_spents.month(m).year(y).where(user: u).not_approved.exists?
+      @hour_object = hours_spents.where(user: u).first
+    end
+    
+    def sum_hours_for_user_total(user:)
+      u = user
+      @hour           = hours_spents.where(user: u).sum(:hour)
+      @overtime_50    = hours_spents.where(user: u).sum(:overtime_50)
+      @overtime_100   = hours_spents.where(user: u).sum(:overtime_100)
+      @runs_in_company_car = hours_spents.where(user: u).sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.where(user: u).sum(:km_driven_own_car)
+      @toll_expenses_own_car = hours_spents.where(user: u)
+        .sum(:toll_expenses_own_car)
+      @approved = !hours_spents.where(user: u).not_approved.exists?
+      @hour_object = hours_spents.where(user: u).first
+    end
+
+    def build_sum_for_user(u)
+      hour = OpenStruct.new
+      hour.user                  = u
+      hour.hour                  = @hour
+      hour.hour_object           = @hour_object
+      hour.overtime_50           = @overtime_50
+      hour.overtime_100          = @overtime_100
+      hour.runs_in_company_car   = @runs_in_company_car
+      hour.km_driven_own_car     = @km_driven_own_car
+      hour.toll_expenses_own_car = @toll_expenses_own_car
+      hour.approved              = @approved
+
+      return hour if @hour     > 0 ||
+        @overtime_50           > 0 ||
+        @overtime_100          > 0 ||
+        @runs_in_company_car   > 0 ||
+        @km_driven_own_car     > 0 ||
+        @toll_expenses_own_car > 0
     end
 
     def reorder_hash(project_hours)

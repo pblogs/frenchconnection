@@ -3,9 +3,9 @@ class HoursSpentsController < ApplicationController
 
   # GET /hours_spents
   # GET /hours_spents.json
-  def index
-    @hours_spents = HoursSpent.all
-  end
+  #def index
+  # Not used by anyone
+  #end
 
   # GET /hours_spents/1
   # GET /hours_spents/1.json
@@ -20,6 +20,7 @@ class HoursSpentsController < ApplicationController
   # GET /hours_spents/1/edit
   def edit
   end
+
 
   # POST /hours_spents
   # POST /hours_spents.json
@@ -69,16 +70,23 @@ class HoursSpentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hours_spent
-      @hours_spent = HoursSpent.find(params[:id])
+      @hour = HoursSpent.find(params[:id])
     end
 
     def hours_spent_params
-      params.require(:hours_spent).permit(:customer_id, :task_id, :hour, 
-                                          :user_id, :customer, :project_id,
+      params.require(:hours_spent).permit(:customer_id,
+                                          :task_id,
+                                          :user_id,
+                                          :project_id,
+                                          :overtime_50,
+                                          :overtime_100,
                                           :runs_in_company_car,
-                                          :km_driven_own_car, 
+                                          :km_driven_own_car,
+                                          :toll_expenses_own_car,
                                           :supplies_from_warehouse,
-                                          :description, :date)
+                                          :change_reason,
+                                          :piecework_hours,
+                                          :hour, :description, :date)
     end
 
 end

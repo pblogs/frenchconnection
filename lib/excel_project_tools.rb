@@ -9,13 +9,14 @@ class ExcelProjectTools
   #end
   
   # Returns an array with nr of hours 
-  def self.hours_for_users(project:, profession:, changed: false, overtime:)
+  def self.hours_for_users(project:, profession:,  overtime:)
+    raise "you can only generate excel when the project is completed" unless project.complete?
     hours = []
     project.users.where(profession: profession).each do |user|
       hours_spent = []
-      hours_spent << project.hours_spents.where(user: user).all
+      hours_spent << project.hours_spents.billable.where(user: user).all
       hours_spent.flatten!
-      hours << hours_spent.map { |hs| hs.changed_value(overtime) }
+      hours << hours_spent.map { |hs| hs.send(overtime) }
     end
     hours.flatten!
     hours.map {|x| "#{x}" }

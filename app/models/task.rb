@@ -50,6 +50,11 @@ class Task < ActiveRecord::Base
   attr_accessor :department_id
   attr_accessor :goto_tools
 
+  def active?
+    ended_at.blank? && finished == false ||
+    project.complete?
+  end
+
   def hours_total
     self.hours_spents.sum(:hour) +
     self.hours_spents.sum(:piecework_hours) +

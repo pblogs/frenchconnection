@@ -8,7 +8,7 @@ table
       th Antall timer
 
   tbody
-    - @hours_spents.each do |hours_spent|
+    - @hours.each do |hours_spent|
       tr
         td = hours_spent.task.customer.name
         td = hours_spent.description

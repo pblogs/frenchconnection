@@ -51,9 +51,9 @@ describe Project do
       @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10,
                                       task: @task,
                                       user: @john_snekker)
-      @hours_for_snakker2 = Fabricate(:hours_spent, piecework_hours: 10,
+      @hours_for_barry    = Fabricate(:hours_spent, piecework_hours: 10,
                                       task: @task,
-                                      user: @john_snekker)
+                                      user: @barry_snekker)
       # Overtime 100
       @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100,
                                             task: @task,
@@ -78,27 +78,20 @@ describe Project do
     end
 
     describe 'hours_total_for(user)' do
-      it "knows how many hours each of them as worked" do
-        Fabricate(:hours_spent, hour: 10, task: @task, user: @john_snekker)
-        Fabricate(:hours_spent, piecework_hours: 10, task: @task, user: @john_snekker)
-        # Test creating hours on an other user
+      before do
+        Fabricate(:hours_spent, of_kind: 'billable', hour: 10,
+                  task: @task, user: @john_snekker)
+        Fabricate(:hours_spent, approved: true, piecework_hours: 10,
+                  task: @task, user: @john_snekker)
+        # This should not be counted
         Fabricate(:hours_spent, hour: 10, task: @task, user: @barry_snekker)
-        @project.hours_total_for(@john_snekker, overtime: :hour).should eq 20
       end
 
-      it 'hours_total_for(user, changed: true)' do
-
-        @change1 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker1,
-                                                 reason: 'works slow' )
-        @change2 = Change.create_from_hours_spent(hours_spent: @hours_for_snakker2,
-                                                 reason: 'works slow' )
-        @change1.hour            = 1
-        @change2.piecework_hours = 1
-        @change1.save
-        @change2.save
-
-        @project.hours_total_for(@john_snekker, changed: true, overtime: :hour).should eq 1
+      it "sums approved and billable hours" do
+        @project.hours_total_for(@john_snekker, overtime: :hour).should eq 10
+        @project.hours_total_for(@john_snekker).should eq 20
       end
+
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
         @project.hours_spent_for_profession(@snekker, overtime: :hour)
@@ -112,28 +105,18 @@ describe Project do
 
       it "hours_spent_total" do
         HoursSpent.destroy_all
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, task: @task, hour: 10, user: @mustafa_murer)
-        Fabricate(:hours_spent, task: @task,
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @john_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task,
+                  hour: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task,
                   overtime_50: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, task: @task, overtime_100: 10,
-                           user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task,
+                  overtime_100: 10, user: @mustafa_murer)
         @project.reload
         @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
       end
 
-      it "hours_spent_total(changed: true)" do
-        HoursSpent.destroy_all
-        @hour10 = Fabricate(:hours_spent, task: @task, hour: 10, user: @john_snekker)
-        @change = Change.create_from_hours_spent(hours_spent: @hour10,
-                                                 reason: 'works slow' )
-        @change.update_attribute(:hour, 1)
-        @change.reload
-        @project.reload
-        @project.hours_spent_total(profession: @snekker,
-                                   changed: true, overtime: :hour).should eq 1
-      end
     end
 
 
@@ -226,7 +209,14 @@ describe Project do
       @task2.user_tasks.each { |t| t.update_attribute(:status, :complete) }
       @project.completed_tasks.should eq [@task2]
     end
-    
   end
+
+  #describe 'Calculations' do
+  #  before do
+  #    @project = Fabricate(:project)
+  #    @task = Fabricate(:task, project: @project)
+  #    Fabricate(:hours_spent, hour: 10, )
+  #  end
+  #end
 
 end

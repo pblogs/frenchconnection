@@ -96,7 +96,7 @@ class DailyReport
             @project.hours_spents.where(user: user).each do |hours_spent|
               next unless (hours_spent.send(@overtime) > 0 rescue nil)
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
-                hours_spent.changed_value_description(:normal)] + 
+                hours_spent.description] + 
                 offsett(ai) + [hours_spent.send(@overtime)]
                 # denne returnerer nok ikke fra changed ^
               i += 1 
@@ -125,7 +125,7 @@ class DailyReport
           # Sum timer totalt
           sheet.add_row ['', 'Sum timer totalt: ',
                          @project.hours_spent_total(profession: @profession,
-                           changed: true, overtime: @overtime), 
+                           overtime: @overtime), 
                            nil, nil, nil, nil, nil, nil, nil, 
                            nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 

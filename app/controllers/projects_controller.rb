@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
-                                     :hours_registered, :complete]
+                                     :hours, :complete]
+  before_action :set_months, only: [:hours]
 
   # GET /projects
   # GET /projects.json
@@ -84,39 +85,61 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def hours_registered
-    @hours_registered =  @project.hours_spents.all
+  def hours
+    if params[:show_all].present?
+      @hours = @project.hours_for_all_users
+      #raise "hours: #{@hours.inspect}"
+      #@billable_not_approved = @project.hours_spents.billable.not_approved
+    else
+      @year  = params[:date].present? ? params[:date][:year].to_i  : Time.now.year
+      @month = params[:date].present? ? params[:date][:month].to_i : Time.now.month
+      @hours = @project.hours_for_all_users(month_nr: @month, year: @year)
+
+      #@new_hours             = @project.hours_spents.personal
+      #                          .not_frozen_by_admin
+      #                          .month(@month).year(@year)
+      #@billable_approved     = @project.hours_spents
+      #                          .billable.approved
+      #                          .month(@month).year(@year)
+      #@billable_not_approved = @project.hours_spents.billable
+      #                          .not_approved
+      #                          .month(@month).year(@year)
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    def project_params
-      params.require(:project).permit(:project_number, 
-                                      :attachment,
-                                      :billing_address, 
-                                      :customer_id,
-                                      :customer_reference, 
-                                      :comment, 
-                                      :delivery_address, 
-                                      :due_date,
-                                      :description,
-                                      :execution_address, 
-                                      :name, 
-                                      :department_id,
-                                      :start_date,
-                                      :company_id
-                                     )
-    end
+  def set_months
+    @months = (1..12).to_a
+  end
 
-    def set_favorite
-      if params[:starred]
-        @current_user.favorites << @project.set_as_favorite
-      else
-        @project.unset_favorite(@current_user)
-      end
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  def project_params
+    params.require(:project).permit(:project_number, 
+                                    :attachment,
+                                    :billing_address, 
+                                    :customer_id,
+                                    :customer_reference, 
+                                    :comment, 
+                                    :delivery_address, 
+                                    :due_date,
+                                    :description,
+                                    :execution_address, 
+                                    :name, 
+                                    :department_id,
+                                    :start_date,
+                                    :company_id
+                                   )
+  end
+
+  def set_favorite
+    if params[:starred]
+      @current_user.favorites << @project.set_as_favorite
+    else
+      @project.unset_favorite(@current_user)
     end
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128093158) do
+ActiveRecord::Schema.define(version: 20150211193951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,10 @@ ActiveRecord::Schema.define(version: 20150128093158) do
     t.integer  "hour"
     t.string   "text"
     t.text     "reason"
+    t.integer  "user_id"
   end
+
+  add_index "changes", ["user_id"], name: "index_changes_on_user_id", using: :btree
 
   create_table "customer_messages", force: true do |t|
     t.string   "text"
@@ -189,6 +192,13 @@ ActiveRecord::Schema.define(version: 20150128093158) do
     t.float    "km_driven_own_car"
     t.float    "toll_expenses_own_car"
     t.string   "supplies_from_warehouse"
+    t.string   "of_kind",                 default: "personal"
+    t.integer  "billable_id"
+    t.integer  "personal_id"
+    t.boolean  "approved",                default: false
+    t.boolean  "frozen_by_admin",         default: false
+    t.text     "change_reason"
+    t.text     "old_values"
   end
 
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree

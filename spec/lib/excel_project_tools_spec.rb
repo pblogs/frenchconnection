@@ -17,17 +17,18 @@ describe ExcelProjectTools do
 
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
     Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
-    @hours_for_jens = Fabricate(:hours_spent, hour: 19, 
+    @hours_for_jens = Fabricate(:hours_spent, hour: 19, overtime_50: 50,
                                         task: @task, user: @snekker1 )
   end
 
-  it 'comma separated string with changed values for overtime' do
-    @change = Change.create_from_hours_spent(hours_spent: @hours_for_jens, 
-       reason: 'adjusted' )
-    @change.update_attribute(:hour, 1)
+  it 'comma separated string with billable hours' do
+    @project.update_attribute(:complete, true)
+    @hours_for_jens.update_attribute(:of_kind, 'billable')
     snekker = Profession.where(title: 'Snekker')
     ExcelProjectTools.hours_for_users(project: @project, overtime: :hour,
-      profession: snekker, changed: true).should eq ['1']
+      profession: snekker ).should eq ['19']
+    ExcelProjectTools.hours_for_users(project: @project, overtime: :overtime_50,
+      profession: snekker ).should eq ['50']
   end
 
 
