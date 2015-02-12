@@ -1,6 +1,7 @@
 module Tasks
   class HoursSpentsController < ApplicationController
     before_action :set_hours_spent, only: [:show, :edit, :update, :destroy]
+    before_action :set_by_hours_spent_id, only: [:approve, :for_admin]
     before_action :set_task
 
     # GET /hours_spents
@@ -77,7 +78,6 @@ module Tasks
     end
 
     def approve
-      @hour = HoursSpent.find(params[:hours_spent_id])
       @hour.approve!
       redirect_to user_hours_path(@hour.user, @hour.project)
     end
@@ -87,16 +87,10 @@ module Tasks
     # GET    /hours_spents/:hours_spent_id/for_admin(.:format)
     # PATCH  /hours_spents/:hours_spent_id/for_admin(.:format)
     def for_admin
-      @hour = HoursSpent.find(params[:hours_spent_id])
       if request.patch? 
-
         if @hour.personal?
           @new_hour = create_billable_hour
-          if @new_hour.save!
-            #binding.pry
-            #raise "Saving new hours: #{@new_hour.inspect}"
-            @hour.update_attribute(:frozen_by_admin, true)
-          end
+          @hour.update_attribute(:frozen_by_admin, true) if @new_hour.save!
         elsif @hour.billable?
           @hour.update(hours_spent_params)
         end
@@ -144,5 +138,10 @@ module Tasks
     def set_task
       @task = Task.find(params[:task_id])
     end
+
+    def set_by_hours_spent_id
+      @hour = HoursSpent.find(params[:hours_spent_id])
+    end
+
   end
 end
