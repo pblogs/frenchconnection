@@ -19,26 +19,26 @@ describe V1::HoursSpent do
   
   # creates HoursSpent for user on task on date
   describe 'POST /api/v1/hours_spents/users/:user_id/tasks/:task_id/dates/:date' do
+    before do
+      @date = Date.parse '2014-01-01'
+      @task = Fabricate(:task)
+      @user = Fabricate(:user)
+    end
+
     it 'creates HoursSpent for user on task on date and returns its id' do
-      date = Date.parse '2014-01-01'
-      task = Fabricate(:task)
-      user = Fabricate(:user)
-      
-      post "/api/v1/hours_spents/users/#{ user.id }/" +
-           "tasks/#{ task.id }/dates/#{ date }", 
+      post "/api/v1/hours_spents/users/#{ @user.id }/" +
+           "tasks/#{ @task.id }/dates/#{ @date }", 
            { description: 'Malte hus', hour: 5 }
            
       hours_spent_id = response.body
-      
-      another_hours_spent = Fabricate(:hours_spent)
-      
-      hours_spent = HoursSpent.find(hours_spent_id)
+      hours_spent    = HoursSpent.find(hours_spent_id)
       
       hours_spent.hour.should eq 5
       hours_spent.description.should eq 'Malte hus'
-      hours_spent.user.should eq user
-      hours_spent.task.should eq task
-      hours_spent['date'].should eq date
+      @user.hours_spents.personal.first.description.should eq 'Malte hus'
+      hours_spent.user.should eq @user
+      hours_spent.task.should eq @task
+      hours_spent['date'].should eq @date
       
     end
   end

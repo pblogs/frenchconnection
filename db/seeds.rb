@@ -95,13 +95,20 @@ Fabricate(:user, roles: [:worker],
                  sms_employee_if_hours_not_registered: true,
                  department: service_avdeling, user: @martin)
 
+@trapp_slottet = Fabricate(:project, name: 'Trappen på slottet',
+                 customer: slottet,
+                 department: service_avdeling, user: danni)
+
 
 # Tasks for Danni - Snekker
-danni_task = Fabricate(:task, project: @ryen, description: 'Lag et skur')
-danni_task.users << danni
-danni_task.users << @martin # Add martin so we have a user that doesn't register
+skur_ryen = Fabricate(:task, project: @ryen, description: 'Lag et skur')
+skur_ryen.users << danni
+skur_ryen.users << @martin # Add martin so we have a user that doesn't register
                             # any HoursSpent.
-danni_task.save
+
+trapp = Fabricate(:task, project: @trapp_slottet, description: 'Ny trapp')
+trapp.users << danni
+trapp.save
 
 # Tasks for Snekker Kari
 snekker_kari_task = Fabricate(:task, project: @ryen, description: 'Lag en bod')
@@ -116,19 +123,19 @@ male_task.save
 # HoursSpent for Danni - Snekker
 # Only for week 1 in 2014
 Fabricate(:hours_spent, date: '01.01.2014', hour: 11,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 11 vanlige timer')
 
 Fabricate(:hours_spent, date: '02.01.2014', overtime_50: 12,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 12 timer 50% overtid')
 
 Fabricate(:hours_spent, date: '03.01.2014', overtime_100: 13,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 13 timer 100% overtid')
 
 Fabricate(:hours_spent, date: '04.01.2014', overtime_100: 20,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 20 timer 100% overtid')
 
 

@@ -38,6 +38,24 @@ class UsersController < ApplicationController
     @form_action = user_path(@user)
   end
 
+  # GET /users/:user_id/projects/:project_id/hours
+  def hours
+    @user     = User.find(params[:user_id])
+    @project  = Project.find(params[:project_id])
+    @projects = @user.projects
+    @hours    = @project.hours_spents.where(user: @user)
+      .not_frozen_by_admin
+      .personal
+    @hours += @project.hours_spents.where(user: @user).approved
+    @hours += @project.hours_spents.where(user: @user).billable
+
+    # Update all hours as approved. TODO: Use a separate function for this
+    if request.post?
+      @hours.each { |h| h.update_attribute(:approved, true) }
+    end
+    #binding.pry
+  end
+
   def create
     @user = User.new(user_params)
     @user.password = @user.password_confirmation = srand.to_s[0..10]

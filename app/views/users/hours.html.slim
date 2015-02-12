@@ -1,0 +1,14 @@
+h1  = "Timer registrert av #{@user.name}"
+
+ul.accordion
+  - @projects.each do |p|
+    li(class="#{ p == @project ? 'active' : nil }")
+      = link_to p.name, user_hours_path(@user, p),
+        class: 'js-accordion-trigger'
+      = link_to fa_icon('dashboard'), hours_path(p)
+
+/= render '/projects/year_and_month_selector'
+
+= render partial: 'hours_registered_table',
+  locals: { hours: @hours, title: '' }
+

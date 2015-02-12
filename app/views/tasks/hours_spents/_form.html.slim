@@ -6,6 +6,10 @@
         - @hours_spent.errors.full_messages.each do |message|
           li = message
 
+  - if @hours_spent.user != @current_user
+    .field
+      = f.label :change_reason
+      = f.text_field :change_reason
   
   .field
     = f.label :date, 'Dato'

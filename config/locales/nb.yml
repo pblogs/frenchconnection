@@ -1,4 +1,6 @@
 nb:
+  jupp: Ja
+  nope: Nei
   customers:
     edit: Rediger kunde
     new: Opprett kunde
@@ -15,6 +17,7 @@ nb:
   indoor: Innendørs
   outdoor: Utendørs
   save_and_continue: Lagre og gå videre
+  read_more: Les mer..
   completed_tasks: Avsluttede oppgaver
   the_location: lokasjonen
   courses: Kurs
@@ -33,8 +36,6 @@ nb:
   notifications: Varslinger
   end_task_hard: Tvungen avslutning
   end_date: Ferdigstillelse
-  yes: Ja
-  nope: Nei
   from: Fra
   to: Til
   task_ended_at: Avsluttet for %{time} siden
@@ -169,7 +170,7 @@ nb:
           Vi fant ingen bruker med det telefonnummeret i databasen
 
   hours_spent:
-    editing: Rediger timer registert på %{customer_name}, %{project}
+    editing: Rediger timer registert på %{project}
 
   sms:
     complete_project: |
@@ -184,12 +185,14 @@ nb:
         
   skills:
     header: Ferdigheter
+    new: Ny ferdighet
+    edit: Rediger ferdighet
+    create_new: Lag ny ferdighet
     title: Ferdigheter
     welding: Sveising
     painting: Maling
     digging: Graving
     driving: Kjøring
-    create_new: Lag ny ferdighet
 
 
 
@@ -300,9 +303,17 @@ nb:
           other: "%{count} feil forhindret %{model} fra å lagres"
         body:    "Det var feil med følgende felt:"
     attributes:
+      hours_spent:
+        description: Beskrivelse
+        change_reason: Hvorfor gjøre endringer?
+        hour: Vanlige timer
+        overtime_50: 50%
+        overtime_100: 100%
       task:
         description: Beskrivelse
       certificate:
+        title: Tittel
+      skill:
         title: Tittel
       location:
         name: Navn
@@ -350,3 +361,18 @@ nb:
       blog_video:
         one: Video
         other: Videoer
+
+  months:
+    nr_1: Januar
+    nr_2: Februar
+    nr_3: Mars
+    nr_4: April
+    nr_5: Mai
+    nr_6: Juni
+    nr_7: Juli
+    nr_8: August
+    nr_9: September
+    nr_10: Oktober
+    nr_11: November
+    nr_12: Desember
+
