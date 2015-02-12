@@ -21,7 +21,7 @@ feature "Registered hours on a Task" do
 
   context 'As an admin' do
     scenario "edit existing hours" do
-    pending
+    #pending
       # not counting hours that is not approved
       expect(@project.hours_spent_total(overtime: :hour)).to eq 0
 
@@ -31,21 +31,20 @@ feature "Registered hours on a Task" do
         expect(page).to have_content 'by user'
       end
 
-      save_and_open_page
       click_link 'edit_hour'
       fill_in HoursSpent.human_attribute_name("description"), with: 'updated by admin'
       fill_in HoursSpent.human_attribute_name("change_reason"),
-        with: 'feil timer ført'
+        with: 'slept during work'
       fill_in HoursSpent.human_attribute_name("hour"), with: '111'
       fill_in HoursSpent.human_attribute_name("overtime_50"), with: '555'
       click_link_or_button I18n.t('save')
+      visit user_hours_path(@user, @project)
 
       expect(@project.hours_spent_total(overtime: :hour)).to eq 111
-      #binding.pry
-      #raise "Last #{HoursSpent.last.inspect}"
-      #save_and_open_page
       within(:css, 'table#hours_registered') do
-        expect(page).to have_content 'updated by admin'
+        expect(page).to     have_content 'updated by admin'
+        expect(page).to     have_content 'slept during work'
+        expect(page).to_not have_content 'by user'
       end
     end
   end
