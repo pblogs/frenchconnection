@@ -26,6 +26,7 @@ AllieroForms::Application.routes.draw do
 
   get '/projects/:id/hours' => 'projects#hours', as: :hours
   resources :projects do
+    post :approve_hours
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task
       put :end_task_hard

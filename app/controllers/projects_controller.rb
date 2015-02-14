@@ -1,7 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
                                      :hours, :complete]
+
+  before_action :set_by_project_id, only: [:approve_hours]
+
   before_action :set_months, only: [:hours]
+  before_action :fetch_hours, only: [:hours, :approve_hours]
 
   # GET /projects
   # GET /projects.json
@@ -22,6 +26,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
   end
+
 
   # GET /projects/1/edit
   def edit
@@ -86,35 +91,49 @@ class ProjectsController < ApplicationController
   end
 
   def hours
-    if params[:show_all].present?
-      @hours = @project.hours_for_all_users
-      #raise "hours: #{@hours.inspect}"
-      #@billable_not_approved = @project.hours_spents.billable.not_approved
-    else
-      @year  = params[:date].present? ? params[:date][:year].to_i  : Time.now.year
-      @month = params[:date].present? ? params[:date][:month].to_i : Time.now.month
-      @hours = @project.hours_for_all_users(month_nr: @month, year: @year)
+  end
 
-      #@new_hours             = @project.hours_spents.personal
-      #                          .not_frozen_by_admin
-      #                          .month(@month).year(@year)
-      #@billable_approved     = @project.hours_spents
-      #                          .billable.approved
-      #                          .month(@month).year(@year)
-      #@billable_not_approved = @project.hours_spents.billable
-      #                          .not_approved
-      #                          .month(@month).year(@year)
-    end
+  # project_approve_hours 
+  # GET    /projects/:project_id/approve_hours       projects#approve_hours
+  def approve_hours
+    @hours.each { |h| h.hour_object.approve! }
+    redirect_to hours_path(@project, month: @month, year: @year)
   end
 
   private
 
+  def set_year_and_month
+    if params[:date].present?
+      @year  = params[:date][:year].to_i
+      @month = params[:date][:month].to_i
+    elsif params[:year].present?
+      @year  = params[:year].to_i
+      @month = params[:month].to_i
+    else
+      @year  = Time.now.year
+      @month = Time.now.month
+    end
+  end
+
   def set_months
     @months = (1..12).to_a
+  end
+  
+  def fetch_hours
+    set_year_and_month 
+    if params[:show_all].present?
+      @hours = @project.hours_for_all_users
+    else
+      @hours = @project.hours_for_all_users(month_nr: @month, year: @year)
+    end
   end
 
   def set_project
     @project = Project.find(params[:id])
+  end
+
+  def set_by_project_id
+    @project = Project.find(params[:project_id])
   end
 
   def project_params

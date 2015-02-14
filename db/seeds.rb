@@ -148,12 +148,14 @@ Fabricate(:hours_spent, date: '15.01.2014', overtime_100: 10,
           description: 'snekker kari - 10 timer 100% overtid')
 
 # More workers with hours on Ryen
-10.times do
+9.times do |i|
+  i +=1
   user = Fabricate(:user, profession: @snekker, department: @d545)
   user_task = Fabricate(:task, project: @ryen, description: 'div for user')
   user_task.users << user
   user_task.save!
-  Fabricate(:hours_spent, date: '01.01.2014', overtime_100: 30,
+  puts "01.#{i}.2014"
+  Fabricate(:hours_spent, date: "01.0#{i}.2014", overtime_100: 30,
              task: user_task, user: user, project: @ryen,
              description: "#{user.name} - 30 timer 100% overtid")
 end

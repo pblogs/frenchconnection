@@ -20,9 +20,7 @@ feature "Registered hours on a Task" do
   end
 
   context 'As an admin' do
-    scenario "edit existing hours" do
-    pending
-      # not counting hours that is not approved
+    scenario "edit existing hours on /users/:id/projects/:id/hours" do
       expect(@project.hours_spent_total(overtime: :hour)).to eq 0
 
       sign_in(@project_leader)
@@ -31,23 +29,41 @@ feature "Registered hours on a Task" do
         expect(page).to have_content 'by user'
       end
 
-      save_and_open_page
-      click_link 'edit_hour'
-      fill_in HoursSpent.human_attribute_name("description"), with: 'updated by admin'
-      fill_in HoursSpent.human_attribute_name("change_reason"),
-        with: 'feil timer ført'
-      fill_in HoursSpent.human_attribute_name("hour"), with: '111'
-      fill_in HoursSpent.human_attribute_name("overtime_50"), with: '555'
-      click_link_or_button I18n.t('save')
+      expect {
+        click_link 'edit_hour'
+        fill_in HoursSpent.human_attribute_name("description"),
+          with: 'updated by admin'
+        fill_in HoursSpent.human_attribute_name("change_reason"),
+          with: 'slept during work'
+        fill_in HoursSpent.human_attribute_name("hour"), with: '111'
+        fill_in HoursSpent.human_attribute_name("overtime_50"), with: '555'
+        click_link_or_button I18n.t('save')
+        visit user_hours_path(@user, @project)
 
-      expect(@project.hours_spent_total(overtime: :hour)).to eq 111
-      #binding.pry
-      #raise "Last #{HoursSpent.last.inspect}"
-      #save_and_open_page
+      }.to change{ @project.hours_spent_total(overtime: :hour) }.from(0).to(111)
       within(:css, 'table#hours_registered') do
-        expect(page).to have_content 'updated by admin'
+        expect(page).to     have_content 'updated by admin'
+        expect(page).to     have_content 'slept during work'
+        expect(page).to_not have_content 'by user'
       end
     end
+
+    scenario 'approve hours in scope: /projects/1/hours'do
+      sign_in(@project_leader)
+      visit hours_path(@project)
+      click_link_or_button I18n.t('hours_spent.show_all')
+      #save_and_open_page
+      within(:css, 'table#hours_registered') do
+        expect(page).to have_content 'Nei'
+      end
+      click_link_or_button I18n.t('hours_spent.approve_all_hours')
+      click_link_or_button I18n.t('hours_spent.show_all')
+      within(:css, 'table#hours_registered') do
+        expect(page).to have_content 'Ja'
+      end
+    end
+
   end
+
 end
 
