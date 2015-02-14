@@ -81,7 +81,8 @@ describe HoursSpent do
       @task = Fabricate(:task)
       @user = Fabricate(:user)
       @billable = Fabricate(:hours_spent, user: @user, task: @task,
-                            description: 'billable', of_kind: 'billable')
+                            description: 'billable', of_kind: 'billable',
+                            change_reason: 'wrong nr')
       @personal = Fabricate(:hours_spent, user: @user, task: @task,
                             description: 'personal', of_kind: 'personal')
  
@@ -90,6 +91,12 @@ describe HoursSpent do
     it 'scopes' do
       @user.hours_spents.billable.first.description.should eq 'billable'
       @user.hours_spents.personal.first.description.should eq 'personal'
+    end
+
+    it 'is invalid if change_reason is missing' do
+      hour = Fabricate.build(:hours_spent, of_kind: :billable, change_reason: nil)
+      hour.valid?
+      expect(hour.errors.messages[:change_reason]).to eq ['kan ikke være blank']
     end
 
   end

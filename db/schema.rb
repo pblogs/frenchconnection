@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211193951) do
+ActiveRecord::Schema.define(version: 20150214101839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20150211193951) do
     t.boolean  "frozen_by_admin",         default: false
     t.text     "change_reason"
     t.text     "old_values"
+    t.boolean  "edited_by_admin",         default: false
   end
 
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree

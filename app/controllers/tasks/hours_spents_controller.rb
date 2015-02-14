@@ -90,13 +90,20 @@ module Tasks
       if request.patch? 
         if @hour.personal?
           @new_hour = create_billable_hour
-          @hour.update_attribute(:frozen_by_admin, true) if @new_hour.save!
+          if @new_hour.save
+            @hour.mark_as_edited_by_admin!
+            redirect_to user_hours_path(@hour.user, @hour.project)
+          else
+            render action: 'edit'
+          end
         elsif @hour.billable?
-          @hour.update(hours_spent_params)
+          if @hour.update(hours_spent_params)
+            redirect_to user_hours_path(@hour.user, @hour.project)
+          else
+            render action: 'edit'
+          end
         end
-
       end
-      redirect_to user_hours_path(@hour.user, @hour.project)
     end
 
     private
@@ -112,7 +119,6 @@ module Tasks
       new_hour.old_values = @hour.attributes
       new_hour.of_kind = :billable
       new_hour
-      #binding.pry
     end
 
 

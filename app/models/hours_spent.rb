@@ -58,6 +58,7 @@ class HoursSpent < ActiveRecord::Base
   validates :description, :presence => true
   validates :date,        :presence => true
   validates :project_id,  :presence => true
+  validates :change_reason,  :presence => true, if:  :billable?
 
   symbolize :of_kind, in: %i(personal billable), default: :personal
   serialize :old_values
@@ -68,13 +69,15 @@ class HoursSpent < ActiveRecord::Base
   scope :for_user_on_task, ->(user_id, task_id) { 
     where(user_id: user_id, task_id: task_id) }
 
-  scope :year,       ->(year)  { where('extract(year  from date) = ?',  year) }
-  scope :month,      ->(month) { where('extract(month from date) = ?',  month) }
-  scope :personal,   -> { where(of_kind: 'personal') } 
-  scope :billable,   -> { where(of_kind: 'billable') } 
-  scope :approved,   -> { where(approved: true) } 
-  scope :not_approved,   -> { personal.not_frozen_by_admin.where(approved: false) } 
-  scope :frozen_by_admin, -> { where(frozen_by_admin: true) } 
+  scope :year,     ->(year)  { where('extract(year  from date) = ?',  year) }
+  scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
+  scope :personal, -> { where(of_kind: 'personal') } 
+  scope :billable, -> { where(of_kind: 'billable') } 
+  scope :approved, -> { where(approved: true) } 
+  scope :edited_by_admin,     -> { where(edited_by_admin: true) } 
+  scope :not_edited_by_admin, -> { where(edited_by_admin: false) } 
+  scope :not_approved,        -> { personal.not_frozen_by_admin.where(approved: false) } 
+  scope :frozen_by_admin,     -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
 
   # Sums all the different types of hours registered
@@ -87,11 +90,11 @@ class HoursSpent < ActiveRecord::Base
   end
 
   def billable?
-    self.of_kind == :billable
+    of_kind == :billable
   end
 
   def personal?
-    self.of_kind == :personal
+    of_kind == :personal
   end
 
   def approve!
@@ -101,6 +104,10 @@ class HoursSpent < ActiveRecord::Base
 
   def requires_approval?
     personal? && !frozen_by_admin
+  end
+  
+  def mark_as_edited_by_admin!
+    self.update_attributes(frozen_by_admin: true, edited_by_admin: true)
   end
 
 

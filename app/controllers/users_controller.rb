@@ -43,10 +43,13 @@ class UsersController < ApplicationController
     @user     = User.find(params[:user_id])
     @project  = Project.find(params[:project_id])
     @projects = @user.projects
+    # New hour from worker, untouched.
     @hours    = @project.hours_spents.where(user: @user)
-      .not_frozen_by_admin
       .personal
-    @hours += @project.hours_spents.where(user: @user).approved
+      .not_frozen_by_admin
+    # Hour approved by admin, not edited later on.
+    @hours += @project.hours_spents.where(user: @user).approved.not_edited_by_admin.not_frozen_by_admin
+    # Hour edited by admin.
     @hours += @project.hours_spents.where(user: @user).billable
 
     # Update all hours as approved. TODO: Use a separate function for this

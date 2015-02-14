@@ -1,7 +1,14 @@
 .for_admin(data-for-admin="yes")
 = form_for @hour, url: task_hours_spent_for_admin_path(@hour.task, @hour) do |f|
 
-  - if @hour.errors.any?
+  - if @new_hour && @new_hour.errors.any?
+    #error_explanation
+      h2 = "#{@new_hour.errors.count} feil gjorde at vi ikke fikk lagret:"
+      ul.error_messages
+        - @new_hour.errors.full_messages.each do |message|
+          li = message
+
+  - if @hour && @hour.errors.any?
     #error_explanation
       h2 = "#{@hour.errors.count} feil gjorde at vi ikke fikk lagret:"
       ul.error_messages
