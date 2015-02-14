@@ -29,15 +29,18 @@
 
 
   br
-  = button_to t('hours_spent.approve_all_hours'),
-    project_approve_hours_path(@project),
-    params: { year: @year, month: @month },
-    class: 'btn btn-primary'
-
-  = button_to t('hours_spent.generate_pdf'),
-    project_approve_hours_path(@project),
-    params: { year: @year, month: @month },
-    class: 'btn btn-primary'
+  - if @some_hours_not_approved
+    = button_to t('hours_spent.approve_all_hours'),
+      project_approve_hours_path(@project),
+      params: { year: @year, month: @month },
+      class: 'btn btn-primary',
+      disabled: !@some_hours_not_approved
+  - else
+    = button_to t('hours_spent.generate_pdf'),
+      project_approve_hours_path(@project),
+      params: { year: @year, month: @month },
+      class: 'btn btn-primary',
+      disabled: @some_hours_not_approved
 
 - else
   br
