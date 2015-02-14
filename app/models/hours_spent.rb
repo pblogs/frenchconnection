@@ -96,7 +96,7 @@ class HoursSpent < ActiveRecord::Base
 
   def approve!
     return if billable?
-    update_attributes(approved: true, frozen_by_admin: true)
+    self.update_attributes(approved: true, frozen_by_admin: true)
   end
 
   def requires_approval?

@@ -96,15 +96,23 @@ class ProjectsController < ApplicationController
   # project_approve_hours 
   # GET    /projects/:project_id/approve_hours       projects#approve_hours
   def approve_hours
-    @hours.each { |h| h.approve! }
+    @hours.each { |h| h.hour_object.approve! }
     redirect_to hours_path(@project)
   end
 
   private
 
   def set_year_and_month
-    @year  = params[:date].present? ? params[:date][:year].to_i  : Time.now.year
-    @month = params[:date].present? ? params[:date][:month].to_i : Time.now.month
+    if params[:date].present?
+      @year  = params[:date][:year].to_i
+      @month = params[:date][:month].to_i
+    elsif params[:year].present?
+      @year  = params[:year].to_i
+      @month = params[:month].to_i
+    else
+      @year  = Time.now.year
+      @month = Time.now.month
+    end
   end
 
   def set_months
