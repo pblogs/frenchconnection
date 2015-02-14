@@ -29,6 +29,7 @@ feature "Registered hours on a Task" do
         expect(page).to have_content 'by user'
       end
 
+      # Admin edits user's hour
       expect {
         click_link 'edit_hour'
         fill_in HoursSpent.human_attribute_name("description"),
@@ -39,13 +40,33 @@ feature "Registered hours on a Task" do
         fill_in HoursSpent.human_attribute_name("overtime_50"), with: '555'
         click_link_or_button I18n.t('save')
         visit user_hours_path(@user, @project)
-
       }.to change{ @project.hours_spent_total(overtime: :hour) }.from(0).to(111)
       within(:css, 'table#hours_registered') do
         expect(page).to     have_content 'updated by admin'
         expect(page).to     have_content 'slept during work'
         expect(page).to_not have_content 'by user'
       end
+
+      # Admin updates his edited hour
+      expect {
+        click_link 'edit_hour'
+        fill_in HoursSpent.human_attribute_name("description"),
+          with: 'updating edited hour'
+        fill_in HoursSpent.human_attribute_name("change_reason"),
+          with: 'was hungover'
+        fill_in HoursSpent.human_attribute_name("hour"), with: '22'
+        fill_in HoursSpent.human_attribute_name("overtime_50"), with: '500'
+        click_link_or_button I18n.t('save')
+        visit user_hours_path(@user, @project)
+      }.to change{ @project.hours_spent_total(overtime: :hour) }.from(111).to(22)
+      within(:css, 'table#hours_registered') do
+        expect(page).to     have_content 'updating edited hour'
+        expect(page).to     have_content 'was hungover'
+        expect(page).to_not have_content 'updated by admin'
+        expect(page).to_not have_content 'slept during work'
+        expect(page).to_not have_content 'by user'
+      end
+      
     end
 
     scenario 'approve hours in scope: /projects/1/hours'do
