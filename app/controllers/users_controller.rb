@@ -53,7 +53,11 @@ class UsersController < ApplicationController
     if request.post?
       @hours.each { |h| h.approve! }
     end
-    #binding.pry
+  end
+
+  def approved_hours
+    @user  = User.find(params[:user_id])
+    @hours = @project.hours_spents.approved
   end
 
   def create
