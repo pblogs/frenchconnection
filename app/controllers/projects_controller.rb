@@ -97,7 +97,7 @@ class ProjectsController < ApplicationController
   # GET    /projects/:project_id/approve_hours       projects#approve_hours
   def approve_hours
     @hours.each { |h| h.hour_object.approve! }
-    redirect_to hours_path(@project)
+    redirect_to hours_path(@project, month: @month, year: @year)
   end
 
   private
