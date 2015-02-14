@@ -214,13 +214,13 @@ describe ProjectsController, :type => :controller do
 
       @billable_approved = Fabricate(:hours_spent, task: @task, user: @user,
                                      description: 'billable_approved',
-                                     hour: 20,
+                                     hour: 20, change_reason: 'updated',
                                      of_kind: :billable, approved: true,
                                      date: Time.parse('01.05.2015'))
 
       @billable_not_approved = Fabricate(:hours_spent, task: @task, user: @user,
                                          description: 'billable_not_approved',
-                                         hour: 20,
+                                         hour: 20, change_reason: 'updated',
                                          of_kind: :billable, approved: false,
                                          date: Time.parse('01.05.2015'))
     end

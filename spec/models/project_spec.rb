@@ -79,8 +79,8 @@ describe Project do
 
     describe 'hours_total_for(user)' do
       before do
-        Fabricate(:hours_spent, of_kind: 'billable', hour: 10,
-                  task: @task, user: @john_snekker)
+        Fabricate(:hours_spent, of_kind: 'billable', change_reason: 'updated', 
+                  hour: 10, task: @task, user: @john_snekker)
         Fabricate(:hours_spent, approved: true, piecework_hours: 10,
                   task: @task, user: @john_snekker)
         # This should not be counted
