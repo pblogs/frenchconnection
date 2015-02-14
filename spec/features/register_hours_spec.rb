@@ -31,7 +31,8 @@ feature "Registered hours on a Task" do
 
       expect {
         click_link 'edit_hour'
-        fill_in HoursSpent.human_attribute_name("description"), with: 'updated by admin'
+        fill_in HoursSpent.human_attribute_name("description"),
+          with: 'updated by admin'
         fill_in HoursSpent.human_attribute_name("change_reason"),
           with: 'slept during work'
         fill_in HoursSpent.human_attribute_name("hour"), with: '111'
@@ -50,14 +51,16 @@ feature "Registered hours on a Task" do
     scenario 'approve hours in scope: /projects/1/hours'do
       sign_in(@project_leader)
       visit hours_path(@project)
-      click_link_or_button  I18n.t('hours_spent.show_all')
+      click_link_or_button I18n.t('hours_spent.show_all')
       #save_and_open_page
       within(:css, 'table#hours_registered') do
-        expect(page).to     have_content 'Nei'
+        expect(page).to have_content 'Nei'
       end
-      #expect {
-      #  click_link_or_button I18n.t('hours_spent.approve_all_hours')
-      #}.to change{ @project.hours_spents.billable.size }.from(0).to(1) 
+      click_link_or_button I18n.t('hours_spent.approve_all_hours')
+      click_link_or_button I18n.t('hours_spent.show_all')
+      within(:css, 'table#hours_registered') do
+        expect(page).to have_content 'Ja'
+      end
     end
 
   end
