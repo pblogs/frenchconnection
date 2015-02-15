@@ -90,18 +90,18 @@ class Project < ActiveRecord::Base
 
   # Used by /projects/:id/hours
   # Sums all hours for each user for the given month
-  def hours_for_all_users(month_nr: nil, year: nil)
+  def hours_for_all_users(month_nr: nil, year: nil, of_kind:)
     require 'ostruct'
     sum = []
     if month_nr && year
       users.each do |u|
-        sum_hours_for_user(user: u, month_nr: month_nr, year: year)
+        sum_hours_for_user(user: u, month_nr: month_nr, year: year, of_kind: of_kind)
         hour = build_sum_for_user(u)
         sum << hour unless hour.blank?
       end
     else
       users.each do |u|
-        sum_hours_for_user_total(user: u)
+        sum_hours_for_user_total(user: u, of_kind: of_kind)
         hour = build_sum_for_user(u)
         sum << hour unless hour.blank?
       end
@@ -228,32 +228,43 @@ class Project < ActiveRecord::Base
       end
     end
 
-    def sum_hours_for_user(user:, month_nr:, year:)
+    def sum_hours_for_user(user:, month_nr:, year:, of_kind:)
       m = month_nr; y = year; u = user
-      @hour           = hours_spents.year(y).month(m).where(user: u).sum(:hour)
-      @overtime_50    = hours_spents.year(y).month(m).where(user: u).sum(:overtime_50)
-      @overtime_100   = hours_spents.year(y).month(m).where(user: u).sum(:overtime_100)
+      @hour           = hours_spents.year(y).month(m).where(user: u)
+        .send(of_kind)
+        .sum(:hour)
+      @overtime_50    = hours_spents.year(y).month(m).where(user: u)
+        .send(of_kind)
+        .sum(:overtime_50)
+      @overtime_100   = hours_spents.year(y).month(m).where(user: u)
+        .send(of_kind)
+        .sum(:overtime_100)
       @runs_in_company_car = hours_spents.month(m).where(user: u)
+        .send(of_kind)
         .sum(:runs_in_company_car)
       @km_driven_own_car = hours_spents.month(m).where(user: u)
+        .send(of_kind)
         .sum(:km_driven_own_car)
       @toll_expenses_own_car = hours_spents.month(m).where(user: u)
+        .send(of_kind)
         .sum(:toll_expenses_own_car)
-      @approved = !hours_spents.month(m).year(y).where(user: u).not_approved.exists?
+      @approved = !hours_spents.month(m).year(y).where(user: u)
+        .send(of_kind)
+        .not_approved.exists?
       @hour_object = hours_spents.where(user: u).first
     end
     
-    def sum_hours_for_user_total(user:)
+    def sum_hours_for_user_total(user:, of_kind:)
       u = user
-      @hour           = hours_spents.where(user: u).sum(:hour)
-      @overtime_50    = hours_spents.where(user: u).sum(:overtime_50)
-      @overtime_100   = hours_spents.where(user: u).sum(:overtime_100)
-      @runs_in_company_car = hours_spents.where(user: u).sum(:runs_in_company_car)
-      @km_driven_own_car = hours_spents.where(user: u).sum(:km_driven_own_car)
-      @toll_expenses_own_car = hours_spents.where(user: u)
+      @hour           = hours_spents.where(user: u, of_kind: of_kind).sum(:hour)
+      @overtime_50    = hours_spents.where(user: u, of_kind: of_kind).sum(:overtime_50)
+      @overtime_100   = hours_spents.where(user: u, of_kind: of_kind).sum(:overtime_100)
+      @runs_in_company_car = hours_spents.where(user: u, of_kind: of_kind).sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.where(user: u, of_kind: of_kind).sum(:km_driven_own_car)
+      @toll_expenses_own_car = hours_spents.where(user: u, of_kind: of_kind)
         .sum(:toll_expenses_own_car)
-      @approved = !hours_spents.where(user: u).not_approved.exists?
-      @hour_object = hours_spents.where(user: u).first
+      @approved = !hours_spents.where(user: u, of_kind: of_kind).not_approved.exists?
+      @hour_object = hours_spents.where(user: u, of_kind: of_kind).first
     end
 
     def build_sum_for_user(u)
