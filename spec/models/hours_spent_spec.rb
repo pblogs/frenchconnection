@@ -52,7 +52,8 @@ describe HoursSpent do
 
 
     it "knows how many hour a user har registred on a task" do
-      @task.hours_total.should eq 110
+      @task.hours_total(of_kind: :personal).should eq 110
+      @task.hours_total(of_kind: :billable).should eq 110
     end
 
     it "sums all kinds of hours for one registration" do
@@ -77,20 +78,15 @@ describe HoursSpent do
   end
 
   describe 'billable and personal hours' do
-    before do
+    before :all do
       @task = Fabricate(:task)
       @user = Fabricate(:user)
-      @billable = Fabricate(:hours_spent, user: @user, task: @task,
-                            description: 'billable', of_kind: 'billable',
-                            change_reason: 'wrong nr')
-      @personal = Fabricate(:hours_spent, user: @user, task: @task,
-                            description: 'personal', of_kind: 'personal')
- 
+      Fabricate(:hours_spent, user: @user, task: @task, description: 'from user')
     end
 
-    it 'scopes' do
-      @user.hours_spents.billable.first.description.should eq 'billable'
-      @user.hours_spents.personal.first.description.should eq 'personal'
+    it 'generates one personal and one billable' do
+      @user.hours_spents.billable.first.description.should eq 'from user'
+      @user.hours_spents.personal.first.description.should eq 'from user'
     end
 
     it 'is invalid if change_reason is missing on update' do
