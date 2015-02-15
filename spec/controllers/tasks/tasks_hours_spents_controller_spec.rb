@@ -88,25 +88,24 @@ describe Tasks::HoursSpentsController, :type => :controller do
   end
 
   describe "POST create" do
-    #before #{ @task = Fabricate(:task) }
     describe "with valid params" do
-      it "creates a new HoursSpent" do
+      it "creates a new personal and billable HoursSpent" do
         sign_in
         expect {
           post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
-        }.to change(HoursSpent, :count).by(1)
+        }.to change(HoursSpent, :count).by(2)
       end
 
       it "assigns a newly created hour as @hour" do
         sign_in
         post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
-        assigns(:hour).should be_a(HoursSpent)
-        assigns(:hour).should be_persisted
+        assigns(:billable).should be_a(HoursSpent)
+        assigns(:personal).should be_a(HoursSpent)
+        assigns(:billable).should be_persisted
+        assigns(:personal).should be_persisted
       end
 
       it "redirects to the created hour" do
-        #Task.destroy_all
-        #before { @task = Fabricate(:task) }
         sign_in
         post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
         response.should redirect_to(task_hours_spents_path(@task))
@@ -114,14 +113,14 @@ describe Tasks::HoursSpentsController, :type => :controller do
     end
 
     describe "with invalid params" do
-      #before { @task = Fabricate(:task) }
       it "assigns a newly created but unsaved hour as @hour" do
         sign_in
         # Trigger the behavior that occurs when invalid params are submitted
         HoursSpent.any_instance.stub(:save).and_return(false)
         post :create, { :task_id => @task.id, :hours_spent => {"hour" => "invalid value"}},
           valid_session
-        assigns(:hour).should be_a_new(HoursSpent)
+        assigns(:personal).should be_a_new(HoursSpent)
+        assigns(:billable).should be_a_new(HoursSpent)
       end
 
       it "re-renders the 'new' template" do
