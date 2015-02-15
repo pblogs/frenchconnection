@@ -80,6 +80,8 @@ class HoursSpent < ActiveRecord::Base
   scope :frozen_by_admin,     -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
 
+  after_save :create_billable
+
   # Sums all the different types of hours registered
   # for one day, on one user.
   def sum(overtime: nil)
@@ -123,5 +125,14 @@ class HoursSpent < ActiveRecord::Base
 
   def profession_department
     "#{user.profession.title}_#{user.department.title}"
+  end
+
+  private
+
+  def create_billable
+    return if billable?
+    HoursSpent.create!(self.attributes
+      .merge(of_kind: :billable)
+      .except('id', 'created_at', 'updated_at'))
   end
 end
