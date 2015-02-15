@@ -12,8 +12,6 @@ slottet       = Fabricate(:customer, name: 'Det kongelige slott')
 
 # Custom message.
 Fabricate(:customer_message,
-          text: 'Jeg er 30 minutter forsinket. Beklager så mye.')
-Fabricate(:customer_message,
           text: 'Vi er ferdig for i dag. Vi kommer tilbake i morgen.')
 Fabricate(:customer_message,
           text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
@@ -154,10 +152,12 @@ Fabricate(:hours_spent, date: '15.01.2014', overtime_100: 10,
   user_task = Fabricate(:task, project: @ryen, description: 'div for user')
   user_task.users << user
   user_task.save!
-  puts "01.#{i}.2014"
   Fabricate(:hours_spent, date: "01.0#{i}.2014", overtime_100: 30,
              task: user_task, user: user, project: @ryen,
              description: "#{user.name} - 30 timer 100% overtid")
+  Fabricate(:hours_spent, date: "01.0#{i}.2014", overtime_50: 52,
+             task: user_task, user: user, project: @ryen,
+             description: "#{user.name} - 52 timer 50%")
 end
 
 #
