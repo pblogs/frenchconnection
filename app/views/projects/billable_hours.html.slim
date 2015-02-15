@@ -1,0 +1,31 @@
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  = fa_icon 'chevron-right'
+  = link_to @project.name, customer_project_path(@project.customer, @project)
+  = fa_icon 'chevron-right'
+  strong= 'Timer'
+
+/h3 = "Timer registrert på #{@project.name}"
+
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link.is-active href="#"  Timelister
+    .tab-content
+      = render 'year_and_month_selector', locals: { of_kind: 'personal' }
+      = render partial: 'hours_registered_table',
+        locals: { hours: @personal, of_kind: :personal, title: "Sum timer pr ansatt på dette prosjektet" }
+
+
+  li.tab-header-and-content
+    a.tab-link href="#" Dagsrapport
+    .tab-content
+      = render 'year_and_month_selector', locals: { of_kind: :billable }
+      = render partial: 'hours_registered_table',
+        locals: { hours: @billable, of_kind: :billable, title: "Sum timer pr ansatt på dette prosjektet" }
+
+
+
+
+
+br
+= link_to 'Tilbake', :back

@@ -25,28 +25,25 @@
           td= hour.km_driven_own_car
           td= hour.toll_expenses_own_car
           td.approved= hour.approved ? t('jupp') : t('nope')
-          td= link_to fa_icon('pencil-square-o'),
-                user_hours_path(hour.user, hour.hour_object.project)
+          - if of_kind == "personal"
+            td= link_to fa_icon('pencil-square-o'),
+                  project_personal_hours_path(hour.user, hour.hour_object.project)
+          - else
+            td= link_to fa_icon('pencil-square-o'),
+                  project_billable_hours_path(hour.user, hour.hour_object.project)
   
   
     br
   
-    - if @some_hours_not_approved
-      /= button_to t('hours_spent.approve_all_hours'),
-        project_approve_hours_path(@project),
-        params: { year: @year, month: @month },
-        class: 'btn btn-primary'
-    - else
+    = button_to ('Generer "Timeliste" Excelark - lønnsgrunnlag'),
+      project_approve_hours_path(@project),
+      params: { year: @year, month: @month },
+      class: 'btn btn-primary'
   
-      = button_to ('Generer "Timeliste" Excelark - lønnsgrunnlag'),
-        project_approve_hours_path(@project),
-        params: { year: @year, month: @month },
-        class: 'btn btn-primary'
-  
-      = button_to 'Generer "Dagsrapport" (PDF) - fakturagrunnlag',
-        project_approve_hours_path(@project),
-        params: { year: @year, month: @month },
-        class: 'btn btn-primary'
+    = button_to 'Generer "Dagsrapport" (PDF) - fakturagrunnlag',
+      project_approve_hours_path(@project),
+      params: { year: @year, month: @month },
+      class: 'btn btn-primary'
   
   - else
     br
@@ -56,5 +53,8 @@
     br
   
   - unless params[:show_all]
-    = link_to t('hours_spent.show_all'), hours_path({:show_all => 1}), class: 'pull-right'
+    - if of_kind == "personal"
+      = link_to t('hours_spent.show_all'), project_personal_hours_path({:show_all => 1}), class: 'pull-right'
+    - else
+      = link_to t('hours_spent.show_all'), project_billable_hours_path({:show_all => 1}), class: 'pull-right'
   

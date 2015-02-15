@@ -1,11 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
-                                     :hours, :complete]
+                                     :complete]
 
-  before_action :set_by_project_id, only: [:approve_hours]
+  before_action :set_by_project_id, only: [:approve_hours, :hours,
+                                           :billable_hours, :personal_hours]
 
-  before_action :set_months, only: [:hours]
-  before_action :fetch_hours, only: [:hours, :approve_hours]
+  before_action :set_months, only: [:billable_hours, :personal_hours]
+  before_action :fetch_hours, only: [:billable_hours, :personal_hours, :approve_hours]
 
   # GET /projects
   # GET /projects.json
@@ -91,6 +92,13 @@ class ProjectsController < ApplicationController
   end
 
   def hours
+
+  end
+
+  def personal_hours
+  end
+
+  def billable_hours
   end
 
   # project_approve_hours 
