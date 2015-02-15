@@ -95,10 +95,14 @@ class ProjectsController < ApplicationController
 
   # project_approve_hours 
   # GET    /projects/:project_id/approve_hours       projects#approve_hours
-  def approve_hours
-    @hours.each { |h| h.hour_object.approve! }
-    redirect_to hours_path(@project, month: @month, year: @year)
-  end
+  #
+  # FIXME It's not possible to approve all hours from the project view.
+  # One must click into users/240/projects/21/hours to approve
+  # 
+  #def approve_hours
+  #  @hours.each { |h| h.hour_object.approve! }
+  #  redirect_to hours_path(@project, month: @month, year: @year)
+  #end
 
   private
 
@@ -122,7 +126,7 @@ class ProjectsController < ApplicationController
   def fetch_hours
     set_year_and_month 
     if params[:show_all].present?
-      @hours    = @project.hours_for_all_users
+      @hours = @project.hours_for_all_users
     else
       @hours = @project.hours_for_all_users(month_nr: @month, year: @year)
     end

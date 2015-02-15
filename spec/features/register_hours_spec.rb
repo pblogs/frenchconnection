@@ -69,20 +69,20 @@ feature "Registered hours on a Task" do
       
     end
 
-    scenario 'approve hours in scope: /projects/1/hours'do
-      sign_in(@project_leader)
-      visit hours_path(@project)
-      click_link_or_button I18n.t('hours_spent.show_all')
-      #save_and_open_page
-      within(:css, 'table#hours_registered') do
-        expect(page).to have_content 'Nei'
-      end
-      click_link_or_button I18n.t('hours_spent.approve_all_hours')
-      click_link_or_button I18n.t('hours_spent.show_all')
-      within(:css, 'table#hours_registered') do
-        expect(page).to have_content 'Ja'
-      end
-    end
+    #scenario 'approve hours in scope: /projects/1/hours'do
+    #  sign_in(@project_leader)
+    #  visit hours_path(@project)
+    #  click_link_or_button I18n.t('hours_spent.show_all')
+    #  #save_and_open_page
+    #  within(:css, 'table#hours_registered') do
+    #    expect(page).to have_content 'Nei'
+    #  end
+    #  click_link_or_button I18n.t('hours_spent.approve_all_hours')
+    #  click_link_or_button I18n.t('hours_spent.show_all')
+    #  within(:css, 'table#hours_registered') do
+    #    expect(page).to have_content 'Ja'
+    #  end
+    #end
 
   end
 
