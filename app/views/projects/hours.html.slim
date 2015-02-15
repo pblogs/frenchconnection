@@ -3,30 +3,28 @@
   = fa_icon 'chevron-right'
   = link_to @project.name, customer_project_path(@project.customer, @project)
   = fa_icon 'chevron-right'
-  strong= 'Timelister'
+  strong= 'Timer'
 
-  h1 = "Timer registrert på #{@project.name}"
-  br 
-  br 
-  br 
-  = render 'year_and_month_selector'
+/h3 = "Timer registrert på #{@project.name}"
 
-/- if @hours_registered.present?
-/  .button-group
-/    label
-/      span.button-group-item.tooltip-item(data-no-turbolink)
-/        = link_to 'Lag dagrapport', project_project_reports_path(@project, 
-/          type: 'daily_report'), method: :post
-/    label
-/      span.button-group-item.tooltip-item(data-no-turbolink)
-/        = link_to 'Lag timelister', project_project_reports_path(@project, 
-/          type: 'timesheet'), method: :post
+ul.accordion-tabs-minimal
+  li.tab-header-and-content
+    a.tab-link.is-active href="#"  Timelister
+    .tab-content
+      = render 'year_and_month_selector'
+      = render partial: 'hours_registered_table',
+        locals: { hours: @personal, title: "Sum timer pr ansatt på dette prosjektet" }
 
 
+  li.tab-header-and-content
+    a.tab-link href="#" Dagsrapport
+    .tab-content
+      = render 'year_and_month_selector'
+      = render partial: 'hours_registered_table',
+        locals: { hours: @billable, title: "Sum timer pr ansatt på dette prosjektet" }
 
 
-= render partial: 'hours_registered_table',
-  locals: { hours: @hours, title: "Sum timer pr ansatt på dette prosjektet" }
+
 
 
 br
