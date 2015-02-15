@@ -126,11 +126,14 @@ class ProjectsController < ApplicationController
   def fetch_hours
     set_year_and_month 
     if params[:show_all].present?
-      @hours = @project.hours_for_all_users
+      @personal = @project.hours_for_all_users(of_kind: :personal)
+      @billable = @project.hours_for_all_users(of_kind: :billable)
     else
-      @hours = @project.hours_for_all_users(month_nr: @month, year: @year)
+      @personal = @project.hours_for_all_users(month_nr: @month, year: @year, of_kind: :personal)
+      @billable = @project.hours_for_all_users(month_nr: @month, year: @year, of_kind: :billable)
     end
-    @some_hours_not_approved = @hours.any? { |h| h.approved == false }
+    @personal_hours_not_approved = @personal.any? { |h| h.approved == false }
+    @billable_hours_not_approved = @billable.any? { |h| h.approved == false }
   end
 
   def set_project
