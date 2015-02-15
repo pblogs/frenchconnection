@@ -31,7 +31,7 @@
   br
 
   - if @some_hours_not_approved
-    = button_to t('hours_spent.approve_all_hours'),
+    /= button_to t('hours_spent.approve_all_hours'),
       project_approve_hours_path(@project),
       params: { year: @year, month: @month },
       class: 'btn btn-primary'
