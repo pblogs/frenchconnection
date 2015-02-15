@@ -23,12 +23,11 @@ describe ExcelProjectTools do
 
   it 'comma separated string with billable hours' do
     @project.update_attribute(:complete, true)
-    @hours_for_jens.update_attribute(:of_kind, 'billable')
     snekker = Profession.where(title: 'Snekker')
     ExcelProjectTools.hours_for_users(project: @project, overtime: :hour,
-      profession: snekker ).should eq ['19']
+      of_kind: :billable, profession: snekker ).should eq ['19']
     ExcelProjectTools.hours_for_users(project: @project, overtime: :overtime_50,
-      profession: snekker ).should eq ['50']
+      of_kind: :billable, profession: snekker ).should eq ['50']
   end
 
 
@@ -39,29 +38,29 @@ describe ExcelProjectTools do
 
   it 'sum_piecework_hours' do
     Fabricate(:hours_spent, piecework_hours: 10, 
-              task: @task, user: @user1, project: @project )
-    ExcelProjectTools.sum_piecework_hours(project: @project, 
+              task: @task, user: @user1, project: @project, approved: true)
+    ExcelProjectTools.sum_piecework_hours(project: @project, of_kind: :billable,
                                           user: @user1 ).should eq 10
   end
 
   it 'sum_workhours' do
-    Fabricate(:hours_spent, piecework_hours: 16, 
-              task: @task, user: @user1, project: @project )
-    ExcelProjectTools.sum_piecework_hours(project: @project, 
-                                          user: @user1 ).should eq 16
+    Fabricate(:hours_spent, piecework_hours: 16, task: @task, user: @user1,
+              project: @project, of_kind: :billable, approved: true)
+    ExcelProjectTools.sum_piecework_hours(project: @project, user: @user1,
+                                          of_kind: :billable ).should eq 16
   end
 
   it 'sum_overtime_50' do
     Fabricate(:hours_spent, piecework_hours: 50, 
-              task: @task, user: @user1, project: @project )
-    ExcelProjectTools.sum_piecework_hours(project: @project, 
-                                          user: @user1 ).should eq 50
+              task: @task, user: @user1, project: @project, approved: true )
+    ExcelProjectTools.sum_piecework_hours(project: @project, user: @user1,
+                                          of_kind: :billable ).should eq 50
   end
 
   it 'sum_overtime_100' do
-    Fabricate(:hours_spent, piecework_hours: 100, 
+    Fabricate(:hours_spent, piecework_hours: 100, approved: true, 
               task: @task, user: @user1, project: @project )
-    ExcelProjectTools.sum_piecework_hours(project: @project, 
+    ExcelProjectTools.sum_piecework_hours(project: @project, of_kind: :billable,
                                           user: @user1 ).should eq 100
   end
 

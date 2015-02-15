@@ -114,7 +114,8 @@ describe Project do
         Fabricate(:hours_spent, approved: true, task: @task,
                   overtime_100: 10, user: @mustafa_murer)
         @project.reload
-        @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
+        @project.hours_spent_total(profession: @snekker, overtime: :hour, 
+                                   of_kind: :personal).should eq 20
       end
 
     end

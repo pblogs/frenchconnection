@@ -16,8 +16,8 @@ describe DailyReport do
   end
 
   it 'has no syntax errors' do
-    DailyReport.new(project: @project, profession: @profession, overtime: 100)
-      .create_spreadsheet.class.should eq String
+    DailyReport.new(project: @project, profession: @profession, overtime: 100,
+                   of_kind: :billable).create_spreadsheet.class.should eq String
   end
 
 

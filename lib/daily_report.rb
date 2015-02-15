@@ -2,13 +2,14 @@ class DailyReport
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project:, profession:, overtime: :hour)
+  def initialize(project:, profession:, overtime: :hour, of_kind: :of_kind)
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
     @workers    = @project.users.where(profession: @profession)
     @header     = "DAGSRAPPORT - #{@profession.title} - #{@overtime}"
     @logo       = 'app/assets/images/alliero-bratfoss-h46.png'
+    @of_kind    = of_kind
   end
 
 =begin
@@ -125,7 +126,7 @@ class DailyReport
           # Sum timer totalt
           sheet.add_row ['', 'Sum timer totalt: ',
                          @project.hours_spent_total(profession: @profession,
-                           overtime: @overtime), 
+                           overtime: @overtime, of_kind: @of_kind), 
                            nil, nil, nil, nil, nil, nil, nil, 
                            nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 

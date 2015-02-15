@@ -9,12 +9,11 @@ class ExcelProjectTools
   #end
   
   # Returns an array with nr of hours 
-  def self.hours_for_users(project:, profession:,  overtime:)
-    raise "you can only generate excel when the project is completed" unless project.complete?
+  def self.hours_for_users(project:, profession:,  overtime:, of_kind:)
     hours = []
     project.users.where(profession: profession).each do |user|
       hours_spent = []
-      hours_spent << project.hours_spents.billable.where(user: user).all
+      hours_spent << project.hours_spents.where(user: user, of_kind: of_kind).all
       hours_spent.flatten!
       hours << hours_spent.map { |hs| hs.send(overtime) }
     end
@@ -27,20 +26,20 @@ class ExcelProjectTools
     project.name_of_users(profession: profession).split(',').flatten
   end
 
-  def self.sum_piecework_hours(project: project, user: user)
-    HoursSpent.where(user: user, project: project).sum(:piecework_hours)
+  def self.sum_piecework_hours(project:, user:, of_kind:)
+    HoursSpent.approved.where(user: user, project: project, of_kind: of_kind).sum(:piecework_hours)
   end
 
-  def self.sum_workhours(project: project, user: user)
-    HoursSpent.where(user: user, project: project).sum(:hour)
+  def self.sum_workhours(project:, user:, of_kind:)
+    HoursSpent.approved.where(user: user, project: project, of_kind: of_kind).sum(:hour)
   end
 
-  def self.sum_overtime_50(project: project, user: user)
-    HoursSpent.where(user: user, project: project).sum(:overtime_50)
+  def self.sum_overtime_50(project:, user:, of_kind:)
+    HoursSpent.approved.where(user: user, project: project, of_kind: of_kind).sum(:overtime_50)
   end
 
-  def self.sum_overtime_100(project: project, user: user)
-    HoursSpent.where(user: user, project: project).sum(:overtime_100)
+  def self.sum_overtime_100(project:, user:, of_kind:)
+    HoursSpent.approved.where(user: user, project: project, of_kind: of_kind).sum(:overtime_100)
   end
 
 
