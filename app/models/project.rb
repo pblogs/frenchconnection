@@ -81,10 +81,11 @@ class Project < ActiveRecord::Base
     all.select { |h| h.send(overtime).present? }
   end
 
-  def hours_spent_total(profession: nil,  overtime: )
+  def hours_spent_total(profession: nil,  overtime:, of_kind:)
     users = profession ? users_with_profession(profession: profession) : self.users
     sum = 0
-    users.each { |u| sum += hours_total_for(u, overtime: overtime) rescue 0} 
+    users.each { |u| sum += hours_total_for(u, 
+                             overtime: overtime, of_kind: of_kind) rescue 0 } 
     sum
   end
 
@@ -110,17 +111,13 @@ class Project < ActiveRecord::Base
     #binding.pry
   end
 
-  def hours_total_for(user, overtime: nil)
+  def hours_total_for(user, overtime: nil, of_kind: of_kind)
     sum = 0
-    # Summer approved og billable
-    #binding.pry
     if overtime
-      sum += hours_spents.where(user: user).billable.sum(overtime)
-      sum += hours_spents.where(user: user).approved.sum(overtime)
+      sum += hours_spents.where(user: user, of_kind: of_kind).approved.sum(overtime)
     else
       HoursSpent::TYPES.each do |type|
-        sum += hours_spents.where(user: user).billable.sum(type)
-        sum += hours_spents.where(user: user).approved.sum(type)
+        sum += hours_spents.where(user: user, of_kind: of_kind).approved.sum(type)
       end
     end
     sum ? sum : 0
