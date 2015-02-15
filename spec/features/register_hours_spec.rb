@@ -21,7 +21,6 @@ feature "Registered hours on a Task" do
 
   context 'As an admin' do
     scenario "edit existing hours on /users/:id/projects/:id/hours" do
-      expect(@project.hours_spent_total(overtime: :hour)).to eq 0
 
       sign_in(@project_leader)
       visit user_hours_path(@user, @project)
@@ -40,7 +39,7 @@ feature "Registered hours on a Task" do
         fill_in HoursSpent.human_attribute_name("overtime_50"), with: '555'
         click_link_or_button I18n.t('save')
         visit user_hours_path(@user, @project)
-      }.to change{ @project.hours_spent_total(overtime: :hour) }.from(0).to(111)
+      }.to change{ @project.hours_spent_total(overtime: :hour, of_kind: :billable) }.from(0).to(111)
       within(:css, 'table#hours_registered') do
         expect(page).to     have_content 'updated by admin'
         expect(page).to     have_content 'slept during work'

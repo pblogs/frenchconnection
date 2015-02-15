@@ -1,8 +1,15 @@
-= form_tag(hours_path(@project), method: "get", id: "time") do
-  = select_year(Date.today,
-    start_year: @year || Date.today.year,
-    end_year: Date.today.years_ago(5).year)
-  .hide = select_month(@month, field_name: :month)
+- if locals[:of_kind] == "personal"
+  = form_tag(project_billable_hours_path(@project), method: "get", id: "time") do
+    = select_year(Date.today,
+      start_year: @year || Date.today.year,
+      end_year: Date.today.years_ago(5).year)
+    .hide = select_month(@month, field_name: :month)
+- else
+  = form_tag(project_personal_hours_path(@project), method: "get", id: "time") do
+    = select_year(Date.today,
+      start_year: @year || Date.today.year,
+      end_year: Date.today.years_ago(5).year)
+    .hide = select_month(@month, field_name: :month)
 
 
 .button-group.month-list
