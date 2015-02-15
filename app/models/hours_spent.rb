@@ -53,12 +53,12 @@ class HoursSpent < ActiveRecord::Base
   belongs_to :project
   has_one :change
 
-  validates :task,        :presence => true
-  validates :user,        :presence => true
-  validates :description, :presence => true
-  validates :date,        :presence => true
-  validates :project_id,  :presence => true
-  validates :change_reason,  :presence => true, if:  :billable?
+  validates :task,          :presence => true
+  validates :user,          :presence => true
+  validates :description,   :presence => true
+  validates :date,          :presence => true
+  validates :project_id,    :presence => true
+  validates :change_reason, :presence => true, if:  :billable?, on: :update
 
   symbolize :of_kind, in: %i(personal billable), default: :personal
   serialize :old_values
