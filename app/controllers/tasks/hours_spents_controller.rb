@@ -31,26 +31,20 @@ module Tasks
     # POST /hours_spents
     # POST /hours_spents.json
     def create
-      @task         = Task.find(params[:task_id])
-      @personal     = @current_user.hours_spents.new(
-        hours_spent_params.merge(of_kind: :personal))
-      @billable     = @current_user.hours_spents.new(
-        hours_spent_params.merge(of_kind: :billable))
-
-      @personal.task    = @task
-      @personal.project = @task.project
-      @billable.task    = @task
-      @billable.project = @task.project
+      @task                = Task.find(params[:task_id])
+      @hour         = @current_user.hours_spents.new(hours_spent_params)
+      @hour.task    = @task
+      @hour.project = @task.project
 
       respond_to do |format|
-        if @personal.save && @billable.save
+        if @hour.save
           format.html { redirect_to task_hours_spents_path(@task),
                         notice: 'Timer registert' }
           format.json { render action: 'show', status: :created,
-                        location: @personal }
+                        location: @hour }
         else
           format.html { render action: 'new' }
-          format.json { render json: @personal.errors,
+          format.json { render json: @hour.errors,
                         status: :unprocessable_entity }
         end
       end
