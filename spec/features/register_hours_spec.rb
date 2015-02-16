@@ -11,22 +11,28 @@ feature "Registered hours on a Task" do
     @sporveiene = Fabricate(:customer, name: 'Oslo Sporveier AS')
     @project    = Fabricate(:project, customer: @sporveiene)
     @task       = Fabricate(:task, project: @project)
-    #HoursSpent.destroy_all
     @user.tasks << @task
-    @hour       = Fabricate(:hours_spent, description: 'by user', 
+    @hour       = Fabricate(:hours_spent, description: 'painted wall', 
                             approved: false, task: @task,
                             hour: 10, user: @user)
     @project_leader = Fabricate(:user, roles: [:project_leader])
   end
 
   context 'As an admin' do
-    scenario "edit existing hours on /users/:id/projects/:id/hours" do
+    #pending 'WIP'
+    scenario "approve billable hours" do
 
       sign_in(@project_leader)
-      visit user_hours_path(@user, @project)
-      within(:css, 'table#hours_registered') do
-        expect(page).to have_content 'by user'
+      visit project_hours_path(@project)
+      click_link_or_button 'Billable'
+      within(:css, 'h1.of_kind') do
+        expect(page).to have_content 'billable'
       end
+      #save_and_open_page
+      #within(:css, 'table#hours_registered') do
+      #  expect(page).to have_content 'painted wall'
+      #end
+
 
       # Admin edits user's hour
       expect {

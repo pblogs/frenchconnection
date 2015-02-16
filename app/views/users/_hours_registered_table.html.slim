@@ -4,7 +4,6 @@
       strong = title
       table#hours_registered
         tr
-          th Tekst
           th Dato
           th Timer
           th 50%
@@ -17,7 +16,6 @@
           th 
         - hours.each do |hour|
           tr
-            td= hour.description
             td= hour.date.strftime("%d")
             td= hour.hour
             td= hour.overtime_50
