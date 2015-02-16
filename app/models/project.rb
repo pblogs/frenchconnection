@@ -73,7 +73,7 @@ class Project < ActiveRecord::Base
     [project_hours, total_weeks.count]
   end
 
-  def hours_spent_for_profession(profession, overtime:)
+  def hours_spent_for_profession(profession, overtime:, of_kind:)
     users = users_with_profession(profession: profession)
     all_kinds_of_hours = users.collect { |u| hours_spents.where(user: u ).to_a }.flatten
     all = all_kinds_of_hours.select { |h| h.send(overtime) > 0 rescue nil }
@@ -110,7 +110,7 @@ class Project < ActiveRecord::Base
     #binding.pry
   end
 
-  def hours_total_for(user, overtime: nil, of_kind: of_kind)
+  def hours_total_for(user, overtime: nil, of_kind:)
     sum = 0
     if overtime
       sum += hours_spents.where(user: user, of_kind: of_kind).approved.sum(overtime)
