@@ -25,6 +25,7 @@
           td= hour.km_driven_own_car
           td= hour.toll_expenses_own_car
           td.approved= hour.approved ? t('jupp') : t('nope')
+          /- raise 'ni'
           td= link_to fa_icon('pencil-square-o'),
               user_hours_path(hour.user, hour.hour_object.project, of_kind: of_kind)
           /- else
@@ -36,7 +37,7 @@
   
     - if of_kind == "personal"
       = button_to ('Generer "Timeliste" Excelark - lønnsgrunnlag'),
-        project_approve_hours_path(@project),
+        project_approve_hours_path(@project, of_kind: of_kind),
         params: { year: @year, month: @month }, class: 'btn btn-primary'
 
     - elsif of_kind == "billable"
