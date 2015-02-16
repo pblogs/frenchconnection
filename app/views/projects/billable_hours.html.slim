@@ -11,5 +11,14 @@ h4 Dagsrapport - fakturagrunnlag
 = render partial: 'hours_registered_table',
   locals: { hours: @hours, of_kind: :billable, title: "Sum timer pr ansatt på dette prosjektet" }
 
+
+.button-group
+  label
+    span.button-group-item.tooltip-item(data-no-turbolink)
+      = link_to 'Lag dagrapport', project_project_reports_path(@project,
+        type: 'daily_report'), method: :post
+
+br
+br
 br
 = link_to 'Tilbake', :back
