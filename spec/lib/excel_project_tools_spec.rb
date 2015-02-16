@@ -15,14 +15,13 @@ describe ExcelProjectTools do
     @snekker1.tasks << @task
     @snekker2.tasks << Fabricate(:task, project: @project)
 
-    Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
-    Fabricate(:hours_spent, hour: 10, task: @task, user: @user1 )
-    @hours_for_jens = Fabricate(:hours_spent, hour: 19, overtime_50: 50,
-                                        task: @task, user: @snekker1 )
+    Fabricate(:hours_spent, approved: true, hour: 10, task: @task, user: @user1 )
+    Fabricate(:hours_spent, approved: true, hour: 10, task: @task, user: @user1 )
+    @hours_for_jens = Fabricate(:hours_spent, approved: true, hour: 19,
+                                overtime_50: 50, task: @task, user: @snekker1 )
   end
 
   it 'comma separated string with billable hours' do
-    @project.update_attribute(:complete, true)
     snekker = Profession.where(title: 'Snekker')
     ExcelProjectTools.hours_for_users(project: @project, overtime: :hour,
       of_kind: :billable, profession: snekker ).should eq ['19']
