@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
                                            :billable_hours, :personal_hours]
 
   before_action :set_months, only: [:billable_hours, :personal_hours]
-  before_action :fetch_hours, only: [:billable_hours, :personal_hours, :approve_hours]
+  before_action :fetch_hours, only: [:approve_hours]
 
   # GET /projects
   # GET /projects.json
@@ -92,13 +92,14 @@ class ProjectsController < ApplicationController
   end
 
   def hours
-
   end
 
   def personal_hours
+    fetch_hours(of_kind: :personal)
   end
 
   def billable_hours
+    fetch_hours(of_kind: :billable)
   end
 
   # project_approve_hours 
@@ -131,17 +132,15 @@ class ProjectsController < ApplicationController
     @months = (1..12).to_a
   end
   
-  def fetch_hours
+  def fetch_hours(of_kind:)
     set_year_and_month 
     if params[:show_all].present?
-      @personal = @project.hours_for_all_users(of_kind: :personal)
-      @billable = @project.hours_for_all_users(of_kind: :billable)
+      @hours = @project.hours_for_all_users(of_kind: of_kind)
     else
-      @personal = @project.hours_for_all_users(month_nr: @month, year: @year, of_kind: :personal)
-      @billable = @project.hours_for_all_users(month_nr: @month, year: @year, of_kind: :billable)
+      @hours = @project.hours_for_all_users(month_nr: @month, year: @year, of_kind: of_kind)
     end
-    @personal_hours_not_approved = @personal.any? { |h| h.approved == false }
-    @billable_hours_not_approved = @billable.any? { |h| h.approved == false }
+    @hours_not_approved = @hours.any? { |h| h.approved == false }
+    #raise 'her'
   end
 
   def set_project
