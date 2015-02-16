@@ -1,12 +1,12 @@
 - if locals[:of_kind] == "personal"
-  h1 personal
+  h1.of_kind personal
   = form_tag(project_billable_hours_path(@project), method: "get", id: "time") do
     = select_year(Date.today,
       start_year: @year || Date.today.year,
       end_year: Date.today.years_ago(5).year)
     .hide = select_month(@month, field_name: :month)
 - else
-  h1 billable
+  h1.of_kind billable
   = form_tag(project_billable_hours_path(@project), method: "get", id: "time") do
     = select_year(Date.today,
       start_year: @year || Date.today.year,
