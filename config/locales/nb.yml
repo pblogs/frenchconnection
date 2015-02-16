@@ -171,6 +171,9 @@ nb:
 
   hours_spent:
     editing: Rediger timer registert på %{project}
+    approve_all_hours: Godkjenn alle timene
+    generate_pdf: Lag timelister (PDF)
+    show_all: Vis alle
 
   sms:
     complete_project: |

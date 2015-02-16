@@ -18,6 +18,7 @@
 #  hour                    :integer
 #  text                    :string(255)
 #  reason                  :text
+#  user_id                 :integer
 #
 
 class Change < ActiveRecord::Base

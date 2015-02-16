@@ -214,20 +214,31 @@ describe ProjectsController, :type => :controller do
 
       @billable_approved = Fabricate(:hours_spent, task: @task, user: @user,
                                      description: 'billable_approved',
-                                     hour: 20,
+                                     hour: 20, change_reason: 'updated',
                                      of_kind: :billable, approved: true,
                                      date: Time.parse('01.05.2015'))
 
       @billable_not_approved = Fabricate(:hours_spent, task: @task, user: @user,
                                          description: 'billable_not_approved',
-                                         hour: 20,
+                                         hour: 20, change_reason: 'updated',
                                          of_kind: :billable, approved: false,
                                          date: Time.parse('01.05.2015'))
     end
+
     context 'with :show_all param' do
-      it "finds all hours" do
-        get :hours, { id: @project.id, show_all: 1 }, valid_session
-        expect(assigns(:hours)).to eq @project.hours_for_all_users
+
+      context 'billable' do
+        it "finds all hours" do
+          get :billable_hours, { project_id: @project.id, show_all: 1 }, valid_session
+          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind: :billable)
+        end
+      end
+
+      context 'personal' do
+        it "finds all hours" do
+          get :billable_hours, { project_id: @project.id, show_all: 1 }, valid_session
+          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind: :billable)
+        end
       end
     end
 
@@ -237,15 +248,25 @@ describe ProjectsController, :type => :controller do
           description: 'new_hours different month', date: Time.parse('01.06.2015'))
       end
 
-      it "populates an array with @hours for the project" do
-        get :hours, { id: @project.id,
-                      date: { year: 2015, month: 5 },
-                    }, valid_session
-        #assigns(:hours).should eq([@new_hours])
-        expect(assigns(:hours)).to eq @project
-          .hours_for_all_users(month_nr: @month, year: @year)
+      context 'billable' do
+        it "populates an array with @hours for the project" do
+          get :billable_hours, { project_id: @project.id,
+                        date: { year: 2015, month: 5 },
+                      }, valid_session
+          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind: :billable, month_nr: @month, year: @year)
+        end
+      end
+
+      context 'personal' do
+        it "populates an array with @hours for the project" do
+          get :personal_hours, { project_id: @project.id,
+                        date: { year: 2015, month: 5 },
+                      }, valid_session
+          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind: :personal, month_nr: @month, year: @year)
+        end
       end
     end
+
   end
 
 

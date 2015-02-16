@@ -19,32 +19,26 @@
 #  km_driven_own_car       :float
 #  toll_expenses_own_car   :float
 #  supplies_from_warehouse :string(255)
-#  changed_hour_id         :integer
-#  change_reason           :string(255)
-#  changed_by_user_id      :integer
+#  of_kind                 :string(255)      default("personal")
+#  billable_id             :integer
+#  personal_id             :integer
+#  approved                :boolean          default(FALSE)
+#  frozen_by_admin         :boolean          default(FALSE)
+#  change_reason           :text
+#  old_values              :text
+#  edited_by_admin         :boolean          default(FALSE)
 #
 
-# When a user registers hours on a task, it's registered as personal hours. HoursSpent.new(of_kind: :personal)
-# The project leader can list these hours pr month on each project. If the project leader wants to approve or change anything,
-# he needs to press freeze hours. This will make a billabel copy of the personal hours. HoursSpent.new(of_kind: :billable)
+# When a user registers hours on a task, it's generates 2 HoursSpent.
+# One personal and one billable. Never spesify of_kind when creating a new one, 
+# personal and billable will be created automatically.
 #
-# The 'Approve hours' and edit options will be available after 'freeze hours' is clicked.
-# The personal hours in this scope will ba marked as frozen. 
+# Workers nor admins can not edit hours after they have been approved.
 #
-# Meaning that when listing hours for project 1 in january, it will not 
-# display personal hours that's frozen, only billable hours. 
-# If a user register more hours for january after they has been frozen by the project leader,
-# then they will be listed above the billable as new. 
+# == Generating reports
+# The approved hours within the selected scope is set as frozen when 
+# daily_report or timesheet is generated. 
 #
-# Example of hours listed for project/1/month/1/year/2015
-#  @new_hours = @project.hours_spent.personal.not_frozen.year(2015).month(1)
-#  @billable_approved_hours = @project.hours_spent.billable.approved.year(2015).month(1)
-#  @billable_not_approved_hours = @project.hours_spent.billable.not_approved.year(2015).month(1)
-#
-# Billable hours that is not approved, will be highlighted. 
-# These will not be used in calculations when generating reports.
-# Any change the project leader makes to these hours will be on the billable version. 
-# PDF reports generated will use the billable and approved hours.
 # 
 class HoursSpent < ActiveRecord::Base
   TYPES = %w(hour piecework_hours overtime_50 overtime_100)
@@ -53,11 +47,12 @@ class HoursSpent < ActiveRecord::Base
   belongs_to :project
   has_one :change
 
-  validates :task,        :presence => true
-  validates :user,        :presence => true
-  validates :description, :presence => true
-  validates :date,        :presence => true
-  validates :project_id,  :presence => true
+  validates :task,          :presence => true
+  validates :user,          :presence => true
+  validates :description,   :presence => true
+  validates :date,          :presence => true
+  validates :project_id,    :presence => true
+  #validates :change_reason, :presence => true, if:  :billable?, on: :update
 
   symbolize :of_kind, in: %i(personal billable), default: :personal
   serialize :old_values
@@ -68,14 +63,18 @@ class HoursSpent < ActiveRecord::Base
   scope :for_user_on_task, ->(user_id, task_id) { 
     where(user_id: user_id, task_id: task_id) }
 
-  scope :year,       ->(year)  { where('extract(year  from date) = ?',  year) }
-  scope :month,      ->(month) { where('extract(month from date) = ?',  month) }
-  scope :personal,   -> { where(of_kind: 'personal') } 
-  scope :billable,   -> { where(of_kind: 'billable') } 
-  scope :approved,   -> { where(approved: true) } 
-  scope :not_approved,   -> { personal.not_frozen_by_admin.where(approved: false) } 
-  scope :frozen_by_admin, -> { where(frozen_by_admin: true) } 
+  scope :year,     ->(year)  { where('extract(year  from date) = ?',  year) }
+  scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
+  scope :personal, -> { where(of_kind: 'personal') } 
+  scope :billable, -> { where(of_kind: 'billable') } 
+  scope :approved, -> { where(approved: true) } 
+  scope :edited_by_admin,     -> { where(edited_by_admin: true) } 
+  scope :not_edited_by_admin, -> { where(edited_by_admin: false) } 
+  scope :not_approved,        -> { where(approved: false) } 
+  scope :frozen_by_admin,     -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
+
+  after_save :create_billable
 
   # Sums all the different types of hours registered
   # for one day, on one user.
@@ -87,19 +86,20 @@ class HoursSpent < ActiveRecord::Base
   end
 
   def billable?
-    self.of_kind == :billable
+    of_kind == :billable
   end
 
   def personal?
-    self.of_kind == :personal
+    of_kind == :personal
   end
 
   def approve!
-    update_attributes(approved: true, frozen_by_admin: true)
+    self.update_attributes(approved: true)
   end
 
-  def requires_approval?
-    personal? && !frozen_by_admin
+  
+  def mark_as_edited_by_admin!
+    self.update_attributes(frozen_by_admin: true, edited_by_admin: true)
   end
 
 
@@ -115,5 +115,14 @@ class HoursSpent < ActiveRecord::Base
 
   def profession_department
     "#{user.profession.title}_#{user.department.title}"
+  end
+
+  private
+
+  def create_billable
+    return if billable?
+    HoursSpent.create!(self.attributes
+      .merge(of_kind: :billable)
+      .except('id', 'created_at', 'updated_at'))
   end
 end

@@ -40,20 +40,21 @@ class UsersController < ApplicationController
 
   # GET /users/:user_id/projects/:project_id/hours
   def hours
+    of_kind = params[:of_kind]
     @user     = User.find(params[:user_id])
     @project  = Project.find(params[:project_id])
     @projects = @user.projects
-    @hours    = @project.hours_spents.where(user: @user)
-      .not_frozen_by_admin
-      .personal
-    @hours += @project.hours_spents.where(user: @user).approved
-    @hours += @project.hours_spents.where(user: @user).billable
+    @hours    = @project.hours_spents.where(user: @user).send(of_kind)
 
     # Update all hours as approved. TODO: Use a separate function for this
     if request.post?
-      @hours.each { |h| h.update_attribute(:approved, true) }
+      @hours.each { |h| h.approve! }
     end
-    #binding.pry
+  end
+
+  def approved_hours
+    @user  = User.find(params[:user_id])
+    @hours = @project.hours_spents.approved
   end
 
   def create

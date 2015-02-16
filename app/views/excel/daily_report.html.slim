@@ -63,10 +63,10 @@ br
       .clearfix
       .row
         .cell.date=        hs.created_at.strftime("%d/%m")
-        .cell.description= hs.changed_value(:description) 
+        .cell.description= hs.description) 
         - return_users_nr_in_array(@workers, user: hs.user).times do
           .cell= nbsp
-        .cell.overtime= hs.changed_value(@overtime) 
+        .cell.overtime= hs.send(@overtime) 
   #sum
     .cell.intro = "Sum #{t(@overtime).downcase} pr person"
     - @workers.each do |w|
@@ -76,7 +76,7 @@ br
       //- return_users_nr_in_array(@workers, user: hs.user).times do
       //  td
       //td
-        = hs.changed_value(@overtime) 
+        = hs.send(@overtime) 
       /- add_remaining_tds(@workers, user: hs.user).times do
         td
 
@@ -91,11 +91,11 @@ br
 //    - @hours_spent.each_with_index do |hs,i|
 //      tr
 //        td= hs.created_at.strftime("%d/%m")
-//        td= hs.changed_value(:description) 
+//        td= hs.send(:description) 
 //        - return_users_nr_in_array(@workers, user: hs.user).times do
 //          td
 //        td
-//          = hs.changed_value(@overtime) 
+//          = hs.send(@overtime) 
 //        - add_remaining_tds(@workers, user: hs.user).times do
 //          td
 //

@@ -1,6 +1,7 @@
 module Tasks
   class HoursSpentsController < ApplicationController
     before_action :set_hours_spent, only: [:show, :edit, :update, :destroy]
+    before_action :set_by_hours_spent_id, only: [:approve, :for_admin]
     before_action :set_task
 
     # GET /hours_spents
@@ -77,9 +78,10 @@ module Tasks
     end
 
     def approve
-      @hour = HoursSpent.find(params[:hours_spent_id])
       @hour.approve!
-      redirect_to user_hours_path(@hour.user, @hour.project)
+      @hour.save!
+      redirect_to user_hours_path(@hour.user, @hour.project,
+                                  of_kind: params[:of_kind])
     end
 
     # hours_spent_for_admin 
@@ -87,22 +89,23 @@ module Tasks
     # GET    /hours_spents/:hours_spent_id/for_admin(.:format)
     # PATCH  /hours_spents/:hours_spent_id/for_admin(.:format)
     def for_admin
-      @hour = HoursSpent.find(params[:hours_spent_id])
       if request.patch? 
-
         if @hour.personal?
           @new_hour = create_billable_hour
-          if @new_hour.save!
-            #binding.pry
-            #raise "Saving new hours: #{@new_hour.inspect}"
-            @hour.update_attribute(:frozen_by_admin, true)
+          if @new_hour.save
+            @hour.mark_as_edited_by_admin!
+            redirect_to user_hours_path(@hour.user, @hour.project)
+          else
+            render action: 'edit'
           end
         elsif @hour.billable?
-          @hour.update(hours_spent_params)
+          if @hour.update(hours_spent_params)
+            redirect_to user_hours_path(@hour.user, @hour.project)
+          else
+            render action: 'edit'
+          end
         end
-
       end
-      redirect_to user_hours_path(@hour.user, @hour.project)
     end
 
     private
@@ -118,7 +121,6 @@ module Tasks
       new_hour.old_values = @hour.attributes
       new_hour.of_kind = :billable
       new_hour
-      #binding.pry
     end
 
 
@@ -144,5 +146,10 @@ module Tasks
     def set_task
       @task = Task.find(params[:task_id])
     end
+
+    def set_by_hours_spent_id
+      @hour = HoursSpent.find(params[:hours_spent_id])
+    end
+
   end
 end

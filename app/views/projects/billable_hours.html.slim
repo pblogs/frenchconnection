@@ -1,0 +1,24 @@
+- content_for :breadcrumb do
+  = link_to 'Mine prosjekter', projects_path
+  = fa_icon 'chevron-right'
+  = link_to @project.name, customer_project_path(@project.customer, @project)
+  = fa_icon 'chevron-right'
+  strong= 'Timer'
+
+h4 Dagsrapport - fakturagrunnlag
+
+= render 'year_and_month_selector', { of_kind: :billable }
+= render partial: 'hours_registered_table',
+  locals: { hours: @hours, of_kind: :billable, title: "Sum timer pr ansatt på dette prosjektet" }
+
+
+.button-group
+  label
+    span.button-group-item.tooltip-item(data-no-turbolink)
+      = link_to 'Lag dagrapport', project_project_reports_path(@project,
+        type: 'daily_report'), method: :post
+
+br
+br
+br
+= link_to 'Tilbake', :back

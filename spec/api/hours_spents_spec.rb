@@ -48,19 +48,17 @@ describe V1::HoursSpent do
       date = Date.parse '2014-01-01'
       task = Fabricate(:task)
       user = Fabricate(:user)
-      hours_spent = 
-        Fabricate(:hours_spent, user: user, 
+      hours_spent = Fabricate(:hours_spent, user: user, 
                   task: task, date: date, hour: 5)
       
-      hours_spent_same_task_date_different_user = 
-        Fabricate(:hours_spent, user: Fabricate(:user), 
-                  task: task, date: date, hour: 6)
-      hours_spent_same_task_user_different_date = 
-        Fabricate(:hours_spent, user: user, 
-                  task: task, date: date + 1, hour: 7)
-      hours_spent_same_date_user_different_task = 
-        Fabricate(:hours_spent, user: user, 
-                  task: Fabricate(:task), date: date, hour: 8)
+      hours_spent_same_task_date_different_user = Fabricate(:hours_spent, 
+        user: Fabricate(:user), task: task, date: date, hour: 6)
+
+      hours_spent_same_task_user_different_date = Fabricate(:hours_spent, 
+        user: user, task: task, date: date + 1, hour: 7)
+
+      hours_spent_same_date_user_different_task = Fabricate(:hours_spent,
+        user: user, task: Fabricate(:task), date: date, hour: 8)
       
       get "/api/v1/hours_spents/users/#{ user.id }" +
           "/tasks/#{ task.id }/dates/#{ date }"

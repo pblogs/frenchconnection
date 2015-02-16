@@ -52,13 +52,13 @@ class TimesheetWorker
   end
 
   def generate_timesheet(project, user)
-    hours = project.hours_spents.where(user: user)
+    hours = project.hours_spents.personal.approved.where(user: user)
     filename = Timesheet.new(project, user, hours).create_spreadsheet
     ReportFile.new(filename, user)
   end
 
   def zipfile_path
-    # projesjtnummer-adresse-dato
+    # project_number-adress-date
     @zipfile_path ||= 
       "/tmp/timesheet-#{@project.project_number}-"+
       "#{@project.address}-#{timestamp}.zip"
