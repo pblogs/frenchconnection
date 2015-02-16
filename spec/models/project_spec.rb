@@ -18,7 +18,6 @@
 #  sms_employee_if_hours_not_registered :boolean          default(FALSE)
 #  sms_employee_when_new_task_created   :boolean          default(FALSE)
 #  department_id                        :integer
-#  short_description                    :string(255)
 #  complete                             :boolean          default(FALSE)
 #
 
@@ -48,15 +47,15 @@ describe Project do
       @task.save
       @project.save
 
-      @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10,
-                                      task: @task,
+      @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, description: 'vanlig 1',
+                                      task: @task, approved: true, of_kind: :personal,
                                       user: @john_snekker)
-      @hours_for_barry    = Fabricate(:hours_spent, piecework_hours: 10,
-                                      task: @task,
+      @hours_for_barry    = Fabricate(:hours_spent, piecework_hours: 10, description: 'vanlig 1',
+                                      task: @task, approved: true,
                                       user: @barry_snekker)
       # Overtime 100
       @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100,
-                                            task: @task,
+                                            task: @task, approved: true, description: 'overtime 100',
                                             user: @john_snekker)
     end
 
@@ -79,27 +78,23 @@ describe Project do
 
     describe 'hours_total_for(user)' do
       before do
-        Fabricate(:hours_spent, of_kind: 'billable', hour: 10,
-                  task: @task, user: @john_snekker)
-        Fabricate(:hours_spent, approved: true, piecework_hours: 10,
-                  task: @task, user: @john_snekker)
         # This should not be counted
-        Fabricate(:hours_spent, hour: 10, task: @task, user: @barry_snekker)
+        Fabricate(:hours_spent, hour: 10, task: @task, user: @barry_snekker,
+                  description: 'dont count me')
       end
 
-      it "sums approved and billable hours" do
-        @project.hours_total_for(@john_snekker, overtime: :hour).should eq 10
-        @project.hours_total_for(@john_snekker).should eq 20
+      it "sums only approved personal and billable hours" do
+        @project.hours_total_for(@john_snekker, overtime: :hour, of_kind: :billable).should eq 10
       end
 
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour, of_kind: :billable)
           .should_not include(@overtime_100_for_john_s)
       end
 
       it 'hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour, of_kind: :billable)
           .should include(@hours_for_snakker1)
       end
 
@@ -107,14 +102,12 @@ describe Project do
         HoursSpent.destroy_all
         Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @john_snekker)
         Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task,
-                  hour: 10, user: @mustafa_murer)
-        Fabricate(:hours_spent, approved: true, task: @task,
-                  overtime_50: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task,
-                  overtime_100: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task, overtime_50: 10, user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, overtime_100: 10, user: @mustafa_murer)
         @project.reload
-        @project.hours_spent_total(profession: @snekker, overtime: :hour).should eq 20
+        @project.hours_spent_total(profession: @snekker, overtime: :hour, 
+                                   of_kind: :personal).should eq 20
       end
 
     end

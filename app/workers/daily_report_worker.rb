@@ -23,7 +23,7 @@ class DailyReportWorker
         end
       end
 
-      current = ZippedReport.daily_reports.create(project: @project,
+      current = ZippedReport.daily_reports.create!(project: @project,
                         zipfile: File.open(zipfile_path))
 
       ZippedReportCleanerWorker.perform_in(15.minutes, current.id)

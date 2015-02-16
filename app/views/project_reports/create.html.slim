@@ -10,7 +10,7 @@ p.success-message.hidden
     = t('.download')
 
 
-= link_to t('back'), hours_path(@project)
+= link_to t('back'), project_billable_hours_path(@project)
 // This is really necessary, as we need a way to do some initialization
 // 1) only on this page
 // 2) and with data specific to current request

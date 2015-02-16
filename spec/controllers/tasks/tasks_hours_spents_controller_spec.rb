@@ -90,11 +90,11 @@ describe Tasks::HoursSpentsController, :type => :controller do
   describe "POST create" do
     #before #{ @task = Fabricate(:task) }
     describe "with valid params" do
-      it "creates a new HoursSpent" do
+      it "creates a both a personal and billable HoursSpent" do
         sign_in
         expect {
           post :create, {:task_id => @task.id, :hours_spent => valid_attributes}, valid_session
-        }.to change(HoursSpent, :count).by(1)
+        }.to change(HoursSpent, :count).by(2)
       end
 
       it "assigns a newly created hour as @hour" do

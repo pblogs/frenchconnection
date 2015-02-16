@@ -4,7 +4,6 @@
       strong = title
       table#hours_registered
         tr
-          th Tekst
           th Dato
           th Timer
           th 50%
@@ -17,7 +16,6 @@
           th 
         - hours.each do |hour|
           tr
-            td= hour.description
             td= hour.date.strftime("%d")
             td= hour.hour
             td= hour.overtime_50
@@ -27,12 +25,12 @@
             td= hour.toll_expenses_own_car
             td= simple_format hour.supplies_from_warehouse
             td
-              - if hour.billable?
+              - if hour.change_reason.present?
                 .tooltip-item
                   span.badge-notice Redigert av admin
                   .tooltip 
                     p= hour.change_reason
-              - elsif hour.approved?
+              - if hour.approved?
                 span.badge-success Godkjent
               - else
                 span.badge-error Ikke godkjent
@@ -40,12 +38,16 @@
             td
               = link_to fa_icon('pencil-square-o'),
                   edit_task_hours_spent_path(hour.task, hour), id: 'edit_hour'
-              - if hour.requires_approval?
+              - if !hour.approved
+                br
                 = link_to fa_icon('check'),
-                    task_hours_spent_approve_path(hour.task, hour)
+                  task_hours_spent_approve_path(hour.task, hour,
+                  of_kind: params[:of_kind])
     
-      = button_to 'Godkjenn timene', user_approve_hours_path(@user, @project),
-        class: 'btn btn-primary'
+      - if hours.any? { |h| h.approved == false }
+        = button_to 'Godkjenn timene',
+          user_approve_hours_path(@user, @project, of_kind: params[:of_kind]),
+            class: 'btn btn-primary'
 - else
   br
   br

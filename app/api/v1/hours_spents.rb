@@ -68,7 +68,7 @@ module V1
       
       desc "HoursSpents by user on task"
       get 'users/:user_id/tasks/:task_id' do
-        hours_spents_on_task = HoursSpent.for_user_on_task(user_id, task_id)
+        hours_spents_on_task = HoursSpent.for_user_on_task(user_id, task_id).personal
         present :hours_spents, 
                 hours_spents_on_task, 
                 with: V1::Entities::HoursSpents
@@ -78,7 +78,7 @@ module V1
       
       desc "HoursSpents by user on task on date"
       get 'users/:user_id/tasks/:task_id/dates/:date' do
-        hours_spent = HoursSpent.for_user_on_task(params[:user_id], params[:task_id])
+        hours_spent = HoursSpent.for_user_on_task(params[:user_id], params[:task_id]).personal
           .where(date: params[:date])
             
         present :hours_spents, 

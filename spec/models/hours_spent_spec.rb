@@ -19,9 +19,14 @@
 #  km_driven_own_car       :float
 #  toll_expenses_own_car   :float
 #  supplies_from_warehouse :string(255)
-#  changed_hour_id         :integer
-#  change_reason           :string(255)
-#  changed_by_user_id      :integer
+#  of_kind                 :string(255)      default("personal")
+#  billable_id             :integer
+#  personal_id             :integer
+#  approved                :boolean          default(FALSE)
+#  frozen_by_admin         :boolean          default(FALSE)
+#  change_reason           :text
+#  old_values              :text
+#  edited_by_admin         :boolean          default(FALSE)
 #
 
 require 'spec_helper'
@@ -52,7 +57,8 @@ describe HoursSpent do
 
 
     it "knows how many hour a user har registred on a task" do
-      @task.hours_total.should eq 110
+      @task.hours_total(of_kind: :personal).should eq 110
+      @task.hours_total(of_kind: :billable).should eq 110
     end
 
     it "sums all kinds of hours for one registration" do
@@ -77,19 +83,23 @@ describe HoursSpent do
   end
 
   describe 'billable and personal hours' do
-    before do
+    before :all do
       @task = Fabricate(:task)
       @user = Fabricate(:user)
-      @billable = Fabricate(:hours_spent, user: @user, task: @task,
-                            description: 'billable', of_kind: 'billable')
-      @personal = Fabricate(:hours_spent, user: @user, task: @task,
-                            description: 'personal', of_kind: 'personal')
- 
+      Fabricate(:hours_spent, user: @user, task: @task, description: 'from user')
     end
 
-    it 'scopes' do
-      @user.hours_spents.billable.first.description.should eq 'billable'
-      @user.hours_spents.personal.first.description.should eq 'personal'
+    it 'generates one personal and one billable' do
+      @user.hours_spents.billable.first.description.should eq 'from user'
+      @user.hours_spents.personal.first.description.should eq 'from user'
+    end
+
+    it 'is invalid if change_reason is missing on update' do
+      pending
+      hour = Fabricate.build(:hours_spent, of_kind: :billable, change_reason: nil)
+      hour.valid?
+      hour.change_reason = nil
+      expect(hour.errors.messages[:change_reason]).to eq ['kan ikke være blank']
     end
 
   end
