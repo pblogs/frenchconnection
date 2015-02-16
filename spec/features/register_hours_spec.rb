@@ -19,8 +19,8 @@ feature "Registered hours on a Task" do
   end
 
   context 'As an admin' do
-    #pending 'WIP'
     scenario "approve billable hours" do
+    pending 'WIP'
 
       sign_in(@project_leader)
       visit project_hours_path(@project)
