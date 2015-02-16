@@ -21,6 +21,21 @@ module V1
           header 'Access-Control-Allow-Origin', '*'
         end
       end
+
+      desc "Timesheets for user"
+      params do
+        requires :user_id, type: Integer, desc: "User id."
+      end
+      route_param :user_id do
+        get 'timesheets' do
+          timesheets = { 'june' => [ { :title => "Slottet", :url=>"http://example.pdf"   },
+                                     { :title => "Østbanehallen", url: "http://link.com" }
+                                   ] }
+          present timesheets
+          header 'Access-Control-Allow-Origin', '*'
+        end
+      end
+
       
     end
   end
