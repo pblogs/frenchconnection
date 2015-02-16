@@ -25,25 +25,24 @@
           td= hour.km_driven_own_car
           td= hour.toll_expenses_own_car
           td.approved= hour.approved ? t('jupp') : t('nope')
-          - if of_kind == "personal"
-            td= link_to fa_icon('pencil-square-o'),
-                  project_personal_hours_path(hour.user, hour.hour_object.project)
-          - else
+          td= link_to fa_icon('pencil-square-o'),
+              user_hours_path(hour.user, hour.hour_object.project, of_kind: of_kind)
+          /- else
             td= link_to fa_icon('pencil-square-o'),
                   project_billable_hours_path(hour.user, hour.hour_object.project)
   
   
     br
   
-    = button_to ('Generer "Timeliste" Excelark - lønnsgrunnlag'),
-      project_approve_hours_path(@project),
-      params: { year: @year, month: @month },
-      class: 'btn btn-primary'
-  
-    = button_to 'Generer "Dagsrapport" (PDF) - fakturagrunnlag',
-      project_approve_hours_path(@project),
-      params: { year: @year, month: @month },
-      class: 'btn btn-primary'
+    - if of_kind == "personal"
+      = button_to ('Generer "Timeliste" Excelark - lønnsgrunnlag'),
+        project_approve_hours_path(@project),
+        params: { year: @year, month: @month }, class: 'btn btn-primary'
+
+    - elsif of_kind == "billable"
+      = button_to 'Generer "Dagsrapport" (PDF) - fakturagrunnlag',
+        project_approve_hours_path(@project),
+        params: { year: @year, month: @month }, class: 'btn btn-primary'
   
   - else
     br
