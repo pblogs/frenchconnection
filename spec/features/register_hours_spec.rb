@@ -36,6 +36,7 @@ feature "Registered hours on a Task" do
 
       # Admin edits user's hour
       expect {
+        click_link 'user_hours'
         click_link 'edit_hour'
         fill_in HoursSpent.human_attribute_name("description"),
           with: 'updated by admin'
