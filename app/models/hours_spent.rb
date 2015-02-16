@@ -29,27 +29,13 @@
 #  edited_by_admin         :boolean          default(FALSE)
 #
 
-# When a user registers hours on a task, it's registered as personal hours. HoursSpent.new(of_kind: :personal)
-# The project leader can list these hours pr month on each project. If the project leader wants to approve or change anything,
-# he needs to press freeze hours. This will make a billabel copy of the personal hours. HoursSpent.new(of_kind: :billable)
+# When a user registers hours on a task, it's generates 2 HoursSpent.
+# One personal and one billable. 
 #
-# The 'Approve hours' and edit options will be available after 'freeze hours' is clicked.
-# The personal hours in this scope will ba marked as frozen. 
+# == Generating reports
+# The approved hours within the selected scope is set as frozen when 
+# daily_report or timesheet is generated. 
 #
-# Meaning that when listing hours for project 1 in january, it will not 
-# display personal hours that's frozen, only billable hours. 
-# If a user register more hours for january after they has been frozen by the project leader,
-# then they will be listed above the billable as new. 
-#
-# Example of hours listed for project/1/month/1/year/2015
-#  @new_hours = @project.hours_spent.personal.not_frozen.year(2015).month(1)
-#  @billable_approved_hours = @project.hours_spent.billable.approved.year(2015).month(1)
-#  @billable_not_approved_hours = @project.hours_spent.billable.not_approved.year(2015).month(1)
-#
-# Billable hours that is not approved, will be highlighted. 
-# These will not be used in calculations when generating reports.
-# Any change the project leader makes to these hours will be on the billable version. 
-# PDF reports generated will use the billable and approved hours.
 # 
 class HoursSpent < ActiveRecord::Base
   TYPES = %w(hour piecework_hours overtime_50 overtime_100)
@@ -105,13 +91,9 @@ class HoursSpent < ActiveRecord::Base
   end
 
   def approve!
-    return if billable?
-    self.update_attributes(approved: true, frozen_by_admin: true)
+    self.update_attributes(approved: true)
   end
 
-  def requires_approval?
-    personal? && !frozen_by_admin
-  end
   
   def mark_as_edited_by_admin!
     self.update_attributes(frozen_by_admin: true, edited_by_admin: true)
