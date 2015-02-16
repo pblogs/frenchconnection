@@ -30,7 +30,10 @@
 #
 
 # When a user registers hours on a task, it's generates 2 HoursSpent.
-# One personal and one billable. 
+# One personal and one billable. Never spesify of_kind when creating a new one, 
+# personal and billable will be created automatically.
+#
+# Workers nor admins can not edit hours after they have been approved.
 #
 # == Generating reports
 # The approved hours within the selected scope is set as frozen when 
@@ -49,7 +52,7 @@ class HoursSpent < ActiveRecord::Base
   validates :description,   :presence => true
   validates :date,          :presence => true
   validates :project_id,    :presence => true
-  validates :change_reason, :presence => true, if:  :billable?, on: :update
+  #validates :change_reason, :presence => true, if:  :billable?, on: :update
 
   symbolize :of_kind, in: %i(personal billable), default: :personal
   serialize :old_values
@@ -67,7 +70,7 @@ class HoursSpent < ActiveRecord::Base
   scope :approved, -> { where(approved: true) } 
   scope :edited_by_admin,     -> { where(edited_by_admin: true) } 
   scope :not_edited_by_admin, -> { where(edited_by_admin: false) } 
-  scope :not_approved,        -> { personal.not_frozen_by_admin.where(approved: false) } 
+  scope :not_approved,        -> { where(approved: false) } 
   scope :frozen_by_admin,     -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
 
