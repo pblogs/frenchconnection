@@ -19,9 +19,14 @@
 #  km_driven_own_car       :float
 #  toll_expenses_own_car   :float
 #  supplies_from_warehouse :string(255)
-#  changed_hour_id         :integer
-#  change_reason           :string(255)
-#  changed_by_user_id      :integer
+#  of_kind                 :string(255)      default("personal")
+#  billable_id             :integer
+#  personal_id             :integer
+#  approved                :boolean          default(FALSE)
+#  frozen_by_admin         :boolean          default(FALSE)
+#  change_reason           :text
+#  old_values              :text
+#  edited_by_admin         :boolean          default(FALSE)
 #
 
 # When a user registers hours on a task, it's registered as personal hours. HoursSpent.new(of_kind: :personal)
