@@ -99,7 +99,6 @@ class DailyReport
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
                 hours_spent.description] + 
                 offsett(ai) + [hours_spent.send(@overtime)]
-                # denne returnerer nok ikke fra changed ^
               i += 1 
             end
           end
@@ -113,8 +112,8 @@ class DailyReport
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
               #[1,2,3] + [nil, nil, nil],
               ExcelProjectTools.hours_for_users(project: @project, 
-                overtime: @overtime,
-                profession: @profession, changed: true) + [nil, nil, nil, nil],
+                overtime: @overtime, of_kind: :billable,
+                profession: @profession) + [nil, nil, nil, nil],
                 :style => [gray_bg_align_right, gray_bg_align_right, 
                            gray_bg_align_right, gray_bg_align_right, 
                            gray_bg_align_right, gray_bg_align_right, 

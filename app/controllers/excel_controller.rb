@@ -10,7 +10,8 @@ class ExcelController < ApplicationController
     @filename   = DailyReport.new(project: @project, profession: @profession,
                                  overtime: @overtime).create_spreadsheet
     @hours_spent = @project.hours_spent_for_profession(@profession, 
-                                                       overtime: @overtime)
+                                                       overtime: @overtime,
+                                                       of_kind: :billable)
     @week_numbers = HoursSpent.week_numbers(@hours_spent)
 
     respond_to do |format|
