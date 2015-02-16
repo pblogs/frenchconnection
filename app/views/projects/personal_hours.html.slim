@@ -13,9 +13,16 @@ h4 Timelister - lønn
   title: "Sum timer pr ansatt på dette prosjektet" }
 
 
+.button-group
+  label
+    span.button-group-item.tooltip-item(data-no-turbolink)
+      = link_to 'Lag timelister', project_project_reports_path(@project,
+        type: 'timesheet'), method: :post
 
 
 
 
+br
+br
 br
 = link_to 'Tilbake', :back
