@@ -10,6 +10,7 @@
 #  description :text
 #
 
+# A project can have many attachments. Documents, images, etc.
 class Attachment < ActiveRecord::Base
   validates :document, :presence => true
   validates :project,  :presence => true

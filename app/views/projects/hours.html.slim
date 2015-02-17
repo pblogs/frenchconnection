@@ -1,6 +1,10 @@
-= link_to 'Billable', project_billable_hours_path(@project), class: 'btn'
+strong = "Timer registert på #{link_to @project.name, @project}".html_safe
+
 br
-= link_to 'Personal', project_personal_hours_path(@project), class: 'btn'
+br
+ul
+  li= link_to 'Dagsrapporter', project_billable_hours_path(@project)
+  li= link_to 'Timelister', project_personal_hours_path(@project)
 
 
 

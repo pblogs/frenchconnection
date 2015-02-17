@@ -28,9 +28,18 @@ module V1
       end
       route_param :user_id do
         get 'timesheets' do
-          timesheets = { 'june' => [ { :title => "Slottet", :url=>"http://example.pdf"   },
-                                     { :title => "Østbanehallen", url: "http://link.com" }
-                                   ] }
+          user    = User.find(params[:user_id])
+          months  = user.monthly_reports.collect(&:month_nr).sort.uniq
+          reports = user.monthly_reports
+
+          timesheets = {}
+          months.each do |m|
+            timesheets[m] = []
+            reports.where(month_nr: m).each do |r|
+              timesheets[m] << { title: r.title, url: r.document.url }
+            end
+          end
+
           present timesheets
           header 'Access-Control-Allow-Origin', '*'
         end
