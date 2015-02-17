@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_by_id, only: [:hours, :approved_hours, :timesheets]
   before_action :set_department, only: [:new, :edit, :update, :create]
   before_action :set_profession, only: [:new, :edit, :update, :create]
   before_action :fix_roles_params, only: [:update, :create]
@@ -9,15 +10,15 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     alpha_paginate_options = {
-        :support_language => :en,
-        :pagination_class => 'pagination-centered',
-        :js => false,
-        :include_all => false,
-        :default_field => get_paginate_default_field(User.order(:last_name)
-                                                     .first.last_name[0])
+      :support_language => :en,
+      :pagination_class => 'pagination-centered',
+      :js => false,
+      :include_all => false,
+      :default_field => get_paginate_default_field(User.order(:last_name)
+      .first.last_name[0])
     }
     @users, @alpha_params = User.all.alpha_paginate(params[:letter],
-        alpha_paginate_options) { |user| user.last_name }
+                                                    alpha_paginate_options) { |user| user.last_name }
   end
 
   # GET /users/1
@@ -38,10 +39,10 @@ class UsersController < ApplicationController
     @form_action = user_path(@user)
   end
 
+
   # GET /users/:user_id/projects/:project_id/hours
   def hours
     of_kind = params[:of_kind]
-    @user     = User.find(params[:user_id])
     @project  = Project.find(params[:project_id])
     @projects = @user.projects.uniq
     @hours    = @project.hours_spents.where(user: @user).send(of_kind)
@@ -53,8 +54,11 @@ class UsersController < ApplicationController
   end
 
   def approved_hours
-    @user  = User.find(params[:user_id])
     @hours = @project.hours_spents.approved
+  end
+
+  def timesheets
+    @timesheets = @user
   end
 
   def create
@@ -63,7 +67,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path,
-                    notice: I18n.t('saved') }
+                      notice: I18n.t('saved') }
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { render action: 'new' }
@@ -78,7 +82,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_url,
-                    notice: I18n.t('updated') }
+                      notice: I18n.t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -103,35 +107,39 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def set_department
-      @departments = Department.all
-    end
+  def set_department
+    @departments = Department.all
+  end
 
-    def set_profession
-      @professions = Profession.all
-    end
+  def set_profession
+    @professions = Profession.all
+  end
 
-    # Never trust parameters from the scary internet,
-    #only allow the white list through.
-    def user_params
-      params.require(:user).permit(
-        :first_name,
-        :last_name, 
-        :tasks_id,
-        :mobile,
-        :emp_id,
-        :profession_id,
-        :department_id,
-        :image,
-        roles: [],
-        skill_ids: [],
-        certificate_ids: [])
-    end
+  def set_user_by_id
+    @user     = User.find(params[:user_id])
+  end
+
+  # Never trust parameters from the scary internet,
+  #only allow the white list through.
+  def user_params
+    params.require(:user).permit(
+      :first_name,
+      :last_name, 
+      :tasks_id,
+      :mobile,
+      :emp_id,
+      :profession_id,
+      :department_id,
+      :image,
+      roles: [],
+      skill_ids: [],
+      certificate_ids: [])
+  end
 
   def fix_roles_params
     return if params[:user][:roles].blank?
