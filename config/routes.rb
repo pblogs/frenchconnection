@@ -74,6 +74,7 @@ AllieroForms::Application.routes.draw do
     get '/tasks/not_started' => 'users/tasks#not_started'
     get '/projects/:project_id/hours'=> 'users#hours', as: :hours
     post '/projects/:project_id/hours'=> 'users#hours', as: :approve_hours
+    get :timesheets
     resources :tasks, :controller => 'users/tasks' do
       post :accept_task
       post :finished

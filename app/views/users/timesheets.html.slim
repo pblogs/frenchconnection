@@ -1,0 +1,12 @@
+h4 Timelister
+br
+br
+br
+
+
+- @months.each do |month|
+  strong = DateTime.parse("01.#{month}.1983").strftime("%B")
+  ul
+    - @timesheets.where(month_nr: month).each do |t|
+      li= link_to t.title, t.document.url
+  
