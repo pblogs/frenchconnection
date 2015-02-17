@@ -59,9 +59,8 @@ class TimesheetWorker
     hours = project.hours_spents.personal.approved.where(user: user).year(@year).month(@month)
     filename = Timesheet.new(project, user, hours, @month, @year).create_spreadsheet
     file = File.open(filename)
-    # destroy old if it exists
-    user.monthly_reports.create!(document: file, month_nr: @month, year: @year,
-                                 title: project.name)
+    user.monthly_reports.where(month_nr: @month, year: @year, title: project.name).destroy_all
+    user.monthly_reports.create!(document: file, month_nr: @month, year: @year, title: project.name)
     ReportFile.new(filename, user)
   end
 
