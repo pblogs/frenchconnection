@@ -54,7 +54,8 @@ class TimesheetWorker
   def generate_timesheet(project, user)
     hours = project.hours_spents.personal.approved.where(user: user)
     filename = Timesheet.new(project, user, hours).create_spreadsheet
-    user.monthly_reports.create!(document: filename, month_nr: Time.now.month,
+    file = File.open(filename)
+    user.monthly_reports.create!(document: file, month_nr: Time.now.month,
                                  title: project.name)
     ReportFile.new(filename, user)
   end
