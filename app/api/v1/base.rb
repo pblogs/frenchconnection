@@ -13,6 +13,7 @@ module V1
     mount BlogProjects
     mount Certificates
     mount Skills
+    mount Attachments
 
   end
 end
