@@ -168,10 +168,10 @@ class Timesheet
           sheet.add_row [nil]
           sheet.add_row [nil]
           sheet.add_row [nil, nil, 'Sum',
-            ExcelProjectTools.sum_piecework_hours(project: @project, user: @user), 
-            ExcelProjectTools.sum_workhours(project: @project, user: @user), 
-            ExcelProjectTools.sum_overtime_50(project: @project, user: @user), 
-            ExcelProjectTools.sum_overtime_100(project: @project, user: @user), 
+            ExcelProjectTools.sum_piecework_hours(project: @project, user: @user, of_kind: :personal), 
+            ExcelProjectTools.sum_workhours(project: @project, user: @user, of_kind: :personal), 
+            ExcelProjectTools.sum_overtime_50(project: @project, user: @user, of_kind: :personal), 
+            ExcelProjectTools.sum_overtime_100(project: @project, user: @user, of_kind: :personal), 
             nil, nil, nil, nil, nil, nil, nil],
             style: [nil, bold_gray_bg, bold_gray_bg,
             bold_gray_bg, bold_gray_bg,

@@ -9,7 +9,16 @@
         li= link_to 'Rediger min profil', edit_user_path(@current_user)
         li= link_to 'Se timelister',  edit_user_path(@current_user), class: :muted_text
         li= link_to 'Meld avvik',     edit_user_path(@current_user), class: :muted_text
-      br
+
+    br
+    section
+      strong.menu_header Min kompetanse
+      .bar
+      ul
+        - @user.skills.each do |skill|
+          li= skill.title
+        - @user.certificates.each do |cert|
+          li= cert.title
   
 
   .center_column

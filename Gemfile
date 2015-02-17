@@ -92,6 +92,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'binding_of_caller'
   gem 'meta_request'
+  gem 'pry'
 end
 
 group :development do

@@ -38,6 +38,25 @@ class UsersController < ApplicationController
     @form_action = user_path(@user)
   end
 
+  # GET /users/:user_id/projects/:project_id/hours
+  def hours
+    of_kind = params[:of_kind]
+    @user     = User.find(params[:user_id])
+    @project  = Project.find(params[:project_id])
+    @projects = @user.projects
+    @hours    = @project.hours_spents.where(user: @user).send(of_kind)
+
+    # Update all hours as approved. TODO: Use a separate function for this
+    if request.post?
+      @hours.each { |h| h.approve! }
+    end
+  end
+
+  def approved_hours
+    @user  = User.find(params[:user_id])
+    @hours = @project.hours_spents.approved
+  end
+
   def create
     @user = User.new(user_params)
     @user.password = @user.password_confirmation = srand.to_s[0..10]
