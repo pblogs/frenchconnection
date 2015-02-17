@@ -84,29 +84,6 @@ module Tasks
                                   of_kind: params[:of_kind])
     end
 
-    # hours_spent_for_admin 
-    # POST   /hours_spents/:hours_spent_id/for_admin(.:format) 
-    # GET    /hours_spents/:hours_spent_id/for_admin(.:format)
-    # PATCH  /hours_spents/:hours_spent_id/for_admin(.:format)
-    def for_admin
-      if request.patch? 
-        if @hour.personal?
-          @new_hour = create_billable_hour
-          if @new_hour.save
-            @hour.mark_as_edited_by_admin!
-            redirect_to user_hours_path(@hour.user, @hour.project)
-          else
-            render action: 'edit'
-          end
-        elsif @hour.billable?
-          if @hour.update(hours_spent_params)
-            redirect_to user_hours_path(@hour.user, @hour.project)
-          else
-            render action: 'edit'
-          end
-        end
-      end
-    end
 
     private
     # Use callbacks to share common setup or constraints between actions.
