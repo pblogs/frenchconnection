@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     of_kind = params[:of_kind]
     @user     = User.find(params[:user_id])
     @project  = Project.find(params[:project_id])
-    @projects = @user.projects
+    @projects = @user.projects.uniq
     @hours    = @project.hours_spents.where(user: @user).send(of_kind)
 
     # Update all hours as approved. TODO: Use a separate function for this
