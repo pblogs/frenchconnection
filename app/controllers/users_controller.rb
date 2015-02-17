@@ -58,7 +58,8 @@ class UsersController < ApplicationController
   end
 
   def timesheets
-    @timesheets = @user
+    @timesheets = @user.monthly_reports
+    @months = @user.monthly_reports.collect(&:month_nr).sort.uniq
   end
 
   def create

@@ -7,7 +7,7 @@
       .bar
       ul
         li= link_to 'Rediger min profil', edit_user_path(@current_user)
-        li= link_to 'Se timelister',  edit_user_path(@current_user), class: :muted_text
+        li= link_to 'Se timelister',  user_timesheets_path(@current_user)
         li= link_to 'Meld avvik',     edit_user_path(@current_user), class: :muted_text
 
     br
