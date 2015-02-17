@@ -493,6 +493,7 @@ DEPENDENCIES
   passenger
   pdfkit
   pg
+  pry
   pusher
   quiet_assets
   rack-cors

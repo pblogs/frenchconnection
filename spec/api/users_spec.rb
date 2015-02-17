@@ -28,5 +28,17 @@ describe V1::Users do
       u['email'].should eq @worker.email
     end
   end
+
+  describe 'GET /api/v1/users/id/timesheets' do
+    it 'returns a list of timesheets for the current month' do
+      get "/api/v1/users/#{ @worker.id }/timesheets"
+      response.status.should == 200
+      hash = JSON.parse(response.body)
+      # { 'june' => [ {:title=>"Slottet", :url=>"http://example.pdf"} ]  }
+      hash["june"].first["title"].should eq 'Slottet'
+      hash["june"].second["title"].should eq 'Østbanehallen'
+      hash["june"].second["url"].should match 'http'
+    end
+  end
   
 end

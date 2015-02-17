@@ -1,0 +1,74 @@
+.for_admin(data-for-admin="yes")
+= form_for @hour, url: task_hours_spent_for_admin_path(@hour.task, @hour) do |f|
+
+  - if @new_hour && @new_hour.errors.any?
+    #error_explanation
+      h2 = "#{@new_hour.errors.count} feil gjorde at vi ikke fikk lagret:"
+      ul.error_messages
+        - @new_hour.errors.full_messages.each do |message|
+          li = message
+
+  - if @hour && @hour.errors.any?
+    #error_explanation
+      h2 = "#{@hour.errors.count} feil gjorde at vi ikke fikk lagret:"
+      ul.error_messages
+        - @hour.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :change_reason
+    = f.text_area :change_reason
+  br
+  br
+  hr
+  
+  .field
+    = f.label :date, 'Dato'
+    = f.text_field :date, value: I18n.l(Time.now, format: :datepicker),
+      class: :datepicker
+
+  h4 Antall timer
+  .field
+    = f.label :piecework_hours, 'Akkord'
+    = f.number_field :piecework_hours
+  .field
+    = f.label :hour
+    = f.number_field :hour
+
+  h4 Overtid
+  .field
+    = f.label :overtime_50
+    = f.number_field :overtime_50
+  .field
+    = f.label :overtime_100
+    = f.number_field :overtime_100
+
+  .field
+    = f.label :description, 'Beskrivelse'
+    = f.text_area :description, cols: 20, rows: 4 
+
+
+  .field
+    = f.label :runs_in_company_car, 'Antall ganger kjørt firmabil'
+    = f.number_field :runs_in_company_car
+
+  #drives_his_own_car
+    .field
+      = f.label :km_driven_own_car, 'Antall kjørte km egen bil'
+      = f.number_field :km_driven_own_car
+    .field
+      = f.label :toll_expenses_own_car, 'Bompenger egen bil'
+      = f.number_field :toll_expenses_own_car
+
+  .field
+    = f.label :supplies_from_warehouse, 'Uttak av materialer fra eget lager'
+    = f.text_area :supplies_from_warehouse
+
+
+  .actions = f.submit t('save')
+
+/  Når en ansatt skal føre timer skal det også komme opp felt om:
+/  - Antall ganger kjørt firmabil (hvis 1 så skal feltene under ikke komme opp)
+/  - Antall kjørte km egen bil
+/  - Bompenger egen bil
+/  - Uttak av materialer fra eget lager

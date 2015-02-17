@@ -2,13 +2,14 @@ class DailyReport
   require 'rubygems'
   require 'axlsx'
 
-  def initialize(project:, profession:, overtime: :hour)
+  def initialize(project:, profession:, overtime: :hour, of_kind: :of_kind)
     @project    = project
     @profession = profession
     @overtime   = overtime  # In percent. E.g: 50 or 100
     @workers    = @project.users.where(profession: @profession)
     @header     = "DAGSRAPPORT - #{@profession.title} - #{@overtime}"
     @logo       = 'app/assets/images/alliero-bratfoss-h46.png'
+    @of_kind    = of_kind
   end
 
 =begin
@@ -96,9 +97,8 @@ class DailyReport
             @project.hours_spents.where(user: user).each do |hours_spent|
               next unless (hours_spent.send(@overtime) > 0 rescue nil)
               sheet.add_row [I18n.l(hours_spent.created_at, format: :short_date), 
-                hours_spent.changed_value_description(:normal)] + 
+                hours_spent.description] + 
                 offsett(ai) + [hours_spent.send(@overtime)]
-                # denne returnerer nok ikke fra changed ^
               i += 1 
             end
           end
@@ -112,8 +112,8 @@ class DailyReport
             sheet.add_row ['', 'Sum timer pr. pers: '] + 
               #[1,2,3] + [nil, nil, nil],
               ExcelProjectTools.hours_for_users(project: @project, 
-                overtime: @overtime,
-                profession: @profession, changed: true) + [nil, nil, nil, nil],
+                overtime: @overtime, of_kind: :billable,
+                profession: @profession) + [nil, nil, nil, nil],
                 :style => [gray_bg_align_right, gray_bg_align_right, 
                            gray_bg_align_right, gray_bg_align_right, 
                            gray_bg_align_right, gray_bg_align_right, 
@@ -125,7 +125,7 @@ class DailyReport
           # Sum timer totalt
           sheet.add_row ['', 'Sum timer totalt: ',
                          @project.hours_spent_total(profession: @profession,
-                           changed: true, overtime: @overtime), 
+                           overtime: @overtime, of_kind: @of_kind), 
                            nil, nil, nil, nil, nil, nil, nil, 
                            nil, nil, nil, nil],
             :style => [gray_bg_align_right, gray_bg_align_right, 

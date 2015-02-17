@@ -50,11 +50,16 @@ class Task < ActiveRecord::Base
   attr_accessor :department_id
   attr_accessor :goto_tools
 
-  def hours_total
-    self.hours_spents.sum(:hour) +
-    self.hours_spents.sum(:piecework_hours) +
-    self.hours_spents.sum(:overtime_50) +
-    self.hours_spents.sum(:overtime_100)
+  def active?
+    ended_at.blank? && finished == false ||
+    project.complete?
+  end
+
+  def hours_total(of_kind:)
+    self.hours_spents.send(of_kind).sum(:hour) +
+    self.hours_spents.send(of_kind).sum(:piecework_hours) +
+    self.hours_spents.send(of_kind).sum(:overtime_50) +
+    self.hours_spents.send(of_kind).sum(:overtime_100)
   end
 
   def name_of_users

@@ -12,8 +12,6 @@ slottet       = Fabricate(:customer, name: 'Det kongelige slott')
 
 # Custom message.
 Fabricate(:customer_message,
-          text: 'Jeg er 30 minutter forsinket. Beklager så mye.')
-Fabricate(:customer_message,
           text: 'Vi er ferdig for i dag. Vi kommer tilbake i morgen.')
 Fabricate(:customer_message,
           text: 'Vi er ferdige med jobben. Vi håper du blir fornøyd.')
@@ -95,13 +93,20 @@ Fabricate(:user, roles: [:worker],
                  sms_employee_if_hours_not_registered: true,
                  department: service_avdeling, user: @martin)
 
+@trapp_slottet = Fabricate(:project, name: 'Trappen på slottet',
+                 customer: slottet,
+                 department: service_avdeling, user: danni)
+
 
 # Tasks for Danni - Snekker
-danni_task = Fabricate(:task, project: @ryen, description: 'Lag et skur')
-danni_task.users << danni
-danni_task.users << @martin # Add martin so we have a user that doesn't register
+skur_ryen = Fabricate(:task, project: @ryen, description: 'Lag et skur')
+skur_ryen.users << danni
+skur_ryen.users << @martin # Add martin so we have a user that doesn't register
                             # any HoursSpent.
-danni_task.save
+
+trapp = Fabricate(:task, project: @trapp_slottet, description: 'Ny trapp')
+trapp.users << danni
+trapp.save
 
 # Tasks for Snekker Kari
 snekker_kari_task = Fabricate(:task, project: @ryen, description: 'Lag en bod')
@@ -116,19 +121,19 @@ male_task.save
 # HoursSpent for Danni - Snekker
 # Only for week 1 in 2014
 Fabricate(:hours_spent, date: '01.01.2014', hour: 11,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 11 vanlige timer')
 
 Fabricate(:hours_spent, date: '02.01.2014', overtime_50: 12,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 12 timer 50% overtid')
 
 Fabricate(:hours_spent, date: '03.01.2014', overtime_100: 13,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 13 timer 100% overtid')
 
 Fabricate(:hours_spent, date: '04.01.2014', overtime_100: 20,
-          task: danni_task, user: danni, project: @ryen,
+          task: skur_ryen, user: danni, project: @ryen,
           description: 'danni - 20 timer 100% overtid')
 
 
@@ -141,14 +146,18 @@ Fabricate(:hours_spent, date: '15.01.2014', overtime_100: 10,
           description: 'snekker kari - 10 timer 100% overtid')
 
 # More workers with hours on Ryen
-10.times do
+9.times do |i|
+  i +=1
   user = Fabricate(:user, profession: @snekker, department: @d545)
   user_task = Fabricate(:task, project: @ryen, description: 'div for user')
   user_task.users << user
   user_task.save!
-  Fabricate(:hours_spent, date: '01.01.2014', overtime_100: 30,
+  Fabricate(:hours_spent, date: "01.0#{i}.2014", overtime_100: 30,
              task: user_task, user: user, project: @ryen,
              description: "#{user.name} - 30 timer 100% overtid")
+  Fabricate(:hours_spent, date: "01.0#{i}.2014", overtime_50: 52,
+             task: user_task, user: user, project: @ryen,
+             description: "#{user.name} - 52 timer 50%")
 end
 
 #
