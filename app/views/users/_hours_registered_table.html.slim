@@ -36,7 +36,7 @@
                 span.badge-error Ikke godkjent
 
             td
-              - if hour.user == @current_user
+              - if hour.billable?
                 = link_to fa_icon('pencil-square-o'),
                     edit_task_hours_spent_path(hour.task, hour), id: 'edit_hour'
               - if !hour.approved
