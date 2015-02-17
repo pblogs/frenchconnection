@@ -28,8 +28,8 @@ module V1
       end
       route_param :user_id do
         get 'timesheets' do
-          timesheets = { 'june' => [ { :title => "Slottet", :url=>"http://example.pdf"   },
-                                     { :title => "Østbanehallen", url: "http://link.com" }
+          timesheets = { 'june' => [ { title: "Slottet", url: "http://example.pdf"   },
+                                     { title: "Østbanehallen", url: "http://link.com" }
                                    ] }
           present timesheets
           header 'Access-Control-Allow-Origin', '*'

@@ -26,7 +26,7 @@ class DailyReportWorker
       current = ZippedReport.daily_reports.create!(project: @project,
                         zipfile: File.open(zipfile_path))
 
-      ZippedReportCleanerWorker.perform_in(15.minutes, current.id)
+      #ZippedReportCleanerWorker.perform_in(15.minutes, current.id)
 
       Pusher["user-#{user_id}"].trigger("report", {
           id: current.id,
