@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   # GET /users/:user_id/projects/:project_id/hours
   def hours
-    of_kind = params[:of_kind]
+    of_kind   = params[:of_kind] || :personal
     @project  = Project.find(params[:project_id])
     @projects = @user.projects.uniq
     @hours    = @project.hours_spents.where(user: @user).send(of_kind)
