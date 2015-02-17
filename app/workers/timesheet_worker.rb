@@ -16,8 +16,12 @@ class TimesheetWorker
       return unless @project
 
       Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
+        begin
         files.each do |f|
           zipfile.add(f.filename, f.file)
+        end
+        rescue
+          puts "Failed adding #{f.filename} to zip"
         end
       end
 
