@@ -1,12 +1,12 @@
-= form_for [@task, @hours_spent] do |f|
-  - if @hours_spent.errors.any?
+= form_for [@task, @hour] do |f|
+  - if @hour.errors.any?
     #error_explanation
-      h2 = "#{@hours_spent.errors.count} feil gjorde at vi ikke fikk lagret:"
+      h2 = "#{@hour.errors.count} feil gjorde at vi ikke fikk lagret:"
       ul.error_messages
-        - @hours_spent.errors.full_messages.each do |message|
+        - @hour.errors.full_messages.each do |message|
           li = message
 
-  - if @hours_spent.user != @current_user
+  - if @hour.user != @current_user
     .field
       = f.label :change_reason
       = f.text_field :change_reason
