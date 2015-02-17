@@ -21,7 +21,7 @@ module Tasks
 
     # GET /hours_spents/new
     def new
-      @hour = HoursSpent.new
+      @hour = @current_user.hours_spents.new
     end
 
     # GET /hours_spents/1/edit
