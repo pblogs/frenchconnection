@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214101839) do
+ActiveRecord::Schema.define(version: 20150217092839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,6 +244,13 @@ ActiveRecord::Schema.define(version: 20150214101839) do
   add_index "mobile_pictures", ["project_id"], name: "index_mobile_pictures_on_project_id", using: :btree
   add_index "mobile_pictures", ["task_id"], name: "index_mobile_pictures_on_task_id", using: :btree
   add_index "mobile_pictures", ["user_id"], name: "index_mobile_pictures_on_user_id", using: :btree
+
+  create_table "monthly_reports", force: true do |t|
+    t.string   "document"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "professions", force: true do |t|
     t.string   "title"

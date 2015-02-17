@@ -34,14 +34,16 @@ class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include User::Role
 
+  mount_uploader :image, ImageUploader
+
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable
 
   belongs_to :department
   belongs_to :profession
   has_and_belongs_to_many :certificates
-  mount_uploader :image, ImageUploader
   has_and_belongs_to_many :skills
+  has_many :monthly_reports
 
   validates :first_name, presence: true
   validates :last_name,  presence: true
