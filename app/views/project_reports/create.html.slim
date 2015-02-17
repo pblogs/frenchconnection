@@ -10,7 +10,11 @@ p.success-message.hidden
     = t('.download')
 
 
-= link_to t('back'), project_billable_hours_path(@project)
+- if params['type'] == 'timesheet'
+  = link_to t('back'), project_personal_hours_path(@project)
+- elsif params['type'] == 'daily_report'
+  = link_to t('back'), project_billable_hours_path(@project)
+
 // This is really necessary, as we need a way to do some initialization
 // 1) only on this page
 // 2) and with data specific to current request

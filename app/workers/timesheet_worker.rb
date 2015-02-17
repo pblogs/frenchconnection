@@ -10,18 +10,17 @@ class TimesheetWorker
     end
   end
 
-  def perform(project_id, user_id, token)
+  def perform(project_id, user_id, token, month, year)
+    @month = month
+    @year  = year
+    puts "\n\n DEBUG \n year: #{@year}, month: #{@month}"
     begin
       @project = Project.find(project_id)
       return unless @project
 
       Zip::File.open(zipfile_path, Zip::File::CREATE) do |zipfile|
-        begin
         files.each do |f|
           zipfile.add(f.filename, f.file)
-        end
-        rescue
-          puts "Failed adding #{f.filename} to zip"
         end
       end
 
@@ -50,17 +49,18 @@ class TimesheetWorker
   private
 
   def files
+    # TODO: Only iterate over users that has approved hours.
     @project.users.uniq.map do |u|
       generate_timesheet(@project, u)
     end
   end
 
   def generate_timesheet(project, user)
-    hours = project.hours_spents.personal.approved.where(user: user)
-    filename = Timesheet.new(project, user, hours).create_spreadsheet
+    hours = project.hours_spents.personal.approved.where(user: user).year(@year).month(@month)
+    filename = Timesheet.new(project, user, hours, @month, @year).create_spreadsheet
     file = File.open(filename)
-    user.monthly_reports.create!(document: file, month_nr: Time.now.month,
-                                 title: project.name)
+    user.monthly_reports.where(month_nr: @month, year: @year, title: project.name).destroy_all
+    user.monthly_reports.create!(document: file, month_nr: @month, year: @year, title: project.name)
     ReportFile.new(filename, user)
   end
 
