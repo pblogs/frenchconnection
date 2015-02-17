@@ -74,7 +74,7 @@ class HoursSpent < ActiveRecord::Base
   scope :frozen_by_admin,     -> { where(frozen_by_admin: true) } 
   scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
 
-  after_save :create_billable
+  after_create :create_billable
 
   # Sums all the different types of hours registered
   # for one day, on one user.

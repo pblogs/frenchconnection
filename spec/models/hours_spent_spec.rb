@@ -94,6 +94,20 @@ describe HoursSpent do
       @user.hours_spents.personal.first.description.should eq 'from user'
     end
 
+    it 'BILLABLE can save! without creating more HoursSpent' do
+      @user.hours_spents.size.should eq 2
+      @user.hours_spents.billable.first.save!
+      @user.hours_spents.size.should eq 2
+    end
+
+    it 'PERSONAL can save! without creating more HoursSpent' do
+      @user.hours_spents.size.should eq 2
+      @user.hours_spents.personal.first.save!
+      @user.hours_spents.size.should eq 2
+    end
+      
+      
+
     it 'is invalid if change_reason is missing on update' do
       pending
       hour = Fabricate.build(:hours_spent, of_kind: :billable, change_reason: nil)
