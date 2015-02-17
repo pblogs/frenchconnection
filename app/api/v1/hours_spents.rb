@@ -16,18 +16,13 @@ module V1
           :runs_in_company_car, :km_driven_own_car, :toll_expenses_own_car,
           :supplies_from_warehouse)
         
-          project_id  = Task.find(params[:task_id]).project_id
-          hours_spent = HoursSpent.create(
-            permitted_params.merge(project_id: project_id)
-          )
-
-        if hours_spent.save!
-          present hours_spent.id
-          header 'Access-Control-Allow-Origin', '*'
-        else
-          error! hours_spent.errors, 400
-          header 'Access-Control-Allow-Origin', '*'
-        end
+        project_id  = Task.find(params[:task_id]).project_id
+        hours_spent = HoursSpent.create! (
+          permitted_params.merge(project_id: project_id)
+        )
+          
+        present hours_spent.id
+        header 'Access-Control-Allow-Origin', '*'
       end
       
       desc "Update HoursSpents with given id"
