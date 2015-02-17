@@ -6,6 +6,8 @@
   strong= 'Timer'
 
 h4 Timelister
+br
+br
 
 = render 'year_and_month_selector', { of_kind: :personal}
 = render partial: 'hours_registered_table',
@@ -16,8 +18,9 @@ h4 Timelister
 .button-group
   label
     span.button-group-item.tooltip-item(data-no-turbolink)
-      = link_to 'Lag timelister av godkjente timer for dette prosjektet', project_project_reports_path(@project,
-        type: 'timesheet'), method: :post
+      = link_to 'Lag timelister av godkjente timer for dette prosjektet',
+        project_project_reports_path(@project, type: 'timesheet', 
+        month: @month, year: @year), method: :post
 
 
 

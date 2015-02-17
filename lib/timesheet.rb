@@ -3,13 +3,18 @@ class Timesheet
   require 'axlsx'
 
   # Is generated each month for each user, for each project he attends.
-  def initialize(project, user, hours)
+  def initialize(project, user, hours, month, year)
     @project   = project
     @user      = user
     @hours     = hours
-    @from_date = I18n.l @project.hours_spents.order(created_at: :asc)
+
+    # FIXME These dates should only count hours spent for the user, not the
+    # entire project.
+    @from_date = I18n.l @project.hours_spents.year(year).month(month)
+      .order(created_at: :asc)
       .first.created_at, format: :datepicker 
-    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc)
+    @to_date   = I18n.l @project.hours_spents.year(year).month(month)
+      .order(created_at: :asc)
       .last.created_at,  format: :datepicker
     @logo_file =  'app/assets/images/Alliero-logo-500x81.png'
 
