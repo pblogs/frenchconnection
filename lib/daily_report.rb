@@ -23,9 +23,8 @@ class DailyReport
   For utak av materialer fra lager (samme som kjøring)
   
   Dagsrapporten skal inneholde:
-    - Posisjon i excel-arket er det samme som avdeling. Endre navn på dette i importen og i views.
-    - Dagsrapporter. Navnene skal listes ut vertikalt. (Dette er Martins notat, jeg vet ikke hva det betyr)
-
+    - Posisjon i excel-arket er det samme som avdeling. 
+      Endre navn på dette i importen og i views.
 =end
 
 

@@ -2,12 +2,15 @@ class Timesheet
   require 'rubygems'
   require 'axlsx'
 
+  # Is generated each month for each user, for each project he attends.
   def initialize(project, user, hours)
     @project   = project
     @user      = user
     @hours     = hours
-    @from_date = I18n.l @project.hours_spents.order(created_at: :asc).first.created_at, format: :datepicker 
-    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc).last.created_at,  format: :datepicker
+    @from_date = I18n.l @project.hours_spents.order(created_at: :asc)
+      .first.created_at, format: :datepicker 
+    @to_date   = I18n.l @project.hours_spents.order(created_at: :asc)
+      .last.created_at,  format: :datepicker
     @logo_file =  'app/assets/images/Alliero-logo-500x81.png'
 
     @wday = {
@@ -168,10 +171,15 @@ class Timesheet
           sheet.add_row [nil]
           sheet.add_row [nil]
           sheet.add_row [nil, nil, 'Sum',
-            ExcelProjectTools.sum_piecework_hours(project: @project, user: @user, of_kind: :personal), 
-            ExcelProjectTools.sum_workhours(project: @project, user: @user, of_kind: :personal), 
-            ExcelProjectTools.sum_overtime_50(project: @project, user: @user, of_kind: :personal), 
-            ExcelProjectTools.sum_overtime_100(project: @project, user: @user, of_kind: :personal), 
+            ExcelProjectTools.sum_piecework_hours(project: @project,
+                                                  user: @user,
+                                                  of_kind: :personal), 
+            ExcelProjectTools.sum_workhours(project: @project, user: @user,
+                                            of_kind: :personal), 
+            ExcelProjectTools.sum_overtime_50(project: @project, user: @user,
+                                              of_kind: :personal), 
+            ExcelProjectTools.sum_overtime_100(project: @project, user: @user,
+                                               of_kind: :personal), 
             nil, nil, nil, nil, nil, nil, nil],
             style: [nil, bold_gray_bg, bold_gray_bg,
             bold_gray_bg, bold_gray_bg,

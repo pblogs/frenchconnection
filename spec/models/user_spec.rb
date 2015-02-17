@@ -117,7 +117,18 @@ describe User do
       expect(Project.favored_by(@user).count).to eq 1
       expect(Customer.favored_by(@user).count).to eq 1
     end
-
   end
+
+  describe 'Reports' do
+    it 'keeps the latest generated timesheet for 
+      each project user participates in' do
+      @task = Fabricate(:task)
+      @task.users << @user
+      expect( @user.projects.first).to eq @task.project
+      #expect( @user.timesheets.first.title).to eq 'Tak på slottet'
+      #expect( @user.timesheets.first.url).to match 'http'
+    end
+  end
+    
 
 end

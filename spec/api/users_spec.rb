@@ -30,14 +30,15 @@ describe V1::Users do
   end
 
   describe 'GET /api/v1/users/id/timesheets' do
+    before do
+      MonthlyReport.create(user_id: @worker.id, month_nr: 6, title: 'Slottet')
+    end
     it 'returns a list of timesheets for the current month' do
       get "/api/v1/users/#{ @worker.id }/timesheets"
       response.status.should == 200
       hash = JSON.parse(response.body)
-      # { 'june' => [ {:title=>"Slottet", :url=>"http://example.pdf"} ]  }
-      hash["june"].first["title"].should eq 'Slottet'
-      hash["june"].second["title"].should eq 'Østbanehallen'
-      hash["june"].second["url"].should match 'http'
+      # { '6' => [ {:title=>"Slottet", :url=>"http://example.pdf"} ]  }
+      hash["6"].first["title"].should eq 'Slottet'
     end
   end
   
