@@ -79,7 +79,7 @@ module Tasks
 
     def approve
       @hour.approve!
-      @hour.save!
+      #@hour.save!
       redirect_to user_hours_path(@hour.user, @hour.project,
                                   of_kind: params[:of_kind])
     end
