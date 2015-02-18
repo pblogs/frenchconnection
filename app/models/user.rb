@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
   has_many :categories, :through => :projects
   has_many :favorites, dependent: :destroy
 
+  scope :from_department, ->(department) { where('department_id = ?', department.id) }
 
   def name
     "#{ first_name } #{ last_name }"
