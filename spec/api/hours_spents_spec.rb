@@ -7,8 +7,10 @@ describe V1::HoursSpent do
     it 'creates HoursSpent for user on task on date and returns its id' do
       hours_spent = Fabricate(:hours_spent, hour: 4, description: 'Matle ush')
       
-      put "/api/v1/hours_spents/#{ hours_spent.id }", 
-          { hour: 5, description: 'Malte hus' }
+      expect {
+        put "/api/v1/hours_spents/#{ hours_spent.id }", 
+            { hour: 5, description: 'Malte hus' }
+      }.to change{ HoursSpent.all.size}.by(0)
       
       hours_spent = HoursSpent.find(hours_spent.id)
       hours_spent.hour.should eq 5
@@ -26,9 +28,11 @@ describe V1::HoursSpent do
     end
 
     it 'creates HoursSpent for user on task on date and returns its id' do
-      post "/api/v1/hours_spents/users/#{ @user.id }/" +
-           "tasks/#{ @task.id }/dates/#{ @date }", 
-           { description: 'Malte hus', hour: 5 }
+      expect {
+        post "/api/v1/hours_spents/users/#{ @user.id }/" +
+             "tasks/#{ @task.id }/dates/#{ @date }", 
+             { description: 'Malte hus', hour: 5 }
+      }.to change{ @user.hours_spents.all.size}.from(0).to(2)
            
       hours_spent_id = response.body
       hours_spent    = HoursSpent.find(hours_spent_id)
