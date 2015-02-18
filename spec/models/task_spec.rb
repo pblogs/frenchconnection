@@ -178,16 +178,20 @@ describe Task do
 
   describe 'Resources' do
     before { User.destroy_all }
-    let!(:task)             { Fabricate(:task)  }
+    let!(:dep)              { Fabricate(:department) } 
+    let!(:project)          { Fabricate(:project, department: dep)  }
+    let!(:task)             { Fabricate(:task, project: project)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
     let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') } 
     let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000', 
                                 certificates: [lift_certificate]) }
     let!(:lift_operator)    { Fabricate(:user, roles: [:worker],
-                                first_name: 'Lift Oper', 
+                                first_name: 'Lift Oper', department: dep,
                                 certificates: [lift_certificate]) }
     let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker],
-                                  first_name: 'Unskilled') }
+                                  first_name: 'Unskilled', department: dep) }
+
+    let!(:user_from_different_department) { Fabricate(:user, roles: [:worker]) }
 
     it 'knows which users that can do the job' do
       task.inventories << lift
@@ -202,7 +206,8 @@ describe Task do
     end
 
     it 'lists all users if the task does not contain any tools' do
-      expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
+      expect(task.qualified_workers).to include(lift_operator, user_with_no_certs)
+      expect(task.qualified_workers).to_not include(user_from_different_department)
     end
 
     it 'lists qualitications except those who are selected already' do

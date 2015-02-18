@@ -95,7 +95,7 @@ class Task < ActiveRecord::Base
       # Don't list workers that has already been selected.
       workers - self.users
     else
-      User.with_role(:worker) - self.users
+      User.from_department(self.project.department).with_role(:worker) - self.users
     end
   end
 
