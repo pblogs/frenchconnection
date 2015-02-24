@@ -45,7 +45,7 @@ describe UserTask do
     let!(:user) { Fabricate(:user) }
     it 'notifies each new worker by sms when created' do
       Sms.should_receive(:send_msg).with(to: "47#{user.mobile}",
-             msg: I18n.t('sms.new_task', link: "http://allieroapp.orwapp.com"))
+             msg: I18n.t('sms.new_task'))
       task.users << user
       task.save!
     end

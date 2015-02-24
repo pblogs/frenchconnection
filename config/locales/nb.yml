@@ -59,7 +59,6 @@ nb:
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
     24 timene. Hilsen %{from}
-    http://allieroapp.orwapp.com
   these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
   our_customers: Våre kunder
   org_nr: Org nr
@@ -180,7 +179,7 @@ nb:
       Vi avslutter %{project_name} i dag.
       Pass på at du registrerer alle timene i Orwapp i løpet av dagen.
       Hilsen %{project_leader}
-    new_task: "Du har fått tildelt en ny oppgave. Les mer: %{link}"
+    new_task: "Du har fått tildelt en ny oppgave. Se Orwapp-appen for mer info."
     notify:
       missing_hours: |
         Du har visst glemt å registrere timer på en eller flere av
