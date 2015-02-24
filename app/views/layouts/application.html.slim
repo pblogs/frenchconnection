@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title alliero.orwapp.com
+    title = "#{ENV['DOMAIN']} #{@title}"
     = stylesheet_link_tag "application", media: "all",  
       "data-turbolinks-track" => true
 
@@ -15,7 +15,7 @@ html
     #outer-container
       #main
         .logo-wrapper
-          h1= link_to (image_tag 'Alliero-header.gif'), root_path
+          h1= link_to (image_tag ENV['HTML_HEADER_LOGO']), root_path
         - if signed_in?
           nav
             ul#top_nav
