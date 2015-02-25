@@ -25,7 +25,7 @@ class BlogController < ApplicationController
     @active_tasks    = Task.by_status(:confirmed)
     @active_projects = Project.active
     @skills          = Skill.joins(:users).all.uniq
-    @certificates    = Certificate.all
+    @certificates    = Certificate.joins(:users).all.uniq
   end
 
   def instructions

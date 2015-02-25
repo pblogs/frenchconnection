@@ -62,8 +62,9 @@ class User < ActiveRecord::Base
   scope :from_department,  ->(department) { where('department_id = ?',
                                                   department.id) }
 
-  scope :with_certificate, ->(certificate) { where('certificate_id = ?', 
-                                                   certificate.id) }
+
+  scope :with_certificate, ->(certificate) { joins(:certificates)
+    .where('certificate_id = ?', certificate.id) }
 
   scope :with_skill, ->(skill) { joins(:skills)
     .where('skill_id = ?', skill.id) }
