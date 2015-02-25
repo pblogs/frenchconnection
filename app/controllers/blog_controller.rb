@@ -21,6 +21,11 @@ class BlogController < ApplicationController
   end
 
   def hms
+    @title = 'HMS'
+    @active_tasks    = Task.by_status(:confirmed)
+    @active_projects = Project.active
+    @skills          = Skill.joins(:users).all.uniq
+    @certificates    = Certificate.all
   end
 
   def instructions

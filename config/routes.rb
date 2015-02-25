@@ -69,6 +69,8 @@ AllieroForms::Application.routes.draw do
     get :excel_report
   end
 
+  get '/users/search/'=> 'users#search', as: :user_search
+
   resources :users do 
     get '/tasks/started'     => 'users/tasks#started'
     get '/tasks/not_started' => 'users/tasks#not_started'

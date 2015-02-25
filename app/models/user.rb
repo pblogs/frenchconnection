@@ -59,7 +59,18 @@ class User < ActiveRecord::Base
   has_many :categories, :through => :projects
   has_many :favorites, dependent: :destroy
 
-  scope :from_department, ->(department) { where('department_id = ?', department.id) }
+  scope :from_department,  ->(department) { where('department_id = ?',
+                                                  department.id) }
+
+  scope :with_certificate, ->(certificate) { where('certificate_id = ?', 
+                                                   certificate.id) }
+
+  scope :with_skill, ->(skill) { joins(:skills)
+    .where('skill_id = ?', skill.id) }
+
+  #def with_skill(skill)
+  #  User.joins(:skills).where('skill_id= ?', skill.id)
+  #end
 
   def name
     "#{ first_name } #{ last_name }"

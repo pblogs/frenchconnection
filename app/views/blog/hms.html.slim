@@ -1,4 +1,24 @@
-section.hms
+ul class="accordion-tabs-minimal"
+
+  li class="tab-header-and-content"
+    a href="#" class="is-active tab-link" = t('hms.status')
+    section
+      p="Antall aktive prosjekter: #{@active_projects.size}"
+      p="Antall aktive oppgaver: #{@active_tasks.size}"
+
+  li class="tab-header-and-content"
+    a href="#" class="tab-link" = t('hms.expertise')
+    section
+      strong I bedriften vår har vi personell med denne kompetansen
+      ul#expertise.circle
+        - @skills.each do |s|
+          li = link_to s.title, user_search_path(skill_id: s.id)
+        - @certificates.each do |s|
+          li = s.title
+
+= link_to t('certificates.manage'), certificates_path
+
+/section.hms
   ul
     li
       .content
@@ -16,7 +36,8 @@ section.hms
         p Alle som jobber på prosjekter for Alliero plikter å sette seg inn i 
           relevante sikkerhetsinstrukser. Her finner du oversikt over samtlige 
           instrukser.
-        = link_to 'Instrukser', instructions_path, class: "btn btn-primary btn-static"
+        = link_to 'Instrukser', instructions_path,
+          class: "btn btn-primary btn-static"
         
       
     li
