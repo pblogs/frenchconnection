@@ -55,7 +55,19 @@ describe User do
       expect(User.with_role(:worker)).to include @user
       expect(User.with_role(:project_leader)).to include @project_leader
     end
-    
+  end
+
+  describe 'scopes', focus: true do
+    before do
+      Skill.destroy_all
+      @welding = Fabricate(:skill, title: 'welding master')
+      @welding.save!
+      @user.skills << @welding
+      @user.save!
+    end
+    it 'with_skill' do
+      expect(User.with_skill(@welding)).to include @user
+    end
   end
 
   it 'multiple roles' do
