@@ -60,13 +60,18 @@ describe User do
   describe 'scopes', focus: true do
     before do
       Skill.destroy_all
+      @certificate = Fabricate(:certificate)
       @welding = Fabricate(:skill, title: 'welding master')
       @welding.save!
+      @user.certificates << @certificate
       @user.skills << @welding
       @user.save!
     end
     it 'with_skill' do
       expect(User.with_skill(@welding)).to include @user
+    end
+    it 'with_certificate' do
+      expect(User.with_certificate(@certificate)).to include @user
     end
   end
 

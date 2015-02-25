@@ -1,4 +1,10 @@
-h4= "Brukere med ferdigheten #{@skill.title}"
+- if @skill.present?
+  h4= "Brukere med ferdigheten #{@skill.title}"
+- elsif @certificate.present?
+  h4= "Brukere med sertifickatet #{@certificate.title}"
+br
+br
+br
 
 - if @users.present?
   ul.users

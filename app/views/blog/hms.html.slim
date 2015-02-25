@@ -13,8 +13,8 @@ ul class="accordion-tabs-minimal"
       ul#expertise.circle
         - @skills.each do |s|
           li = link_to s.title, user_search_path(skill_id: s.id)
-        - @certificates.each do |s|
-          li = s.title
+        - @certificates.each do |c|
+          li = link_to c.title, user_search_path(certificate_id: c.id)
 
 = link_to t('certificates.manage'), certificates_path
 
