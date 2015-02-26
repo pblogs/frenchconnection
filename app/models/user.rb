@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
   end
 
 
-  # Heavy to load all users. Perhaps set the role with 
+  # Heavy to load all users. Perhaps set the role with
   # user.worker == true if sorting on role_mask is to hard.
 
   def self.with_role(role)

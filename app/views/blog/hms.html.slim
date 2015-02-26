@@ -1,26 +1,49 @@
 h1 = @title
-ul class="accordion-tabs-minimal"
+ul.accordion-tabs-minimal
 
-  li class="tab-header-and-content"
+  li#status.tab-header-and-content
     a href="#" class="is-active tab-link" = t('hms.status')
     section
       p="Antall aktive prosjekter: #{@active_projects.size}"
       p="Antall aktive oppgaver: #{@active_tasks.size}"
 
-  li class="tab-header-and-content"
+  li#expertise.tab-header-and-content
     a href="#" class="tab-link" = t('hms.expertise')
     section
-      strong I bedriften vår har vi personell med denne kompetansen
+      h4 I bedriften vår har vi personell med denne kompetansen
       br
-      ul#expertise.circle
-        - @skills.each do |s|
-          li = link_to s.title, user_search_path(skill_id: s.id)
-        - @certificates.each do |c|
-          li = link_to c.title, user_search_path(certificate_id: c.id)
+      br
 
-      br
-      br
-      = link_to t('certificates.manage'), certificates_path
+      ul.accordion
+        li.active.hms-skills
+          = link_to 'Ferdigheter', '#skills'
+        li.hms-certificates
+          = link_to 'Sertifikater', '#certificates'
+
+
+      content.main
+        .skills
+          ul.expertise.circle
+            - @skills.each do |s|
+              li
+                = link_to s.title, user_search_path(skill_id: s.id),
+                  class: 'js-accordion-trigger'
+
+        .certificates.hidden
+          ul.expertise.circle
+            - @certificates.each do |c|
+              li = link_to c.title, user_search_path(certificate_id: c.id)
+          br
+          br
+          = link_to t('certificates.manage'), certificates_path
+
+  /li class="tab-header-and-content"
+    a href="#" class="tab-link" = t('hms.tests_and_courses')
+    section
+      p
+        Disse kursene har du tatt:
+
+
 
 /section.hms
   ul
@@ -28,28 +51,28 @@ ul class="accordion-tabs-minimal"
       .content
         = image_tag 'hms/Boltelokka-alle-009-940x300.jpg'
         h5 Opplæring
-        p Opplæring i HMS er et viktig virkemiddel for å ivareta en trygg 
-          og sikker arbeidsplass for alle. For de som ikke har norsk som 
+        p Opplæring i HMS er et viktig virkemiddel for å ivareta en trygg
+          og sikker arbeidsplass for alle. For de som ikke har norsk som
           morsmål er opplæring i HMS og norsk språk flettet tett sammen.
         = link_to 'Opplæring', video_path, class: "btn btn-primary btn-static"
-        
+
     li
       .content
         = image_tag 'hms/Rosetter-Lopez-940x300.jpg'
         h5 Instrukser
-        p Alle som jobber på prosjekter for Alliero plikter å sette seg inn i 
-          relevante sikkerhetsinstrukser. Her finner du oversikt over samtlige 
+        p Alle som jobber på prosjekter for Alliero plikter å sette seg inn i
+          relevante sikkerhetsinstrukser. Her finner du oversikt over samtlige
           instrukser.
         = link_to 'Instrukser', instructions_path,
           class: "btn btn-primary btn-static"
-        
-      
+
+
     li
       .content
         = image_tag 'hms/Stillas.jpg'
         h5 Tester
-        p Det finnes en test for alle opplæringsmoduler. En godkjent test 
-          dokumenterer kompetanse og er nødvendig for å kunne utføre relevante 
+        p Det finnes en test for alle opplæringsmoduler. En godkjent test
+          dokumenterer kompetanse og er nødvendig for å kunne utføre relevante
           oppdrag.
         = link_to t('courses'), hse_path, class: "btn btn-primary btn-static"
-        
+
