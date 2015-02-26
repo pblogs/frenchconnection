@@ -23,10 +23,10 @@ class UsersController < ApplicationController
 
   def search
     if params[:skill_id].present?
-      @skill       = Skill.find params[:skill_id]  
+      @skill       = Skill.find params[:skill_id]
       @users       = User.with_skill(@skill).all.uniq
     elsif params[:certificate_id].present?
-      @certificate = Certificate.find params[:certificate_id] 
+      @certificate = Certificate.find params[:certificate_id]
       @users       = User.with_certificate(@certificate).all.uniq
     end
   end
