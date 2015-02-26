@@ -19,9 +19,12 @@ ul.accordion-tabs-minimal
           = link_to 'Ferdigheter', '#skills'
         li.hms-certificates
           = link_to 'Sertifikater', '#certificates'
+        li.hms-tests
+          = link_to t('courses'), hse_path
 
 
       content.main
+
         .skills
           ul.expertise.circle
             - @skills.each do |s|
