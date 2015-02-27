@@ -1,0 +1,21 @@
+li#documentation.tab-header-and-content
+  a href="#" class="tab-link" = t('hms.documentation')
+  section
+    br
+    ul.accordion.top-left
+      li.active.safety_review(data-to-show='safety_review')
+        = link_to 'Sikkerhetsanlyse', '#safety_review'
+
+      li.safety_inspection(data-to-show='safety_inspection')
+        = link_to 'Vernerunde', '#safety_inspection'
+
+      li.safety_instructions(data-to-show='safety_instructions')
+        = link_to 'Sikkerhetsinnstruksjoner', '#safety_instructions'
+
+    content.main
+      .safety_review
+        strong Sikkerhetsanlyse
+      .safety_inspection
+        strong Vernerunde
+      .safety_instructions
+        strong Sikkerhetsinnstruksjoner
