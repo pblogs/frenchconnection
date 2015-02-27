@@ -1,7 +1,7 @@
 - if @skill.present?
   h4= "Brukere med ferdigheten #{@skill.title}"
 - elsif @certificate.present?
-  h4= "Brukere med sertifickatet #{@certificate.title}"
+  h4= "Brukere med sertifikatet #{@certificate.title}"
 br
 br
 br
@@ -16,4 +16,4 @@ br
 br
 br
 br
-= link_to t(:back), :back
+= link_to t(:back), hms_path

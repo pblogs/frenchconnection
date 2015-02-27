@@ -1,0 +1,5 @@
+li#status.tab-header-and-content
+  a href="#" class="is-active tab-link" = t('hms.status')
+  section
+    p="Antall aktive prosjekter: #{@active_projects.size}"
+    p="Antall aktive oppgaver: #{@active_tasks.size}"

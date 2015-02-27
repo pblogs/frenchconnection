@@ -1,0 +1,14 @@
+li#personal.tab-header-and-content
+  a href="#" class="tab-link" = t('hms.personal')
+  section
+    ul.accordion.top-left
+      li.active.hms-personal_handbook
+        = link_to 'Personalhåndbok', '#personal_handbook'
+      li.hms-notice_of_sickness
+        = link_to 'Egenmeldinger', '#notice_of_sickness'
+
+    content.main
+      section.personal_handbook
+        h5 Personalhåndhok
+      section.notice_of_sickness.hidden
+        h5 Egenmelding
