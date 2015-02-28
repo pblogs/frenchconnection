@@ -5,7 +5,7 @@ footer
       br
       h6 KONTAKT OSS
       br
-                               
+
       p
         |Besøksadresse
         br
@@ -14,7 +14,7 @@ footer
         |Nydalsveien 30 B
         br
         |0484 Oslo
-      
+
       p
         |Postadresse
         br
@@ -23,7 +23,7 @@ footer
         |Pb 4681 Nydalen
         br
         |0405 Oslo
-      
+
       p
         |Phone: 23 26 54 00
         br
@@ -31,9 +31,12 @@ footer
         br
         |Mail: post@alliero.no
 
-.banner
-  .login_logout
-    - if signed_in?
-      span= "Logget inn som #{@current_user.name}"
-      br
-      = link_to 'Logg ut', destroy_user_session_path, method: :delete
+  .banner
+    .login_logout
+      - if signed_in?
+        br
+        span= "Logget inn som #{@current_user.name}"
+        br
+        em= user_roles(@current_user)
+        br
+        = link_to 'Logg ut', destroy_user_session_path, method: :delete
