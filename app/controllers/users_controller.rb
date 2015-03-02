@@ -18,7 +18,17 @@ class UsersController < ApplicationController
       .first.last_name[0])
     }
     @users, @alpha_params = User.all.alpha_paginate(params[:letter],
-                                                    alpha_paginate_options) { |user| user.last_name }
+                              alpha_paginate_options) { |user| user.last_name }
+  end
+
+  def search
+    if params[:skill_id].present?
+      @skill       = Skill.find params[:skill_id]
+      @users       = User.with_skill(@skill).all.uniq
+    elsif params[:certificate_id].present?
+      @certificate = Certificate.find params[:certificate_id]
+      @users       = User.with_certificate(@certificate).all.uniq
+    end
   end
 
   # GET /users/1

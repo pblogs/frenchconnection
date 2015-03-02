@@ -59,7 +59,19 @@ class User < ActiveRecord::Base
   has_many :categories, :through => :projects
   has_many :favorites, dependent: :destroy
 
-  scope :from_department, ->(department) { where('department_id = ?', department.id) }
+  scope :from_department,  ->(department) { where('department_id = ?',
+                                                  department.id) }
+
+
+  scope :with_certificate, ->(certificate) { joins(:certificates)
+    .where('certificate_id = ?', certificate.id) }
+
+  scope :with_skill, ->(skill) { joins(:skills)
+    .where('skill_id = ?', skill.id) }
+
+  #def with_skill(skill)
+  #  User.joins(:skills).where('skill_id= ?', skill.id)
+  #end
 
   def name
     "#{ first_name } #{ last_name }"
@@ -96,7 +108,7 @@ class User < ActiveRecord::Base
   end
 
 
-  # Heavy to load all users. Perhaps set the role with 
+  # Heavy to load all users. Perhaps set the role with
   # user.worker == true if sorting on role_mask is to hard.
 
   def self.with_role(role)

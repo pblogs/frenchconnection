@@ -1,0 +1,31 @@
+li#expertise.tab-header-and-content
+  a href="#" class="tab-link" = t('hms.expertise')
+  section
+    h4 I bedriften vår har vi personell med denne kompetansen
+    br
+    br
+    ul.accordion.top-left
+      li.active(data-to-show='skills')
+        = link_to 'Ferdigheter', '#skills'
+
+      li.hms-certificates(data-to-show='certificates')
+        = link_to 'Sertifikater', '#certificates'
+
+      li.hms-test(data-to-show='tests')
+        = link_to t('courses'), hse_path
+
+    content.main
+      .skills
+        ul.expertise.circle
+          - @skills.each do |s|
+            li
+              = link_to s.title, user_search_path(skill_id: s.id),
+                class: 'js-accordion-trigger'
+
+      .certificates.hidden
+        ul.expertise.circle
+          - @certificates.each do |c|
+            li = link_to c.title, user_search_path(certificate_id: c.id)
+        br
+        br
+        = link_to t('certificates.manage'), certificates_path
