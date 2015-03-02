@@ -3,19 +3,19 @@ li#documentation.tab-header-and-content
   section
     br
     ul.accordion.top-left
-      li.active.safety_review(data-to-show='safety_review')
+      li.active(data-to-show='safety_review')
         = link_to 'Sikkerhetsanlyse', '#safety_review'
 
-      li.safety_inspection(data-to-show='safety_inspection')
+      li(data-to-show='safety_inspection')
         = link_to 'Vernerunde', '#safety_inspection'
 
-      li.safety_instructions(data-to-show='safety_instructions')
+      li(data-to-show='safety_instructions')
         = link_to 'Sikkerhetsinnstruksjoner', '#safety_instructions'
 
     content.main
       .safety_review
         strong Sikkerhetsanlyse
-      .safety_inspection
+      .safety_inspection.hidden
         strong Vernerunde
-      .safety_instructions
+      .safety_instructions.hidden
         strong Sikkerhetsinnstruksjoner
