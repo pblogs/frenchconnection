@@ -2,31 +2,23 @@ doctype html
 html
   head
     title alliero.orwapp.com
-    = stylesheet_link_tag "application", media: "all",  
+    = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
 
     - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
 
+    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true", "data-turbolinks-track" => false
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
-    meta content="width=device-width, initial-scale=1" name="viewport" 
+    meta content="width=device-width, initial-scale=1" name="viewport"
   body(id=body_id ng-app="orwapp")
     #outer-container
       #main
         .logo-wrapper
           h1= link_to (image_tag 'Alliero-header.gif'), root_path
-        - if signed_in?
-          nav
-            ul#top_nav
-              - if @current_user.is? 'project_leader'
-                li= link_to t('top_nav.projects'),  projects_path
-                li= link_to t('top_nav.customers'), customers_path
-                li= link_to t('top_nav.manage'),    administration_path
-              li= link_to t('top_nav.my_page'), @current_user
-              li= link_to t('top_nav.hse'),     hms_path
-              li= link_to t('top_nav.dictionary'), dictionary_url
-            .breadcrumb = yield :breadcrumb
+
+        = render '/layouts/top_nav'
 
         section
           p#notice = notice
@@ -38,49 +30,7 @@ html
           br
           br
 
-    footer#footer
-      .content
-        .filler
-        .address
-          br
-          h6 KONTAKT OSS
-          br
-
-          p
-            |Besøksadresse
-            br
-            |Alliero As
-            br
-            |Nydalsveien 30 B
-            br
-            |0484 Oslo
-          
-          p
-            |Postadresse
-            br
-            |Alliero As
-            br
-            |Pb 4681 Nydalen
-            br
-            |0405 Oslo
-          
-          p
-            |Phone: 23 26 54 00
-            br
-            |Fax: 23 26 54 01
-            br
-            |Mail: post@alliero.no
-
-      .banner
-        .login_logout
-          br
-          - if signed_in?
-            span 
-              ="Logget inn som #{@current_user.name}"
-              br
-              em= user_roles(@current_user)
-            br
-            = link_to 'Logg ut', destroy_user_session_path, method: :delete
+    = render '/layouts/footer'
 
 // This is really necessary, as we need a way to pass this id to js assets,
 // and it isn't known when assets are precompiled

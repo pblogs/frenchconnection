@@ -55,7 +55,24 @@ describe User do
       expect(User.with_role(:worker)).to include @user
       expect(User.with_role(:project_leader)).to include @project_leader
     end
-    
+  end
+
+  describe 'scopes' do
+    before do
+      Skill.destroy_all
+      @certificate = Fabricate(:certificate)
+      @welding = Fabricate(:skill, title: 'welding master')
+      @welding.save!
+      @user.certificates << @certificate
+      @user.skills << @welding
+      @user.save!
+    end
+    it 'with_skill' do
+      expect(User.with_skill(@welding)).to include @user
+    end
+    it 'with_certificate' do
+      expect(User.with_certificate(@certificate)).to include @user
+    end
   end
 
   it 'multiple roles' do
@@ -120,7 +137,7 @@ describe User do
   end
 
   describe 'Reports' do
-    it 'keeps the latest generated timesheet for 
+    it 'keeps the latest generated timesheet for
       each project user participates in' do
       @task = Fabricate(:task)
       @task.users << @user
@@ -129,6 +146,6 @@ describe User do
       #expect( @user.timesheets.first.url).to match 'http'
     end
   end
-    
+
 
 end

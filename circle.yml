@@ -2,8 +2,8 @@ deployment:
   production:
     branch: master
     commands:
-      - git push git@heroku.com:alliero-orwapp.git $CIRCLE_SHA1:master
-      - heroku run rake db:migrate --app alliero-orwapp
+      - git push git@heroku.com:orwapp-demo.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app orwapp-demo
   staging:
     branch: staging
     commands:

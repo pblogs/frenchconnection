@@ -138,6 +138,7 @@ nb:
     small-lift: Lite lift
     climber: Klatresertifikat
     bulldozer-cert: Bulldozer
+    manage: Administrer kompetanse knyttet til personell
 
   project:
     confirm_closing: Avslutte prosjektet?
@@ -293,6 +294,10 @@ nb:
     painter: Maler
     carpenter: Snekker
     electrician: Elektriker
+
+  hms:
+    expertise: Kompetanse
+    tests_and_courses: Kurs og tester
 
   errors:
     messages:

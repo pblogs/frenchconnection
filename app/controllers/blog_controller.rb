@@ -21,6 +21,12 @@ class BlogController < ApplicationController
   end
 
   def hms
+    @title = 'HMS'
+    @active_tasks    = Task.by_status(:confirmed)
+    @active_projects = Project.active
+    @skills          = Skill.joins(:users).all.uniq
+    @certificates    = Certificate.joins(:users).all.uniq
+    #@completed_courses =
   end
 
   def instructions
@@ -33,7 +39,7 @@ class BlogController < ApplicationController
               '07.22_instruks_vinkelsliper.pdf'  =>  I18n.t('instructions.vinkelsliper'),
               '07.29_instruks_spikerpistol.pdf' =>   I18n.t('instructions.spikerpistol'),
               '07.30_instruks_kjedesag.pdf'     =>   I18n.t('instructions.kjedesag'),
-              '07.32_instruks_sikkerhetssele_fallblokk.pdf' => I18n.t('instructions.sikkerhetssele_fallblokk'), 
+              '07.32_instruks_sikkerhetssele_fallblokk.pdf' => I18n.t('instructions.sikkerhetssele_fallblokk'),
               '07.33_instruks_hoystrykksspyler.pdf' => I18n.t('instructions.hoystrykksspyler')
               }
   end

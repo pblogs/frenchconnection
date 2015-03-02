@@ -1,0 +1,19 @@
+- if @skill.present?
+  h4= "Brukere med ferdigheten #{@skill.title}"
+- elsif @certificate.present?
+  h4= "Brukere med sertifikatet #{@certificate.title}"
+br
+br
+br
+
+- if @users.present?
+  ul.users
+    - @users.each do |u|
+      li= link_to u.name, u
+- else
+  p Kunne ikke finne noen brukere.
+
+br
+br
+br
+= link_to t(:back), hms_path
