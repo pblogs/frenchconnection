@@ -57,7 +57,7 @@ describe User do
     end
   end
 
-  describe 'scopes', focus: true do
+  describe 'scopes' do
     before do
       Skill.destroy_all
       @certificate = Fabricate(:certificate)
@@ -137,7 +137,7 @@ describe User do
   end
 
   describe 'Reports' do
-    it 'keeps the latest generated timesheet for 
+    it 'keeps the latest generated timesheet for
       each project user participates in' do
       @task = Fabricate(:task)
       @task.users << @user
@@ -146,6 +146,6 @@ describe User do
       #expect( @user.timesheets.first.url).to match 'http'
     end
   end
-    
+
 
 end
