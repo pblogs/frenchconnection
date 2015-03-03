@@ -18,15 +18,14 @@ module V1
         
         project_id  = Task.find(params[:task_id]).project_id        
         permitted_params = permitted_params.merge(project_id: project_id)
-        
-        hours_spents = HoursSpent.where(
-          user_id: params[:user_id],
-          task_id: params[:task_id],
-          date: params[:date]
-        ).personal
+
+        hours_spents = HoursSpent
+          .for_user_on_task(params[:user_id], params[:task_id])
+          .personal
+          .where("date = ?", params[:date])
         
         if hours_spents.length == 0
-          hours_spent = HoursSpent.create! (permitted_params)
+          hours_spent = HoursSpent.create! permitted_params
         else 
           hours_spent = hours_spents.first
           hours_spent.update(permitted_params)
