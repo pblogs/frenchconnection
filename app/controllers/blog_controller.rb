@@ -1,6 +1,7 @@
 class BlogController < ApplicationController
 
   def index
+    @title = 'Forside'
     @blog_articles = BlogArticle.published.limit(3)
     @blog_projects = BlogProject.published.limit(4)
   end

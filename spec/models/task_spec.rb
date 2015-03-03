@@ -133,8 +133,7 @@ describe Task do
       # save_and_order_resources! is excuted.
       @task.update_attribute(:draft, true)
       Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
-                                        msg: I18n.t('sms.new_task',
-                                        link: "http://allieroapp.orwapp.com"))
+                                        msg: I18n.t('sms.new_task'))
       @task.users << @user
       @task.save_and_order_resources!
       expect(@task.draft).to eq false
@@ -142,13 +141,11 @@ describe Task do
 
     it "notifies only new workers when task is updated" do
       Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
-                                        msg: I18n.t('sms.new_task',
-                                        link: "http://allieroapp.orwapp.com"))
+                                        msg: I18n.t('sms.new_task'))
       @task.users << @user
       @user_second = Fabricate(:user)
       Sms.should_receive(:send_msg).with(to: "47#{@user_second.mobile}",
-                                         msg: I18n.t('sms.new_task',
-                                         link: "http://allieroapp.orwapp.com"))
+                                         msg: I18n.t('sms.new_task'))
       Sms.should_not_receive(:send_msg).with(to: "47#{@user.mobile}")
       @task.users << @user_second
     end

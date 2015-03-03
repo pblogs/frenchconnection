@@ -26,6 +26,6 @@ module ApplicationHelper
   end
 
   def dictionary_url
-    'http://alliero-dictionary.orwapp.com'
+    ENV['DICTIONARY_URL']
   end
 end
