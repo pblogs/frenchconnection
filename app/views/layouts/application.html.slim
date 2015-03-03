@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title = "#{ENV['DOMAIN']}  #{ @title.present? ? '– #{@title}' : nil }"
+    title = "#{ENV['DOMAIN'] + (@title.present? ? ' – ' +@title : nil) }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
 
