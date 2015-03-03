@@ -1,11 +1,12 @@
 doctype html
 html
   head
-    title = "#{ENV['DOMAIN'] + (@title.present? ? ' – ' +@title : nil) }"
+    title = 'Orwapp.com'
+    /title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : nil) }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
 
-    = stylesheet_link_tag "themes/#{ENV['SHORT_NAME']}", media: "all",
+    = stylesheet_link_tag "themes/#{Rails.application.secrets.short_name}", media: "all",
       "data-turbolinks-track" => true
 
     - unless Rails.env.test?
