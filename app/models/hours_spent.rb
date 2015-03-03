@@ -30,16 +30,16 @@
 #
 
 # When a user registers hours on a task, it's generates 2 HoursSpent.
-# One personal and one billable. Never spesify of_kind when creating a new one, 
+# One personal and one billable. Never spesify of_kind when creating a new one,
 # personal and billable will be created automatically.
 #
 # Workers nor admins can not edit hours after they have been approved.
 #
 # == Generating reports
-# The approved hours within the selected scope is set as frozen when 
-# daily_report or timesheet is generated. 
+# The approved hours within the selected scope is set as frozen when
+# daily_report or timesheet is generated.
 #
-# 
+#
 class HoursSpent < ActiveRecord::Base
   TYPES = %w(hour piecework_hours overtime_50 overtime_100)
   belongs_to :user
@@ -57,7 +57,7 @@ class HoursSpent < ActiveRecord::Base
   symbolize :of_kind, in: %i(personal billable), default: :personal
   serialize :old_values
 
-  scope :for_user_on_project, ->(user, project) { 
+  scope :for_user_on_project, ->(user, project) {
     where(user_id: user.id, project_id: project.id) }
 
   scope :for_user_on_task, ->(user_id, task_id) {
@@ -65,14 +65,14 @@ class HoursSpent < ActiveRecord::Base
 
   scope :year,     ->(year)  { where('extract(year  from date) = ?',  year) }
   scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
-  scope :personal, -> { where(of_kind: 'personal') } 
-  scope :billable, -> { where(of_kind: 'billable') } 
-  scope :approved, -> { where(approved: true) } 
-  scope :edited_by_admin,     -> { where(edited_by_admin: true) } 
-  scope :not_edited_by_admin, -> { where(edited_by_admin: false) } 
-  scope :not_approved,        -> { where(approved: false) } 
-  scope :frozen_by_admin,     -> { where(frozen_by_admin: true) } 
-  scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) } 
+  scope :personal, -> { where(of_kind: 'personal') }
+  scope :billable, -> { where(of_kind: 'billable') }
+  scope :approved, -> { where(approved: true) }
+  scope :edited_by_admin,     -> { where(edited_by_admin: true) }
+  scope :not_edited_by_admin, -> { where(edited_by_admin: false) }
+  scope :not_approved,        -> { where(approved: false) }
+  scope :frozen_by_admin,     -> { where(frozen_by_admin: true) }
+  scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) }
 
   after_create :create_billable
 
@@ -97,7 +97,7 @@ class HoursSpent < ActiveRecord::Base
     self.update_attributes(approved: true)
   end
 
-  
+
   def mark_as_edited_by_admin!
     self.update_attributes(frozen_by_admin: true, edited_by_admin: true)
   end
