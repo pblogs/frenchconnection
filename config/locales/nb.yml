@@ -87,12 +87,12 @@ nb:
     dictionary: Ordbok
 
   generic:
-    archive: Arkiv 
+    archive: Arkiv
     departments: Avdelinger
     confirm: Er du sikker?
     customers: Kunder
     favourites: Favoritter
-    projects: Prosjekter 
+    projects: Prosjekter
 
   admin:
     header: Administrer resurser
@@ -186,7 +186,7 @@ nb:
       missing_hours: |
         Du har visst glemt å registrere timer på en eller flere av
         oppgavene dine. Registrert timer i Orwapp appen nå! :-)
-        
+
   skills:
     header: Ferdigheter
     new: Ny ferdighet
@@ -217,7 +217,7 @@ nb:
         selected_tools: Verktøy valgt
         price_pr_day: Pris pr dag
         what: Hva
-        header: Søk etter maskiner og verktøy 
+        header: Søk etter maskiner og verktøy
         find_someone_to_execute_the_job: Finn personell til å gjøre jobben
         search_placeholder: Søk..
         help_text:
@@ -234,7 +234,8 @@ nb:
       who: Hvem
       price_pr_day: Pris pr dag
       workers:
-        people_with_required_skills: Personell med kompetanse for
+        people_with_required_skills:
+          Personell med kompetanse til å utføre denne oppgaven
         selected_workers: Valgte arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
