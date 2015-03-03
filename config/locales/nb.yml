@@ -298,6 +298,7 @@ nb:
   hms:
     expertise: Kompetanse
     tests_and_courses: Kurs og tester
+    documentation: HMS dokumentasjon
 
   errors:
     messages:
