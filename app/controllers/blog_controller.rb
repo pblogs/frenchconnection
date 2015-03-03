@@ -27,8 +27,8 @@ class BlogController < ApplicationController
     @active_projects = Project.active
     @skills          = Skill.joins(:users).all.uniq
     @certificates    = Certificate.joins(:users).all.uniq
-    @user_projects   = @current_user.projects
-    #@completed_courses =
+    @projects_for_deviation = @current_user.projects.present? ?
+      @current_user.projects : @active_projects
   end
 
   def instructions
