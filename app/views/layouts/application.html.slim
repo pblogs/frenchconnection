@@ -1,9 +1,14 @@
 doctype html
 html
   head
-    title alliero.orwapp.com
+    title = "Orwapp"
+    /title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : nil) }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
+
+    - unless Rails.application.secrets.short_name == 'localhost'
+      = stylesheet_link_tag "themes/#{Rails.application.secrets.short_name}", media: "all",
+        "data-turbolinks-track" => true
 
     - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
@@ -16,10 +21,9 @@ html
     #outer-container
       #main
         .logo-wrapper
-          h1= link_to (image_tag 'Alliero-header.gif'), root_path
+          h1= link_to (image_tag "#{Rails.application.secrets.short_name}.png", size: '266x54'), root_path
 
         = render '/layouts/top_nav'
-
         section
           p#notice = notice
           p#alert  = alert

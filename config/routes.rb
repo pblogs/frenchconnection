@@ -18,7 +18,7 @@ AllieroForms::Application.routes.draw do
   mount API => '/'
   get "excel/export/:project_id" => 'excel#export', as: :export_excel
 
-  get '/daily_report/:project_id/:profession_id/:overtime' => 'excel#daily_report', 
+  get '/daily_report/:project_id/:profession_id/:overtime' => 'excel#daily_report',
     as: :daily_report
 
   get 'monthly_report/:project_id/:year/:month/:overtime' => 'excel#monthly_report',
@@ -29,6 +29,7 @@ AllieroForms::Application.routes.draw do
     get :billable_hours
     get :personal_hours
     get :hours
+    get :documentation
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task
       put :end_task_hard
@@ -71,7 +72,7 @@ AllieroForms::Application.routes.draw do
 
   get '/users/search/'=> 'users#search', as: :user_search
 
-  resources :users do 
+  resources :users do
     get '/tasks/started'     => 'users/tasks#started'
     get '/tasks/not_started' => 'users/tasks#not_started'
     get '/projects/:project_id/hours'=> 'users#hours', as: :hours
@@ -88,7 +89,7 @@ AllieroForms::Application.routes.draw do
     collection do
       post :add_user
     end
-    
+
   end
 
   resources :hours_spents do
@@ -104,7 +105,7 @@ AllieroForms::Application.routes.draw do
   end
 
 
-  # The priority is based upon order of 
+  # The priority is based upon order of
   # creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   get '/blog'  => 'blog#index',  as: :blog
@@ -127,7 +128,7 @@ AllieroForms::Application.routes.draw do
   get '/html_export/:user_id/:project_id/' => 'excel#html_export', as: :html_export
 
   get '/templates/:path' => 'templates#template',
-    :constraints => { :path => /.+/  }  
+    :constraints => { :path => /.+/  }
 
   get '/hse' => 'hse#redirect', as: 'hse'
 

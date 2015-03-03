@@ -1,4 +1,4 @@
-.button.green
+.project-info-table
   p
     strong= t('project_owner') + ': '
     = @project.user.full_name rescue '-'
@@ -6,7 +6,7 @@
     strong = t('name') + ': '
     = @project.name
   p
-    strong = t('project_number') + ': ' 
+    strong = t('project_number') + ': '
     = @project.project_number
   p
     strong = t('address') + ': '
@@ -20,12 +20,12 @@
     = simple_format @project.description
 
   p
-    strong Oppstart: 
+    strong Oppstart:
     = I18n.l(@project.start_date, format: :short_w_year)
   p
-    strong Ferdigstilling: 
+    strong Ferdigstilling:
     = I18n.l(@project.due_date, format: :short_w_year) rescue '-'
-  
+
   strong Vedlegg
   br
   - @project.attachments.each do |a|
@@ -33,7 +33,7 @@
     br
     = link_to a.document.url, a.document.url
     br
-  
+
   .right
     = link_to t('edit'), edit_customer_project_path(@project.customer, @project)
   br

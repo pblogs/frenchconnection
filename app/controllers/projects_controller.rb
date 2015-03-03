@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, 
+  before_action :set_project, only: [:show, :edit, :update, :destroy,
                                      :complete]
 
   before_action :set_by_project_id, only: [:approve_hours, :hours,
-                                           :billable_hours, :personal_hours]
+                                           :billable_hours, :personal_hours,
+                                           :documentation]
 
   before_action :set_months, only: [:billable_hours, :personal_hours]
   before_action :fetch_hours, only: [:approve_hours]
@@ -29,6 +30,7 @@ class ProjectsController < ApplicationController
   end
 
 
+
   # GET /projects/1/edit
   def edit
   end
@@ -43,11 +45,11 @@ class ProjectsController < ApplicationController
         set_favorite
         format.html { redirect_to @project,
                       notice: 'Prosjektet ble lagret' }
-        format.json { render action: 'show', status: :created, 
+        format.json { render action: 'show', status: :created,
                       location: @project }
       else
         format.html { render action: 'new' }
-        format.json { render json: @project.errors, 
+        format.json { render json: @project.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -59,12 +61,12 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         set_favorite
-        format.html { redirect_to @project, 
+        format.html { redirect_to @project,
                       notice: I18n.t('saved') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @project.errors, 
+        format.json { render json: @project.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -102,12 +104,15 @@ class ProjectsController < ApplicationController
     fetch_hours(of_kind: :billable)
   end
 
-  # project_approve_hours 
+  def documentation
+  end
+
+  # project_approve_hours
   # GET    /projects/:project_id/approve_hours       projects#approve_hours
   #
   # FIXME It's not possible to approve all hours from the project view.
   # One must click into users/240/projects/21/hours to approve
-  # 
+  #
   #def approve_hours
   #  @hours.each { |h| h.hour_object.approve! }
   #  redirect_to hours_path(@project, month: @month, year: @year)
@@ -131,9 +136,9 @@ class ProjectsController < ApplicationController
   def set_months
     @months = (1..12).to_a
   end
-  
+
   def fetch_hours(of_kind:)
-    set_year_and_month 
+    set_year_and_month
     if params[:show_all].present?
       @hours = @project.hours_for_all_users(of_kind: of_kind)
     else
@@ -152,17 +157,17 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:project_number, 
+    params.require(:project).permit(:project_number,
                                     :attachment,
-                                    :billing_address, 
+                                    :billing_address,
                                     :customer_id,
-                                    :customer_reference, 
-                                    :comment, 
-                                    :delivery_address, 
+                                    :customer_reference,
+                                    :comment,
+                                    :delivery_address,
                                     :due_date,
                                     :description,
-                                    :execution_address, 
-                                    :name, 
+                                    :execution_address,
+                                    :name,
                                     :department_id,
                                     :start_date,
                                     :company_id

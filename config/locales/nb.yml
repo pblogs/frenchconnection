@@ -59,7 +59,6 @@ nb:
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
     24 timene. Hilsen %{from}
-    http://allieroapp.orwapp.com
   these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
   our_customers: Våre kunder
   org_nr: Org nr
@@ -87,12 +86,12 @@ nb:
     dictionary: Ordbok
 
   generic:
-    archive: Arkiv 
+    archive: Arkiv
     departments: Avdelinger
     confirm: Er du sikker?
     customers: Kunder
     favourites: Favoritter
-    projects: Prosjekter 
+    projects: Prosjekter
 
   admin:
     header: Administrer resurser
@@ -181,12 +180,12 @@ nb:
       Vi avslutter %{project_name} i dag.
       Pass på at du registrerer alle timene i Orwapp i løpet av dagen.
       Hilsen %{project_leader}
-    new_task: "Du har fått tildelt en ny oppgave. Les mer: %{link}"
+    new_task: "Du har fått tildelt en ny oppgave. Se Orwapp-appen for mer info."
     notify:
       missing_hours: |
         Du har visst glemt å registrere timer på en eller flere av
         oppgavene dine. Registrert timer i Orwapp appen nå! :-)
-        
+
   skills:
     header: Ferdigheter
     new: Ny ferdighet
@@ -217,7 +216,7 @@ nb:
         selected_tools: Verktøy valgt
         price_pr_day: Pris pr dag
         what: Hva
-        header: Søk etter maskiner og verktøy 
+        header: Søk etter maskiner og verktøy
         find_someone_to_execute_the_job: Finn personell til å gjøre jobben
         search_placeholder: Søk..
         help_text:
@@ -234,7 +233,8 @@ nb:
       who: Hvem
       price_pr_day: Pris pr dag
       workers:
-        people_with_required_skills: Personell med kompetanse for
+        people_with_required_skills:
+          Personell med kompetanse til å utføre denne oppgaven
         selected_workers: Valgte arbeidere
   project:
     confirm_closing: Avslutte prosjektet?
@@ -298,6 +298,7 @@ nb:
   hms:
     expertise: Kompetanse
     tests_and_courses: Kurs og tester
+    documentation: HMS dokumentasjon
 
   errors:
     messages:
