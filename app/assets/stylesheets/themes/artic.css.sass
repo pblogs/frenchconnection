@@ -1,0 +1,36 @@
+$base-spacing: 1
+$base-body-color: white
+@import bourbon
+@import 'base/grid-settings'
+@import "base/base"
+//@import "base/variables"
+@import neat
+@import colors
+@import normalize
+@import refills/styles
+@import refills/button-group
+@import refills/dropdown
+@import refills/accordion-tabs-minimal
+@import refills/accordion
+@import refills/badges
+@import refills/tooltip
+@import refills/shadow-box
+//@import refills/flash-messages
+@import jquery-ui
+@import font-awesome
+@import layout
+@import theme
+
+#top_nav
+  margin-top: 20px
+  height: 55px
+  @include linear-gradient(to top, $green, $dark_green, $fallback: $green)
+  a
+    color: white
+  li
+    padding: 15px 3%
+    &:hover
+      background-color: $dark_blue
+  
+a.muted_text
+  color: $muted_text !important

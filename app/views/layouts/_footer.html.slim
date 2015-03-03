@@ -9,27 +9,29 @@ footer
       p
         |Besøksadresse
         br
-        |Alliero As
+        = ENV['VISIT_ADDRESS_NAME']
         br
-        |Nydalsveien 30 B
+        = ENV['VISIT_ADDRESS_STREET']
         br
-        |0484 Oslo
-
+        = ENV['VISIT_ADDRESS_AREA']
       p
         |Postadresse
         br
-        |Alliero As
+        = ENV['POST_ADDRESS_NAME']
         br
-        |Pb 4681 Nydalen
+        = ENV['POST_ADDRESS_STREET']
         br
-        |0405 Oslo
+        = ENV['POST_ADDRESS_AREA']
 
       p
-        |Phone: 23 26 54 00
+        |Phone:
+        = ENV['PHONE']
         br
-        |Fax: 23 26 54 01
+        |Fax:
+        = ENV['FAX']
         br
-        |Mail: post@alliero.no
+        |Mail:
+        = ENV['EMAIL']
 
   .banner
     .login_logout

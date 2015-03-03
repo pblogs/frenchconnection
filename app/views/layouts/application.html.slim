@@ -1,9 +1,16 @@
 doctype html
 html
   head
-    title = "Orwapp #{ @title.present? ? '– #{@title}' : nil }"
+    title = "#{ENV['DOMAIN']}  #{ @title.present? ? '– #{@title}' : nil }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
+
+    - if ENV['SHORT_NAME'] == 'allerio-orwapp'
+      = stylesheet_link_tag "alliero", media: "all",
+        "data-turbolinks-track" => true
+    - else
+     = stylesheet_link_tag "themes/artic", media: "all",
+       "data-turbolinks-track" => true
 
     - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
@@ -16,10 +23,9 @@ html
     #outer-container
       #main
         .logo-wrapper
-          h1= link_to (image_tag 'Alliero-header.gif'), root_path
+          h1= link_to (image_tag ENV['HTML_HEADER_LOGO']), root_path
 
         = render '/layouts/top_nav'
-
         section
           p#notice = notice
           p#alert  = alert
