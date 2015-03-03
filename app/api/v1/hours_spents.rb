@@ -16,11 +16,7 @@ module V1
           :runs_in_company_car, :km_driven_own_car, :toll_expenses_own_car,
           :supplies_from_warehouse)
         
-        project_id  = Task.find(params[:task_id]).project_id
-        #hours_spent = HoursSpent.create! (
-        #  permitted_params.merge(project_id: project_id)
-        #)
-        
+        project_id  = Task.find(params[:task_id]).project_id        
         permitted_params = permitted_params.merge(project_id: project_id)
         
         hours_spents = HoursSpent.where(
