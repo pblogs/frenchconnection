@@ -17,9 +17,24 @@ module V1
           :supplies_from_warehouse)
         
         project_id  = Task.find(params[:task_id]).project_id
-        hours_spent = HoursSpent.create! (
-          permitted_params.merge(project_id: project_id)
-        )
+        #hours_spent = HoursSpent.create! (
+        #  permitted_params.merge(project_id: project_id)
+        #)
+        
+        permitted_params = permitted_params.merge(project_id: project_id)
+        
+        hours_spents = HoursSpent.where(
+          user_id: params[:user_id],
+          task_id: params[:task_id],
+          date: params[:date]
+        ).personal
+        
+        if hours_spents.length == 0
+          hours_spent = HoursSpent.create! (permitted_params)
+        else 
+          hours_spent = hours_spents.first
+          hours_spent.update(permitted_params)
+        end
           
         present hours_spent.id
         header 'Access-Control-Allow-Origin', '*'
