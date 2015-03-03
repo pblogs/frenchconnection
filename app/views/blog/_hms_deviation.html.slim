@@ -3,6 +3,6 @@ li#deviation.tab-header-and-content
   section
     = label_tag :department, 'Velg prosjekt'
     = select_tag "project[department_id]",
-      options_from_collection_for_select(@current_user.projects, "id", "name" )
+      options_from_collection_for_select((@user_projects || @active_projects), "id", "name" )
     br
     = render 'projects/deviation_form'
