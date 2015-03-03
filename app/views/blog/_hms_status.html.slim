@@ -1,6 +1,15 @@
 li#status.tab-header-and-content
   a href="#" class="is-active tab-link" = t('hms.status')
   section
-    p="Aktive prosjekter: #{@active_projects.size}"
-    p="Aktive oppgaver: #{@active_tasks.size}"
-    p="Antall timer i forrige uke: #{ 1292 }"
+    = image_tag 'map.png'
+    p
+      span="Aktive prosjekter: "
+      strong= @active_projects.size
+
+    p
+      span="Aktive oppgaver: "
+      strong= @active_tasks.size
+
+    p
+      span="Antall timer i forrige uke: "
+      strong 1292
