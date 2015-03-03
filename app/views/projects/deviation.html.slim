@@ -1,0 +1,13 @@
+- content_for :breadcrumb do
+  = link_to t('my_projects'), projects_path
+  = fa_icon 'chevron-right'
+  = link_to @project.customer.name, customer_path(@project.customer)
+  = fa_icon 'chevron-right'
+  strong= @project.name
+
+h3 = "Meld avvik"
+
+= form_tag '#' do
+  = text_area_tag :message, nil, placeholder: 'Beskriv avviket', rows: 10
+  = text_field_tag :date, nil,    placeholder: 'Velg dato', class: :datepicker
+  = submit_tag 'Registrer avvik'

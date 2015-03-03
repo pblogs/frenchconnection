@@ -30,6 +30,7 @@ AllieroForms::Application.routes.draw do
     get :personal_hours
     get :hours
     get :documentation
+    get :deviation
     resources :tasks, :controller => 'projects/tasks' do
       put :end_task
       put :end_task_hard
