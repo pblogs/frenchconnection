@@ -21,7 +21,7 @@ class BlogController < ApplicationController
   end
 
   def hms
-    @title = 'HMS'
+    @title           = 'Helse, miljø og sikkerhet'
     @active_tasks    = Task.by_status(:confirmed)
     @active_projects = Project.active
     @skills          = Skill.joins(:users).all.uniq
