@@ -12,7 +12,8 @@ li#expertise.tab-header-and-content
         = link_to 'Sertifikater', '#certificates'
 
       li.hms-test(data-to-show='tests')
-        = link_to t('courses'), hse_path
+        span= t('courses')
+        /= link_to t('courses'), hse_path
 
     content.main
       .skills
