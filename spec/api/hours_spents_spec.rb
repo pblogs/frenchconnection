@@ -32,7 +32,7 @@ describe V1::HoursSpent do
         post "/api/v1/hours_spents/users/#{ @user.id }/" +
              "tasks/#{ @task.id }/dates/#{ @date }", 
              { description: 'Malte hus', hour: 5 }
-      }.to change{ @user.hours_spents.all.size}.from(0).to(2)
+      }.to change{ @user.hours_spents.all.size }.from(0).to(2)
            
       hours_spent_id = response.body
       hours_spent    = HoursSpent.find(hours_spent_id)
@@ -43,6 +43,28 @@ describe V1::HoursSpent do
       hours_spent.user.should eq @user
       hours_spent.task.should eq @task
       hours_spent['date'].should eq @date
+      
+    end
+  end
+  
+  # handles multiple POST requests for the same hours_spent
+  describe 'POST /api/v1/hours_spents/users/:user_id/tasks/:task_id/dates/:date' do
+    before do
+      @date = Date.parse '2015-01-01'
+      @task = Fabricate(:task)
+      @user = Fabricate(:user)
+    end
+    
+    it 'creates only one HoursSpent for user on task on date and returns its id' do
+      expect {
+        post "/api/v1/hours_spents/users/#{ @user.id }/" +
+             "tasks/#{ @task.id }/dates/#{ @date }", 
+             { description: 'Malte hus', hour: 5 }
+             
+        post "/api/v1/hours_spents/users/#{ @user.id }/" +
+             "tasks/#{ @task.id }/dates/#{ @date }", 
+             { description: 'Malte hus', hour: 5 }
+      }.to change{ @user.hours_spents.all.size }.from(0).to(2)
       
     end
   end
