@@ -15,12 +15,22 @@ module V1
           :hour, :overtime_50, :overtime_100, :description,
           :runs_in_company_car, :km_driven_own_car, :toll_expenses_own_car,
           :supplies_from_warehouse)
+        
+        project_id  = Task.find(params[:task_id]).project_id        
+        permitted_params = permitted_params.merge(project_id: project_id)
 
-        project_id  = Task.find(params[:task_id]).project_id
-        hours_spent = HoursSpent.create! (
-          permitted_params.merge(project_id: project_id)
-        )
-
+        hours_spents = HoursSpent
+          .for_user_on_task(params[:user_id], params[:task_id])
+          .personal
+          .where("date = ?", params[:date])
+        
+        if hours_spents.length == 0
+          hours_spent = HoursSpent.create! permitted_params
+        else 
+          hours_spent = hours_spents.first
+          hours_spent.update(permitted_params)
+        end
+          
         present hours_spent.id
         header 'Access-Control-Allow-Origin', '*'
       end
