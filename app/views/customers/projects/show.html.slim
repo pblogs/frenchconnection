@@ -6,15 +6,15 @@
   strong= @project.name
 
 .action_buttons
-  /= link_to t('show_hours_registered'), project_billable_hours_path(@project), 
-    class: "btn btn-primary"
-  = link_to t('show_hours_registered'), project_hours_path(@project), 
+  = link_to t('show_hours_registered'), project_hours_path(@project),
     class: "btn btn-primary"
   = link_to t('register_new_task'), new_project_task_path(@project),
     class: "btn btn-primary"
+  = link_to 'Prosjektdokumentasjon', project_documentation_path(@project),
+    class: "btn btn-primary"
   - unless @project.complete
     = link_to t('project.complete_link'), complete_project_path(@project),
-        data: { confirm: t('generic.confirm') }, method: :post, 
+        data: { confirm: t('generic.confirm') }, method: :post,
         class: 'complete btn btn-primary'
 
 .badges
