@@ -74,10 +74,10 @@ module V1
       desc "HoursSpents by user on task on date"
       get 'users/:user_id/tasks/:task_id/dates/:date' do
         hours_spent = HoursSpent.for_user_on_task(params[:user_id], params[:task_id]).personal
-          .where(date: params[:date])
             
         present :hours_spents, 
                 hours_spent, 
+          .where("date = ?", params[:date])
                 with: V1::Entities::HoursSpents
         
         header 'Access-Control-Allow-Origin', '*'
