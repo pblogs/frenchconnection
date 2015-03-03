@@ -1,7 +1,7 @@
 = render 'new_task_breadcrumb'
 
 section.task
-  h4 
+  h4
     = link_to t('projects.tasks.headers.what'),
       edit_project_task_path(@task.project, @task)
   p.what
@@ -23,7 +23,8 @@ section.task
       edit_project_task_path(@task.project, @task)
   p.where
     strong = @task.location.try(:name)
-    span = @task.project.address.present? ? @task.project.address : t('.address_missing')
+    span
+      = @task.project.address.present? ? @task.project.address : t('.address_missing')
 
 - if @task.inventories.present?
   section.task
@@ -37,8 +38,8 @@ section.task
         tr
           td = t.name
           td = t.rental_price_pr_day
-    
-  
+
+
 section.task
   h4
     = link_to t('projects.tasks.headers.workers'),
@@ -50,8 +51,25 @@ section.task
         tr
           td = u.name
   - else
-    p Du må velge noen som kan utføre oppgaven. 
-  
+    p Du må velge noen som kan utføre oppgaven.
+
+
+section.rules
+ h4 Disse reglene gjelder for denne oppgave
+ table
+   tr
+     td Varmekurs
+   tr
+     td Sikkerhetsinnstukt for byggeplass
+
+
+section.measures
+  h4 Disse tiltakene blir iverksatt
+  table
+    tr
+      td
+        | Arbeidere som ikke har tatt internopplæring i sikkerhetsinnstruks
+        | på byggeplass, må ta testen før de kan akkspetere oppgaven.
 br
 br
 br
@@ -68,5 +86,5 @@ br
     task_save_and_order_resources_path(@task), class: 'btn btn-primary pull-right',
     method: :post
 - else
-  p.task_no_longer_draft 
+  p.task_no_longer_draft
     strong Oppgaven er lagret og resursene bestilt.

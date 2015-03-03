@@ -4,16 +4,16 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   - if @task.inventories.present?
     p
       = t('.people_with_required_skills')
-      strong=  ":  #{@task.inventories.pluck(:name).uniq.join(', ')}"
-  
+      /strong=  ":  #{@task.inventories.pluck(:name).uniq.join(', ')}"
+
   table(ng-show="workers.length > 0" id="workers")
     tr
       th = t('who')
       th = t('options')
-    tr ng-repeat=("worker in workers track by $index") 
-      td 
+    tr ng-repeat=("worker in workers track by $index")
+      td
         | {{worker.first_name}} {{worker.last_name}}
-      td 
+      td
         button(ng-click="select(worker)") = t('select')
 
 
@@ -23,12 +23,14 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       tr
         th = t('who')
         th = t('options')
-      tr ng-repeat=("worker in selected_workers track by $index") 
-        td 
+      tr ng-repeat=("worker in selected_workers track by $index")
+        td
           | {{worker.first_name}} {{worker.last_name}}
-        td 
+        td
           button(ng-click="remove_selected_worker(worker, $index)") = t('remove')
 
 
-p= link_to t('task.review_and_submit'),
-  project_task_review_path(@task.project, @task), class: 'btn btn-primary pull-right'
+p
+  = link_to t('task.review_and_submit'),
+    project_task_review_path(@task.project, @task),
+    class: 'btn btn-primary pull-right'
