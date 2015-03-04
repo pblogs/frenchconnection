@@ -11,5 +11,8 @@
 class Certificate < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :inventories
+  has_many :user_certificates
+  has_many :users, through: :user_certificates
+
   validates :title, uniqueness: true
 end
