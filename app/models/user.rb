@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
 
   belongs_to :department
   belongs_to :profession
-  has_and_belongs_to_many :certificates
   has_and_belongs_to_many :skills
   has_many :monthly_reports
 
@@ -58,6 +57,9 @@ class User < ActiveRecord::Base
   has_many :hours_spents
   has_many :categories, :through => :projects
   has_many :favorites, dependent: :destroy
+
+  has_many :user_certificates
+  has_many :certificates, through: :user_certificates
 
   scope :from_department,  ->(department) { where('department_id = ?',
                                                   department.id) }
