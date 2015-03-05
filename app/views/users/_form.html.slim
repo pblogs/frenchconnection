@@ -1,7 +1,7 @@
 = form_for @user do |f|
   - if @user.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      h2 = "#{pluralize(@user.errors.count, "feil")} hindret oss i å lagre:"
       ul
         - @user.errors.full_messages.each do |message|
           li = message
@@ -29,15 +29,10 @@
     = f.label :profession_id, t('.profession')
     = f.collection_select :profession_id, @professions, :id, :title
 
-  .field
-    = f.label :certificates, t('certificates.header')
-    = collection_check_boxes(:user, :certificate_ids, 
-      Certificate.all, :id, :title) do |c|
-      = c.label { c.check_box + c.text }
 
   .field
     = f.label :skill_ids, t('task.skills')
-    = collection_check_boxes(:user, :skill_ids, 
+    = collection_check_boxes(:user, :skill_ids,
       Skill.all, :id, :title) do |c|
       = c.label { c.check_box + c.text }
 
@@ -46,7 +41,7 @@
     = f.label :roles, 'Roller'
     - for role in User::ROLES
       = label_tag "user_roles_#{role}"
-        = check_box_tag "user[roles][#{role}]", role, 
+        = check_box_tag "user[roles][#{role}]", role,
           @user.roles.include?(role), {:name => "user[roles][]"}
         = I18n.t("roles.#{role}")
   .field

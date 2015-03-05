@@ -1,0 +1,8 @@
+= form_for @user, url: user_create_certificate_path(@user)   do |f|
+  /= f.label :certificates, t('certificates.header')
+  = f.collection_radio_buttons(:certificate_ids, @certificates, :id, :title)
+  .field
+    = f.label :image, 'Bilde'
+    = f.file_field :image
+
+  = f.submit
