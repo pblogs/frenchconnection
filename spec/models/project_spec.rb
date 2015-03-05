@@ -73,7 +73,7 @@ describe Project do
     end
 
     it "knows their names" do
-      @project.name_of_users.should eq 'John W, Barry W, Mustafa W'
+      @project.name_of_users.should include('John W, Barry W, Mustafa W')
     end
 
     describe 'hours_total_for(user)' do
