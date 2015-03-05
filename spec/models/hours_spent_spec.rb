@@ -40,7 +40,7 @@ describe HoursSpent do
   describe 'generic' do
     before(:all) do
       @department = Fabricate(:department)
-      @user     = Fabricate(:user)
+      @user       = Fabricate(:user)
       @task       = Fabricate(:task)
       @task.user_ids = [@user.id]
       @task.save
@@ -67,7 +67,7 @@ describe HoursSpent do
 
 
     it 'week_numbers_for_dates(dates)' do
-      dates = [Date.parse('01-01-2014'), Date.parse('08-01-2014'), 
+      dates = [Date.parse('01-01-2014'), Date.parse('08-01-2014'),
                Date.parse('15-01-2014'), Date.parse('29-01-2014')]
       HoursSpent.week_numbers_for_dates(dates).should eq '1, 2, 3, 5'
     end
@@ -105,8 +105,8 @@ describe HoursSpent do
       @user.hours_spents.personal.first.save!
       @user.hours_spents.size.should eq 2
     end
-      
-      
+
+
 
     it 'is invalid if change_reason is missing on update' do
       pending
