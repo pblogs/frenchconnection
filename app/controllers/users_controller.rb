@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_user_by_id, only: [:hours, :approved_hours, :timesheets]
+  before_action :set_user_by_id, only: [:hours, :approved_hours, :timesheets,
+                                        :create_certificate, :certificates]
   before_action :set_department, only: [:new, :edit, :update, :create]
   before_action :set_profession, only: [:new, :edit, :update, :create]
   before_action :fix_roles_params, only: [:update, :create]
@@ -117,6 +118,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def certificates
+    @certificates = Certificate.all
+  end
+
+  def create_certificate
+    @certificate = UserCertificate.create!(image: params[:user][:image],
+                          certificate_id: params[:user][:certificate_ids],
+                          user_id: params[:user_id])
+    redirect_to user_certificate_path(@certificate)
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_user
@@ -140,7 +152,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :first_name,
-      :last_name, 
+      :last_name,
       :tasks_id,
       :mobile,
       :emp_id,
