@@ -31,15 +31,14 @@ module Tasks
     # POST /hours_spents
     # POST /hours_spents.json
     def create
-      @task                = Task.find(params[:task_id])
+      @task         = Task.find(params[:task_id])
       @hour         = @current_user.hours_spents.new(hours_spent_params)
       @hour.task    = @task
       @hour.project = @task.project
 
       respond_to do |format|
         if @hour.save
-          format.html { redirect_to task_hours_spents_path(@task),
-                        notice: 'Timer registert' }
+          format.html { redirect_to @current_user, notice: 'Timer registert' }
           format.json { render action: 'show', status: :created,
                         location: @hour }
         else
