@@ -5,7 +5,7 @@ ul class="accordion-tabs-minimal"
     section
       - if @starred_customers.blank? && @starred_projects.blank?
           p = t('projects.no_started_customers_or_projects')
-      ul.circle
+      ul#favourites.circle
         - if @starred_customers.present?
           h5 = t('generic.customers')
           - @starred_customers.each do |c|
@@ -23,7 +23,7 @@ ul class="accordion-tabs-minimal"
       - if @departments.blank?
           p = t('projects.no_departments')
       ul
-        - @departments && @departments.each do |d| 
+        - @departments && @departments.each do |d|
           li= link_to d.title, d
 
 
@@ -34,7 +34,7 @@ ul class="accordion-tabs-minimal"
         ul
           - @completed_projects && @completed_projects.each do |p|
             li= link_to p.name, customer_project_path(p.customer, p)
-      - else 
+      - else
         p Det finnes ingen avsluttede prosjekter
 br
 br

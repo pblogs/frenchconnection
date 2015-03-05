@@ -145,10 +145,10 @@ class ProjectsController < ApplicationController
     if params[:show_all].present?
       @hours = @project.hours_for_all_users(of_kind: of_kind)
     else
-      @hours = @project.hours_for_all_users(month_nr: @month, year: @year, of_kind: of_kind)
+      @hours = @project.hours_for_all_users(month_nr: @month, year: @year,
+                                            of_kind: of_kind)
     end
     @hours_not_approved = @hours.any? { |h| h.approved == false }
-    #raise 'her'
   end
 
   def set_project
