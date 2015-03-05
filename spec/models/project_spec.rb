@@ -106,7 +106,7 @@ describe Project do
         Fabricate(:hours_spent, approved: true, task: @task, overtime_50: 10, user: @barry_snekker)
         Fabricate(:hours_spent, approved: true, task: @task, overtime_100: 10, user: @mustafa_murer)
         @project.reload
-        @project.hours_spent_total(profession: @snekker, overtime: :hour, 
+        @project.hours_spent_total(profession: @snekker, overtime: :hour,
                                    of_kind: :personal).should eq 20
       end
 
@@ -132,7 +132,7 @@ describe Project do
     end
 
     it "lists all types of professions involved" do
-      @project.professions.should eq [@snekker, @murer]
+      @project.professions.should include(@snekker, @murer)
     end
   end
 
@@ -204,12 +204,21 @@ describe Project do
     end
   end
 
-  #describe 'Calculations' do
-  #  before do
-  #    @project = Fabricate(:project)
-  #    @task = Fabricate(:task, project: @project)
-  #    Fabricate(:hours_spent, hour: 10, )
-  #  end
-  #end
+  describe 'Calculations' do
+    before do
+      @project = Fabricate(:project)
+      @user = Fabricate(:user)
+      @task1 = Fabricate(:task, project: @project)
+      @task2 = Fabricate(:task, project: @project)
+      @task1.user_ids = [@user.id]
+      @task2.user_ids = [@user.id]
+      Fabricate(:hours_spent, hour: 10, task: @task1, project: @project, user: @user)
+      Fabricate(:hours_spent, hour: 10, task: @task1, project: @project, user: @user)
+      Fabricate(:hours_spent, hour: 10, task: @task2, project: @project, user: @user)
+    end
+    it 'hours_for_all_users' do
+      expect(@project.hours_for_all_users(of_kind: :billable).size).to eq 1
+    end
+  end
 
 end

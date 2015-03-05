@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
   has_many :user_tasks,   :through => :tasks
   has_many :attachments
   has_many :hours_spents, :through => :tasks
-  has_many :users,        :through => :tasks
+  has_many :users,  -> { uniq }, through: :tasks
 
   belongs_to :customer
   belongs_to :user
@@ -68,7 +68,7 @@ class Project < ActiveRecord::Base
     starting_date, ending_date, total_weeks = get_month_metadata(year.to_i, month.to_i)
     project_hours = initialize_project_hours(total_weeks)
     project_hours = calculate_hours(project_hours, starting_date: starting_date,
-                                    ending_date: ending_date, 
+                                    ending_date: ending_date,
                                     total_weeks: total_weeks, overtime: overtime)
     [project_hours, total_weeks.count]
   end
@@ -83,8 +83,8 @@ class Project < ActiveRecord::Base
   def hours_spent_total(profession: nil,  overtime:, of_kind:)
     users = profession ? users_with_profession(profession: profession) : self.users
     sum = 0
-    users.each { |u| sum += hours_total_for(u, 
-                             overtime: overtime, of_kind: of_kind) rescue 0 } 
+    users.each { |u| sum += hours_total_for(u,
+                             overtime: overtime, of_kind: of_kind) rescue 0 }
     sum
   end
 
@@ -107,7 +107,6 @@ class Project < ActiveRecord::Base
       end
     end
     sum
-    #binding.pry
   end
 
   def hours_total_for(user, overtime: nil, of_kind:)
@@ -192,7 +191,7 @@ class Project < ActiveRecord::Base
     end
 
     def calculate_hours(project_hours, opts = {})
-      populate_hours(project_hours, starting_date: opts[:starting_date], 
+      populate_hours(project_hours, starting_date: opts[:starting_date],
                      ending_date: opts[:ending_date],
                      total_weeks: opts[:total_weeks], overtime: opts[:overtime])
       reorder_hash(project_hours)
@@ -249,7 +248,7 @@ class Project < ActiveRecord::Base
         .not_approved.exists?
       @hour_object = hours_spents.where(user: u).first
     end
-    
+
     def sum_hours_for_user_total(user:, of_kind:)
       u = user
       @hour           = hours_spents.where(user: u, of_kind: of_kind).sum(:hour)
