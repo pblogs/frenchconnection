@@ -6,18 +6,22 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_user
   before_action :authenticate_user!
-  
+
   respond_to :html, :json
 
   def set_current_user
     @current_user ||= current_user
   end
 
+  around_filter :catch_not_found
+
 
   def index
   end
 
+
   private
+
   def get_paginate_default_field(first_char)
     if first_char.can_be_integer?
       '0-9'
@@ -28,7 +32,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def catch_not_found
+    yield
+    rescue ActiveRecord::RecordNotFound
+    redirect_to root_url, :flash => { :error => "Record not found." }
+  end
+
+
   protected
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :mobile]
   end
