@@ -31,12 +31,12 @@ describe ExcelProjectTools do
 
 
   it %q{returns a comma separated string of names for profession} do
-    ExcelProjectTools.user_names(project: @project, 
-    profession_title: 'Snekker').should include(@snekker1.name)
+    ExcelProjectTools.user_names(project: @project,
+      profession_title: 'Snekker').to_s.should match(@snekker1.name)
   end
 
   it 'sum_piecework_hours' do
-    Fabricate(:hours_spent, piecework_hours: 10, 
+    Fabricate(:hours_spent, piecework_hours: 10,
               task: @task, user: @user1, project: @project, approved: true)
     ExcelProjectTools.sum_piecework_hours(project: @project, of_kind: :billable,
                                           user: @user1 ).should eq 10
@@ -50,14 +50,14 @@ describe ExcelProjectTools do
   end
 
   it 'sum_overtime_50' do
-    Fabricate(:hours_spent, piecework_hours: 50, 
+    Fabricate(:hours_spent, piecework_hours: 50,
               task: @task, user: @user1, project: @project, approved: true )
     ExcelProjectTools.sum_piecework_hours(project: @project, user: @user1,
                                           of_kind: :billable ).should eq 50
   end
 
   it 'sum_overtime_100' do
-    Fabricate(:hours_spent, piecework_hours: 100, approved: true, 
+    Fabricate(:hours_spent, piecework_hours: 100, approved: true,
               task: @task, user: @user1, project: @project )
     ExcelProjectTools.sum_piecework_hours(project: @project, of_kind: :billable,
                                           user: @user1 ).should eq 100

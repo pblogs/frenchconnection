@@ -67,9 +67,11 @@ describe User do
       @user.skills << @welding
       @user.save!
     end
+
     it 'with_skill' do
       expect(User.with_skill(@welding)).to include @user
     end
+
     it 'with_certificate' do
       expect(User.with_certificate(@certificate)).to include @user
     end
