@@ -12,7 +12,7 @@ feature "Task" do
     @project            = Fabricate(:project, start_date: @project_start_date)
     @skill              = Fabricate(:skill, title: 'welding')
     @location           = Fabricate(:location, name: 'roof-top')
-    @lift_cert          = Fabricate(:certificate, title: 'lift certificate') 
+    @lift_cert          = Fabricate(:certificate, title: 'lift certificate')
     @lift               = Fabricate(:inventory, name: 'lift',
                                      certificates: [@lift_cert])
     @lisa_lift_operator = Fabricate(:user, certificates: [@lift_cert])
@@ -37,7 +37,7 @@ feature "Task" do
         click_link_or_button I18n.t('select')
       end
       page.should have_content I18n.t('projects.tasks.tools.selected_tools')
-    }.to change{ Task.last.inventories.first }.from(nil).to(@lift) 
+    }.to change{ Task.last.inventories.first }.from(nil).to(@lift)
     click_link I18n.t('save_and_continue')
 
     # The workers page
@@ -47,7 +47,7 @@ feature "Task" do
         click_link_or_button I18n.t('select')
       end
       page.should have_content I18n.t('projects.tasks.workers.selected_workers')
-    }.to change{ Task.last.users.first }.from(nil).to(@lisa_lift_operator) 
+    }.to change{ Task.last.users.first }.from(nil).to(@lisa_lift_operator)
     click_link I18n.t('task.review_and_submit')
 
     # The review page
@@ -56,7 +56,7 @@ feature "Task" do
     page.should have_content @lisa_lift_operator.first_name
     expect {
       click_link I18n.t('task.order_resources_and_save_task')
-    }.to change{ Task.last.draft }.from(true).to(false) 
+    }.to change{ Task.last.draft }.from(true).to(false)
 
   end
 end

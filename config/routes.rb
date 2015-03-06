@@ -8,10 +8,10 @@ AllieroForms::Application.routes.draw do
 
   resources :locations
   resources :skills
-  resources :certificates
   resources :inventories
   resources :departments
   resources :attachments
+  resources :user_certificates, only: [:show]
 
   devise_for :users
 
@@ -79,6 +79,8 @@ AllieroForms::Application.routes.draw do
     get '/projects/:project_id/hours'=> 'users#hours', as: :hours
     post '/projects/:project_id/hours'=> 'users#hours', as: :approve_hours
     get :timesheets
+    get :certificates
+    patch '/create_certificate/' => 'users#create_certificate', as: :create_certificate
     resources :tasks, :controller => 'users/tasks' do
       post :accept_task
       post :finished
@@ -90,8 +92,8 @@ AllieroForms::Application.routes.draw do
     collection do
       post :add_user
     end
-
   end
+  resources :certificates
 
   resources :hours_spents do
   end
