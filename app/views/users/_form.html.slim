@@ -42,12 +42,14 @@
       li
         = link_to c.certificate.title, c.image.url
         br
-        = image_tag c.image.url, size: '100x100'
+        = image_tag c.image.url, size: '100x100',
+          data: { lightbox: c.certificate.title, title: c.certificate.title }
 
     ul
       - @user.skills.each do |s|
         li= s.title
     = link_to 'Rediger sertifikater', user_certificates_path(@user)
+
 
   br
   .field
