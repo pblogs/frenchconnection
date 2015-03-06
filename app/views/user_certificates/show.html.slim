@@ -2,4 +2,11 @@ h4 = @header
 br
 br
 
-= image_tag @user_certificate.image
+- if @user_certificate.image.present?
+  = image_tag @user_certificate.image
+- else
+  p Mangler kopi av sertifikatet.
+
+
+br
+= link_to t('back'), :back
