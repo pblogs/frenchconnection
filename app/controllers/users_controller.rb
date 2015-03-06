@@ -126,7 +126,7 @@ class UsersController < ApplicationController
     @certificate = UserCertificate.create!(image: params[:user][:image],
                           certificate_id: params[:user][:certificate_ids],
                           user_id: params[:user_id])
-    redirect_to user_certificate_path(@certificate)
+    redirect_to user_certificates_path(@user)
   end
 
   private
