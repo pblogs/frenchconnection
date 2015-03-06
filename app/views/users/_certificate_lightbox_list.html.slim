@@ -2,5 +2,5 @@
   li
     strong = c.certificate.title
     br
-    = link_to image_tag(c.image.url), c.image.url,
+    = link_to image_tag(c.image.small.url), c.image.url,
       data: { lightbox: c.certificate.title }
