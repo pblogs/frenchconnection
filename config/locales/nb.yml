@@ -118,8 +118,8 @@ nb:
   blog:
     news: Nyheter
     latest_projects: Siste prosjekter
-    no_articles: Ingen artikler stede
-    no_projects: Ingen prosjekter til stede
+    no_articles: Det er ikke lagt inn noen artikler.
+    no_projects: Det er ikke lagt inn noen prosjekter.
     no_videos: Ingen videoer
     videos: Videoer
     save_article_for_image_upload: For bildeopplasting til å arbeide,
