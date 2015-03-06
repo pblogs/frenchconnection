@@ -17,6 +17,8 @@ gem 'iconv'
 gem 'pdfkit'
 gem 'symbolize'
 gem 'sidekiq'
+gem 'lightbox2-rails'
+
 
 
 gem 'activeadmin', github: 'activeadmin'
