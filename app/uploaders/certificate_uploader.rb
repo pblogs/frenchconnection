@@ -49,6 +49,10 @@ class CertificateUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [400, 400]
   end
 
+  version :large do
+    process resize_to_fit: [900, 900]
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
