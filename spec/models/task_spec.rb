@@ -100,7 +100,7 @@ describe Task do
 
   describe 'Location' do
     before do
-      @roof_top =  Fabricate(:location, name: 'Roof top') 
+      @roof_top =  Fabricate(:location, name: 'Roof top')
       @task = Fabricate(:task, location: @roof_top)
     end
     it 'has a location' do
@@ -129,7 +129,7 @@ describe Task do
     end
 
     it 'sends sms to all users when a task is no longer a draft' do
-      # A tasks starts as draft. @task.draft is set as false when 
+      # A tasks starts as draft. @task.draft is set as false when
       # save_and_order_resources! is excuted.
       @task.update_attribute(:draft, true)
       Sms.should_receive(:send_msg).with(to: "47#{@user.mobile}",
@@ -153,7 +153,7 @@ describe Task do
 
   describe "Validations" do
     before do
-      @project = Fabricate :project, 
+      @project = Fabricate :project,
         start_date: 1.month.ago, due_date: 1.month.since
     end
 
@@ -174,13 +174,13 @@ describe Task do
   end
 
   describe 'Resources' do
-    before { User.destroy_all }
-    let!(:dep)              { Fabricate(:department) } 
+    before { User.destroy_all; Certificate.destroy_all }
+    let!(:dep)              { Fabricate(:department) }
     let!(:project)          { Fabricate(:project, department: dep)  }
     let!(:task)             { Fabricate(:task, project: project)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
-    let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') } 
-    let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000', 
+    let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') }
+    let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000',
                                 certificates: [lift_certificate]) }
     let!(:lift_operator)    { Fabricate(:user, roles: [:worker],
                                 first_name: 'Lift Oper', department: dep,
@@ -193,13 +193,13 @@ describe Task do
     it 'knows which users that can do the job' do
       task.inventories << lift
       task.save
-      expect(task.qualified_workers).to eq [lift_operator] 
+      expect(task.qualified_workers).to eq [lift_operator]
     end
 
     it 'lists all users for a tool that does not require a certificate' do
       task.inventories << blender
       task.save
-      expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs] 
+      expect(task.qualified_workers).to eq [lift_operator, user_with_no_certs]
     end
 
     it 'lists all users if the task does not contain any tools' do
@@ -211,7 +211,7 @@ describe Task do
       task.users << lift_operator
       task.save
       task.reload
-      expect(task.qualified_workers).to eq [user_with_no_certs] 
+      expect(task.qualified_workers).to eq [user_with_no_certs]
     end
   end
 end

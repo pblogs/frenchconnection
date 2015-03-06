@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe UserCertificate do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before :each do
+    @user_certificate    = Fabricate(:user_certificate)
+  end
+
+  it "is valid from the Fabric" do
+    expect(@user_certificate).to be_valid
+  end
 end
