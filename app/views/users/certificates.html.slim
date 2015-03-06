@@ -1,3 +1,27 @@
+- content_for :breadcrumb do
+  = link_to t('top_nav.manage'), administration_path
+  = fa_icon 'chevron-right'
+  = link_to t('admin.users'),        users_path
+  = fa_icon 'chevron-right'
+  = link_to @user.name, edit_user_path(@user)
+  = fa_icon 'chevron-right'
+  strong Sertifikater
+
+h5 = "#{@user.name} har disse sertifikatene"
+br
+ul
+  - @user.user_certificates.each do |c|
+    li
+      = link_to c.certificate.title, c.image.url
+      br
+      = image_tag c.image.url, size: '100x100'
+
+br
+hr
+br
+
+strong Legg til et nytt
+br
 = form_for @user, url: user_create_certificate_path(@user)   do |f|
   /= f.label :certificates, t('certificates.header')
   = f.collection_radio_buttons(:certificate_ids, @certificates, :id, :title)
@@ -6,3 +30,5 @@
     = f.file_field :image
 
   = f.submit
+
+= link_to t('back'), :back
