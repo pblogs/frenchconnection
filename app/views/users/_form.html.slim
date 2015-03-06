@@ -38,9 +38,11 @@
 
   .field
     = label_tag 'Sertifikater'
-    = collection_check_boxes(:user, :certificate_ids,
-      Certificate.all, :id, :title) do |c|
-      = c.label { c.check_box + c.text }
+    - @user.user_certificates.each do |c|
+      li
+        = link_to c.certificate.title, c.image.url
+        br
+        = image_tag c.image.url, size: '100x100'
 
     ul
       - @user.skills.each do |s|
