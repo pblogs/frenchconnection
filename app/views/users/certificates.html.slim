@@ -10,11 +10,7 @@
 h5 = "#{@user.name} har disse sertifikatene"
 br
 ul
-  - @user.user_certificates.each do |c|
-    li
-      = link_to c.certificate.title, c.image.url
-      br
-      = image_tag c.image.url, size: '100x100'
+  = render 'certificate_lightbox_list'
 
 br
 hr

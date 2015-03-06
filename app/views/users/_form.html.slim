@@ -38,12 +38,7 @@
 
   .field
     = label_tag 'Sertifikater'
-    - @user.user_certificates.each do |c|
-      li
-        strong = c.certificate.title
-        br
-        = link_to image_tag(c.image.url), c.image.url,
-          data: { lightbox: c.certificate.title }
+    = render 'certificate_lightbox_list'
 
     ul
       - @user.skills.each do |s|
