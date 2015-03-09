@@ -18,6 +18,8 @@ gem 'pdfkit'
 gem 'symbolize'
 gem 'sidekiq'
 gem 'lightbox2-rails'
+gem 'pundit'
+
 
 
 
