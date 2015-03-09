@@ -18,6 +18,10 @@ class ProjectPolicy  < ApplicationPolicy
     project.user == user
   end
 
+  def destroy?
+    project.user == user
+  end
+
   def show?
     true
   end
@@ -26,7 +30,13 @@ class ProjectPolicy  < ApplicationPolicy
     true
   end
 
-  def destroy?
+  def billable_hours?
     project.user == user
   end
+
+  def personal_hours?
+    true
+  end
+
+
 end

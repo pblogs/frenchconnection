@@ -65,7 +65,8 @@ class Project < ActiveRecord::Base
   end
 
   def generate_monthly_report(year, month, overtime)
-    starting_date, ending_date, total_weeks = get_month_metadata(year.to_i, month.to_i)
+    starting_date, ending_date, total_weeks = get_month_metadata(year.to_i,
+                                                                 month.to_i)
     project_hours = initialize_project_hours(total_weeks)
     project_hours = calculate_hours(project_hours, starting_date: starting_date,
                                     ending_date: ending_date,
@@ -75,7 +76,8 @@ class Project < ActiveRecord::Base
 
   def hours_spent_for_profession(profession, overtime:, of_kind:)
     users = users_with_profession(profession: profession)
-    all_kinds_of_hours = users.collect { |u| hours_spents.where(user: u ).to_a }.flatten
+    all_kinds_of_hours = users.collect { |u|
+      hours_spents.where(user: u ).to_a }.flatten
     all = all_kinds_of_hours.select { |h| h.send(overtime) > 0 rescue nil }
     all.select { |h| h.send(overtime).present? }
   end
