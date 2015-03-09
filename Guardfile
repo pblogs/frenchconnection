@@ -5,6 +5,7 @@
 guard :rspec, cmd: 'rspec -f d --fail-fast' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/api/.+_spec\.rb$})
+  watch(%r{^spec/policies/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
 
@@ -33,13 +34,13 @@ guard :rspec, cmd: 'rspec -f d --fail-fast' do
     # *pending_message_format*, *failed_message_format*
     line_separator: ' > ', # since we are single line we need a separator
     color_location: 'status-left-bg', # to customize which tmux element will change color
-  
+
     # Other options:
     default_message_color: 'black',
     success: 'colour150',
     failure: 'colour174',
     pending: 'colour179',
-  
+
     # Notify on all tmux clients
     display_on_all_clients: false
 
