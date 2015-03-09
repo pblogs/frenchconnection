@@ -1,7 +1,7 @@
 class ExcelController < ApplicationController
   skip_before_filter :authenticate_user!
   layout :resolve_layout
-  
+
   def daily_report
     @project    = Project.find(params[:project_id])
     @profession = Profession.find(params[:profession_id])
@@ -9,14 +9,15 @@ class ExcelController < ApplicationController
     @overtime   = params[:overtime]
     @filename   = DailyReport.new(project: @project, profession: @profession,
                                  overtime: @overtime).create_spreadsheet
-    @hours_spent = @project.hours_spent_for_profession(@profession, 
+    @hours_spent = @project.hours_spent_for_profession(@profession,
                                                        overtime: @overtime,
                                                        of_kind: :billable)
     @week_numbers = HoursSpent.week_numbers(@hours_spent)
+    approve @project
 
     respond_to do |format|
       format.pdf do
-        filename = generate_daily_report_pdf(project: @project, 
+        filename = generate_daily_report_pdf(project: @project,
                                              profession_title: @profession.title,
                                              overtime: @overtime)
         send_file filename, filename: File.basename(filename)
@@ -31,7 +32,7 @@ class ExcelController < ApplicationController
     @project    = Project.find(params[:project_id])
     @workers    = @project.users
     @overtime   = params[:overtime]
-    @filename   = WeeklyReport.new(project: @project, profession: @profession, 
+    @filename   = WeeklyReport.new(project: @project, profession: @profession,
                                    overtime: @overtime).create_spreadsheet
     respond_to do |format|
       format.pdf do
@@ -41,7 +42,7 @@ class ExcelController < ApplicationController
         send_file filename, filename: File.basename(filename)
       end
       format.html do
-        @hours_spent = @project.hours_spent_for_profession(@profession, 
+        @hours_spent = @project.hours_spent_for_profession(@profession,
                                                            overtime: @overtime)
         render 'daily_report-table'
       end
@@ -74,7 +75,7 @@ class ExcelController < ApplicationController
     @customers = Customer.all
   end
 
-  
+
   # The timesheet is given to the customers HR department. It's used for
   # calucation sallery for the workers.
   # From and to date: Use the date from the first HoursSpent and the last.
@@ -82,13 +83,13 @@ class ExcelController < ApplicationController
     @project = Project.find(params[:project_id])
     @user    = User.find(params[:user_id])
     @hours   = @project.hours_spents.where(user: @user).all
-    filename = Timesheet.new(@project, @user, 
+    filename = Timesheet.new(@project, @user,
                               @hours).create_spreadsheet
     send_file filename, filename:  filename
   end
 
   private
-  
+
   def generate_daily_report_pdf(project:, profession_title:, overtime:)
     filename = "/tmp/daily_report-#{project.project_number.parameterize}-" +
                "#{project.address.parameterize}-" +
@@ -115,7 +116,7 @@ class ExcelController < ApplicationController
 
   def offsett(nr)
     r = []
-    nr.times do 
+    nr.times do
       r << ''
     end
     r
