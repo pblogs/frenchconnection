@@ -27,18 +27,21 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    authorize @project
   end
 
 
 
   # GET /projects/1/edit
   def edit
+    authorize @project
   end
 
   # POST /projects
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    authorize @project
 
     respond_to do |format|
       if @project.save
@@ -58,6 +61,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    authorize @project
     respond_to do |format|
       if @project.update(project_params)
         set_favorite
@@ -75,6 +79,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    authorize @project
     @project.destroy
     respond_to do |format|
       format.html { redirect_to projects_url }
@@ -100,10 +105,12 @@ class ProjectsController < ApplicationController
   end
 
   def personal_hours
+    authorize :project, :personal_hours?
     fetch_hours(of_kind: :personal)
   end
 
   def billable_hours
+    authorize :project, :personal_hours?
     fetch_hours(of_kind: :billable)
   end
 
