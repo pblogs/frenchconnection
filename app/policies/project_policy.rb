@@ -38,5 +38,9 @@ class ProjectPolicy  < ApplicationPolicy
     true
   end
 
+  def daily_report?
+    true
+  end
+
 
 end
