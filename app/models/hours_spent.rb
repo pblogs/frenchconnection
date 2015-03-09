@@ -36,8 +36,8 @@
 # Workers nor admins can not edit hours after they have been approved.
 #
 # == Generating reports
-# The approved hours within the selected scope is set as frozen when
-# daily_report or timesheet is generated.
+# The hours within the selected scope is set as approved when
+# daily_report or timesheet is generated. An approved hour can not be changed.
 #
 #
 class HoursSpent < ActiveRecord::Base
@@ -52,7 +52,6 @@ class HoursSpent < ActiveRecord::Base
   validates :description,   :presence => true
   validates :date,          :presence => true
   validates :project_id,    :presence => true
-  #validates :change_reason, :presence => true, if:  :billable?, on: :update
 
   symbolize :of_kind, in: %i(personal billable), default: :personal
   serialize :old_values
@@ -71,8 +70,6 @@ class HoursSpent < ActiveRecord::Base
   scope :edited_by_admin,     -> { where(edited_by_admin: true) }
   scope :not_edited_by_admin, -> { where(edited_by_admin: false) }
   scope :not_approved,        -> { where(approved: false) }
-  scope :frozen_by_admin,     -> { where(frozen_by_admin: true) }
-  scope :not_frozen_by_admin, -> { where(frozen_by_admin: false) }
 
   after_create :create_billable
 
@@ -96,12 +93,6 @@ class HoursSpent < ActiveRecord::Base
   def approve!
     self.update_attributes(approved: true)
   end
-
-
-  def mark_as_edited_by_admin!
-    self.update_attributes(frozen_by_admin: true, edited_by_admin: true)
-  end
-
 
   # TODO  Move into a date helper
   def self.week_numbers_for_dates(dates)
