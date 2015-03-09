@@ -4,6 +4,7 @@ describe ProjectPolicy do
 
   OWNER_ACTIONS = %W(update? edit? destroy?)
   GUEST_ACTIONS = %W(show? index?)
+  WORKER_ACTIONS = %W()
 
   subject { described_class }
 
@@ -33,6 +34,20 @@ describe ProjectPolicy do
         it 'allow for guest' do
           expect(subject).to permit(User.new, project)
         end
+      end
+    end
+  end
+
+  context 'worker' do
+    let(:project) { Fabricate(:project) }
+
+    GUEST_ACTIONS.each do |permission|
+      permissions permission do
+
+        it "allow for guest" do
+          expect(subject).to permit(User.new, project)
+        end
+
       end
     end
   end

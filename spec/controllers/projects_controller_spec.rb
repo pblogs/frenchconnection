@@ -24,7 +24,7 @@ describe ProjectsController, :type => :controller do
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { 
+    {
       project_number:       'P01',
       customer_id:          Fabricate(:customer).id,
       department_id:        Fabricate(:department).id,
@@ -32,6 +32,7 @@ describe ProjectsController, :type => :controller do
       start_date:           '01.05.1983',
       due_date:             '01.08.1983',
       description:          'New fence',
+      user:  @user
     }
   end
 
@@ -125,7 +126,7 @@ describe ProjectsController, :type => :controller do
       it "assigns a newly created but unsaved project as @project" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, {:project => { "project_number" => "invalid value" }}, 
+        post :create, {:project => { "project_number" => "invalid value" }},
           valid_session
         assigns(:project).should be_a_new(Project)
       end
@@ -133,7 +134,7 @@ describe ProjectsController, :type => :controller do
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Project.any_instance.stub(:save).and_return(false)
-        post :create, {:project => { "project_number" => "invalid value" }}, 
+        post :create, {:project => { "project_number" => "invalid value" }},
           valid_session
         response.should render_template("new")
       end
@@ -199,7 +200,7 @@ describe ProjectsController, :type => :controller do
     end
   end
 
-  # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte 
+  # Prosjektforside: Timeliste: Ny side som lister dager nedover med ansatte
   # som har levert timer på den dagen.
   #
   describe "List hours registered" do
@@ -253,7 +254,8 @@ describe ProjectsController, :type => :controller do
           get :billable_hours, { project_id: @project.id,
                         date: { year: 2015, month: 5 },
                       }, valid_session
-          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind: :billable, month_nr: @month, year: @year)
+          expect(assigns(:hours)).to eq @project.hours_for_all_users(
+            of_kind: :billable, month_nr: @month, year: @year)
         end
       end
 
