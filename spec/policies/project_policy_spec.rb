@@ -4,7 +4,6 @@ describe ProjectPolicy do
 
   OWNER_ACTIONS = %W(update? edit? destroy?)
   GUEST_ACTIONS = %W(show? index?)
-  WORKER_ACTIONS = %W()
 
   subject { described_class }
 
