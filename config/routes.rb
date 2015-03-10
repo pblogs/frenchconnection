@@ -16,7 +16,6 @@ AllieroForms::Application.routes.draw do
   devise_for :users
 
   mount API => '/'
-  get "excel/export/:project_id" => 'excel#export', as: :export_excel
 
   get '/daily_report/:project_id/:profession_id/:overtime' => 'excel#daily_report',
     as: :daily_report

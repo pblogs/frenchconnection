@@ -22,10 +22,12 @@ module Tasks
     # GET /hours_spents/new
     def new
       @hour = @current_user.hours_spents.new
+      authorize @hour
     end
 
     # GET /hours_spents/1/edit
     def edit
+      authorize @hour
     end
 
     # POST /hours_spents
@@ -35,6 +37,7 @@ module Tasks
       @hour         = @current_user.hours_spents.new(hours_spent_params)
       @hour.task    = @task
       @hour.project = @task.project
+      authorize @hour
 
       respond_to do |format|
         if @hour.save
@@ -52,6 +55,7 @@ module Tasks
     # PATCH/PUT /hours_spents/1
     # PATCH/PUT /hours_spents/1.json
     def update
+      authorize @hour
       respond_to do |format|
         if @hour.update(hours_spent_params)
           format.html { redirect_to @hour.task,
@@ -69,6 +73,7 @@ module Tasks
     # DELETE /hours_spents/1
     # DELETE /hours_spents/1.json
     def destroy
+      authorize @hour
       @hour.destroy
       respond_to do |format|
         format.html { redirect_to hours_spents_url }
@@ -77,10 +82,10 @@ module Tasks
     end
 
     def approve
+      authorize @hour
       @hour.approve!
-      #@hour.save!
       redirect_to user_hours_path(@hour.user, @hour.project,
-                                  of_kind: params[:of_kind])
+        of_kind: params[:of_kind])
     end
 
 

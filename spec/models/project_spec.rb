@@ -48,14 +48,16 @@ describe Project do
       @project.save
 
       @hours_for_snakker1 = Fabricate(:hours_spent, hour: 10, description: 'vanlig 1',
-                                      task: @task, approved: true, of_kind: :personal,
-                                      user: @john_snekker)
-      @hours_for_barry    = Fabricate(:hours_spent, piecework_hours: 10, description: 'vanlig 1',
+                                      task: @task, approved: true,
+                                      of_kind: :personal, user: @john_snekker)
+      @hours_for_barry    = Fabricate(:hours_spent, piecework_hours: 10,
+                                      description: 'vanlig 1',
                                       task: @task, approved: true,
                                       user: @barry_snekker)
       # Overtime 100
       @overtime_100_for_john_s  = Fabricate(:hours_spent, overtime_100: 100,
-                                            task: @task, approved: true, description: 'overtime 100',
+                                            task: @task, approved: true,
+                                            description: 'overtime 100',
                                             user: @john_snekker)
     end
 

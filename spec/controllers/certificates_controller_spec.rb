@@ -28,7 +28,8 @@ describe CertificatesController do
   end
 
   before do
-    sign_in
+    @admin = Fabricate(:user, roles: [:admin])
+    sign_in(@admin)
   end
 
   # This should return the minimal set of values that should be in the session
