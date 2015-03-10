@@ -9,6 +9,9 @@ class ProjectsController < ApplicationController
   before_action :set_months, only: [:billable_hours, :personal_hours]
   before_action :fetch_hours, only: [:approve_hours]
 
+  # TODO
+  #after_action :verify_authorized, :except => :index
+
   # GET /projects
   # GET /projects.json
   def index
