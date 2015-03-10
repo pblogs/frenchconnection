@@ -1,7 +1,6 @@
-/= render '/tasks/show.html.slim'
 .button.green
-  
-  
+
+
   table
     thead
       th Kunde
@@ -11,19 +10,7 @@
       tr
         td = task.project.customer.name
 
-  /p
-  /  strong Kunde:
-  /  = task.customer.name
-  /p
-  /  strong Utførende:
-  /  = task.user.name
-  /p
-  /  strong Type:
-  /  = task.task_type.title
-  /p
-  /  strong Start dato:
-  /  = I18n.l task.start_date, format: :short
-  
+
 br
 br
 = link_to 'Rediger ', edit_task_path(task)

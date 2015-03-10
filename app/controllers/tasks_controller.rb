@@ -1,12 +1,15 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :complete]
-  before_action :set_task_by_task_id, 
-    only: [:save_and_order_resources, :select_inventory, :qualified_workers, 
+  before_action :set_task_by_task_id,
+    only: [:save_and_order_resources, :select_inventory, :qualified_workers,
            :selected_workers, :select_workers, :remove_selected_worker,
            :inventories,
            :selected_inventories, :remove_selected_inventory]
 
   before_action :set_customer, only: [:new, :create, :index]
+
+  # TODO
+  #after_action :verify_authorized, :except => :index
 
   def index
     @tasks = Task.all.to_a
@@ -36,7 +39,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task_types = TaskType.all
+    #authorize @task
   end
 
   def save_and_order_resources
@@ -50,7 +53,6 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task_types = TaskType.all
     @task = Task.new(task_params)
 
     if params[:customer_id].present?
@@ -59,20 +61,15 @@ class TasksController < ApplicationController
       @task.customer  = Customer.find(params[:task][:customer_id])
     end
 
-    begin
-      @task.task_type = TaskType.find(params[:task][:task_type_id]).first
-    rescue
-    end
-
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, 
+        format.html { redirect_to @task,
           notice: "Oppdraget ble opprettet og sendt til #{@task.name_of_users}"
           }
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
-        format.json { render json: @task.errors, 
+        format.json { render json: @task.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -81,7 +78,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, 
+        format.html { redirect_to @task,
                       notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
@@ -151,7 +148,7 @@ class TasksController < ApplicationController
 
   def inventories
     inventories = Inventory.all - @task.inventories.to_a
-    render json:  inventories   
+    render json:  inventories
   end
 
   private
@@ -170,15 +167,15 @@ class TasksController < ApplicationController
 
 
     def task_params
-      params.require(:task).permit(:customer_id, 
-                                   :task_type_id, 
-                                   :start_date, 
+      params.require(:task).permit(:customer_id,
+                                   :task_type_id,
+                                   :start_date,
                                    :due_date,
                                    :paint_id,
                                    :description,
                                    :project_id,
                                    :user_id,
-                                   :department_id, 
+                                   :department_id,
                                    :user_ids => []
                                   )
     end
