@@ -1,0 +1,6 @@
+en:
+ pundit:
+   default: 'Du har ikke rettigheter til dette!'
+   post_policy:
+     update?: 'Du kan ikke endre posten'
+     create?: 'Du kan ikke lage nye poster'
