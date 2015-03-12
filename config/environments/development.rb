@@ -1,6 +1,14 @@
 AllieroForms::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # React
+  # There are 2 variants available. :development gives you the unminified
+  # version of React. This provides extra debugging and error prevention.
+  # :production gives you the minified version of React which strips out
+  # comments and helpful warnings, and minifies.
+  config.react.variant = :development
+
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -28,5 +36,5 @@ AllieroForms::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  
+
 end

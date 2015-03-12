@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    title = "Orwapp"
-    /title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : nil) }"
+    title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : nil) }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
 
@@ -14,6 +13,7 @@ html
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
 
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true", "data-turbolinks-track" => false
+    = javascript_include_tag "react", "data-turbolinks-track" => false
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport"
@@ -28,6 +28,7 @@ html
           p#notice = notice
           p#alert  = alert
           = yield
+          #content
           br
           br
           br
