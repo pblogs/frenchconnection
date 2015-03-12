@@ -19,7 +19,7 @@ gem 'symbolize'
 gem 'sidekiq'
 gem 'lightbox2-rails'
 gem 'pundit'
-
+gem 'react-rails', '~> 0.13.0.0'
 
 
 

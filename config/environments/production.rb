@@ -1,8 +1,16 @@
 AllieroForms::Application.configure do
 
+  # React
+  # There are 2 variants available. :development gives you the unminified
+  # version of React. This provides extra debugging and error prevention.
+  # :production gives you the minified version of React which strips out
+  # comments and helpful warnings, and minifies.
+  config.react.variant = :production
+
+
   AllieroForms::Application.config.middleware.use ExceptionNotification::Rack,
       :email => {
-      :email_prefix => "[AllieroForms-#{Rails.env}] ",
+      :email_prefix => "[#{ENV['DOMAIN']}] ",
       :sender_address => %{"notifier" <notifier@orwapp.com>},
       :exception_recipients => %w{martin@stabenfeldt.net;andersbn@gmail.com}
     }
