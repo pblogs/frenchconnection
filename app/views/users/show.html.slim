@@ -1,4 +1,5 @@
 .outer_container
+  #user-info data-id="#{@user.id}"
   aside.left_column
     =image_tag @current_user.avatar, class: :profile_image
 
@@ -14,11 +15,11 @@
     section
       strong.menu_header Min kompetanse
       .bar
-      ul
-        - @user.skills.each do |skill|
-          li= skill.title
         = render 'certificate_lightbox_list'
-
+    section
+      strong.menu_header Kurs jeg har tatt
+      .bar
+      #test-scores
 
   .center_column
     .my_tasks
