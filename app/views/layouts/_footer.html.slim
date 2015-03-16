@@ -26,8 +26,9 @@ footer
       p
         |Phone:
         = ENV['PHONE']
-        br
-        |Fax:
+        - if ENV['FAX'].present?
+          br
+          |Fax:
         = ENV['FAX']
         br
         |Mail:
