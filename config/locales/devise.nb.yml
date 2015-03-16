@@ -12,13 +12,13 @@ nb:
   devise:
     links:
       sign_in: "Allerede medlem? Logg inn"
-      sign_up: "Har du ikke konto? Bli medlem på Companybook!"
+      sign_up: "Har du ikke konto? Be prosjektleder lage en for deg."
       confirmation: "Ikke mottatt bekreftelsen?"
       unlock: "Ikke mottatt kode for å åpne kontoen?"
       forgot_password: "Glemt passord?"
     failure:
-      already_authenticated: 'Du er allerede logget inn. Please follow the steps.' # TODO
-      unauthenticated: 'Du må logge inn eller registrere deg for å kunne fortsette.'
+      already_authenticated: 'Du er allerede logget inn.'
+      unauthenticated: ''
       unconfirmed: 'Du må bekrefte kontoen din for å kunne fortsette.'
       locked: 'Din konto er låst.'
       invalid: 'E-post-adresse eller passord er ikke gyldig.'
