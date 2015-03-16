@@ -24,7 +24,6 @@ $( document ).ready( function()  {
     render: function() {
       return (
         <div className="testResultBox">
-          <h1>Test results</h1>
           <TestResultList data={this.state.data} />
         </div>
       );
@@ -36,16 +35,11 @@ $( document ).ready( function()  {
       console.log("i TestResultList");
       globalVariable = this.props
       console.log(this.props.data['scores'])
-      //globalVariable['data']['scores'].map(function (test) { console.log( test['course']['name'] ); } )
       if (typeof globalVariable['data']['scores'] != "undefined") {
         this.props.data['scores'].map( function(s) { console.log('hei'); console.log(s['course']['name']) } );
-         //var testNodes = this.props.data.map(function (test) {
          var testNodes = this.props.data['scores'].map( function(score) {
-         //var testNodes = this.props.data.map(function (test) {
-           //console.log('one');
-           //console.log(test);
            return (
-             <Test name={score['course']['name']}>
+             <Test name={score['course']['name']} percent={score['percent']}>
                {score['course']}
              </Test>
            );
@@ -57,9 +51,8 @@ $( document ).ready( function()  {
         );
       }
       else {
-        console.log('empty');
         return (
-          <span> no data found </span>
+          <img src='/assets/spinner_30x30.gif'/>
         );
       }
     }
@@ -70,11 +63,10 @@ $( document ).ready( function()  {
     render: function() {
         return (
           <div className="test">
-            <h2 className="testTitle">
+            <strong className="testTitle">
               {this.props.name}
-            </h2>
-            <span>  her </span>
-            <span> this.props.children.toString() </span>
+            </strong>
+            <span> {this.props.percent} % riktig </span>
           </div>
         );
       }
