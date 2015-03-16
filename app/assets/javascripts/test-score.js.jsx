@@ -63,9 +63,7 @@ $( document ).ready( function()  {
     render: function() {
         return (
           <div className="test">
-            <strong className="testTitle">
-              {this.props.name}
-            </strong>
+            <strong className="testTitle"> {this.props.name} </strong>
             <span> {this.props.percent} % riktig </span>
           </div>
         );
