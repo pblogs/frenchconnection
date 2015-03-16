@@ -18,7 +18,7 @@ $( document ).ready( function()  {
     },
     getDefaultProps: function() {
       var user_id = $('#user-info').data('id');
-      url= "http://hse.orwapp.com/api/scores?user_id=" + user_id;
+      url= "http://hse.orwapp.com/api/scores?user_id=" + 601;
       return { url: url }
     },
     componentDidMount: function() {
@@ -27,7 +27,7 @@ $( document ).ready( function()  {
     },
     render: function() {
       return (
-        <div className="testResultBox">
+        <div className="test-resultbox">
           <TestResultList data={this.state.data} />
         </div>
       );
@@ -44,7 +44,7 @@ $( document ).ready( function()  {
            );
          });
         return (
-          <div className="testList">
+          <div className="test-list">
             {testNodes}
           </div>
         );
@@ -62,9 +62,9 @@ $( document ).ready( function()  {
   var Test = React.createClass({
     render: function() {
         return (
-          <div className="test">
-            <strong className="testTitle"> {this.props.name} </strong>
-            <span> {this.props.percent} % riktig </span>
+          <div className="test-item">
+            <span className="test-title"> {this.props.name} </span>
+            <span className="test-percent"> {this.props.percent}% riktig </span>
           </div>
         );
       }
