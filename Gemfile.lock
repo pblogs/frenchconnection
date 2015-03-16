@@ -251,6 +251,8 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
+    lightbox2-rails (2.7.1)
+      railties (>= 3.1)
     listen (2.7.9)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -294,6 +296,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pundit (0.3.0)
+      activesupport (>= 3.0.0)
     pusher (0.14.2)
       httpclient (~> 2.4)
       multi_json (~> 1.0)
@@ -489,6 +493,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   launchy
+  lightbox2-rails
   memcachier
   meta_request
   mini_magick
@@ -499,6 +504,7 @@ DEPENDENCIES
   pdfkit
   pg
   pry
+  pundit
   pusher
   quiet_assets
   rack-cors
