@@ -14,8 +14,12 @@ $( document ).ready( function()  {
       });
     },
     getInitialState: function() {
+      return {data: [], user_id: ''};
+    },
+    getDefaultProps: function() {
       var user_id = $('#user-info').data('id');
-      return {data: [], user_id: user_id};
+      url= "http://hse.orwapp.com/api/scores?user_id=" + user_id;
+      return { url: url }
     },
     componentDidMount: function() {
       this.loadTestScoreFromServer();
@@ -32,15 +36,10 @@ $( document ).ready( function()  {
 
   var TestResultList = React.createClass({
     render: function() {
-      console.log("i TestResultList");
-      globalVariable = this.props
-      console.log(this.props.data['scores'])
-      if (typeof globalVariable['data']['scores'] != "undefined") {
-        this.props.data['scores'].map( function(s) { console.log('hei'); console.log(s['course']['name']) } );
+      if (typeof this.props.data['scores'] != "undefined") {
          var testNodes = this.props.data['scores'].map( function(score) {
            return (
              <Test name={score['course']['name']} percent={score['percent']}>
-               {score['course']}
              </Test>
            );
          });
@@ -52,7 +51,8 @@ $( document ).ready( function()  {
       }
       else {
         return (
-          <img src='/assets/spinner_30x30.gif'/>
+          //<img src='/assets/spinner_30x30.gif'/>
+          <img/>
         );
       }
     }
@@ -73,8 +73,7 @@ $( document ).ready( function()  {
   });
 
   React.render(
-    //<TestResultBox url="/api/scores?user_id={this.state.user_id}" />,
-    <TestResultBox url="http://hse.orwapp.com/api/scores?user_id=601" />,
+    <TestResultBox />,
     document.getElementById('test-scores')
   );
 
