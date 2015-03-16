@@ -8,7 +8,7 @@ nb:
       not_saved:
         one: "Én feil gjorde at %{resource} ikke kunne lagres:"
         other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
-  
+
   devise:
     links:
       sign_in: "Allerede medlem? Logg inn"
@@ -31,7 +31,7 @@ nb:
         email: "E-post"
         password: "Passord"
         remember_me: "Husk meg"
-      signed_in: 'Velkommen!'
+      signed_in: ''
       signed_out: 'Du er logget ut'
     passwords:
       new:
