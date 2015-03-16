@@ -18,7 +18,7 @@ $( document ).ready( function()  {
     },
     getDefaultProps: function() {
       var user_id = $('#user-info').data('id');
-      url= "http://hse.orwapp.com/api/scores?user_id=" + 601;
+      url= "http://hse.orwapp.com/api/scores?user_id=" + user_id;
       return { url: url }
     },
     componentDidMount: function() {
