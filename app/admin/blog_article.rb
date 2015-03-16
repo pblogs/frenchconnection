@@ -1,6 +1,6 @@
 ActiveAdmin.register BlogArticle do
 
-  permit_params :title, :content, :image, :published, :publish_date,
+  permit_params :title, :content, :image, :published, :publish_date, :date,
                 blog_images_attributes: [:id, :image, :_destroy, :owner, :main]
 
   form html: { enctype: 'multipart/form-data' } do |f|
@@ -10,6 +10,7 @@ ActiveAdmin.register BlogArticle do
       f.input :type, as: :hidden, input_html: { id: :content_type,
                                                 value: f.object.class.name }
       f.input :title
+      f.input :date
       f.input :content, input_html: { class: :tinymce },
               hint: f.object.new_record? ?
                       I18n.t('blog.save_article_for_image_upload') : ''
