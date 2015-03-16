@@ -39,7 +39,8 @@ $( document ).ready( function()  {
       if (typeof this.props.data['scores'] != "undefined") {
          var testNodes = this.props.data['scores'].map( function(score) {
            return (
-             <Test name={score['course']['name']} percent={score['percent']}>
+             <Test name={ score['course']['name'] }
+                   percent={ score['percent'].toFixed(0) }>
              </Test>
            );
          });
