@@ -1,6 +1,6 @@
 class ExcelProjectTools
 
-  # Returns an array with nr of hours 
+  # Returns an array with nr of hours
   def self.hours_for_users(project:, profession:,  overtime:, of_kind:)
     hours = []
     project.users.where(profession: profession).each do |user|

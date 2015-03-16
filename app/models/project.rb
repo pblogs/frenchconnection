@@ -127,9 +127,9 @@ class Project < ActiveRecord::Base
     return unless users
     if profession
       u = users_with_profession(profession: profession)
-      u.each.collect {|user| user.name}.join(', ')
+      u.each.collect {|user| user.name}.join(',')
     else
-      users.each.collect {|user| user.name}.join(', ')
+      users.each.collect {|user| user.name}.join(',')
     end
   end
 
