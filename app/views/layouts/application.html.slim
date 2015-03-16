@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : nil) }"
+    title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : '') }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
 
