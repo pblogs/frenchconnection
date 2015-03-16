@@ -45,6 +45,7 @@ class Project < ActiveRecord::Base
 
   scope :active,    -> { where(complete: false) }
   scope :complete,  -> { where(complete: true)  }
+  scope :of_kind,   ->(kind) { where('of_kind = ?', kind) }
 
   def task_drafts
     tasks.where(draft: true)

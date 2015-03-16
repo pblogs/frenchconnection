@@ -66,6 +66,7 @@ class HoursSpent < ActiveRecord::Base
   scope :month,    ->(month) { where('extract(month from date) = ?',  month) }
   scope :personal, -> { where(of_kind: 'personal') }
   scope :billable, -> { where(of_kind: 'billable') }
+  scope :of_kind,   ->(kind) { where('of_kind = ?', kind) }
   scope :approved, -> { where(approved: true) }
   scope :edited_by_admin,     -> { where(edited_by_admin: true) }
   scope :not_edited_by_admin, -> { where(edited_by_admin: false) }
