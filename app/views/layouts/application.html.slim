@@ -9,8 +9,7 @@ html
       = stylesheet_link_tag "themes/#{Rails.application.secrets.short_name}", media: "all",
         "data-turbolinks-track" => true
 
-    /- unless Rails.env.test?
-    -  Rails.env.production?
+    - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
 
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true", "data-turbolinks-track" => false
@@ -35,8 +34,7 @@ html
           br
           br
           br
-      #uservoice.pull-right
-        span.btn.uservoice-trigger(data-uv-trigger) Kontakt oss
+      #uservoice-trigger.btn.pull-right(data-uv-trigger) Kontakt oss
 
     = render '/layouts/footer'
 
