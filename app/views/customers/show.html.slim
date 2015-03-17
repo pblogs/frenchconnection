@@ -1,3 +1,9 @@
+- content_for :breadcrumb do
+  = link_to 'Kunder', customers_path
+  = fa_icon 'chevron-right'
+  strong = @customer.name
+
+
 p
   label Navn
   = @customer.name
@@ -27,11 +33,11 @@ br
 
 - if @customer.projects.active.present?
   h3 Prosjekter
-  = render partial: "projects/table", 
-    locals: { projects: @customer.projects.active } 
+  = render partial: "projects/table",
+    locals: { projects: @customer.projects.active }
 
 p
-  = link_to t('projects.create_new'), 
+  = link_to t('projects.create_new'),
     new_customer_project_path(@customer), class: 'red btn btn-primary'
 br
 
