@@ -18,14 +18,14 @@ table.listusers
            = user.full_last_name
         td = user.mobile
         td = user.emp_id
-        td = Department.find(user.department_id).title
+        td = Department.find(user.department_id).title rescue nil
         td = user_roles(user)
         td
           = link_to fa_icon('pencil-square-o'), edit_user_path(user)
           = nbsp
           = nbsp
           = nbsp
-          = link_to fa_icon('trash'), user, 
+          = link_to fa_icon('trash'), user,
             data: {:confirm => 'Are you sure?'}, :method => :delete
 br
 
