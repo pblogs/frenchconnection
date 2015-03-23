@@ -4,6 +4,9 @@ nb:
       project:
         one: Prosjekt
         other: Prosjekter
+      user:
+        one: Bruker
+        other: Brukere
     attributes:
       project:
         project_number: Prosjektnummer
