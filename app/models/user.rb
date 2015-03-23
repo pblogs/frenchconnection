@@ -71,9 +71,7 @@ class User < ActiveRecord::Base
   scope :with_skill, ->(skill) { joins(:skills)
     .where('skill_id = ?', skill.id) }
 
-  #def with_skill(skill)
-  #  User.joins(:skills).where('skill_id= ?', skill.id)
-  #end
+  attr_reader :expiry_date
 
   def name
     "#{ first_name } #{ last_name }"
