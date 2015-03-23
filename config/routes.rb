@@ -78,8 +78,8 @@ AllieroForms::Application.routes.draw do
     get '/projects/:project_id/hours'=> 'users#hours', as: :hours
     post '/projects/:project_id/hours'=> 'users#hours', as: :approve_hours
     get :timesheets
-    get :certificates
-    patch '/create_certificate/' => 'users#create_certificate', as: :create_certificate
+    resources :certificates, :controller => 'users/certificates', except: [:edit]
+    get :edit_certificates, :controller =>  'users/certificates'
     resources :tasks, :controller => 'users/tasks' do
       post :accept_task
       post :finished
