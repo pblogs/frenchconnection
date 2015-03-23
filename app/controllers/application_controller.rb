@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   def catch_not_found
     yield
     rescue ActiveRecord::RecordNotFound
-    redirect_to root_url, :flash => { :error => "Record not found." }
+    redirect_to root_url, :flash => { :notice => "Record not found." }
   end
 
 
