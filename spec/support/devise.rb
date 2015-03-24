@@ -1,4 +1,7 @@
-# Example from 
+include Warden::Test::Helpers
+Warden.test_mode!
+
+# Example from
 # https://github.com/plataformatec/devise/wiki/How-To:-Stub-authentication-in-controller-specs
 
 module ControllerHelpers
