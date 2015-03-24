@@ -9,5 +9,5 @@
 #
 
 Fabricator(:certificate) do
-  title "Driving Licence"
+  title "Driving Licence #{Fabricate.sequence}"
 end
