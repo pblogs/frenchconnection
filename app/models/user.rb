@@ -115,6 +115,10 @@ class User < ActiveRecord::Base
     User.all.select { |u| u.is? role }
   end
 
+  def is?(role)
+    roles.include? role.to_sym
+  end
+
   protected
 
   def send_devise_notification(notification, *args)
