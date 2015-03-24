@@ -15,15 +15,20 @@ br
 hr
 br
 
-strong Legg til et nytt
-br
-= form_for @user, url: user_create_certificate_path(@user)   do |f|
-  /= f.label :certificates, t('certificates.header')
-  = f.collection_radio_buttons(:certificate_ids, @certificates, :id, :title)
-  .field
-    = f.label :image, 'Bilde'
-    = f.file_field :image
+- if policy(:user_certificate).update?
+  strong Legg til et nytt
+  br
+  br
+  = form_for @user, url: user_create_certificate_path(@user)   do |f|
+    = f.collection_radio_buttons(:certificate_ids, @certificates, :id, :title)
+    .field
+      = f.label :image, 'Bilde'
+      = f.file_field :image
 
-  = f.submit
+    .field
+      = f.label :expiry_date, 'Gyldig til'
+      = f.text_field :expiry_date, class: :datepicker
+
+    = f.submit
 
 = link_to t('back'), :back
