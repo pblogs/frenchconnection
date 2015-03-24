@@ -14,6 +14,9 @@ br
 br
 hr
 br
+- if @user_certificate
+  = render partial: 'layouts/form_error_messages',
+    locals: { form_object: @user_certificate }
 
 - if policy(:user_certificate).update?
   strong Legg til et nytt
