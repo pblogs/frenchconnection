@@ -39,10 +39,6 @@
   .field
     = label_tag 'Sertifikater'
     = render 'certificate_lightbox_list'
-
-    ul
-      - @user.skills.each do |s|
-        li= s.title
     = link_to 'Rediger sertifikater', user_certificates_path(@user)
 
 
