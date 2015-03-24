@@ -8,14 +8,14 @@ describe V1::Users do
     Fabricate(:user, id: 3, roles: [:worker, :project_leader])
     Fabricate(:user, id: 4, roles: [:project_leader])
   end
-  
+
   describe 'GET /api/v1/users/workers' do
     it 'lists all workers' do
       get "/api/v1/users/workers"
       response.status.should == 200
       hash = JSON.parse(response.body)
       worker_ids = hash['users'].collect { |u| u['id'] }
-      worker_ids.should =~ [1,2,3] 
+      worker_ids.should =~ [1,2,3]
     end
   end
 
@@ -41,5 +41,5 @@ describe V1::Users do
       hash["6"].first["title"].should eq 'Slottet'
     end
   end
-  
+
 end
