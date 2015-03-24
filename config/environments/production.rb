@@ -5,7 +5,7 @@ AllieroForms::Application.configure do
   # version of React. This provides extra debugging and error prevention.
   # :production gives you the minified version of React which strips out
   # comments and helpful warnings, and minifies.
-  config.react.variant = :production
+  config.react.variant = :development
 
 
   AllieroForms::Application.config.middleware.use ExceptionNotification::Rack,
