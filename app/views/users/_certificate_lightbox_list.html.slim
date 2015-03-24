@@ -1,6 +1,17 @@
-- @user.user_certificates.each do |c|
-  li
-    strong = c.certificate.title
-    br
-    = link_to image_tag(c.image.small.url), c.image.large.url,
-      data: { lightbox: c.certificate.title }
+ul#user_certificates.clearfix
+  - @user.user_certificates.each do |c|
+    li
+      strong = c.certificate.title
+      br
+
+      br
+      = link_to image_tag(c.image.small.url), c.image.large.url,
+        data: { lightbox: c.certificate.title }
+      - if policy(c).update?
+        = link_to fa_icon('trash'), user_certificate_path(@user, c),
+          method: :delete,
+          data: { :confirm => 'Sikker på at du vil fjerne sertifikatet?' }
+      - if c.expiry_date
+        br
+        em.expiry_date = "Gyldig til #{c.expiry_date}"
+
