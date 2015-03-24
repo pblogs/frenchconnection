@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 
-RSpec.describe InventoriesController do
+describe InventoriesController, :type => :controller do
   before do
     @user = Fabricate(:user)
-    #sign_in @user
-    login_as(@user, :scope => :user)
+    sign_in @user
   end
 
   # This should return the minimal set of attributes required to create a valid
