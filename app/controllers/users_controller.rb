@@ -123,10 +123,16 @@ class UsersController < ApplicationController
   end
 
   def create_certificate
-    @certificate = UserCertificate.create!(image: params[:user][:image],
-                          certificate_id: params[:user][:certificate_ids],
-                          user_id: params[:user_id])
-    redirect_to user_certificates_path(@user)
+    @user_certificate = UserCertificate.create(image: params[:user][:image],
+                         certificate_id: params[:user][:certificate_ids],
+                         expiry_date: params[:user][:expiry_date],
+                         user_id: params[:user_id])
+    if @user_certificate.save
+      redirect_to user_certificates_path(@user)
+    else
+      @certificates = Certificate.all
+      render 'users/certificates'
+    end
   end
 
   private
