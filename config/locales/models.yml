@@ -7,7 +7,19 @@ nb:
       user:
         one: Bruker
         other: Brukere
+      certificate:
+        one: Sertifikat
+        other: Sertifikater
+      image:
+        one: Bilde
+        other: Bilder
+
     attributes:
+      user_certificate:
+        image: Bilde
+        certificate: Sertifikat
+        certificate_id: Sertifikat
+        expiry_date: Utløpsdato
       project:
         project_number: Prosjektnummer
         name: Navn
