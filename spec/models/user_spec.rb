@@ -47,7 +47,7 @@ describe User do
     end
 
     it 'check role' do
-      expect(@user.is?('worker')).to be_true
+      expect(@user.is?('worker')).to eq true
     end
 
     it 'find users by role' do
@@ -63,7 +63,8 @@ describe User do
       @certificate = Fabricate(:certificate)
       @welding = Fabricate(:skill, title: 'welding master')
       @welding.save!
-      @user.certificates << @certificate
+      @user_certificate = Fabricate(:user_certificate, user: @user,
+                                   certificate: @certificate)
       @user.skills << @welding
       @user.save!
     end
