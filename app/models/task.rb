@@ -42,7 +42,7 @@ class Task < ActiveRecord::Base
   validates :start_date, :presence => true
   validates :description, :presence => true
 
-  validate :start_date_must_be_within_projects_dates_range, 
+  validate :start_date_must_be_within_projects_dates_range,
     if: Proc.new { |p| p.start_date.present? }
   validate :due_date_must_be_within_projects_dates_range,
     if: Proc.new { |p| p.due_date.present? }
@@ -70,7 +70,7 @@ class Task < ActiveRecord::Base
     notify_all_users_of_ending_task(admin)
     update_attributes(
       ended_at: Time.now, finished: true
-    ) 
+    )
   end
 
 
@@ -90,6 +90,7 @@ class Task < ActiveRecord::Base
 
   def qualified_workers
     certificates = inventories.collect { |i| i.certificates.to_a }.flatten
+    #require 'pry'; binding.pry
     if certificates.present?
       workers = certificates.collect { |c| c.users }.flatten.uniq
       # Don't list workers that has already been selected.
@@ -132,10 +133,10 @@ class Task < ActiveRecord::Base
   end
 
   def notify_all_users_of_ending_task(admin)
-    users.each do |user| 
+    users.each do |user|
       Sms.send_msg(
-        to: "47#{user.mobile}", 
-        msg: I18n.t('task_ended_by_admin', 
+        to: "47#{user.mobile}",
+        msg: I18n.t('task_ended_by_admin',
                     description: description,
                     from: admin.name
                    )
@@ -144,9 +145,9 @@ class Task < ActiveRecord::Base
   end
 
   def end_tasks_for_all_users
-    UserTask.where(task_id: id).all.each do |t| 
+    UserTask.where(task_id: id).all.each do |t|
       t.update_attribute(:status, :complete)
     end
   end
-  
+
 end
