@@ -14,18 +14,20 @@ Bundler.require(*Rails.groups)
 
 module AllieroForms
   class Application < Rails::Application
-    
+
     # Ensure Rack::Cors to run before Warden::Manager used by Devise
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
         origins '*'
-        
+
         resource '/users/sign_in.json',
         :headers => :any,
         :methods => [:get, :post, :options]
       end
     end
-    
+
+    config.active_record.raise_in_transactional_callbacks = true
+
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.assets.initialize_on_precompile = true
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
@@ -79,19 +81,19 @@ module AllieroForms
       user_name:            ENV['SMTP_USERNAME'],
       password:             ENV['SMTP_PASSWORD'],
       authentication:       'plain',
-      enable_starttls_auto: true  
+      enable_starttls_auto: true
     }
 
     config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     #config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
-    
+
     # Ensure Rack::Cors to run before Warden::Manager used by Devise
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
         origins '*'
-       
+
         resource '/users/sign_in.json',
         :headers => :any,
         :methods => [:get, :post, :options]
@@ -101,5 +103,5 @@ module AllieroForms
 
   end
   default_url_options = { host: 'localhost', port: 3000 }
-  
+
 end
