@@ -10,7 +10,8 @@ table.listusers
       th.employee_id    Ansattnr
       th.department     Avdeling
       th.role           Rolle
-      th.actions
+      - if policy(:user).update?
+        th.actions
   tbody
     - @users.each do |user|
       tr#pagination_table
@@ -20,13 +21,14 @@ table.listusers
         td = user.emp_id
         td = Department.find(user.department_id).title rescue nil
         td = user_roles(user)
-        td
-          = link_to fa_icon('pencil-square-o'), edit_user_path(user)
-          = nbsp
-          = nbsp
-          = nbsp
-          = link_to fa_icon('trash'), user,
-            data: {:confirm => 'Are you sure?'}, :method => :delete
+        - if policy(:user).update?
+          td
+            = link_to fa_icon('pencil-square-o'), edit_user_path(user)
+            = nbsp
+            = nbsp
+            = nbsp
+            = link_to fa_icon('trash'), user,
+              data: {:confirm => 'Sikker på at du vil slette denne brukeren?'}, :method => :delete
 br
 
 = link_to 'Lag ny bruker', new_user_path, class: "btn btn-primary"

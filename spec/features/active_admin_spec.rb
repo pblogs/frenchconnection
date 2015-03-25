@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Active Admin' do
+feature 'Active Admin', type: :feature do
   before :all do
     @project_leader = Fabricate(:user, roles: [:project_leader])
   end

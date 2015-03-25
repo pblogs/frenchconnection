@@ -1,7 +1,7 @@
 module Helpers
 
-  def sign_in(user)
-    visit '/users/sign_in'
+  def sign_in(user: Fabricate(:user))
+    before { visit '/users/sign_in' }
     within '#main' do
       fill_in 'user_mobile', with: user.mobile
       fill_in 'user_password', with: 'topsecret'

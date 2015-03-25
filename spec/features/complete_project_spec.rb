@@ -4,7 +4,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 # this is spec for https://github.com/stabenfeldt/alliero-orwapp/issues/6
-feature 'Project leader completes a project' do
+feature 'Project leader completes a project', type: :feature do
 
   scenario 'workers are notified'  do
     @user      = Fabricate :user, roles: [:project_leader]

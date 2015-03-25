@@ -2,7 +2,10 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'capybara/rails'
 require 'pundit/rspec'
+ActiveRecord::Migration.maintain_test_schema!
+
 
 
 
@@ -16,6 +19,14 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+
+  config.infer_spec_type_from_file_location!
+
+
+  config.include Warden::Test::Helpers
+  config.before :suite do
+    Warden.test_mode!
+  end
 
   # Only run tests that is tagget with focus.
   # describe "something", :focus => true do
