@@ -23,6 +23,7 @@ gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
 
 
+
 gem 'activeadmin', github: 'activeadmin'
 
 gem 'tinymce-rails', '4.1.6'
@@ -128,7 +129,7 @@ group :production do
   gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
 end
 
-gem 'rest_client'
+gem 'rest-client'
 
 gem 'dalli'
 gem 'memcachier'
