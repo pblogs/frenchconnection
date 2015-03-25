@@ -6,6 +6,7 @@ AllieroForms::Application.configure do
   # :production gives you the minified version of React which strips out
   # comments and helpful warnings, and minifies.
   config.react.variant = :development
+  #config.react.addons = true # defaults to false
 
 
   AllieroForms::Application.config.middleware.use ExceptionNotification::Rack,
