@@ -1,9 +1,4 @@
 require 'spec_helper'
-require 'helpers'
-
-RSpec.configure do |c|
-    c.include Helpers
-end
 
 feature "Registered hours on a Task",  type: :feature do
   before :all do
