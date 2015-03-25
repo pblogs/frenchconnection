@@ -71,9 +71,9 @@ $( document ).ready( function()  {
       }
   });
 
-  React.render(
-    <TestResultBox />,
-    document.getElementById('test-scores')
-  );
+  var scores = document.getElementById('test-scores')
+  if ( scores ) {
+      React.render(<TestResultBox />, scores);
+  };
 
 });
