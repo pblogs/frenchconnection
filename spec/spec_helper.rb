@@ -4,6 +4,8 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'pundit/rspec'
+ActiveRecord::Migration.maintain_test_schema!
+
 
 
 
