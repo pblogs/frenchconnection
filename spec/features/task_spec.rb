@@ -5,7 +5,7 @@ RSpec.configure do |c|
     c.include Helpers
 end
 
-feature "Task" do
+feature "Task",  type: :feature do
   before do
     @project_leader     = Fabricate(:user, roles: [:project_leader])
     @project_start_date = '01.01.2014'

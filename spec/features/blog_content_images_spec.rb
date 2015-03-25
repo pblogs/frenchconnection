@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Blog Content Images' do
+feature 'Blog Content Images', type: :feature do
   before :all do
     @article = Fabricate(:blog_article)
     @project = Fabricate(:blog_project)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 # this is spec for https://github.com/stabenfeldt/alliero-orwapp/issues/5
-feature 'Worker completes a task' do
+feature 'Worker completes a task',  type: :feature do
 
   scenario 'pending task appears in "my work"" section' do
     @user = Fabricate :user, roles: [:worker]

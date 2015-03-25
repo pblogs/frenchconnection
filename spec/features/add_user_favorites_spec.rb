@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'User favorites' do
+feature 'User favorites', type: :feature do
 
   scenario 'user adding favored customer' do
     @user = Fabricate :user, roles: [:project_leader]
