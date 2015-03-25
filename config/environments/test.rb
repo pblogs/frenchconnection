@@ -1,4 +1,11 @@
 AllieroForms::Application.configure do
+  #  Note: In rails 4.0/4.1 The default rails test environment
+  #  ( config/environments/test.rb ) is not threadsafe - see
+  #  https://github.com/rails/rails/issues/15089 If you experience random
+  #  errors about missing constants,
+  #  adding config.allow_concurrency = false to config/environements/test.rb should solve the issue. )
+  config.allow_concurrency = false
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
@@ -13,7 +20,7 @@ AllieroForms::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
+  config.serve_static_files  = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching.

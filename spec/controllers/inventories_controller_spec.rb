@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe InventoriesController do
 
+describe InventoriesController, :type => :controller do
   before do
     @user = Fabricate(:user)
     sign_in @user
@@ -36,7 +36,7 @@ describe InventoriesController do
   describe "GET new" do
     it "assigns a new inventory as @inventory" do
       get :new, {}, valid_session
-      assigns(:inventory).should be_a_new(Inventory)
+      expect(assigns(:inventory)).to be_a_new(Inventory)
     end
   end
 
@@ -138,7 +138,7 @@ describe InventoriesController do
         Inventory.any_instance.stub(:save).and_return(false)
         put :update, {:id => inventory.to_param,
                       :inventory => { "name" => "invalid value" }},
-                      valid_session
+        valid_session
         response.should render_template("edit")
       end
     end

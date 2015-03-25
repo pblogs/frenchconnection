@@ -24,7 +24,7 @@ describe Projects::TasksController, :type => :controller do
   # Task. As you add validations to Task, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { 
+    {
       description: 'work hard or go home',
       start_date:   Time.now,
       due_date:     Time.now.next_week,
@@ -111,7 +111,7 @@ describe Projects::TasksController, :type => :controller do
   #      @task_type = Fabricate(:task_type)
   #      # Trigger the behavior that occurs when invalid params are submitted
   #      Task.any_instance.stub(:save).and_return(false)
-  #      post :create, {:task => { 
+  #      post :create, {:task => {
   #        "project_id" => @project.id,
   #        }}, valid_session
   #      assigns(:task).should be_a_new(Task)
@@ -122,7 +122,7 @@ describe Projects::TasksController, :type => :controller do
   #      # Trigger the behavior that occurs when invalid params are submitted
   #      Task.any_instance.stub(:save).and_return(false)
   #      post :create, {:project_id => @project.id,
-  #                     :task => { "project_id" => "invalid value" }}, 
+  #                     :task => { "project_id" => "invalid value" }},
   #        valid_session
   #      response.should render_template("new")
   #    end
@@ -139,20 +139,20 @@ describe Projects::TasksController, :type => :controller do
   #      # submitted in the request.
   #      Task.any_instance.should_receive(:update).with(
   #        {  "start_date" => DateTime.now.to_s })
-  #      put :update, {:project_id => task.project_id, :id => task.to_param, 
+  #      put :update, {:project_id => task.project_id, :id => task.to_param,
   #        :task => { "start_date" => DateTime.now.to_s }}, valid_session
   #    end
 
   #    it "assigns the requested task as @task" do
   #      task = Task.create! valid_attributes
-  #      put :update, {:project_id => task.project_id, :id => task.to_param, 
+  #      put :update, {:project_id => task.project_id, :id => task.to_param,
   #        :task => valid_attributes}, valid_session
   #      assigns(:task).should eq(task)
   #    end
 
   #    it "redirects to the task" do
   #      task = Task.create! valid_attributes
-  #      put :update, {:project_id => task.project_id, :id => task.to_param, 
+  #      put :update, {:project_id => task.project_id, :id => task.to_param,
   #        :task => valid_attributes}, valid_session
   #      response.should redirect_to(task)
   #    end
@@ -163,7 +163,7 @@ describe Projects::TasksController, :type => :controller do
   #      task = Task.create! valid_attributes
   #      # Trigger the behavior that occurs when invalid params are submitted
   #      Task.any_instance.stub(:save).and_return(false)
-  #      put :update, {:project_id => task.project_id, :id => task.to_param, 
+  #      put :update, {:project_id => task.project_id, :id => task.to_param,
   #        :task => { "customer" => "invalid value" }}, valid_session
   #      assigns(:task).should eq(task)
   #    end
@@ -172,7 +172,7 @@ describe Projects::TasksController, :type => :controller do
   #      task = Task.create! valid_attributes
   #      # Trigger the behavior that occurs when invalid params are submitted
   #      Task.any_instance.stub(:save).and_return(false)
-  #      put :update, {:project_id => task.project_id, :id => task.to_param, 
+  #      put :update, {:project_id => task.project_id, :id => task.to_param,
   #        :task => { "customer" => "invalid value" }}, valid_session
   #      response.should render_template("edit")
   #    end

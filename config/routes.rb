@@ -11,7 +11,6 @@ AllieroForms::Application.routes.draw do
   resources :inventories
   resources :departments
   resources :attachments
-  resources :user_certificates, only: [:show]
 
   devise_for :users
 
@@ -78,8 +77,9 @@ AllieroForms::Application.routes.draw do
     get '/projects/:project_id/hours'=> 'users#hours', as: :hours
     post '/projects/:project_id/hours'=> 'users#hours', as: :approve_hours
     get :timesheets
-    resources :certificates, :controller => 'users/certificates', except: [:edit]
-    get :edit_certificates, :controller =>  'users/certificates'
+    get :certificates
+    patch '/create_certificate/' => 'users#create_certificate', as: :create_certificate
+    resources :certificates, :controller => 'users/certificates', only: [:show, :destroy]
     resources :tasks, :controller => 'users/tasks' do
       post :accept_task
       post :finished

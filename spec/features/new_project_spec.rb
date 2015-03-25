@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 
-describe "Create a new project", :type => :feature do
+#describe "Create a new project", :type => :feature do
+RSpec.describe "Create a new project", :type => :feature do
   before :all do
     @project_leader = Fabricate(:user, roles: [:project_leader])
   end

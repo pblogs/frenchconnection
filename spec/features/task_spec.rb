@@ -1,11 +1,6 @@
 require 'spec_helper'
-require 'helpers'
 
-RSpec.configure do |c|
-    c.include Helpers
-end
-
-feature "Task" do
+feature "Task",  type: :feature do
   before do
     @project_leader     = Fabricate(:user, roles: [:project_leader])
     @project_start_date = '01.01.2014'
@@ -15,7 +10,9 @@ feature "Task" do
     @lift_cert          = Fabricate(:certificate, title: 'lift certificate')
     @lift               = Fabricate(:inventory, name: 'lift',
                                      certificates: [@lift_cert])
-    @lisa_lift_operator = Fabricate(:user, certificates: [@lift_cert])
+    @lisa_lift_operator = Fabricate(:user)
+    @user_certificate   = Fabricate(:user_certificate, user: @lisa_lift_operator,
+                                    certificate: @lift_cert )
   end
 
   scenario "Create a new task", js: true  do

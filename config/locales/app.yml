@@ -12,4 +12,9 @@ nb:
   project:
     tasks:
       save: Lagre oppgave
-  
+
+  users:
+    certificates:
+      save: Legg til sertifikatet
+      edit_certificates:
+        save: Lagre

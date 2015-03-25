@@ -19,7 +19,8 @@ gem 'symbolize'
 gem 'sidekiq'
 gem 'lightbox2-rails'
 gem 'pundit'
-gem 'react-rails', '~> 0.13.0.0'
+gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+
 
 
 
@@ -128,7 +129,7 @@ group :production do
   gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
 end
 
-gem 'rest_client'
+gem 'rest-client'
 
 gem 'dalli'
 gem 'memcachier'

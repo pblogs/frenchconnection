@@ -14,4 +14,5 @@ class Certificate < ActiveRecord::Base
   has_many :users, through: :user_certificates
 
   validates :title, uniqueness: true
+  validates :title, presence: true
 end

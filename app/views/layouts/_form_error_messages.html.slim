@@ -1,0 +1,6 @@
+- if form_object.errors.any?
+  #error_explanation
+    h2 = "#{form_object.errors.count} feil hindret oss i å lagre:"
+    ul
+      - form_object.errors.full_messages.each do |message|
+        li = message

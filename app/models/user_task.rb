@@ -22,8 +22,7 @@ class UserTask < ActiveRecord::Base
 
   def notify_worker
     return if (!sms_employee_when_new_task_created? || task.draft)
-    msg = I18n.t('sms.new_task')
-    Sms.send_msg(to: "47#{user.mobile}", msg: msg)
+    Sms.send_msg(to: "47#{user.mobile}", msg: I18n.t('sms.new_task') )
   end
 
   def sms_employee_when_new_task_created?

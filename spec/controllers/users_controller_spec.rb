@@ -22,8 +22,8 @@ describe UsersController, :type => :controller do
   describe "GET show" do
     it "assigns the requested task as @tasks" do
       tasks = [Fabricate(:task), Fabricate(:task)]
-      tasks.each { 
-        |t| t.users << @user 
+      tasks.each {
+        |t| t.users << @user
         @user.user_tasks.where(task_id: t.id).first.confirm!
       }
       get :show, {id: @user.to_param}, valid_session
@@ -101,4 +101,4 @@ describe UsersController, :type => :controller do
       end
     end
   end
-end 
+end

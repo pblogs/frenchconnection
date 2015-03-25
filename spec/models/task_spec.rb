@@ -180,19 +180,22 @@ describe Task do
     let!(:task)             { Fabricate(:task, project: project)  }
     let!(:lift_certificate) { Fabricate(:certificate, title: 'Lift')  }
     let!(:blender)          { Fabricate(:inventory, name: 'Concrete blender') }
-    let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000',
-                                certificates: [lift_certificate]) }
+    let!(:lift)             { Fabricate(:inventory, name: 'Lift 2000') }
     let!(:lift_operator)    { Fabricate(:user, roles: [:worker],
-                                first_name: 'Lift Oper', department: dep,
-                                certificates: [lift_certificate]) }
+                                first_name: 'Lift Oper', department: dep ) }
     let!(:user_with_no_certs) { Fabricate(:user, roles: [:worker],
                                   first_name: 'Unskilled', department: dep) }
 
     let!(:user_from_different_department) { Fabricate(:user, roles: [:worker]) }
+    let!(:user_certificate) { Fabricate(:user_certificate, user: lift_operator, certificate: lift_certificate) }
 
     it 'knows which users that can do the job' do
+      lift.certificates << lift_certificate
+      lift.save!
       task.inventories << lift
-      task.save
+      task.save!
+      task.reload
+      expect(lift.certificates.first).to eq lift_certificate
       expect(task.qualified_workers).to eq [lift_operator]
     end
 

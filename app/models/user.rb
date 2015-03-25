@@ -51,14 +51,14 @@ class User < ActiveRecord::Base
   validates :roles,  presence: true
 
   # Worker
-  has_many :user_tasks
+  has_many :user_tasks, dependent: :destroy
   has_many :tasks, through: :user_tasks
   has_many :projects, :through => :tasks
   has_many :hours_spents
   has_many :categories, :through => :projects
   has_many :favorites, dependent: :destroy
 
-  has_many :user_certificates
+  has_many :user_certificates, dependent: :destroy
   has_many :certificates, through: :user_certificates
 
   scope :from_department,  ->(department) { where('department_id = ?',
@@ -71,9 +71,7 @@ class User < ActiveRecord::Base
   scope :with_skill, ->(skill) { joins(:skills)
     .where('skill_id = ?', skill.id) }
 
-  #def with_skill(skill)
-  #  User.joins(:skills).where('skill_id= ?', skill.id)
-  #end
+  attr_reader :expiry_date
 
   def name
     "#{ first_name } #{ last_name }"
@@ -115,6 +113,10 @@ class User < ActiveRecord::Base
 
   def self.with_role(role)
     User.all.select { |u| u.is? role }
+  end
+
+  def is?(role)
+    roles.include? role.to_sym
   end
 
   protected
