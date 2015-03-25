@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 feature 'Blog Content Images', type: :feature do
-  before :all do
+  before :each do
     @article = Fabricate(:blog_article)
     @project = Fabricate(:blog_project)
     @project_leader = Fabricate(:user, roles: [:project_leader])
   end
 
-  after :all do
-    @article.destroy
-    @project.destroy
-  end
+  #after :all do
+  #  @article.destroy
+  #  @project.destroy
+  #end
 
   scenario 'articles can have multiple images', js: true do
-    pending "login in test fails"
+    #pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_article_path(@article)
     current_path.should eq edit_admin_blog_article_path(@article)
@@ -35,7 +35,7 @@ feature 'Blog Content Images', type: :feature do
   end
 
   scenario 'article main image is displayed on the front page', js: true do
-    pending "login in test fails"
+    #pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_article_path(@article)
 
@@ -60,7 +60,7 @@ feature 'Blog Content Images', type: :feature do
   end
 
   scenario 'projects can have multiple images', js: true do
-    pending "login in test fails"
+    #pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_project_path(@project)
 
@@ -81,7 +81,7 @@ feature 'Blog Content Images', type: :feature do
   end
 
   scenario 'project main image is displayed on the front page', js: true do
-    pending "login in test fails"
+    #pending "login in test fails"
     sign_in(@project_leader)
     visit edit_admin_blog_project_path(@project)
 
