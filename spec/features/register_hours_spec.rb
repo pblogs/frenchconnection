@@ -5,14 +5,14 @@ RSpec.configure do |c|
     c.include Helpers
 end
 
-feature "Registered hours on a Task" do
+feature "Registered hours on a Task",  type: :feature do
   before :all do
     @user       = Fabricate(:user)
     @sporveiene = Fabricate(:customer, name: 'Oslo Sporveier AS')
     @project    = Fabricate(:project, customer: @sporveiene)
     @task       = Fabricate(:task, project: @project)
     @user.tasks << @task
-    @hour       = Fabricate(:hours_spent, description: 'painted wall', 
+    @hour       = Fabricate(:hours_spent, description: 'painted wall',
                             approved: false, task: @task,
                             hour: 10, user: @user)
     @project_leader = Fabricate(:user, roles: [:project_leader])
@@ -72,7 +72,7 @@ feature "Registered hours on a Task" do
         expect(page).to_not have_content 'slept during work'
         expect(page).to_not have_content 'by user'
       end
-      
+
     end
 
     #scenario 'approve hours in scope: /projects/1/hours'do
