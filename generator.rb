@@ -23,7 +23,7 @@ Axlsx::Package.new do |p|
       sheet.add_row [nil, "Dagsrapport"], :style => [nil, header]
       #image = sheet.add_image(:image_src => src, :start_at=>[0,0], :width=>600, :height=>400)
       sheet.add_image :image_src=>image_src, :start_at => [0,2], :width=>205, :height=>50, :name=>"someimage", :descr=>"a neat image"
-      
+
       sheet.add_row
       #sheet.add_row [nil, "What's coming in this month.", nil, nil, "How am I doing"], :style => tbl_header
       #sheet.add_row [nil, "Item", "Amount", nil, "Item", "Amount"], :style => [nil, ind_header, col_header, nil, ind_header, col_header]
@@ -66,5 +66,5 @@ Axlsx::Package.new do |p|
     end
   end
   p.use_shared_strings = true
-  p.serialize "/Users/martins/Work/AllieroForms/axlsx.xlsx"
+  p.serialize "/Users/martins/Work/Orwapp/axlsx.xlsx"
 end

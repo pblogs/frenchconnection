@@ -12,7 +12,7 @@ require 'carrierwave'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module AllieroForms
+module Orwapp
   class Application < Rails::Application
 
     # Ensure Rack::Cors to run before Warden::Manager used by Devise
