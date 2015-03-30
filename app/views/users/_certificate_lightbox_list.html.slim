@@ -1,10 +1,8 @@
-ul#user_certificates.clearfix
+ul#user_certificates
   - @user.user_certificates.each do |c|
     li
       strong = c.certificate.title
-      br
 
-      br
       = link_to image_tag(c.image.small.url), c.image.large.url,
         data: { lightbox: c.certificate.title }
       - if policy(c).update?
