@@ -1,4 +1,4 @@
-AllieroForms::Application.configure do
+Orwapp::Application.configure do
 
   # React
   # There are 2 variants available. :development gives you the unminified
@@ -9,7 +9,7 @@ AllieroForms::Application.configure do
   #config.react.addons = true # defaults to false
 
 
-  AllieroForms::Application.config.middleware.use ExceptionNotification::Rack,
+  Orwapp::Application.config.middleware.use ExceptionNotification::Rack,
       :email => {
       :email_prefix => "[#{ENV['DOMAIN']}] ",
       :sender_address => %{"notifier" <notifier@orwapp.com>},

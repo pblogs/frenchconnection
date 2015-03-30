@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-AllieroForms::Application.load_tasks
+Orwapp::Application.load_tasks

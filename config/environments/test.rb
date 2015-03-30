@@ -1,4 +1,4 @@
-AllieroForms::Application.configure do
+Orwapp::Application.configure do
   #  Note: In rails 4.0/4.1 The default rails test environment
   #  ( config/environments/test.rb ) is not threadsafe - see
   #  https://github.com/rails/rails/issues/15089 If you experience random
