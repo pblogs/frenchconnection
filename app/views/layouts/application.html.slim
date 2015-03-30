@@ -17,6 +17,7 @@ html
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
     meta content="width=device-width, initial-scale=1" name="viewport"
+
   body(id=body_id ng-app="orwapp")
     #outer-container
       #main
@@ -35,7 +36,7 @@ html
           br
           br
           br
-      #uservoice-trigger.btn.pull-right(data-uv-trigger) Kontakt oss
+      #uservoice-trigger.btn.pull-right(data-uv-trigger) Send oss en melding
 
     = render '/layouts/footer'
 
