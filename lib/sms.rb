@@ -12,8 +12,8 @@ class Sms
 
   private
 
-  def valid_norwegian_number?(nr)
-    nr.match(/^47[\d]{8}$/)
+  def self.valid_norwegian_number?(nr)
+    nr.to_s.match(/^47[\d]{8}$/)
   end
 
   def self.encode_msg
