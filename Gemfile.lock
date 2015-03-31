@@ -131,6 +131,7 @@ GEM
       sass (~> 3.2)
       thor
     bower-rails (0.9.2)
+    bson (2.3.0)
     builder (3.2.2)
     callsite (0.0.11)
     capybara (2.4.4)
@@ -361,6 +362,15 @@ GEM
     mini_magick (4.2.0)
     mini_portile (0.6.2)
     minitest (5.5.1)
+    mongoid (4.0.2)
+      activemodel (~> 4.0)
+      moped (~> 2.0.0)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
+    moped (2.0.4)
+      bson (~> 2.2)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
     neat (1.5.1)
@@ -378,6 +388,8 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    optionable (0.2.0)
+    origin (2.1.1)
     orm_adapter (0.5.0)
     passenger (5.0.4)
       rack
@@ -609,6 +621,7 @@ DEPENDENCIES
   memcachier
   meta_request
   mini_magick
+  mongoid (~> 4.0.0)
   neat
   newrelic_rpm
   ng-rails-csrf

@@ -1,9 +1,4 @@
 = form_for @attachment do |f|
-  - if @attachment.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@attachment.errors.count, "error")} prohibited this attachment from being saved:"
-      ul
-        - @attachment.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'layouts/form_error_messages', locals: { form_object: @attachment }
 
   .actions = f.submit 'Save'

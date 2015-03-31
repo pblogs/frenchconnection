@@ -1,0 +1,21 @@
+= form_for @dynamic_form, :html => { id: :dynamic_form } do |f|
+  = render partial: 'layouts/form_error_messages', locals: { form_object: @dynamic_form }
+
+
+  .field.first
+    = f.label :field_name, 'Navn på feltet'
+    = f.text_field :field_name
+
+  .field.second
+    = f.label :populate_at, 'Når skal verdien fylles inn?'
+    = f.text_field :populate_at
+
+  .field.third
+    = f.label :autocomplete_from
+    = f.text_field :autocomplete_from
+
+  .field
+    = f.label :title
+    = f.text_field :title
+
+  .actions = f.submit
