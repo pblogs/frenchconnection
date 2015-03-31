@@ -1,0 +1,27 @@
+h1 Listing dynamic_forms
+
+table
+  thead
+    tr
+      th Field name
+      th Populate
+      th Autocomplete from
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @dynamic_forms.each do |dynamic_form|
+      tr
+        td = dynamic_form.field_name
+        td = dynamic_form.populate
+        td = dynamic_form.autocomplete_from
+        td = dynamic_form.title
+        td = link_to 'Show', dynamic_form
+        td = link_to 'Edit', edit_dynamic_form_path(dynamic_form)
+        td = link_to 'Destroy', dynamic_form, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Dynamic form', new_dynamic_form_path

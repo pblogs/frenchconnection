@@ -20,6 +20,8 @@ gem 'sidekiq'
 gem 'lightbox2-rails'
 gem 'pundit'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+gem 'mongoid', '~> 4.0.0'
+
 
 
 

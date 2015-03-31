@@ -1,5 +1,6 @@
 Orwapp::Application.routes.draw do
 
+  resources :dynamic_forms
   ActiveAdmin.routes(self)
 
   namespace :inventories do
