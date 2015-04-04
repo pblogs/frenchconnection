@@ -9,9 +9,9 @@ $( document ).ready( function()  {
   };
 
   var data = {
-  populate_at: ['automatically', 'web_start', 'web_end'],
-  autocomplete_from: ['customer_name', 'customer_address',
-                        'project_address', 'worker_names']
+    populate_at: ['automatically', 'web_start', 'web_end'],
+    autocomplete_from: ['customer_name', 'customer_address',
+      'project_address', 'worker_names']
   };
 
 
@@ -20,17 +20,15 @@ $( document ).ready( function()  {
       globProps= this.props;
       var populateAtCheckbox = this.props.populate_at.map(function(value) {
         return (
-          // `key` is a React-specific concept and is not mandatory for the
-          // purpose of this tutorial. if you're curious, see more here:
-          // http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
-         <label for={value}>
-             <input type="checkbox" name={value} value="{value}"/>
-             {value}
-         </label>
+          <label for={value}>
+            <input type="checkbox" name={value} value="{value}"
+              ref="populate-at"/>
+            {value}
+          </label>
         );
       });
       return (
-        <div classname="populate-at-checkboxes">
+        <div className="populate-at-checkboxes">
           {populateAtCheckbox}
         </div>
       );
@@ -39,34 +37,33 @@ $( document ).ready( function()  {
 
   var AutocompleteFromCheckboxes = React.createClass({
     render: function() {
-      if (typeof autocomplete_from != "undefined") {
-         var option = autocomplete_from.map( function(value) {
-           return (
-             <label for={value}>
-               <input type="checkbox" name={value} value="{value}"/>
-               {value}
-             </label>
-           );
-         });
-         return (
-           <span> loading.. </span>
-         );
-      }
-      else {
+      globProps= this.props;
+      var autocompleteFrom = this.props.autocomplete_from.map(function(value) {
         return (
-          <span> NADA </span>
+          <label for={value}>
+            <input type="checkbox" name={value} value="{value}"
+              ref="autocomplete-from"/>
+            {value}
+          </label>
         );
-      }
+      });
+      return (
+        <div className="autocomplete-from">
+          {autocompleteFrom}
+        </div>
+      );
     }
   });
 
   var DynamicForm = React.createClass({
     saveAndContinue: function(e) {
       e.preventDefault();
-      //var data = {
-      //  name     : this.refs.name.getDOMNode().value,
-      //};
-      //console.log('data: ' + data.name);
+      //monitorEvents(document.body, "click");
+      //debugger;
+      var data = {
+        name     : this.refs.name.getDOMNode().value,
+      };
+      console.log('data: ' + data.name);
     },
 
     render: function() {
@@ -74,7 +71,7 @@ $( document ).ready( function()  {
       return (
         <div>
           <label>Velg navn på felt</label>
-          <input type="text" ref="name" defaultValue='' />
+          <input type="text" ref="title" defaultValue='' />
           <strong> Når skal verdien fylles inn? </strong>
           <PopulateAtCheckboxes populate_at={this.props.data.populate_at} />
 
