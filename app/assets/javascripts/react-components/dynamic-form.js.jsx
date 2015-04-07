@@ -1,14 +1,6 @@
 $( document ).ready( function()  {
   'use strict';
 
-  var fieldValues = {
-    name              : null,
-    populate_at       : null,
-    same_as           : null,
-    autocomplete_from : null,
-    title             : null
-  };
-
   var data = {
     populate_at: ['automatically', 'web_start', 'web_end'],
     autocomplete_from: ['customer_name', 'customer_address',
@@ -42,14 +34,17 @@ $( document ).ready( function()  {
 
   var AutocompleteFromCheckboxes = React.createClass({
     handleChange: function(e) {
-      console.log('autocompleteFrom');
-      return 1;
+      this.setState( { autocomplete_from: event.target.value },
+        function () {
+          console.log('autocompleteFrom state: ', this.state.autocomplete_from);
+        }
+      );
     },
     render: function() {
       var autocompleteFrom = this.props.autocomplete_from.map(function(value) {
         return (
           <label for={value}>
-            <input type="checkbox" name={value} value="{value}"
+            <input type="checkbox" name={value} value={value}
               onChange={this.handleChange}
               ref="autocomplete-from"/>
             {value}
@@ -70,7 +65,7 @@ $( document ).ready( function()  {
         name              : null,
         populate_at       : null,
         same_as           : null,
-        autocomplete_from : null,
+        autocomplete_from : "not set",
         title             : null
       };
     },
@@ -87,6 +82,8 @@ $( document ).ready( function()  {
         <div>
           <label>Velg navn på felt</label>
           <input type="text" ref="title" defaultValue='' />
+          <strong> State.autocomplete_from: {this.state.autocomplete_from} </strong>
+          <br/>
           <strong> Når skal verdien fylles inn? </strong>
           <PopulateAtCheckboxes populate_at={this.props.data.populate_at} />
 
