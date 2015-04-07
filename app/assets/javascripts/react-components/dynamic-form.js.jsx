@@ -1,4 +1,5 @@
 $( document ).ready( function()  {
+  'use strict';
 
   var fieldValues = {
     name              : null,
@@ -16,17 +17,21 @@ $( document ).ready( function()  {
 
 
   var PopulateAtCheckboxes = React.createClass({
+    handleChange: function(e) {
+      console.log('populateAtCheckbox');
+      return 1;
+    },
     render: function() {
-      globProps= this.props;
       var populateAtCheckbox = this.props.populate_at.map(function(value) {
         return (
           <label for={value}>
             <input type="checkbox" name={value} value="{value}"
+              onChange={this.handleChange}
               ref="populate-at"/>
             {value}
           </label>
         );
-      });
+      }, this);
       return (
         <div className="populate-at-checkboxes">
           {populateAtCheckbox}
@@ -36,17 +41,21 @@ $( document ).ready( function()  {
   });
 
   var AutocompleteFromCheckboxes = React.createClass({
+    handleChange: function(e) {
+      console.log('autocompleteFrom');
+      return 1;
+    },
     render: function() {
-      globProps= this.props;
       var autocompleteFrom = this.props.autocomplete_from.map(function(value) {
         return (
           <label for={value}>
             <input type="checkbox" name={value} value="{value}"
+              onChange={this.handleChange}
               ref="autocomplete-from"/>
             {value}
           </label>
         );
-      });
+      }, this);
       return (
         <div className="autocomplete-from">
           {autocompleteFrom}
@@ -56,10 +65,17 @@ $( document ).ready( function()  {
   });
 
   var DynamicForm = React.createClass({
+    getInitialState: function() {
+      return {
+        name              : null,
+        populate_at       : null,
+        same_as           : null,
+        autocomplete_from : null,
+        title             : null
+      };
+    },
     saveAndContinue: function(e) {
       e.preventDefault();
-      //monitorEvents(document.body, "click");
-      //debugger;
       var data = {
         name     : this.refs.name.getDOMNode().value,
       };
@@ -67,7 +83,6 @@ $( document ).ready( function()  {
     },
 
     render: function() {
-      globProps= this.props;
       return (
         <div>
           <label>Velg navn på felt</label>
