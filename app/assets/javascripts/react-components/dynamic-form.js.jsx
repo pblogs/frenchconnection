@@ -10,14 +10,17 @@ $( document ).ready( function()  {
 
   var PopulateAtCheckboxes = React.createClass({
     handleChange: function(e) {
-      console.log('populateAtCheckbox');
-      return 1;
+      this.setState( { populate_at: event.target.value },
+        function () {
+          console.log('populateAtCheckbox state: ', this.state.populate_at);
+        }
+     );
     },
     render: function() {
       var populateAtCheckbox = this.props.populate_at.map(function(value) {
         return (
           <label for={value}>
-            <input type="checkbox" name={value} value="{value}"
+            <input type="radio" name='populate_at' value={value}
               onChange={this.handleChange}
               ref="populate-at"/>
             {value}
@@ -59,6 +62,14 @@ $( document ).ready( function()  {
     }
   });
 
+  var FieldName = React.createClass({
+    render: function () {
+      return (
+        <input id="field_name" type="text" ref="field_name" defaultValue='' />
+      );
+    }
+  });
+
   var DynamicForm = React.createClass({
     getInitialState: function() {
       return {
@@ -71,17 +82,22 @@ $( document ).ready( function()  {
     },
     saveAndContinue: function(e) {
       e.preventDefault();
-      var data = {
-        name     : this.refs.name.getDOMNode().value,
-      };
-      console.log('data: ' + data.name);
+      var val = $('#field_name').val();
+      this.setState( { field_name: val },
+        function () {
+          console.group('State');
+          console.log('autocomplete_from: ', this.state.autocomplete_from);
+          console.log('field_name: ', this.state.field_name);
+          console.log('populate_at: ', this.state.populate_at);
+          console.groupEnd();
+        });
     },
 
     render: function() {
       return (
         <div>
           <label>Velg navn på felt</label>
-          <input type="text" ref="title" defaultValue='' />
+          <FieldName/>
           <strong> State.autocomplete_from: {this.state.autocomplete_from} </strong>
           <br/>
           <strong> Når skal verdien fylles inn? </strong>
