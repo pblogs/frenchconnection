@@ -11,10 +11,10 @@ $( document ).ready( function()  {
   var PopulateAtCheckboxes = React.createClass({
     handleChange: function(e) {
       this.setState( { populate_at: event.target.value },
-        function () {
-          console.log('populateAtCheckbox state: ', this.state.populate_at);
-        }
-     );
+                    function () {
+                      console.log('populateAtCheckbox state: ', this.state.populate_at);
+                    }
+                   );
     },
     render: function() {
       var populateAtCheckbox = this.props.populate_at.map(function(value) {
@@ -38,10 +38,10 @@ $( document ).ready( function()  {
   var AutocompleteFromCheckboxes = React.createClass({
     handleChange: function(e) {
       this.setState( { autocomplete_from: event.target.value },
-        function () {
-          console.log('autocompleteFrom state: ', this.state.autocomplete_from);
-        }
-      );
+                    function () {
+                      console.log('autocompleteFrom state: ', this.state.autocomplete_from);
+                    }
+                   );
     },
     render: function() {
       var autocompleteFrom = this.props.autocomplete_from.map(function(value) {
@@ -77,41 +77,60 @@ $( document ).ready( function()  {
         populate_at       : null,
         same_as           : null,
         autocomplete_from : "not set",
-        title             : null
+        title             : null,
+        items             : [
+          { name: '', populate_at: '', same_as: '', autocomplete_from: '', title: '' } ,
+          { name: '', populate_at: '', same_as: '', autocomplete_from: '', title: '' }
+        ]
       };
     },
+
     saveAndContinue: function(e) {
       e.preventDefault();
       var val = $('#field_name').val();
       this.setState( { field_name: val },
-        function () {
-          console.group('State');
-          console.log('autocomplete_from: ', this.state.autocomplete_from);
-          console.log('field_name: ', this.state.field_name);
-          console.log('populate_at: ', this.state.populate_at);
-          console.groupEnd();
-        });
+                    function () {
+                      console.group('State');
+                      console.log('autocomplete_from: ', this.state.autocomplete_from);
+                      console.log('field_name: ', this.state.field_name);
+                      console.log('populate_at: ', this.state.populate_at);
+                      console.groupEnd();
+                    });
+    this.setState( { field_name: val } );
+    },
+
+    newFieldEntry: function() {
+
     },
 
     render: function() {
       return (
         <div>
-          <label>Velg navn på felt</label>
-          <FieldName/>
-          <strong> State.autocomplete_from: {this.state.autocomplete_from} </strong>
-          <br/>
-          <strong> Når skal verdien fylles inn? </strong>
-          <PopulateAtCheckboxes populate_at={this.props.data.populate_at} />
+          {this.state.items.map(function(object, i){
+            return (
+              <div>
+                <label>Velg navn på felt</label>
+                <FieldName/>
+                <strong> State.autocomplete_from: {this.state.autocomplete_from}
+                </strong>
+                <br/>
+                <strong> Når skal verdien fylles inn? </strong>
+                <PopulateAtCheckboxes populate_at={this.props.data.populate_at} />
 
-          <strong> Autocomplete med data fra </strong>
-          <AutocompleteFromCheckboxes
-            autocomplete_from={this.props.data.autocomplete_from} />
-          <br/>
-          <br/>
-          <button onClick={this.saveAndContinue}>Save and Continue</button>
+                <strong> Autocomplete med data fra </strong>
+                <AutocompleteFromCheckboxes
+                  autocomplete_from={this.props.data.autocomplete_from} />
+                <br/>
+                <br/>
+                <hr/>
+              </div>
+              );
+          }, this)}
+                <button onClick={this.newFieldEntry}>Create a new field</button>
+                <button onClick={this.saveAndContinue}>Save and Continue</button>
         </div>
       );
-    }
+   }
   });
 
 
