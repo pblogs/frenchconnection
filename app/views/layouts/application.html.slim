@@ -40,9 +40,5 @@ html
 
     = render '/layouts/footer'
 
-// This is really necessary, as we need a way to pass this id to js assets,
-// and it isn't known when assets are precompiled
 - unless Rails.env.test? || Rails.env.development?
   = render '/layouts/google_analytics'
-  javascript:
-    var pusherId = "#{pusher_id}";
