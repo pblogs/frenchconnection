@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_admin_comments", force: true do |t|
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20150323085110) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "api_keys", force: true do |t|
+  create_table "api_keys", force: :cascade do |t|
     t.string  "name"
     t.string  "access_token"
     t.boolean "active"
   end
 
-  create_table "artisans", force: true do |t|
+  create_table "artisans", force: :cascade do |t|
     t.string   "name"
     t.integer  "tasks_id"
     t.datetime "created_at"
@@ -46,12 +46,12 @@ ActiveRecord::Schema.define(version: 20150323085110) do
 
   add_index "artisans", ["tasks_id"], name: "index_artisans_on_tasks_id", using: :btree
 
-  create_table "artisans_tasks", id: false, force: true do |t|
+  create_table "artisans_tasks", id: false, force: :cascade do |t|
     t.integer "artisan_id"
     t.integer "task_id"
   end
 
-  create_table "attachments", force: true do |t|
+  create_table "attachments", force: :cascade do |t|
     t.string   "document"
     t.integer  "project_id"
     t.datetime "created_at"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.text     "description"
   end
 
-  create_table "blog_articles", force: true do |t|
+  create_table "blog_articles", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.string   "locale"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.date     "date"
   end
 
-  create_table "blog_images", force: true do |t|
+  create_table "blog_images", force: :cascade do |t|
     t.string   "image"
     t.string   "description"
     t.datetime "created_at"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.boolean  "main"
   end
 
-  create_table "blog_projects", force: true do |t|
+  create_table "blog_projects", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.string   "locale"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.datetime "updated_at"
   end
 
-  create_table "blog_videos", force: true do |t|
+  create_table "blog_videos", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.string   "video_url"
@@ -101,23 +101,23 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.datetime "updated_at"
   end
 
-  create_table "certificates", force: true do |t|
+  create_table "certificates", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "certificates_inventories", force: true do |t|
+  create_table "certificates_inventories", force: :cascade do |t|
     t.integer "certificate_id"
     t.integer "inventory_id"
   end
 
-  create_table "certificates_locations", force: true do |t|
+  create_table "certificates_locations", force: :cascade do |t|
     t.integer "certificate_id"
     t.integer "location_id"
   end
 
-  create_table "changes", force: true do |t|
+  create_table "changes", force: :cascade do |t|
     t.text     "description"
     t.integer  "hours_spent_id"
     t.integer  "changed_by_user_id"
@@ -136,15 +136,16 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.integer  "user_id"
   end
 
+  add_index "changes", ["hours_spent_id"], name: "index_changes_on_hours_spent_id", using: :btree
   add_index "changes", ["user_id"], name: "index_changes_on_user_id", using: :btree
 
-  create_table "customer_messages", force: true do |t|
+  create_table "customer_messages", force: :cascade do |t|
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "customers", force: true do |t|
+  create_table "customers", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
     t.string   "org_number"
@@ -157,13 +158,13 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.string   "email"
   end
 
-  create_table "departments", force: true do |t|
+  create_table "departments", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "favorites", force: true do |t|
+  create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "favorable_id"
     t.string   "favorable_type"
@@ -171,7 +172,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.datetime "updated_at"
   end
 
-  create_table "hours_spents", force: true do |t|
+  create_table "hours_spents", force: :cascade do |t|
     t.integer  "customer_id"
     t.integer  "task_id"
     t.integer  "hour"
@@ -200,7 +201,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
   add_index "hours_spents", ["customer_id"], name: "index_hours_spents_on_customer_id", using: :btree
   add_index "hours_spents", ["task_id"], name: "index_hours_spents_on_task_id", using: :btree
 
-  create_table "inventories", force: true do |t|
+  create_table "inventories", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.integer  "certificates_id"
@@ -212,12 +213,12 @@ ActiveRecord::Schema.define(version: 20150323085110) do
 
   add_index "inventories", ["certificates_id"], name: "index_inventories_on_certificates_id", using: :btree
 
-  create_table "inventories_tasks", force: true do |t|
+  create_table "inventories_tasks", force: :cascade do |t|
     t.integer "inventory_id"
     t.integer "task_id"
   end
 
-  create_table "locations", force: true do |t|
+  create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.integer  "certificates_id"
     t.boolean  "outdoor"
@@ -226,7 +227,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.datetime "updated_at"
   end
 
-  create_table "mobile_pictures", force: true do |t|
+  create_table "mobile_pictures", force: :cascade do |t|
     t.integer  "task_id"
     t.integer  "user_id"
     t.string   "url"
@@ -240,7 +241,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
   add_index "mobile_pictures", ["task_id"], name: "index_mobile_pictures_on_task_id", using: :btree
   add_index "mobile_pictures", ["user_id"], name: "index_mobile_pictures_on_user_id", using: :btree
 
-  create_table "monthly_reports", force: true do |t|
+  create_table "monthly_reports", force: :cascade do |t|
     t.string   "document"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -250,13 +251,13 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.integer  "year"
   end
 
-  create_table "professions", force: true do |t|
+  create_table "professions", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "projects", force: true do |t|
+  create_table "projects", force: :cascade do |t|
     t.string   "project_number"
     t.string   "name"
     t.datetime "created_at"
@@ -275,29 +276,29 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.boolean  "complete",                             default: false
   end
 
-  create_table "skills", force: true do |t|
+  create_table "skills", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "skills_tasks", force: true do |t|
+  create_table "skills_tasks", force: :cascade do |t|
     t.integer "skill_id"
     t.integer "task_id"
   end
 
-  create_table "skills_users", force: true do |t|
+  create_table "skills_users", force: :cascade do |t|
     t.integer "skill_id"
     t.integer "user_id"
   end
 
-  create_table "task_types", force: true do |t|
+  create_table "task_types", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", force: :cascade do |t|
     t.integer  "customer_id"
     t.date     "start_date"
     t.datetime "created_at"
@@ -318,14 +319,14 @@ ActiveRecord::Schema.define(version: 20150323085110) do
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
 
-  create_table "user_certificates", force: true do |t|
+  create_table "user_certificates", force: :cascade do |t|
     t.integer "certificate_id"
     t.integer "user_id"
     t.string  "image"
     t.date    "expiry_date"
   end
 
-  create_table "user_tasks", force: true do |t|
+  create_table "user_tasks", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "task_id",    null: false
     t.string   "status",     null: false
@@ -333,7 +334,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",                           null: false
     t.string   "roles",                                                     array: true
@@ -364,7 +365,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
   add_index "users", ["profession_id"], name: "index_users_on_profession_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "zipped_reports", force: true do |t|
+  create_table "zipped_reports", force: :cascade do |t|
     t.integer  "project_id",  null: false
     t.string   "zipfile"
     t.datetime "created_at"
