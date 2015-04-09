@@ -200,9 +200,9 @@ truck         = Fabricate(:inventory, name: 'Truck', certificates: [truck_cert])
 Fabricate(:inventory, name: 'Concrete blender')
 
 # Workers that can operate these machines
-Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer', certificates: [bulldozer_cert])
-Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [truck_cert])
-Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
+Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer')
+Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk')
+Fabricate(:user, first_name: 'Lise', last_name: 'Lift')
 
 # Skills
 Skill.destroy_all
