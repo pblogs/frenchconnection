@@ -1,24 +1,40 @@
 $( document ).ready( function()  {
   'use strict';
 
-  var data = {
+  var form_fields = {
     populate_at: ['automatically', 'web_start', 'web_end'],
     autocomplete_from: ['customer_name', 'customer_address',
       'project_address', 'worker_names', 'project_name', 'user_name']
   };
 
+
+  var actions = Reflux.createActions(
+    ['updateName']
+  );
+
+  var rows = {};
+  rows[0] = { name: 'FIELD 1', populate_at: 'web_start',
+              same_as: 'customer_name',
+              autocomplete_from: 'customer_name', title: '' };
+  rows[1] = { name: 'FIELD 2', populate_at: 'web_end',
+              same_as: 'user_name', autocomplete_from: 'user_name',
+              title: '' };
+
+
   var store = Reflux.createStore({
+    listenables: [actions],
 
+    onUpdateName(){
+      console.log('from onUpdateName');
+      rows[0].name = 'via REFLUX';
+      this.trigger({rows});
+    },
+    init: function() {
+      rows[0].name = ' oppdatert fra init ';
+      this.trigger(rows);
+    },
     getInitialState: function() {
-      var rows = {};
-      rows[0] = { name: 'FIELD 1', populate_at: 'web_start',
-                  same_as: 'customer_name',
-                  autocomplete_from: 'customer_name', title: '' };
-      rows[1] = { name: 'FIELD 2', populate_at: 'web_end',
-                  same_as: 'user_name', autocomplete_from: 'user_name',
-                  title: '' };
-
-      return { rows };
+      return { rows:rows };
     },
   });
 
@@ -52,6 +68,7 @@ $( document ).ready( function()  {
   //});
 
 var AutoCompleteFrom = React.createClass({
+  mixins: [Reflux.connect(store)],
   handleChange: function(e) {
     var id  = this.props.id;
     var row = this.props.rows[id];
@@ -60,8 +77,11 @@ var AutoCompleteFrom = React.createClass({
     newRows[id] = { autocomplete_from: new_autocomplete_from_value };
 
     console.log('new state:', { rows: newRows });
-    this.setState({ rows: newRows });
-    //debugger;
+    //this.setState({ rows: newRows });
+    //actions.updateName;
+
+    //rows[1].name = new_autocomplete_from_value;
+    //this.trigger(rows);
 
     //this.setState( { rows[id]: { autocomplete_from: new_autocomplete_from_value } },
     //              function () { console.log('autocompleteFrom state: ',
@@ -73,7 +93,7 @@ var AutoCompleteFrom = React.createClass({
       return (
         <label for={value}>
           <input type="radio" name={'autocomplete_from'+this.props.id} value={value}
-            onChange={this.handleChange} checked={this.props.checked == value}
+            onChange={actions.updateName} checked={this.props.checked == value}
             ref="autocomplete-from"/>
           {value}
         </label>
@@ -137,7 +157,7 @@ var DynamicForm = React.createClass({
 
               <strong> Autocomplete med data fra </strong>
               <AutoCompleteFrom checked={row.autocomplete_from}
-                id={i} rows={this.state.rows} autocomplete_from={data.autocomplete_from} />
+                id={i} rows={this.state.rows} autocomplete_from={form_fields.autocomplete_from} />
               <br/>
               <br/>
               <hr/>
