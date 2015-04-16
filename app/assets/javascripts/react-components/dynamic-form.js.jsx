@@ -8,27 +8,61 @@ var form_fields = {
 
 
 var actions = Reflux.createActions( [
-  'updateAutoComplete'
+  'updateAutoComplete',
+  'updatePopulateAt'
 ]);
 
 var rows = {};
-rows[0] = { autocomplete_from: 'customer_name' };
-rows[1] = { autocomplete_from: 'project_name' };
+rows[0] = { autocomplete_from: 'customer_name', populate_at: 'web_start' };
+rows[1] = { autocomplete_from: 'project_name',  populate_at: 'web_end' };
 
 var store = Reflux.createStore({
   listenables: [actions],
 
+  onUpdatePopulateAt(checked, id){
+    console.log('checked in POPULATE AT:', checked);
+    rows[id].populate_at = checked;
+    this.trigger({rows});
+  },
   onUpdateAutoComplete(checked, id){
     console.log('checked in onUpdateAutcomplete:', checked);
     rows[id].autocomplete_from = checked;
-    this.trigger({rows}); // <== Causes an infinite loop when included.
+    this.trigger({rows});
+    this.forceUpdate;
   },
+
   getInitialState: function() {
     return { rows:rows };
   },
 });
 
 
+var PopulateAt = React.createClass({
+  mixins: [Reflux.connect(store)],
+  handleChange: function(event) {
+    console.log('PopulateAt - checked in handleChange: ', event);
+    actions.updatePopulateAt(event.target.value, event.target.name);
+  },
+
+  render: function() {
+    var autocompleteFrom = this.props.populate_at.map(function(value) {
+      return (
+        <label key={value} htmlFor={value}>
+          <input type="radio" name={this.props.id}
+            value={value} row={this.props.id}
+            onChange={this.handleChange} checked={this.props.checked == value}
+          />
+          {value}
+        </label>
+      );
+    }, this);
+    return (
+      <div className="checkboxes">
+        {autocompleteFrom}
+      </div>
+    );
+  }
+});
 
 var AutoCompleteFrom = React.createClass({
   mixins: [Reflux.connect(store)],
@@ -41,7 +75,8 @@ var AutoCompleteFrom = React.createClass({
     var autocompleteFrom = this.props.autocomplete_from.map(function(value) {
       return (
         <label key={value} htmlFor={value}>
-          <input type="radio" name={this.props.id} value={value} row={this.props.id}
+          <input type="radio" name={this.props.id}
+            value={value} row={this.props.id}
             onChange={this.handleChange} checked={this.props.checked == value}
           />
           {value}
@@ -49,7 +84,7 @@ var AutoCompleteFrom = React.createClass({
       );
     }, this);
     return (
-      <div className="autocomplete-from">
+      <div className="checkboxes">
         {autocompleteFrom}
       </div>
     );
@@ -67,9 +102,13 @@ var DynamicForm = React.createClass({
          <div>
             <strong>Autocomplete status read through state:</strong>
             <br/>
-            <span htmlClass="status"> 0: {_this.state.rows[0]} </span>
+            <span> 0 </span>
+            <span htmlClass="status">  {_this.state.rows[0].autocomplete_from} </span>
+            <span htmlClass="status">  {_this.state.rows[0].populate_at} </span>
             <br/>
-            <span htmlClass="status"> 1: {_this.state.rows[1]} </span>
+            <span> 1 </span>
+            <span htmlClass="status">  {_this.state.rows[1].autocomplete_from} </span>
+            <span htmlClass="status">  {_this.state.rows[1].populate_at} </span>
         </div>
         <br/>
         <br/>
@@ -78,9 +117,17 @@ var DynamicForm = React.createClass({
           var row = _this.state.rows[key];
           return (
             <div key={key} >
+
               <strong> AutoCompleteFrom</strong>
               <AutoCompleteFrom checked={row.autocomplete_from}
-                id={i} rows={this.state.rows} autocomplete_from={form_fields.autocomplete_from} />
+                id={i} rows={this.state.rows}
+                autocomplete_from={form_fields.autocomplete_from} />
+
+              <strong> PopulateAt</strong>
+              <PopulateAt checked={row.populate_at}
+                id={i} rows={this.state.rows}
+                populate_at={form_fields.populate_at} />
+
               <br/>
               <br/>
               <hr/>
