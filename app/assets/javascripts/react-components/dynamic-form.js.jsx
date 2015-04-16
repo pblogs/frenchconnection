@@ -2,19 +2,28 @@
 
 var form_fields = {
   populate_at: ['automatically', 'web_start', 'web_end'],
-  autocomplete_from: ['customer_name', 'customer_address',
-    'project_address', 'worker_names', 'project_name', 'user_name']
+  autocomplete_from: [
+    'customer_name',
+    'customer_address',
+    'project_address',
+    'worker_names',
+    'project_name',
+    'user_name',
+  ]
 };
 
 
 var actions = Reflux.createActions( [
   'updateAutoComplete',
-  'updatePopulateAt'
+  'updatePopulateAt',
+  'updateTitle'
 ]);
 
 var rows = {};
-rows[0] = { autocomplete_from: 'customer_name', populate_at: 'web_start' };
-rows[1] = { autocomplete_from: 'project_name',  populate_at: 'web_end' };
+rows[0] = { autocomplete_from: 'customer_name', populate_at: 'web_start',
+  title: 'field 1' };
+rows[1] = { autocomplete_from: 'project_name',  populate_at: 'web_end',
+  title: 'field 2'};
 
 var store = Reflux.createStore({
   listenables: [actions],
@@ -28,7 +37,10 @@ var store = Reflux.createStore({
     console.log('checked in onUpdateAutcomplete:', checked);
     rows[id].autocomplete_from = checked;
     this.trigger({rows});
-    this.forceUpdate;
+  },
+  onUpdateTitle(value, id){
+    rows[id].title = value;
+    this.trigger({rows});
   },
 
   getInitialState: function() {
@@ -39,9 +51,9 @@ var store = Reflux.createStore({
 
 var PopulateAt = React.createClass({
   mixins: [Reflux.connect(store)],
-  handleChange: function(event) {
-    console.log('PopulateAt - checked in handleChange: ', event);
-    actions.updatePopulateAt(event.target.value, event.target.name);
+  handleChange: function(e) {
+    console.log('PopulateAt - checked in handleChange: ', e);
+    actions.updatePopulateAt(e.target.value, e.target.name);
   },
 
   render: function() {
@@ -66,9 +78,9 @@ var PopulateAt = React.createClass({
 
 var AutoCompleteFrom = React.createClass({
   mixins: [Reflux.connect(store)],
-  handleChange: function(event) {
-    console.log('checked in handleChange: ', event);
-    actions.updateAutoComplete(event.target.value, event.target.name);
+  handleChange: function(e) {
+    console.log('checked in handleChange: ', e);
+    actions.updateAutoComplete(e.target.value, e.target.name);
   },
 
   render: function() {
@@ -91,6 +103,42 @@ var AutoCompleteFrom = React.createClass({
   }
 });
 
+var InputWithLabel = React.createClass({
+  // Could be rewritten with different onChange handlers, for now it only works
+  // with title.
+  displayName: "inputWithLabel",
+  handleChange : function (e) {
+    actions.updateTitle(e.target.value, this.props.name);
+  },
+  render: function() {
+    return (
+      <label htmlFor={this.props.value}>
+        <input name={this.props.value} type={this.props.type}
+          onChange={this.handleChange} defaultValue={this.props.value}/>
+      </label>
+    )
+  }
+});
+
+var SubmitButton = React.createClass({
+  displayName: "SubmitButton",
+  handleChange : function (e) {
+    console.log('SubmitButton', e.target.value)
+  },
+  submit: function(e) {
+    console.group("Submit");
+    console.log("State: ", this.state);
+    console.groupEnd();
+  },
+  render: function() {
+    return (
+      <button type="button" onClick={this.submit} onChange={this.handleChange }>
+      {this.props.text} </button>
+    )
+  }
+});
+
+
 
 var DynamicForm = React.createClass({
   mixins: [Reflux.connect(store)],
@@ -103,22 +151,29 @@ var DynamicForm = React.createClass({
             <strong>Autocomplete status read through state:</strong>
             <br/>
             <span> 0 </span>
-            <span htmlClass="status">  {_this.state.rows[0].autocomplete_from} </span>
-            <span htmlClass="status">  {_this.state.rows[0].populate_at} </span>
+            <span htmlClass="status"> autocomplete_from: {this.state.rows[0].autocomplete_from} </span>
+            <span htmlClass="status"> populate_at: {this.state.rows[0].populate_at} </span>
+            <span htmlClass="status"> title: {this.state.rows[0].title} </span>
             <br/>
             <span> 1 </span>
-            <span htmlClass="status">  {_this.state.rows[1].autocomplete_from} </span>
-            <span htmlClass="status">  {_this.state.rows[1].populate_at} </span>
+            <span htmlClass="status"> autocomplete_from: {this.state.rows[1].autocomplete_from} </span>
+            <span htmlClass="status"> populate_at: {this.state.rows[1].populate_at} </span>
+            <span htmlClass="status"> title: {this.state.rows[1].title} </span>
         </div>
         <br/>
         <br/>
 
         { Object.keys(this.state.rows).map(function (key,i) {
-          var row = _this.state.rows[key];
+          var row = this.state.rows[key];
           return (
             <div key={key} >
 
-              <strong> AutoCompleteFrom</strong>
+              <hr/>
+              <strong> Field name </strong>
+              <InputWithLabel type="text" value={row.title} name={i}/>
+              <hr/>
+
+              <strong> AutoCompleteFrom </strong>
               <AutoCompleteFrom checked={row.autocomplete_from}
                 id={i} rows={this.state.rows}
                 autocomplete_from={form_fields.autocomplete_from} />
@@ -127,6 +182,8 @@ var DynamicForm = React.createClass({
               <PopulateAt checked={row.populate_at}
                 id={i} rows={this.state.rows}
                 populate_at={form_fields.populate_at} />
+
+              <SubmitButton text="Lagre"/>
 
               <br/>
               <br/>
