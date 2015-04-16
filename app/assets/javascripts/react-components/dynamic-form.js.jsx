@@ -122,12 +122,9 @@ var InputWithLabel = React.createClass({
 
 var SubmitButton = React.createClass({
   displayName: "SubmitButton",
-  handleChange : function (e) {
-    console.log('SubmitButton', e.target.value)
-  },
   submit: function(e) {
     console.group("Submit");
-    console.log("State: ", this.state);
+    console.log("State: ", this.props.state);
     console.groupEnd();
   },
   render: function() {
@@ -183,7 +180,7 @@ var DynamicForm = React.createClass({
                 id={i} rows={this.state.rows}
                 populate_at={form_fields.populate_at} />
 
-              <SubmitButton text="Lagre"/>
+              <SubmitButton text="Lagre" state={this.state}/>
 
               <br/>
               <br/>
