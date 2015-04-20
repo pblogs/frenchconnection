@@ -29,7 +29,7 @@ var store = Reflux.createStore({
   listenables: [actions],
 
   onUpdatePopulateAt(checked, id){
-    console.log('checked in POPULATE AT:', checked);
+    //console.log('checked in POPULATE AT:', checked);
     rows[id].populate_at = checked;
     this.trigger({rows});
   },
@@ -52,7 +52,7 @@ var store = Reflux.createStore({
 var PopulateAt = React.createClass({
   mixins: [Reflux.connect(store)],
   handleChange: function(e) {
-    console.log('PopulateAt - checked in handleChange: ', e);
+    //console.log('PopulateAt - checked in handleChange: ', e);
     actions.updatePopulateAt(e.target.value, e.target.name);
   },
 
@@ -79,7 +79,7 @@ var PopulateAt = React.createClass({
 var AutoCompleteFrom = React.createClass({
   mixins: [Reflux.connect(store)],
   handleChange: function(e) {
-    console.log('checked in handleChange: ', e);
+    //console.log('checked in handleChange: ', e);
     actions.updateAutoComplete(e.target.value, e.target.name);
   },
 
