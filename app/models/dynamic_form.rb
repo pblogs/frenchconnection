@@ -5,4 +5,6 @@ class DynamicForm
   field :same_as,           type: Symbol # customer_name, customer_address, project_address
   field :autocomplete_from, type: Symbol # customer_name, customer_address, project_address
   field :title,             type: String # Varmepumpeskjema
+
+  accepts_nested_attributes_for :rows
 end
