@@ -16,6 +16,7 @@ var form_fields = {
 var actions = Reflux.createActions( [
   'updateAutoComplete',
   'updatePopulateAt',
+  'newField',
   'updateTitle'
 ]);
 
@@ -40,6 +41,16 @@ var store = Reflux.createStore({
   },
   onUpdateTitle(value, id){
     rows[id].title = value;
+    this.trigger({rows});
+  },
+  onNewField(){
+    var id = '';
+    Object.keys(rows).map(function (key,i) { id = parseInt(i) } );
+    id++;
+    rows[id] = { autocomplete_from: 'customer_name',
+                 populate_at: 'web_start',
+                 title: 'nytt fra knappen'
+                };
     this.trigger({rows});
   },
 
@@ -120,16 +131,47 @@ var InputWithLabel = React.createClass({
   }
 });
 
+var NewItemButton = React.createClass({
+  displayName: "NewItemButton",
+  mixins: [Reflux.connect(store)],
+  submit: function(e) {
+    //console.log('PopulateAt - checked in handleChange: ', e);
+    actions.newField();
+  },
+
+
+  render: function() {
+    return (
+      <button type="button" onClick={this.submit}>
+      {this.props.text} </button>
+    )
+  }
+});
+
 var SubmitButton = React.createClass({
   displayName: "SubmitButton",
   submit: function(e) {
     console.group("Submit");
     console.log("State: ", this.props.state);
     console.groupEnd();
+    debugger;
+    $.ajax({
+      url: this.props.url,
+      data : this.props.state,
+      dataType: 'json',
+      //success: function(data) {
+      //  this.setState({data: data});
+      //}.bind(this),
+      //error: function(xhr, status, err) {
+      //  console.error(this.props.url, status, err.toString());
+      //}.bind(this)
+    });
+
+
   },
   render: function() {
     return (
-      <button type="button" onClick={this.submit} onChange={this.handleChange }>
+      <button type="button" onClick={this.submit}>
       {this.props.text} </button>
     )
   }
@@ -143,8 +185,9 @@ var DynamicForm = React.createClass({
   render: function() {
     var _this = this;
     return (
-      <div>
-         <div>
+      <div className="outer-container">
+        <div className="container">
+          <div className="state-status">
             <strong>Autocomplete status read through state:</strong>
             <br/>
             <span> 0 </span>
@@ -156,38 +199,40 @@ var DynamicForm = React.createClass({
             <span htmlClass="status"> autocomplete_from: {this.state.rows[1].autocomplete_from} </span>
             <span htmlClass="status"> populate_at: {this.state.rows[1].populate_at} </span>
             <span htmlClass="status"> title: {this.state.rows[1].title} </span>
+          </div>
+          <br/>
+          <br/>
+
+          { Object.keys(this.state.rows).map(function (key,i) {
+            var row = this.state.rows[key];
+            return (
+              <div key={key} >
+
+                <hr/>
+                <strong> Field name </strong>
+                <InputWithLabel type="text" value={row.title} name={i}/>
+                <hr/>
+
+                <strong> AutoCompleteFrom </strong>
+                <AutoCompleteFrom checked={row.autocomplete_from}
+                  id={i} rows={this.state.rows}
+                  autocomplete_from={form_fields.autocomplete_from} />
+
+                <strong> PopulateAt</strong>
+                <PopulateAt checked={row.populate_at}
+                  id={i} rows={this.state.rows}
+                  populate_at={form_fields.populate_at} />
+
+
+                <br/>
+                <br/>
+                <hr/>
+              </div>
+              );
+          }, this)}
         </div>
-        <br/>
-        <br/>
-
-        { Object.keys(this.state.rows).map(function (key,i) {
-          var row = this.state.rows[key];
-          return (
-            <div key={key} >
-
-              <hr/>
-              <strong> Field name </strong>
-              <InputWithLabel type="text" value={row.title} name={i}/>
-              <hr/>
-
-              <strong> AutoCompleteFrom </strong>
-              <AutoCompleteFrom checked={row.autocomplete_from}
-                id={i} rows={this.state.rows}
-                autocomplete_from={form_fields.autocomplete_from} />
-
-              <strong> PopulateAt</strong>
-              <PopulateAt checked={row.populate_at}
-                id={i} rows={this.state.rows}
-                populate_at={form_fields.populate_at} />
-
-              <SubmitButton text="Lagre" state={this.state}/>
-
-              <br/>
-              <br/>
-              <hr/>
-            </div>
-            );
-        }, this)}
+        <NewItemButton text="Legg til nytt felt"/>
+        <SubmitButton text="Lagre" state={this.state} url="http://localhost:4000"/>
       </div>
     );
   this}
