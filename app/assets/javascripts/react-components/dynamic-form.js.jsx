@@ -1,3 +1,4 @@
+$( document ).ready(function() {
 'use strict';
 
 var form_fields = {
@@ -242,3 +243,4 @@ if ( mountpoint ) {
   React.render(<DynamicForm/>, mountpoint);
 }
 
+});
