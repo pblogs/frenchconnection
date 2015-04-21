@@ -3,7 +3,7 @@
 # Table name: locations
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
+#  name            :string
 #  certificates_id :integer
 #  outdoor         :boolean
 #  indoor          :boolean

@@ -3,8 +3,8 @@
 # Table name: api_keys
 #
 #  id           :integer          not null, primary key
-#  name         :string(255)
-#  access_token :string(255)
+#  name         :string
+#  access_token :string
 #  active       :boolean
 #
 

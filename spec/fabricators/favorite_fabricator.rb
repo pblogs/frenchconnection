@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  user_id        :integer
 #  favorable_id   :integer
-#  favorable_type :string(255)
+#  favorable_type :string
 #  created_at     :datetime
 #  updated_at     :datetime
 #

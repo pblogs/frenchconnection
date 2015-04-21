@@ -18,12 +18,11 @@
 #  runs_in_company_car     :integer
 #  km_driven_own_car       :float
 #  toll_expenses_own_car   :float
-#  supplies_from_warehouse :string(255)
-#  of_kind                 :string(255)      default("personal")
+#  supplies_from_warehouse :string
+#  of_kind                 :string           default("personal")
 #  billable_id             :integer
 #  personal_id             :integer
 #  approved                :boolean          default(FALSE)
-#  frozen_by_admin         :boolean          default(FALSE)
 #  change_reason           :text
 #  old_values              :text
 #  edited_by_admin         :boolean          default(FALSE)
