@@ -154,20 +154,17 @@ var SubmitButton = React.createClass({
     console.group("Submit");
     console.log("State: ", this.props.state);
     console.groupEnd();
-    debugger;
     $.ajax({
       url: this.props.url,
-      data : this.props.state,
-      dataType: 'json',
-      //success: function(data) {
-      //  this.setState({data: data});
-      //}.bind(this),
-      //error: function(xhr, status, err) {
-      //  console.error(this.props.url, status, err.toString());
-      //}.bind(this)
+      type: 'POST',
+      dataType: 'JSON',
+      contentType: "application/json",
+      processData: false,
+      data: JSON.stringify({
+        rows:  this.props.state.rows,
+        form_title:  this.props.state.form_title,
+      })
     });
-
-
   },
   render: function() {
     return (
@@ -232,7 +229,7 @@ var DynamicForm = React.createClass({
           }, this)}
         </div>
         <NewItemButton text="Legg til nytt felt"/>
-        <SubmitButton text="Lagre" state={this.state} url="http://localhost:4000"/>
+        <SubmitButton text="Lagre" state={this.state} url="http://localhost:4000/dynamic_forms"/>
       </div>
     );
   this}
