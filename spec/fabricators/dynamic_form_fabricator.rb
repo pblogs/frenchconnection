@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: dynamic_forms
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  form_info  :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 Fabricator(:dynamic_form) do
   field_name        "MyString"
   populate          "MyString"
