@@ -1,3 +1,4 @@
+$( document ).ready(function() {
 'use strict';
 
 var form_fields = {
@@ -17,10 +18,12 @@ var actions = Reflux.createActions( [
   'updateAutoComplete',
   'updatePopulateAt',
   'newField',
-  'updateTitle'
+  'updateTitle',
+  'updateFormTitle',
 ]);
 
 var rows = {};
+rows['form_title']  = '';
 rows[0] = { autocomplete_from: 'customer_name', populate_at: 'web_start',
   title: 'field 1' };
 rows[1] = { autocomplete_from: 'project_name',  populate_at: 'web_end',
@@ -29,21 +32,25 @@ rows[1] = { autocomplete_from: 'project_name',  populate_at: 'web_end',
 var store = Reflux.createStore({
   listenables: [actions],
 
-  onUpdatePopulateAt(checked, id){
-    //console.log('checked in POPULATE AT:', checked);
-    rows[id].populate_at = checked;
-    this.trigger({rows});
+  onUpdateFormTitle: function(form_title){
+    console.log('update', form_title)
+    rows['form_title'] = form_title;
+    this.trigger(rows);
   },
-  onUpdateAutoComplete(checked, id){
+  onUpdatePopulateAt: function(checked, id){
+    rows[id].populate_at = checked;
+    this.trigger(rows);
+  },
+  onUpdateAutoComplete: function(checked, id){
     console.log('checked in onUpdateAutcomplete:', checked);
     rows[id].autocomplete_from = checked;
-    this.trigger({rows});
+    this.trigger(rows);
   },
-  onUpdateTitle(value, id){
+  onUpdateTitle: function(value, id){
     rows[id].title = value;
-    this.trigger({rows});
+    this.trigger(rows);
   },
-  onNewField(){
+  onNewField: function(){
     var id = '';
     Object.keys(rows).map(function (key,i) { id = parseInt(i) } );
     id++;
@@ -51,7 +58,7 @@ var store = Reflux.createStore({
                  populate_at: 'web_start',
                  title: 'nytt fra knappen'
                 };
-    this.trigger({rows});
+    this.trigger(rows);
   },
 
   getInitialState: function() {
@@ -114,6 +121,23 @@ var AutoCompleteFrom = React.createClass({
   }
 });
 
+var FormTitle = React.createClass({
+  // Could be rewritten with different onChange handlers, for now it only works
+  // with title.
+  displayName: "FormTitle",
+  handleChange : function (e) {
+    actions.updateFormTitle(e.target.value);
+  },
+  render: function() {
+    return (
+      <label htmlFor={this.props.value}>
+        <input name={this.props.value} type={this.props.type}
+          onChange={this.handleChange} defaultValue={this.props.value}/>
+      </label>
+    )
+  }
+});
+
 var InputWithLabel = React.createClass({
   // Could be rewritten with different onChange handlers, for now it only works
   // with title.
@@ -135,15 +159,11 @@ var NewItemButton = React.createClass({
   displayName: "NewItemButton",
   mixins: [Reflux.connect(store)],
   submit: function(e) {
-    //console.log('PopulateAt - checked in handleChange: ', e);
     actions.newField();
   },
-
-
   render: function() {
     return (
-      <button type="button" onClick={this.submit}>
-      {this.props.text} </button>
+      <button type="button" onClick={this.submit}> {this.props.text} </button>
     )
   }
 });
@@ -154,25 +174,28 @@ var SubmitButton = React.createClass({
     console.group("Submit");
     console.log("State: ", this.props.state);
     console.groupEnd();
-    debugger;
     $.ajax({
       url: this.props.url,
-      data : this.props.state,
-      dataType: 'json',
-      //success: function(data) {
-      //  this.setState({data: data});
-      //}.bind(this),
-      //error: function(xhr, status, err) {
-      //  console.error(this.props.url, status, err.toString());
-      //}.bind(this)
+      type: 'POST',
+      dataType: 'JSON',
+      contentType: "application/json",
+      processData: false,
+      data: JSON.stringify({
+        rows:  this.props.state.rows,
+        form_title:  this.props.state.form_title,
+      }),
+      statusCode: {
+        200: function (response) {
+          location.href = response.responseText;
+        },
+        500: function (response) {
+        }
+      }
     });
-
-
   },
   render: function() {
     return (
-      <button type="button" onClick={this.submit}>
-      {this.props.text} </button>
+      <button type="button" onClick={this.submit}> {this.props.text} </button>
     )
   }
 });
@@ -191,19 +214,24 @@ var DynamicForm = React.createClass({
             <strong>Autocomplete status read through state:</strong>
             <br/>
             <span> 0 </span>
-            <span htmlClass="status"> autocomplete_from: {this.state.rows[0].autocomplete_from} </span>
-            <span htmlClass="status"> populate_at: {this.state.rows[0].populate_at} </span>
-            <span htmlClass="status"> title: {this.state.rows[0].title} </span>
+            <span> autocomplete_from: {this.state.rows[0].autocomplete_from} </span>
+            <span> populate_at: {this.state.rows[0].populate_at} </span>
+            <span> title: {this.state.rows[0].title} </span>
             <br/>
             <span> 1 </span>
-            <span htmlClass="status"> autocomplete_from: {this.state.rows[1].autocomplete_from} </span>
-            <span htmlClass="status"> populate_at: {this.state.rows[1].populate_at} </span>
-            <span htmlClass="status"> title: {this.state.rows[1].title} </span>
+            <span> autocomplete_from: {this.state.rows[1].autocomplete_from} </span>
+            <span> populate_at: {this.state.rows[1].populate_at} </span>
+            <span> title: {this.state.rows[1].title} </span>
           </div>
+          <strong> Navnet på skjemaet </strong>
+          <FormTitle type="text" value={this.state.form_title}/>
+
+          <hr/>
           <br/>
           <br/>
 
           { Object.keys(this.state.rows).map(function (key,i) {
+            if (key === 'form_title') { return; }
             var row = this.state.rows[key];
             return (
               <div key={key} >
@@ -232,7 +260,7 @@ var DynamicForm = React.createClass({
           }, this)}
         </div>
         <NewItemButton text="Legg til nytt felt"/>
-        <SubmitButton text="Lagre" state={this.state} url="http://localhost:4000"/>
+        <SubmitButton text="Lagre" state={this.state} url="http://localhost:4000/dynamic_forms"/>
       </div>
     );
   this}
@@ -245,3 +273,4 @@ if ( mountpoint ) {
   React.render(<DynamicForm/>, mountpoint);
 }
 
+});

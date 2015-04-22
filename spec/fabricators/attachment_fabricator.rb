@@ -3,7 +3,7 @@
 # Table name: attachments
 #
 #  id          :integer          not null, primary key
-#  document    :string(255)
+#  document    :string
 #  project_id  :integer
 #  created_at  :datetime
 #  updated_at  :datetime
