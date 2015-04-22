@@ -210,19 +210,7 @@ var DynamicForm = React.createClass({
     return (
       <div className="outer-container">
         <div className="container">
-          <div className="state-status">
-            <strong>Autocomplete status read through state:</strong>
-            <br/>
-            <span> 0 </span>
-            <span> autocomplete_from: {this.state.rows[0].autocomplete_from} </span>
-            <span> populate_at: {this.state.rows[0].populate_at} </span>
-            <span> title: {this.state.rows[0].title} </span>
-            <br/>
-            <span> 1 </span>
-            <span> autocomplete_from: {this.state.rows[1].autocomplete_from} </span>
-            <span> populate_at: {this.state.rows[1].populate_at} </span>
-            <span> title: {this.state.rows[1].title} </span>
-          </div>
+
           <strong> Navnet på skjemaet </strong>
           <FormTitle type="text" value={this.state.form_title}/>
 
