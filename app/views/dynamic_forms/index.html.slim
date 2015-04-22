@@ -1,12 +1,11 @@
-h1 Listing dynamic_forms
+h1 Dine skjema
 
 table
   thead
     tr
-      th Field name
-      th Populate
-      th Autocomplete from
-      th Title
+      th Navn
+      th Innfyllingspunkt
+      th Autocomplete fra
       th
       th
       th
@@ -14,13 +13,11 @@ table
   tbody
     - @dynamic_forms.each do |dynamic_form|
       tr
-        td = dynamic_form.field_name
-        td = dynamic_form.populate
-        td = dynamic_form.autocomplete_from
         td = dynamic_form.title
-        td = link_to 'Show', dynamic_form
-        td = link_to 'Edit', edit_dynamic_form_path(dynamic_form)
-        td = link_to 'Destroy', dynamic_form, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to t('show'), dynamic_form
+        td = link_to t('edit'), edit_dynamic_form_path(dynamic_form)
+        td = link_to t('destroy'), dynamic_form,
+               data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
