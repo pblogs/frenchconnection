@@ -4,14 +4,14 @@ class DynamicFormsController < ApplicationController
   end
 
   def create
-    Rails.logger.debug  "rows: #{params['rows']}"
-    Rails.logger.debug  "form_title: #{params['form_title']}"
+    Rails.logger.debug  "rows: #{params[:rows]}"
+    Rails.logger.debug  "form_title: #{params[:rows][:form_title]}"
     @form = @current_user
-              .dynamic_forms.new(title: params[:form_title],
+              .dynamic_forms.new(title: params[:rows][:form_title],
                                  rows:  params[:rows]
                                 )
     @form.save!
-    render nothing: true
+    render json: dynamic_forms_path, status: :ok
   end
 
   def index
@@ -21,7 +21,8 @@ class DynamicFormsController < ApplicationController
   def destroy
     @form = @current_user.dynamic_forms.find(params[:id])
     @form.destroy
-    redirect_to dynamic_forms_path
+    redirect_to dynamic_forms_path(format: :html)
+
   end
 
   private
