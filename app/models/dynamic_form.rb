@@ -1,10 +1,18 @@
-class DynamicForm
-  include Mongoid::Document
-  field :field_name,        type: String # E.g Customer name
-  field :populate_at,       type: Symbol # automatically, web, app_start, app_stop
-  field :same_as,           type: Symbol # customer_name, customer_address, project_address
-  field :autocomplete_from, type: Symbol # customer_name, customer_address, project_address
-  field :title,             type: String # Varmepumpeskjema
+# == Schema Information
+#
+# Table name: dynamic_forms
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  rows       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  title      :string
+#
 
+class DynamicForm < ActiveRecord::Base
+  belongs_to :users
+  has_many :rows
   accepts_nested_attributes_for :rows
+  attr_reader :rows
 end
