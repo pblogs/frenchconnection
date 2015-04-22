@@ -4,9 +4,10 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  form_info  :text
+#  rows       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  title      :string
 #
 
 Fabricator(:dynamic_form) do
