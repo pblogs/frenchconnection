@@ -115,6 +115,23 @@ var AutoCompleteFrom = React.createClass({
   }
 });
 
+var FormTitle = React.createClass({
+  // Could be rewritten with different onChange handlers, for now it only works
+  // with title.
+  displayName: "FormTitle",
+  handleChange : function (e) {
+    mainActions.updateFormTitle(e.target.value);
+  },
+  render: function() {
+    return (
+      <label htmlFor={this.props.value}>
+        <input name={this.props.value} type={this.props.type}
+          onChange={this.handleChange} defaultValue={this.props.value}/>
+      </label>
+    )
+  }
+});
+
 var InputWithLabel = React.createClass({
   // Could be rewritten with different onChange handlers, for now it only works
   // with title.
@@ -198,6 +215,10 @@ var DynamicForm = React.createClass({
             <span htmlClass="status"> populate_at: {this.state.rows[1].populate_at} </span>
             <span htmlClass="status"> title: {this.state.rows[1].title} </span>
           </div>
+          <strong> Navnet på skjemaet </strong>
+          <FormTitle type="text" value={this.state.form_title}/>
+
+          <hr/>
           <br/>
           <br/>
 
