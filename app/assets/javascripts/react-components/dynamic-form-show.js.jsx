@@ -48,6 +48,13 @@ var DynamicForm = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  render: function() {
+    return (
+      <div>
+        <h2> {this.state.data.form_title} </h2>
+      </div>
+    );
   }
 });
 
