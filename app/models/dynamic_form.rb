@@ -12,7 +12,4 @@
 
 class DynamicForm < ActiveRecord::Base
   belongs_to :users
-  has_many :rows
-  accepts_nested_attributes_for :rows
-  attr_reader :rows
 end
