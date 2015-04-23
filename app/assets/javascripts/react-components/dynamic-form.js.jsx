@@ -70,12 +70,11 @@ var store = Reflux.createStore({
 var PopulateAt = React.createClass({
   mixins: [Reflux.connect(store)],
   handleChange: function(e) {
-    //console.log('PopulateAt - checked in handleChange: ', e);
     actions.updatePopulateAt(e.target.value, e.target.name);
   },
 
   render: function() {
-    var autocompleteFrom = this.props.populate_at.map(function(value) {
+    var checkboxes = this.props.populate_at.map(function(value) {
       return (
         <label key={value} htmlFor={value}>
           <input type="radio" name={this.props.id}
@@ -88,7 +87,7 @@ var PopulateAt = React.createClass({
     }, this);
     return (
       <div className="checkboxes">
-        {autocompleteFrom}
+        {checkboxes}
       </div>
     );
   }
@@ -248,7 +247,8 @@ var DynamicForm = React.createClass({
           }, this)}
         </div>
         <NewItemButton text="Legg til nytt felt"/>
-        <SubmitButton text="Lagre" state={this.state} url="http://localhost:4000/dynamic_forms"/>
+        <SubmitButton text="Lagre" state={this.state}
+                      url="http://localhost:4000/dynamic_forms"/>
       </div>
     );
   this}
