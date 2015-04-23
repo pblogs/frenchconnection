@@ -1,29 +1,57 @@
 $( document ).ready(function() {
 'use strict';
 
-var FormTitle = React.createClass({
-  render: function() {
-    return (
-      <form>
-
-        <h2> {this.props.title} </h2>
-        <span></span>
-      </form>
-    );
-  }
-});
-var InputWithLabel = React.createClass({
-  // Could be rewritten with different onChange handlers, for now it only works
-  // with title.
-  displayName: "inputWithLabel",
-  handleChange: function (e) {
-    actions.updateTitle(e.target.value, this.props.name);
+var SubmitButton = React.createClass({
+  displayName: "SubmitButton",
+  submit: function(e) {
+    console.group("Submit");
+    console.log("State: ", this.props.state);
+    console.groupEnd();
+    $.ajax({
+      url: this.props.url,
+      type: 'POST',
+      dataType: 'JSON',
+      contentType: "application/json",
+      processData: false,
+      data: JSON.stringify({
+        rows: this.props.state.rows,
+        form_title: this.props.state.form_title
+      }),
+      statusCode: {
+        200: function (response) {
+          location.href = response.responseText;
+        },
+        500: function (response) {
+        }
+      }
+    });
   },
   render: function() {
     return (
-      <label htmlFor={this.props.value}>
-        <input name={this.props.value} type={this.props.type}
-          onChange={this.handleChange} defaultValue={this.props.value}/>
+      <button type="button" onClick={this.submit}> {this.props.text} </button>
+    );
+  }
+});
+
+var FormTitle = React.createClass({
+  render: function() {
+    return (
+      <h2> {this.props.title} </h2>
+    );
+  }
+});
+
+var InputWithLabel = React.createClass({
+  displayName: "inputWithLabel",
+  handleChange: function (e) {
+    // actions.updateTitle(e.target.value, this.props.name);
+  },
+  render: function() {
+    return (
+      <label htmlFor={this.props.title}>
+        <input name={this.props.title} type="text"
+          placeholder={this.props.placeholder}
+          onChange={this.handleChange} />
       </label>
     );
   }
@@ -32,27 +60,45 @@ var InputWithLabel = React.createClass({
 var DynamicForm = React.createClass({
   getInitialState: function() {
     var rows = {};
-    rows[0] = { autocomplete_from: 'customer_name', populate_at: 'web_start',
-                title: 'field 1' };
-    return {data: rows };
+    rows[0] = { autocomplete_from: 'from initial state',
+                populate_at: 'from intial state', title: 'from initial state' };
+    var data = {};
+    return {rows};
   },
   componentDidMount: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       success: function(data) {
-        this.setState({data: data.rows});
-        console.log("State set to: ", this.state.data);
+        this.setState({rows: data.rows});
+        this.setState({title: data.title});
+        console.log("State set with data from ajax: ", this.state);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+    console.log("State set to afer ajax: ", this.state);
   },
   render: function() {
+    console.log("State read within render(): ", this.state);
     return (
       <div>
-        <h2> {this.state.data.form_title} </h2>
+        <h2> {this.state.title} </h2>
+        console.log("rwos is : ", this.state.data.rows);
+        { Object.keys(this.state.rows).map(function (key, i) {
+          if (key === 'form_title') { return; }
+          console.log("key: ", key);
+          console.log("i: ", i);
+          var row = this.state.rows[key];
+          console.log("row: ", row);
+          return (
+            <InputWithLabel title="navn på felt" autocomplete_from={row.title}
+              placeholder={row.title}/>
+            );
+            }, this)}
+        <SubmitButton text="Lagre" state={this.state}
+                      url="http://localhost:4000/dynamic_forms"/>
       </div>
     );
   }
