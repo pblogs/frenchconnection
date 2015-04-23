@@ -3,6 +3,17 @@ class DynamicFormsController < ApplicationController
   def new
   end
 
+  def show
+    @dynamic_form = DynamicForm.find params[:id]
+    #@dynamic_form = DynamicForm.last
+
+    respond_to do |format|
+      format.html
+      #format.json { render json: {title: @dynamic_form.title} }
+      format.json { render json: {title: @dynamic_form.title, rows: @dynamic_form.rows}  }
+    end
+  end
+
   def create
     Rails.logger.debug  "rows: #{params[:rows]}"
     Rails.logger.debug  "form_title: #{params[:rows][:form_title]}"
