@@ -7,21 +7,12 @@ gem 'rails'
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
 gem 'rails_12factor', group: :production
 gem 'ng-rails-csrf'
-
-
 gem 'pg'
-gem 'newrelic_rpm'
-#gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
-gem 'ransack', github: 'activerecord-hackery/ransack'
-gem 'iconv'
-gem 'pdfkit'
 gem 'symbolize'
 gem 'sidekiq'
 gem 'lightbox2-rails'
 gem 'pundit'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
-
-
 
 gem 'activeadmin', github: 'activeadmin'
 
@@ -35,12 +26,8 @@ gem 'grape-entity'
 gem 'grape-swagger'
 gem 'grape-rails-cache'
 
-gem 'annotate'
-gem 'wkhtmltopdf-binary'
 
 gem 'devise'
-gem 'carrierwave'
-gem 'mini_magick'
 
 gem 'axlsx', '~> 2.0.1'
 gem 'alphabetical_paginate'
@@ -89,7 +76,6 @@ end
 
 gem 'fabrication'
 gem 'faker'
-gem 'fog'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -100,6 +86,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'annotate'
   gem 'ruby_gntp'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'better_errors'
@@ -123,9 +110,17 @@ group :development, :production do
 end
 
 group :production do
+  gem 'carrierwave'
+  gem 'mini_magick'
+  gem 'wkhtmltopdf-binary'
+  gem 'fog'
   gem 'exception_notification'
   gem 'roo' # Used for the Excel import
   gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
+  gem 'newrelic_rpm'
+  gem 'ransack', github: 'activerecord-hackery/ransack'
+  gem 'iconv'
+  gem 'pdfkit'
 end
 
 gem 'rest-client'
