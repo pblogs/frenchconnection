@@ -48,11 +48,10 @@ var InputWithLabel = React.createClass({
   },
   render: function() {
     return (
-      <label htmlFor={this.props.title}>
-        <input name={this.props.title} type="text"
-          placeholder={this.props.placeholder}
-          onChange={this.handleChange} />
-      </label>
+      <div htmlClass="field">
+        <label htmlFor={this.props.title}> {this.props.title} </label>
+        <input id={this.props.title} type="text" onChange={this.handleChange} />
+      </div>
     );
   }
 });
@@ -85,7 +84,6 @@ var DynamicForm = React.createClass({
     return (
       <div>
         <h2> {this.state.title} </h2>
-        console.log("rwos is : ", this.state.data.rows);
         { Object.keys(this.state.rows).map(function (key, i) {
           if (key === 'form_title') { return; }
           console.log("key: ", key);
@@ -93,8 +91,7 @@ var DynamicForm = React.createClass({
           var row = this.state.rows[key];
           console.log("row: ", row);
           return (
-            <InputWithLabel title="navn på felt" autocomplete_from={row.title}
-              placeholder={row.title}/>
+            <InputWithLabel title={row.title} autocomplete_from={row.title} />
             );
             }, this)}
         <SubmitButton text="Lagre" state={this.state}
