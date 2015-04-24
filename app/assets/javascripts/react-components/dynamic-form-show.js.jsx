@@ -15,8 +15,8 @@ var SubmitButton = React.createClass({
 
     console.group("Submit");
     console.log("Values: ", values);
+    console.log("dynamic_form_id: ", this.props.dynamic_form_id);
     console.groupEnd();
-    /**
     $.ajax({
       url: this.props.url,
       type: 'POST',
@@ -24,8 +24,8 @@ var SubmitButton = React.createClass({
       contentType: "application/json",
       processData: false,
       data: JSON.stringify({
-        rows: this.props.state.rows,
-        form_title: this.props.state.form_title
+        values: values,
+        dynamic_form_id: this.props.dynamic_form_id
       }),
       statusCode: {
         200: function (response) {
@@ -35,7 +35,6 @@ var SubmitButton = React.createClass({
         }
       }
     });
-    **/
   },
   render: function() {
     return (
@@ -72,7 +71,6 @@ var DynamicForm = React.createClass({
     var rows = {};
     rows[0] = { autocomplete_from: 'from initial state',
                 populate_at: 'from intial state', title: 'from initial state' };
-    var data = {};
     return {rows};
   },
   componentDidMount: function() {
@@ -82,6 +80,7 @@ var DynamicForm = React.createClass({
       success: function(data) {
         this.setState({rows: data.rows});
         this.setState({title: data.title});
+        this.setState({dynamic_form_id: data.id});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -99,8 +98,9 @@ var DynamicForm = React.createClass({
             <InputWithLabel key={row.title} title={row.title} autocomplete_from={row.title} />
           );
         }, this)}
-        <SubmitButton text="Lagre" state={this.state}
-                      url="http://localhost:4000/dynamic_forms"/>
+        <SubmitButton text="Lagre"
+          url="http://localhost:4000/submissions"
+          dynamic_form_id={this.state.dynamic_form_id}/>
       </form>
     );
   }
@@ -108,8 +108,7 @@ var DynamicForm = React.createClass({
 
 var mountpoint = document.getElementById('dynamic-form-show');
 if ( mountpoint ) {
-  var id = $('#dynamic-form-id').text();
-  $.trim(id);
+  var id = $.trim( $('#dynamic-form-id').text() );
   var url = "http://localhost:4000/dynamic_forms/"+id+".json";
   React.render(<DynamicForm url={url}/>, mountpoint);
 }
