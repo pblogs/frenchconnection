@@ -1,7 +1,11 @@
 Orwapp::Application.routes.draw do
 
-  resources :dynamic_forms
   ActiveAdmin.routes(self)
+  resources :submissions
+  resources :dynamic_forms do
+    get :submissions
+  end
+
 
   namespace :inventories do
     post :search
