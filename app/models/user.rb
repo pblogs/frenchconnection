@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :skills
   has_many :monthly_reports
   has_many :dynamic_forms
+  has_many :submissions
 
   validates :first_name, presence: true
   validates :last_name,  presence: true
