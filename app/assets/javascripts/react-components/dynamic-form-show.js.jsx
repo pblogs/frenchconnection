@@ -3,10 +3,20 @@ $( document ).ready(function() {
 
 var SubmitButton = React.createClass({
   displayName: "SubmitButton",
+  fetch_values: function() {
+    var map = {};
+    $(".active-input").each(function() {
+        map[$(this).attr("id")] = $(this).val();
+    });
+    return map;
+  },
   submit: function(e) {
+    var values = this.fetch_values();
+
     console.group("Submit");
-    console.log("State: ", this.props.state);
+    console.log("Values: ", values);
     console.groupEnd();
+    /**
     $.ajax({
       url: this.props.url,
       type: 'POST',
@@ -25,6 +35,7 @@ var SubmitButton = React.createClass({
         }
       }
     });
+    **/
   },
   render: function() {
     return (
@@ -50,7 +61,7 @@ var InputWithLabel = React.createClass({
     return (
       <div htmlClass="field">
         <label htmlFor={this.props.title}> {this.props.title} </label>
-        <input id={this.props.title} type="text" onChange={this.handleChange} />
+        <input className="active-input" id={this.props.title} type="text" onChange={this.handleChange} />
       </div>
     );
   }
@@ -71,32 +82,26 @@ var DynamicForm = React.createClass({
       success: function(data) {
         this.setState({rows: data.rows});
         this.setState({title: data.title});
-        console.log("State set with data from ajax: ", this.state);
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-    console.log("State set to afer ajax: ", this.state);
   },
   render: function() {
-    console.log("State read within render(): ", this.state);
     return (
-      <div>
+      <form>
         <h2> {this.state.title} </h2>
         { Object.keys(this.state.rows).map(function (key, i) {
           if (key === 'form_title') { return; }
-          console.log("key: ", key);
-          console.log("i: ", i);
           var row = this.state.rows[key];
-          console.log("row: ", row);
           return (
-            <InputWithLabel title={row.title} autocomplete_from={row.title} />
-            );
-            }, this)}
+            <InputWithLabel key={row.title} title={row.title} autocomplete_from={row.title} />
+          );
+        }, this)}
         <SubmitButton text="Lagre" state={this.state}
                       url="http://localhost:4000/dynamic_forms"/>
-      </div>
+      </form>
     );
   }
 });
