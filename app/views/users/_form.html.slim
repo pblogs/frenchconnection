@@ -34,7 +34,8 @@
     = f.label :skill_ids, t('task.skills')
     = collection_check_boxes(:user, :skill_ids,
       Skill.all, :id, :title) do |c|
-      = c.label { c.check_box + c.text }
+      .checkbox
+        = c.label { c.check_box + c.text }
 
   .field
     = label_tag 'Sertifikater'
@@ -46,7 +47,7 @@
   .field
     = f.label :roles, 'Roller'
     - for role in User::ROLES
-      = label_tag "user_roles_#{role}"
+      .checkbox
         = check_box_tag "user[roles][#{role}]", role,
           @user.roles.include?(role), {:name => "user[roles][]"}
         = I18n.t("roles.#{role}")

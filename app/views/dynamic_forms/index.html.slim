@@ -1,0 +1,27 @@
+h1 Dine skjema
+
+table
+  thead
+    tr
+      th Navn
+      th
+      th
+      th
+
+  tbody
+    - @dynamic_forms.each do |dynamic_form|
+      tr
+        td = dynamic_form.title
+        td
+          = link_to 'vis skjema', dynamic_form
+          - if dynamic_form.submissions.present?
+            = ', '
+            = link_to 'vis innsendt data',
+              dynamic_form_submissions_path(dynamic_form)
+        td = link_to t('edit'), edit_dynamic_form_path(dynamic_form)
+        td = link_to t('destroy'), dynamic_form,
+               data: {:confirm => 'Sikker?'}, :method => :delete
+
+br
+
+= link_to 'Lag et nytt skjema', new_dynamic_form_path, class: 'btn btn-primary'
