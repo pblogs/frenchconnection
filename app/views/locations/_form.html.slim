@@ -10,16 +10,22 @@
   .field
     = f.label :name
     = f.text_field :name
+
   .field
     = f.label :certificates
-    = collection_check_boxes(:location, :certificate_ids, 
-      Certificate.all, :id, :title)  do |c| 
-      = c.label { c.check_box + c.text }
+    = collection_check_boxes(:location, :certificate_ids,
+      Certificate.all, :id, :title)  do |c|
+      .checkbox
+        = c.label { c.check_box + c.text }
+
   .field
-    = f.label :indoor do
-      = f.check_box :indoor
-      = t('indoor')
-    = f.label :outdoor do
-      = f.check_box :outdoor
-      = t('outdoor')
+      .checkbox
+        label
+          = f.check_box :indoor
+          = t('indoor')
+      .checkbox
+        label
+          = f.check_box :outdoor
+          = t('outdoor')
+
   .actions = f.submit t('save')

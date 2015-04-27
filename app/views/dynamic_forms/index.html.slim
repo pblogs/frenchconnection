@@ -20,8 +20,8 @@ table
               dynamic_form_submissions_path(dynamic_form)
         td = link_to t('edit'), edit_dynamic_form_path(dynamic_form)
         td = link_to t('destroy'), dynamic_form,
-               data: {:confirm => 'Are you sure?'}, :method => :delete
+               data: {:confirm => 'Sikker?'}, :method => :delete
 
 br
 
-= link_to 'New Dynamic form', new_dynamic_form_path, class: 'btn btn-primary'
+= link_to 'Lag et nytt skjema', new_dynamic_form_path, class: 'btn btn-primary'

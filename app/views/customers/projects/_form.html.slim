@@ -1,7 +1,7 @@
 == form_for [@customer, @project], :html => { :multipart => true }  do |f|
   - if @project.errors.any?
     #error_explanation
-      h2 
+      h2
         = "#{@project.errors.count} feil"
         =   " hindret prosjektet fra å bli lagret "
       ul
@@ -9,14 +9,14 @@
           li = message
 
   .field.right
-    label 
+    label
       = check_box_tag :starred, @is_favorite ? 1 : 0, @is_favorite
       | Merk som favoritt
 
   .field
     = f.label :department, 'Avdeling'
-    = select_tag "project[department_id]", 
-      options_from_collection_for_select(@departments, "id", 
+    = select_tag "project[department_id]",
+      options_from_collection_for_select(@departments, "id",
         "title", (@project.department_id || @current_user.department.id))
 
 
@@ -24,15 +24,15 @@
   .field
     = f.label :project_number
     = f.text_field :project_number
-  
+
   .field
     = f.label :name
     = f.text_field :name
-  
+
   .field
     = f.label :description
     = f.text_area :description, rows: 5
-  
+
   .field
     = f.label :customer_reference
     = f.text_field :customer_reference
@@ -59,13 +59,14 @@
 
   .field
     h3 = I18n.t('notifications')
-    label
-      = f.check_box :sms_employee_if_hours_not_registered
-      = 'Send SMS til ansatt som ikke har ført timer kl 17 samme dag'
-      br
-    label
-      = f.check_box :sms_employee_when_new_task_created
-      = 'Send SMS til ansatt når han får tildelt ny oppgave'
+    .checkbox
+      label
+        = f.check_box :sms_employee_if_hours_not_registered
+        = 'Send SMS til ansatt som ikke har ført timer kl 17 samme dag'
+    .checkbox
+      label
+        = f.check_box :sms_employee_when_new_task_created
+        = 'Send SMS til ansatt når han får tildelt ny oppgave'
 
 
   br
@@ -80,9 +81,10 @@
   hr
 
   .field.single-task
-    label for='project_single_task'
-      = f.check_box :single_task
-      = t('.single_task')
+    .checkbox
+      label for='project_single_task'
+        = f.check_box :single_task
+        = t('.single_task')
 
   hr
 
