@@ -29,6 +29,8 @@ html
 
         = render '/layouts/top_nav'
         section
+          - if content_for?(:breadcrumb)
+            .breadcrumb = yield(:breadcrumb)
           p#notice = notice
           p#alert  = alert
           = yield
@@ -39,7 +41,6 @@ html
           br
           br
       #uservoice-trigger.btn.pull-right(data-uv-trigger) Send oss en melding
-
     = render '/layouts/footer'
 
 - unless Rails.env.test? || Rails.env.development?
