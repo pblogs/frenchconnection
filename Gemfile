@@ -15,6 +15,8 @@ gem 'pundit'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
 gem 'activeadmin', github: 'activeadmin'
+gem 'browserify-rails'
+
 
 gem 'tinymce-rails', '4.1.6'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
