@@ -9,7 +9,7 @@ var form_fields = {
     'project_address',
     'worker_names',
     'project_name',
-    'user_name',
+    'user_name'
   ]
 };
 
@@ -19,11 +19,11 @@ var actions = Reflux.createActions( [
   'updatePopulateAt',
   'newField',
   'updateTitle',
-  'updateFormTitle',
+  'updateFormTitle'
 ]);
 
 var rows = {};
-rows['form_title']  = '';
+rows.form_title = '';
 rows[0] = { autocomplete_from: 'customer_name', populate_at: 'web_start',
   title: 'field 1' };
 rows[1] = { autocomplete_from: 'project_name',  populate_at: 'web_end',
@@ -33,8 +33,8 @@ var store = Reflux.createStore({
   listenables: [actions],
 
   onUpdateFormTitle: function(form_title){
-    console.log('update', form_title)
-    rows['form_title'] = form_title;
+    console.log('update', form_title);
+    rows.form_title = form_title;
     this.trigger(rows);
   },
   onUpdatePopulateAt: function(checked, id){
@@ -52,7 +52,7 @@ var store = Reflux.createStore({
   },
   onNewField: function(){
     var id = '';
-    Object.keys(rows).map(function (key,i) { id = parseInt(i) } );
+    Object.keys(rows).map(function (key, i) { id = parseInt(i); } );
     id++;
     rows[id] = { autocomplete_from: 'customer_name',
                  populate_at: 'web_start',
@@ -62,8 +62,8 @@ var store = Reflux.createStore({
   },
 
   getInitialState: function() {
-    return { rows:rows };
-  },
+    return { rows: rows };
+  }
 });
 
 
@@ -79,7 +79,7 @@ var PopulateAt = React.createClass({
         <label key={value} htmlFor={value}>
           <input type="radio" name={this.props.id}
             value={value} row={this.props.id}
-            onChange={this.handleChange} checked={this.props.checked == value}
+            onChange={this.handleChange} checked={this.props.checked === value}
           />
           {value}
         </label>
@@ -106,7 +106,7 @@ var AutoCompleteFrom = React.createClass({
         <label key={value} htmlFor={value}>
           <input type="radio" name={this.props.id}
             value={value} row={this.props.id}
-            onChange={this.handleChange} checked={this.props.checked == value}
+            onChange={this.handleChange} checked={this.props.checked === value}
           />
           {value}
         </label>
@@ -124,7 +124,7 @@ var FormTitle = React.createClass({
   // Could be rewritten with different onChange handlers, for now it only works
   // with title.
   displayName: "FormTitle",
-  handleChange : function (e) {
+  handleChange: function (e) {
     actions.updateFormTitle(e.target.value);
   },
   render: function() {
@@ -133,24 +133,22 @@ var FormTitle = React.createClass({
         <input name={this.props.value} type={this.props.type}
           onChange={this.handleChange} defaultValue={this.props.value}/>
       </label>
-    )
+    );
   }
 });
 
 var InputWithLabel = React.createClass({
-  // Could be rewritten with different onChange handlers, for now it only works
-  // with title.
   displayName: "inputWithLabel",
-  handleChange : function (e) {
+  handleChange: function (e) {
     actions.updateTitle(e.target.value, this.props.name);
   },
   render: function() {
     return (
       <label htmlFor={this.props.value}>
         <input name={this.props.value} type={this.props.type}
-          onChange={this.handleChange} defaultValue={this.props.value}/>
+          onChange={this.handleChange} placeholder="Gi feltet et navn"/>
       </label>
-    )
+    );
   }
 });
 
@@ -162,8 +160,8 @@ var NewItemButton = React.createClass({
   },
   render: function() {
     return (
-      <button type="button" onClick={this.submit}> {this.props.text} </button>
-    )
+      <button type="button" className="btn btn-default" onClick={this.submit}> {this.props.text} </button>
+    );
   }
 });
 
@@ -180,8 +178,8 @@ var SubmitButton = React.createClass({
       contentType: "application/json",
       processData: false,
       data: JSON.stringify({
-        rows:  this.props.state.rows,
-        form_title:  this.props.state.form_title,
+        rows: this.props.state.rows,
+        form_title: this.props.state.form_title
       }),
       statusCode: {
         200: function (response) {
@@ -194,8 +192,8 @@ var SubmitButton = React.createClass({
   },
   render: function() {
     return (
-      <button type="button" onClick={this.submit}> {this.props.text} </button>
-    )
+      <button type="button" className="btn btn-primary" onClick={this.submit}> {this.props.text} </button>
+    );
   }
 });
 
@@ -210,45 +208,45 @@ var DynamicForm = React.createClass({
       <div className="outer-container">
         <div className="container">
 
-          <strong> Navnet på skjemaet </strong>
+          <h4> Navnet på skjemaet </h4>
           <FormTitle type="text" value={this.state.form_title}/>
-
           <hr/>
-          <br/>
-          <br/>
-
-          { Object.keys(this.state.rows).map(function (key,i) {
-            if (key === 'form_title') { return; }
-            var row = this.state.rows[key];
-            return (
-              <div key={key} >
-
-                <hr/>
-                <strong> Field name </strong>
-                <InputWithLabel type="text" value={row.title} name={i}/>
-                <hr/>
-
-                <strong> AutoCompleteFrom </strong>
-                <AutoCompleteFrom checked={row.autocomplete_from}
-                  id={i} rows={this.state.rows}
-                  autocomplete_from={form_fields.autocomplete_from} />
-
-                <strong> PopulateAt</strong>
-                <PopulateAt checked={row.populate_at}
-                  id={i} rows={this.state.rows}
-                  populate_at={form_fields.populate_at} />
 
 
-                <br/>
-                <br/>
-                <hr/>
-              </div>
-              );
-          }, this)}
+          <h4> Felt </h4>
+          <div className="input-group input-group-lg">
+            { Object.keys(this.state.rows).map(function (key, i) {
+              if (key === 'form_title') { return; }
+              var row = this.state.rows[key];
+              return (
+                <div key={key} >
+
+                  { /** <strong> Navn på felt </strong> **/ }
+                  <InputWithLabel type="text" placeholder={row.title} name={i}/>
+
+                  { /****
+                  <strong> AutoCompleteFrom </strong>
+                  <AutoCompleteFrom checked={row.autocomplete_from}
+                    id={i} rows={this.state.rows}
+                    autocomplete_from={form_fields.autocomplete_from} />
+
+                  <strong> PopulateAt</strong>
+                  <PopulateAt checked={row.populate_at}
+                    id={i} rows={this.state.rows}
+                    populate_at={form_fields.populate_at} />
+                  **/}
+
+
+                </div>
+                );
+            }, this)}
+          </div>
         </div>
-        <NewItemButton text="Legg til nytt felt"/>
-        <SubmitButton text="Lagre" state={this.state}
-                      url="http://localhost:4000/dynamic_forms"/>
+        <div className="btn-group">
+            <NewItemButton text="Legg til nytt felt"/>
+            <SubmitButton text="Lagre" state={this.state}
+                      url="/dynamic_forms"/>
+        </div>
       </div>
     );
   this}
