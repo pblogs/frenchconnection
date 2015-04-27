@@ -13,10 +13,6 @@ var SubmitButton = React.createClass({
   submit: function(e) {
     var values = this.fetch_values();
 
-    console.group("Submit");
-    console.log("Values: ", values);
-    console.log("dynamic_form_id: ", this.props.dynamic_form_id);
-    console.groupEnd();
     $.ajax({
       url: this.props.url,
       type: 'POST',
@@ -53,15 +49,12 @@ var FormTitle = React.createClass({
 
 var InputWithLabel = React.createClass({
   displayName: "inputWithLabel",
-  handleChange: function (e) {
-    // actions.updateTitle(e.target.value, this.props.name);
-  },
   render: function() {
     return (
       <div htmlClass="field">
         <label htmlFor={this.props.title}> {this.props.title} </label>
         <input disabled={this.props.disabled} className="active-input"
-          id={this.props.title} type="text" onChange={this.handleChange} />
+          id={this.props.title} value={this.props.value} type="text"/>
       </div>
     );
   }
@@ -71,32 +64,29 @@ var Submission = React.createClass({
   getInitialState: function() {
     var values = {};
     values.getInitialState = 1;
-    values.title = 'title';
-    return {title: 'title', values};
+    return { title: 'title from initial state', values };
   },
   componentDidMount: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       success: function(data) {
-        console.log("Saving to state: ", data);
-        this.setState({data});
+        this.setState( { values: data.values, title: data.title });
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
+        console.log("Error fetching state", err);
+      }
     });
   },
   render: function() {
     return (
       <div>
-        <h2> Form title: {this.state.title} </h2>
-        { Object.keys(this.state.values).map(function (key, i) {
+        <h2> {this.state.title} </h2>
+        { Object.keys(this.state.values).map(function (key, i, v) {
           return (
             <div>
-              <strong> {key} </strong>
               <InputWithLabel disabled={true} key={key}
-                title={key} />
+                title={key} value={this.state.values[key]} />
             </div>
           );
         }, this)}
@@ -108,7 +98,7 @@ var Submission = React.createClass({
 var mountpoint = document.getElementById('submission-show');
 if ( mountpoint ) {
   var id = $.trim( $('#submission-id').text() );
-  var url = "http://localhost:4000/submissions/"+id+".json";
+var url = "/submissions/"+id+".json";
   React.render(<Submission url={url}/>, mountpoint);
 }
 
