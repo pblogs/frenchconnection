@@ -107,19 +107,17 @@ AllieroForms::Application.routes.draw do
   end
 
 
-  # The priority is based upon order of
-  # creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-  get '/blog'  => 'blog#index',  as: :blog
-  get '/hms'   => 'blog#hms',   as: :hms
-  get '/instructions'   => 'blog#instructions',   as: :instructions
-  get '/video' => 'blog#video', as: :video
-  get '/video/:id' => 'blog#video', as: :current_video
-  get '/administration' => 'blog#administration', as: :administration
+  get '/blog'             => 'blog#index',            as: :blog
+  get '/news_archive'     => 'blog#news_archive',     as: :news_archive
+  get '/projects_archive' => 'blog#projects_archive', as: :projects_archive
+  get '/hms'              => 'blog#hms',              as: :hms
+  get '/instructions'     => 'blog#instructions',     as: :instructions
+  get '/video'            => 'blog#video',            as: :video
+  get '/video/:id'        => 'blog#video',            as: :current_video
+  get '/administration'   => 'blog#administration',   as: :administration
+  get '/hr'               => 'blog#hr',               as: :hr
 
 
-  # You can have the root of your site routed with "root"
-  root 'blog#index'
   get '/manager' => 'blog#frontpage_manager', as: :frontpage_manager
   get '/worker'  => 'blog#frontpage_user', as: :frontpage_user
   get '/new_assignment' => 'blog#new_assignment', as: :new_assignment
@@ -135,5 +133,7 @@ AllieroForms::Application.routes.draw do
   get '/hse' => 'hse#redirect', as: 'hse'
 
   post '/blog_images' => 'blog_images#create', as: :blog_images
+
+  root 'blog#index'
 
 end
