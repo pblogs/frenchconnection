@@ -55,7 +55,8 @@ describe UsersController, :type => :controller do
 
       it "redirects to the created user" do
         post :create, {:user => valid_attributes}, valid_session
-        response.should redirect_to(users_path)
+        lastname_letter = User.last.last_name[0]
+        response.should redirect_to(users_path(letter: lastname_letter))
       end
     end
 
@@ -98,7 +99,8 @@ describe UsersController, :type => :controller do
       it "redirects to the users list" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        response.should redirect_to(users_path)
+        lastname_letter = user.last_name[0]
+        response.should redirect_to(users_path(letter: lastname_letter))
       end
     end
   end
