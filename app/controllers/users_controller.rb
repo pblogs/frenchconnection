@@ -83,7 +83,8 @@ class UsersController < ApplicationController
     @user.password = @user.password_confirmation = srand.to_s[0..10]
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_path,
+        lastname_letter = @user.last_name[0]
+        format.html { redirect_to users_path(letter: lastname_letter),
                       notice: I18n.t('saved') }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -99,7 +100,8 @@ class UsersController < ApplicationController
     authorize @user
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to users_url,
+        lastname_letter = @user.last_name[0]
+        format.html { redirect_to users_path(letter: lastname_letter),
                       notice: I18n.t('updated') }
         format.json { head :no_content }
       else
