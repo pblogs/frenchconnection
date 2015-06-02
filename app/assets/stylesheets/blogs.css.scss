@@ -5,7 +5,11 @@
       height: auto;
   }
   .content {
-    margin-top: 1em
+    margin-top: 1em;
+    li {
+      list-style-type: initial;
+      margin-left: 18px;
+    }
 }
 
 .blog_article_content {
@@ -14,11 +18,11 @@
 
 
 
-#blog ul,ol {
+#blog .content ul,ol {
   list-style-type: initial;
 }
 
-#blog li {
+#blog .content  li {
   list-style-type: initial;
 }
 
