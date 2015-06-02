@@ -23,8 +23,7 @@ section.task
       edit_project_task_path(@task.project, @task)
   p.where
     strong = @task.location.try(:name)
-    span
-      = @task.project.address.present? ? @task.project.address : t('.address_missing')
+    span   = @task.address.present? ? @task.address : t('.address_missing')
 
 - if @task.inventories.present?
   section.task
