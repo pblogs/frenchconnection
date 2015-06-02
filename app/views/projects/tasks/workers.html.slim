@@ -5,11 +5,16 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
     p
       = t('.people_with_required_skills')
 
+  label Søk:
+  input(ng-model="searchText")
+  br
+
+
   table(ng-show="workers.length > 0" id="workers")
     tr
       th = t('who')
       th = t('options')
-    tr ng-repeat=("worker in workers | orderBy:'last_name' track by $index")
+    tr ng-repeat=("worker in workers| filter:searchText | orderBy:'last_name' track by $index ")
       td
         | {{worker.first_name}} {{worker.last_name}}
       td
