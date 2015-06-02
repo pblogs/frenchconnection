@@ -10,13 +10,13 @@
 
 
   h5 = t('task.what')
-  .check_boxes 
-    = collection_check_boxes(:task, :skill_ids, 
-      Skill.all, :id, :title)  do |c| 
+  .check_boxes
+    = collection_check_boxes(:task, :skill_ids,
+      Skill.all, :id, :title)  do |c|
       = c.label { c.check_box + c.text }
 
   h5 = t('task.where')
-  .check_boxes 
+  .check_boxes
     = f.collection_radio_buttons(:location_id, Location.all,
       :id, :name, { checked: @task.location.try(:id) } ) do |r|
       = r.label { r.radio_button + r.text }
@@ -40,10 +40,10 @@
 
   .field
     = f.label :due_date
-    = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato', 
+    = f.text_field :due_date, class: :datepicker, placeholder: 'Velg dato',
       data: { datepicker: { minDate: l(@project.start_date), maxDate: l(@maxdate) } }
 
   br
   br
-  .actions 
+  .actions
     = f.submit t('save_and_continue'), class: 'pull-right'

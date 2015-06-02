@@ -1,10 +1,3 @@
-/- content_for :breadcrumb do
-  = link_to 'Mine prosjekter', projects_path
-  = fa_icon 'chevron-right'
-  = link_to @project.name, customer_project_path(@project.customer, @project)
-  = fa_icon 'chevron-right'
-  strong= 'Lag ny oppgave'
-
 = render 'new_task_breadcrumb_not_clickable'
 
 h1= "Ny oppgave for #{@project.customer.name}"
