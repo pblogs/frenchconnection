@@ -4,13 +4,12 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
   - if @task.inventories.present?
     p
       = t('.people_with_required_skills')
-      /strong=  ":  #{@task.inventories.pluck(:name).uniq.join(', ')}"
 
   table(ng-show="workers.length > 0" id="workers")
     tr
       th = t('who')
       th = t('options')
-    tr ng-repeat=("worker in workers track by $index")
+    tr ng-repeat=("worker in workers | orderBy:'last_name' track by $index")
       td
         | {{worker.first_name}} {{worker.last_name}}
       td
