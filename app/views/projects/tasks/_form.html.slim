@@ -23,7 +23,7 @@
 
   .field
     = f.label :address
-    = f.text_area :address
+    = f.text_area :address, value: @task.address || @project.address
 
   br
   br
