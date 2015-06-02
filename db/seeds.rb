@@ -6,7 +6,7 @@ Profession.destroy_all
 
 # Customers
 sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
-ostbanehallen = Fabricate(:customer, name: 'Østbanehallen')
+Fabricate(:customer, name: 'Østbanehallen')
 slottet       = Fabricate(:customer, name: 'Det kongelige slott')
 
 
@@ -25,7 +25,7 @@ service_avdeling = Department.create(title: '69850')
 
 
 # Professions
-murer      = Profession.create(title: 'bricklayer')
+             Profession.create(title: 'bricklayer')
 maler      = Profession.create(title: 'painter')
 @snekker   = Profession.create(title: 'carpenter')
 elektriker = Profession.create(title: 'electrician')
@@ -75,7 +75,7 @@ Fabricate(:user, roles: [:worker], department: service_avdeling,
 danni = Fabricate(:user, roles: [:worker],
                   department: service_avdeling, first_name: "Danni",
                   last_name: "Runge", mobile: 91135576, profession: @snekker)
-snekker2 = Fabricate(:user, roles: [:worker],
+Fabricate(:user, roles: [:worker],
                   department: service_avdeling, first_name: "Snekker",
                   last_name: "Olsen", profession: @snekker)
 
@@ -179,9 +179,9 @@ Fabricate(:hours_spent, date: '14.01.2014', overtime_100: 23,
 
 # Certificates
 Certificate.destroy_all
-truck_cert     = Fabricate(:certificate, title: 'Truck driver')
+#truck_cert     = Fabricate(:certificate, title: 'Truck driver')
 lift_cert      = Fabricate(:certificate, title: 'Small lift')
-climber_cert   = Fabricate(:certificate, title: 'Climber')
+Fabricate(:certificate, title: 'Climber')
 bulldozer_cert = Fabricate(:certificate, title: 'Bulldozer cert')
 
 
@@ -193,16 +193,21 @@ Fabricate(:location, name: 'Traffic')
 
 # Inventories
 Inventory.destroy_all
-cat_bulldozer = Fabricate(:inventory, name: 'Cat bulldozer', certificates: [bulldozer_cert])
-small_lift    = Fabricate(:inventory, name: 'Small lift', certificates: [lift_cert])
-big_lift      = Fabricate(:inventory, name: 'Big lift', certificates: [lift_cert])
-truck         = Fabricate(:inventory, name: 'Truck', certificates: [truck_cert])
+Fabricate(:inventory, name: 'Cat bulldozer', certificates: [bulldozer_cert])
+Fabricate(:inventory, name: 'Small lift', certificates: [lift_cert])
+Fabricate(:inventory, name: 'Big lift', certificates: [lift_cert])
+#Fabricate(:inventory, name: 'Truck', certificates: [truck_cert])
 Fabricate(:inventory, name: 'Concrete blender')
 
 # Workers that can operate these machines
-Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer', certificates: [bulldozer_cert])
-Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk',     certificates: [truck_cert])
-Fabricate(:user, first_name: 'Lise', last_name: 'Lift',      certificates: [lift_cert])
+Fabricate(:user, first_name: 'Bobb', last_name: 'Bulldozer')
+Fabricate(:user, first_name: 'Tore', last_name: 'Trøkk')
+Fabricate(:user, first_name: 'Lise', last_name: 'Lift')
+
+#@user_certificate = UserCertificate.create(image: params[:user][:image],
+#                     certificate_id: params[:user][:certificate_ids],
+#                     expiry_date: params[:user][:expiry_date],
+#                     user_id: params[:user_id])
 
 # Skills
 Skill.destroy_all
