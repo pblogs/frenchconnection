@@ -1,7 +1,7 @@
 == form_for [@customer, @project], :html => { :multipart => true }  do |f|
   - if @project.errors.any?
     #error_explanation
-      h2 
+      h2
         = "#{@project.errors.count} feil"
         =   " hindret prosjektet fra å bli lagret "
       ul
@@ -9,14 +9,14 @@
           li = message
 
   .field.right
-    label 
+    label
       = check_box_tag :starred, @is_favorite ? 1 : 0, @is_favorite
       | Merk som favoritt
 
   .field
     = f.label :department, 'Avdeling'
-    = select_tag "project[department_id]", 
-      options_from_collection_for_select(@departments, "id", 
+    = select_tag "project[department_id]",
+      options_from_collection_for_select(@departments, "id",
         "title", (@project.department_id || @current_user.department.id))
 
 
@@ -24,22 +24,22 @@
   .field
     = f.label :project_number
     = f.text_field :project_number
-  
+
   .field
     = f.label :name
     = f.text_field :name
-  
+
   .field
     = f.label :description
     = f.text_area :description, rows: 5
-  
+
   .field
     = f.label :customer_reference
-    = f.text_field :customer_reference
+    = f.text_field :customer_reference, value: @project.customer_reference
 
   .field
     = f.label :comment
-    = f.text_area :comment
+    = f.text_area :comment, value: @project.comment
 
   .field
     h3 Dato
@@ -54,7 +54,7 @@
 
   .field.radio_group
     h3 = Project.human_attribute_name("execution_address")
-    = f.text_area :execution_address
+    = f.text_area :execution_address, value: @project.address
 
 
   .field
