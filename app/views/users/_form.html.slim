@@ -48,9 +48,12 @@
     = f.label :roles, 'Roller'
     - for role in User::ROLES
       .checkbox
-        = check_box_tag "user[roles][#{role}]", role,
-          @user.roles.include?(role), {:name => "user[roles][]"}
-        = I18n.t("roles.#{role}")
+        label
+          = check_box_tag "user[roles][#{role}]", role,
+            @user.roles.include?(role), {:name => "user[roles][]"}
+          = I18n.t("roles.#{role}")
+
+
   .field
     = f.label :image, 'Bilde'
     = f.file_field :image
