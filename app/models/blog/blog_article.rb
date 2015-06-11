@@ -16,8 +16,12 @@
 class BlogArticle < ActiveRecord::Base
   include Blog
 
-  validates :title, presence: true
+  validates :title,   presence: true
   validates :content, presence: true, if: -> { published }
+  validates :ingress, presence: true, if: -> { published }
+
+  validates_length_of :title,   maximum: 35
+  validates_length_of :ingress, maximum: 200, if: -> { published }
 
   has_many :blog_images, as: :owner, dependent: :destroy
 
