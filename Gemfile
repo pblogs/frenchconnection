@@ -131,6 +131,8 @@ gem 'dalli'
 gem 'memcachier'
 
 
+gem 'lodash-rails'
+gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'rack-cors',
   :require => 'rack/cors'
