@@ -7,6 +7,8 @@
         - @articles.each do |article|
           li.col-md-4
             = render 'blog_article', blog_article: article
+    - else
+      = t('blog.no_projects')
 
   - if @articles_archive.present?
     .col-md-12.text-center

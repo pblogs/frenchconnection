@@ -2,8 +2,7 @@
 # More info at https://github.com/guard/guard#readme
 
 #guard :rspec do
-#guard :rspec, cmd: 'rspec -f d --fail-fast' do
-guard :rspec, cmd: 'rspec -f d' do
+guard :rspec, cmd: 'rspec -f d --fail-fast' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/api/.+_spec\.rb$})
   watch(%r{^spec/policies/.+_spec\.rb$})
@@ -30,28 +29,24 @@ guard :rspec, cmd: 'rspec -f d' do
   # Capybara features specs
   watch(%r{^app/views/(.+)/.*\.(erb|haml|slim)$})     { |m| "spec/features/#{m[1]}_spec.rb" }
 
-  # Turnip features and steps
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
+  #notification :tmux,
+  #  display_message: true,
+  #  timeout: 5, # in seconds
+  #  default_message_format: '%s >> %s',
+  #  # the first %s will show the title, the second the message
+  #  # Alternately you can also configure *success_message_format*,
+  #  # *pending_message_format*, *failed_message_format*
+  #  line_separator: ' > ', # since we are single line we need a separator
+  #  color_location: 'status-left-bg', # to customize which tmux element will change color
 
-  notification :tmux,
-    display_message: true,
-    timeout: 5, # in seconds
-    default_message_format: '%s >> %s',
-    # the first %s will show the title, the second the message
-    # Alternately you can also configure *success_message_format*,
-    # *pending_message_format*, *failed_message_format*
-    line_separator: ' > ', # since we are single line we need a separator
-    color_location: 'status-left-bg', # to customize which tmux element will change color
+  #  # Other options:
+  #  default_message_color: 'black',
+  #  success: 'colour150',
+  #  failure: 'colour174',
+  #  pending: 'colour179',
 
-    # Other options:
-    default_message_color: 'black',
-    success: 'colour150',
-    failure: 'colour174',
-    pending: 'colour179',
-
-    # Notify on all tmux clients
-    display_on_all_clients: true
+  #  # Notify on all tmux clients
+  #  display_on_all_clients: true
 
 end
 
