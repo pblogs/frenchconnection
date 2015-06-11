@@ -135,5 +135,6 @@ AllieroForms::Application.routes.draw do
   post '/blog_images' => 'blog_images#create', as: :blog_images
 
   root 'blog#index'
+  get '*path' => redirect('/')
 
 end
