@@ -141,4 +141,5 @@ Orwapp::Application.routes.draw do
 
   post '/blog_images' => 'blog_images#create', as: :blog_images
 
+  get '*path' => redirect('/')
 end
