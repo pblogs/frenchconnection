@@ -2,7 +2,8 @@
 # More info at https://github.com/guard/guard#readme
 
 #guard :rspec do
-guard :rspec, cmd: 'rspec -f d --fail-fast' do
+#guard :rspec, cmd: 'rspec -f d --fail-fast' do
+guard :rspec, cmd: 'rspec -f d' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^spec/api/.+_spec\.rb$})
   watch(%r{^spec/policies/.+_spec\.rb$})
