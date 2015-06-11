@@ -8,6 +8,6 @@
   h5 = blog_article.title
   p
     em.date= date
-    = sanitize(blog_article.ingress, tags: %w(div p span ul li a))
+    = sanitize(blog_article.ingress, tags: %w(div p span ul li a)) rescue nil
     br
     = link_to t('read_more'), blog_content_path('blog_article', blog_article.id)
