@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: 53e85d6a2cf4f5bc083e8da7c6786b5cd69ce7a1
+  revision: 0b4b22871fd332c94daec3c5138c0cf9a5b95451
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -18,14 +18,14 @@ GIT
 
 GIT
   remote: git://github.com/activerecord-hackery/ransack.git
-  revision: 54932a4705c65057c864eea55d532556fb12ad55
+  revision: d5d1cfaacfb531afe8d58fae6e30a6bf45c86925
   specs:
-    ransack (1.6.4)
+    ransack (1.6.6)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
       i18n
-      polyamorous (~> 1.1)
+      polyamorous (~> 1.2)
 
 GIT
   remote: git://github.com/cater2me/wkhtmltopdf-heroku.git
@@ -157,10 +157,10 @@ GEM
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1)
+    coffee-script-source (1.9.1.1)
     connection_pool (2.1.3)
     dalli (2.7.4)
     database_cleaner (1.4.1)
@@ -277,8 +277,8 @@ GEM
     formatador (0.2.5)
     formtastic (3.1.3)
       actionpack (>= 3.2.13)
-    formtastic_i18n (0.2.0)
-    globalid (0.3.3)
+    formtastic_i18n (0.4.1)
+    globalid (0.3.5)
       activesupport (>= 4.1.0)
     grape-entity (0.4.5)
       activesupport
@@ -335,7 +335,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (5.0.3)
+    jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
     kaminari (0.16.3)
@@ -351,7 +351,7 @@ GEM
       rb-inotify (>= 0.9)
     lodash-rails (3.9.3)
       railties (>= 3.1)
-    loofah (2.0.1)
+    loofah (2.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
     mail (2.6.3)
@@ -362,11 +362,11 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
-    mime-types (2.4.3)
+    mime-types (2.6.1)
     mini_magick (4.2.0)
     mini_portile (0.6.2)
-    minitest (5.5.1)
-    multi_json (1.11.0)
+    minitest (5.7.0)
+    multi_json (1.11.1)
     multi_xml (0.5.5)
     neat (1.5.1)
       bourbon (>= 3.1)
@@ -389,7 +389,7 @@ GEM
       rake (>= 0.8.1)
     pdfkit (0.6.2)
     pg (0.18.1)
-    polyamorous (1.1.0)
+    polyamorous (1.2.0)
       activerecord (>= 3.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -403,7 +403,7 @@ GEM
       signature (~> 0.1.8)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.0)
+    rack (1.6.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
     rack-contrib (1.2.0)
@@ -493,10 +493,10 @@ GEM
     ruby_gntp (0.3.4)
     rubyzip (1.0.0)
     sass (3.2.19)
-    sass-rails (4.0.4)
+    sass-rails (4.0.5)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.2.2)
-      sprockets (~> 2.8, < 2.12)
+      sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
@@ -526,12 +526,12 @@ GEM
     slop (3.6.0)
     spreadsheet (1.0.3)
       ruby-ole (>= 1.0)
-    sprockets (2.11.3)
+    sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
