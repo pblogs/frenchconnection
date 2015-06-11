@@ -48,11 +48,11 @@ html
       #uservoice-trigger.btn.btn-success.pull-right(data-uv-trigger) Send oss en melding
     = render '/layouts/footer'
 
-// This is really necessary, as we need a way to pass this id to js assets,
-// and it isn't known when assets are precompiled
-javascript:
-  var pusherId = "#{pusher_id}";
-  UserVoice.push(['addTrigger', '#uservoice-trigger', {}]);
+    // This is really necessary, as we need a way to pass this id to js assets,
+    // and it isn't known when assets are precompiled
+    javascript:
+      var pusherId = "#{pusher_id}";
+      UserVoice.push(['addTrigger', '#uservoice-trigger', {}]);
 
-- unless Rails.env.test? || Rails.env.development?
-  = render '/layouts/google_analytics'
+    - unless Rails.env.test? || Rails.env.development?
+      = render '/layouts/google_analytics'
