@@ -5,25 +5,25 @@ en:
         single_task: This project has only one task
 
   generic:
-    archive: Archive 
+    archive: Archive
     customers: Customers
     confirm: Are you sure?
     departments: Departments
     favourites: Favourites
-    projects: Prosjekter 
+    projects: Prosjekter
 
   project:
     confirm_closing: End the project?
     complete_link: End the project
     closed_projects: Closed projects
-    
+
   task:
     confirm: Confirm
     confirmed: Task marked as confirmed
     new_tasks: New tasks
     my_tasks: My tasks
     completed_tasks: Completed tasks
-      
+
   sms:
     complete_project:
       We're ending the %{project_name} project today.
@@ -36,6 +36,7 @@ en:
     date: Date
     formats:
       short_month: "%^b"
+      dd_mm_yy: "%d.%m.%Y"
 
   blog:
     news: News

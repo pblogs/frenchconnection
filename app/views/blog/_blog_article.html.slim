@@ -8,4 +8,5 @@
   p
     = HTML_Truncator.truncate(sanitize(blog_article.content,
       tags: %w(div p span ul li a)), 25).html_safe
+    em.date= date
     = link_to t('read_more'), blog_content_path('blog_article', blog_article.id)
