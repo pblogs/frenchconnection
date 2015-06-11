@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323085110) do
+ActiveRecord::Schema.define(version: 20150424092113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,16 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.datetime "updated_at"
   end
 
+  create_table "dynamic_forms", force: :cascade do |t|
+    t.integer  "user_id"
+    t.json     "rows"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "title"
+  end
+
+  add_index "dynamic_forms", ["user_id"], name: "index_dynamic_forms_on_user_id", using: :btree
+
   create_table "favorites", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "favorable_id"
@@ -291,6 +301,17 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.integer "user_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.json     "values"
+    t.integer  "dynamic_form_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "submissions", ["dynamic_form_id"], name: "index_submissions_on_dynamic_form_id", using: :btree
+  add_index "submissions", ["user_id"], name: "index_submissions_on_user_id", using: :btree
+
   create_table "task_types", force: :cascade do |t|
     t.string   "title",      limit: 255
     t.datetime "created_at"
@@ -372,4 +393,7 @@ ActiveRecord::Schema.define(version: 20150323085110) do
     t.string   "report_type", limit: 255
   end
 
+  add_foreign_key "dynamic_forms", "users"
+  add_foreign_key "submissions", "dynamic_forms"
+  add_foreign_key "submissions", "users"
 end

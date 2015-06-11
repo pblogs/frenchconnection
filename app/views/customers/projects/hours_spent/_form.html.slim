@@ -1,15 +1,10 @@
 = form_for [@task, @hours_spent] do |f|
-  - if @hours_spent.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@hours_spent.errors.count, "error")} prohibited this hours_spent from being saved:"
-      ul
-        - @hours_spent.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'layouts/form_error_messages', locals: { form_object: @hours_spent }
 
   h3= @task.customer.name
   h4= "- #{@task.task_type.title}"
   br
-  
+
   .field
     = f.label :date, 'Dato'
     = f.text_field :date, value: I18n.l(Time.now, format: :datepicker),
@@ -21,6 +16,6 @@
 
   .field
     = f.label :description, 'Beskrivelse'
-    = f.text_area :description, cols: 20, rows: 4 
+    = f.text_area :description, cols: 20, rows: 4
 
   .actions = f.submit 'Lagre'

@@ -59,13 +59,14 @@
 
   .field
     h3 = I18n.t('notifications')
-    label
-      = f.check_box :sms_employee_if_hours_not_registered
-      = 'Send SMS til ansatt som ikke har ført timer kl 17 samme dag'
-      br
-    label
-      = f.check_box :sms_employee_when_new_task_created
-      = 'Send SMS til ansatt når han får tildelt ny oppgave'
+    .checkbox
+      label
+        = f.check_box :sms_employee_if_hours_not_registered
+        = 'Send SMS til ansatt som ikke har ført timer kl 17 samme dag'
+    .checkbox
+      label
+        = f.check_box :sms_employee_when_new_task_created
+        = 'Send SMS til ansatt når han får tildelt ny oppgave'
 
 
   br
@@ -80,9 +81,10 @@
   hr
 
   .field.single-task
-    label for='project_single_task'
-      = f.check_box :single_task
-      = t('.single_task')
+    .checkbox
+      label for='project_single_task'
+        = f.check_box :single_task
+        = t('.single_task')
 
   hr
 

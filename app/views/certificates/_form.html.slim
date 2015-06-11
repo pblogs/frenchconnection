@@ -1,10 +1,5 @@
 = form_for @certificate do |f|
-  - if @certificate.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@certificate.errors.count, "feil")} forhindret oss i å lagre:"
-      ul
-        - @certificate.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'layouts/form_error_messages', locals: { form_object: @certificate }
 
   .field
     = f.label :title
