@@ -6,6 +6,8 @@
       = image_tag @content.main_image.image.url rescue nil
   .content
     em.date = l @content.updated_at, format: :short_w_year
+    br
+    strong= @content.ingress.html_safe
     = @content.content.html_safe
 
   = link_to t(:back), :back

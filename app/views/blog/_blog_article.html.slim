@@ -4,7 +4,7 @@
 - date = l (blog_article.date  || blog_article.updated_at.to_date), format: :dd_mm_yy
 
 .content
-  = image_tag blog_article.main_image.image.url rescue nil
+  = image_tag(blog_article.main_image.image.url, size: '288x188') rescue nil
   h5 = blog_article.title
   p
     em.date= date

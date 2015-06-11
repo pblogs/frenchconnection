@@ -20,8 +20,8 @@ class BlogArticle < ActiveRecord::Base
   validates :content, presence: true, if: -> { published }
   validates :ingress, presence: true, if: -> { published }
 
-  validates_length_of :title,   maximum: 35
-  validates_length_of :ingress, maximum: 200, if: -> { published }
+  validates_length_of :title,   maximum: 47
+  validates_length_of :ingress, maximum: 128, if: -> { published }
 
   has_many :blog_images, as: :owner, dependent: :destroy
 

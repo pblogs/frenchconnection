@@ -3,9 +3,9 @@
 
   section.news
     - if @articles.present?
-      ul
+      ul.row
         - @articles.each do |article|
-          li
+          li.col-md-4
             = render 'blog_article', blog_article: article
 
   - if @articles_archive.present?
