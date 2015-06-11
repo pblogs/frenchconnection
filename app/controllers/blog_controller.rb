@@ -9,7 +9,7 @@ class BlogController < ApplicationController
     # Archive
     @articles_archive = BlogArticle.published
       .offset(NR_OF_ARTICLES_ON_FRONTPAGE).size >= 1
-    @projects_archive = BlogProject.published.offset(3).size
+    @projects_archive = BlogProject.published.offset(3).size >= 1
   end
 
   def news_archive
