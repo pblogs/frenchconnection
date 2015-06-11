@@ -6,6 +6,8 @@ html
       "data-turbolinks-track" => true
     meta charset="utf-8"
     meta content="width=device-width, initial-scale=1" name="viewport"
+    javascript:
+      UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/5KQZxkVpGM22WtVOhTlkqA.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
 
     - unless Rails.application.secrets.short_name == 'localhost'
       = stylesheet_link_tag "themes/#{Rails.application.secrets.short_name}", media: "all",
