@@ -7,7 +7,7 @@
   .content
     em.date = l @content.updated_at, format: :short_w_year
     br
-    strong= @content.ingress.html_safe
+    strong= @content.ingress.html_safe rescue nil
     = @content.content.html_safe
 
   = link_to t(:back), :back
