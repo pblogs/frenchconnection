@@ -9,7 +9,8 @@
             = render 'blog_article', blog_article: article
 
   - if @articles_archive.present?
-    = link_to 'Se eldre nyheter', news_archive_path
+    .col-md-4.text-center
+      = link_to 'Flere nyheter', news_archive_path, class: 'btn btn-primary'
 
 
 - if @projects.present? || @projects_archive.present?
