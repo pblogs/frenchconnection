@@ -22,8 +22,10 @@ br
   strong Legg til et nytt
   br
   br
-  = form_for @user, url: user_create_certificate_path(@user)   do |f|
-    = f.collection_radio_buttons(:certificate_ids, @certificates, :id, :title)
+  = form_for @user, url: user_create_certificate_path(@user),  html: {  id: 'certificate_list' }   do |f|
+    = f.collection_radio_buttons(:certificate_ids, @certificates, :id, :title) do |r|
+      = r.label { r.radio_button + r.text }
+      br
     .field
       = f.label :image, 'Bilde'
       = f.file_field :image

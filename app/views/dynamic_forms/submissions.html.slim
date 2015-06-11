@@ -1,0 +1,27 @@
+- content_for :breadcrumb do
+  = link_to 'Mine skjemaer', dynamic_forms_path
+  = fa_icon 'chevron-right'
+  strong = @dynamic_form.title
+
+h4 Innsente data
+
+table
+  thead
+    tr
+      th = "Sendt inn av"
+      th
+      th
+      th
+
+  tbody
+    - @submissions.each do |submission|
+      tr
+        td = submission.user.name
+        td = link_to 'vis', submission
+        /td = link_to t('edit'), edit_dynamic_form_path(dynamic_form)
+        /td = link_to t('destroy'), dynamic_form,
+        /       data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Dynamic form', new_dynamic_form_path, class: 'btn btn-primary'

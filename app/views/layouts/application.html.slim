@@ -4,6 +4,8 @@ html
     title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : '') }"
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
+    meta charset="utf-8"
+    meta content="width=device-width, initial-scale=1" name="viewport"
 
     - unless Rails.application.secrets.short_name == 'localhost'
       = stylesheet_link_tag "themes/#{Rails.application.secrets.short_name}", media: "all",
@@ -12,11 +14,16 @@ html
     - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
 
+    /! Latest compiled and minified CSS
+    link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" /
+    /! Optional theme
+    link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css" rel="stylesheet" /
+
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true", "data-turbolinks-track" => false
     = javascript_include_tag "react", "data-turbolinks-track" => false
+    script src="https://rawgit.com/spoike/refluxjs/master/dist/reflux.js"
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
-    meta content="width=device-width, initial-scale=1" name="viewport"
 
   body(id=body_id ng-app="orwapp")
     #outer-container
@@ -27,6 +34,8 @@ html
 
         = render '/layouts/top_nav'
         section
+          - if content_for?(:breadcrumb)
+            .breadcrumb = yield(:breadcrumb)
           p#notice = notice
           p#alert  = alert
           = yield
@@ -36,8 +45,7 @@ html
           br
           br
           br
-      #uservoice-trigger.btn.pull-right(data-uv-trigger) Send oss en melding
-
+      #uservoice-trigger.btn.btn-success.pull-right(data-uv-trigger) Send oss en melding
     = render '/layouts/footer'
 
 // This is really necessary, as we need a way to pass this id to js assets,
@@ -45,3 +53,6 @@ html
 javascript:
   var pusherId = "#{pusher_id}";
   UserVoice.push(['addTrigger', '#uservoice-trigger', {}]);
+
+- unless Rails.env.test? || Rails.env.development?
+  = render '/layouts/google_analytics'

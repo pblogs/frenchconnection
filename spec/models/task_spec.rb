@@ -8,7 +8,7 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  accepted         :boolean
-#  description      :string(255)
+#  description      :string
 #  finished         :boolean          default(FALSE)
 #  project_id       :integer
 #  due_date         :date
@@ -18,7 +18,7 @@
 #  profession_id    :integer
 #  skills_ids       :integer
 #  draft            :boolean          default(TRUE)
-#  address          :string(255)
+#  address          :string
 #
 
 require 'spec_helper'

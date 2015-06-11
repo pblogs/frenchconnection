@@ -1,6 +1,11 @@
-AllieroForms::Application.routes.draw do
+Orwapp::Application.routes.draw do
 
   ActiveAdmin.routes(self)
+  resources :submissions
+  resources :dynamic_forms do
+    get :submissions
+  end
+
 
   namespace :inventories do
     post :search
