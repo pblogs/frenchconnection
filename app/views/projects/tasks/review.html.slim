@@ -23,6 +23,7 @@ section.task
       edit_project_task_path(@task.project, @task)
   p.where
     strong = @task.location.try(:name)
+    br
     span   = @task.address.present? ? @task.address : t('.address_missing')
 
 - if @task.inventories.present?
@@ -61,7 +62,7 @@ section.rules
    tr
      td Varmekurs
    tr
-     td Sikkerhetsinstruks for byggeplass
+     td Sikkerhetsinnstruks for byggeplass
 
 
 br
