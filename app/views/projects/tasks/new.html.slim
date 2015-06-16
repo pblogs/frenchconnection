@@ -1,5 +1,5 @@
 = render 'new_task_breadcrumb_not_clickable'
 
-h1= "Ny oppgave for #{@project.customer.name}"
+h1= "Ny oppgave for #{link_to @project.customer.name, @project.customer}".html_safe
 hr
 == render 'form'

@@ -1,6 +1,6 @@
 class Customers::ProjectsController < ApplicationController
   before_action :set_project,  only: [:show, :edit, :update, :destroy]
-  before_action :set_customer, only: [:index, :show, :edit, :update, 
+  before_action :set_customer, only: [:index, :show, :edit, :update,
                                       :destroy, :new]
 
 
@@ -60,11 +60,11 @@ class Customers::ProjectsController < ApplicationController
                                               notice: 'Prosjektet ble lagret'
           end
         end
-        format.json { render action: 'show', status: :created, 
+        format.json { render action: 'show', status: :created,
                       location: @project }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @project.errors, 
+        format.json { render json: @project.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -82,12 +82,12 @@ class Customers::ProjectsController < ApplicationController
           end
         end
 
-        format.html { redirect_to [@project.customer, @project], 
+        format.html { redirect_to [@project.customer, @project],
                       notice: t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @project.errors, 
+        format.json { render json: @project.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -123,19 +123,19 @@ class Customers::ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(
                                     :attachments,
-                                    :billing_address, 
-                                    :customer_reference, 
+                                    :billing_address,
+                                    :customer_reference,
                                     :company_id,
-                                    :comment, 
+                                    :comment,
                                     :customer_id,
                                     :due_date,
                                     :description,
                                     :department_id,
-                                    :delivery_address, 
-                                    :execution_address, 
-                                    :name, 
-                                    :project_number, 
-                                    :sms_employee_if_hours_not_registered, 
+                                    :delivery_address,
+                                    :execution_address,
+                                    :name,
+                                    :project_number,
+                                    :sms_employee_if_hours_not_registered,
                                     :sms_employee_when_new_task_created,
                                     :start_date,
                                     :title,
