@@ -7,10 +7,12 @@
           li = message
 
   .field.right
-    label 
-      = check_box_tag :starred, @is_favorite ? 1 : 0, @is_favorite
-      | Merk som favoritt
+    .checkbox
+      label
+        = check_box_tag :starred, @is_favorite ? 1 : 0, @is_favorite
+        | Merk som favoritt
 
+  .clearfix
   .field
     = f.label :name, 'Navn'
     = f.text_field :name
