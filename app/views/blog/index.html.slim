@@ -1,20 +1,30 @@
-h3.header = t('blog.news')
-section.news
-  - if @blog_articles.present?
-    ul
-      - @blog_articles.each do |article|
-        li
-          = render 'blog_article', blog_article: article
-  - else
-    p = t('blog.no_articles')
+- if @articles.present? || @articles_archive.present?
+  h3.header = t('blog.news')
 
-section.projects
-  h3.header = t('blog.latest_projects')
-  br
-  - if @blog_projects.present?
-    ul
-      - @blog_projects.each do |project|
-        li
-          = render 'blog_project', blog_project: project
-  - else
-    p = t('blog.no_projects')
+  section.news
+    - if @articles.present?
+      ul.row
+        - @articles.each do |article|
+          li.col-md-4
+            = render 'blog_article', blog_article: article
+    - else
+      = t('blog.no_projects')
+
+  - if @articles_archive.present?
+    .col-md-12.text-center
+      = link_to 'Flere nyheter', news_archive_path, class: 'btn btn-primary'
+
+
+- if @projects.present? || @projects_archive.present?
+  section.projects
+    h3.header = t('blog.latest_projects')
+    br
+    - if @projects.present?
+      ul
+        - @projects.each do |project|
+          li
+            = render 'blog_project', blog_project: project
+
+    - if @projects_archive.present?
+      = link_to 'Se eldre prosjekter', projects_archive_path
+

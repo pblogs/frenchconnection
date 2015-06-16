@@ -17,14 +17,16 @@
 
   .field
     = f.label :certificates, t('certificates.header')
-    = collection_check_boxes(:inventory, :certificate_ids, 
-      Certificate.all, :id, :title)  do |c| 
-      = c.label { c.check_box + c.text }
+    = collection_check_boxes(:inventory, :certificate_ids,
+      Certificate.all, :id, :title)  do |c|
+      .checkbox
+        = c.label { c.check_box + c.text }
 
   .field
-    = f.label :can_be_rented_by_other_companies do
-      = f.check_box :can_be_rented_by_other_companies
-      = t('inventories.can_be_rented_by_other_companies')
+    .checkbox
+      = f.label :can_be_rented_by_other_companies do
+        = f.check_box :can_be_rented_by_other_companies
+        = t('inventories.can_be_rented_by_other_companies')
   .field
     = f.label :rental_price_pr_day
     = f.number_field :rental_price_pr_day
