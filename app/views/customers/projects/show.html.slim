@@ -5,7 +5,7 @@
   = fa_icon 'chevron-right'
   strong= @project.name
 
-.action_buttons
+#project-action-buttons.btn-group(role="group")
   = link_to t('show_hours_registered'), project_hours_path(@project),
     class: "btn btn-primary"
   = link_to t('register_new_task'), new_project_task_path(@project),
