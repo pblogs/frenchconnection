@@ -14,7 +14,8 @@
 
 .button-group.month-list
   - @months.each do |m|
-    label
-      input checked="#{@month == m}" name="button-group" type="radio" value="#{m}" /
-      span.button-group-item = t("months.nr_#{m}")
+    .radio-inline
+      label
+        input checked="#{@month == m}" name="button-group" type="radio" value="#{m}" /
+        span.button-group-item = t("months.nr_#{m}")
 br
