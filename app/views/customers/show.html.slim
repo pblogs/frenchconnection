@@ -4,23 +4,33 @@
   strong = @customer.name
 
 
-p
-  label Navn
-  = @customer.name
-p
-  label Addresse:
-  = simple_format @customer.address
+.box-shadow
+  p
+    strong Navn
+    br
+    = @customer.name
+
+  p
+    strong Addresse
+    br
+    = @customer.address
+    br
+    = @customer.area
+
+  p
+    strong Organisasjonsnummer
+    br
+    = @customer.org_number
+  p
+    strong Kontaktperson
+    br
+    = @customer.contact_person
+  p
+    strong Telefon
+    br
+    = @customer.phone
+  = link_to t('customers.edit'), edit_customer_path(@customer), class: 'pull-right'
   br
-  = @customer.area
-p
-  label Organisasjonsnummer
-  = @customer.org_number
-p
-  label Kontaktperson
-  = @customer.contact_person
-p
-  label Telefon
-  = @customer.phone
 
 
 br
@@ -41,6 +51,5 @@ p
     new_customer_project_path(@customer), class: 'red btn btn-primary'
 br
 
-= link_to t('customers.edit'), edit_customer_path(@customer)
 br
 = link_to t('back'), customers_path
