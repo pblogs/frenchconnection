@@ -18,7 +18,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
       td
         | {{worker.first_name}} {{worker.last_name}}
       td
-        button(ng-click="select(worker)") = t('select')
+        button(ng-click="select(worker)" class="btn btn-info") = t('select')
 
 
   div(ng-show="selected_workers.length > 0")
@@ -31,7 +31,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
         td
           | {{worker.first_name}} {{worker.last_name}}
         td
-          button(ng-click="remove_selected_worker(worker, $index)") = t('remove')
+          button(ng-click="remove_selected_worker(worker, $index)" class="btn btn-info") = t('remove')
 
 
 p
