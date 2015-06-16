@@ -1,29 +1,35 @@
 .box-shadow
   p
-    strong= t('project_owner') + ': '
+    strong= t('project_owner')
+    br
     = @project.user.full_name rescue '-'
   p
-    strong = t('name') + ': '
+    strong = t('name')
+    br
     = @project.name
   p
-    strong = t('project_number') + ': '
+    strong = t('project_number')
+    br
     = @project.project_number
   p
-    strong = t('address') + ': '
+    strong = t('address')
+    br
     = @project.address
   p
-    strong = t('customer') + ': '
+    strong = t('customer')
+    br
     = @project.customer.name
 
-  p
-    strong = t('description') + ': '
-    = simple_format @project.description
+  strong = t('description')
+  = simple_format @project.description
 
   p
-    strong Oppstart:
+    strong= 'Oppstart'
+    br
     = I18n.l(@project.start_date, format: :short_w_year)
   p
-    strong Ferdigstilling:
+    strong= 'Ferdigstilling'
+    br
     = I18n.l(@project.due_date, format: :short_w_year) rescue '-'
 
   strong Vedlegg
