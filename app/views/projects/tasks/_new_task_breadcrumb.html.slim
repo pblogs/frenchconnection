@@ -1,6 +1,4 @@
 - content_for :breadcrumb do
-  br
-  br
   = link_to t('projects.tasks.headers.what'),
     edit_project_task_path(@task.project, @task),
     class: "#{ body_id == 'tasks_edit' ? 'current' : nil }"
