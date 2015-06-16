@@ -1,3 +1,12 @@
+- content_for :breadcrumb do
+  = link_to t('my_projects'), projects_path
+  = fa_icon 'chevron-right'
+  = link_to @project.customer.name, customer_path(@project.customer)
+  = fa_icon 'chevron-right'
+  = link_to @project.name, @project
+  = fa_icon 'chevron-right'
+  strong Dokumentasjon
+
 strong Last ned
 ul
   li= link_to 'Vernerunde', image_path('documents/Vernerundeskjema.pdf')
