@@ -4,10 +4,10 @@
 #
 #  id          :integer          not null, primary key
 #  project_id  :integer          not null
-#  zipfile     :string(255)
+#  zipfile     :string
 #  created_at  :datetime
 #  updated_at  :datetime
-#  report_type :string(255)
+#  report_type :string
 #
 
 Fabricator(:zipped_report) do

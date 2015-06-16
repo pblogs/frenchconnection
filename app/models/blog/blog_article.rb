@@ -3,20 +3,25 @@
 # Table name: blog_articles
 #
 #  id           :integer          not null, primary key
-#  title        :string(255)
+#  title        :string
 #  content      :text
-#  locale       :string(255)
+#  locale       :string
 #  published    :boolean
 #  publish_date :date
 #  created_at   :datetime
 #  updated_at   :datetime
+#  date         :date
 #
 
 class BlogArticle < ActiveRecord::Base
   include Blog
 
-  validates :title, presence: true
+  validates :title,   presence: true
   validates :content, presence: true, if: -> { published }
+  validates :ingress, presence: true, if: -> { published }
+
+  validates_length_of :title,   maximum: 47
+  validates_length_of :ingress, maximum: 128, if: -> { published }
 
   has_many :blog_images, as: :owner, dependent: :destroy
 
