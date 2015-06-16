@@ -1,93 +1,94 @@
 = render 'new_task_breadcrumb'
 
-section.task
-  h4
-    = link_to t('projects.tasks.headers.what'),
-      edit_project_task_path(@task.project, @task)
-  p.what
-    strong = @task.description
-
-section.task
-  h4
-    = link_to t('projects.tasks.headers.when'),
-      edit_project_task_path(@task.project, @task)
-  strong= t('from')
-  em = "  #{@task.start_date}"
-  br
-  strong= t('to')
-  em = "  #{@task.due_date || t('task.no_due_date_set')}"
-
-section.task
-  h4
-    = link_to t('projects.tasks.headers.where'),
-      edit_project_task_path(@task.project, @task)
-  p.where
-    strong = @task.location.try(:name)
-    br
-    span   = @task.address.present? ? @task.address : t('.address_missing')
-
-- if @task.inventories.present?
+.box-shadow
   section.task
     h4
-      = link_to t('projects.tasks.headers.tools'),
-        project_task_tools_path(@task.project, @task)
-    table
-      th = t('projects.tasks.review.what')
-      th = t('projects.tasks.price_pr_day')
-      - @task.inventories.uniq.each do |t|
-        tr
-          td = t.name
-          td = t.rental_price_pr_day
+      = link_to t('projects.tasks.headers.what'),
+        edit_project_task_path(@task.project, @task)
+    p.what
+      strong = @task.description
+
+  section.task
+    h4
+      = link_to t('projects.tasks.headers.when'),
+        edit_project_task_path(@task.project, @task)
+    strong= t('from')
+    em = "  #{@task.start_date}"
+    br
+    strong= t('to')
+    em = "  #{@task.due_date || t('task.no_due_date_set')}"
+
+  section.task
+    h4
+      = link_to t('projects.tasks.headers.where'),
+        edit_project_task_path(@task.project, @task)
+    p.where
+      strong = @task.location.try(:name)
+      br
+      span   = @task.address.present? ? @task.address : t('.address_missing')
+
+  - if @task.inventories.present?
+    section.task
+      h4
+        = link_to t('projects.tasks.headers.tools'),
+          project_task_tools_path(@task.project, @task)
+      table
+        th = t('projects.tasks.review.what')
+        th = t('projects.tasks.price_pr_day')
+        - @task.inventories.uniq.each do |t|
+          tr
+            td = t.name
+            td = t.rental_price_pr_day
 
 
-section.task
-  h4
-    = link_to t('projects.tasks.headers.workers'),
-      project_task_workers_path(@task.project, @task)
-  - if @task.users.present?
+  section.task
+    h4
+      = link_to t('projects.tasks.headers.workers'),
+        project_task_workers_path(@task.project, @task)
+    - if @task.users.present?
+      table
+        th =t('.who')
+        - @task.users.uniq.each do |u|
+          tr
+            td = u.name
+    - else
+      p Du må velge noen som kan utføre oppgaven.
+
+
+  br
+  br
+  section.rules
+   h4 Disse reglene gjelder for denne oppgave
+   table
+     tr
+       td Varmekurs
+     tr
+       td Sikkerhetsinnstruks for byggeplass
+
+
+  br
+  br
+  section.measures
+    h4 Disse tiltakene blir iverksatt
     table
-      th =t('.who')
-      - @task.users.uniq.each do |u|
-        tr
-          td = u.name
+      tr
+        td
+          | Arbeidere som ikke har tatt internopplæring i sikkerhetsinnstruks på byggeplass, må ta testen før de kan akseptere oppgaven.
+  br
+  br
+  br
+  /h3 Save as template
+  /= form_tag(inventories_search_path) do
+  /  = text_field_tag :search, params[:search],
+  /    placeholder: 'Enter a name for the template'
+  /
+  /  = submit_tag 'save', name: nil
+
+
+  - if @task.draft
+    = link_to t('task.order_resources_and_save_task'),
+      task_save_and_order_resources_path(@task), class: 'btn btn-primary',
+      method: :post
   - else
-    p Du må velge noen som kan utføre oppgaven.
-
-
-br
-br
-section.rules
- h5 Disse reglene gjelder for denne oppgave
- table
-   tr
-     td Varmekurs
-   tr
-     td Sikkerhetsinnstruks for byggeplass
-
-
-br
-br
-section.measures
-  h5 Disse tiltakene blir iverksatt
-  table
-    tr
-      td
-        | Arbeidere som ikke har tatt internopplæring i sikkerhetsinnstruks på byggeplass, må ta testen før de kan akseptere oppgaven.
-br
-br
-br
-/h3 Save as template
-/= form_tag(inventories_search_path) do
-/  = text_field_tag :search, params[:search],
-/    placeholder: 'Enter a name for the template'
-/
-/  = submit_tag 'save', name: nil
-
-
-- if @task.draft
-  = link_to t('task.order_resources_and_save_task'),
-    task_save_and_order_resources_path(@task), class: 'btn btn-primary pull-right',
-    method: :post
-- else
-  p.task_no_longer_draft
-    strong Oppgaven er lagret og resursene bestilt.
+    p.task_no_longer_draft
+      strong Oppgaven er lagret og resursene bestilt.
