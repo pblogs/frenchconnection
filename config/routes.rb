@@ -1,6 +1,11 @@
-AllieroForms::Application.routes.draw do
+Orwapp::Application.routes.draw do
 
   ActiveAdmin.routes(self)
+  resources :submissions
+  resources :dynamic_forms do
+    get :submissions
+  end
+
 
   namespace :inventories do
     post :search
@@ -134,7 +139,6 @@ AllieroForms::Application.routes.draw do
 
   post '/blog_images' => 'blog_images#create', as: :blog_images
 
+  #get '*path' => redirect('/')
   root 'blog#index'
-  get '*path' => redirect('/')
-
 end

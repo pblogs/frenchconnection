@@ -3,13 +3,15 @@
 
   section.news
     - if @articles.present?
-      ul
+      ul.row
         - @articles.each do |article|
-          li
+          li.col-md-4
             = render 'blog_article', blog_article: article
+    - else
+      = t('blog.no_projects')
 
   - if @articles_archive.present?
-    .col-md-4.text-center
+    .col-md-12.text-center
       = link_to 'Flere nyheter', news_archive_path, class: 'btn btn-primary'
 
 

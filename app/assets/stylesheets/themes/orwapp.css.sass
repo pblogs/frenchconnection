@@ -1,0 +1,22 @@
+$dark_gray: #D0CECA
+
+.logo-wrapper
+  background-color: #E7E2DD
+
+#outer-container
+  border-top: 6px solid #ECE9E5
+
+
+@import bourbon
+#top_nav
+  @include linear-gradient(to top, #ECE9E5, $dark_gray, $fallback: #ECE9E5)
+  a
+    color: black
+    &:hover
+      background-color: $dark_gray
+  li:hover
+    background-color: $dark_gray
+
+.project-info-table
+  @include linear-gradient(to top, #ECE9E5, $dark_gray, $fallback: #ECE9E5)
+  padding: 16px
