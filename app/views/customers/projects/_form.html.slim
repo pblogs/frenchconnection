@@ -9,9 +9,10 @@
           li = message
 
   .field.right
-    label
-      = check_box_tag :starred, @is_favorite ? 1 : 0, @is_favorite
-      | Merk som favoritt
+    .checkbox
+      label
+        = check_box_tag :starred, @is_favorite ? 1 : 0, @is_favorite
+        | Merk som favoritt
 
   .field
     = f.label :department, 'Avdeling'

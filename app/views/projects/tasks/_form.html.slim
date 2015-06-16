@@ -10,15 +10,16 @@
 
 
   h5 = t('task.what')
-  .check_boxes
-    = collection_check_boxes(:task, :skill_ids,
-      Skill.all, :id, :title)  do |c|
+  = collection_check_boxes(:task, :skill_ids,
+    Skill.all, :id, :title)  do |c|
+    .checkbox-inline
       = c.label { c.check_box + c.text }
 
+
   h5 = t('task.where')
-  .check_boxes
-    = f.collection_radio_buttons(:location_id, Location.all,
-      :id, :name, { checked: @task.location.try(:id) } ) do |r|
+  = f.collection_radio_buttons(:location_id, Location.all,
+    :id, :name, { checked: @task.location.try(:id) } ) do |r|
+    .radio-inline
       = r.label { r.radio_button + r.text }
 
   .field
