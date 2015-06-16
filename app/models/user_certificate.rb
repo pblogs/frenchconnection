@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: user_certificates
+#
+#  id             :integer          not null, primary key
+#  certificate_id :integer
+#  user_id        :integer
+#  image          :string
+#  expiry_date    :date
+#
+
 class UserCertificate < ActiveRecord::Base
   belongs_to :user
   belongs_to :certificate

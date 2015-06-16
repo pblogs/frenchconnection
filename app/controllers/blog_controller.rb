@@ -1,9 +1,25 @@
 class BlogController < ApplicationController
 
+  NR_OF_ARTICLES_ON_FRONTPAGE = 6
+
   def index
     @title = 'Forside'
-    @blog_articles = BlogArticle.published.limit(3)
-    @blog_projects = BlogProject.published.limit(4)
+    @articles = BlogArticle.published.limit(NR_OF_ARTICLES_ON_FRONTPAGE)
+    @projects = BlogProject.published.limit(4)
+    # Archive
+    @articles_archive = BlogArticle.published
+      .offset(NR_OF_ARTICLES_ON_FRONTPAGE).size >= 1
+    @projects_archive = BlogProject.published.offset(3).size >= 1
+  end
+
+  def news_archive
+    @articles = BlogArticle.published.offset(NR_OF_ARTICLES_ON_FRONTPAGE)
+    render :index
+  end
+
+  def projects_archive
+    @projects = BlogProject.published.offset(3)
+    render :index
   end
 
   def content

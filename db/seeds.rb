@@ -1,5 +1,5 @@
 User.destroy_all
-Project.destroy_all
+
 Customer.destroy_all
 Department.destroy_all
 Profession.destroy_all

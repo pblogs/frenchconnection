@@ -17,7 +17,7 @@ nb:
   indoor: Innendørs
   outdoor: Utendørs
   save_and_continue: Lagre og gå videre
-  read_more: Les mer..
+  read_more: Les mer
   completed_tasks: Avsluttede oppgaver
   the_location: lokasjonen
   courses: Kurs
@@ -107,6 +107,7 @@ nb:
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
       short_month: "%^b"
+      dd_mm_yy: "%d.%m.%Y"
   date:
     date: Dato
     formats:
@@ -114,6 +115,7 @@ nb:
       datepicker: "%d.%m.%Y"
       short_date: "%B %d"
       short_month: "%^b"
+      dd_mm_yy: "%d.%m.%Y"
 
   blog:
     news: Nyheter
