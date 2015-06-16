@@ -40,7 +40,7 @@
   .field
     = label_tag 'Sertifikater'
     = render 'certificate_lightbox_list'
-    = link_to 'Rediger sertifikater', user_certificates_path(@user)
+    = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
 
 
   br
