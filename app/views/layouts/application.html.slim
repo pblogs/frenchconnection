@@ -5,7 +5,17 @@ html
     = stylesheet_link_tag "application", media: "all",
       "data-turbolinks-track" => true
     meta charset="utf-8"
+    html lang="no"
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta content="width=device-width, initial-scale=1" name="viewport"
+    /![if IE]
+      | According to the conditional comment this is IE<br /
+      .blog_content > .content li {
+        list-style-type: disc;
+      }
+
+
+
     javascript:
       UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/5KQZxkVpGM22WtVOhTlkqA.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
 
