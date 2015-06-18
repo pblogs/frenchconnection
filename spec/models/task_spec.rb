@@ -45,6 +45,10 @@ describe Task do
       expect(@task.project.class).to eq Project
     end
 
+    it 'inherits the projects address' do
+      expect(@task.address).to eq @task.project.address
+    end
+
     it "has one or more workers" do
       expect(@task.users).to include(@worker, @worker)
     end
