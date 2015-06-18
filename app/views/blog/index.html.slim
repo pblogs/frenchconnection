@@ -3,7 +3,7 @@
 
   section.news
     - if @articles.present?
-      ul.row
+      ul.row.articles
         - @articles.each do |article|
           li.col-md-4
             = render 'blog_article', blog_article: article
@@ -20,13 +20,13 @@
     h3.header = t('blog.latest_projects')
     br
     - if @projects.present?
-      ul
+      ul.projects
         - @projects.each do |project|
           li
             = render 'blog_project', blog_project: project
 
     - if @projects_archive.present?
-      br
-      br
-      = link_to 'Se eldre prosjekter', projects_archive_path
+      .col-md-12.text-center
+        = link_to 'Flere prosjekter', projects_archive_path,
+          class: 'btn btn-primary'
 
