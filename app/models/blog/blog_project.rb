@@ -3,9 +3,9 @@
 # Table name: blog_projects
 #
 #  id           :integer          not null, primary key
-#  title        :string
+#  title        :string(255)
 #  content      :text
-#  locale       :string
+#  locale       :string(255)
 #  published    :boolean
 #  publish_date :date
 #  created_at   :datetime

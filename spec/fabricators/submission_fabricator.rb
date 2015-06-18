@@ -3,7 +3,7 @@
 # Table name: submissions
 #
 #  id              :integer          not null, primary key
-#  data            :json
+#  values          :json
 #  dynamic_form_id :integer
 #  user_id         :integer
 #  created_at      :datetime         not null
