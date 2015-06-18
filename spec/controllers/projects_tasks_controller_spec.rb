@@ -28,6 +28,7 @@ describe Projects::TasksController, :type => :controller do
       description: 'work hard or go home',
       start_date:   Time.now,
       due_date:     Time.now.next_week,
+      address:      Faker::Address.street_address
     }
   end
   before do
