@@ -59,8 +59,11 @@ module Orwapp
     # Load models sub folders
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**/}')]
 
+    config.app_generators.scaffold_controller = :scaffold_controller
     config.generators do |g|
       g.fixture_replacement :fabrication
+
+
       g.template_engine     :slim
       g.test_framework      :rspec,
         views: false,
