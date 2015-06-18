@@ -3,8 +3,8 @@
 # Table name: projects
 #
 #  id                                   :integer          not null, primary key
-#  project_number                       :string
-#  name                                 :string
+#  project_number                       :string(255)
+#  name                                 :string(255)
 #  created_at                           :datetime
 #  updated_at                           :datetime
 #  customer_id                          :integer
@@ -12,7 +12,7 @@
 #  due_date                             :date
 #  description                          :text
 #  user_id                              :integer
-#  execution_address                    :string
+#  execution_address                    :string(255)
 #  customer_reference                   :text
 #  comment                              :text
 #  sms_employee_if_hours_not_registered :boolean          default(FALSE)
