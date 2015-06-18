@@ -3,7 +3,7 @@
 # Table name: task_types
 #
 #  id         :integer          not null, primary key
-#  title      :string
+#  title      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
