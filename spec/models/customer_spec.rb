@@ -3,16 +3,16 @@
 # Table name: customers
 #
 #  id             :integer          not null, primary key
-#  name           :string
-#  address        :string
-#  org_number     :string
-#  contact_person :string
-#  phone          :string
+#  name           :string(255)
+#  address        :string(255)
+#  org_number     :string(255)
+#  contact_person :string(255)
+#  phone          :string(255)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  customer_nr    :integer
-#  area           :string
-#  email          :string
+#  area           :string(255)
+#  email          :string(255)
 #
 
 require 'spec_helper'
