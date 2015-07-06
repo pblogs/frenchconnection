@@ -27,7 +27,7 @@ class Projects::TasksController < ApplicationController
   # Part of the new task steps
   def workers
     @task = Task.find(params[:task_id])
-    # Select workers that matches the criterias: sertificate for 
+    # Select workers that matches the criterias: sertificate for
     # selected tools and location
   end
 
@@ -68,11 +68,11 @@ class Projects::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { 
+        format.html {
           if params[:task][:goto_tools].present?
             redirect_to project_task_tools_path(@task.project, @task)
           else
-            redirect_to customer_project_path(@task.project.customer, 
+            redirect_to customer_project_path(@task.project.customer,
                             @task.project),
                             notice: "Oppgaven ble lagret"
           end
@@ -80,24 +80,23 @@ class Projects::TasksController < ApplicationController
         format.json { render action: 'show', status: :created, location: @task }
       else
         format.html { render action: 'new' }
-        format.json { render json: @task.errors, 
+        format.json { render json: @task.errors,
                       status: :unprocessable_entity }
       end
     end
   end
 
   def tools
-    
   end
 
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { 
+        format.html {
           if params[:task][:goto_tools].present?
             redirect_to project_task_tools_path(@task.project, @task)
           else
-            redirect_to customer_project_path(@task.project.customer, 
+            redirect_to customer_project_path(@task.project.customer,
               @task.project),
               notice: I18n.t('notifications.successfully_updated')
           end
@@ -113,7 +112,7 @@ class Projects::TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to customer_project_path(@task.project.customer, 
+      format.html { redirect_to customer_project_path(@task.project.customer,
                                                       @task.project,
                                                       anchor: :tasks
                                                      ),
@@ -139,7 +138,7 @@ class Projects::TasksController < ApplicationController
 
   def set_workers_and_dates
     @project  = Project.find(params[:project_id])
-    @maxdate  = @project.due_date || Time.now + 10.years.to_i 
+    @maxdate  = @project.due_date || Time.now + 10.years.to_i
     @due_date = @project.due_date || @maxdate
     @users_in_our_department = @current_user.department.users.order(last_name: :asc)
   end
@@ -147,15 +146,15 @@ class Projects::TasksController < ApplicationController
   def task_params
     params.require(:task).permit(
       :address,
-      :customer_id, 
+      :customer_id,
       :description,
       :due_date,
-      :department_id, 
+      :department_id,
       :goto_tools,
       :location_id,
       :paint_id,
       :profession_id,
-      :start_date, 
+      :start_date,
       :user_ids => [],
       :skill_ids => [],
   )
