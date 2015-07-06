@@ -4,10 +4,10 @@
 #
 #  id          :integer          not null, primary key
 #  project_id  :integer          not null
-#  zipfile     :string
+#  zipfile     :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  report_type :string
+#  report_type :string(255)
 #
 
 class ZippedReport < ActiveRecord::Base

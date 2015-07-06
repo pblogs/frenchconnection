@@ -11,12 +11,12 @@
 #  runs_in_company_car     :integer
 #  km_driven_own_car       :float
 #  toll_expenses_own_car   :float
-#  supplies_from_warehouse :string
+#  supplies_from_warehouse :string(255)
 #  piecework_hours         :integer
 #  overtime_50             :integer
 #  overtime_100            :integer
 #  hour                    :integer
-#  text                    :string
+#  text                    :string(255)
 #  reason                  :text
 #  user_id                 :integer
 #

@@ -1,3 +1,4 @@
-= link_to blog_content_path('blog_project', blog_project.id) do
-  = image_tag blog_project.main_image.image.url rescue nil
-  span.title = blog_project.title
+.content
+  = link_to blog_content_path('blog_project', blog_project.id) do
+    = image_tag blog_project.main_image.image.url rescue nil
+    h5.title = blog_project.title

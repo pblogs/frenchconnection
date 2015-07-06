@@ -8,7 +8,7 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  accepted         :boolean
-#  description      :string
+#  description      :string(255)
 #  finished         :boolean          default(FALSE)
 #  project_id       :integer
 #  due_date         :date
@@ -18,7 +18,7 @@
 #  profession_id    :integer
 #  skills_ids       :integer
 #  draft            :boolean          default(TRUE)
-#  address          :string
+#  address          :string(255)
 #
 
 require 'spec_helper'
@@ -43,6 +43,10 @@ describe Task do
 
     it "belongs to a project" do
       expect(@task.project.class).to eq Project
+    end
+
+    it 'inherits the projects address' do
+      expect(@task.address).to eq @task.project.address
     end
 
     it "has one or more workers" do
