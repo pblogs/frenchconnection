@@ -97,6 +97,7 @@ nb:
     header: Administrer resurser
     users: Brukere
     inventories: Verktøy og maskiner
+    professions: Yrker og titler
     certificates: Sertifikater
     locations: Lokasjoner
     skills: Ferdigheter
@@ -119,7 +120,7 @@ nb:
 
   blog:
     news: Nyheter
-    latest_projects: Siste prosjekter
+    latest_projects: Prosjekter
     no_articles: Det er ikke lagt inn noen artikler.
     no_projects: Det er ikke lagt inn noen prosjekter.
     no_videos: Ingen videoer

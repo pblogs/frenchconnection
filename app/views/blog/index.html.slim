@@ -3,7 +3,7 @@
 
   section.news
     - if @articles.present?
-      ul.row
+      ul.row.articles
         - @articles.each do |article|
           li.col-md-4
             = render 'blog_article', blog_article: article
@@ -11,7 +11,7 @@
       = t('blog.no_projects')
 
   - if @articles_archive.present?
-    .col-md-12.text-center
+    .col-md-12.text-center.more-news
       = link_to 'Flere nyheter', news_archive_path, class: 'btn btn-primary'
 
 
@@ -20,13 +20,16 @@
     h3.header = t('blog.latest_projects')
     br
     - if @projects.present?
-      ul
+      ul.row.projects
         - @projects.each do |project|
-          li
+          li.col-md-4
             = render 'blog_project', blog_project: project
 
     - if @projects_archive.present?
-      br
-      br
-      = link_to 'Se eldre prosjekter', projects_archive_path
+      .col-md-12.text-center.more-projects
+        = link_to 'Flere prosjekter', projects_archive_path,
+          class: 'btn btn-primary'
 
+
+
+= link_to 'Til forsiden', root_path unless body_id == 'blog_index'

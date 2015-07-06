@@ -8,7 +8,7 @@
 #  created_at       :datetime
 #  updated_at       :datetime
 #  accepted         :boolean
-#  description      :string
+#  description      :string(255)
 #  finished         :boolean          default(FALSE)
 #  project_id       :integer
 #  due_date         :date
@@ -18,7 +18,7 @@
 #  profession_id    :integer
 #  skills_ids       :integer
 #  draft            :boolean          default(TRUE)
-#  address          :string
+#  address          :string(255)
 #
 
 class Task < ActiveRecord::Base
@@ -38,9 +38,10 @@ class Task < ActiveRecord::Base
                                   .where('user_tasks.status = ?', status) }
   scope :ordered, -> { order('created_at DESC') }
 
-  validates :project_id, :presence => true, :unless => :single_task
-  validates :start_date, :presence => true
+  validates :project_id,  :presence => true, :unless => :single_task
+  validates :start_date,  :presence => true
   validates :description, :presence => true
+  validates :address,     :presence => true
 
   validate :start_date_must_be_within_projects_dates_range,
     if: Proc.new { |p| p.start_date.present? }
@@ -49,6 +50,12 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
   attr_accessor :goto_tools
+  after_initialize :init
+
+
+  def init
+    self.address ||= self.project.try(:address)
+  end
 
   def active?
     ended_at.blank? && finished == false ||
