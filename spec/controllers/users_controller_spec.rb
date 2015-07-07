@@ -85,7 +85,8 @@ describe UsersController, :type => :controller do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         User.any_instance.should_receive(:update).with({ "first_name" => "John" })
-        put :update, {:id => user.to_param, :user => { "first_name" => "John" }}, valid_session
+        put :update, {
+          :id => user.to_param, :user => { "first_name" => "John" }}, valid_session
       end
 
       it "assigns the requested user as @user" do
