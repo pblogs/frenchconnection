@@ -1,9 +1,10 @@
 class UserPolicy  < ApplicationPolicy
-  attr_reader :user
+  attr_reader :user, :user_object
 
   def initialize(user, user_object)
     @user = user
     @user_object = user_object
+    #require 'pry'; pry
   end
 
   def index?
@@ -11,27 +12,47 @@ class UserPolicy  < ApplicationPolicy
   end
 
   def update_basic_info?
-    @user == @user_object || user.is?(:admin)
+    @user == @user_object #|| admin_or_project_leader?
+    puts "@user_object is #{@user_object.inspect}"
+    # ^^  App 84489 stdout: @user_object is :user
+  end
+
+  def register_hours?
+    @user == @user_object || admin_or_project_leader?
+    true
   end
 
   def new?
-    user.is?(:project_leader) || user.is?(:admin)
+    admin_or_project_leader?
   end
 
   def create?
-    user.is?(:project_leader) || user.is?(:admin)
+    admin_or_project_leader?
   end
 
+  def see_hours?
+    user_object == user ||
+    admin_or_project_leader?
+  end
+
+
   def update?
-    user.is?(:project_leader) || user.is?(:admin)
+    user_object == user ||
+    admin_or_project_leader?
   end
 
   def edit?
-    user.is?(:project_leader) || user.is?(:admin)
+    user_object == user ||
+    admin_or_project_leader?
+  end
+
+  def timesheets?
+    user_object == user ||
+    admin_or_project_leader?
   end
 
   def destroy?
-    user.is?(:project_leader) || user.is?(:admin)
+    admin_or_project_leader?
   end
 
 
@@ -39,4 +60,8 @@ class UserPolicy  < ApplicationPolicy
     true
   end
 
+  private
+  def admin_or_project_leader?
+    user.is?(:project_leader) || user.is?(:admin)
+  end
 end
