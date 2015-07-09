@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_user_by_id, only: [:hours, :approved_hours, :timesheets,
+  before_action :set_user, :only => [:show, :edit, :update, :destroy]
+  before_action :set_user_by_id, :only => [:hours, :approved_hours, :timesheets,
                                         :create_certificate, :certificates]
-  before_action :set_department, only: [:new, :edit, :update, :create]
-  before_action :set_profession, only: [:new, :edit, :update, :create]
-  before_action :fix_roles_params, only: [:update, :create]
+  before_action :set_department,   :only => [:new, :edit, :update, :create]
+  before_action :set_profession,   :only => [:new, :edit, :update, :create]
+  before_action :fix_roles_params, :only => [:update, :create]
   after_action  :verify_authorized, :except => [:index, :search]
   after_action :authorize_user,    :except => [:index, :search]
 
