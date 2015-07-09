@@ -9,7 +9,8 @@ class ProjectsController < ApplicationController
   before_action :set_months, only: [:billable_hours, :personal_hours]
   before_action :fetch_hours, only: [:approve_hours]
 
-  after_action :verify_authorized, :except => :index
+  after_action :authorize_project, :except => [:index, :show]
+  after_action :verify_authorized, :except => [:index, :show]
 
   # GET /projects
   # GET /projects.json
@@ -128,6 +129,10 @@ class ProjectsController < ApplicationController
   #end
 
   private
+
+  def authorize_project
+    authorize @project
+  end
 
   def set_year_and_month
     if params[:date].present?
