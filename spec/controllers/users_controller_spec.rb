@@ -34,7 +34,7 @@ describe UsersController, :type => :controller do
   describe "GET new" do
     it "assigns a new user as @user" do
       sign_in
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:user).should be_a_new(User)
     end
   end
@@ -43,7 +43,7 @@ describe UsersController, :type => :controller do
     describe "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes}, valid_session
+          post :create, {:user => valid_attributes}
         }.to change(User, :count).by(1)
       end
 
@@ -54,9 +54,9 @@ describe UsersController, :type => :controller do
       end
 
       it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
+        post :create, {:user => valid_attributes}
         lastname_letter = User.last.last_name[0]
-        response.should redirect_to(users_path(letter: lastname_letter))
+        expect(response).to redirect_to(users_path(letter: lastname_letter))
       end
     end
 
@@ -71,7 +71,7 @@ describe UsersController, :type => :controller do
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => { "name" => "invalid value" }}, valid_session
+        post :create, {:user => { "name" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -85,7 +85,7 @@ describe UsersController, :type => :controller do
         # specifies that the User created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        User.any_instance.should_receive(:update).with({ "first_name" => "John" })
+        expect(User.any_instance).to receive(:update).with({ "first_name" => "John" })
         put :update, {
           :id => user.to_param, :user => { "first_name" => "John" }}, valid_session
       end
