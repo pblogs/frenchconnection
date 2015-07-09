@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
                                      :complete]
 
-  before_action :set_by_project_id, only: [:approve_hours, :hours, :deviation,
+  before_action :set_by_project_id, only: [:approve_hours, :hours,
                                            :billable_hours, :personal_hours,
                                            :documentation]
 
@@ -101,9 +101,6 @@ class ProjectsController < ApplicationController
   end
 
   def hours
-  end
-
-  def deviation
   end
 
   def personal_hours
