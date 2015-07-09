@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_action :set_profession, only: [:new, :edit, :update, :create]
   before_action :fix_roles_params, only: [:update, :create]
   after_action  :verify_authorized, :except => [:index, :search]
+  after_action :authorize_user,    :except => [:index, :search]
 
   # GET /users
   # GET /users.json
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    authorize @user
+    puts "User in UsersController => #{@user}"
     @tasks           = Task.from_user(@current_user).by_status(:confirmed).ordered
     @new_tasks       = Task.from_user(@current_user).by_status(:pending).ordered
     @completed_tasks = Task.from_user(@current_user).by_status(:complete).ordered
@@ -44,20 +45,17 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    authorize @user
     @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    authorize @user
     @form_action = user_path(@user)
   end
 
 
   # GET /users/:user_id/projects/:project_id/hours
   def hours
-    authorize @user
     of_kind   = params[:of_kind] || :personal
     @project  = Project.find(params[:project_id])
     @projects = @user.projects.uniq
@@ -97,7 +95,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    authorize @user
     respond_to do |format|
       if @user.update(user_params)
         lastname_letter = @user.last_name[0]
@@ -149,6 +146,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def authorize_user
+    authorize @user
+  end
+
   def set_department
     @departments = Department.all
   end
@@ -183,5 +184,7 @@ class UsersController < ApplicationController
     params[:user][:roles].reject!(&:blank?)
     params[:user][:roles] = params[:user][:roles].collect { |a| a.to_sym }
   end
+
+
 
 end
