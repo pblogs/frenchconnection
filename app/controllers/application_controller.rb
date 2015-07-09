@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_user
   before_action :authenticate_user!
+  around_filter :catch_not_found
 
 
   respond_to :html, :json
@@ -17,7 +18,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user
   end
 
-  around_filter :catch_not_found
 
 
   def index
@@ -28,8 +28,9 @@ class ApplicationController < ActionController::Base
 
  def user_not_authorized(exception)
    policy_name = exception.policy.class.to_s.underscore
-   flash[:error] = t "#{policy_name}.#{exception.query}",
-                   scope: "pundit", default: :default
+   flash[:error] = 'Not allowed'
+   #flash[:error] = t "#{policy_name}.#{exception.query}",
+   #                scope: "pundit", default: :default
    redirect_to(request.referrer || root_path)
  end
 
