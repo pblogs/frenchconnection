@@ -3,21 +3,23 @@
   aside.left_column
     =image_tag @current_user.avatar, class: :profile_image
 
-    section
-      strong.menu_header Verktøy
-      .bar
-      ul
-        li= link_to 'Rediger min profil', edit_user_path(@current_user)
-        li= link_to 'Se timelister',  user_timesheets_path(@current_user)
-        li= link_to 'Meld avvik',     edit_user_path(@current_user), class: :muted_text
+    - if (@current_user == @user) or \
+      (@current_user.is?(:admin) || @current_user.is?(:project_leader))
+      section
+        strong.menu_header Verktøy
+        .bar
+        ul
+          li= link_to 'Rediger min profil', edit_user_path(@user)
+          li= link_to 'Se timelister', user_timesheets_path(@user)
+          li= link_to 'Meld avvik', edit_user_path(@user), class: :muted_text
 
-    br
+      br
     section
-      strong.menu_header Min kompetanse
+      strong.menu_header Kompetanse
       .bar
       = render 'certificate_lightbox_list'
     section
-      strong.menu_header Kurs jeg har tatt
+      strong.menu_header Fullførte kurs
       .bar
       #test-scores
 
@@ -70,3 +72,7 @@
             li = link_to task.description, task
       - else
         p= t('projects.tasks.no_complete_tasks')
+    /- if policy(:user).update_basic_info?
+    - if (@current_user == @user) or @current_user.is?(:admin)
+    - else
+      h2= @user.full_name
