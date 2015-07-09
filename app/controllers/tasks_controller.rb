@@ -7,9 +7,8 @@ class TasksController < ApplicationController
            :selected_inventories, :remove_selected_inventory]
 
   before_action :set_customer, only: [:new, :create, :index]
-
-  # TODO
-  #after_action :verify_authorized, :except => :index
+  before_action :authorize_task, :except => [:index, :show, :task]
+  after_action :verify_authorized, :except => [:index, :show, :task]
 
   def index
     @tasks = Task.all.to_a
@@ -35,11 +34,11 @@ class TasksController < ApplicationController
   end
 
   def new
+    authorize @task
     @task = Task.new
   end
 
   def edit
-    #authorize @task
   end
 
   def save_and_order_resources
@@ -54,6 +53,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    #authorize @task
 
     if params[:customer_id].present?
       @task.customer  = Customer.find(params[:customer_id])
@@ -76,6 +76,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    #authorize @task
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task,
@@ -89,6 +90,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    authorize @task
     @task.destroy
     respond_to do |format|
       format.html { redirect_to tasks_url }
@@ -97,6 +99,7 @@ class TasksController < ApplicationController
   end
 
   def complete
+    authorize @task
     @user_task = @task.user_tasks.find_by(user: current_user)
     @user_task.complete!
     respond_to do |format|
@@ -152,31 +155,38 @@ class TasksController < ApplicationController
   end
 
   private
-    # TODO decent_exposure gem is probably better
-    def set_task
-      @task = Task.find(params[:id])
-    end
 
-    def set_customer
-      @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
-    end
-
-    def set_task_by_task_id
-      @task = Task.find(params[:task_id])
-    end
+  def authorize_task
+    authorize @task
+  end
 
 
-    def task_params
-      params.require(:task).permit(:customer_id,
-                                   :task_type_id,
-                                   :start_date,
-                                   :due_date,
-                                   :paint_id,
-                                   :description,
-                                   :project_id,
-                                   :user_id,
-                                   :department_id,
-                                   :user_ids => []
-                                  )
-    end
+  # TODO decent_exposure gem is probably better
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  def set_customer
+    @customer = Customer.find(params[:customer_id]) if params[:customer_id].present?
+  end
+
+  def set_task_by_task_id
+    @task = Task.find(params[:task_id])
+  end
+
+
+  def task_params
+    params.require(:task).permit(:customer_id,
+                                 :task_type_id,
+                                 :start_date,
+                                 :due_date,
+                                 :paint_id,
+                                 :description,
+                                 :project_id,
+                                 :user_id,
+                                 :department_id,
+                                 :user_ids => []
+                                )
+  end
+
 end
