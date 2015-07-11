@@ -30,6 +30,10 @@ class ProjectPolicy  < ApplicationPolicy
     admin_or_project_leader?
   end
 
+  def complete?
+    admin_or_project_leader?
+  end
+
   def billable_hours?
     true
   end
