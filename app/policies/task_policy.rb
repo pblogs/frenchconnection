@@ -52,7 +52,7 @@ class TaskPolicy  < ApplicationPolicy
   end
 
   def complete?
-    task.user == user ||
+    task.users.include? user ||
     admin_or_project_leader?
   end
 
