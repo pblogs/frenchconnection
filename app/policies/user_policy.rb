@@ -48,10 +48,16 @@ class UserPolicy  < ApplicationPolicy
 
 
   def update?
+    user_object == user ||
+    admin_or_project_leader?
+  end
+
+  def update_important_parts?
     admin_or_project_leader?
   end
 
   def edit?
+    user_object == user ||
     admin_or_project_leader?
   end
 
@@ -85,4 +91,5 @@ class UserPolicy  < ApplicationPolicy
   def admin_or_project_leader?
     user.is?(:project_leader) || user.is?(:admin)
   end
+
 end
