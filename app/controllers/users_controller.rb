@@ -6,8 +6,8 @@ class UsersController < ApplicationController
   before_action :set_department,   :only => [:new, :edit, :update, :create]
   before_action :set_profession,   :only => [:new, :edit, :update, :create]
   before_action :fix_roles_params, :only => [:update, :create]
-  after_action  :verify_authorized, :except => [:index, :search]
-  after_action :authorize_user,    :except => [:index, :search]
+  before_action  :authorize_user,    :except => [:index, :search]
+  before_action  :verify_authorized, :except => [:index, :search]
 
   # GET /users
   # GET /users.json
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    puts "User in UsersController => #{@user}"
+    #authorize_user
     @tasks           = Task.from_user(@current_user).by_status(:confirmed).ordered
     @new_tasks       = Task.from_user(@current_user).by_status(:pending).ordered
     @completed_tasks = Task.from_user(@current_user).by_status(:complete).ordered
@@ -50,6 +50,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    #authorize_user
     @form_action = user_path(@user)
   end
 
@@ -95,6 +96,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    authorize_user
     respond_to do |format|
       if @user.update(user_params)
         lastname_letter = @user.last_name[0]
@@ -133,7 +135,7 @@ class UsersController < ApplicationController
                          expiry_date: params[:user][:expiry_date],
                          user_id: params[:user_id])
     if @user_certificate.save
-      redirect_to user_certificates_path(@user)
+      redirect_to user_certificates_path(@user), notice: 'Sertifikatet ble lagret!'
     else
       @certificates = Certificate.all
       render 'users/certificates'
