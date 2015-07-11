@@ -18,8 +18,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user
   end
 
-
-
   def index
   end
 
@@ -27,7 +25,7 @@ class ApplicationController < ActionController::Base
   private
 
  def user_not_authorized(exception)
-   policy_name = exception.policy.class.to_s.underscore
+   #policy_name = exception.policy.class.to_s.underscore
    flash[:error] = 'Not allowed'
    #flash[:error] = t "#{policy_name}.#{exception.query}",
    #                scope: "pundit", default: :default
@@ -48,6 +46,7 @@ class ApplicationController < ActionController::Base
 
   def catch_not_found
     yield
+    rescue Pundit::NotAuthorizedError
     rescue ActiveRecord::RecordNotFound
     redirect_to root_url, :flash => { :notice => "Record not found." }
   end
