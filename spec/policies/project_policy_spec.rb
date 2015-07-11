@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProjectPolicy do
 
-  PROJECT_LEAD_ACTIONS = %W(update? edit? destroy?)
+  PROJECT_LEAD_ACTIONS = %W(update? edit? create? destroy?)
   GUEST_ACTIONS = %W(show? index?)
 
   subject { described_class }
