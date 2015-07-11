@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
     yield
     rescue ActiveRecord::RecordNotFound
     rescue Pundit::NotAuthorizedError
+    rescue Pundit::NotDefinedError
     redirect_to root_url, :flash => { :notice => "Record not found." }
   end
 
