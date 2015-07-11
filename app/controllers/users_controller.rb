@@ -6,8 +6,8 @@ class UsersController < ApplicationController
   before_action :set_department,   :only => [:new, :edit, :update, :create]
   before_action :set_profession,   :only => [:new, :edit, :update, :create]
   before_action :fix_roles_params, :only => [:update, :create]
-  before_action :authorize_user,    :except => [:index, :search]
-  before_action :verify_authorized, :except => [:index, :search]
+  before_action :authorize_user,    :except => [:index, :search, :new]
+  before_action :verify_authorized, :except => [:index, :search, :new]
 
   # GET /users
   # GET /users.json
