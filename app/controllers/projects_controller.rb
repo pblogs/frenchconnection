@@ -93,7 +93,7 @@ class ProjectsController < ApplicationController
   # POST /projects/1
   # POST /projects/1.json
   def complete
-    @project.complete!
+    @project.complete! if authorize @project
     CompleteProjectWorker.perform_async(@project.id)
     respond_to do |format|
       format.html { redirect_to customer_projects_url(@project.customer) }
