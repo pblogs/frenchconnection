@@ -11,10 +11,21 @@ class UserPolicy  < ApplicationPolicy
     true
   end
 
+  def hours?
+    true
+  end
+
+
+  def search?
+    true
+  end
+
+  def edit_basic_info?
+    @user == @user_object || admin_or_project_leader?
+  end
+
   def update_basic_info?
-    @user == @user_object #|| admin_or_project_leader?
-    puts "@user_object is #{@user_object.inspect}"
-    # ^^  App 84489 stdout: @user_object is :user
+    @user == @user_object || admin_or_project_leader?
   end
 
   def register_hours?
@@ -37,12 +48,10 @@ class UserPolicy  < ApplicationPolicy
 
 
   def update?
-    user_object == user ||
     admin_or_project_leader?
   end
 
   def edit?
-    user_object == user ||
     admin_or_project_leader?
   end
 
@@ -52,6 +61,18 @@ class UserPolicy  < ApplicationPolicy
   end
 
   def destroy?
+    admin_or_project_leader?
+  end
+
+  def certificates?
+    admin_or_project_leader?
+  end
+
+  def approved_hours?
+    true
+  end
+
+  def create_certificate?
     admin_or_project_leader?
   end
 

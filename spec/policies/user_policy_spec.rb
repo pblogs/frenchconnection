@@ -2,8 +2,16 @@ require 'spec_helper'
 
 describe UserPolicy do
 
-  ADMIN_ACTIONS = %W(update? edit? destroy? new? create?)
-  USER_ACTIONS = %W(show? index? update_basic_info?)
+
+  ADMIN_ACTIONS = %W(certificates? create?
+                     create_certificate? destroy? edit? new?
+                     update?)
+
+  USER_ACTIONS = %W(index? timesheets? search? hours? show? index? update_basic_info?
+                    edit_basic_info?)
+
+
+
 
   subject { described_class }
 
