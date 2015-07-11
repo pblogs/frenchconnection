@@ -10,6 +10,10 @@ class ProjectPolicy  < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def update?
     admin_or_project_leader?
   end
@@ -22,12 +26,8 @@ class ProjectPolicy  < ApplicationPolicy
     admin_or_project_leader?
   end
 
-  def show?
-    true
-  end
-
   def create?
-    true
+    admin_or_project_leader?
   end
 
   def billable_hours?
