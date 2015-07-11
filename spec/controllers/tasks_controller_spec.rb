@@ -59,12 +59,6 @@ describe TasksController, :type => :controller do
     end
   end
 
-  describe "GET new" do
-    it "assigns a new task as @task" do
-      get :new, {}, valid_session
-      assigns(:task).should be_a_new(Task)
-    end
-  end
 
   describe "GET edit" do
     it "assigns the requested task as @task" do
@@ -94,27 +88,19 @@ describe TasksController, :type => :controller do
       end
     end
 
-    describe "with invalid params" do
-
-
-      it "assigns a newly created but unsaved task as @task" do
-        @project  = Fabricate(:project)
-        # Trigger the behavior that occurs when invalid params are submitted
-        Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => {
-          "project_id" => @project.id,
-          }}, valid_session
-        assigns(:task).should be_a_new(Task)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Task.any_instance.stub(:save).and_return(false)
-        post :create, {:task => { "project_id" => "invalid value" }},
-          valid_session
-        response.should render_template("new")
-      end
-    end
+    # Tasks are created on the Projects/TasksController
+    #
+    #describe "with invalid params" do
+    #  it "assigns a newly created but unsaved task as @task" do
+    #    @project  = Fabricate(:project)
+    #    # Trigger the behavior that occurs when invalid params are submitted
+    #    Task.any_instance.stub(:save).and_return(false)
+    #    post :create, {:task => {
+    #      "project_id" => @project.id,
+    #      }}, valid_session
+    #    assigns(:task).should be_a_new(Task)
+    #  end
+    #end
   end
 
   describe "PUT update" do
