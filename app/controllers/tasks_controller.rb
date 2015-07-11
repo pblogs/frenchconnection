@@ -33,10 +33,6 @@ class TasksController < ApplicationController
     @customers = Customer.all
   end
 
-  def new
-    authorize @task
-    @task = Task.new
-  end
 
   def edit
   end
