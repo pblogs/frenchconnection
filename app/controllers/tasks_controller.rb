@@ -7,8 +7,8 @@ class TasksController < ApplicationController
            :selected_inventories, :remove_selected_inventory]
 
   before_action :set_customer, only: [:new, :create, :index]
-  before_action :authorize_task, :except => [:index, :show, :task]
-  after_action :verify_authorized, :except => [:index, :show, :task]
+  before_action :authorize_task, :except => [:index, :show, :task, :edit, :new, :create]
+  after_action :verify_authorized, :except => [:index, :show, :task, :edit]
 
   def index
     @tasks = Task.all.to_a
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    #authorize @task
+    authorize @task
 
     if params[:customer_id].present?
       @task.customer  = Customer.find(params[:customer_id])
@@ -59,7 +59,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task,
+        format.html { redirect_to @task.project,
           notice: "Oppdraget ble opprettet og sendt til #{@task.name_of_users}"
           }
         format.json { render action: 'show', status: :created, location: @task }
@@ -72,11 +72,10 @@ class TasksController < ApplicationController
   end
 
   def update
-    #authorize @task
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task,
-                      notice: 'Task was successfully updated.' }
+        format.html { redirect_to @task.project,
+                      notice: 'Oppgaven lagret' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
