@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_user
   before_action :authenticate_user!
-  around_filter :catch_not_found
 
 
   respond_to :html, :json
@@ -44,13 +43,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def catch_not_found
-    yield
-    rescue ActiveRecord::RecordNotFound
-    rescue Pundit::NotAuthorizedError
-    rescue Pundit::NotDefinedError
-    redirect_to root_url, :flash => { :notice => "Record not found." }
-  end
 
 
   protected
