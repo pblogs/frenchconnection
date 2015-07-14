@@ -20,7 +20,7 @@ These reports are used by our customer to generate invoices.
      Attach image or video. See the section below.
 
 ## Videos and screenshots are required on PR that changes the UI
-When creating or changing something in the view, please make a quick video of 
+When creating or changing something in the view, please make a quick video of
 how it works from a user's perspective. A screenshot can be sufficient if the change is to a static page that does contain any interaction.
 A good example could be CSV import of users from an Excel file. Record that you start with Excel, let us see the syntax. Export as CSV, import to the app and visit users/index.
 
@@ -43,7 +43,6 @@ VISIT_ADDRESS_STREET: Nydalsveien 30 B
 EMAIL: post@alliero.no
 FAX:   23 26 54 01
 PHONE: 23 26 54 00
-HTML_HEADER_LOGO='Alliero-header.gif' # located in app/assets/images/
 SHORT_NAME='alliero-orwapp' # Used for FOG bucket, Github-name
 
 
