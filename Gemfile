@@ -130,6 +130,9 @@ gem 'rest-client'
 gem 'dalli'
 gem 'memcachier'
 
+group :development do
+  gem 'growl'
+end
 
 gem 'lodash-rails'
 gem 'angularjs-rails'

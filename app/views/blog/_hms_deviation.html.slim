@@ -1,8 +1,0 @@
-li#deviation.tab-header-and-content
-  a href="#" class="tab-link" = 'Avvik'
-  section
-    = label_tag :department, 'Velg prosjekt'
-    = select_tag "project[department_id]",
-      options_from_collection_for_select(@projects_for_deviation, "id", "name" )
-    br
-    = render 'projects/deviation_form'

@@ -67,22 +67,6 @@
 
 
   br
-  br
-  section.measures
-    h4 Disse tiltakene blir iverksatt
-    table
-      tr
-        td
-          | Arbeidere som ikke har tatt internopplæring i sikkerhetsinnstruks på byggeplass, må ta testen før de kan akseptere oppgaven.
-  br
-  br
-  br
-  /h3 Save as template
-  /= form_tag(inventories_search_path) do
-  /  = text_field_tag :search, params[:search],
-  /    placeholder: 'Enter a name for the template'
-  /
-  /  = submit_tag 'save', name: nil
 
 
   - if @task.draft

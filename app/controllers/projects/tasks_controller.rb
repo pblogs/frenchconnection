@@ -87,7 +87,6 @@ class Projects::TasksController < ApplicationController
   end
 
   def tools
-
   end
 
   def update
