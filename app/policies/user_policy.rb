@@ -46,6 +46,9 @@ class UserPolicy  < ApplicationPolicy
     admin_or_project_leader?
   end
 
+  def manage_cms?
+    user.is?(:editor)
+  end
 
   def update?
     user_object == user ||
