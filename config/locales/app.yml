@@ -4,6 +4,8 @@ nb:
     worker: Arbeider
     admin: Admin
     economy: Økonomi
+    editor: Redaktør
+
   overtime_50: 50% overtid
   overtime_100: 100% overtid
   hour: Vanlige timer
