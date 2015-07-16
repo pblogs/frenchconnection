@@ -53,15 +53,15 @@ class User < ActiveRecord::Base
   validates :roles,  presence: true
 
   # Worker
-  has_many :user_tasks, dependent: :destroy
-  has_many :tasks, through: :user_tasks
+  has_many :user_tasks, :dependent => :destroy
+  has_many :tasks, :through => :user_tasks
   has_many :projects, :through => :tasks
   has_many :hours_spents
   has_many :categories, :through => :projects
-  has_many :favorites, dependent: :destroy
-
-  has_many :user_certificates, dependent: :destroy
-  has_many :certificates, through: :user_certificates
+  has_many :favorites, :dependent => :destroy
+  has_many :kids, :dependent => :destroy
+  has_many :user_certificates, :dependent => :destroy
+  has_many :certificates, :through => :user_certificates
 
   scope :from_department,  ->(department) { where('department_id = ?',
                                                   department.id) }

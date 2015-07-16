@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @kid.name
+p
+  strong Fødselsdato / Alder:
+  = "#{@kid.birth_date} / #{@kid.age}"
+p
+  strong Sole custody:
+  = @kid.sole_custody
+
+= link_to 'Edit', edit_kid_path(@kid)
+'|
+= link_to 'Back', kids_path

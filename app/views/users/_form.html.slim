@@ -44,6 +44,10 @@
     - if policy(@user).update_important_parts?
       = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
 
+  .field
+    strong Barn
+    br
+    = link_to 'Rediger barn', user_certificates_path(@user) unless @user.new_record?
 
   - if policy(@user).update_important_parts?
     br
