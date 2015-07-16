@@ -16,7 +16,7 @@ table.listusers
     - @users.each do |user|
       tr#pagination_table
         td.username
-           = user.full_last_name
+          = link_to user.full_last_name, user
         td = user.mobile
         td = user.emp_id
         td = Department.find(user.department_id).title rescue nil
@@ -31,4 +31,5 @@ table.listusers
               data: {:confirm => 'Sikker på at du vil slette denne brukeren?'}, :method => :delete
 br
 
-= link_to 'Lag ny bruker', new_user_path, class: "btn btn-primary"
+- if policy(:user).create?
+  = link_to 'Lag ny bruker', new_user_path, class: "btn btn-primary"

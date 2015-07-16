@@ -17,17 +17,18 @@
     = f.label :mobile, 'Mobil'
     = f.text_field :mobile
 
-  .field
-    = f.label :emp_id, "Ansattnr"
-    = f.text_field :emp_id
+  - if policy(@user).update_important_parts?
+    .field
+      = f.label :emp_id, "Ansattnr"
+      = f.text_field :emp_id
 
-  .field
-    = f.label :department_id, 'Avdeling'
-    = f.collection_select :department_id, @departments, :id, :title
+    .field
+      = f.label :department_id, 'Avdeling'
+      = f.collection_select :department_id, @departments, :id, :title
 
-  .field
-    = f.label :profession_id, t('.profession')
-    = f.collection_select :profession_id, @professions, :id, :title
+    .field
+      = f.label :profession_id, t('.profession')
+      = f.collection_select :profession_id, @professions, :id, :title
 
 
   .field
@@ -40,18 +41,20 @@
   .field
     = label_tag 'Sertifikater'
     = render 'certificate_lightbox_list'
-    = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
+    - if policy(@user).update_important_parts?
+      = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
 
 
-  br
-  .field
-    = f.label :roles, 'Roller'
-    - for role in User::ROLES
-      .checkbox
-        label
-          = check_box_tag "user[roles][#{role}]", role,
-            @user.roles.include?(role), {:name => "user[roles][]"}
-          = I18n.t("roles.#{role}")
+  - if policy(@user).update_important_parts?
+    br
+    .field
+      = f.label :roles, 'Roller'
+      - for role in User::ROLES
+        .checkbox
+          label
+            = check_box_tag "user[roles][#{role}]", role,
+              @user.roles.include?(role), {:name => "user[roles][]"}
+            = I18n.t("roles.#{role}")
 
 
   .field

@@ -17,9 +17,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= current_user
   end
 
-  around_filter :catch_not_found
-
-
   def index
   end
 
@@ -27,9 +24,10 @@ class ApplicationController < ActionController::Base
   private
 
  def user_not_authorized(exception)
-   policy_name = exception.policy.class.to_s.underscore
-   flash[:error] = t "#{policy_name}.#{exception.query}",
-                   scope: "pundit", default: :default
+   #policy_name = exception.policy.class.to_s.underscore
+   flash[:error] = 'Not allowed'
+   #flash[:error] = t "#{policy_name}.#{exception.query}",
+   #                scope: "pundit", default: :default
    redirect_to(request.referrer || root_path)
  end
 
@@ -45,11 +43,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def catch_not_found
-    yield
-    rescue ActiveRecord::RecordNotFound
-    redirect_to root_url, :flash => { :notice => "Record not found." }
-  end
 
 
   protected
