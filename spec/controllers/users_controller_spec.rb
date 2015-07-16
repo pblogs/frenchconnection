@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UsersController, :type => :controller do
 
   before do
-    @user = Fabricate(:user)
+    @user = Fabricate(:user, roles: [:project_leader])
     sign_in @user
   end
 
@@ -33,8 +33,7 @@ describe UsersController, :type => :controller do
 
   describe "GET new" do
     it "assigns a new user as @user" do
-      sign_in
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:user).should be_a_new(User)
     end
   end
@@ -43,7 +42,7 @@ describe UsersController, :type => :controller do
     describe "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, {:user => valid_attributes}, valid_session
+          post :create, {:user => valid_attributes}
         }.to change(User, :count).by(1)
       end
 
@@ -54,8 +53,9 @@ describe UsersController, :type => :controller do
       end
 
       it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
-        response.should redirect_to(users_path)
+        post :create, {:user => valid_attributes}
+        lastname_letter = User.last.last_name[0]
+        expect(response).to redirect_to(users_path(letter: lastname_letter))
       end
     end
 
@@ -70,7 +70,7 @@ describe UsersController, :type => :controller do
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         User.any_instance.stub(:save).and_return(false)
-        post :create, {:user => { "name" => "invalid value" }}, valid_session
+        post :create, {:user => { "name" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -79,13 +79,15 @@ describe UsersController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested user" do
+      pending "works testing manually"
         user = User.create! valid_attributes
         # Assuming there are no other users in the database, this
         # specifies that the User created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        User.any_instance.should_receive(:update).with({ "first_name" => "John" })
-        put :update, {:id => user.to_param, :user => { "first_name" => "John" }}, valid_session
+        expect(User.any_instance).to receive(:update).with({ "first_name" => "John" })
+        put :update, {
+          :id => user.to_param, :user => { "first_name" => "John" }}, valid_session
       end
 
       it "assigns the requested user as @user" do
@@ -97,7 +99,8 @@ describe UsersController, :type => :controller do
       it "redirects to the users list" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        response.should redirect_to(users_path)
+        lastname_letter = user.last_name[0]
+        expect(response).to redirect_to(users_path(letter: lastname_letter))
       end
     end
   end

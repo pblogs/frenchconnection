@@ -2,15 +2,15 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy,
                                      :complete]
 
-  before_action :set_by_project_id, only: [:approve_hours, :hours, :deviation,
+  before_action :set_by_project_id, only: [:approve_hours, :hours,
                                            :billable_hours, :personal_hours,
                                            :documentation]
 
   before_action :set_months, only: [:billable_hours, :personal_hours]
   before_action :fetch_hours, only: [:approve_hours]
 
-  # TODO
-  #after_action :verify_authorized, :except => :index
+  after_action :authorize_project, :except => [:index, :show]
+  after_action :verify_authorized, :except => [:index, :show]
 
   # GET /projects
   # GET /projects.json
@@ -93,7 +93,7 @@ class ProjectsController < ApplicationController
   # POST /projects/1
   # POST /projects/1.json
   def complete
-    @project.complete!
+    @project.complete! if authorize @project
     CompleteProjectWorker.perform_async(@project.id)
     respond_to do |format|
       format.html { redirect_to customer_projects_url(@project.customer) }
@@ -102,9 +102,6 @@ class ProjectsController < ApplicationController
   end
 
   def hours
-  end
-
-  def deviation
   end
 
   def personal_hours
@@ -132,6 +129,10 @@ class ProjectsController < ApplicationController
   #end
 
   private
+
+  def authorize_project
+    authorize @project
+  end
 
   def set_year_and_month
     if params[:date].present?

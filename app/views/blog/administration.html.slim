@@ -8,4 +8,4 @@ section.admin
     li= link_to t('admin.professions'),  professions_path
     li= link_to t('admin.skills'),       skills_path
     li= link_to t('admin.locations'),    locations_path
-    li= link_to t('admin.cms'),          admin_root_path
+    li= link_to t('admin.cms'),          admin_root_path if policy(@current_user).manage_cms?

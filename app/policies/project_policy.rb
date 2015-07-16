@@ -10,28 +10,32 @@ class ProjectPolicy  < ApplicationPolicy
     true
   end
 
-  def update?
-    project.user == user
-  end
-
-  def edit?
-    project.user == user
-  end
-
-  def destroy?
-    project.user == user
-  end
-
   def show?
     true
   end
 
+  def update?
+    admin_or_project_leader?
+  end
+
+  def edit?
+    admin_or_project_leader?
+  end
+
+  def destroy?
+    admin_or_project_leader?
+  end
+
   def create?
-    true
+    admin_or_project_leader?
+  end
+
+  def complete?
+    admin_or_project_leader?
   end
 
   def billable_hours?
-    project.user == user
+    true
   end
 
   def personal_hours?
@@ -42,5 +46,9 @@ class ProjectPolicy  < ApplicationPolicy
     true
   end
 
+  private
+  def admin_or_project_leader?
+    user.is?(:project_leader) || user.is?(:admin)
+  end
 
 end
