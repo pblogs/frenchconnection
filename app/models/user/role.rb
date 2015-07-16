@@ -5,7 +5,7 @@
 module User::Role
   extend ActiveSupport::Concern
 
-  ROLES = [:admin, :project_leader, :worker]
+  ROLES = [:admin, :project_leader, :worker, :editor]
   DEFAULT = :user
 
   included do
@@ -19,7 +19,7 @@ module User::Role
   def self.roles_to_mask(roles)
     (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
   end
-  
+
   def roles
     ROLES.reject do |r|
       ((roles_mask.to_i || 0) & 2**ROLES.index(r)).zero?

@@ -8,7 +8,7 @@ class BlogController < ApplicationController
     @projects = BlogProject.published.limit(4)
     # Archive
     @articles_archive = BlogArticle.published
-      .offset(NR_OF_ARTICLES_ON_FRONTPAGE).size >= 1
+                                   .offset(NR_OF_ARTICLES_ON_FRONTPAGE).size >= 1
     @projects_archive = BlogProject.published.offset(3).size >= 1
   end
 
@@ -31,10 +31,10 @@ class BlogController < ApplicationController
 
   def video
     @current = params[:id].present? ?
-        BlogVideo.find_by(id: params[:id], published: true) :
-        BlogVideo.published.first
-    @blog_videos = BlogVideo.published
-                    .where('id != :id', id: @current.id) if @current.present?
+        BlogVideo.find_by(id: params[:id], published: true) : BlogVideo.published.first
+    if @current.present?
+      @blog_videos = BlogVideo.published.where('id != :id', id: @current.id)
+    end
   end
 
   def hms
