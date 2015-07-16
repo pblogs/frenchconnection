@@ -1,0 +1,26 @@
+h1= "Barna til #{@user.name}"
+br
+br
+
+table
+  thead
+    tr
+      th Navn
+      th Fødselsdato / Alder
+      th Eneomsorg
+      th
+      th
+
+  tbody
+    - @kids.each do |kid|
+      tr
+        td = kid.name
+        td = "#{l kid.birth_date} / #{kid.age}"
+        td = kid.sole_custody ? 'Ja' : 'Nei'
+        td = link_to t(:show), user_kid_path(@user, kid)
+        td = link_to t(:destroy), user_kid_path(@user, kid), data: {:confirm => 'Slette?'},
+             :method => :delete
+
+br
+
+= link_to 'Legg til et barn', new_user_kid_path
