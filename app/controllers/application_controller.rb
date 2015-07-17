@@ -24,8 +24,8 @@ class ApplicationController < ActionController::Base
   private
 
  def user_not_authorized(exception)
+   flash[:error] = 'Dette har du ikke tilgang til.'
    #policy_name = exception.policy.class.to_s.underscore
-   flash[:error] = 'Not allowed'
    #flash[:error] = t "#{policy_name}.#{exception.query}",
    #                scope: "pundit", default: :default
    redirect_to(request.referrer || root_path)
