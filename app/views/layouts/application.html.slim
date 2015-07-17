@@ -41,8 +41,15 @@ html
         section
           - if content_for?(:breadcrumb)
             .breadcrumb = yield(:breadcrumb)
-          p#notice = notice
-          p#alert  = alert
+          - if flash[:notice]
+            .alert.alert-success= flash[:notice]
+
+          - if flash[:alert]
+            .alert.alert-warning= flash[:error]
+
+          - if flash[:error]
+            .alert.alert-danger= flash[:error]
+
           = yield
           #content
           br
