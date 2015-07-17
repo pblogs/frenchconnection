@@ -2,20 +2,20 @@ require 'spec_helper'
 
 describe ProjectPolicy do
 
-  OWNER_ACTIONS = %W(update? edit? destroy?)
+  PROJECT_LEAD_ACTIONS = %W(update? edit? create? destroy? complete?)
   GUEST_ACTIONS = %W(show? index?)
 
   subject { described_class }
 
-  context 'the owner' do
-    let(:owner) { Fabricate(:user) }
-    let(:project) { Fabricate(:project, user: owner) }
+  context 'project lead and admin' do
+    let(:project_lead) { Fabricate(:user, roles: [:project_leader]) }
+    let(:project) { Fabricate(:project, user: project_lead) }
 
-    OWNER_ACTIONS.each do |permission|
+    PROJECT_LEAD_ACTIONS.each do |permission|
       permissions permission do
 
-        it 'allow for owner' do
-          expect(subject).to permit(owner, project)
+        it 'allow for project_lead' do
+          expect(subject).to permit(project_lead, project)
         end
 
         it 'disallow for guest' do
@@ -26,8 +26,8 @@ describe ProjectPolicy do
 
     GUEST_ACTIONS.each do |permission|
       permissions permission do
-        it 'allow for owner' do
-          expect(subject).to permit(owner, project)
+        it 'allow for project_lead' do
+          expect(subject).to permit(project_lead, project)
         end
 
         it 'allow for guest' do

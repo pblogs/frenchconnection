@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_user_by_id, only: [:hours, :approved_hours, :timesheets,
+  before_action :set_user, :only => [:show, :edit, :update, :destroy]
+  before_action :set_user_by_id, :only => [:hours, :approved_hours, :timesheets,
                                         :create_certificate, :certificates]
-  before_action :set_department, only: [:new, :edit, :update, :create]
-  before_action :set_profession, only: [:new, :edit, :update, :create]
-  before_action :fix_roles_params, only: [:update, :create]
+  before_action :set_department,   :only => [:new, :edit, :update, :create]
+  before_action :set_profession,   :only => [:new, :edit, :update, :create]
+  before_action :fix_roles_params, :only => [:update, :create]
+  before_action :authorize_user,    :except => [:index, :search, :new, :create]
+  before_action :verify_authorized, :except => [:index, :search, :new, :create]
 
   # GET /users
   # GET /users.json
@@ -47,6 +49,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    #authorize_user
     @form_action = user_path(@user)
   end
 
@@ -75,10 +78,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    authorize_user
     @user.password = @user.password_confirmation = srand.to_s[0..10]
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_path,
+        lastname_letter = @user.last_name[0]
+        format.html { redirect_to users_path(letter: lastname_letter),
                       notice: I18n.t('saved') }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -91,9 +96,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    authorize_user
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to users_url,
+        lastname_letter = @user.last_name[0]
+        format.html { redirect_to users_path(letter: lastname_letter),
                       notice: I18n.t('updated') }
         format.json { head :no_content }
       else
@@ -128,7 +135,7 @@ class UsersController < ApplicationController
                          expiry_date: params[:user][:expiry_date],
                          user_id: params[:user_id])
     if @user_certificate.save
-      redirect_to user_certificates_path(@user)
+      redirect_to user_certificates_path(@user), notice: 'Sertifikatet ble lagret!'
     else
       @certificates = Certificate.all
       render 'users/certificates'
@@ -139,6 +146,10 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def authorize_user
+    authorize @user
   end
 
   def set_department
@@ -164,10 +175,16 @@ class UsersController < ApplicationController
       :emp_id,
       :profession_id,
       :department_id,
+      :email,
+      :employee_nr,
+      :home_address,
+      :home_area_code,
+      :home_area,
       :image,
       roles: [],
       skill_ids: [],
-      certificate_ids: [])
+      certificate_ids: []
+    )
   end
 
   def fix_roles_params
@@ -175,5 +192,7 @@ class UsersController < ApplicationController
     params[:user][:roles].reject!(&:blank?)
     params[:user][:roles] = params[:user][:roles].collect { |a| a.to_sym }
   end
+
+
 
 end

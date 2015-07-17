@@ -34,9 +34,8 @@ RSpec.configure do |config|
   # Run all tests when no tests is tagged.
   config.run_all_when_everything_filtered = true
 
-  config.include RSpec::Rails::RequestExampleGroup, type: :request, example_group: {
-    file_path: /spec\/api/
-  }
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, file_path: /spec\/api/
+
   config.include Devise::TestHelpers, type: :controller
 
 
