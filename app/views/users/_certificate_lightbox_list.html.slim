@@ -5,7 +5,7 @@ ul#user_certificates
 
       = link_to image_tag(c.image.small.url), c.image.large.url,
         data: { lightbox: c.certificate.title }
-      - if policy(c).update?
+      - if policy(@user).update_important_parts?
         = link_to fa_icon('trash'), user_certificate_path(@user, c),
           method: :delete,
           data: { :confirm => 'Sikker på at du vil fjerne sertifikatet?' }

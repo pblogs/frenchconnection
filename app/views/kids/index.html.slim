@@ -1,0 +1,35 @@
+- content_for :breadcrumb do
+  = link_to t('top_nav.manage'), administration_path
+  = fa_icon 'chevron-right'
+  = link_to t('admin.users'),        users_path
+  = fa_icon 'chevron-right'
+  = link_to @user.name, edit_user_path(@user)
+  = fa_icon 'chevron-right'
+  strong Barn
+
+h1= "Barna til #{@user.name}"
+br
+br
+
+table
+  thead
+    tr
+      th Navn
+      th Fødselsdato / Alder
+      th Eneomsorg
+      th
+      th
+
+  tbody
+    - @kids.each do |kid|
+      tr
+        td = kid.name
+        td = "#{l kid.birth_date} / #{kid.age}"
+        td = kid.sole_custody ? 'Ja' : 'Nei'
+        td = link_to t(:edit), edit_user_kid_path(@user, kid)
+        td = link_to t(:destroy), user_kid_path(@user, kid), data: {:confirm => 'Slette?'},
+             :method => :delete
+
+br
+
+= link_to 'Legg til et barn', new_user_kid_path
