@@ -47,7 +47,7 @@
   .field
     strong Barn
     br
-    = link_to 'Rediger barn', user_certificates_path(@user) unless @user.new_record?
+    = link_to 'Vis barn', user_kids_path(@user) unless @user.new_record?
 
   - if policy(@user).update_important_parts?
     br
