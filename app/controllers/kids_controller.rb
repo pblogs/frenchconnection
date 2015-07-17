@@ -1,6 +1,7 @@
 class KidsController < ApplicationController
   before_action :set_kid, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :set_user, only: [:index, :new, :create, :show, :edit,
+                                  :update, :destroy]
 
   # GET /kids
   # GET /kids.json
@@ -29,7 +30,7 @@ class KidsController < ApplicationController
     @kid.user = @user
 
     respond_to do |format|
-      if @kid.save!
+      if @kid.save
         format.html { redirect_to user_kids_path(@user), notice: 'Barnet er lagret' }
         format.json { render action: 'show', status: :created, location: @kid }
       else
@@ -44,7 +45,7 @@ class KidsController < ApplicationController
   def update
     respond_to do |format|
       if @kid.update(kid_params)
-        format.html { redirect_to @kid, notice: 'Kid was successfully updated.' }
+        format.html { redirect_to user_kids_path(@user), notice: 'Endringene er lagret' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
