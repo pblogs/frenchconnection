@@ -57,7 +57,12 @@
   .field
     strong Barn
     br
-    = link_to 'Rediger barn', user_certificates_path(@user) unless @user.new_record?
+    ul.list-group
+      - @user.kids.each do |kid|
+        li.list-group-item
+          = "#{kid.name}  #{ l(kid.birth_date)}"
+          span.badge= "#{kid.age} år"
+    = link_to 'Rediger barn', user_kids_path(@user) unless @user.new_record?
 
   - if policy(@user).update_important_parts?
     br

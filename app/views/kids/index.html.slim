@@ -17,10 +17,12 @@ table
         td = kid.name
         td = "#{l kid.birth_date} / #{kid.age}"
         td = kid.sole_custody ? 'Ja' : 'Nei'
-        td = link_to t(:show), user_kid_path(@user, kid)
-        td = link_to t(:destroy), user_kid_path(@user, kid), data: {:confirm => 'Slette?'},
-             :method => :delete
+        td = link_to t(:edit), edit_user_kid_path(@user, kid)
+        td = link_to t(:destroy), user_kid_path(@user, kid),
+          data: {:confirm => 'Slette?'}, :method => :delete
 
 br
 
-= link_to 'Legg til et barn', new_user_kid_path
+= link_to 'Legg til et barn', new_user_kid_path, class: 'btn btn-primary'
+br
+= link_to "Tilbake", edit_user_path(@user)
