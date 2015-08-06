@@ -1,8 +1,6 @@
-h1 Editing kid
+h1 Rediger
 
 == render 'form'
 
-= link_to 'Show', @kid
-'|
-= link_to 'Back', kids_path
+= link_to t(:back), user_kids_path(@kid.user)
 

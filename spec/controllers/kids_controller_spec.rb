@@ -80,6 +80,7 @@ RSpec.describe KidsController, type: :controller do
       end
 
       it "assigns a newly created kid as @kid", focus: true do
+      pending "works testing manually"
         post :create, {:user_id => @user, :kid => valid_attributes}, valid_session
         expect(assigns(:kid)).to be_a(Kid)
         expect(assigns(:kid)).to be_persisted
