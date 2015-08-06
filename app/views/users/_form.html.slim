@@ -16,6 +16,12 @@
   .field
     = f.label :mobile, 'Mobil'
     = f.text_field :mobile
+    = f.label :age
+    = f.number_field :age
+
+  .field
+    = f.label :gender
+    = f.select :gender,  User::GENDER_TYPES
 
   - if policy(@user).update_important_parts?
     .field
