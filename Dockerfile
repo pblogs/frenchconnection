@@ -37,6 +37,9 @@ RUN bundle install --jobs 20 --retry 5
 
 # Copy the main application.
 COPY . ./
+USER root
+RUN chown -R app ./
+USER app
 
 # Expose port 3000 to the Docker host, so we can access it
 # from the outside.
