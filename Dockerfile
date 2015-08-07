@@ -17,14 +17,14 @@ RUN gem install bundler
 
 RUN useradd -ms /bin/bash app
 USER app
-RUN mkdir -p ~/orwapp
-WORKDIR ~/orwapp
+#RUN mkdir -p ~/orwapp
 
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN \curl -sSL https://get.rvm.io | bash -s stable
 
 USER root
 RUN chown -R app /usr/local/
+#RUN chown -R app /app
 RUN chmod -R 777 /tmp
 USER app
 
@@ -35,12 +35,14 @@ ADD Gemfile.lock /tmp/
 RUN bundle install --jobs 20 --retry 5
 
 
-# Copy the main application.
-WORKDIR ~/orwapp
-COPY . ./
-USER root
-RUN chown -R app ./
-USER app
+# Copy the main application. (only needed for prodution)
+#WORKDIR ~app/orwapp
+#ADD . ./
+#USER root
+#RUN chown -R app ./
+#USER app
+
+WORKDIR /app
 
 # Expose port 3000 to the Docker host, so we can access it
 # from the outside.
