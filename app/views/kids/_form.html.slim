@@ -6,9 +6,10 @@
     = f.text_field :name
   .field
     = f.label :birth_date
-    = f.date_select :birth_date
+    = f.date_select(:birth_date, start_year: 1983)
   .checkbox
     label
       = f.check_box :sole_custody
       = t(:sole_custody)
+
   .actions = f.submit t(:save)

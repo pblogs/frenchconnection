@@ -29,6 +29,7 @@ RSpec.describe KidsController, type: :controller do
 
   before do
     @user = Fabricate(:user)
+    sign_in @user
   end
 
   let(:invalid_attributes) {
@@ -43,7 +44,7 @@ RSpec.describe KidsController, type: :controller do
   describe "GET #index" do
     it "assigns all kids as @kids" do
       kid = Kid.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {:user_id => @user, }, valid_session
       expect(assigns(:kids)).to eq([kid])
     end
   end
@@ -51,7 +52,7 @@ RSpec.describe KidsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested kid as @kid" do
       kid = Kid.create! valid_attributes
-      get :show, {:id => kid.to_param}, valid_session
+      get :show, {:user_id => @user, :id => kid.to_param}, valid_session
       expect(assigns(:kid)).to eq(kid)
     end
   end
@@ -66,7 +67,7 @@ RSpec.describe KidsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested kid as @kid" do
       kid = Kid.create! valid_attributes
-      get :edit, {:id => kid.to_param}, valid_session
+      get :edit, {:user_id => @user, :id => kid.to_param}, valid_session
       expect(assigns(:kid)).to eq(kid)
     end
   end
@@ -75,31 +76,32 @@ RSpec.describe KidsController, type: :controller do
     context "with valid params" do
       it "creates a new Kid" do
         expect {
-          post :create, {:kid => valid_attributes}, valid_session
+          post :create, {:user_id => @user, :kid => valid_attributes},
+            valid_session
         }.to change(Kid, :count).by(1)
       end
 
-      it "assigns a newly created kid as @kid", focus: true do
-      pending "works testing manually"
-        post :create, {:user_id => @user, :kid => valid_attributes}, valid_session
+      it "assigns a newly created kid as @kid"  do
+        post :create, {:user_id => @user, :kid => valid_attributes},
+          valid_session
         expect(assigns(:kid)).to be_a(Kid)
         expect(assigns(:kid)).to be_persisted
       end
 
-      it "redirects to the created kid" do
-        post :create, {:kid => valid_attributes}, valid_session
-        expect(response).to redirect_to(Kid.last)
+      it "redirects to the list of kids" do
+        post :create, {:user_id => @user, :kid => valid_attributes}, valid_session
+        expect(response).to redirect_to(user_kids_path(@user))
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved kid as @kid" do
-        post :create, {:kid => invalid_attributes}, valid_session
+        post :create, {:user_id => @user, :kid => invalid_attributes}, valid_session
         expect(assigns(:kid)).to be_a_new(Kid)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:kid => invalid_attributes}, valid_session
+        post :create, {:user_id => @user, :kid => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -113,34 +115,39 @@ RSpec.describe KidsController, type: :controller do
 
       it "updates the requested kid" do
         kid = Kid.create! valid_attributes
-        put :update, {:id => kid.to_param, :kid => new_attributes}, valid_session
+        put :update, {:user_id => @user, :id => kid.to_param, :kid => new_attributes},
+          valid_session
         kid.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested kid as @kid" do
         kid = Kid.create! valid_attributes
-        put :update, {:id => kid.to_param, :kid => valid_attributes}, valid_session
+        put :update, {:user_id => @user, :id => kid.to_param, :kid => valid_attributes},
+          valid_session
         expect(assigns(:kid)).to eq(kid)
       end
 
-      it "redirects to the kid" do
+      it "redirects to the list of kids" do
         kid = Kid.create! valid_attributes
-        put :update, {:id => kid.to_param, :kid => valid_attributes}, valid_session
-        expect(response).to redirect_to(kid)
+        put :update, {:user_id => @user, :id => kid.to_param, :kid => valid_attributes},
+          valid_session
+        expect(response).to redirect_to( user_kids_path(@user))
       end
     end
 
     context "with invalid params" do
       it "assigns the kid as @kid" do
         kid = Kid.create! valid_attributes
-        put :update, {:id => kid.to_param, :kid => invalid_attributes}, valid_session
+        put :update, {:user_id => @user, :id => kid.to_param, :kid => invalid_attributes},
+          valid_session
         expect(assigns(:kid)).to eq(kid)
       end
 
       it "re-renders the 'edit' template" do
         kid = Kid.create! valid_attributes
-        put :update, {:id => kid.to_param, :kid => invalid_attributes}, valid_session
+        put :update, {:user_id => @user, :id => kid.to_param, :kid => invalid_attributes},
+          valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -150,14 +157,14 @@ RSpec.describe KidsController, type: :controller do
     it "destroys the requested kid" do
       kid = Kid.create! valid_attributes
       expect {
-        delete :destroy, {:id => kid.to_param}, valid_session
+        delete :destroy, {:user_id => @user, :id => kid.to_param}, valid_session
       }.to change(Kid, :count).by(-1)
     end
 
     it "redirects to the kids list" do
       kid = Kid.create! valid_attributes
-      delete :destroy, {:id => kid.to_param}, valid_session
-      expect(response).to redirect_to(kids_url)
+      delete :destroy, {:user_id => @user, :id => kid.to_param}, valid_session
+      expect(response).to redirect_to(user_kids_path(@user))
     end
   end
 
