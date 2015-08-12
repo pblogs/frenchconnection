@@ -13,8 +13,13 @@ These reports are used by our customer to generate invoices.
 
 ## Start the app
 
+### Install Docker and docker-compose
+
+* https://docs.docker.com/installation
+* https://docs.docker.com/compose/install/
+
 ```
-docker-compose build
+docker-compose build # Only required the first time.
 docker-compose up
 docker-compose run app rake db:create db:migrate db:seed RAILS_ENV=development
 docker-compose run app rake db:create db:migrate RAILS_ENV=test
