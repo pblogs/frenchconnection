@@ -28,6 +28,8 @@
 #  home_area_code         :string(255)
 #  home_area              :string(255)
 #  roles_mask             :integer
+#  gender                 :string
+#  age                    :integer
 #
 
 class User < ActiveRecord::Base
@@ -75,6 +77,7 @@ class User < ActiveRecord::Base
 
   attr_reader :expiry_date
 
+  GENDER_TYPES = %W(- mann dame )
   def name
     "#{ first_name } #{ last_name }"
   end

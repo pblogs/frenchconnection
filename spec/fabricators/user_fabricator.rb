@@ -28,6 +28,8 @@
 #  home_area_code         :string(255)
 #  home_area              :string(255)
 #  roles_mask             :integer
+#  gender                 :string
+#  age                    :integer
 #
 
 Fabricator(:user) do

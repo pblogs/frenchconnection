@@ -8,6 +8,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  description :text
+#  task_id     :integer
 #
 
 # A project can have many attachments. Documents, images, etc.
