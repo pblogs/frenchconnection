@@ -31,6 +31,7 @@ gem 'grape-rails-cache'
 
 gem 'devise'
 
+gem 'axlsx', '~> 2.0.1'
 gem 'alphabetical_paginate'
 
 
@@ -71,7 +72,7 @@ gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
-  #gem 'sdoc', require: false
+  gem 'sdoc', require: false
 end
 
 
@@ -105,7 +106,7 @@ end
 
 group :development, :production do
   gem 'foreman'
-  #gem 'passenger'
+  gem 'passenger'
   gem 'thor'
   gem 'pusher'
   #gem 'ransack', github: 'activerecord-hackery/ransack'
@@ -115,16 +116,14 @@ end
 group :production do
   gem 'carrierwave'
   gem 'mini_magick'
-  # Gems needed for Excel PDFs
-  #gem 'wkhtmltopdf-binary'
-  #gem 'roo' # Used for the Excel import
-  #gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
-  #gem 'pdfkit'
-  #gem 'axlsx', '~> 2.0.1'
+  gem 'wkhtmltopdf-binary'
   gem 'fog'
   gem 'exception_notification'
+  gem 'roo' # Used for the Excel import
+  gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
   gem 'newrelic_rpm'
   gem 'iconv'
+  gem 'pdfkit'
 end
 
 gem 'rest-client'
@@ -139,4 +138,5 @@ end
 gem 'lodash-rails'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors',
+  :require => 'rack/cors'
