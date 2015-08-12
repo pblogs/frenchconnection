@@ -38,7 +38,7 @@ nb:
         age: Alder
         department_id: Avdeling
         emp_id: Ansattnr
-        gender: Skjønn
+        gender: Kjønn
         first_name: Fornavn
         mobile: Mobil
         last_name: Etternavn
