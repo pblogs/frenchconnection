@@ -10,10 +10,6 @@
 #= require angular-resource
 #= require ng-rails-csrf
 #= require lodash
-#= require lightbox
-
-
-
 #= require angular-app/app
 #= require_tree .
 
