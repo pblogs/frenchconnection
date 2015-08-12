@@ -18,6 +18,10 @@
     = f.number_field :age
 
   .field
+    = f.label :email
+    = f.email_field :email
+
+  .field
     = f.label :gender
     = f.select :gender,  User::GENDER_TYPES
 
