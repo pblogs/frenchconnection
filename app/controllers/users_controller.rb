@@ -96,12 +96,16 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    if @user == @current_user
+      redirect_path = user_path(@user)
+    else
+      lastname_letter = @user.last_name[0]
+      redirect_path = users_path(letter: lastname_letter)
+    end
     authorize_user
     respond_to do |format|
       if @user.update(user_params)
-        lastname_letter = @user.last_name[0]
-        format.html { redirect_to users_path(letter: lastname_letter),
-                      notice: I18n.t('updated') }
+        format.html { redirect_to redirect_path, notice: I18n.t('updated') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -168,6 +172,8 @@ class UsersController < ApplicationController
   #only allow the white list through.
   def user_params
     params.require(:user).permit(
+      :age,
+      :gender,
       :first_name,
       :last_name,
       :tasks_id,

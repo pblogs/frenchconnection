@@ -1,7 +1,7 @@
 class KidsController < ApplicationController
   before_action :set_kid, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:index, :new, :create, :show, :edit,
-                                  :update, :destroy]
+  before_action :set_user, only: [:index, :new, :create, :show,
+                                  :edit, :update, :destroy]
 
   # GET /kids
   # GET /kids.json
@@ -45,7 +45,7 @@ class KidsController < ApplicationController
   def update
     respond_to do |format|
       if @kid.update(kid_params)
-        format.html { redirect_to user_kids_path(@user), notice: 'Endringene er lagret' }
+        format.html { redirect_to user_kids_path(@user), notice: t(:saved) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -65,7 +65,6 @@ class KidsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_kid
       @kid = Kid.find(params[:id])
     end
@@ -74,7 +73,6 @@ class KidsController < ApplicationController
       @user = User.find(params[:user_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def kid_params
       params.require(:kid).permit(:references, :name, :birth_date, :sole_custody)
     end

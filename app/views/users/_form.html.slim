@@ -6,24 +6,32 @@
         - @user.errors.full_messages.each do |message|
           li = message
   .field
-    = f.label :first_name, 'Fornavn'
+    = f.label :first_name
     = f.text_field :first_name
 
   .field
-    = f.label :last_name, 'Etternavn'
+    = f.label :last_name
     = f.text_field :last_name
 
   .field
-    = f.label :mobile, 'Mobil'
-    = f.text_field :mobile
+    = f.label :age
+    = f.number_field :age
+
+  .field
+    = f.label :gender
+    = f.select :gender,  User::GENDER_TYPES
+
+  .field
+    = f.label :mobile
+    = f.number_field :mobile
 
   - if policy(@user).update_important_parts?
     .field
-      = f.label :emp_id, "Ansattnr"
+      = f.label :emp_id
       = f.text_field :emp_id
 
     .field
-      = f.label :department_id, 'Avdeling'
+      = f.label :department_id
       = f.collection_select :department_id, @departments, :id, :title
 
     .field
@@ -40,14 +48,21 @@
 
   .field
     = label_tag 'Sertifikater'
+    hr
     = render 'certificate_lightbox_list'
     - if policy(@user).update_important_parts?
       = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
+    hr
 
   .field
     strong Barn
     br
-    = link_to 'Vis barn', user_kids_path(@user) unless @user.new_record?
+    ul.list-group
+      - @user.kids.each do |kid|
+        li.list-group-item
+          = "#{kid.name}  #{ l(kid.birth_date)}"
+          span.badge= "#{kid.age} år"
+    = link_to 'Rediger barn', user_kids_path(@user) unless @user.new_record?
 
   - if policy(@user).update_important_parts?
     br
