@@ -1,0 +1,15 @@
+= form_for [@user, @kid] do |f|
+  = render partial: 'layouts/form_error_messages', locals: { form_object: @kid }
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :birth_date
+    = f.date_select(:birth_date, start_year: 1983)
+  .checkbox
+    label
+      = f.check_box :sole_custody
+      = t(:sole_custody)
+
+  .actions = f.submit t(:save)
