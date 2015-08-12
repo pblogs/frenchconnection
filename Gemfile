@@ -12,7 +12,7 @@ gem 'symbolize'
 gem 'sidekiq'
 gem 'lightbox2-rails'
 gem 'pundit'
-gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+gem 'react-rails', '~> 1.0', github: 'reactjs/react-rails'
 
 gem 'activeadmin', github: 'activeadmin'
 gem 'browserify-rails'
@@ -54,7 +54,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -109,6 +109,8 @@ group :development, :production do
   gem 'passenger'
   gem 'thor'
   gem 'pusher'
+  #gem 'ransack', github: 'activerecord-hackery/ransack'
+  gem 'ransack'
 end
 
 group :production do
@@ -120,7 +122,6 @@ group :production do
   gem 'roo' # Used for the Excel import
   gem 'wkhtmltopdf-heroku', github: 'cater2me/wkhtmltopdf-heroku'
   gem 'newrelic_rpm'
-  gem 'ransack', github: 'activerecord-hackery/ransack'
   gem 'iconv'
   gem 'pdfkit'
 end
