@@ -10,6 +10,16 @@ These reports are used by our customer to generate invoices.
 [1] Users with 'project_leader' role.
 [2] Users with 'worker' role.
 
+
+## Start the app
+
+```
+docker-compose build
+docker-compose up
+docker-compose run app rake db:create db:migrate db:seed RAILS_ENV=development
+docker-compose run app rake db:create db:migrate RAILS_ENV=test
+```
+
 ## Workflow for developers
 
   1. Pick an open issue you want to implement or I delegate a task to you because I think you're the best suited to fix it. :-)
