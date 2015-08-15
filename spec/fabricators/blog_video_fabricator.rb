@@ -3,10 +3,10 @@
 # Table name: blog_videos
 #
 #  id           :integer          not null, primary key
-#  title        :string(255)
+#  title        :string
 #  content      :text
-#  video_url    :string(255)
-#  locale       :string(255)
+#  video_url    :string
+#  locale       :string
 #  published    :boolean
 #  publish_date :date
 #  created_at   :datetime
