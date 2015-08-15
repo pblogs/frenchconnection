@@ -172,10 +172,10 @@ class UsersController < ApplicationController
   #only allow the white list through.
   def user_params
     params.require(:user).permit(
-      :age,
       :gender,
       :first_name,
       :last_name,
+      :birth_date,
       :tasks_id,
       :mobile,
       :emp_id,

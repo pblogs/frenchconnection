@@ -14,8 +14,10 @@
     = f.text_field :last_name
 
   .field
-    = f.label :age
-    = f.number_field :age
+    = f.label :birth_date
+    = f.text_field :birt_date,
+      value: I18n.l(@user.birth_date, format: :datepicker),
+      class: :datepicker
 
   .field
     = f.label :email

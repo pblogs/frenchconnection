@@ -36,6 +36,7 @@ nb:
         address: Adresse
       user:
         age: Alder
+        birth_date: Fødselsdag
         department_id: Avdeling
         emp_id: Ansattnr
         gender: Kjønn
