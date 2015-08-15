@@ -113,6 +113,10 @@ class User < ActiveRecord::Base
     owns_projects.pluck(:department_id).compact
   end
 
+  def age
+    now = Time.now.utc.to_date
+    now.year - birth_date.year - (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
+  end
 
   # Heavy to load all users. Perhaps set the role with
   # user.worker == true if sorting on role_mask is to hard.
