@@ -187,6 +187,7 @@ class UsersController < ApplicationController
       :home_area_code,
       :home_area,
       :image,
+      :relatives,
       roles: [],
       skill_ids: [],
       certificate_ids: []

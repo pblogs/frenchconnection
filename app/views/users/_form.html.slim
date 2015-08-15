@@ -13,11 +13,13 @@
     = f.label :last_name
     = f.text_field :last_name
 
+
   .field
     = f.label :birth_date
-    = f.text_field :birt_date,
+    span.pull-right= "#{@user.age} år"
+    = f.text_field :birth_date,
       value: I18n.l(@user.birth_date, format: :datepicker),
-      class: :datepicker
+      class: :datepicker,  placeholder: 'Velg dato'
 
   .field
     = f.label :email
@@ -34,6 +36,10 @@
   .field
     = f.label :home_area_code
     = f.text_field :home_area_code
+
+  .field
+    = f.label :relatives
+    = f.text_area :relatives, rows: 10
 
   .field
     = f.label :gender
