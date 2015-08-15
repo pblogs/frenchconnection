@@ -24,6 +24,18 @@
     = f.email_field :email
 
   .field
+    = f.label :home_address
+    = f.text_field :home_address
+
+  .field
+    = f.label :home_area
+    = f.text_field :home_area
+
+  .field
+    = f.label :home_area_code
+    = f.text_field :home_area_code
+
+  .field
     = f.label :gender
     = f.select :gender,  User::GENDER_TYPES
 

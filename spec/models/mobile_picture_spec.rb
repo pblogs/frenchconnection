@@ -5,8 +5,8 @@
 #  id          :integer          not null, primary key
 #  task_id     :integer
 #  user_id     :integer
-#  url         :string(255)
-#  description :string(255)
+#  url         :string
+#  description :string
 #  created_at  :datetime
 #  updated_at  :datetime
 #  project_id  :integer

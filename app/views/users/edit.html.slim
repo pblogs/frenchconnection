@@ -1,3 +1,10 @@
+- content_for :breadcrumb do
+  = link_to 'Administrer', administration_path
+  = fa_icon 'chevron-right'
+  = link_to 'Brukere', users_path
+  = fa_icon 'chevron-right'
+  strong= "#{@user.name}"
+
 h1 Rediger bruker
 
 == render 'form'
