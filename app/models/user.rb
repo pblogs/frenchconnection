@@ -29,7 +29,8 @@
 #  home_area              :string(255)
 #  roles_mask             :integer
 #  gender                 :string
-#  age                    :integer
+#  address                :string
+#  birth_date             :date
 #
 
 class User < ActiveRecord::Base
