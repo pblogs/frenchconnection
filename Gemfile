@@ -113,10 +113,11 @@ group :development, :production do
   gem 'ransack'
 end
 
+gem 'carrierwave'
+gem 'mini_magick'
+
 group :production do
   gem 'passenger'
-  gem 'carrierwave'
-  gem 'mini_magick'
   gem 'wkhtmltopdf-binary'
   gem 'fog'
   gem 'exception_notification'
