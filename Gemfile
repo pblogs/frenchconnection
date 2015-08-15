@@ -104,9 +104,9 @@ group :test do
 end
 
 
+
 group :development, :production do
   gem 'foreman'
-  gem 'passenger'
   gem 'thor'
   gem 'pusher'
   #gem 'ransack', github: 'activerecord-hackery/ransack'
@@ -114,6 +114,7 @@ group :development, :production do
 end
 
 group :production do
+  gem 'passenger'
   gem 'carrierwave'
   gem 'mini_magick'
   gem 'wkhtmltopdf-binary'
