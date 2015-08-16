@@ -64,18 +64,27 @@
 
   .field
     = f.label :skill_ids, t('task.skills')
-    = collection_check_boxes(:user, :skill_ids,
-      Skill.all, :id, :title) do |c|
+    = collection_check_boxes(:user, :skill_ids, Skill.all, :id, :title) do |c|
       .checkbox
         = c.label { c.check_box + c.text }
 
   .field
-    = label_tag 'Sertifikater'
     hr
+    = label_tag 'Sertifikater'
     = render 'certificate_lightbox_list'
     - if policy(@user).update_important_parts?
       = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
     hr
+
+  .field
+    strong Språk
+    br
+    ul.list-group
+      - @user.languages.each do |lang|
+        li.list-group-item
+          = lang.name
+          span.badge= "#{lang.score} år"
+    = link_to 'Rediger språk', user_user_languages_path(@user) unless @user.new_record?
 
   .field
     strong Barn
