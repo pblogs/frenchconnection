@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
   # Worker
   has_many :user_tasks, :dependent => :destroy
   has_many :tasks, :through => :user_tasks
+
+  has_many :user_languages, :dependent => :destroy
+  has_many :languages, :through => :user_languages
+
   has_many :projects, :through => :tasks
   has_many :hours_spents
   has_many :categories, :through => :projects

@@ -60,6 +60,9 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem 'fabrication'
+gem 'faker'
+
 
 
 # Turbolinks makes following links in your web application faster.
@@ -75,9 +78,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-
-gem 'fabrication'
-gem 'faker'
 
 group :development, :test do
   gem 'rspec-rails'

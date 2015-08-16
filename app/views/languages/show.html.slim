@@ -1,12 +1,7 @@
-p#notice = notice
-
 p
-  strong Name:
+  strong= "#{t(:name)}: "
   = @language.name
-p
-  strong Score:
-  = @language.score
 
-= link_to 'Edit', edit_language_path(@language)
+= link_to t(:edit), edit_language_path(@language)
 '|
-= link_to 'Back', languages_path
+= link_to t(:back), languages_path

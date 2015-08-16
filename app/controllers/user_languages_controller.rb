@@ -1,5 +1,6 @@
 class UserLanguagesController < ApplicationController
   before_action :set_user_language, only: [:show, :edit, :update, :destroy]
+  before_action :set_user#, only: [:show, :edit, :update, :destroy]
 
   # GET /user_languages
   # GET /user_languages.json
@@ -15,6 +16,7 @@ class UserLanguagesController < ApplicationController
   # GET /user_languages/new
   def new
     @user_language = UserLanguage.new
+    @user_language.user = @user
   end
 
   # GET /user_languages/1/edit
@@ -25,10 +27,13 @@ class UserLanguagesController < ApplicationController
   # POST /user_languages.json
   def create
     @user_language = UserLanguage.new(user_language_params)
+    @user_language.user_id = @user.id
+    @user_language.language_id = params[:user][:user_language_ids]
+    @user_language.rating = params[:user_language][:rating]
 
     respond_to do |format|
-      if @user_language.save
-        format.html { redirect_to @user_language, notice: 'User language was successfully created.' }
+      if @user_language.save!
+        format.html { redirect_to user_user_language(@user), notice: 'Språk lagret' }
         format.json { render action: 'show', status: :created, location: @user_language }
       else
         format.html { render action: 'new' }
@@ -42,7 +47,7 @@ class UserLanguagesController < ApplicationController
   def update
     respond_to do |format|
       if @user_language.update(user_language_params)
-        format.html { redirect_to @user_language, notice: 'User language was successfully updated.' }
+        format.html { redirect_to @user_language, notice: 'Språk lagret' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -67,8 +72,12 @@ class UserLanguagesController < ApplicationController
       @user_language = UserLanguage.find(params[:id])
     end
 
+    def set_user
+      @user= User.find(params[:user_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_language_params
-      params.require(:user_language).permit(:rating)
+      params.require(:user_language).permit(:rating, :language_id)
     end
 end

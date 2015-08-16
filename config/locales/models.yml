@@ -1,6 +1,9 @@
 nb:
   activerecord:
     models:
+      language:
+        one: Språk
+        other: Språk
       project:
         one: Prosjekt
         other: Prosjekter
@@ -15,6 +18,8 @@ nb:
         other: Bilder
 
     attributes:
+      language:
+        name: Navn
       user_certificate:
         image: Bilde
         certificate: Sertifikat

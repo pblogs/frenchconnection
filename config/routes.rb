@@ -94,6 +94,7 @@ Orwapp::Application.routes.draw do
       post :finished
       get :send_message
     end
+    resources :user_languages
     resources :tasks, :controller => 'users/user_tasks' do
       post :confirm_user_task
     end

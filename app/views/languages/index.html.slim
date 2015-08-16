@@ -3,8 +3,8 @@ h1 Listing languages
 table
   thead
     tr
-      th Name
-      th Score
+      th= t(:name)
+      th= t(:score)
       th
       th
       th
@@ -13,10 +13,10 @@ table
     - @languages.each do |language|
       tr
         td = language.name
-        td = language.score
-        td = link_to 'Show', language
-        td = link_to 'Edit', edit_language_path(language)
-        td = link_to 'Destroy', language, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to t(:show), language
+        td = link_to t(:edit), edit_language_path(language)
+        td = link_to t(:destroy), language,
+              data: {:confirm => 'Virkelig slette?'}, :method => :delete
 
 br
 
