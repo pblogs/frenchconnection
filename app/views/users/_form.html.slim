@@ -16,9 +16,8 @@
 
   .field
     = f.label :birth_date
-    span.pull-right= "#{@user.age} år"
     = f.text_field :birth_date,
-      value: I18n.l(@user.birth_date, format: :datepicker),
+      value: I18n.l(@user.birth_date || Time.now, format: :datepicker),
       class: :datepicker,  placeholder: 'Velg dato'
 
   .field
