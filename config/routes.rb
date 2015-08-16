@@ -1,5 +1,6 @@
 Orwapp::Application.routes.draw do
 
+  resources :user_languages
   resources :languages
   resources :professions
   ActiveAdmin.routes(self)
