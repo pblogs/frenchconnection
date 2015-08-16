@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Rating:
+  = @user_language.rating
+
+= link_to 'Edit', edit_user_language_path(@user_language)
+'|
+= link_to 'Back', user_languages_path
