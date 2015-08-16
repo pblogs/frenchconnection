@@ -80,10 +80,10 @@
     strong Språk
     br
     ul.list-group
-      - @user.languages.each do |lang|
+      - @user.user_languages.each do |lang|
         li.list-group-item
           = lang.name
-          span.badge= "#{lang.score} år"
+          span.badge= "#{lang.rating} år"
     = link_to 'Rediger språk', user_user_languages_path(@user) unless @user.new_record?
 
   .field
