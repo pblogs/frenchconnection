@@ -114,8 +114,9 @@ class User < ActiveRecord::Base
   end
 
   def age
+    return if birth_date.blank?
     now = Time.now.utc.to_date
-    now.year - birth_date.year - (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
+    now.year - self.birth_date.year #- (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
   end
 
   # Heavy to load all users. Perhaps set the role with
