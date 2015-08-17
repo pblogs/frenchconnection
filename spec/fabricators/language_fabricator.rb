@@ -1,4 +1,3 @@
 Fabricator(:language) do
-  name  "MyString"
-  score 1
+  name  "English"
 end

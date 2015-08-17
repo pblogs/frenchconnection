@@ -364,9 +364,9 @@ ActiveRecord::Schema.define(version: 20150816165254) do
   end
 
   create_table "user_languages", force: :cascade do |t|
-    t.integer  "user_id",     null: false
-    t.integer  "language_id", null: false
-    t.integer  "rating",      null: false
+    t.integer  "user_id"
+    t.integer  "language_id"
+    t.integer  "rating"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

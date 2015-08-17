@@ -83,15 +83,15 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec', require: false
   gem 'binding_of_caller'
-  gem 'meta_request'
   gem 'pry'
 end
 
 group :development do
   gem 'annotate'
-  gem 'ruby_gntp'
+  #gem 'ruby_gntp'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'better_errors'
+  gem 'meta_request'
   gem 'quiet_assets'
 end
 

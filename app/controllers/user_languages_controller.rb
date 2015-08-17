@@ -1,6 +1,6 @@
 class UserLanguagesController < ApplicationController
   before_action :set_user_language, only: [:show, :edit, :update, :destroy]
-  before_action :set_user#, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, except: [:index, :destroy, :update]
 
   # GET /user_languages
   # GET /user_languages.json

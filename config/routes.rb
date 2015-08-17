@@ -1,6 +1,5 @@
 Orwapp::Application.routes.draw do
 
-  resources :user_languages
   resources :languages
   resources :professions
   ActiveAdmin.routes(self)
@@ -79,6 +78,7 @@ Orwapp::Application.routes.draw do
 
   get '/users/search/'=> 'users#search', as: :user_search
 
+    resources :user_languages
   resources :users do
     resources :kids
     get '/tasks/started'     => 'users/tasks#started'
@@ -94,7 +94,6 @@ Orwapp::Application.routes.draw do
       post :finished
       get :send_message
     end
-    resources :user_languages
     resources :tasks, :controller => 'users/user_tasks' do
       post :confirm_user_task
     end

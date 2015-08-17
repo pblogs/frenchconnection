@@ -20,12 +20,18 @@ require 'rails_helper'
 
 RSpec.describe LanguagesController, type: :controller do
 
+  before do
+    @user = Fabricate(:user, roles: [:project_leader])
+    sign_in @user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Language. As you add validations to Language, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+
+  let(:valid_attributes) do
+    Fabricate.build(:language).serializable_hash
+  end
 
   let(:invalid_attributes) {
     skip("Add a hash of attributes invalid for your model")
