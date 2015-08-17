@@ -1,9 +1,11 @@
-= form_for [@user, @user_language] do |f|
-  = render partial: 'layouts/form_error_messages', locals: { form_object: @user_language }
+= form_for user_user_languages_path(@user) do |f|
+  = render partial: 'layouts/form_error_messages',
+    locals: { form_object: @user_language }
 
-  = f.collection_select(:user, :user_language_ids, Language.all, :id, :name) do |r|
+  = f.collection_radio_buttons(:language_ids, Language.all, :id, :name) do |r|
     .radio-inline
       = r.label { r.radio_button + r.text }
+  br
 
 
   = f.label :rating

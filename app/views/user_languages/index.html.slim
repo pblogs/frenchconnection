@@ -23,9 +23,9 @@ table
       tr
         td = user_language.name
         td = user_language.rating
-        td = link_to t(:show), user_language(@user)
+        /td = link_to t(:show), user_user_language_path(@user)
         td = link_to t(:edit), edit_user_language_path(@user, user_language)
-        td = link_to t(:destroy), user_language(@user),
+        td = link_to t(:destroy), user_language_path(@user),
               data: {:confirm => 'Virkelig slette?'}, :method => :delete
 
 br
