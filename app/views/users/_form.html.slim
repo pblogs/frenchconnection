@@ -1,10 +1,7 @@
 = form_for @user do |f|
-  - if @user.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@user.errors.count, "feil")} hindret oss i å lagre:"
-      ul
-        - @user.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'layouts/form_error_messages',
+    locals: { form_object: @user }
+
   .field
     = f.label :first_name
     = f.text_field :first_name

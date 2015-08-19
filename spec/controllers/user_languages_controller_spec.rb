@@ -11,6 +11,7 @@ RSpec.describe UserLanguagesController, type: :controller do
   let(:valid_attributes) do
     @user2 = Fabricate(:user, roles: [:project_leader])
     h = Fabricate.create(:user_language, user: @user2).serializable_hash
+    UserLanguage.find(h['id']).destroy
     h.delete('id')
     h
   end
@@ -27,16 +28,18 @@ RSpec.describe UserLanguagesController, type: :controller do
 
   describe "GET #index" do
     it "assigns all user_languages as @user_languages" do
+      UserLanguage.destroy_all
       user_language = UserLanguage.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:user_languages)).to_a.to eq([user_language])
+      get :index, {:user_id => @user}, valid_session
+      expect(assigns(:user_languages)).to eq([user_language])
     end
   end
 
   describe "GET #show" do
     it "assigns the requested user_language as @user_language" do
       user_language = UserLanguage.create! valid_attributes
-      get :show, {:id => user_language.to_param}, valid_session
+      get :show, {:user_id => @user, :id => user_language.to_param},
+        valid_session
       expect(assigns(:user_language)).to eq(user_language)
     end
   end
@@ -60,7 +63,7 @@ RSpec.describe UserLanguagesController, type: :controller do
     context "with valid params" do
       it "creates a new UserLanguage" do
         expect {
-          post :create, {:user_language => valid_attributes}, valid_session
+          post :create, {:user_id => @user, :user_language => valid_attributes}, valid_session
         }.to change(UserLanguage, :count).by(1)
       end
 
@@ -70,9 +73,9 @@ RSpec.describe UserLanguagesController, type: :controller do
         expect(assigns(:user_language)).to be_persisted
       end
 
-      it "redirects to the created user_language" do
+      it "redirects to the user_language list" do
         post :create, {:user_id => @user, :user_language => valid_attributes}, valid_session
-        expect(response).to redirect_to(UserLanguage.last)
+        expect(response).to redirect_to(user_user_languages_path(@user))
       end
     end
 
@@ -111,28 +114,31 @@ RSpec.describe UserLanguagesController, type: :controller do
 
       it "assigns the requested user_language as @user_language" do
         user_language = UserLanguage.create! valid_attributes
-        put :update, {:id => user_language.to_param, :user_language => valid_attributes}, valid_session
+        put :update, {:user_id => @user, :id => user_language.to_param,
+                      :user_language => valid_attributes}, valid_session
         expect(assigns(:user_language)).to eq(user_language)
       end
 
       it "redirects to the user_language" do
         user_language = UserLanguage.create! valid_attributes
-        put :update, {:id => user_language.to_param, :user_language => valid_attributes}, valid_session
-        expect(response).to redirect_to(user_language)
+        put :update, {:user_id => @user, :id => user_language.to_param,
+                      :user_language => valid_attributes}, valid_session
+        expect(response).to redirect_to(user_user_languages_url(@user))
       end
     end
 
     context "with invalid params" do
       it "assigns the user_language as @user_language" do
-        pending
         user_language = UserLanguage.create! valid_attributes
-        put :update, {:id => user_language.to_param, :user_language => invalid_attributes}, valid_session
+        put :update, {:user_id => @user, :id => user_language.to_param,
+                      :user_language => invalid_attributes}, valid_session
         expect(assigns(:user_language)).to eq(user_language)
       end
 
       it "re-renders the 'edit' template" do
         user_language = UserLanguage.create! valid_attributes
-        put :update, {:id => user_language.to_param, :user_language => invalid_attributes}, valid_session
+        put :update, {:user_id => @user, :id => user_language.to_param,
+                      :user_language => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -142,14 +148,16 @@ RSpec.describe UserLanguagesController, type: :controller do
     it "destroys the requested user_language" do
       user_language = UserLanguage.create! valid_attributes
       expect {
-        delete :destroy, {:id => user_language.to_param}, valid_session
+        delete :destroy, {:user_id => @user,
+                          :id => user_language.to_param}, valid_session
       }.to change(UserLanguage, :count).by(-1)
     end
 
     it "redirects to the user_languages list" do
       user_language = UserLanguage.create! valid_attributes
-      delete :destroy, {:id => user_language.to_param}, valid_session
-      expect(response).to redirect_to(user_languages_url)
+      delete :destroy, {:user_id => @user,
+                        :id => user_language.to_param}, valid_session
+      expect(response).to redirect_to(user_user_languages_url(@user))
     end
   end
 

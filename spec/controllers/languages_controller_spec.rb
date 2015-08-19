@@ -89,7 +89,7 @@ RSpec.describe LanguagesController, type: :controller do
 
       it "redirects to the created language" do
         post :create, {:language => valid_attributes}, valid_session
-        expect(response).to redirect_to(Language.last)
+        expect(response).to redirect_to(languages_url)
       end
     end
 
