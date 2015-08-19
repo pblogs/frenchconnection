@@ -20,3 +20,7 @@ nb:
       save: Legg til sertifikatet
       edit_certificates:
         save: Lagre
+
+  languages:
+    index:
+      new: Nytt språk

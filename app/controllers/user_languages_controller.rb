@@ -1,11 +1,11 @@
 class UserLanguagesController < ApplicationController
   before_action :set_user_language, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, except: [:index, :destroy, :update]
+  before_action :set_user
 
   # GET /user_languages
   # GET /user_languages.json
   def index
-    @user_languages = UserLanguage.all
+    @user_languages = UserLanguage.all.to_a
   end
 
   # GET /user_languages/1
@@ -26,14 +26,15 @@ class UserLanguagesController < ApplicationController
   # POST /user_languages
   # POST /user_languages.json
   def create
-    @user_language = UserLanguage.new(user_language_params)
-    @user_language.user_id = @user.id
-    @user_language.language_id = params[:user][:user_language_ids]
-    @user_language.rating = params[:user_language][:rating]
+    puts "\nPARAMS #{params}"
+    @user_language             = UserLanguage.new(user_language_params)
+    @user_language.user_id     = @user.id
+    #@user_language.language_id = params[:user][:user_language_ids]
+    #@user_language.rating      = params[:user_language][:rating]
 
     respond_to do |format|
       if @user_language.save!
-        format.html { redirect_to user_user_language(@user), notice: 'Språk lagret' }
+        format.html { redirect_to user_user_languages_url(@user), notice: 'Språk lagret' }
         format.json { render action: 'show', status: :created, location: @user_language }
       else
         format.html { render action: 'new' }
@@ -47,7 +48,7 @@ class UserLanguagesController < ApplicationController
   def update
     respond_to do |format|
       if @user_language.update(user_language_params)
-        format.html { redirect_to @user_language, notice: 'Språk lagret' }
+        format.html { redirect_to user_user_languages_url(@user), notice: 'Språk lagret' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -61,7 +62,7 @@ class UserLanguagesController < ApplicationController
   def destroy
     @user_language.destroy
     respond_to do |format|
-      format.html { redirect_to user_languages_url }
+      format.html { redirect_to user_user_languages_url(@user) }
       format.json { head :no_content }
     end
   end
