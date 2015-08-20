@@ -3,33 +3,34 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  email                  :string(255)
-#  encrypted_password     :string(255)      not null
+#  email                  :string
+#  encrypted_password     :string           not null
 #  roles                  :string           is an Array
-#  reset_password_token   :string(255)
+#  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
 #  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
+#  current_sign_in_ip     :string
+#  last_sign_in_ip        :string
 #  created_at             :datetime
 #  updated_at             :datetime
-#  first_name             :string(255)
-#  last_name              :string(255)
+#  first_name             :string
+#  last_name              :string
 #  department_id          :integer
 #  mobile                 :integer
-#  employee_nr            :string(255)
-#  image                  :string(255)
-#  emp_id                 :string(255)
+#  employee_nr            :string
+#  image                  :string
+#  emp_id                 :string
 #  profession_id          :integer
-#  home_address           :string(255)
-#  home_area_code         :string(255)
-#  home_area              :string(255)
+#  home_address           :string
+#  home_area_code         :string
+#  home_area              :string
 #  roles_mask             :integer
 #  gender                 :string
-#  age                    :integer
+#  address                :string
+#  birth_date             :date
 #
 
 class User < ActiveRecord::Base
@@ -112,6 +113,10 @@ class User < ActiveRecord::Base
     owns_projects.pluck(:department_id).compact
   end
 
+  def age
+    now = Time.now.utc.to_date
+    now.year - birth_date.year - (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
+  end
 
   # Heavy to load all users. Perhaps set the role with
   # user.worker == true if sorting on role_mask is to hard.

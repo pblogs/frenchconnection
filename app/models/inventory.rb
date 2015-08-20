@@ -3,8 +3,8 @@
 # Table name: inventories
 #
 #  id                               :integer          not null, primary key
-#  name                             :string(255)
-#  description                      :string(255)
+#  name                             :string
+#  description                      :string
 #  certificates_id                  :integer
 #  can_be_rented_by_other_companies :boolean          default(FALSE)
 #  rental_price_pr_day              :integer
