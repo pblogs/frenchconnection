@@ -35,7 +35,11 @@ nb:
         due_date: Sluttdato
         address: Adresse
       user:
+        home_address: Hjemmeadresse
+        home_area: Poststed
+        home_area_code: Postnr
         age: Alder
+        birth_date: Fødselsdag
         department_id: Avdeling
         emp_id: Ansattnr
         gender: Kjønn
@@ -43,3 +47,4 @@ nb:
         mobile: Mobil
         last_name: Etternavn
         skill_ids: Ferdigheter
+        relatives: Pårørende

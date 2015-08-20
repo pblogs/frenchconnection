@@ -16,6 +16,7 @@
 /tmp
 .smartgf_tags
 .smartgf_tags_date
+*.swn
 
 # Developer environment spesific
 .env-development
