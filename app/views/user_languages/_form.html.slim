@@ -1,8 +1,9 @@
-= form_for user_user_languages_url(@user) do |f|
+/= form_for user_user_languages_url(user_id: @user.id) do |f|
+= form_for @user_language, url: "/users/#{@user.id}/user_languages" do |f|
   = render partial: 'layouts/form_error_messages',
     locals: { form_object: @user_language }
 
-  = f.collection_radio_buttons(:language_ids, Language.all, :id, :name) do |r|
+  = f.collection_radio_buttons(:language_id, Language.all, :id, :name) do |r|
     .radio-inline
       = r.label { r.radio_button + r.text }
   br

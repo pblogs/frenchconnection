@@ -80,7 +80,7 @@
       - @user.user_languages.each do |lang|
         li.list-group-item
           = lang.name
-          span.badge= "#{lang.rating} år"
+          span.badge= "Rating: #{lang.rating}"
     = link_to 'Rediger språk', user_user_languages_path(@user) unless @user.new_record?
 
   .field
