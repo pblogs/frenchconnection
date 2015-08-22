@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
   # Worker
   has_many :user_tasks, :dependent => :destroy
   has_many :tasks, :through => :user_tasks
+
+  has_many :user_languages, :dependent => :destroy
+  has_many :languages, :through => :user_languages
+
   has_many :projects, :through => :tasks
   has_many :hours_spents
   has_many :categories, :through => :projects
@@ -114,8 +118,9 @@ class User < ActiveRecord::Base
   end
 
   def age
+    return if birth_date.blank?
     now = Time.now.utc.to_date
-    now.year - birth_date.year - (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
+    now.year - self.birth_date.year #- (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
   end
 
   # Heavy to load all users. Perhaps set the role with
