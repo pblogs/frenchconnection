@@ -19,12 +19,12 @@ table
       th
 
   tbody
-    - @user_languages.each do |user_language|
+    - @user_languages.each do |lang|
       tr
-        td = user_language.name
-        td = user_language.rating
-        td = link_to t(:edit), edit_user_user_language_path(@user, user_language)
-        td = link_to t(:destroy), user_user_language_path(@user, user_language),
+        td = lang.name
+        td = lang.rating
+        td = link_to( t(:edit), edit_user_user_language_path(id: lang.id) )
+        td = link_to t(:destroy), user_user_language_path(@user, lang),
               data: {:confirm => 'Virkelig slette?'}, :method => :delete
 
 br

@@ -48,7 +48,8 @@ class UserLanguagesController < ApplicationController
   def update
     respond_to do |format|
       if @user_language.update(user_language_params)
-        format.html { redirect_to user_user_languages_url(@user), notice: 'Språk lagret' }
+        format.html { redirect_to user_user_languages_path(user_id: @user),
+                      notice: t(:saved) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

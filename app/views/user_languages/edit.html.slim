@@ -1,8 +1,6 @@
-h1 Editing user_language
+h1= t(:edit)
 
 == render 'form'
 
-= link_to 'Show', @user_language
-'|
-= link_to 'Back', user_languages_path
+= link_to t(:back), user_user_languages_path(user_id: @user)
 
