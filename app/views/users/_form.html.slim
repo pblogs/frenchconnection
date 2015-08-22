@@ -1,10 +1,7 @@
 = form_for @user do |f|
-  - if @user.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@user.errors.count, "feil")} hindret oss i å lagre:"
-      ul
-        - @user.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'layouts/form_error_messages',
+    locals: { form_object: @user }
+
   .field
     = f.label :first_name
     = f.text_field :first_name
@@ -16,9 +13,8 @@
 
   .field
     = f.label :birth_date
-    span.pull-right= "#{@user.age} år"
     = f.text_field :birth_date,
-      value: I18n.l(@user.birth_date, format: :datepicker),
+      value: I18n.l(@user.birth_date || Time.now, format: :datepicker),
       class: :datepicker,  placeholder: 'Velg dato'
 
   .field
@@ -65,18 +61,27 @@
 
   .field
     = f.label :skill_ids, t('task.skills')
-    = collection_check_boxes(:user, :skill_ids,
-      Skill.all, :id, :title) do |c|
+    = collection_check_boxes(:user, :skill_ids, Skill.all, :id, :title) do |c|
       .checkbox
         = c.label { c.check_box + c.text }
 
   .field
-    = label_tag 'Sertifikater'
     hr
+    = label_tag 'Sertifikater'
     = render 'certificate_lightbox_list'
     - if policy(@user).update_important_parts?
       = link_to 'Rediger sertifikater', user_certificates_path(@user) unless @user.new_record?
     hr
+
+  .field
+    strong Språk
+    br
+    ul.list-group
+      - @user.user_languages.each do |lang|
+        li.list-group-item
+          = lang.name
+          span.badge= "Rating: #{lang.rating}"
+    = link_to 'Rediger språk', user_user_languages_path(@user) unless @user.new_record?
 
   .field
     strong Barn
