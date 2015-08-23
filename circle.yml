@@ -2,16 +2,18 @@ deployment:
   production:
     branch: master
     commands:
+      # DEMO.ORWAPP.COM
       - heroku maintenance:on --app orwapp-demo
-      - heroku pg:backups capture --app orwapp-demo
+      #- heroku pg:backups capture --app orwapp-demo
       - git push git@heroku.com:orwapp-demo.git $CIRCLE_SHA1:master
-      - heroku run rake db:migrate --app orwapp-demo
+      #- heroku run rake db:migrate --app orwapp-demo
       - heroku maintenance:off --app orwapp-demo
 
+      # ALLIERO.ORWAPP.COM
       - heroku maintenance:on --app alliero-orwapp
-      - heroku pg:backups capture --app alliero-orwapp
+      #- heroku pg:backups capture --app alliero-orwapp
       - git push git@heroku.com:alliero-orwapp.git $CIRCLE_SHA1:master
-      - heroku run rake db:migrate --app alliero-orwapp
+      #- heroku run rake db:migrate --app alliero-orwapp
       - heroku maintenance:off --app alliero-orwapp
 
   staging:
