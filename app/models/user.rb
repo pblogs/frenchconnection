@@ -91,6 +91,10 @@ class User < ActiveRecord::Base
     "#{ last_name } #{ first_name }".strip
   end
 
+  def initials
+    "#{ first_name[0] + last_name[0,3] }".upcase
+  end
+
   def avatar
     image.url.present? ? image.url : "http://robohash.org/#{name}"
   end
