@@ -60,6 +60,21 @@ describe User do
     end
   end
 
+  describe 'helpers' do
+    before do
+      @martin  = Fabricate(:user,
+        first_name: 'Martin', last_name: 'Stabenfeldt')
+      @joachim = Fabricate(:user,
+        first_name: 'Joachim', last_name: 'Stray')
+    end
+
+    it 'initials on names.
+        1 letter from the first name, 3 from the last name' do
+      expect(@martin.initials).to match 'MSTA'
+      expect(@joachim.initials).to match 'JSTR'
+    end
+
+  end
   describe 'scopes' do
     before do
       Skill.destroy_all

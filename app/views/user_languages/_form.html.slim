@@ -1,0 +1,31 @@
+- content_for :breadcrumb do
+  = link_to 'Administrer', administration_path
+  = fa_icon 'chevron-right'
+  = link_to 'Brukere', users_path
+  = fa_icon 'chevron-right'
+  = link_to @user.name, edit_user_path(@user)
+  = fa_icon 'chevron-right'
+  = link_to t('activerecord.models.language.other'), user_user_languages_path(user_id: @user.id)
+  = fa_icon 'chevron-right'
+  strong = t(:edit)
+
+- if @user_language.new_record?
+  - @url = "/users/#{@user.id}/user_languages"
+- else
+  - @url = user_user_language_path(:user_id => @user.id, :id => @user_language.id)
+
+= form_for @user_language, url: @url do |f|
+    = render partial: 'layouts/form_error_messages',
+      locals: { form_object: @user_language }
+
+    = f.collection_radio_buttons(:language_id, Language.all, :id, :name) do |r|
+      .radio-inline
+        = r.label { r.radio_button + r.text }
+    br
+
+    = f.label :rating
+    = f.select :rating, (1..6)
+
+    br
+    br
+    .actions = f.submit t(:save)
