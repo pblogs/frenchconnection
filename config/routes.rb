@@ -1,5 +1,6 @@
 Orwapp::Application.routes.draw do
 
+  resources :languages
   resources :professions
   ActiveAdmin.routes(self)
   resources :submissions
@@ -78,6 +79,7 @@ Orwapp::Application.routes.draw do
   get '/users/search/'=> 'users#search', as: :user_search
 
   resources :users do
+    resources :user_languages
     resources :kids
     get '/tasks/started'     => 'users/tasks#started'
     get '/tasks/not_started' => 'users/tasks#not_started'

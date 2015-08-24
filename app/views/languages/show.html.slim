@@ -1,0 +1,7 @@
+p
+  strong= "#{t(:name)}: "
+  = @language.name
+
+= link_to t(:edit), edit_language_path(@language)
+'|
+= link_to t(:back), languages_path

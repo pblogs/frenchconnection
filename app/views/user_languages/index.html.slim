@@ -1,0 +1,33 @@
+- content_for :breadcrumb do
+  = link_to 'Administrer', administration_path
+  = fa_icon 'chevron-right'
+  = link_to 'Brukere', users_path
+  = fa_icon 'chevron-right'
+  = link_to @user.name, edit_user_path(@user)
+  = fa_icon 'chevron-right'
+  strong Språk
+
+h1 Språk
+
+table
+  thead
+    tr
+      th Språk
+      th Rating
+      th
+      th
+      th
+
+  tbody
+    - @user_languages.each do |lang|
+      tr
+        td = lang.name
+        td = lang.rating
+        td = link_to( t(:edit), edit_user_user_language_path(id: lang.id) )
+        td = link_to t(:destroy), user_user_language_path(@user, lang),
+              data: {:confirm => 'Virkelig slette?'}, :method => :delete
+
+br
+
+= link_to 'Legg til språk', new_user_user_language_path(@user),
+  class: 'btn btn-primary'
