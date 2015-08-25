@@ -91,8 +91,13 @@ class User < ActiveRecord::Base
     "#{ last_name } #{ first_name }".strip
   end
 
-  def initials
+  def build_initials
     "#{ first_name[0] + last_name[0,3] }".upcase
+  end
+
+  before_save :init
+  def init
+    self.initials ||= self.build_initials
   end
 
   def avatar
