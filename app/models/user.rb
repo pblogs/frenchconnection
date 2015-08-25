@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   def build_initials
     if not User.where(initials: self.initials_v1).exists?
       self.initials ||= self.initials_v1
-    elsif not User.where(initials: self.initials_v1).exists?
+    elsif not User.where(initials: self.initials_v2).exists?
       self.initials ||= self.initials_v2
     end
   end
