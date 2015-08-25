@@ -94,7 +94,19 @@ class User < ActiveRecord::Base
   end
 
   def build_initials
+    if not User.where(initials: self.initials_v1).exists?
+      self.initials ||= self.initials_v1
+    elsif not User.where(initials: self.initials_v1).exists?
+      self.initials ||= self.initials_v2
+    end
+  end
+
+  def initials_v1
     "#{ first_name[0] + last_name[0,3] }".upcase
+  end
+
+  def initials_v2
+    "#{ first_name[0,2] + last_name[0,2] }".upcase
   end
 
   before_save :init
