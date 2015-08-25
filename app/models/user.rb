@@ -49,11 +49,13 @@ class User < ActiveRecord::Base
   has_many :dynamic_forms
   has_many :submissions
 
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
-  validates :mobile,     uniqueness: true
+  validates :first_name,     presence: true
+  validates :last_name,      presence: true
+  validates :initials,       uniqueness: true
+  validates :mobile,         uniqueness: true
   validates :department_id,  presence: true
-  validates :roles,  presence: true
+  validates :roles,          presence: true
+
 
   # Worker
   has_many :user_tasks, :dependent => :destroy
