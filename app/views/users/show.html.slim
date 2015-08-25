@@ -24,7 +24,7 @@
       #test-scores
 
   .center_column
-    - if policy(:user).update_basic_info?
+    - if policy(@user).update_basic_info?
       = render "tasks"
     - else
       h2= @user.full_name
