@@ -11,6 +11,6 @@ WORKDIR /app
 # Without this optimization `bundle install` would run if _any_ file is changed within the project, no bueno
 ADD Gemfile /app/Gemfile
 ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install --jobs 20 --retry 5 --without production
+RUN bundle install --jobs 1 --retry 5 --without production
 
 ADD . /app
