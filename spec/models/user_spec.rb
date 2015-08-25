@@ -68,8 +68,12 @@ describe User do
         first_name: 'Joachim', last_name: 'Stray')
     end
 
-    it 'initials on names.
-        1 letter from the first name, 3 from the last name' do
+    it 'initials on names.  1 letter from the first name, 3 from the last name' do
+      expect(@martin.build_initials).to match 'MSTA'
+      expect(@joachim.build_initials).to match 'JSTR'
+    end
+
+    it 'initials on names. Generated when creating new users' do
       expect(@martin.initials).to match 'MSTA'
       expect(@joachim.initials).to match 'JSTR'
     end
