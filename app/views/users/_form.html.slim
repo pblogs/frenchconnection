@@ -15,7 +15,7 @@
     - if policy(@user).update_important_parts?
       = f.text_field :initials
     - else
-      = f.text_field :initials, disabled: :disabled, class: :disabled
+      = f.text_field :initials, disabled: :disabled
 
   .field
     = f.label :birth_date
