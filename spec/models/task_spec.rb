@@ -28,27 +28,26 @@ describe Task do
   describe 'Basics' do
     before :each do
       @department = Fabricate(:department)
-      @worker = Fabricate(:user, first_name: 'John')
-      @worker2 = Fabricate(:user, first_name: 'Barry')
-      @project_owner = Fabricate(:user, first_name: 'Martin',
-                                 last_name: 'Staben')
-      @project = Fabricate(:project, user: @project_owner)
-      @task = Fabricate(:task, project: @project)
+      @owner      = Fabricate(:user, first_name: 'John', last_name: 'Doe')
+      @project    = Fabricate(:project, user: @owner)
+      @worker     = Fabricate(:user, first_name: 'John')
+      @worker2    = Fabricate(:user, first_name: 'Barry')
+      @task       = Fabricate(:task, project: @project)
       @task.users = [@worker, @worker2]
       @task.save
       @task.reload
       @worker.reload
     end
 
-    it 'is valid from the Fabric' do
+    it "is valid from the Fabric" do
       expect(@task).to be_valid
     end
 
-    it 'creates a custom ID', focus: true do
-      expect(@task.id).to equal('00001MSTA')
+    it 'has a custom ID' do
+      expect(@task.custom_id).to eq '00001JDOE'
     end
 
-    it 'belongs to a project' do
+    it "belongs to a project" do
       expect(@task.project.class).to eq Project
     end
 
@@ -56,11 +55,11 @@ describe Task do
       expect(@task.address).to eq @task.project.address
     end
 
-    it 'has one or more workers' do
+    it "has one or more workers" do
       expect(@task.users).to include(@worker, @worker)
     end
 
-    it 'knows their names' do
+    it "knows their names" do
       @task.name_of_users.should eq 'John, Barry'
     end
   end

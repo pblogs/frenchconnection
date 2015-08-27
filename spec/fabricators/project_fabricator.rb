@@ -22,12 +22,13 @@
 #
 
 Fabricator(:project) do
-  project_number "PL1"
-  name           { Faker::Company.name }
-  customer       { Fabricate(:customer) }
-  execution_address { Faker::Address.street_name }
-  start_date     { Time.now }
-  due_date       { Time.now.next_week }
-  description    "Lag en ny port ved innkjøringen til parkeringen "
+  customer        { Fabricate(:customer) }
   department      { Fabricate(:department) }
+  description    "Lag en ny port ved innkjøringen til parkeringen "
+  due_date       { Time.now.next_week }
+  execution_address { Faker::Address.street_name }
+  name           { Faker::Company.name }
+  project_number "PL1"
+  start_date     { Time.now }
+  user           { Fabricate(:user) }
 end
