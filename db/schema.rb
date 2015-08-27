@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150816165254) do
+ActiveRecord::Schema.define(version: 20150823130250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,15 +36,6 @@ ActiveRecord::Schema.define(version: 20150816165254) do
     t.string  "access_token"
     t.boolean "active"
   end
-
-  create_table "artisans", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "tasks_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "artisans", ["tasks_id"], name: "index_artisans_on_tasks_id", using: :btree
 
   create_table "artisans_tasks", id: false, force: :cascade do |t|
     t.integer "artisan_id"
@@ -352,6 +343,7 @@ ActiveRecord::Schema.define(version: 20150816165254) do
     t.integer  "skills_ids"
     t.boolean  "draft",            default: true
     t.string   "address"
+    t.string   "custom_id"
   end
 
   add_index "tasks", ["customer_id"], name: "index_tasks_on_customer_id", using: :btree
