@@ -50,11 +50,16 @@ class Task < ActiveRecord::Base
 
   attr_accessor :department_id
   attr_accessor :goto_tools
-  after_initialize :init
+  before_save :init
+  self.primary_key = 'custom_id'
+
 
 
   def init
     self.address ||= self.project.try(:address)
+    # Custom ID
+    custom_id = (sprintf '%05d', (Task.last.id || 1)) + self.project.user.initials
+    self.id ||= custom_id
   end
 
   def active?
