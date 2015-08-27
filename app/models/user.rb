@@ -49,11 +49,13 @@ class User < ActiveRecord::Base
   has_many :dynamic_forms
   has_many :submissions
 
-  validates :first_name, presence: true
-  validates :last_name,  presence: true
-  validates :mobile,     uniqueness: true
+  validates :first_name,     presence: true
+  validates :last_name,      presence: true
+  validates :initials,       uniqueness: true
+  validates :mobile,         uniqueness: true
   validates :department_id,  presence: true
-  validates :roles,  presence: true
+  validates :roles,          presence: true
+
 
   # Worker
   has_many :user_tasks, :dependent => :destroy
@@ -91,8 +93,25 @@ class User < ActiveRecord::Base
     "#{ last_name } #{ first_name }".strip
   end
 
-  def initials
+  def build_initials
+    if !User.where(initials: self.initials_v1).exists?
+      self.initials_v1
+    elsif !User.where(initials: self.initials_v2).exists?
+      self.initials_v2
+    end
+  end
+
+  def initials_v1
     "#{ first_name[0] + last_name[0,3] }".upcase
+  end
+
+  def initials_v2
+    "#{ first_name[0,2] + last_name[0,2] }".upcase
+  end
+
+  before_save :init
+  def init
+    self.initials ||= self.build_initials
   end
 
   def avatar

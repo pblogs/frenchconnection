@@ -61,15 +61,26 @@ describe User do
   end
 
   describe 'helpers' do
-    before do
+    before(:all) do
+      User.destroy_all
       @martin  = Fabricate(:user,
         first_name: 'Martin', last_name: 'Stabenfeldt')
       @joachim = Fabricate(:user,
         first_name: 'Joachim', last_name: 'Stray')
+      @jimmi = Fabricate(:user,
+        first_name: 'Jimmi', last_name: 'Stromme')
     end
 
-    it 'initials on names.
-        1 letter from the first name, 3 from the last name' do
+    it 'initials on names.  1 letter from the first name, 3 from the last name' do
+      expect(@martin.initials).to match 'MSTA'
+      expect(@joachim.initials).to match 'JSTR'
+    end
+
+    it 'fallback solution if taken' do
+      expect(@jimmi.initials).to match 'JIST'
+    end
+
+    it 'initials on names. Generated when creating new users' do
       expect(@martin.initials).to match 'MSTA'
       expect(@joachim.initials).to match 'JSTR'
     end

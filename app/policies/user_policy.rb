@@ -4,7 +4,6 @@ class UserPolicy  < ApplicationPolicy
   def initialize(user, user_object)
     @user = user
     @user_object = user_object
-    #require 'pry'; pry
   end
 
   def index?
@@ -21,15 +20,15 @@ class UserPolicy  < ApplicationPolicy
   end
 
   def edit_basic_info?
-    @user == @user_object || admin_or_project_leader?
+    user == user_object || admin_or_project_leader?
   end
 
   def update_basic_info?
-    @user == @user_object || admin_or_project_leader?
+    user == user_object || admin_or_project_leader?
   end
 
   def register_hours?
-    @user == @user_object || admin_or_project_leader?
+    user == user_object || admin_or_project_leader?
     true
   end
 
