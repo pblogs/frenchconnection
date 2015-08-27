@@ -41,12 +41,21 @@ class Project < ActiveRecord::Base
   validates :project_number,    :presence => true
   validates :name,              :presence => true
   validates :description,       :presence => true
+  validates :custom_id,         :uniqueness => true
+  validates :user, presence: true
 
   attr_accessor :single_task
 
   scope :active,    -> { where(complete: false) }
   scope :complete,  -> { where(complete: true)  }
   scope :of_kind,   ->(kind) { where('of_kind = ?', kind) }
+
+  before_save :set_custom_id
+  def set_custom_id
+    last_id = (Project.last.try(:id) || 1)
+    custom_id = (sprintf '%05d', (last_id)) + self.user.initials
+    self.custom_id ||= custom_id
+  end
 
   def task_drafts
     tasks.where(draft: true)

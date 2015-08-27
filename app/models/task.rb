@@ -42,6 +42,7 @@ class Task < ActiveRecord::Base
   validates :start_date,  :presence => true
   validates :description, :presence => true
   validates :address,     :presence => true
+  validates :custom_id,   :uniqueness => true
 
   validate :start_date_must_be_within_projects_dates_range,
     if: Proc.new { |p| p.start_date.present? }

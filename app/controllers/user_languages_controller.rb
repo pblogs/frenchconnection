@@ -26,7 +26,6 @@ class UserLanguagesController < ApplicationController
   # POST /user_languages
   # POST /user_languages.json
   def create
-    puts "\nPARAMS #{params}"
     @user_language             = UserLanguage.new(user_language_params)
     @user_language.user_id     = @user.id
     #@user_language.language_id = params[:user][:user_language_ids]

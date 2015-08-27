@@ -27,7 +27,7 @@ describe Project do
   describe "generic" do
     before :each do
       @department      = Fabricate(:department)
-      @project_leader  = Fabricate(:user)
+      @project_leader  = Fabricate(:user, first_name: 'John', last_name: 'Doe')
       @service         = Fabricate(:department, title: 'Service')
       @project         = Fabricate(:project, user: @project_leader,
                                    department: @service)
@@ -63,6 +63,10 @@ describe Project do
 
     it "is valid from the Fabric" do
       expect(@project).to be_valid
+    end
+
+    it 'has a custom ID' do
+      expect(@project.custom_id).to match(/[\d].+JDOE/)
     end
 
      it "Belongs to a project leader" do
