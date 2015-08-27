@@ -1,7 +1,7 @@
 .outer_container
   #user-info data-id="#{@user.id}"
   aside.left_column
-    =image_tag @current_user.avatar, class: :profile_image
+    =image_tag @user.avatar, class: :profile_image
 
     - if (@current_user == @user) or \
       (@current_user.is?(:admin) || @current_user.is?(:project_leader))
@@ -9,7 +9,7 @@
         strong.menu_header Verktøy
         .bar
         ul
-          li= link_to 'Rediger min profil', edit_user_path(@user)
+          li= link_to 'Rediger profil', edit_user_path(@user)
           li= link_to 'Se timelister', user_timesheets_path(@user)
           li= link_to 'Meld avvik', edit_user_path(@user), class: :muted_text
 
@@ -24,8 +24,7 @@
       #test-scores
 
   .center_column
-    /- if policy(:user).update_basic_info?
-    - if (@current_user == @user) or @current_user.is?(:admin)
+    - if policy(@user).update_basic_info?
       = render "tasks"
     - else
       h2= @user.full_name
