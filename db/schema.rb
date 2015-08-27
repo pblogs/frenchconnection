@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825153104) do
+ActiveRecord::Schema.define(version: 20150827190850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -291,6 +291,7 @@ ActiveRecord::Schema.define(version: 20150825153104) do
     t.boolean  "sms_employee_when_new_task_created",   default: false
     t.integer  "department_id"
     t.boolean  "complete",                             default: false
+    t.string   "custom_id"
   end
 
   create_table "skills", force: :cascade do |t|
