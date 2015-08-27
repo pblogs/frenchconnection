@@ -59,7 +59,7 @@ class Task < ActiveRecord::Base
   end
 
   def set_custom_id
-    last_id = (Task.last.id || 1)
+    last_id = (Task.last.try(:id) || 1)
     custom_id = (sprintf '%05d', (last_id)) + self.project.user.initials
     self.custom_id ||= custom_id
   end
