@@ -8,102 +8,100 @@ nb:
       form:
         single_task: Dette prosjektet har bare en oppgave
 
-  address: Adresse
   active_tasks: Aktive oppgaver
+  address: Adresse
   are_you_sure: Er du sikker?
+  are_you_sure_about_hard_ending: Helt sikker på at du vil avslutte oppgaven for alle?
+  are_you_sure_about_soft_ending: Sende melding til alle om at oppgaven avsluttes?
   back: Tilbake
-  continue: Fortsett
-  drafts: Kladder
-  indoor: Innendørs
-  outdoor: Utendørs
-  save_and_continue: Lagre og gå videre
-  read_more: Les mer
-  completed_tasks: Avsluttede oppgaver
-  the_location: lokasjonen
-  courses: Kurs
-  could_not_save: Lagring feilet
-  are_you_sure_about_soft_ending: |
-    Sende melding til alle om at oppgaven avsluttes?
-  are_you_sure_about_hard_ending: |
-    Helt sikker på at du vil avslutte oppgaven for alle?
-  description: Beskrivelse
-  create_a_new_project: Lag et nytt prosjekt
-  contact_person: Kontaktperson
   complete: Avsluttet
-  hours_registered: Timer registrert
+  completed_tasks: Avsluttede oppgaver
+  contact_person: Kontaktperson
+  continue: Fortsett
+  could_not_save: Lagring feilet
+  courses: Kurs
+  create_a_new_project: Lag et nytt prosjekt
   customer: Kunde
-  end_task: Avslutt oppgaven
-  notifications: Varslinger
-  end_task_hard: Tvungen avslutning
+  description: Beskrivelse
+  destroy: Slett
+  drafts: Kladder
+  due_date: Ferdigstilling
+  edit: Rediger
   end_date: Ferdigstillelse
+  end_task: Avslutt oppgaven
+  end_task_hard: Tvungen avslutning
   from: Fra
-  to: Til
-  task_ended_at: Avsluttet for %{time} siden
-  task_ended: Oppgaven ble avsluttet
-  name: Navn
+  has_no_due_date: Ingen dato satt
+  hours_registered: Timer registrert
+  indoor: Innendørs
+  instructions: Instruksjoner
   my_projects: Mine prosjekter
+  name: Navn
+  name: Navn
+  notifications: Varslinger
+  options: Valg
+  org_nr: Org nr
+  our_customers: Våre kunder
+  outdoor: Utendørs
+  phone: Telefon
+  price_pr_day: Pris pr dag
+  project_number: Prosjektnummer
+  project_owner: Prosjekteier
+  read_more: Les mer
+  register_new_task: Registrer ny oppgave
+  remove: Fjern
+  save: Lagre
+  save_and_continue: Lagre og gå videre
+  saved: Lagret!
+  search: Søk
   search: Søk
   select: Velg
-  saved: Lagret!
-  sole_custody: Eneforsørger
-  updated: Endringene ble lagret
-  remove: Fjern
+  show: Vis
   show_hours_registered: Vis timer
+  sole_custody: Eneforsørger
+  sole_custody: Eneforsørger
   start_date: Startdato
   stopped_us_saving: hindret oss å lagre
-  price_pr_day: Pris pr dag
-  due_date: Ferdigstilling
-  register_new_task: Registrer ny oppgave
-  project_owner: Prosjekteier
-  instructions: Instruksjoner
+  task_ended: Oppgaven ble avsluttet
+  task_ended_at: Avsluttet for %{time} siden
   tasks_in_progress: Aktive oppgaver
+  the_location: lokasjonen
+  these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
+  title: Navn
+  to: Til
+  tools: Verktøy
+  updated: Endringene ble lagret
+  where: Hvor
+  who: Hvem
   task_ended_by_admin: |
     Oppgaven %{description} er avsluttet. Husk å føre timer i løpet av de neste
     24 timene. Hilsen %{from}
-  these_users_has_not_ended_their_task: Har ikke avsluttet oppgaven
-  our_customers: Våre kunder
-  org_nr: Org nr
-  phone: Telefon
-  tools: Verktøy
-  has_no_due_date: Ingen dato satt
-  name: Navn
-  options: Valg
-  project_number: Prosjektnummer
-  save: Lagre
-  show: Vis
-  edit: Rediger
-  destroy: Slett
-  search: Søk
-  sole_custody: Eneforsørger
-  title: Navn
-  who: Hvem
-  where: Hvor
 
   top_nav:
-    projects: Prosjekter
     customers: Kunder
+    dictionary: Ordbok
+    hse: HMS
     manage: Administrer
     my_page: Min side
-    hse: HMS
-    dictionary: Ordbok
+    projects: Prosjekter
 
   generic:
     archive: Arkiv
-    departments: Avdelinger
     confirm: Er du sikker?
     customers: Kunder
+    departments: Avdelinger
     favourites: Favoritter
     projects: Prosjekter
 
   admin:
-    header: Administrer resurser
-    users: Brukere
-    inventories: Verktøy og maskiner
-    professions: Yrker og titler
     certificates: Sertifikater
-    locations: Lokasjoner
-    skills: Ferdigheter
     cms: Nyheter
+    header: Administrer resurser
+    inventories: Verktøy og maskiner
+    locations: Lokasjoner
+    professions: Yrker og titler
+    skills: Ferdigheter
+    users: Brukere
   time:
     formats:
       short_w_year: "%d %B %Y"
