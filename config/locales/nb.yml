@@ -4,6 +4,9 @@ nb:
   customers:
     edit: Rediger kunde
     new: Opprett kunde
+    index:
+      create_new_customer: Registrer ny kunde
+      delete: Slett kunde
     projects:
       form:
         single_task: Dette prosjektet har bare en oppgave
@@ -39,6 +42,7 @@ nb:
   name: Navn
   name: Navn
   notifications: Varslinger
+  no_way_back_if_deleted: Sikker på at du vil slette? Det er ikke mulig å angre.
   options: Valg
   org_nr: Org nr
   our_customers: Våre kunder
@@ -142,11 +146,6 @@ nb:
     bulldozer-cert: Bulldozer
     manage: Administrer kompetanse knyttet til personell
 
-  project:
-    confirm_closing: Avslutte prosjektet?
-    complete_link: Avslutt prosjektet
-    closed_projects: Avsluttede prosjekter
-    projects.create_new: Opprett nytt prosjekt
 
   task:
     no_images_taken_on_this_task: Det er ikke tatt noen bilder på denne oppgaven
@@ -170,7 +169,7 @@ nb:
     failure:
       user:
         not_found_in_database: |
-          Vi fant ingen bruker med det telefonnummeret i databasen
+          Vi fant ingen bruker med det telefonnummeret og passordet i databasen
 
   hours_spent:
     editing: Rediger timer registert på %{project}
@@ -202,7 +201,23 @@ nb:
 
 
 
-  projects:
+  project:
+    closed_projects: Avsluttede prosjekter
+    closed_projects: Avsluttede prosjekter
+    complete_link: Avslutt prosjektet
+    complete_link: Avslutt prosjektet
+    confirm_closing: Avslutte prosjektet?
+    confirm_closing: Avslutte prosjektet?
+    create_new: Opprett nytt prosjekt
+    default: Standardprosjekt
+    hours_registered:
+      report_generated_at: Report generated at %{time}
+    tasks:
+      tools: Verktøy
+      form:
+        project_start_date: "Prosjekt start dato: %{start_date}"
+        project_due_date: "Prosjekt ferdig dato: %{due_date}"
+    default_project: Standardprosjekt
     create_new: Opprett nytt prosjekt
     no_started_customers_or_projects: Du har ingen favoritter
     no_departments: Her vil du se avdelingene prosjektene dine høre til
@@ -239,18 +254,7 @@ nb:
         people_with_required_skills:
           Personell med kompetanse til å utføre denne oppgaven
         selected_workers: Valgte arbeidere
-  project:
-    confirm_closing: Avslutte prosjektet?
-    complete_link: Avslutt prosjektet
-    closed_projects: Avsluttede prosjekter
-    create_new: Opprett nytt prosjekt
-    hours_registered:
-      report_generated_at: Report generated at %{time}
-    tasks:
-      tools: Verktøy
-      form:
-        project_start_date: "Prosjekt start dato: %{start_date}"
-        project_due_date: "Prosjekt ferdig dato: %{due_date}"
+
 
   project_reports:
     create:
