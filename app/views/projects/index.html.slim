@@ -4,7 +4,7 @@ ul class="accordion-tabs-minimal"
     a href="#" class="is-active tab-link" = t('generic.favourites')
     section
       - if @starred_customers.blank? && @starred_projects.blank?
-          p = t('projects.no_started_customers_or_projects')
+          p = t('.no_started_customers_or_projects')
       ul#favourites.circle
         - if @starred_customers.present?
           h5 = t('generic.customers')
@@ -21,7 +21,7 @@ ul class="accordion-tabs-minimal"
     a href="#" class="tab-link"= t('generic.departments')
     section
       - if @departments.blank?
-          p = t('projects.no_departments')
+          p = t('.no_departments')
       ul
         - @departments && @departments.each do |d|
           li= link_to d.title, d
@@ -39,5 +39,5 @@ ul class="accordion-tabs-minimal"
 br
 br
 br
-= link_to t('projects.create_new'), new_assignment_path,
+= link_to t('.create_new'), new_assignment_path,
   class: 'red btn btn-primary'
