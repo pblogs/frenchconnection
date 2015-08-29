@@ -399,7 +399,6 @@ ActiveRecord::Schema.define(version: 20150827190850) do
     t.string   "home_area"
     t.integer  "roles_mask"
     t.string   "gender"
-    t.string   "address"
     t.date     "birth_date"
     t.text     "relatives"
     t.string   "initials"
