@@ -5,19 +5,29 @@ ruby '2.2.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+#
+# Needed for logging and serving static assets at Heroku
 gem 'rails_12factor', group: :production
+
 gem 'ng-rails-csrf'
+gem 'react-rails', '~> 1.0', github: 'reactjs/react-rails'
+gem 'lodash-rails'
+gem 'angularjs-rails'
+gem 'angular_rails_csrf'
+
 gem 'pg'
 gem 'symbolize'
 gem 'sidekiq'
 gem 'lightbox2-rails'
 gem 'pundit'
-gem 'react-rails', '~> 1.0', github: 'reactjs/react-rails'
 
-gem 'activeadmin', github: 'activeadmin'
+
+# This library adds CommonJS module support to Sprockets (via Browserify).
 gem 'browserify-rails'
 
 
+# Used by our /admin CMS
+gem 'activeadmin', github: 'activeadmin'
 gem 'tinymce-rails', '4.1.6'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 gem 'html_truncator', '0.4.0'
@@ -33,7 +43,6 @@ gem 'devise'
 
 gem 'axlsx', '~> 2.0.1'
 gem 'alphabetical_paginate'
-
 
 
 # Use SCSS for stylesheets
@@ -60,8 +69,6 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'fabrication'
-gem 'faker'
 
 
 
@@ -80,8 +87,6 @@ end
 
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'guard-rspec', require: false
   gem 'binding_of_caller'
   gem 'pry'
 end
@@ -95,8 +100,12 @@ group :development do
   gem 'quiet_assets'
 end
 
+gem 'fabrication'
+gem 'faker'
 
 group :test do
+  gem 'rspec-rails'
+  gem 'guard-rspec', require: false
   gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
@@ -109,8 +118,7 @@ group :development, :production do
   gem 'foreman'
   gem 'thor'
   gem 'pusher'
-  #gem 'ransack', github: 'activerecord-hackery/ransack'
-  gem 'ransack'
+  #gem 'ransack'
 end
 
 gem 'carrierwave'
@@ -137,8 +145,5 @@ group :development do
   gem 'growl'
 end
 
-gem 'lodash-rails'
-gem 'angularjs-rails'
-gem 'angular_rails_csrf'
 gem 'rack-cors',
   :require => 'rack/cors'

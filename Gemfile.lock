@@ -651,7 +651,6 @@ DEPENDENCIES
   rails-footnotes (>= 4.0.0, < 5)
   rails-i18n (~> 4.0.0)
   rails_12factor
-  ransack
   react-rails (~> 1.0)!
   refills
   rest-client
