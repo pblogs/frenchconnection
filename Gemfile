@@ -22,6 +22,8 @@ gem 'lightbox2-rails'
 gem 'pundit'
 
 
+
+
 # This library adds CommonJS module support to Sprockets (via Browserify).
 gem 'browserify-rails'
 
@@ -87,6 +89,7 @@ end
 
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'binding_of_caller'
   gem 'pry'
 end
