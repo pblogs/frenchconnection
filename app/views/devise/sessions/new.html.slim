@@ -4,10 +4,15 @@ h2
   div
     br
     = f.label :mobile, 'Mobilnummer'
-    = f.telephone_field :mobile, autofocus: true
+    = f.telephone_field :mobile, autofocus: true, autocomplete: 'off',
+      autocapitalize: 'off', spellcheck: 'off'
+
+
+
   div
     = f.label :password, 'Passord'
-    = f.text_field :password, autocomplete: "off"
+    = f.text_field :password, autocomplete: 'off',
+      autocapitalize: 'off', spellcheck: 'off'
 
   - if devise_mapping.rememberable?
     div
@@ -22,6 +27,7 @@ h2
   br
   br
 
-= link_to 'Se instruksjonsvideo', "https://www.youtube.com/embed/bKVNWlIPoX0", class: 'pull-right'
+= link_to 'Se instruksjonsvideo', "https://www.youtube.com/embed/bKVNWlIPoX0",
+  class: 'pull-right'
 br
 = render "devise/shared/links"
