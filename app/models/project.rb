@@ -41,7 +41,7 @@ class Project < ActiveRecord::Base
   validates :project_number,    :presence => true
   validates :name,              :presence => true
   validates :description,       :presence => true
-  validates :custom_id,         :uniqueness => true
+  #validates :custom_id,         :uniqueness => true
   validates :user, presence: true
 
   attr_accessor :single_task

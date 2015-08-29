@@ -32,7 +32,7 @@ describe Task do
       @project    = Fabricate(:project, user: @owner)
       @worker     = Fabricate(:user, first_name: 'John')
       @worker2    = Fabricate(:user, first_name: 'Barry')
-      @task       = Fabricate(:task, project: @project)
+      @task       = Fabricate(:task, project: @project, address: nil)
       @task.users = [@worker, @worker2]
       @task.save
       @task.reload
@@ -44,14 +44,14 @@ describe Task do
     end
 
     it 'has a custom ID' do
-      expect(@task.custom_id).to eq '00001JDOE'
+      expect(@task.custom_id).to match(/[\d].+JDOE/)
     end
 
     it "belongs to a project" do
       expect(@task.project.class).to eq Project
     end
 
-    it 'inherits the projects address' do
+    it 'inherits the projects address, if non other provided' do
       expect(@task.address).to eq @task.project.address
     end
 
