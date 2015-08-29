@@ -40,11 +40,11 @@ html
         section
           - if content_for?(:breadcrumb)
             .breadcrumb = yield(:breadcrumb)
-          - if flash[:notice]
+          - if flash[:notice].present?
             .alert.alert-success= flash[:notice]
 
           - if flash[:alert]
-            .alert.alert-warning= flash[:error]
+            .alert.alert-warning= flash[:alert]
 
           - if flash[:error]
             .alert.alert-danger= flash[:error]
