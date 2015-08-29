@@ -26,7 +26,7 @@ Fabricator(:project) do
   department      { Fabricate(:department) }
   description    "Lag en ny port ved innkjøringen til parkeringen "
   due_date       { Time.now.next_week }
-  execution_address { Faker::Address.street_name }
+  execution_address { Faker::Address.street_address }
   name           { Faker::Company.name }
   project_number "PL1"
   start_date     { Time.now }
