@@ -26,7 +26,7 @@ due_date   = Time.now.next_week
 
 Fabricator(:task) do
   accepted true
-  address     { Faker::Address.street_name }
+  address     { Faker::Address.street_address }
   description { 'paint building' }
   draft false
   due_date    { due_date }
