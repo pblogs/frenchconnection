@@ -60,6 +60,10 @@ class Task < ActiveRecord::Base
     self.address ||= self.project.try(:address)
   end
 
+  def full_description
+    "#{custom_id} - #{description}"
+  end
+
   def set_custom_id
     return '00000' if self.project.default
     last_id = (Task.last.try(:id) || 1)
