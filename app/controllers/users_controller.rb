@@ -49,7 +49,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    #authorize_user
     @form_action = user_path(@user)
   end
 

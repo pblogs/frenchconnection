@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ProjectPolicy do
 
   PROJECT_LEAD_ACTIONS = %W(update? edit? create? destroy? complete?)
-  GUEST_ACTIONS = %W(show? index?)
+  GUEST_ACTIONS = %W(show? index? hours?)
 
   subject { described_class }
 

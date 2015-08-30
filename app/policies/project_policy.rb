@@ -14,6 +14,10 @@ class ProjectPolicy  < ApplicationPolicy
     true
   end
 
+  def hours?
+    true
+  end
+
   def update?
     admin_or_project_leader?
   end

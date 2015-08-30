@@ -103,6 +103,7 @@ class ProjectsController < ApplicationController
   end
 
   def hours
+    authorize @project
   end
 
   def personal_hours
