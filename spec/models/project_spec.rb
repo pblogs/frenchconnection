@@ -68,7 +68,7 @@ describe Project do
     end
 
     it 'has a custom ID' do
-      expect(@project.custom_id).to match(/JDOE[\d]{5}/)
+      expect(@project.custom_id).to match(/JDOE[\d]{6}/)
     end
 
      it "Belongs to a project leader" do
