@@ -1,5 +1,5 @@
 tr
-  td = link_to task.description, task
+  td = link_to task.full_description, task
   td = task.name_of_users
   - if !@project.default
     td = I18n.l task.start_date, format: :short_date
