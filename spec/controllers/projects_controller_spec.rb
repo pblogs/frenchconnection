@@ -107,7 +107,7 @@ describe ProjectsController, :type => :controller do
       it "creates a new Project" do
         expect {
           post :create, {:project => valid_attributes}, valid_session
-        }.to change(Project, :count).by(1)
+        }.to change(Project, :count).by(2) # The default project is also created
       end
 
       it "assigns a newly created project as @project" do

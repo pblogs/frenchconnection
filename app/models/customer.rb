@@ -34,10 +34,12 @@ class Customer < ActiveRecord::Base
   private
   def create_default_project
     project = self.projects.new(
-                                name: I18n.t('project.default_project'),
-                                default: true
+                                name: I18n.t('projects.default_project'),
+                                default: true,
+                                description:
+                                  I18n.t('projects.default_project_description'),
                                )
-    project.save(:validate => false)
+    project.save!
   end
 
 

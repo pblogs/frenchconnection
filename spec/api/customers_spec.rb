@@ -19,7 +19,8 @@ describe V1::Customers do
       get "/api/v1/customers/#{ customer.id }/projects"
       response.status.should == 200
       hash = JSON.parse(response.body)
-      hash['projects'].first['name'].should eq 'New fences'
+      hash['projects'].first['name'].should eq I18n.t('projects.default_project')
+      hash['projects'].second['name'].should eq 'New fences'
       hash['projects'].last['name'].should eq 'New roof'
     end
   end
