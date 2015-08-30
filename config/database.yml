@@ -22,4 +22,4 @@ test:
   <<: *default
   database: app_test
   user: postgres
-  host: dockerhost
+  host: <%= ENV['DOCKER_IP'] %>
