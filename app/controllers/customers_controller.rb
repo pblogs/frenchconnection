@@ -33,7 +33,7 @@ class CustomersController < ApplicationController
     render :index
   end
 
-  
+
   # POST /customers
   # POST /customers.json
   def create
@@ -44,11 +44,11 @@ class CustomersController < ApplicationController
         set_favorite
         format.html { redirect_to @customer,
                       notice: I18n.t('saved') }
-        format.json { render action: 'show', 
+        format.json { render action: 'show',
                       status: :created, location: @customer }
       else
         format.html { render action: 'new' }
-        format.json { render json: @customer.errors, 
+        format.json { render json: @customer.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -65,7 +65,7 @@ class CustomersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @customer.errors, 
+        format.json { render json: @customer.errors,
                       status: :unprocessable_entity }
       end
     end
@@ -87,11 +87,16 @@ class CustomersController < ApplicationController
       @customer = Customer.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, 
+    # Never trust parameters from the scary internet,
     # only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :address, :org_number,
-                                       :contact_person, :phone)
+      params.require(:customer).permit(
+        :name,
+        :email,
+        :address,
+        :org_number,
+        :contact_person,
+        :phone)
     end
 
     def set_favorite
@@ -103,7 +108,7 @@ class CustomersController < ApplicationController
     end
 
     def redirect_if_not_project_leader
-      redirect_to root_url, 
+      redirect_to root_url,
         notice: 'Only for project leaders' unless @current_user.is? 'project_leader'
     end
 

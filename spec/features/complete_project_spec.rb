@@ -17,7 +17,7 @@ feature 'Project leader completes a project', type: :feature do
 
     visit customer_project_path(@project.customer, @project)
     Sms.should_receive(:send_msg).with(hash_including(to: "47#{@worker.mobile}"))
-    expect { click_link( I18n.t('project.complete_link') ) }
+    expect { click_link( I18n.t('projects.complete_link') ) }
       .to change(Project.where(complete: true), :count).by(1)
 
   end

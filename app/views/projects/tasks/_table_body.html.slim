@@ -1,19 +1,24 @@
 tr
   td = link_to task.description, task
   td = task.name_of_users
-  td = I18n.l task.start_date, format: :short_date
-  - if task.due_date.present?
-    td = I18n.l task.due_date,   format: :short_date 
+  - if !@project.default
+    td = I18n.l task.start_date, format: :short_date
+    - if task.due_date.present?
+      td = I18n.l task.due_date,   format: :short_date
+    - else
+      td = t('has_no_due_date')
   - else
-    td = t('has_no_due_date')
+    td = ''
+    td = ''
   td
     = link_to fa_icon('pencil-square-o'), edit_project_task_path(@project, task)
     = link_to fa_icon('trash'), project_task_path(@project, task), method: :delete
 
     // TODO Refactor to helper
     - if task.ended_at
-      = t('task_ended_at', time: time_ago_in_words(task.ended_at)) 
-      - @open_tasks = UserTask.where(task_id: task.id).select { |t| t.status != :complete }
+      = t('task_ended_at', time: time_ago_in_words(task.ended_at))
+      - @open_tasks = UserTask.where(task_id: task.id)
+                        .select { |t| t.status != :complete }
       - @bad_users = @open_tasks.collect { |t| t.user }
       - if @bad_users.present?
         hr
@@ -23,11 +28,11 @@ tr
         - @bad_users.each do |u|
           li= u.name
         br
-        = link_to t('end_task_hard'), 
+        = link_to t('end_task_hard'),
           project_task_end_task_hard_path(@project, task), method: :put,
           data: { confirm: t('are_you_sure_about_hard_ending') }
         hr
     - elsif !task.complete?
-      = link_to t('end_task'), 
+      = link_to t('end_task'),
         project_task_end_task_path(@project, task), method: :put,
         data: { confirm: t('are_you_sure_about_soft_ending') }

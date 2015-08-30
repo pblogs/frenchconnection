@@ -10,16 +10,17 @@ br
         th Kunde
         th Oppstartsdato
         th
-  
+
     tbody
       - @tasks.each do |task|
         tr.green.button
-          td = task.project.customer.name
-          td = task.start_date.strftime("%B %d")
+          - unless task.project.default
+            td = task.project.customer.name
+            td = task.start_date.strftime("%B %d")
           td
             = link_to 'Vis, ', task
             = link_to 'Rediger, ', edit_task_path(task)
-            = link_to 'Slett', task, data: {:confirm => 'Are you sure?'}, 
+            = link_to 'Slett', task, data: {:confirm => 'Are you sure?'},
               :method => :delete
 
 br
