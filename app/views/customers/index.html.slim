@@ -21,5 +21,14 @@ table#customer_search_result
         td = customer.org_number.to_i
         td = customer.contact_person
         td = customer.phone
-        td = link_to t('create_a_new_project'), 
-              new_customer_project_path(customer)
+        td
+          = link_to t('create_a_new_project'),
+            new_customer_project_path(customer), class: 'btn btn-info btn-xs'
+
+          - if policy(customer).destroy?
+            = link_to t('.delete'), customer, method: :delete,
+              data: { confirm: t('no_way_back_if_deleted') },
+              class: 'btn btn-warning btn-xs'
+
+= link_to t('.create_new_customer'), new_customer_path,
+  class: 'btn btn-default btn-xs new-customer'

@@ -2,7 +2,7 @@
 #
 # Table name: tasks
 #
-#  id               :integer          not null, primary key
+#  id               :integer          default(0), not null, primary key
 #  customer_id      :integer
 #  start_date       :date
 #  created_at       :datetime
@@ -19,6 +19,7 @@
 #  skills_ids       :integer
 #  draft            :boolean          default(TRUE)
 #  address          :string
+#  custom_id        :string
 #
 
 start_date = Time.now

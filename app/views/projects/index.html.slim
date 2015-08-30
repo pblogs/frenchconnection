@@ -21,7 +21,7 @@ ul class="accordion-tabs-minimal"
     a href="#" class="tab-link"= t('generic.departments')
     section
       - if @departments.blank?
-          p = t('projects.no_departments')
+          p = t('projects..no_departments')
       ul
         - @departments && @departments.each do |d|
           li= link_to d.title, d

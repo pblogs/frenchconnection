@@ -16,10 +16,10 @@ default: &default
 development:
   <<: *default
   database: app_development
-  host: dockerhost
 
 
 test:
   <<: *default
   database: app_test
-  host: dockerhost
+  user: postgres
+  host: <%= ENV['DOCKER_IP'] %>

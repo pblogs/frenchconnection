@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-#describe "Create a new project", :type => :feature do
 RSpec.describe "Create a new project", :type => :feature do
   before :all do
     @project_leader = Fabricate(:user, roles: [:project_leader])
@@ -85,14 +83,5 @@ RSpec.describe "Create a new project", :type => :feature do
     end
   end
 
-  #def sign_in(user)
-  #  visit root_path
-  #  within '#main' do
-  #    fill_in 'user_mobile', with: user.mobile
-  #    fill_in 'user_password', with: 'topsecret'
-  #    click_link_or_button 'Logg inn'
-  #  end
-  #  User.last.mobile.should eq user.mobile
-  #end
 
 end

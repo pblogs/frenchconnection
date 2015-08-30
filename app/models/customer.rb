@@ -23,11 +23,24 @@ class Customer < ActiveRecord::Base
   has_many :tasks, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :favorites, as: :favorable
+  after_save :create_default_project
 
   class << self
     def last_updated_at
       Customer.order(:updated_at).select(:id, :updated_at).last.try(:updated_at)
     end
   end
+
+  private
+  def create_default_project
+    project = self.projects.new(
+                                name: I18n.t('projects.default_project'),
+                                default: true,
+                                description:
+                                  I18n.t('projects.default_project_description'),
+                               )
+    project.save!
+  end
+
 
 end
