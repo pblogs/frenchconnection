@@ -45,7 +45,7 @@ describe Task do
     end
 
     it 'has a custom ID' do
-      expect(@task.custom_id).to match(/[\d].+JDOE/)
+      expect(@task.custom_id).to match(/JDOE[\d]{5}/)
     end
 
     it "belongs to a project" do
