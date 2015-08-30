@@ -99,6 +99,8 @@ class User < ActiveRecord::Base
       self.initials_v1
     elsif !User.where(initials: self.initials_v2).exists?
       self.initials_v2
+    elsif !User.where(initials: self.initials_v3).exists?
+      self.initials_v3
     end
   end
 
@@ -108,6 +110,10 @@ class User < ActiveRecord::Base
 
   def initials_v2
     "#{ first_name[0,2] + last_name[0,2] }".upcase
+  end
+
+  def initials_v3
+    "#{ first_name[0,3] + last_name[0,1] }".upcase
   end
 
   before_save :init
