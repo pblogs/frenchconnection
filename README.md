@@ -20,7 +20,7 @@ These reports are used by our customer to generate invoices.
 
 ```
 docker-compose build # Only required the first time.
-docker-compose up
+docker-compose up -d
 docker-compose run app rake db:create db:migrate db:seed RAILS_ENV=development
 docker-compose run app rake db:create db:migrate RAILS_ENV=test
 ```
