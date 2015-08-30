@@ -37,14 +37,13 @@ class Project < ActiveRecord::Base
   belongs_to :department
   has_many :favorites, as: :favorable
 
-  validates :customer_id,       :presence => true
-  validates :start_date,        :presence => true
-  validates :department_id,     :presence => true
-  validates :project_number,    :presence => true
-  validates :name,              :presence => true
-  validates :description,       :presence => true
-  #validates :custom_id,         :uniqueness => true
-  validates :user_id, presence: true
+  validates :customer_id,    presence: true, unless: :default_project?
+  validates :start_date,     presence: true, unless: :default_project?
+  validates :department_id,  presence: true, unless: :default_project?
+  validates :project_number, presence: true, unless: :default_project?
+  validates :user_id,        presence: true, unless: :default_project?
+  validates :name,           presence: true
+  validates :description,    presence: true
 
   attr_accessor :single_task
 
@@ -54,6 +53,7 @@ class Project < ActiveRecord::Base
 
   before_save :set_custom_id
   def set_custom_id
+    return if self.user.blank? # The default project has no user.
     last_id = (Project.last.try(:id) || 1)
     custom_id = (sprintf '%05d', (last_id)) + self.user.initials
     self.custom_id ||= custom_id
@@ -301,5 +301,9 @@ class Project < ActiveRecord::Base
       sum_hash = project_hours[name]
       project_hours.delete(name)
       project_hours[name] = sum_hash
+    end
+
+    def default_project?
+      self.default
     end
 end
