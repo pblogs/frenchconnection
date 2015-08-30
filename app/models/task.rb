@@ -40,8 +40,8 @@ class Task < ActiveRecord::Base
   scope :ordered, -> { order('created_at DESC') }
 
   validates :project_id,  :presence => true, :unless => :single_task
-  validates :start_date,  :presence => true
   validates :description, :presence => true
+  #validates :start_date,  :presence => true
   #validates :address,     :presence => true
   #validates :custom_id,   :uniqueness => true
 
@@ -61,6 +61,7 @@ class Task < ActiveRecord::Base
   end
 
   def set_custom_id
+    return '00000' if self.project.default
     last_id = (Task.last.try(:id) || 1)
     custom_id = (sprintf '%05d', (last_id)) + self.project.user.initials
     self.custom_id ||= custom_id
@@ -106,7 +107,6 @@ class Task < ActiveRecord::Base
 
   def qualified_workers
     certificates = inventories.collect { |i| i.certificates.to_a }.flatten
-    #require 'pry'; binding.pry
     if certificates.present?
       workers = certificates.collect { |c| c.users }.flatten.uniq
       # Don't list workers that has already been selected.
