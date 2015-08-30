@@ -89,6 +89,7 @@ nb:
     my_page: Min side
     projects: Prosjekter
 
+
   generic:
     archive: Arkiv
     confirm: Er du sikker?
@@ -98,6 +99,7 @@ nb:
     projects: Prosjekter
 
   admin:
+    languages: Språk
     certificates: Sertifikater
     cms: Nyheter
     header: Administrer resurser
@@ -201,7 +203,7 @@ nb:
 
 
 
-  project:
+  projects:
     closed_projects: Avsluttede prosjekter
     closed_projects: Avsluttede prosjekter
     complete_link: Avslutt prosjektet
@@ -212,16 +214,16 @@ nb:
     default: Standardprosjekt
     hours_registered:
       report_generated_at: Report generated at %{time}
-    tasks:
-      tools: Verktøy
-      form:
-        project_start_date: "Prosjekt start dato: %{start_date}"
-        project_due_date: "Prosjekt ferdig dato: %{due_date}"
     default_project: Standardprosjekt
-    create_new: Opprett nytt prosjekt
+    default_project_description: |
+      En slags innboks. Legg oppgaver her inntil de har et konkret prosjekt
+      å knyttes til.
     no_started_customers_or_projects: Du har ingen favoritter
     no_departments: Her vil du se avdelingene prosjektene dine høre til
     tasks:
+      form:
+        project_start_date: "Prosjekt start dato: %{start_date}"
+        project_due_date: "Prosjekt ferdig dato: %{due_date}"
       no_active_tasks: Du har ingen aktive oppgaver
       no_complete_tasks: Du har ingen fullførte oppgaver
       no_new_tasks: Ingen nye oppgaver
@@ -231,15 +233,15 @@ nb:
         address_missing: Mangler adresse
         who: Hvem
       tools:
+        search_placeholder: Søk etter verktøy og maskiner
+        header: Verktøy
         selected_tools: Verktøy valgt
         price_pr_day: Pris pr dag
         what: Hva
         header: Søk etter maskiner og verktøy
         find_someone_to_execute_the_job: Finn personell til å gjøre jobben
-        search_placeholder: Søk..
-        help_text:
-          Velg verktøy og maskiner som trengs for å gjøre jobben.
         no_special_tools_required: Gå videre uten å velge verktøy
+        help_text: Velg verktøy og maskiner som trengs for å gjøre jobben.
       headers:
         review: Bekreft og bestill
         header: Bekreft ny oppgave
@@ -287,6 +289,13 @@ nb:
     rental_price_pr_day: Leiepris pr dag
     edit: Rediger
     search_placeholder: Søk etter verktøy og maskiner..
+    selected_tools: Verktøy valgt
+    price_pr_day: Pris pr dag
+    what: Hva
+    header: Søk etter maskiner og verktøy
+    find_someone_to_execute_the_job: Finn personell til å gjøre jobben
+    no_special_tools_required: Gå videre uten å velge verktøy
+    help_text: Velg verktøy og maskiner som trengs for å gjøre jobben.
 
   locations:
     title: Lokasjoner
