@@ -3,7 +3,7 @@ html
   head
     title = "#{Rails.application.secrets.domain + (@title.present? ? ' – ' +@title : '') }"
     = stylesheet_link_tag "application", media: "all",
-      "data-turbolinks-track" => true
+      "data-turbolinks-track" => false
     meta charset="utf-8"
     html lang="no"
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
@@ -13,7 +13,7 @@ html
 
     - unless Rails.application.secrets.short_name == 'localhost'
       = stylesheet_link_tag "themes/#{Rails.application.secrets.short_name}", media: "all",
-        "data-turbolinks-track" => true
+        "data-turbolinks-track" => false
 
     - unless Rails.env.test?
       script src="//js.pusher.com/2.2/pusher.min.js" type="text/javascript"
@@ -26,7 +26,7 @@ html
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true", "data-turbolinks-track" => false
     = javascript_include_tag "react", "data-turbolinks-track" => false
     script src="https://rawgit.com/spoike/refluxjs/master/dist/reflux.js"
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => false
     = csrf_meta_tags
 
   body(id=body_id ng-app="orwapp")
