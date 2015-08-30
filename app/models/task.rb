@@ -111,6 +111,10 @@ class Task < ActiveRecord::Base
       workers = certificates.collect { |c| c.users }.flatten.uniq
       # Don't list workers that has already been selected.
       workers - self.users
+    elsif
+      # If the task belongs to the default project, then pick workers from all departments.
+      self.project.default?
+      User.with_role(:worker) - self.users
     else
       User.from_department(self.project.department).with_role(:worker) - self.users
     end
