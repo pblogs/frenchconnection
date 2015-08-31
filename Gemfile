@@ -72,9 +72,10 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 
-group :development, :test do
-  gem 'railroady'
-end
+## Comment in when you want to visualize the models.
+#group :development, :test do
+#  gem 'railroady'
+#end
 
 # Turbolinks makes following links in your web application faster.
 # Read more: https://github.com/rails/turbolinks
