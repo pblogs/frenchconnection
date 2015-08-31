@@ -69,4 +69,33 @@ Please follow our [Style Guide](https://github.com/stabenfeldt/alliero-orwapp/wi
 ![The architecture](http://www.gliffy.com/go/publish/image/6487189/L.png)
 
 
+## Models and relationships
+![](https://github.com/stabenfeldt/alliero-orwapp/wiki/Style-guide)
+
+Install graphviz to get the dot and neat utilities:
+```
+brew install graphviz
+```
+
+Add the railroady gem to your bundle:
+
+```
+group :development, :test do
+    gem 'railroady'
+end
+```
+
+    Run bundle install to install railroady:
+```
+    bundle install
+    Run from the command line:
+```
+    railroady -o models.dot -M
+```
+    Then process the .dot file as an image, and voila!
+```
+    dot -Tpng models.dot > models.png
+```
+
+
 
