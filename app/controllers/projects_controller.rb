@@ -119,16 +119,6 @@ class ProjectsController < ApplicationController
   def documentation
   end
 
-  # project_approve_hours
-  # GET    /projects/:project_id/approve_hours       projects#approve_hours
-  #
-  # FIXME It's not possible to approve all hours from the project view.
-  # One must click into users/240/projects/21/hours to approve
-  #
-  #def approve_hours
-  #  @hours.each { |h| h.hour_object.approve! }
-  #  redirect_to hours_path(@project, month: @month, year: @year)
-  #end
 
   private
 
