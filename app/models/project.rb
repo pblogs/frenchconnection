@@ -55,7 +55,7 @@ class Project < ActiveRecord::Base
   def set_custom_id
     return if self.user.blank? # The default project has no user.
     last_id = (Project.last.try(:id) || 1)
-    custom_id =  project_creator_id + (sprintf '%06d', (last_id))
+    custom_id =  self.user.initials+ (sprintf '%06d', (last_id))
     self.custom_id ||= custom_id
   end
 
