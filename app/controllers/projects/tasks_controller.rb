@@ -152,7 +152,6 @@ class Projects::TasksController < ApplicationController
       :department_id,
       :goto_tools,
       :location_id,
-      :paint_id,
       :profession_id,
       :start_date,
       :user_ids => [],
