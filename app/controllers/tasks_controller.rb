@@ -175,7 +175,6 @@ class TasksController < ApplicationController
                                  :task_type_id,
                                  :start_date,
                                  :due_date,
-                                 :paint_id,
                                  :description,
                                  :project_id,
                                  :user_id,
