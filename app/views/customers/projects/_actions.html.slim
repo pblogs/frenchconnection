@@ -1,0 +1,11 @@
+#project-action-buttons.btn-group(role="group")
+  = link_to t('show_hours_registered'), project_hours_path(@project),
+    class: "btn btn-primary"
+  = link_to t('register_new_task'), new_project_task_path(@project),
+    class: "btn btn-primary"
+  = link_to 'Prosjektdokumentasjon', project_documentation_path(@project),
+    class: "btn btn-primary"
+  - unless @project.complete
+    = link_to t('projects.complete_link'), complete_project_path(@project),
+        data: { confirm: t('generic.confirm') }, method: :post,
+        class: 'complete btn btn-primary'
