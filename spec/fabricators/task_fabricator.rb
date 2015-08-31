@@ -32,5 +32,6 @@ Fabricator(:task) do
   draft false
   due_date    { due_date }
   project     { Fabricate(:project,start_date: start_date, due_date: due_date) }
+  owner       { Fabricate(:user) }
   start_date  { start_date }
 end

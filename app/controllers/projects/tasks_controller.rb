@@ -64,6 +64,7 @@ class Projects::TasksController < ApplicationController
     @task         = Task.new(task_params)
     @project      = Project.find(params[:project_id])
     @task.project = @project
+    @task.owner   = @current_user
     @departments  = Department.all
 
     respond_to do |format|
