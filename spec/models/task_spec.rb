@@ -29,23 +29,29 @@ describe Task do
   describe 'Basics' do
     before :each do
       @department = Fabricate(:department)
-      @owner      = Fabricate(:user, first_name: 'John', last_name: 'Doe')
+      @owner      = Fabricate.build(:user, first_name: 'John', last_name: 'Doe')
+      @owner.save!
+      @owner.department.save!
       @project    = Fabricate(:project, user: @owner)
       @worker     = Fabricate(:user, first_name: 'John')
       @worker2    = Fabricate(:user, first_name: 'Barry')
-      @task       = Fabricate(:task, project: @project, address: nil)
+      @task       = Fabricate(:task, project: @project, address: nil, owner: @owner)
       @task.users = [@worker, @worker2]
       @task.save
       @task.reload
       @worker.reload
     end
 
-    it "is valid from the Fabric" do
+    it "is valid from the Fabric"  do
       expect(@task).to be_valid
     end
 
     it 'has a custom ID' do
       expect(@task.custom_id).to match(/JDOE[\d]{5}/)
+    end
+
+    it 'has a an owner' do
+      expect(@task.owner).to eq @owner
     end
 
     it "belongs to a project" do

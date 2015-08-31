@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   validates :last_name,      presence: true
   validates :initials,       uniqueness: true
   validates :mobile,         uniqueness: true
-  validates :department_id,  presence: true
+  #validates :department_id,  presence: true
   validates :roles,          presence: true
 
 

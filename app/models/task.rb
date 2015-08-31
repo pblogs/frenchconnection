@@ -33,6 +33,8 @@ class Task < ActiveRecord::Base
   has_many :mobile_pictures
   has_and_belongs_to_many :inventories
 
+  attr_accessor :owner
+
   scope :from_user, ->(user) { joins(:user_tasks)
                                 .where('user_tasks.user_id = ?', user.id) }
   scope :by_status, ->(status) { joins(:user_tasks)
@@ -41,6 +43,7 @@ class Task < ActiveRecord::Base
 
   validates :project_id,  :presence => true, :unless => :single_task
   validates :description, :presence => true
+  #validates :owner_id, :presence => true
   #validates :start_date,  :presence => true
   #validates :address,     :presence => true
   #validates :custom_id,   :uniqueness => true
