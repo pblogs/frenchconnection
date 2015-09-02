@@ -43,7 +43,7 @@ class Task < ActiveRecord::Base
 
   validates :project_id,  :presence => true, :unless => :single_task
   validates :description, :presence => true
-  #validates :owner_id, :presence => true
+  validates :owner, :presence => true
   #validates :start_date,  :presence => true
   #validates :address,     :presence => true
   #validates :custom_id,   :uniqueness => true
@@ -70,7 +70,7 @@ class Task < ActiveRecord::Base
   def set_custom_id
     return '00000' if self.project.default
     last_id = (Task.last.try(:id) || 1)
-    custom_id = self.project.user.initials + (sprintf '%05d', (last_id))
+    custom_id = self.owner.initials + (sprintf '%05d', (last_id))
     self.custom_id ||= custom_id
   end
 

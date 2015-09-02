@@ -46,8 +46,8 @@ describe Task do
       expect(@task).to be_valid
     end
 
-    it 'has a custom ID' do
-      expect(@task.custom_id).to match(/JDOE[\d]{5}/)
+    it 'has a custom ID. Owner initials pluss digits' do
+      expect(@task.custom_id).to match(/#{@task.owner.initials}[\d]{5}/)
     end
 
     it 'has a an owner' do

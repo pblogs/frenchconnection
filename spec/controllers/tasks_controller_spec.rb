@@ -30,11 +30,13 @@ describe TasksController, :type => :controller do
       user_ids:     [Fabricate(:user, department: Fabricate(:department),
                                roles: [:project_leader]).id],
       start_date:   Time.now,
-      due_date:     Time.now.next_week
+      due_date:     Time.now.next_week,
+      owner:     @user
     }
   end
   before do
-    sign_in Fabricate(:user, roles: [:project_leader])
+    @user = Fabricate(:user, roles: [:project_leader])
+    sign_in @user
   end
 
   # This should return the minimal set of values that should be in the session
@@ -72,7 +74,7 @@ describe TasksController, :type => :controller do
     describe "with valid params" do
       it "creates a new Task" do
         expect {
-          post :create, {:task => valid_attributes}, valid_session
+          post :create, {:task => valid_attributes}
         }.to change(Task, :count).by(1)
       end
 
@@ -126,8 +128,7 @@ describe TasksController, :type => :controller do
 
       it "redirects to the project after creating a task" do
         task = Task.create! valid_attributes
-        put :update, {:id => task.to_param,
-          :task => valid_attributes}
+        put :update, {:id => task.to_param, :task => valid_attributes}
         response.should redirect_to(task.project)
       end
     end

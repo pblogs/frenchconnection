@@ -49,6 +49,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.owner = @current_user
     authorize @task
 
     if params[:customer_id].present?
@@ -73,6 +74,7 @@ class TasksController < ApplicationController
 
   def update
     respond_to do |format|
+      @task.owner = @current_user
       if @task.update(task_params)
         format.html { redirect_to @task.project,
                       notice: 'Oppgaven lagret' }
@@ -171,14 +173,16 @@ class TasksController < ApplicationController
 
 
   def task_params
-    params.require(:task).permit(:customer_id,
-                                 :task_type_id,
-                                 :start_date,
-                                 :due_date,
-                                 :description,
-                                 :project_id,
-                                 :user_id,
+    params.require(:task).permit(
+                                 :customer_id,
                                  :department_id,
+                                 :description,
+                                 :due_date,
+                                 :owner_id,
+                                 :project_id,
+                                 :start_date,
+                                 :task_type_id,
+                                 :user_id,
                                  :user_ids => []
                                 )
   end
