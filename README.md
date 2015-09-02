@@ -50,7 +50,7 @@ Please follow our [Style Guide](https://github.com/stabenfeldt/alliero-orwapp/wi
 
 
 ## Models and relationships
-![](https://github.com/stabenfeldt/alliero-orwapp/wiki/Style-guide)
+![](https://raw.githubusercontent.com/orwapp/orwapp/master/models.png?token=AALEGGLPIjBOK8vEIO48NUyYqHoIakMVks5V8I2mwA%3D%3D)
 
 Install graphviz to get the dot and neat utilities:
 ```
