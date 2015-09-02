@@ -191,8 +191,9 @@ class Project < ActiveRecord::Base
     tasks.build do |t|
       t.customer_id = customer_id
       t.description = description
-      t.start_date = start_date
-      t.due_date = due_date
+      t.start_date  = start_date
+      t.due_date    = due_date
+      t.owner       = user
     end
   end
 
