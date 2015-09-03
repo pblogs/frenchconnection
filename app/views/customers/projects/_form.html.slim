@@ -15,7 +15,7 @@
         | Merk som favoritt
 
   .field
-    = f.label :department, 'Avdeling'
+    = f.label :department
     = select_tag "project[department_id]",
       options_from_collection_for_select(@departments, "id",
         "title", (@project.department_id || @current_user.department.id))
