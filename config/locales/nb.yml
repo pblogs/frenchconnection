@@ -99,6 +99,7 @@ nb:
     projects: Prosjekter
 
   admin:
+    projects: Prosjekter
     languages: Språk
     certificates: Sertifikater
     cms: Nyheter
@@ -220,6 +221,7 @@ nb:
       å knyttes til.
     no_started_customers_or_projects: Du har ingen favoritter
     no_departments: Her vil du se avdelingene prosjektene dine høre til
+    settings: Prosjektinnstillinger
     tasks:
       form:
         project_start_date: "Prosjekt start dato: %{start_date}"

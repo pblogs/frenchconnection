@@ -29,7 +29,7 @@ class Customers::ProjectsController < ApplicationController
   def create
     @project      = Project.new(project_params)
     @project.user = @current_user
-    @departments  = Department.all
+    #@departments  = Department.all
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
@@ -53,11 +53,11 @@ class Customers::ProjectsController < ApplicationController
         format.html do
           if @project.single_task?
             redirect_to edit_project_task_path(@project, @task),
-              notice: 'Prosjektet ble lagret'
+              notice: I18n.t(:saved)
           else
             redirect_to customer_project_path(@project.customer,
                                               @project),
-                                              notice: 'Prosjektet ble lagret'
+                                              notice: I18n.t(:saved)
           end
         end
         format.json { render action: 'show', status: :created,
@@ -135,6 +135,7 @@ class Customers::ProjectsController < ApplicationController
                                     :execution_address,
                                     :name,
                                     :project_number,
+                                    :project_reference,
                                     :sms_employee_if_hours_not_registered,
                                     :sms_employee_when_new_task_created,
                                     :start_date,

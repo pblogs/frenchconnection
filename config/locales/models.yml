@@ -1,21 +1,24 @@
 nb:
   activerecord:
     models:
+      department:
+        one: Avdeling
+      certificate:
+        one: Sertifikat
+        other: Sertifikater
       language:
         one: Språk
         other: Språk
+      image:
+        one: Bilde
+        other: Bilder
+        other: Avdelinger
       project:
         one: Prosjekt
         other: Prosjekter
       user:
         one: Bruker
         other: Brukere
-      certificate:
-        one: Sertifikat
-        other: Sertifikater
-      image:
-        one: Bilde
-        other: Bilder
 
     attributes:
       language:
@@ -27,9 +30,12 @@ nb:
         expiry_date: Utløpsdato
       project:
         project_number: Prosjektnummer
+        project_owner: Prosjekteier
         name: Navn
         description: Beskrivelse
+        department: Avdeling
         customer_reference: Kundereferanse
+        project_reference: Prosjektreferanse
         comment: Kommentar
         start_date: Oppstartsdato
         due_date: Sluttdato
