@@ -86,6 +86,11 @@ describe User do
       expect(@joachim.initials).to match 'JSTR'
     end
 
+    it 'normalizes names' do
+      u = Fabricate(:user, first_name: "Bjørg", last_name: "O'Conner")
+      expect(u.initials).to match 'BOCO'
+    end
+
   end
   describe 'scopes' do
     before do
