@@ -105,19 +105,27 @@ class User < ActiveRecord::Base
   end
 
   def initials_v1
-    "#{ first_name[0] + last_name[0,3] }".upcase
+    "#{ first_name_normalized[0] + last_name_normalized[0,3] }".upcase
   end
 
   def initials_v2
-    "#{ first_name[0,2] + last_name[0,2] }".upcase
+    "#{ first_name_normalized[0,2] + last_name_normalized[0,2] }".upcase
   end
 
   def initials_v3
-    "#{ first_name[0,3] + last_name[0,1] }".upcase
+    "#{ first_name_normalized[0,3] + last_name_normalized[0,1] }".upcase
   end
 
-  before_save :init
-  def init
+  def first_name_normalized
+    first_name.parameterize.gsub('-','')
+  end
+
+  def last_name_normalized
+    last_name.parameterize.gsub('-','')
+  end
+
+  before_save :set_initials
+  def set_initials
     self.initials ||= self.build_initials
   end
 
