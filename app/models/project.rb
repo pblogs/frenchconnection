@@ -21,6 +21,7 @@
 #  complete                             :boolean          default(FALSE)
 #  custom_id                            :string
 #  default                              :boolean          default(FALSE)
+#  project_reference                    :string
 #
 
 class Project < ActiveRecord::Base
