@@ -1,0 +1,18 @@
+h3 = "#{t('projects.global_settings_for') + " "+ t('projects.projects').downcase }"
+
+= form_for @settings do |f|
+
+  .radio
+    label
+      = radio_button_tag('settings[project_numbers]', :automatic,
+        @settings.project_numbers == 'automatic')
+      = t('projects.automatic_project_numbers')
+
+  .radio
+    label
+      = radio_button_tag('settings[project_numbers]', :manual,
+        @settings.project_numbers == 'manual')
+      = t('projects.manual_project_numbers')
+
+  = f.submit t(:save)
+

@@ -8,6 +8,9 @@ Orwapp::Application.routes.draw do
     get :submissions
   end
 
+  get '/settings/projects/' => 'settings#projects', as: :project_settings
+  resources :settings, except: [:new, :destroy] do
+  end
 
   namespace :inventories do
     post :search
