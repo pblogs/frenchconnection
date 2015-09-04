@@ -29,6 +29,7 @@
 #  home_area              :string
 #  roles_mask             :integer
 #  gender                 :string
+#  address                :string
 #  birth_date             :date
 #  relatives              :text
 #  initials               :string
