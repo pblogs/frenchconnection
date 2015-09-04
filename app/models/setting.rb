@@ -3,9 +3,8 @@
 # Table name: settings
 #
 #  id                             :integer          not null, primary key
-#  automatic_project_numbers      :boolean          default(TRUE)
-#  manual_project_numbers         :boolean          default(FALSE)
-#  enable_project_reference_field :boolean          default(FALSE)
+#  project_numbers                :string           default("automatic")
+#  enable_project_reference_field :string           default("f")
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #
