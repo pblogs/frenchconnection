@@ -13,6 +13,10 @@ These reports are used by our customer to generate invoices.
 
 ## Start the app
 
+If you run PostgreSQL locally, then it should be enough to do `rake db:create db:migrate db:seed` and `passenger start`.
+The preferred way is to use Docker, that way we can add Redis and so to docker-compose when the app gets more dependencies.
+**orwapp-hse** and **orwapp-dictionary** will be added to the docker-compose setup when we have the time.
+
 ### Install Docker and docker-compose
 
 * https://docs.docker.com/installation
