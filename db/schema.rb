@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830121609) do
+ActiveRecord::Schema.define(version: 20150903175825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -293,6 +293,14 @@ ActiveRecord::Schema.define(version: 20150830121609) do
     t.boolean  "complete",                             default: false
     t.string   "custom_id"
     t.boolean  "default",                              default: false
+    t.string   "project_reference"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "project_numbers",                default: "automatic"
+    t.string   "enable_project_reference_field", default: "f"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
   end
 
   create_table "skills", force: :cascade do |t|
@@ -401,6 +409,7 @@ ActiveRecord::Schema.define(version: 20150830121609) do
     t.string   "home_area"
     t.integer  "roles_mask"
     t.string   "gender"
+    t.string   "address"
     t.date     "birth_date"
     t.text     "relatives"
     t.string   "initials"
