@@ -27,7 +27,35 @@
 require 'spec_helper'
 
 describe Project do
-  describe "generic" do
+  before do
+    @project_leader  = Fabricate(:user,  last_name: 'Doe')
+    @project = Fabricate(:project, user: @project_leader, id_generation: :automatic)
+    @setting = Setting.first_or_create
+    @setting.update_attribute(:project_numbers, :automatic)
+  end
+
+  describe 'generic' do
+    it 'is valid from the Fabric' do
+      expect(@project).to be_valid
+    end
+  end
+
+  describe 'IDs', focus: true do
+    before() do
+      @project_leader  = Fabricate(:user, first_name: 'John', last_name: 'Doe')
+      @auto_p  = Fabricate(:project, user: @project_leader, id_generation: :automatic)
+      @manual_p= Fabricate(:project, user: @project_leader, id_generation: :manual)
+    end
+    context 'automatic_project_numbers enabled' do
+      it { expect(@auto_p.custom_id).to match(/JDOE[\d]{6}/) }
+    end
+    context 'automatic_project_numbers disabled' do
+      it { @project.reload; expect(@manual_p.custom_id).to eq nil }
+    end
+  end
+
+
+  describe "relationships" do
     before :each do
       @department      = Fabricate(:department)
       @project_leader  = Fabricate(:user, first_name: 'John', last_name: 'Doe')
@@ -64,13 +92,6 @@ describe Project do
                                             user: @john_snekker)
     end
 
-    it "is valid from the Fabric" do
-      expect(@project).to be_valid
-    end
-
-    it 'has a custom ID' do
-      expect(@project.custom_id).to match(/JDOE[\d]{6}/)
-    end
 
      it "Belongs to a project leader" do
        @project.user.should eq @project_leader
@@ -95,7 +116,8 @@ describe Project do
       end
 
       it "sums only approved personal and billable hours" do
-        @project.hours_total_for(@john_snekker, overtime: :hour, of_kind: :billable).should eq 10
+        @project.hours_total_for(@john_snekker, overtime: :hour,
+                                 of_kind: :billable).should eq 10
       end
 
 
@@ -111,11 +133,16 @@ describe Project do
 
       it "hours_spent_total" do
         HoursSpent.destroy_all
-        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @john_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @mustafa_murer)
-        Fabricate(:hours_spent, approved: true, task: @task, overtime_50: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task, overtime_100: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10,
+                  user: @john_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10,
+                  user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10,
+                  user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task, overtime_50: 10,
+                  user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, overtime_100: 10,
+                  user: @mustafa_murer)
         @project.reload
         @project.hours_spent_total(profession: @snekker, overtime: :hour,
                                    of_kind: :personal).should eq 20

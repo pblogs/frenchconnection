@@ -47,14 +47,15 @@ class Project < ActiveRecord::Base
   validates :description,    presence: true
 
   attr_accessor :single_task
+  attr_accessor :id_generation
 
   scope :active,    -> { where(complete: false) }
   scope :complete,  -> { where(complete: true)  }
   scope :of_kind,   ->(kind) { where('of_kind = ?', kind) }
 
-  before_save :set_custom_id
+  before_save :set_custom_id, if: :automatic_id?
   def set_custom_id
-    return if self.user.blank? # The default project has no user.
+    return if self.user.blank? # The default project has no user. -- default_project?
     last_id = (Project.last.try(:id) || 1)
     custom_id =  self.user.initials + (sprintf '%06d', (last_id))
     self.custom_id ||= custom_id
@@ -308,4 +309,14 @@ class Project < ActiveRecord::Base
     def default_project?
       self.default
     end
+
+    def automatic_id?
+      puts "id_generation is #{self.id_generation}"
+      if self.id_generation.try(:to_sym) == :automatic
+        puts 'AUTOMATIC'
+        return true
+      end
+    end
+
+
 end
