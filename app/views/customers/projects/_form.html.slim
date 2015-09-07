@@ -74,9 +74,14 @@
   hr
   .project-attachments
     .field
-      = f.label :attachment, 'Velg vedlegg'
-      = file_field_tag "attachments[]", type: :file, multiple: true, id: nil
-      = text_field_tag "att_descriptions[]", nil, placeholder: 'Filbeskrivelse', id: nil
+      = f.fields_for :attachments do |ff|
+        = ff.hidden_field :id
+        = ff.label :document, 'Velg vedlegg'
+        - unless ff.object.new_record?
+          em 
+            | (leave file blank to do not update)
+        = ff.file_field :document, type: :file
+        = ff.text_field :description, placeholder: 'Filbeskrivelse'
 
     button.plus-button type='button' +
   hr
