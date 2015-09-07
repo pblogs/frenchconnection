@@ -31,3 +31,7 @@ public/uploads/
 
 # Ignore redis files
 dump.rdb
+
+# Ignore vim files
+*.swp
+*.swo
