@@ -44,13 +44,6 @@ class Customers::ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         set_favorite
-        if params[:attachments]
-          params[:attachments].each_with_index do |attachment, i|
-            @project.attachments.create!(document: attachment,
-                                         description: params[:att_descriptions][i],
-                                         project: @project)
-          end
-        end
 
         format.html do
           if @project.single_task?
