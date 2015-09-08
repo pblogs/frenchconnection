@@ -144,7 +144,13 @@ describe Project do
     it "lists all types of professions involved" do
       @project.professions.should include(@snekker, @murer)
     end
-  end
+  
+    it "should create nested attachments" do
+      @project.update({attachments_attributes: {'0' => {description: "description", document: File.new('document', 'w+')}}})
+      expect(@project).to be_valid
+      expect(@project.attachments).not_to be_empty
+    end
+end
 
   describe "Project owner" do
     before do
