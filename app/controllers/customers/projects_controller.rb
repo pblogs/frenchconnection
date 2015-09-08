@@ -111,7 +111,7 @@ class Customers::ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(
-                                    {attachments_attributes: [:description, :document]},
+                                    {attachments_attributes: [:id, :description, :document, :_destroy]},
                                     :billing_address,
                                     :customer_reference,
                                     :company_id,

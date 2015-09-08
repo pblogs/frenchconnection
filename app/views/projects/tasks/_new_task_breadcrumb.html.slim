@@ -17,6 +17,14 @@
 
   = fa_icon 'chevron-right'
 
+  = link_to t('projects.tasks.headers.attach'),
+    project_task_attach_path(@task.project, @task),
+    class: "#{ body_id == 'tasks_attach' ? 'current' : nil }"
+
+  = fa_icon 'chevron-right'
+
   = link_to t('projects.tasks.headers.review'),
     project_task_review_path(@task.project, @task),
     class: "#{ body_id == 'tasks_review' ? 'current' : nil }"
+
+

@@ -1,0 +1,18 @@
+= render 'new_task_breadcrumb'
+= form_for [@project, @task] do |f|
+  h5 = t('task.what')
+  .project-attachments
+    .field
+      = f.fields_for :attachments do |ff|
+        = ff.hidden_field :id
+        = ff.label :document, 'Velg vedlegg'
+        - unless ff.object.new_record?
+          em 
+            | (leave file blank to do not update)
+        = ff.file_field :document, type: :file
+        = ff.text_field :description, placeholder: 'Filbeskrivelse'
+
+  br
+  br
+  .actions
+    = f.submit t('save_and_continue'), class: ' btn btn-primary'

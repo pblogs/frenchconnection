@@ -69,6 +69,12 @@ describe Task do
     it "knows their names" do
       @task.name_of_users.should eq 'John, Barry'
     end
+
+    it "should create nested attachments" do
+      @task.update({attachments_attributes: {'0' => {description: "description", document: File.new('document', 'w+')}}})
+      expect(@task).to be_valid
+      expect(@task.attachments).not_to be_empty
+    end
   end
 
 

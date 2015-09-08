@@ -32,6 +32,8 @@ class Task < ActiveRecord::Base
   has_many :hours_spents
   has_many :mobile_pictures
   has_and_belongs_to_many :inventories
+  has_many :attachments, as: :attachable
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   attr_accessor :owner
 
