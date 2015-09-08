@@ -31,7 +31,6 @@ Fabricator(:project) do
   due_date       { Time.now.next_week }
   execution_address { Faker::Address.street_address }
   name           { Faker::Company.name }
-  project_number "PL1"
   start_date     { Time.now }
   user           { Fabricate(:user) }
 end
