@@ -1,5 +1,13 @@
 = render 'new_task_breadcrumb'
-= form_for [@project, @task] do |f|
+= form_for @task, url: project_task_attach_path(@task.project, @task) do |f|
+  - if @task.errors.any?
+    #error_explanation
+      strong= "#{@task.errors.count}" + " feil " + t('stopped_us_saving')
+      ul
+        - @task.errors.full_messages.each do |message|
+          li = message
+
+
   h5 = t('task.what')
   .project-attachments
     .field

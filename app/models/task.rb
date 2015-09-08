@@ -35,7 +35,7 @@ class Task < ActiveRecord::Base
   has_many :attachments, as: :attachable
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
-  attr_accessor :owner
+  belongs_to :owner, class_name: 'User'
 
   scope :from_user, ->(user) { joins(:user_tasks)
                                 .where('user_tasks.user_id = ?', user.id) }
