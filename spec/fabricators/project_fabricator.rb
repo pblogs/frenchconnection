@@ -19,7 +19,6 @@
 #  sms_employee_when_new_task_created   :boolean          default(FALSE)
 #  department_id                        :integer
 #  complete                             :boolean          default(FALSE)
-#  custom_id                            :string
 #  default                              :boolean          default(FALSE)
 #  project_reference                    :string
 #
