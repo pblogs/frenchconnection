@@ -311,11 +311,7 @@ class Project < ActiveRecord::Base
     end
 
     def automatic_id?
-      puts "id_generation is #{self.id_generation}"
-      if self.id_generation.try(:to_sym) == :automatic
-        puts 'AUTOMATIC'
-        return true
-      end
+      self.id_generation.try(:to_sym) == :auto
     end
 
 
