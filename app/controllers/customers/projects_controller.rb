@@ -2,6 +2,8 @@ class Customers::ProjectsController < ApplicationController
   before_action :set_project,  only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:index, :show, :edit, :update,
                                       :destroy, :new]
+  before_action :fetch_settings
+  before_action :set_departments
 
 
   def index
@@ -9,7 +11,6 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def show
-    @departments       = Department.all
     @drafts            = @project.task_drafts
     @tasks_in_progress = @project.tasks_in_progress
     @completed_tasks   = @project.completed_tasks
@@ -18,18 +19,15 @@ class Customers::ProjectsController < ApplicationController
   def new
     @project     = @customer.projects.new
     @customers   = Customer.all
-    @departments = Department.all
   end
 
   def edit
-    @departments = Department.all
     @is_favorite = @project.is_favorite_of?(@current_user)
   end
 
   def create
     @project      = Project.new(project_params)
     @project.user = @current_user
-    #@departments  = Department.all
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
@@ -71,7 +69,6 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def update
-    @departments = Department.all
     respond_to do |format|
       if @project.update(project_params)
         set_favorite
@@ -110,6 +107,14 @@ class Customers::ProjectsController < ApplicationController
 
   def set_customer
     @customer = Customer.find(params[:customer_id])
+  end
+
+  def fetch_settings
+    @settings ||= Setting.first_or_create
+  end
+
+  def set_departments
+    @departments = Department.all
   end
 
   def set_favorite
