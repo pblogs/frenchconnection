@@ -1,8 +1,11 @@
+puts "Destroying everyting.."
 User.destroy_all
 
 Customer.destroy_all
 Department.destroy_all
 Profession.destroy_all
+
+puts "Populating db with seed data.."
 
 # Customers
 sporveiene    = Fabricate(:customer, name: 'Oslo Sporveier AS')
