@@ -38,27 +38,28 @@ class Project < ActiveRecord::Base
   belongs_to :department
   has_many :favorites, as: :favorable
 
+  before_validation :generate_project_number, if: :auto_project_number?
+
   validates :customer_id,    presence: true, unless: :default_project?
   validates :start_date,     presence: true, unless: :default_project?
   validates :department_id,  presence: true, unless: :default_project?
-  validates :project_number, presence: true, unless: :default_project?
+  validates :project_number, presence: true, unless: :auto_project_number?
   validates :user_id,        presence: true, unless: :default_project?
   validates :name,           presence: true
   validates :description,    presence: true
 
   attr_accessor :single_task
-  attr_accessor :id_generation
 
   scope :active,    -> { where(complete: false) }
   scope :complete,  -> { where(complete: true)  }
   scope :of_kind,   ->(kind) { where('of_kind = ?', kind) }
 
-  before_save :set_custom_id, if: :automatic_id?
-  def set_custom_id
-    return if self.user.blank? # The default project has no user. -- default_project?
+
+  def generate_project_number
+    return if default_project?
     last_id = (Project.last.try(:id) || 1)
-    custom_id =  self.user.initials + (sprintf '%06d', (last_id))
-    self.custom_id ||= custom_id
+    project_number =  self.user.initials + (sprintf '%06d', (last_id))
+    self.project_number = project_number
   end
 
   def task_drafts
@@ -310,8 +311,9 @@ class Project < ActiveRecord::Base
       self.default
     end
 
-    def automatic_id?
-      self.id_generation.try(:to_sym) == :auto
+    def auto_project_number?
+      settings = Setting.first_or_create
+      settings.project_numbers == 'auto'
     end
 
 

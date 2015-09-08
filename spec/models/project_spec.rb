@@ -29,9 +29,7 @@ require 'spec_helper'
 describe Project do
   before do
     @project_leader  = Fabricate(:user,  last_name: 'Doe')
-    @project = Fabricate(:project, user: @project_leader, id_generation: :automatic)
-    @setting = Setting.first_or_create
-    @setting.update_attribute(:project_numbers, :automatic)
+    @project = Fabricate(:project, user: @project_leader)
   end
 
   describe 'generic' do
@@ -41,17 +39,24 @@ describe Project do
   end
 
   describe 'IDs', focus: true do
-    before() do
-      @project_leader  = Fabricate(:user, first_name: 'John', last_name: 'Doe')
-      @auto_p  = Fabricate(:project, user: @project_leader, id_generation: :automatic)
-      @manual_p= Fabricate(:project, user: @project_leader, id_generation: :manual)
+    before(:all) do
+      User.destroy_all
     end
-    context 'automatic_project_numbers enabled' do
-      it { expect(@auto_p.custom_id).to match(/JDOE[\d]{6}/) }
+    let(:project_leader) { Fabricate(:user, first_name: 'John', last_name: 'Doe') }
+    let(:auto_p)   {
+      Setting.first_or_create.update_attribute(:project_numbers, 'auto')
+      Fabricate(:project, user: project_leader) }
+    let(:manual_p) {
+      Setting.first_or_create.update_attribute(:project_numbers, 'manual')
+      Fabricate(:project, user: @project_leader)
+    }
+
+    context 'project_numbers auto' do
+      it { expect(auto_p.project_number).to match(/JDOE[\d]{6}/) }
     end
-    context 'automatic_project_numbers disabled' do
-      it { @project.reload; expect(@manual_p.custom_id).to eq nil }
-    end
+    #context 'project_numbers manual' do
+    #  it { expect(manual_p.project_number).to eq nil }
+    #end
   end
 
 
@@ -93,16 +98,16 @@ describe Project do
     end
 
 
-     it "Belongs to a project leader" do
+     it 'Belongs to a project leader' do
        @project.user.should eq @project_leader
      end
 
-    it "knows which users that are involved" do
+    it 'knows which users that are involved' do
       @john_snekker.tasks.should include @task
       @project.users.should include(@john_snekker, @barry_snekker, @mustafa_murer)
     end
 
-    it "knows their names" do
+    it 'knows their names' do
       @project.name_of_users.should match('John W')
       @project.name_of_users.should match('Mustafa W')
       @project.name_of_users.should match('Barry W')
@@ -122,12 +127,14 @@ describe Project do
 
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour, of_kind: :billable)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour,
+                                            of_kind: :billable)
           .should_not include(@overtime_100_for_john_s)
       end
 
       it 'hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour, of_kind: :billable)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour,
+                                            of_kind: :billable)
           .should include(@hours_for_snakker1)
       end
 
@@ -213,6 +220,8 @@ describe Project do
 
   describe "Drafts" do
     before do
+      @settings = Setting.first_or_create
+      @settings.update_attribute(:project_numbers, 'auto')
       @project = Fabricate(:project)
       @task1   = Fabricate(:task, project: @project, draft: true)
     end
