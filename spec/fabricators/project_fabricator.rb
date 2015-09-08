@@ -31,6 +31,7 @@ Fabricator(:project) do
   execution_address { Faker::Address.street_address }
   name           { Faker::Company.name }
   project_number "PL1"
+  default        { false }
   start_date     { Time.now }
   user           { Fabricate(:user) }
 end
