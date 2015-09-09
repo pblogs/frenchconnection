@@ -27,19 +27,19 @@ require 'spec_helper'
 
 describe Project do
   before do
+    Setting.get.update_attribute(:project_numbers, 'auto')
     @project_leader  = Fabricate(:user,  last_name: 'Doe')
     @project = Fabricate(:project, user: @project_leader)
   end
 
-  describe 'generic' do
-    it 'is valid from the Fabric' do
-      expect(@project).to be_valid
-    end
+  describe 'is valid from the Fabric' do
+    it { expect(@project).to be_valid }
   end
 
-  describe 'IDs', focus: true do
+  describe 'IDs' do
     before(:all) do
       User.destroy_all
+      Setting.get.update_attribute(:project_numbers, 'auto')
     end
     let(:project_leader) { Fabricate(:user, first_name: 'John', last_name: 'Doe') }
     let(:auto_p)   {
@@ -219,8 +219,7 @@ describe Project do
 
   describe "Drafts" do
     before do
-      @settings = Setting.first_or_create
-      @settings.update_attribute(:project_numbers, 'auto')
+      Setting.get.update_attribute(:project_numbers, 'auto')
       @project = Fabricate(:project)
       @task1   = Fabricate(:task, project: @project, draft: true)
     end
@@ -231,6 +230,7 @@ describe Project do
 
   describe "In progress" do
     before do
+      Setting.get.update_attribute(:project_numbers, 'auto')
       @project = Fabricate(:project)
       @task1   = Fabricate(:task, project: @project)
       @task2   = Fabricate(:task, project: @project)
@@ -252,7 +252,7 @@ describe Project do
 
   describe 'Calculations' do
     before do
-      @project = Fabricate(:project)
+      @project = Fabricate(:project, project_number: '123')
       @user = Fabricate(:user)
       @task1 = Fabricate(:task, project: @project)
       @task2 = Fabricate(:task, project: @project)
@@ -262,6 +262,7 @@ describe Project do
       Fabricate(:hours_spent, hour: 10, task: @task1, project: @project, user: @user)
       Fabricate(:hours_spent, hour: 10, task: @task2, project: @project, user: @user)
     end
+
     it 'hours_for_all_users' do
       expect(@project.hours_for_all_users(of_kind: :billable).size).to eq 1
     end
