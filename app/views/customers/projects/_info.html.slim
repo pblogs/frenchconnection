@@ -1,7 +1,7 @@
 .box-shadow
   - unless @project.default
     p
-      strong= t('project_owner')
+      strong = Project.human_attribute_name("project_owner")
       br
       = @project.user.full_name rescue '-'
   p
@@ -9,9 +9,14 @@
     br
     = @project.name
 
+  p
+    strong = Project.human_attribute_name("project_reference")
+    br
+    = @project.project_reference
+
   - unless @project.default
     p
-      strong = t('project_number')
+      strong = Project.human_attribute_name("project_number")
       br
       = @project.project_number
     p
@@ -19,25 +24,25 @@
       br
       = @project.address
     p
-      strong = t('customer')
+      strong = t(:customer)
       br
       = @project.customer.name
 
-  strong = t('description')
+  strong = t(:description)
   = simple_format @project.description
 
   - unless @project.default
     p
-      strong= 'Oppstart'
+      strong= t(:start_date)
       br
       = I18n.l(@project.start_date, format: :short_w_year) rescue nil
     p
-      strong= 'Ferdigstilling'
+      strong= t(:due_date)
       br
       = I18n.l(@project.due_date, format: :short_w_year) rescue '-'
 
   - if @project.attachments.exists?
-    strong Vedlegg
+    strong = t(:attach)
     br
     - @project.attachments.each do |a|
       = a.description

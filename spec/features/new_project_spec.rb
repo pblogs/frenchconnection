@@ -3,6 +3,8 @@ require 'spec_helper'
 RSpec.describe "Create a new project", :type => :feature do
   before :all do
     @project_leader = Fabricate(:user, roles: [:project_leader])
+    @setting = Setting.get
+    Setting.get.update_attribute(:project_numbers, 'manual')
   end
 
   it "for a new customer" do

@@ -99,6 +99,7 @@ nb:
     projects: Prosjekter
 
   admin:
+    projects: Prosjekter
     languages: Språk
     certificates: Sertifikater
     cms: Nyheter
@@ -204,12 +205,16 @@ nb:
 
 
   projects:
+    projects: Prosjekter
+    global_settings_for: Globale innstillinger for
     closed_projects: Avsluttede prosjekter
     closed_projects: Avsluttede prosjekter
     complete_link: Avslutt prosjektet
     complete_link: Avslutt prosjektet
     confirm_closing: Avslutte prosjektet?
     confirm_closing: Avslutte prosjektet?
+    manual_project_numbers: Manuelt prosjektnummer
+    automatic_project_numbers: Automatisk generert prosjektnummer
     create_new: Opprett nytt prosjekt
     default: Standardprosjekt
     hours_registered:
@@ -220,6 +225,7 @@ nb:
       å knyttes til.
     no_started_customers_or_projects: Du har ingen favoritter
     no_departments: Her vil du se avdelingene prosjektene dine høre til
+    settings: Prosjektinnstillinger
     tasks:
       form:
         project_start_date: "Prosjekt start dato: %{start_date}"

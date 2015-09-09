@@ -21,6 +21,8 @@ class ProjectsController < ApplicationController
     @completed_projects = Project.where(user: @current_user, complete: true)
   end
 
+
+
   # GET /projects/1
   # GET /projects/1.json
   def show

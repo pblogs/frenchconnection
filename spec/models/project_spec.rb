@@ -19,14 +19,47 @@
 #  sms_employee_when_new_task_created   :boolean          default(FALSE)
 #  department_id                        :integer
 #  complete                             :boolean          default(FALSE)
-#  custom_id                            :string
 #  default                              :boolean          default(FALSE)
+#  project_reference                    :string
 #
 
 require 'spec_helper'
 
 describe Project do
-  describe "generic" do
+  before do
+    Setting.get.update_attribute(:project_numbers, 'auto')
+    @project_leader  = Fabricate(:user,  last_name: 'Doe')
+    @project = Fabricate(:project, user: @project_leader)
+  end
+
+  describe 'is valid from the Fabric' do
+    it { expect(@project).to be_valid }
+  end
+
+  describe 'IDs' do
+    before(:all) do
+      User.destroy_all
+      Setting.get.update_attribute(:project_numbers, 'auto')
+    end
+    let(:project_leader) { Fabricate(:user, first_name: 'John', last_name: 'Doe') }
+    let(:auto_p)   {
+      Setting.first_or_create.update_attribute(:project_numbers, 'auto')
+      Fabricate(:project, user: project_leader) }
+    let(:manual_p) {
+      Setting.first_or_create.update_attribute(:project_numbers, 'manual')
+      Fabricate(:project, user: project_leader)
+    }
+
+    context 'project_numbers auto' do
+      it { expect(auto_p.project_number).to match(/J[\w]{3}[\d]{6}/) }
+    end
+    #context 'project_numbers manual' do
+    #  it { expect(manual_p.project_number).to eq nil }
+    #end
+  end
+
+
+  describe "relationships" do
     before :each do
       @department      = Fabricate(:department)
       @project_leader  = Fabricate(:user, first_name: 'John', last_name: 'Doe')
@@ -63,24 +96,17 @@ describe Project do
                                             user: @john_snekker)
     end
 
-    it "is valid from the Fabric" do
-      expect(@project).to be_valid
-    end
 
-    it 'has a custom ID' do
-      expect(@project.custom_id).to match(/JDOE[\d]{6}/)
-    end
-
-     it "Belongs to a project leader" do
+     it 'Belongs to a project leader' do
        @project.user.should eq @project_leader
      end
 
-    it "knows which users that are involved" do
+    it 'knows which users that are involved' do
       @john_snekker.tasks.should include @task
       @project.users.should include(@john_snekker, @barry_snekker, @mustafa_murer)
     end
 
-    it "knows their names" do
+    it 'knows their names' do
       @project.name_of_users.should match('John W')
       @project.name_of_users.should match('Mustafa W')
       @project.name_of_users.should match('Barry W')
@@ -94,27 +120,35 @@ describe Project do
       end
 
       it "sums only approved personal and billable hours" do
-        @project.hours_total_for(@john_snekker, overtime: :hour, of_kind: :billable).should eq 10
+        @project.hours_total_for(@john_snekker, overtime: :hour,
+                                 of_kind: :billable).should eq 10
       end
 
 
       it 'INVERTED test hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour, of_kind: :billable)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour,
+                                            of_kind: :billable)
           .should_not include(@overtime_100_for_john_s)
       end
 
       it 'hours_spent_for_profession(profession, overtime: overtime)' do
-        @project.hours_spent_for_profession(@snekker, overtime: :hour, of_kind: :billable)
+        @project.hours_spent_for_profession(@snekker, overtime: :hour,
+                                            of_kind: :billable)
           .should include(@hours_for_snakker1)
       end
 
       it "hours_spent_total" do
         HoursSpent.destroy_all
-        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @john_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task, hour: 10, user: @mustafa_murer)
-        Fabricate(:hours_spent, approved: true, task: @task, overtime_50: 10, user: @barry_snekker)
-        Fabricate(:hours_spent, approved: true, task: @task, overtime_100: 10, user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10,
+                  user: @john_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10,
+                  user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, hour: 10,
+                  user: @mustafa_murer)
+        Fabricate(:hours_spent, approved: true, task: @task, overtime_50: 10,
+                  user: @barry_snekker)
+        Fabricate(:hours_spent, approved: true, task: @task, overtime_100: 10,
+                  user: @mustafa_murer)
         @project.reload
         @project.hours_spent_total(profession: @snekker, overtime: :hour,
                                    of_kind: :personal).should eq 20
@@ -185,6 +219,7 @@ describe Project do
 
   describe "Drafts" do
     before do
+      Setting.get.update_attribute(:project_numbers, 'auto')
       @project = Fabricate(:project)
       @task1   = Fabricate(:task, project: @project, draft: true)
     end
@@ -195,6 +230,7 @@ describe Project do
 
   describe "In progress" do
     before do
+      Setting.get.update_attribute(:project_numbers, 'auto')
       @project = Fabricate(:project)
       @task1   = Fabricate(:task, project: @project)
       @task2   = Fabricate(:task, project: @project)
@@ -216,7 +252,7 @@ describe Project do
 
   describe 'Calculations' do
     before do
-      @project = Fabricate(:project)
+      @project = Fabricate(:project, project_number: '123')
       @user = Fabricate(:user)
       @task1 = Fabricate(:task, project: @project)
       @task2 = Fabricate(:task, project: @project)
@@ -226,6 +262,7 @@ describe Project do
       Fabricate(:hours_spent, hour: 10, task: @task1, project: @project, user: @user)
       Fabricate(:hours_spent, hour: 10, task: @task2, project: @project, user: @user)
     end
+
     it 'hours_for_all_users' do
       expect(@project.hours_for_all_users(of_kind: :billable).size).to eq 1
     end

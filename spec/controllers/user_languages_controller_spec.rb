@@ -45,6 +45,7 @@ RSpec.describe UserLanguagesController, type: :controller do
   end
 
   describe "GET #new" do
+    before { UserLanguage.destroy_all }
     it "assigns a new user_language as @user_language" do
       get :new, {user_id: @user}, valid_session
       expect(assigns(:user_language)).to be_a_new(UserLanguage)

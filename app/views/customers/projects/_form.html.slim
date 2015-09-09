@@ -1,12 +1,5 @@
 == form_for [@customer, @project], :html => { :multipart => true }  do |f|
-  - if @project.errors.any?
-    #error_explanation
-      h2
-        = "#{@project.errors.count} feil"
-        =   " hindret prosjektet fra å bli lagret "
-      ul
-        - @project.errors.full_messages.each do |message|
-          li = message
+  = render partial: 'layouts/form_error_messages', locals: { form_object: @project }
 
   .field.right
     .checkbox
@@ -15,16 +8,20 @@
         | Merk som favoritt
 
   .field
-    = f.label :department, 'Avdeling'
+    = f.label :department
     = select_tag "project[department_id]",
       options_from_collection_for_select(@departments, "id",
         "title", (@project.department_id || @current_user.department.id))
 
 
+  - if @settings.project_numbers == 'manual'
+    .field
+      = f.label :project_number
+      = f.text_field :project_number
 
   .field
-    = f.label :project_number
-    = f.text_field :project_number
+    = f.label :project_reference
+    = f.text_field :project_reference
 
   .field
     = f.label :name
