@@ -13,9 +13,6 @@ class ApplicationController < ActionController::Base
 
   respond_to :html, :json
 
-  def set_current_user
-    @current_user ||= current_user
-  end
 
   def index
   end
@@ -23,13 +20,13 @@ class ApplicationController < ActionController::Base
 
   private
 
- def user_not_authorized(exception)
-   flash[:error] = 'Dette har du ikke tilgang til.'
-   #policy_name = exception.policy.class.to_s.underscore
-   #flash[:error] = t "#{policy_name}.#{exception.query}",
-   #                scope: "pundit", default: :default
-   redirect_to(request.referrer || root_path)
- end
+  def user_not_authorized(exception)
+    flash[:error] = 'Dette har du ikke tilgang til.'
+    #policy_name = exception.policy.class.to_s.underscore
+    #flash[:error] = t "#{policy_name}.#{exception.query}",
+    #                scope: "pundit", default: :default
+    redirect_to(request.referrer || root_path)
+  end
 
 
 
@@ -44,6 +41,13 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def get_settings
+    @settings ||= Setting.get
+  end
+
+  def set_current_user
+    @current_user ||= current_user
+  end
 
   protected
 
@@ -51,5 +55,5 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :mobile]
   end
 
-
 end
+
