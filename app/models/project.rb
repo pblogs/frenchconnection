@@ -42,7 +42,8 @@ class Project < ActiveRecord::Base
   validates :customer_id,    presence: true, unless: :default_project?
   validates :start_date,     presence: true, unless: :default_project?
   validates :department_id,  presence: true, unless: :default_project?
-  validates :project_number, presence: true, unless: [:auto_project_number?, :default_project?]
+  validates :project_number, presence: true, unless: [:auto_project_number?,
+                                                      :default_project?]
   validates :user_id,        presence: true, unless: :default_project?
   validates :name,           presence: true
   validates :description,    presence: true
