@@ -51,7 +51,7 @@ describe Project do
     }
 
     context 'project_numbers auto' do
-      it { expect(auto_p.project_number).to match(/JDOE[\d]{6}/) }
+      it { expect(auto_p.project_number).to match(/J[\w]{3}[\d]{6}/) }
     end
     #context 'project_numbers manual' do
     #  it { expect(manual_p.project_number).to eq nil }
