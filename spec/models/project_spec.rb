@@ -47,7 +47,7 @@ describe Project do
       Fabricate(:project, user: project_leader) }
     let(:manual_p) {
       Setting.first_or_create.update_attribute(:project_numbers, 'manual')
-      Fabricate(:project, user: @project_leader)
+      Fabricate(:project, user: project_leader)
     }
 
     context 'project_numbers auto' do
