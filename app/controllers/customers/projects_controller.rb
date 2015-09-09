@@ -2,7 +2,6 @@ class Customers::ProjectsController < ApplicationController
   before_action :set_project,  only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:index, :show, :edit, :update,
                                       :destroy, :new]
-  before_action :fetch_settings
   before_action :set_departments
 
 
@@ -107,10 +106,6 @@ class Customers::ProjectsController < ApplicationController
 
   def set_customer
     @customer = Customer.find(params[:customer_id])
-  end
-
-  def fetch_settings
-    @settings ||= Setting.first_or_create
   end
 
   def set_departments
