@@ -10,4 +10,8 @@
 #
 
 class Setting < ActiveRecord::Base
+
+  def self.get
+    Setting.first_or_create
+  end
 end
