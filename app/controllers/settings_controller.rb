@@ -1,16 +1,14 @@
 class SettingsController < ApplicationController
   def projects
-    @settings = Setting.first_or_create
   end
-
 
   def show
   end
 
   def edit
   end
+
   def update
-    @settings = Setting.first
     respond_to do |format|
       if @settings.update(settings_params)
         format.html { redirect_to :back, notice: t('updated') }
