@@ -31,5 +31,6 @@ Fabricator(:project) do
   execution_address { Faker::Address.street_address }
   name           { Faker::Company.name }
   start_date     { Time.now }
+  project_number { Random.new_seed.to_s[0,4] }
   user           { Fabricate(:user) }
 end
