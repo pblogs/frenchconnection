@@ -272,8 +272,10 @@ class Project < ActiveRecord::Base
       @hour           = hours_spents.where(user: u, of_kind: of_kind).sum(:hour)
       @overtime_50    = hours_spents.where(user: u, of_kind: of_kind).sum(:overtime_50)
       @overtime_100   = hours_spents.where(user: u, of_kind: of_kind).sum(:overtime_100)
-      @runs_in_company_car = hours_spents.where(user: u, of_kind: of_kind).sum(:runs_in_company_car)
-      @km_driven_own_car = hours_spents.where(user: u, of_kind: of_kind).sum(:km_driven_own_car)
+      @runs_in_company_car = hours_spents.where(user: u, of_kind: of_kind)
+        .sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.where(user: u, of_kind: of_kind)
+        .sum(:km_driven_own_car)
       @toll_expenses_own_car = hours_spents.where(user: u, of_kind: of_kind)
         .sum(:toll_expenses_own_car)
       @approved = !hours_spents.where(user: u, of_kind: of_kind).not_approved.exists?
