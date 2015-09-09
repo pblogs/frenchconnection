@@ -29,6 +29,7 @@
 #  home_area              :string
 #  roles_mask             :integer
 #  gender                 :string
+#  address                :string
 #  birth_date             :date
 #  relatives              :text
 #  initials               :string
@@ -84,6 +85,11 @@ describe User do
     it 'initials on names. Generated when creating new users' do
       expect(@martin.initials).to match 'MSTA'
       expect(@joachim.initials).to match 'JSTR'
+    end
+
+    it 'normalizes names' do
+      u = Fabricate(:user, first_name: "Bjørg", last_name: "O'Conner")
+      expect(u.initials).to match 'BOCO'
     end
 
   end

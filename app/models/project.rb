@@ -19,8 +19,8 @@
 #  sms_employee_when_new_task_created   :boolean          default(FALSE)
 #  department_id                        :integer
 #  complete                             :boolean          default(FALSE)
-#  custom_id                            :string
 #  default                              :boolean          default(FALSE)
+#  project_reference                    :string
 #
 
 class Project < ActiveRecord::Base
@@ -37,10 +37,13 @@ class Project < ActiveRecord::Base
   belongs_to :department
   has_many :favorites, as: :favorable
 
+  before_validation :generate_project_number, if: :auto_project_number?
+
   validates :customer_id,    presence: true, unless: :default_project?
   validates :start_date,     presence: true, unless: :default_project?
   validates :department_id,  presence: true, unless: :default_project?
-  validates :project_number, presence: true, unless: :default_project?
+  validates :project_number, presence: true, unless: [:auto_project_number?,
+                                                      :default_project?]
   validates :user_id,        presence: true, unless: :default_project?
   validates :name,           presence: true
   validates :description,    presence: true
@@ -51,12 +54,12 @@ class Project < ActiveRecord::Base
   scope :complete,  -> { where(complete: true)  }
   scope :of_kind,   ->(kind) { where('of_kind = ?', kind) }
 
-  before_save :set_custom_id
-  def set_custom_id
-    return if self.user.blank? # The default project has no user.
+
+  def generate_project_number
+    return if default_project?
     last_id = (Project.last.try(:id) || 1)
-    custom_id =  self.user.initials+ (sprintf '%06d', (last_id))
-    self.custom_id ||= custom_id
+    project_number =  self.user.initials + (sprintf '%06d', (last_id))
+    self.project_number = project_number
   end
 
   def task_drafts
@@ -270,8 +273,10 @@ class Project < ActiveRecord::Base
       @hour           = hours_spents.where(user: u, of_kind: of_kind).sum(:hour)
       @overtime_50    = hours_spents.where(user: u, of_kind: of_kind).sum(:overtime_50)
       @overtime_100   = hours_spents.where(user: u, of_kind: of_kind).sum(:overtime_100)
-      @runs_in_company_car = hours_spents.where(user: u, of_kind: of_kind).sum(:runs_in_company_car)
-      @km_driven_own_car = hours_spents.where(user: u, of_kind: of_kind).sum(:km_driven_own_car)
+      @runs_in_company_car = hours_spents.where(user: u, of_kind: of_kind)
+        .sum(:runs_in_company_car)
+      @km_driven_own_car = hours_spents.where(user: u, of_kind: of_kind)
+        .sum(:km_driven_own_car)
       @toll_expenses_own_car = hours_spents.where(user: u, of_kind: of_kind)
         .sum(:toll_expenses_own_car)
       @approved = !hours_spents.where(user: u, of_kind: of_kind).not_approved.exists?
@@ -307,4 +312,10 @@ class Project < ActiveRecord::Base
     def default_project?
       self.default
     end
+
+    def auto_project_number?
+      Setting.get.project_numbers == 'auto'
+    end
+
+
 end

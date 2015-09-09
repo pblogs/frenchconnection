@@ -1,3 +1,6 @@
 h1= "Prosjekter under #{link_to @customer.name, customer_path(@customer)}".html_safe
 
-= render partial: "projects/table", locals: {projects: @projects} 
+= render partial: "projects/table", locals: {projects: @projects}
+
+= link_to t('projects.create_new'),
+  new_customer_project_path(@customer), class: 'btn btn-primary new-project'

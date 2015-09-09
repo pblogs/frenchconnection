@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id               :integer          not null, primary key
+#  customer_id      :integer
+#  start_date       :date
+#  created_at       :datetime
+#  updated_at       :datetime
+#  accepted         :boolean
+#  description      :string
+#  finished         :boolean          default(FALSE)
+#  project_id       :integer
+#  due_date         :date
+#  ended_at         :datetime
+#  work_category_id :integer
+#  location_id      :integer
+#  profession_id    :integer
+#  skills_ids       :integer
+#  draft            :boolean          default(TRUE)
+#  address          :string
+#  custom_id        :string
+#  owner_id         :integer
+#
+
 # Schema Information
 #
 # Table name: tasks

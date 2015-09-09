@@ -2,6 +2,7 @@ class Customers::ProjectsController < ApplicationController
   before_action :set_project,  only: [:show, :edit, :update, :destroy]
   before_action :set_customer, only: [:index, :show, :edit, :update,
                                       :destroy, :new]
+  before_action :set_departments
 
 
   def index
@@ -9,7 +10,6 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def show
-    @departments       = Department.all
     @drafts            = @project.task_drafts
     @tasks_in_progress = @project.tasks_in_progress
     @completed_tasks   = @project.completed_tasks
@@ -18,18 +18,15 @@ class Customers::ProjectsController < ApplicationController
   def new
     @project     = @customer.projects.new
     @customers   = Customer.all
-    @departments = Department.all
   end
 
   def edit
-    @departments = Department.all
     @is_favorite = @project.is_favorite_of?(@current_user)
   end
 
   def create
     @project      = Project.new(project_params)
     @project.user = @current_user
-    @departments  = Department.all
 
     @project.customer_id = params[:customer_id] if params[:customer_id].present?
     @customers           = Customer.all
@@ -53,11 +50,11 @@ class Customers::ProjectsController < ApplicationController
         format.html do
           if @project.single_task?
             redirect_to edit_project_task_path(@project, @task),
-              notice: 'Prosjektet ble lagret'
+              notice: I18n.t(:saved)
           else
             redirect_to customer_project_path(@project.customer,
                                               @project),
-                                              notice: 'Prosjektet ble lagret'
+                                              notice: I18n.t(:saved)
           end
         end
         format.json { render action: 'show', status: :created,
@@ -71,7 +68,6 @@ class Customers::ProjectsController < ApplicationController
   end
 
   def update
-    @departments = Department.all
     respond_to do |format|
       if @project.update(project_params)
         set_favorite
@@ -112,6 +108,10 @@ class Customers::ProjectsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
   end
 
+  def set_departments
+    @departments = Department.all
+  end
+
   def set_favorite
     if params[:starred]
       @current_user.favorites << @project.set_as_favorite
@@ -135,6 +135,7 @@ class Customers::ProjectsController < ApplicationController
                                     :execution_address,
                                     :name,
                                     :project_number,
+                                    :project_reference,
                                     :sms_employee_if_hours_not_registered,
                                     :sms_employee_when_new_task_created,
                                     :start_date,

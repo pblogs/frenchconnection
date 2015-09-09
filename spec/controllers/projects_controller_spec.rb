@@ -264,7 +264,10 @@ describe ProjectsController, :type => :controller do
           get :personal_hours, { project_id: @project.id,
                         date: { year: 2015, month: 5 },
                       }, valid_session
-          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind: :personal, month_nr: @month, year: @year)
+          expect(assigns(:hours)).to eq @project.hours_for_all_users(of_kind:
+                                                                     :personal,
+                                                                     month_nr: @month,
+                                                                     year: @year)
         end
       end
     end
