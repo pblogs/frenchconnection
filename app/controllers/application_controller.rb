@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
 
   def get_settings
-    @settings ||= Setting.get
+    @settings = Setting.get
   end
 
   def set_current_user
