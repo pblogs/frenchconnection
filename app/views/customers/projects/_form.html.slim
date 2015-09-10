@@ -72,8 +72,8 @@
 
   br
   hr
-  .project-attachments
-    .field
+  = react_component 'AttachmentFields', data: f.object.attachments.to_json, model: 'project'
+    /.field
       = f.fields_for :attachments do |ff|
         = ff.hidden_field :id
         = ff.label :document, 'Velg vedlegg'
@@ -82,8 +82,6 @@
             | (leave file blank to do not update)
         = ff.file_field :document, type: :file
         = ff.text_field :description, placeholder: 'Filbeskrivelse'
-
-    button.plus-button type='button' +
   hr
 
   .field.single-task

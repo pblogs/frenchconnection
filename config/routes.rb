@@ -41,6 +41,8 @@ Orwapp::Application.routes.draw do
       put :end_task_hard
       get :tools
       get :workers
+      get :attach
+      patch :attach
       get :review
     end
 

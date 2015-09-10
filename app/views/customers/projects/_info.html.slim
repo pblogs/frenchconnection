@@ -36,7 +36,7 @@
       br
       = I18n.l(@project.due_date, format: :short_w_year) rescue '-'
 
-  - if @project.attachments.exists?
+  - if @project.attachments.any?
     strong Vedlegg
     br
     - @project.attachments.each do |a|

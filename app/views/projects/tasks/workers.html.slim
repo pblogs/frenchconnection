@@ -35,6 +35,6 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
 
 
 p
-  = link_to t('task.review_and_submit'),
-    project_task_review_path(@task.project, @task),
+  = link_to t('task.save_and_continue'),
+    project_task_attach_path(@task.project, @task),
     class: 'btn btn-primary'

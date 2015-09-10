@@ -144,6 +144,18 @@ describe Project do
     it "lists all types of professions involved" do
       @project.professions.should include(@snekker, @murer)
     end
+<<<<<<< HEAD
+
+    it "should create nested attachments" do
+      @project.update({attachments_attributes: {'0' => {description: "description", document: File.new('document', 'w+')}}})
+      expect(@project).to be_valid
+      expect(@project.attachments).not_to be_empty
+    end
+
+  end
+||||||| merged common ancestors
+  end
+=======
   
     it "should create nested attachments" do
       @project.update({attachments_attributes: {'0' => {description: "description", document: File.new('document', 'w+')}}})
@@ -151,6 +163,7 @@ describe Project do
       expect(@project.attachments).not_to be_empty
     end
 end
+>>>>>>> 4efb935
 
   describe "Project owner" do
     before do
