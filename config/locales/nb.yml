@@ -48,8 +48,10 @@ nb:
   our_customers: Våre kunder
   outdoor: Utendørs
   phone: Telefon
+  pick_a_date: Velg en dato
   price_pr_day: Pris pr dag
   project_number: Prosjektnummer
+  project_reference: Prosjektreferanse
   project_owner: Prosjekteier
   read_more: Les mer
   register_new_task: Registrer ny oppgave
@@ -206,17 +208,20 @@ nb:
 
   projects:
     projects: Prosjekter
-    global_settings_for: Globale innstillinger for
-    closed_projects: Avsluttede prosjekter
-    closed_projects: Avsluttede prosjekter
-    complete_link: Avslutt prosjektet
-    complete_link: Avslutt prosjektet
-    confirm_closing: Avslutte prosjektet?
-    confirm_closing: Avslutte prosjektet?
-    manual_project_numbers: Manuelt prosjektnummer
     automatic_project_numbers: Automatisk generert prosjektnummer
+    closed_projects: Avsluttede prosjekter
+    closed_projects: Avsluttede prosjekter
+    complete_link: Avslutt prosjektet
+    complete_link: Avslutt prosjektet
+    confirm_closing: Avslutte prosjektet?
+    confirm_closing: Avslutte prosjektet?
     create_new: Opprett nytt prosjekt
     default: Standardprosjekt
+    dates: Datoer
+    enable_project_reference_field: Aktiver felt for prosjektreferanse
+    disable_project_reference_field: Deativer felt for prosjektreferanse
+    global_settings_for: Globale innstillinger for
+    manual_project_numbers: Manuelt prosjektnummer
     hours_registered:
       report_generated_at: Report generated at %{time}
     default_project: Standardprosjekt
