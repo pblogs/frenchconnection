@@ -93,7 +93,6 @@ end
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'binding_of_caller'
   gem 'pry'
 end
 
@@ -102,6 +101,7 @@ group :development do
   #gem 'ruby_gntp'
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'meta_request'
   gem 'quiet_assets'
 end
