@@ -20,6 +20,7 @@
       = f.text_field :project_number
     - elsif controller.action_name == 'edit'
       = f.label :project_number
+      br
       span = @project.project_number
 
   - if @settings.project_reference_field
