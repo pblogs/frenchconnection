@@ -9,10 +9,11 @@
     br
     = @project.name
 
-  p
-    strong = Project.human_attribute_name("project_reference")
-    br
-    = @project.project_reference
+  - if @settings.project_reference_field
+    p
+      strong = Project.human_attribute_name("project_reference")
+      br
+      = @project.project_reference
 
   - unless @project.default
     p
