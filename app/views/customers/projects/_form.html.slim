@@ -14,10 +14,13 @@
         "title", (@project.department_id || @current_user.department.id))
 
 
-  - if @settings.project_numbers == 'manual'
-    .field
+  .field
+    - if @settings.project_numbers == 'manual'
       = f.label :project_number
       = f.text_field :project_number
+    - elsif controller.action_name == 'edit'
+      = f.label :project_number
+      span = @project.project_number
 
   - if @settings.project_reference_field
     .field
