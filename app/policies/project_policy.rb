@@ -38,6 +38,18 @@ class ProjectPolicy  < ApplicationPolicy
     admin_or_project_leader?
   end
 
+  def set_year_and_month?
+    admin_or_project_leader?
+  end
+
+  def set_months?
+    admin_or_project_leader?
+  end
+
+  def documentation?
+    true
+  end
+
   def billable_hours?
     true
   end
