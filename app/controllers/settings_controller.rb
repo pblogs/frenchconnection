@@ -25,7 +25,7 @@ class SettingsController < ApplicationController
   def settings_params
     params.require(:settings).permit(
       :project_numbers,
-      :enable_project_reference_field
+      :project_reference_field
     )
   end
 end
