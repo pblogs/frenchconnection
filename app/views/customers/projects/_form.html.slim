@@ -19,9 +19,10 @@
       = f.label :project_number
       = f.text_field :project_number
 
-  .field
-    = f.label :project_reference
-    = f.text_field :project_reference
+  - if @settings.project_reference_field
+    .field
+      = f.label :project_reference
+      = f.text_field :project_reference
 
   .field
     = f.label :name
