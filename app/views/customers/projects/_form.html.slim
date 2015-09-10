@@ -41,13 +41,13 @@
     = f.text_area :comment, value: @project.comment
 
   .field
-    h3 Dato
+    h3 = t('projects.dates')
     = f.label :start_date
-    = f.text_field :start_date, class: :datepicker, placeholder: 'Velg dato'
+    = f.text_field :start_date, class: :datepicker, placeholder: t(:pick_a_date)
 
   .field
     = f.label :due_date
-    = f.text_field :due_date, class: :datepicker,  placeholder: 'Velg dato'
+    = f.text_field :due_date, class: :datepicker,  placeholder: t(:pick_a_date)
 
   hr
 

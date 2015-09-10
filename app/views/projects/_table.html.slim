@@ -1,16 +1,14 @@
 table
   thead
     tr
-      th ID
-      th Nummer
-      th Navn
-      th Oppstart
-      th Ferdigstilling
+      th = t(:project_number)
+      th = t(:name)
+      th = t(:start_date)
+      th = t(:due_date)
 
   tbody
     - projects.each do |project|
       tr
-        td = project.id
         td = project.project_number
         td = link_to project.name, customer_project_path(project.customer, project)
         td = project.start_date
