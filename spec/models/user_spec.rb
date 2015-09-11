@@ -39,10 +39,10 @@ require 'spec_helper'
 
 describe User do
   before :each do
-    @user  = Fabricate(:user)
+    @user = Fabricate(:user)
   end
 
-  it "is valid from the Fabric" do
+  it 'is valid from the Fabric' do
     expect(@user).to be_valid
   end
 
@@ -88,19 +88,20 @@ describe User do
     end
 
     it 'normalizes names' do
-      u = Fabricate(:user, first_name: "Bjørg", last_name: "O'Conner")
+      u = Fabricate(:user, first_name: 'Bjørg', last_name: "O'Conner")
       expect(u.initials).to match 'BOCO'
     end
-
   end
+
   describe 'scopes' do
     before do
       Skill.destroy_all
       @certificate = Fabricate(:certificate)
       @welding = Fabricate(:skill, title: 'welding master')
       @welding.save!
-      @user_certificate = Fabricate(:user_certificate, user: @user,
-                                   certificate: @certificate)
+      @user_certificate = Fabricate(:user_certificate,
+                                    user: @user,
+                                    certificate: @certificate)
       @user.skills << @welding
       @user.save!
     end
@@ -120,7 +121,7 @@ describe User do
     expect(@user.roles).to eq [:admin, :worker]
   end
 
-  it "a user can have many tasks" do
+  it 'a user can have many tasks' do
     @task = Fabricate(:task)
     @task2 = Fabricate(:task)
     @user.tasks << @task
@@ -139,7 +140,6 @@ describe User do
     it 'returns the departments from all projects that the user owns' do
       @user.project_departments.should eq [@service, @support]
     end
-
   end
 
   describe 'favorites' do
@@ -180,11 +180,7 @@ describe User do
       each project user participates in' do
       @task = Fabricate(:task)
       @task.users << @user
-      expect( @user.projects.first).to eq @task.project
-      #expect( @user.timesheets.first.title).to eq 'Tak på slottet'
-      #expect( @user.timesheets.first.url).to match 'http'
+      expect(@user.projects.first).to eq @task.project
     end
   end
-
-
 end
