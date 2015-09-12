@@ -54,15 +54,14 @@ class User < ActiveRecord::Base
   #
   # The hourly reports are going to be rewritten
   #
-  # has_many :monthly_reports
+  has_many :monthly_reports
   has_many :hours_spents
 
   has_many :dynamic_forms
   has_many :submissions
 
   validates :first_name, :last_name, :roles, presence: true
-  validates :initials,       uniqueness: true
-  validates :mobile,         uniqueness: true
+  validates :initials, :mobile, uniqueness: true
 
   has_many :user_tasks, dependent: :destroy
   has_many :tasks, through: :user_tasks
