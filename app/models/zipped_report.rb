@@ -10,6 +10,7 @@
 #  report_type :string
 #
 
+# ZippedReport generates zip files of the finansial reports.
 class ZippedReport < ActiveRecord::Base
   mount_uploader :zipfile, ZipfileUploader
 
@@ -26,7 +27,6 @@ class ZippedReport < ActiveRecord::Base
   # for given project.
   def cleanup_old_reports
     ZippedReport.where(report_type: report_type, project_id: project_id)
-                .where("id != ?", id).destroy_all
+      .where('id != ?', id).destroy_all
   end
-
 end

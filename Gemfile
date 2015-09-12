@@ -118,13 +118,11 @@ group :test do
   gem 'selenium-webdriver', '>= 2.44.0'
 end
 
-
-
 group :development, :production do
   gem 'foreman'
   gem 'thor'
   gem 'pusher'
-  #gem 'ransack'
+  gem 'rubocop'
 end
 
 gem 'carrierwave'
