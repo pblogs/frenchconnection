@@ -1,4 +1,9 @@
-h1 Brukere
+- content_for :breadcrumb do
+  = link_to t(:administrer), administration_path
+  = fa_icon 'chevron-right'
+  strong= t('users.users')
+
+h1= t('users.users')
 
 = alphabet_paginate_prev_next @alpha_params
 

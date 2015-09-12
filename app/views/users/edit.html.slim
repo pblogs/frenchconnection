@@ -1,11 +1,11 @@
 - content_for :breadcrumb do
   = link_to t(:administrer), administration_path
   = fa_icon 'chevron-right'
-  = link_to t(:users), users_path
+  = link_to t('users.users'), users_path
   = fa_icon 'chevron-right'
   strong= "#{@user.name}"
 
-h1 = t(:edit_user)
+h1 = t('users.edit')
 
 == render 'form'
 

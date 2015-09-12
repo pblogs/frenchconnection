@@ -5,7 +5,7 @@ div ng-controller="WorkersForTaskController" data-task-id="#{@task.id}"
     p
       = t('.people_with_required_skills')
 
-  label Søk:
+  label = t(:search)
   input(ng-model="searchText")
   br
 
@@ -38,3 +38,6 @@ p
   = link_to t('task.review_and_submit'),
     project_task_review_path(@task.project, @task),
     class: 'btn btn-primary'
+
+  = link_to t('.delegate_task_later'),
+    project_task_review_path(@task.project, @task)
