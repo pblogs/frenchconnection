@@ -72,50 +72,50 @@ class User < ActiveRecord::Base
   has_many :certificates, through: :user_certificates
 
   scope :from_department,  ->(department) { where('department_id = ?',
-                                                  department.id) }
+                                                  department.id)}
 
 
   scope :with_certificate, ->(certificate) { joins(:certificates)
-    .where('certificate_id = ?', certificate.id) }
+    .where('certificate_id = ?', certificate.id)}
 
   scope :with_skill, ->(skill) { joins(:skills)
-    .where('skill_id = ?', skill.id) }
+    .where('skill_id = ?', skill.id)}
 
   attr_reader :expiry_date
 
-  GENDER_TYPES = %W(- mann dame )
+  GENDER_TYPES = %w(- mann dame )
   def name
-    "#{ first_name } #{ last_name }"
+    "#{first_name} #{last_name}"
   end
 
   def full_last_name
-    "#{ last_name } #{ first_name }".strip
+    "#{last_name} #{first_name}".strip
   end
 
   def build_initials
-    if !User.where(initials: self.initials_v1).exists?
-      self.initials_v1
-    elsif !User.where(initials: self.initials_v2).exists?
-      self.initials_v2
-    elsif !User.where(initials: self.initials_v3).exists?
-      self.initials_v3
+    if !User.where(initials: initials_v1).exists?
+      initials_v1
+    elsif !User.where(initials: initials_v2).exists?
+      initials_v2
+    elsif !User.where(initials: initials_v3).exists?
+      initials_v3
     end
   end
 
   def initials_v1
-    "#{ first_name_normalized[0] + last_name_normalized[0,3] }".upcase
+    "#{first_name_normalized[0] + last_name_normalized[0, 3]}".upcase
   end
 
   def initials_v2
-    "#{ first_name_normalized[0,2] + last_name_normalized[0,2] }".upcase
+    "#{first_name_normalized[0, 2] + last_name_normalized[0, 2]}".upcase
   end
 
   def initials_v3
-    "#{ first_name_normalized[0,3] + last_name_normalized[0,1] }".upcase
+    "#{first_name_normalized[0, 3] + last_name_normalized[0, 1]}".upcase
   end
 
   def first_name_normalized
-    first_name.parameterize.gsub('-','')
+    first_name.parameterize.delete('-')
   end
 
   def last_name_normalized
@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    "#{ first_name } #{ last_name }".strip
+    "#{first_name} #{last_name}".strip
   end
 
   def full_name=(name)
@@ -156,7 +156,7 @@ class User < ActiveRecord::Base
   def age
     return if birth_date.blank?
     now = Time.now.utc.to_date
-    now.year - self.birth_date.year #- (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
+    now.year - birth_date.year
   end
 
   # Heavy to load all users. Perhaps set the role with
@@ -177,19 +177,19 @@ class User < ActiveRecord::Base
       pending_notifications << [notification, args]
     else
       token = args.first
-      reset_url =  "#{edit_user_password_url(self,
-        reset_password_token: token,
-        host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
+      reset_url = "#{edit_user_password_url(self,
+                                            reset_password_token: token,
+                                            host: ENV['DOMAIN'])}"
       msg = "Klikk her for nytt passord hos Orwapp: #{reset_url}"
       Sms.send_msg(to: "47#{mobile}", msg: msg)
     end
   end
 
-  def after_resetting_password_path_for(resource)
+  def after_resetting_password_path_for
     root_path
   end
 
   def avatar_path
-    "users/#{ name.parameterize }.jpg"
+    "users/#{name.parameterize}.jpg"
   end
 end
