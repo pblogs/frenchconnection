@@ -73,6 +73,10 @@
     = link_to t('task.order_resources_and_save_task'),
       task_save_and_order_resources_path(@task), class: 'btn btn-primary',
       method: :post
+  - elsif @task.changed?
+    = link_to t('save'),
+      task_save_and_order_resources_path(@task), class: 'btn btn-primary',
+      method: :post
   - else
     p.task_no_longer_draft
       strong = t('.saved')
