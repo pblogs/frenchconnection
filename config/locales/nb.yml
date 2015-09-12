@@ -33,6 +33,7 @@ nb:
   end_date: Ferdigstillelse
   end_task: Avslutt oppgaven
   end_task_hard: Tvungen avslutning
+  executing: Utførende
   from: Fra
   has_no_due_date: Ingen dato satt
   hours_registered: Timer registrert
@@ -40,8 +41,8 @@ nb:
   instructions: Instruksjoner
   my_projects: Mine prosjekter
   name: Navn
-  name: Navn
   notifications: Varslinger
+  nobody: Ingen
   no_way_back_if_deleted: Sikker på at du vil slette? Det er ikke mulig å angre.
   options: Valg
   org_nr: Org nr
@@ -153,22 +154,23 @@ nb:
 
 
   task:
-    no_images_taken_on_this_task: Det er ikke tatt noen bilder på denne oppgaven
-    no_due_date_set: Sluttdato ikke satt
+    completed_tasks: Fullførte oppgaver
     confirm: Bekreft
     confirmed: Oppgave bekreftet
-    completed_tasks: Fullførte oppgaver
     destroyed: Oppgave slettet
     edit: Rediger oppgave
     my_tasks: Mine oppgaver
     new_tasks: Nye oppgaver
+    no_due_date_set: Sluttdato ikke satt
+    no_images_taken_on_this_task: Det er ikke tatt noen bilder på denne oppgaven
     order_resources_and_save_task: Bestill resurser og lagre oppgaven
-    skills: Ferdigheter
-    saved_resources_ordered: Oppgaven er lagret og resursene bestilt
-    what: Hvilke ferdigheter trengs?
-    where: Hvor skal arbeidet utføres?
-    what_profession: Hvilket yrke
     review_and_submit: Se igjennom og bekreft
+    saved_resources_ordered: Oppgaven er lagret og resursene bestilt
+    skills: Ferdigheter
+    delegate_task_later: Deleger senere
+    what: Hvilke ferdigheter trengs?
+    what_profession: Hvilket yrke
+    where: Hvor skal arbeidet utføres?
 
   devise:
     failure:
@@ -231,6 +233,7 @@ nb:
     no_started_customers_or_projects: Du har ingen favoritter
     no_departments: Her vil du se avdelingene prosjektene dine høre til
     settings: Prosjektinnstillinger
+
     tasks:
       form:
         project_start_date: "Prosjekt start dato: %{start_date}"
@@ -243,6 +246,7 @@ nb:
         workers: Arbeidere
         address_missing: Mangler adresse
         who: Hvem
+        saved: Oppgaven er lagret og resurser bestilt.
       tools:
         search_placeholder: Søk etter verktøy og maskiner
         header: Verktøy
@@ -267,6 +271,7 @@ nb:
         people_with_required_skills:
           Personell med kompetanse til å utføre denne oppgaven
         selected_workers: Valgte arbeidere
+        delegate_task_later: Deleger oppgaven senere
 
 
   project_reports:
