@@ -1,9 +1,9 @@
 table
   thead
-    th Beskrivelse
-    th Utførende
-    th Startdato
-    th Ferdigstilling
+    th = t('description')
+    th = t(:executing)
+    th = t(:start_date)
+    th = t(:due_date)
     th
   tbody
     = render partial: "projects/tasks/table_body",
