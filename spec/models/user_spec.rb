@@ -66,11 +66,11 @@ describe User do
     before(:all) do
       User.destroy_all
       @martin  = Fabricate(:user,
-        first_name: 'Martin', last_name: 'Stabenfeldt')
+                           first_name: 'Martin', last_name: 'Stabenfeldt')
       @joachim = Fabricate(:user,
-        first_name: 'Joachim', last_name: 'Stray')
+                           first_name: 'Joachim', last_name: 'Stray')
       @jimmi = Fabricate(:user,
-        first_name: 'Jimmi', last_name: 'Stromme')
+                         first_name: 'Jimmi', last_name: 'Stromme')
     end
 
     it 'initials on names.  1 letter from the first name, 3 from the last name' do
@@ -116,7 +116,7 @@ describe User do
   end
 
   it 'multiple roles' do
-    @user.roles= [:worker, :admin]
+    @user.roles = [:worker, :admin]
     @user.save
     expect(@user.roles).to eq [:admin, :worker]
   end
