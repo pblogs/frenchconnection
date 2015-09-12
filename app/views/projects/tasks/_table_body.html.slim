@@ -1,10 +1,10 @@
 tr
   td = link_to task.full_description, task
-  td = task.name_of_users
+  td = task.name_of_users.blank? ? t(:nobody) : task.name_of_users
   - if !@project.default
     td = I18n.l task.start_date, format: :short_date
     - if task.due_date.present?
-      td = I18n.l task.due_date,   format: :short_date
+      td = I18n.l task.due_date, format: :short_date
     - else
       td = t('has_no_due_date')
   - else
