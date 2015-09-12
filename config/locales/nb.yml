@@ -190,6 +190,7 @@ nb:
       Pass på at du registrerer alle timene i Orwapp i løpet av dagen.
       Hilsen %{project_leader}
     new_task: "Du har fått tildelt en ny oppgave. Se Orwapp-appen for mer info."
+    reset: "Klikk her for nytt passord hos Orwapp: %{url}"
     notify:
       missing_hours: |
         Du har visst glemt å registrere timer på en eller flere av
