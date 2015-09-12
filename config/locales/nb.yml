@@ -361,6 +361,11 @@ nb:
         can_be_rented_by_other_companies: Tilgjenglig for utleie
         rental_price_pr_day: Leiepris pr dag
 
+  users:
+    user: Bruker
+    users: Brukere
+    edit: Rediger bruker
+
   months:
     nr_1: Januar
     nr_2: Februar
