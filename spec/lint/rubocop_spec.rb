@@ -11,5 +11,5 @@ describe 'Check that the files we have changed have correct syntax' do
     puts "Report: #{@report}"
   end
 
-  it { @report.match('Offenses').should be false }
+  it { @report.match('Offenses').should_not be true }
 end
