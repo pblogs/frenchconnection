@@ -35,107 +35,98 @@
 #  initials               :string
 #
 
+# Users
 class User < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include User::Role
 
   mount_uploader :image, ImageUploader
 
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable
 
   belongs_to :department
   belongs_to :profession
+  # rubocop:disable all
   has_and_belongs_to_many :skills
+  # rubocop:enable all
+
+  ##############
+  #
+  # The hourly reports are going to be rewritten
+  #
   has_many :monthly_reports
+  has_many :hours_spents
+
   has_many :dynamic_forms
   has_many :submissions
 
-  validates :first_name,     presence: true
-  validates :last_name,      presence: true
-  validates :initials,       uniqueness: true
-  validates :mobile,         uniqueness: true
-  #validates :department_id,  presence: true
-  validates :roles,          presence: true
+  validates :first_name, :last_name, :roles, presence: true
+  validates :initials, :mobile, uniqueness: true
 
+  has_many :user_tasks, dependent: :destroy
+  has_many :tasks, through: :user_tasks
 
-  # Worker
-  has_many :user_tasks, :dependent => :destroy
-  has_many :tasks, :through => :user_tasks
+  has_many :user_languages, dependent: :destroy
+  has_many :languages, through: :user_languages
 
-  has_many :user_languages, :dependent => :destroy
-  has_many :languages, :through => :user_languages
+  has_many :projects, through: :tasks
+  has_many :categories, through: :projects
+  has_many :favorites, dependent: :destroy
+  has_many :kids, dependent: :destroy
+  has_many :user_certificates, dependent: :destroy
+  has_many :certificates, through: :user_certificates
 
-  has_many :projects, :through => :tasks
-  has_many :hours_spents
-  has_many :categories, :through => :projects
-  has_many :favorites, :dependent => :destroy
-  has_many :kids, :dependent => :destroy
-  has_many :user_certificates, :dependent => :destroy
-  has_many :certificates, :through => :user_certificates
+  scope :from_department, ->(department) { where('department_id = ?', department.id) }
 
-  scope :from_department,  ->(department) { where('department_id = ?',
-                                                  department.id) }
+  # rubocop:disable all
+  scope :with_certificate,
+    ->(certificate) { joins(:certificates).where('certificate_id = ?', certificate.id)}
+  # rubocop:enable all
 
+  scope :with_skill, ->(skill) { joins(:skills).where('skill_id = ?', skill.id) }
 
-  scope :with_certificate, ->(certificate) { joins(:certificates)
-    .where('certificate_id = ?', certificate.id) }
-
-  scope :with_skill, ->(skill) { joins(:skills)
-    .where('skill_id = ?', skill.id) }
-
+  # Certificate Expiry date
   attr_reader :expiry_date
 
-  GENDER_TYPES = %W(- mann dame )
+  GENDER_TYPES = %w(- mann dame )
   def name
-    "#{ first_name } #{ last_name }"
+    "#{first_name} #{last_name}"
   end
 
   def full_last_name
-    "#{ last_name } #{ first_name }".strip
+    "#{last_name} #{first_name}".strip
   end
 
   def build_initials
-    if !User.where(initials: self.initials_v1).exists?
-      self.initials_v1
-    elsif !User.where(initials: self.initials_v2).exists?
-      self.initials_v2
-    elsif !User.where(initials: self.initials_v3).exists?
-      self.initials_v3
-    end
+    initials_v1 || initials_v2 || initials_v3
   end
 
   def initials_v1
-    "#{ first_name_normalized[0] + last_name_normalized[0,3] }".upcase
+    i = "#{normalize_name(first_name)[0] + normalize_name(last_name)[0, 3]}".upcase
+    !User.where(initials: i).exists? ? i : nil
   end
 
   def initials_v2
-    "#{ first_name_normalized[0,2] + last_name_normalized[0,2] }".upcase
+    i = "#{normalize_name(first_name)[0, 2] + normalize_name(last_name)[0, 2]}".upcase
+    !User.where(initials: i).exists? ? i : nil
   end
 
   def initials_v3
-    "#{ first_name_normalized[0,3] + last_name_normalized[0,1] }".upcase
+    i = "#{normalize_name(first_name)[0, 3] + normalize_name(last_name)[0, 1]}".upcase
+    !User.where(initials: i).exists? ? i : nil
   end
 
-  def first_name_normalized
-    first_name.parameterize.gsub('-','')
-  end
-
-  def last_name_normalized
-    last_name.parameterize.gsub('-','')
+  def normalize_name(name)
+    name.parameterize.delete('-')
   end
 
   before_save :set_initials
   def set_initials
-    self.initials ||= self.build_initials
-  end
-
-  def avatar
-    image.url.present? ? image.url : "http://robohash.org/#{name}"
+    self.initials ||= build_initials
   end
 
   def full_name
-    "#{ first_name } #{ last_name }".strip
+    "#{first_name} #{last_name}".strip
   end
 
   def full_name=(name)
@@ -159,18 +150,15 @@ class User < ActiveRecord::Base
   def age
     return if birth_date.blank?
     now = Time.now.utc.to_date
-    now.year - self.birth_date.year #- (birth_date.to_date.change(:year => now.year) > now ? 1 : 0)
+    now.year - birth_date.year
   end
-
-  # Heavy to load all users. Perhaps set the role with
-  # user.worker == true if sorting on role_mask is to hard.
 
   def self.with_role(role)
     User.all.select { |u| u.is? role }
   end
 
-  def is?(role)
-    roles.include? role.to_sym
+  def avatar
+    image.url.present? ? image.url : "http://robohash.org/#{name}"
   end
 
   protected
@@ -180,19 +168,14 @@ class User < ActiveRecord::Base
       pending_notifications << [notification, args]
     else
       token = args.first
-      reset_url =  "#{edit_user_password_url(self,
-        reset_password_token: token,
-        host: ENV['DOMAIN'] || 'allieroforms.dev' )}"
-      msg = "Klikk her for nytt passord hos Orwapp: #{reset_url}"
-      Sms.send_msg(to: "47#{mobile}", msg: msg)
+      reset_url = "#{edit_user_password_url(self,
+                                            reset_password_token: token,
+                                            host: ENV['DOMAIN'])}"
+      Sms.send_msg(to: "47#{mobile}", msg: I18n.t('sms.reset', url: reset_url))
     end
   end
 
-  def after_resetting_password_path_for(resource)
+  def after_resetting_password_path_for
     root_path
-  end
-
-  def avatar_path
-    "users/#{ name.parameterize }.jpg"
   end
 end
