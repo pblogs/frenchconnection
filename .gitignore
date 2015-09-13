@@ -17,6 +17,8 @@
 .smartgf_tags
 .smartgf_tags_date
 *.swn
+.swp
+.DS_Store
 
 # Developer environment spesific
 .env-development
