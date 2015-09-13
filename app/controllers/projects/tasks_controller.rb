@@ -1,6 +1,6 @@
 class Projects::TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_task_from_id, only: [:end_task, :end_task_hard, :tools,
+  before_action :set_task_from_id, only: [:attach, :end_task, :end_task_hard, :tools,
                                           :review, :inventories]
   before_action :set_customer, only: [:new, :create, :index]
   before_action :set_workers_and_dates, only: [:edit, :new, :create]
@@ -17,6 +17,20 @@ class Projects::TasksController < ApplicationController
   end
 
   def review
+  end
+
+  def attach
+    if request.get?
+      @task.attachments.build
+      render
+    else
+      if @task.update(attach_task_params)
+        flash[:notice] = "successfully updated"
+        redirect_to project_task_review_path(@task.project, @task)
+      else
+        render
+      end
+    end
   end
 
   # Part of the new task steps
@@ -158,5 +172,10 @@ class Projects::TasksController < ApplicationController
       :user_ids => [],
       :skill_ids => [],
   )
+  end
+  def attach_task_params
+    params.require(:task).permit(
+      {attachments_attributes: [:id, :description, :document, :_destroy]}
+    )
   end
 end

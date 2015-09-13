@@ -1,0 +1,17 @@
+= render 'new_task_breadcrumb'
+= form_for @task, url: project_task_attach_path(@task.project, @task), html: {multipart: true} do |f|
+  - if @task.errors.any?
+    #error_explanation
+      strong= "#{@task.errors.count}" + " feil " + t('stopped_us_saving')
+      ul
+        - @task.errors.full_messages.each do |message|
+          li = message
+
+
+  h5 = t('task.what')
+  = react_component 'AttachmentFields', data: f.object.attachments.to_json, model: 'task'
+
+  br
+  br
+  .actions
+    = f.submit t('save_and_continue'), class: ' btn btn-primary'

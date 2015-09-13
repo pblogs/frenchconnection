@@ -198,6 +198,12 @@ describe Project do
                       department: @maintainance)
     end
 
+    it "should create nested valid attachments" do
+      @project.update({attachments_attributes: {'0' => {description: "description", document: File.new('document', 'w+')}}})
+      expect(@project).to be_valid
+      expect(@project.attachments).not_to be_empty
+    end
+
     it "knows which projects that are mine" do
       pending "works when testing manually"
       @john_snekker.reload
