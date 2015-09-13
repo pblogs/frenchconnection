@@ -18,7 +18,17 @@ table
 br
 br
 br
-  
+h4 Attachments
+- if @task.attachments.any?
+	strong Vedlegg
+	br
+	- @task.attachments.each do |a|
+		= a.description
+		br
+		= link_to a.document.url, a.document.url
+		br
+
+
 strong = "Timer registert"
 br
 ul

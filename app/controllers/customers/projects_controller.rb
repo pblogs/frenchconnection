@@ -17,11 +17,13 @@ class Customers::ProjectsController < ApplicationController
 
   def new
     @project     = @customer.projects.new
+    @project.attachments.build
     @customers   = Customer.all
   end
 
   def edit
     @is_favorite = @project.is_favorite_of?(@current_user)
+    @project.attachments.build unless @project.attachments.present?
   end
 
   def create
@@ -71,12 +73,6 @@ class Customers::ProjectsController < ApplicationController
     respond_to do |format|
       if @project.update(project_params)
         set_favorite
-        if params[:attachments]
-          params[:attachments].each_with_index do |attachment, i|
-            @project.attachments.create!(document: attachment,
-                                         description: params[:att_descriptions][i])
-          end
-        end
 
         format.html { redirect_to [@project.customer, @project],
                       notice: t('updated') }
@@ -122,7 +118,7 @@ class Customers::ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(
-                                    :attachments,
+                                    {attachments_attributes: [:document, :description]},
                                     :billing_address,
                                     :customer_reference,
                                     :company_id,

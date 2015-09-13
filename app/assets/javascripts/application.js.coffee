@@ -15,5 +15,6 @@
 
 # REACT
 #= require react
+#= require plugin/reflux
 #= require react_ujs
 #= require react-components
