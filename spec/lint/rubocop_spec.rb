@@ -8,6 +8,7 @@ describe 'Check that the files we have changed have correct syntax' do
           "master...#{current_sha}?access_token=#{token}"
     files = `curl -i #{url} | grep filename | cut -f2 -d: | grep \.rb | tr '"', '\ '`
     files.tr!("\n", ' ')
+    files.gsub!('db/schema.rb', '')
     @report = 'nada'
     if files.present?
       puts "Changed files: #{files}"
