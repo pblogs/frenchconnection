@@ -21,4 +21,5 @@ development:
 test:
   <<: *default
   database: app_test
+  host: <%= ENV['DOCKER_IP'] %>
   user: postgres
