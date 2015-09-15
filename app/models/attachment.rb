@@ -14,9 +14,8 @@
 class Attachment < ActiveRecord::Base
   belongs_to :attachable, polymorphic: true
 
-  validates :document, :presence => true
-  validates :attachable,  :presence => true
+  validates :document, presence: true
+  validates :attachable,  presence: true
 
-:vs
   mount_uploader :document, DocumentUploader
 end
