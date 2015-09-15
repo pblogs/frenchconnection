@@ -1,3 +1,6 @@
+#
+# Sms.send_msg(to: NNNN, msg: 'msg')
+#
 class Sms
   def self.send_msg(to:, msg:, dryrun: false)
     @to = to
