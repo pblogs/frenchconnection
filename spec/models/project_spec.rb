@@ -199,8 +199,14 @@ describe Project do
     end
 
     it "should create nested valid attachments" do
-      @project.update({attachments_attributes: {'0' => {description: "description", document: File.new('document', 'w+')}}})
-      expect(@project).to be_valid
+      @project.update({
+        attachments_attributes: {
+          '0' => {
+            description: "description", 
+            document: fixture_file_upload('3568357401_b1c9a7e181_o-1000-400x400.jpg')
+          }
+        }
+      })
       expect(@project.attachments).not_to be_empty
     end
 

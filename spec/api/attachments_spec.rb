@@ -12,10 +12,12 @@ describe V1::Certificates do
       another_project = Fabricate(:project)
       attachment1 = Fabricate(:attachment, 
                               description: 'A 1', 
-                              project_id: project.id)
+                              attachable_id: project.id,
+                              attachable_type: 'Project')
       attachment2 = Fabricate(:attachment, 
                               description: 'A 2', 
-                              project_id: another_project.id)
+                              attachable_id: another_project.id,
+                              attachable_type: 'Project')
                               
       get "/api/v1/attachments/#{ project.id }"
       hash = JSON.parse(response.body)

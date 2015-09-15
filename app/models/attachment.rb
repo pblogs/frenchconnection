@@ -12,10 +12,11 @@
 
 # A project can have many attachments. Documents, images, etc.
 class Attachment < ActiveRecord::Base
+  belongs_to :attachable, polymorphic: true
+
   validates :document, :presence => true
   validates :attachable,  :presence => true
 
-  belongs_to :attachable, polymorphic: true
 :vs
   mount_uploader :document, DocumentUploader
 end

@@ -5,6 +5,7 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'pundit/rspec'
 ActiveRecord::Migration.maintain_test_schema!
+include ActionDispatch::TestProcess
 
 
 # Requires supporting ruby files with custom matchers and macros, etc,
