@@ -67,6 +67,19 @@ describe Task do
       expect(@task.users).to include(@worker, @worker)
     end
 
+    it "should create nested valid attachments" do
+      @task.update({
+        attachments_attributes: {
+          '0' => {
+            description: "description", 
+            document: fixture_file_upload('3568357401_b1c9a7e181_o-1000-400x400.jpg')
+          }
+        }
+      })
+      expect(@task.attachments).not_to be_empty
+    end
+
+
     it "knows their names" do
       @task.name_of_users.should eq 'John, Barry'
     end

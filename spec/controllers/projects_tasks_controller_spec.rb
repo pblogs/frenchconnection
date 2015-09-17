@@ -28,7 +28,9 @@ describe Projects::TasksController, :type => :controller do
       description: 'work hard or go home',
       start_date:   Time.now,
       due_date:     Time.now.next_week,
-      address:      Faker::Address.street_address
+      address:      Faker::Address.street_address,
+      owner:        Fabricate(:user, roles: [:project_leader]),
+      project:      Fabricate(:project)
     }
   end
   before do
@@ -88,6 +90,35 @@ describe Projects::TasksController, :type => :controller do
                          valid_session
         }.to change(Task, :count).by(1)
         expect(Task.last.skills.first).to eq @skill
+      end
+    end
+  end
+
+  describe "GET attach" do
+    it "assigns the requested task as @task" do
+      task = Task.create! valid_attributes
+      get :attach, {project_id: task.project.to_param, task_id: task.to_param}, valid_session
+      assigns(:task).should eq(task)
+    end
+  end
+
+  describe "POST attach" do
+    describe "with valid params" do
+      it "links attachments" do
+        task = Task.create! valid_attributes
+        post(:attach, {project_id: task.project.to_param,
+                       task_id: task.to_param,
+                       task: {
+                         attachments_attributes: {
+                           '0' => {
+                             description: "description", 
+                             document: fixture_file_upload('3568357401_b1c9a7e181_o-1000-400x400.jpg')
+                           }
+                         }
+                       }},
+                       valid_session
+            )
+          expect(task.attachments).not_to be_empty
       end
     end
   end

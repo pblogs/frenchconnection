@@ -44,5 +44,5 @@ Fabricator(:user) do
   password_confirmation { 'topsecret' }
   department { Fabricate(:department) }
   emp_id     { Random.rand(1100) }
-  roles      [:worker]
+  roles      { |attrs| attrs[:roles] || [:worker] }
 end
