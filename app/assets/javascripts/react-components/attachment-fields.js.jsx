@@ -13,26 +13,27 @@ var AttachmentFields = React.createClass({
     return (
       <div className="attachments">
         {this.state.data.map(function (elt) {
-          elt.id = elt.id || Date.now();
+          id = elt.id || Date.now();
           return (
             <div className="field">
               <input 
               type="hidden" 
-              name={model + '[attachments_attributes][' + elt.id + '][id]'} 
-              id={model + '_attachments_attributes_' + elt.id + '_id'} />
+              name={model + '[attachments_attributes][' + id + '][id]'} 
+              id={model + '_attachments_attributes_' + id + '_id'}
+              value={elt.id} />
               <label 
-              htmlFor={model + '_attachments_attributes_' + elt.id + '_document'}>
+              htmlFor={model + '_attachments_attributes_' + id + '_document'}>
                 Velg vedlegg
               </label>
               <input 
               type="file" 
-              name={model + '[attachments_attributes][' + elt.id + '][document]'} 
-              id={model + '_attachments_attributes_' + elt.id + '_document'} />
+              name={model + '[attachments_attributes][' + id + '][document]'} 
+              id={model + '_attachments_attributes_' + id + '_document'} />
               <input 
               placeholder="Filbeskrivelse" 
               type="text" 
-              name={model + '[attachments_attributes][' + elt.id + '][description]'} 
-              id={model + '_attachments_attributes_' + elt.id + '_description'} 
+              name={model + '[attachments_attributes][' + id + '][description]'} 
+              id={model + '_attachments_attributes_' + id + '_description'} 
               value={elt.description}/>
             </div>
           )
