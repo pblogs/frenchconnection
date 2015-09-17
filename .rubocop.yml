@@ -2,3 +2,7 @@ AllCops:
   RunRailsCops: true
 Metrics/LineLength:
     Max: 87
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false

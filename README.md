@@ -80,6 +80,3 @@ end
 ```
     dot -Tpng models.dot > models.png
 ```
-
-
-

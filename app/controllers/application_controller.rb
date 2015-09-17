@@ -9,27 +9,23 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_current_user
   before_action :authenticate_user!
-  before_action :get_settings
+  before_action :fetch_settings
+  before_action :set_locale
 
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
 
   respond_to :html, :json
-
 
   def index
   end
 
-
   private
 
-  def user_not_authorized(exception)
-    flash[:error] = 'Dette har du ikke tilgang til.'
-    #policy_name = exception.policy.class.to_s.underscore
-    #flash[:error] = t "#{policy_name}.#{exception.query}",
-    #                scope: "pundit", default: :default
+  def user_not_authorized
     redirect_to(request.referrer || root_path)
   end
-
-
 
   def get_paginate_default_field(first_char)
     if first_char.can_be_integer?
@@ -41,8 +37,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-  def get_settings
+  def fetch_settings
     @settings = Setting.get
   end
 
@@ -55,6 +50,4 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :mobile]
   end
-
 end
-
