@@ -52,11 +52,11 @@ page.should have_content I18n.t('projects.tasks.workers.selected_workers')
 
     # Attachments page
     expect {
-      within(:css, '.attachments') do
-        fill_in("input[type='text']", "test")
-        attach_file("input[type='file']", Rails.root.join('3568357401_b1c9a7e181_o-1000-400x400.jpg'))
+      within(:css, 'div.attachments') do
+        find(:css, "input[type='text']").set "test"
+        attach_file("Velg vedlegg", Rails.root.join('3568357401_b1c9a7e181_o-1000-400x400.jpg'))
       end
-      click_link I18n.t('save_and_continue')
+      click_button I18n.t('save_and_continue')
     }.to change(Task.last.attachments, :count).by(1)
 
     # The review page

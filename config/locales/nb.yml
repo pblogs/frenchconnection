@@ -164,6 +164,7 @@ nb:
     no_due_date_set: Sluttdato ikke satt
     no_images_taken_on_this_task: Det er ikke tatt noen bilder på denne oppgaven
     order_resources_and_save_task: Bestill resurser og lagre oppgaven
+    attach_and_submit: Attach and submit
     review_and_submit: Se igjennom og bekreft
     saved_resources_ordered: Oppgaven er lagret og resursene bestilt
     skills: Ferdigheter
